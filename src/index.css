@@ -51,6 +51,13 @@
   --radius-lg: 16px;
   --radius-xl: 20px;
 
+  /* Backwards-compatibility aliases (v1 components still reference these) */
+  --rose-gold:     var(--accent);
+  --mint:          var(--primary);
+  --bg-elevated:   var(--surface);
+  --border-muted:  var(--border);
+  --surface-hover: var(--surface-alt);
+
   color-scheme: light;
 }
 
