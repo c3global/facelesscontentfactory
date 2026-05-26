@@ -1,35 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from './lib/supabase.js';
-import { PLATFORMS } from './lib/platforms.js';
-import { generateIdeas, regenerateIdea, generateContent, savePlan } from './lib/api.js';
-import Header from './components/Header.jsx';
+import { generateIdeas, regenerateIdea, generateContent, savePlan, getPlan } from './lib/api.js';
 import SignIn from './components/SignIn.jsx';
-import Stepper from './components/Stepper.jsx';
-import PlanStep from './components/PlanStep.jsx';
-import ApproveStep from './components/ApproveStep.jsx';
-import ContentStep from './components/ContentStep.jsx';
-import ErrorBanner from './components/ErrorBanner.jsx';
-import HistoryDrawer from './components/HistoryDrawer.jsx';
+import AppShell from './components/AppShell.jsx';
 
-const STEPS = [
-  { id: 'plan',    label: 'Plan' },
-  { id: 'approve', label: 'Approve' },
-  { id: 'write',   label: 'Write' },
-];
+// App is the authenticated shell. It owns the in-flight plan state so the user
+// can navigate between Dashboard / Planner / Library / Brand without losing
+// work. State is exposed to nested routes via <Outlet context={...} />.
 
 export default function App() {
-  const [session, setSession] = useState(null);
+  const [session, setSession]   = useState(null);
   const [authReady, setAuthReady] = useState(false);
-  const [step, setStep] = useState('plan');
-  const [niche, setNiche] = useState('');
-  const [selectedPlatforms, setSelectedPlatforms] = useState(['youtube', 'linkedin', 'shorts']);
-  const [ideas, setIdeas] = useState({});       // { platformId: { items: [...] } }
-  const [approved, setApproved] = useState({}); // { platformId: Set(day) }
-  const [content, setContent] = useState({});   // { platformId: [item, ...] }
-  const [error, setError] = useState(null);
-  const [historyOpen, setHistoryOpen] = useState(false);
-  const [busy, setBusy] = useState(false);
+  const navigate = useNavigate();
 
+  // ---- Auth ----
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       setSession(data.session);
@@ -39,15 +24,47 @@ export default function App() {
     return () => sub.subscription.unsubscribe();
   }, []);
 
-  function reset() {
+  // ---- Planner state (shared across routes) ----
+  const [step, setStep] = useState('plan'); // 'plan' | 'approve' | 'write'
+  const [niche, setNiche] = useState('');
+  const [selectedPlatforms, setSelectedPlatforms] = useState(['youtube', 'linkedin', 'shorts']);
+  const [ideas, setIdeas] = useState({});
+  const [approved, setApproved] = useState({});
+  const [content, setContent] = useState({});
+  const [error, setError] = useState(null);
+  const [busy, setBusy] = useState(false);
+
+  const resetPlan = useCallback(() => {
     setStep('plan');
     setIdeas({});
     setApproved({});
     setContent({});
     setError(null);
-  }
+  }, []);
 
-  async function handleGenerateIdeas() {
+  const togglePlatform = useCallback((id) => {
+    setSelectedPlatforms((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
+  }, []);
+
+  const toggleApprove = useCallback((platform, day) => {
+    setApproved((prev) => {
+      const next = new Set(prev[platform] || []);
+      if (next.has(day)) next.delete(day);
+      else next.add(day);
+      return { ...prev, [platform]: next };
+    });
+  }, []);
+
+  const approveAllPlatform = useCallback((platform) => {
+    const days = (ideas[platform]?.items || []).map((i) => i.day);
+    setApproved((prev) => ({ ...prev, [platform]: new Set(days) }));
+  }, [ideas]);
+
+  const approvedCount = useCallback(() => {
+    return Object.values(approved).reduce((sum, set) => sum + set.size, 0);
+  }, [approved]);
+
+  const handleGenerateIdeas = useCallback(async () => {
     if (!niche.trim() || selectedPlatforms.length === 0) return;
     setBusy(true);
     setError(null);
@@ -68,9 +85,9 @@ export default function App() {
     } finally {
       setBusy(false);
     }
-  }
+  }, [niche, selectedPlatforms]);
 
-  async function handleRegenerateOne(platform, day) {
+  const handleRegenerateOne = useCallback(async (platform, day) => {
     const platformIdeas = ideas[platform]?.items || [];
     const avoidTitles = platformIdeas.map((i) => i.title);
     try {
@@ -85,27 +102,9 @@ export default function App() {
     } catch (e) {
       setError(e.message);
     }
-  }
+  }, [ideas, niche]);
 
-  function toggleApprove(platform, day) {
-    setApproved((prev) => {
-      const next = new Set(prev[platform] || []);
-      if (next.has(day)) next.delete(day);
-      else next.add(day);
-      return { ...prev, [platform]: next };
-    });
-  }
-
-  function approveAllPlatform(platform) {
-    const days = (ideas[platform]?.items || []).map((i) => i.day);
-    setApproved((prev) => ({ ...prev, [platform]: new Set(days) }));
-  }
-
-  function approvedCount() {
-    return Object.values(approved).reduce((sum, set) => sum + set.size, 0);
-  }
-
-  async function handleWriteContent(premium = false) {
+  const handleWriteContent = useCallback(async (premium = false) => {
     setBusy(true);
     setError(null);
     setContent({});
@@ -114,14 +113,11 @@ export default function App() {
       const approvedDays = approved[pid];
       if (!approvedDays || approvedDays.size === 0) continue;
       const platformIdeas = (ideas[pid]?.items || []).filter((i) => approvedDays.has(i.day));
-      for (const idea of platformIdeas) {
-        writeTasks.push({ pid, idea });
-      }
+      for (const idea of platformIdeas) writeTasks.push({ pid, idea });
     }
     setStep('write');
 
     const results = {};
-    // Run with concurrency = 4 to avoid rate-limit spikes
     const queue = [...writeTasks];
     const workers = Array.from({ length: 4 }, async () => {
       while (queue.length) {
@@ -145,81 +141,47 @@ export default function App() {
       console.warn('savePlan failed', e);
     }
     setBusy(false);
-  }
+  }, [selectedPlatforms, approved, ideas, niche]);
 
-  function loadSavedPlan(saved) {
+  const loadSavedPlan = useCallback(async (planId) => {
+    const saved = await getPlan(planId);
     const p = saved.payload;
     setNiche(saved.niche);
     setIdeas(p.ideas || {});
     setContent(p.platforms || {});
     setSelectedPlatforms(Object.keys(p.platforms || {}));
     setStep('write');
-    setHistoryOpen(false);
-  }
+    navigate('/planner');
+  }, [navigate]);
 
-  if (!authReady) return <div className="container">Loading…</div>;
+  if (!authReady) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', color: 'var(--text-muted)' }}>
+        Loading…
+      </div>
+    );
+  }
   if (!session) return <SignIn />;
 
+  const plannerContext = {
+    step, setStep,
+    niche, setNiche,
+    selectedPlatforms, togglePlatform, setSelectedPlatforms,
+    ideas, approved, content,
+    error, setError, busy,
+    resetPlan,
+    handleGenerateIdeas,
+    handleRegenerateOne,
+    toggleApprove, approveAllPlatform, approvedCount,
+    handleWriteContent,
+    loadSavedPlan,
+  };
+
   return (
-    <>
-      <Header
-        email={session.user.email}
-        onSignOut={() => supabase.auth.signOut()}
-        onOpenHistory={() => setHistoryOpen(true)}
-        onHome={reset}
-      />
-      <div className="container">
-        <Stepper steps={STEPS} active={step} onNavigate={(id) => {
-          if (id === 'plan') setStep('plan');
-          else if (id === 'approve' && Object.keys(ideas).length) setStep('approve');
-          else if (id === 'write' && Object.keys(content).length) setStep('write');
-        }} />
-
-        {error && <ErrorBanner message={error} onRetry={() => setError(null)} />}
-
-        {step === 'plan' && (
-          <PlanStep
-            niche={niche}
-            onNicheChange={setNiche}
-            selected={selectedPlatforms}
-            onTogglePlatform={(id) => setSelectedPlatforms((s) =>
-              s.includes(id) ? s.filter((x) => x !== id) : [...s, id]
-            )}
-            onGenerate={handleGenerateIdeas}
-            busy={busy}
-          />
-        )}
-
-        {step === 'approve' && (
-          <ApproveStep
-            niche={niche}
-            ideas={ideas}
-            approved={approved}
-            platforms={selectedPlatforms}
-            approvedCount={approvedCount()}
-            onToggle={toggleApprove}
-            onRegenerate={handleRegenerateOne}
-            onApproveAll={approveAllPlatform}
-            onBack={() => setStep('plan')}
-            onWrite={() => handleWriteContent(false)}
-            onWritePremium={() => handleWriteContent(true)}
-            busy={busy}
-          />
-        )}
-
-        {step === 'write' && (
-          <ContentStep
-            niche={niche}
-            content={content}
-            platforms={selectedPlatforms.filter((p) => approved[p]?.size > 0 || content[p])}
-            busy={busy}
-            totalExpected={approvedCount()}
-            onStartOver={reset}
-          />
-        )}
-      </div>
-
-      {historyOpen && <HistoryDrawer onClose={() => setHistoryOpen(false)} onSelect={loadSavedPlan} />}
-    </>
+    <AppShell
+      session={session}
+      onSignOut={() => supabase.auth.signOut()}
+      plannerContext={plannerContext}
+    />
   );
 }

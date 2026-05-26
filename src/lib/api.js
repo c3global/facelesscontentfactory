@@ -49,3 +49,47 @@ export async function getPlan(id) {
   if (error) throw error;
   return data;
 }
+
+export async function getBrandSettings() {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) throw new Error('Not signed in');
+  const { data, error } = await supabase
+    .from('brand_settings')
+    .select('default_niche, voice_tags, voice_notes, signature_cta, banned_phrases')
+    .eq('user_id', session.user.id)
+    .maybeSingle();
+  if (error) throw error;
+  return data;
+}
+
+export async function saveBrandSettings(settings) {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) throw new Error('Not signed in');
+  const payload = {
+    user_id: session.user.id,
+    default_niche: settings.default_niche ?? '',
+    voice_tags:    settings.voice_tags ?? [],
+    voice_notes:   settings.voice_notes ?? '',
+    signature_cta: settings.signature_cta ?? '',
+    banned_phrases: settings.banned_phrases ?? '',
+    updated_at: new Date().toISOString(),
+  };
+  const { data, error } = await supabase
+    .from('brand_settings')
+    .upsert(payload, { onConflict: 'user_id' })
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function updatePlanContent(id, payload) {
+  const { data, error } = await supabase
+    .from('plans')
+    .update({ payload, updated_at: new Date().toISOString() })
+    .eq('id', id)
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}

@@ -1,0 +1,90 @@
+import { useOutletContext } from 'react-router-dom';
+import Stepper from '../components/Stepper.jsx';
+import PlanStep from '../components/PlanStep.jsx';
+import ApproveStep from '../components/ApproveStep.jsx';
+import ContentStep from '../components/ContentStep.jsx';
+import ErrorBanner from '../components/ErrorBanner.jsx';
+import PageHeader from '../components/PageHeader.jsx';
+
+const STEPS = [
+  { id: 'plan',    label: 'Plan' },
+  { id: 'approve', label: 'Approve' },
+  { id: 'write',   label: 'Write' },
+];
+
+export default function Planner() {
+  const ctx = useOutletContext();
+  const {
+    step, setStep,
+    niche, setNiche,
+    selectedPlatforms, togglePlatform,
+    ideas, approved, content,
+    error, setError, busy,
+    resetPlan,
+    handleGenerateIdeas, handleRegenerateOne,
+    toggleApprove, approveAllPlatform, approvedCount,
+    handleWriteContent,
+  } = ctx;
+
+  return (
+    <div className="container">
+      <PageHeader
+        eyebrow="Planner"
+        title="Plan a month of content."
+        subtitle="One niche in. Thirty days of platform-ready content out. Curate before you commit."
+        actions={step !== 'plan' && (
+          <button className="btn btn-ghost" onClick={resetPlan}>Start over</button>
+        )}
+      />
+
+      <div style={{ marginTop: 24 }}>
+        <Stepper steps={STEPS} active={step} onNavigate={(id) => {
+          if (id === 'plan') setStep('plan');
+          else if (id === 'approve' && Object.keys(ideas).length) setStep('approve');
+          else if (id === 'write' && Object.keys(content).length) setStep('write');
+        }} />
+      </div>
+
+      {error && <ErrorBanner message={error} onRetry={() => setError(null)} />}
+
+      {step === 'plan' && (
+        <PlanStep
+          niche={niche}
+          onNicheChange={setNiche}
+          selected={selectedPlatforms}
+          onTogglePlatform={togglePlatform}
+          onGenerate={handleGenerateIdeas}
+          busy={busy}
+        />
+      )}
+
+      {step === 'approve' && (
+        <ApproveStep
+          niche={niche}
+          ideas={ideas}
+          approved={approved}
+          platforms={selectedPlatforms}
+          approvedCount={approvedCount()}
+          onToggle={toggleApprove}
+          onRegenerate={handleRegenerateOne}
+          onApproveAll={approveAllPlatform}
+          onBack={() => setStep('plan')}
+          onWrite={() => handleWriteContent(false)}
+          onWritePremium={() => handleWriteContent(true)}
+          busy={busy}
+        />
+      )}
+
+      {step === 'write' && (
+        <ContentStep
+          niche={niche}
+          content={content}
+          platforms={selectedPlatforms.filter((p) => approved[p]?.size > 0 || content[p])}
+          busy={busy}
+          totalExpected={approvedCount()}
+          onStartOver={resetPlan}
+        />
+      )}
+    </div>
+  );
+}
