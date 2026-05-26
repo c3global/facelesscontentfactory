@@ -3,6 +3,7 @@ import Stepper from '../components/Stepper.jsx';
 import PlanStep from '../components/PlanStep.jsx';
 import ApproveStep from '../components/ApproveStep.jsx';
 import ContentStep from '../components/ContentStep.jsx';
+import SequentialEditor from '../components/SequentialEditor.jsx';
 import ErrorBanner from '../components/ErrorBanner.jsx';
 import PageHeader from '../components/PageHeader.jsx';
 
@@ -24,6 +25,7 @@ export default function Planner() {
     handleGenerateIdeas, handleRegenerateOne,
     toggleApprove, approveAllPlatform, approvedCount,
     handleWriteContent,
+    updatePiece,
   } = ctx;
 
   return (
@@ -76,14 +78,24 @@ export default function Planner() {
       )}
 
       {step === 'write' && (
-        <ContentStep
-          niche={niche}
-          content={content}
-          platforms={selectedPlatforms.filter((p) => approved[p]?.size > 0 || content[p])}
-          busy={busy}
-          totalExpected={approvedCount()}
-          onStartOver={resetPlan}
-        />
+        busy ? (
+          <ContentStep
+            niche={niche}
+            content={content}
+            platforms={selectedPlatforms.filter((p) => approved[p]?.size > 0 || content[p])}
+            busy={busy}
+            totalExpected={approvedCount()}
+            onStartOver={resetPlan}
+          />
+        ) : (
+          <SequentialEditor
+            niche={niche}
+            content={content}
+            platforms={selectedPlatforms.filter((p) => content[p]?.length)}
+            onUpdatePiece={updatePiece}
+            onStartOver={resetPlan}
+          />
+        )
       )}
     </div>
   );

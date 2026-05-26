@@ -143,6 +143,14 @@ export default function App() {
     setBusy(false);
   }, [selectedPlatforms, approved, ideas, niche]);
 
+  const updatePiece = useCallback((platform, day, patch) => {
+    setContent((prev) => {
+      const list = prev[platform] || [];
+      const next = list.map((it) => (it.day === day ? { ...it, ...patch } : it));
+      return { ...prev, [platform]: next };
+    });
+  }, []);
+
   const loadSavedPlan = useCallback(async (planId) => {
     const saved = await getPlan(planId);
     const p = saved.payload;
@@ -174,6 +182,7 @@ export default function App() {
     handleRegenerateOne,
     toggleApprove, approveAllPlatform, approvedCount,
     handleWriteContent,
+    updatePiece,
     loadSavedPlan,
   };
 
