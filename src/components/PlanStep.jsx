@@ -11,7 +11,7 @@ export default function PlanStep({ niche, onNicheChange, selected, onTogglePlatf
           Let's plan your <em style={{ color: 'var(--rose-gold)', fontStyle: 'italic' }}>month</em>.
         </h1>
         <p style={{ color: 'var(--text-muted)', fontSize: 16, maxWidth: 560, margin: '0 auto', lineHeight: 1.6 }}>
-          Tell Cadence your niche and which platforms you publish on. We'll sketch out 30 days of ideas — fast and cheap — before writing a single full piece.
+          Tell Cadence your niche and which platforms you publish on. We'll sketch 30 days of ideas first — then write only the ones you keep.
         </p>
       </div>
 

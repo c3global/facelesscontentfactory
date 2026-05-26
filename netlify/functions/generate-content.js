@@ -21,10 +21,18 @@ export async function handler(event) {
   if (!platform || !CONTENT_PROMPTS[platform]) return resp(400, 'Invalid platform');
   if (!idea?.title || !idea?.day) return resp(400, 'Missing idea');
 
-  const model = premium ? MODELS.premium : MODELS.content;
-  const prompt = CONTENT_PROMPTS[platform](niche.trim(), idea);
-
   const admin = adminClient();
+  const brand = await getBrand(admin, auth.user.id);
+
+  const model = premium ? MODELS.premium : MODELS.content;
+  const prompt = CONTENT_PROMPTS[platform](niche.trim(), idea, brand);
+
+  // Long-form pieces (substack/blog, youtube scripts) need more headroom so the
+  // JSON doesn't get truncated mid-string. Short pieces stay capped to keep
+  // generation snappy.
+  const isLongForm = platform === 'substack' || platform === 'youtube';
+  const maxTokens = isLongForm ? 8000 : 4000;
+
   const start = Date.now();
   let status = 'ok';
   let result, usage;
@@ -33,7 +41,7 @@ export async function handler(event) {
     const anthropic = client();
     const msg = await anthropic.messages.create({
       model,
-      max_tokens: 4000,
+      max_tokens: maxTokens,
       messages: [{ role: 'user', content: prompt }],
     });
     usage = msg.usage;
@@ -61,6 +69,17 @@ async function logEvent(admin, userId, phase, platform, niche, status, duration_
       user_id: userId, phase, platform, niche, status, duration_ms, model, cost_cents,
     });
   } catch (e) { console.warn('logEvent', e.message); }
+}
+
+async function getBrand(admin, userId) {
+  try {
+    const { data } = await admin
+      .from('brand_settings')
+      .select('voice_tags, voice_notes, signature_cta, banned_phrases')
+      .eq('user_id', userId)
+      .maybeSingle();
+    return data || null;
+  } catch (e) { console.warn('getBrand', e.message); return null; }
 }
 
 function resp(statusCode, body) { return { statusCode, body }; }

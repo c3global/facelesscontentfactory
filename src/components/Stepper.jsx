@@ -11,23 +11,27 @@ export default function Stepper({ steps, active, onNavigate }) {
               <button
                 onClick={() => onNavigate(s.id)}
                 style={{
-                  display: 'flex', alignItems: 'center', gap: 10,
-                  padding: '8px 14px',
+                  display: 'flex', alignItems: 'center', gap: 12,
+                  padding: '10px 18px',
                   borderRadius: 999,
-                  background: isActive ? 'rgba(201,149,108,0.12)' : 'transparent',
-                  border: `1px solid ${isActive ? 'var(--rose-gold)' : 'transparent'}`,
-                  color: isActive ? 'var(--rose-gold)' : isDone ? 'var(--mint)' : 'var(--text-muted)',
-                  fontFamily: 'inherit',
-                  fontWeight: 500,
-                  fontSize: 14,
+                  background: isActive ? 'var(--surface)' : 'transparent',
+                  border: `1px solid ${isActive ? 'var(--border-strong)' : 'transparent'}`,
+                  color: isActive ? 'var(--text)' : isDone ? 'var(--primary)' : 'var(--text-muted)',
+                  fontFamily: 'var(--font-ui)',
+                  fontWeight: isActive ? 700 : 600,
+                  fontSize: 16,
+                  letterSpacing: '0.02em',
+                  cursor: 'pointer',
+                  boxShadow: isActive ? 'var(--shadow-sm)' : 'none',
                 }}
               >
                 <span style={{
-                  width: 22, height: 22, borderRadius: '50%',
+                  width: 26, height: 26, borderRadius: '50%',
                   display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 11, fontWeight: 700,
-                  background: isActive ? 'var(--rose-gold)' : isDone ? 'var(--mint)' : 'var(--border)',
-                  color: isActive ? '#1a1208' : isDone ? '#0a2a1a' : 'var(--text-muted)',
+                  fontSize: 12, fontWeight: 700,
+                  background: isActive ? 'var(--copper-gradient)' : isDone ? 'var(--primary)' : 'var(--surface-alt)',
+                  color: isActive || isDone ? '#fff' : 'var(--text-muted)',
+                  border: isActive || isDone ? 'none' : '1px solid var(--border)',
                 }}>
                   {isDone ? '✓' : i + 1}
                 </span>
@@ -35,7 +39,7 @@ export default function Stepper({ steps, active, onNavigate }) {
               </button>
               {i < steps.length - 1 && (
                 <span style={{
-                  width: 36, height: 1, background: 'var(--border)', margin: '0 6px',
+                  width: 48, height: 1, background: 'var(--border-strong)', margin: '0 8px',
                 }} />
               )}
             </li>

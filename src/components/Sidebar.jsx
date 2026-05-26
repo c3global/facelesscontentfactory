@@ -33,12 +33,12 @@ export default function Sidebar({ email, onSignOut }) {
             className={({ isActive }) => `sidebar__link${isActive ? ' is-active' : ''}`}
             style={({ isActive }) => ({
               display: 'flex', alignItems: 'center', gap: 12,
-              padding: '10px 12px',
+              padding: '12px 14px',
               borderRadius: 'var(--radius-md)',
               fontFamily: 'var(--font-ui)',
-              fontSize: 14,
+              fontSize: 16,
               fontWeight: isActive ? 700 : 500,
-              letterSpacing: '0.04em',
+              letterSpacing: '0.02em',
               color: isActive ? 'var(--text)' : 'var(--text-muted)',
               background: isActive ? 'var(--surface)' : 'transparent',
               border: '1px solid',
@@ -59,21 +59,21 @@ export default function Sidebar({ email, onSignOut }) {
         <button
           onClick={toggle}
           className="btn btn-ghost"
-          style={{ justifyContent: 'flex-start', fontSize: 12, padding: '8px 12px' }}
+          style={{ justifyContent: 'flex-start', fontSize: 14, padding: '10px 12px' }}
           aria-label="Toggle theme"
         >
           {mode === 'dark' ? <SunIcon /> : <MoonIcon />}
           <span>{mode === 'dark' ? 'Light mode' : 'Dark mode'}</span>
         </button>
         <div className="sidebar__email" style={{
-          fontSize: 11, color: 'var(--text-faint)',
+          fontSize: 12, color: 'var(--text-faint)',
           padding: '0 4px',
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
         }}>{email}</div>
         <button
           onClick={onSignOut}
           className="btn btn-ghost"
-          style={{ justifyContent: 'flex-start', fontSize: 12, padding: '8px 12px' }}
+          style={{ justifyContent: 'flex-start', fontSize: 14, padding: '10px 12px' }}
         >
           Sign out
         </button>

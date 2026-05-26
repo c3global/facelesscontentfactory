@@ -11,6 +11,11 @@ export default function ApproveStep({
   const items = ideas[activeTab]?.items || [];
   const approvedSet = approved[activeTab] || new Set();
 
+  const activeIdx = platforms.indexOf(activeTab);
+  const nextPlatformId = activeIdx >= 0 && activeIdx < platforms.length - 1
+    ? platforms[activeIdx + 1] : null;
+  const nextPlatform = nextPlatformId ? PLATFORM_MAP[nextPlatformId] : null;
+
   async function handleRegen(platform, day) {
     setRegeneratingDay(day);
     try { await onRegenerate(platform, day); }
@@ -131,14 +136,34 @@ export default function ApproveStep({
             <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>ready to write</span>
           </div>
         </div>
-        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
           <button onClick={onBack} className="btn btn-ghost" disabled={busy}>← Back</button>
-          <button onClick={onWrite} className="btn btn-primary" disabled={busy || approvedCount === 0}>
+          {nextPlatform && (
+            <button
+              onClick={() => setActiveTab(nextPlatformId)}
+              className="btn btn-ghost"
+              disabled={busy}
+              title={`Review ideas for ${nextPlatform.label}`}
+            >
+              Review {nextPlatform.label} →
+            </button>
+          )}
+          <button
+            onClick={onWrite}
+            className={nextPlatform ? 'btn btn-ghost' : 'btn btn-primary'}
+            disabled={busy || approvedCount === 0}
+            title={nextPlatform
+              ? `Review the other platforms first, or write the ${approvedCount} you've already approved`
+              : `Write the ${approvedCount} approved piece${approvedCount === 1 ? '' : 's'}`
+            }
+          >
             {busy ? 'Writing…' : `Write ${approvedCount} ${approvedCount === 1 ? 'piece' : 'pieces'}`}
           </button>
-          <button onClick={onWritePremium} className="btn btn-ghost" disabled={busy || approvedCount === 0} title="Higher-quality writing pass">
-            Premium quality
-          </button>
+          {!nextPlatform && (
+            <button onClick={onWritePremium} className="btn btn-ghost" disabled={busy || approvedCount === 0} title="Higher-quality writing pass">
+              Premium quality
+            </button>
+          )}
         </div>
       </div>
     </section>

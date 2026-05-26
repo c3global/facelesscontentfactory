@@ -20,12 +20,13 @@ export async function handler(event) {
   if (!niche || typeof niche !== 'string') return resp(400, 'Missing niche');
   if (!platform || !IDEAS_PROMPTS[platform]) return resp(400, 'Invalid platform');
 
+  const admin = adminClient();
+  const brand = await getBrand(admin, auth.user.id);
+
   const isRegen = Number.isInteger(regenerateDay);
   const prompt = isRegen
-    ? regenerateIdeaPrompt(niche.trim(), platform, regenerateDay, avoidTitles || [])
-    : IDEAS_PROMPTS[platform](niche.trim());
-
-  const admin = adminClient();
+    ? regenerateIdeaPrompt(niche.trim(), platform, regenerateDay, avoidTitles || [], brand)
+    : IDEAS_PROMPTS[platform](niche.trim(), brand);
   const start = Date.now();
   let status = 'ok';
   let result, usage;
@@ -62,6 +63,17 @@ async function logEvent(admin, userId, phase, platform, niche, status, duration_
       user_id: userId, phase, platform, niche, status, duration_ms, model, cost_cents,
     });
   } catch (e) { console.warn('logEvent', e.message); }
+}
+
+async function getBrand(admin, userId) {
+  try {
+    const { data } = await admin
+      .from('brand_settings')
+      .select('voice_tags, voice_notes, signature_cta, banned_phrases')
+      .eq('user_id', userId)
+      .maybeSingle();
+    return data || null;
+  } catch (e) { console.warn('getBrand', e.message); return null; }
 }
 
 function resp(statusCode, body) { return { statusCode, body }; }

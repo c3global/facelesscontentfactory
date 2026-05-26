@@ -43,16 +43,16 @@ export default function TipTapEditor({ value, onChange, editorKey, placeholder, 
         .tiptap-shell { display: flex; flex-direction: column; gap: 10px; }
         .tiptap-toolbar {
           display: flex; flex-wrap: wrap; gap: 4px;
-          padding: 6px;
+          padding: 8px;
           background: var(--surface-alt);
           border: 1px solid var(--border);
           border-radius: var(--radius-md);
           position: sticky; top: 12px; z-index: 2;
         }
         .tiptap-btn {
-          padding: 6px 10px;
+          padding: 8px 12px;
           font-family: var(--font-ui);
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 600;
           letter-spacing: 0.04em;
           background: transparent;
@@ -61,10 +61,11 @@ export default function TipTapEditor({ value, onChange, editorKey, placeholder, 
           border-radius: var(--radius-sm);
           cursor: pointer;
           line-height: 1;
+          min-width: 32px;
         }
         .tiptap-btn:hover { color: var(--text); background: var(--surface); }
-        .tiptap-btn.is-active { color: var(--text); background: var(--surface); border-color: var(--border); }
-        .tiptap-sep { width: 1px; background: var(--border); margin: 0 4px; }
+        .tiptap-btn.is-active { color: var(--text); background: var(--surface); border-color: var(--border-strong); }
+        .tiptap-sep { width: 1px; background: var(--border); margin: 0 6px; align-self: stretch; }
 
         .ProseMirror {
           min-height: 320px;
