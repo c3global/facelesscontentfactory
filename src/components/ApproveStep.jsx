@@ -105,30 +105,39 @@ export default function ApproveStep({
         position: 'sticky',
         bottom: 16,
         marginTop: 30,
-        background: 'rgba(11,22,56,0.85)',
-        backdropFilter: 'blur(12px)',
-        border: '1px solid var(--border)',
+        background: 'var(--surface)',
+        border: '1px solid var(--border-strong)',
         borderRadius: 16,
-        padding: 16,
+        padding: '16px 20px',
         display: 'flex',
         gap: 12,
         justifyContent: 'space-between',
         alignItems: 'center',
         flexWrap: 'wrap',
+        boxShadow: 'var(--shadow-lg)',
       }}>
         <div>
-          <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>Total approved</div>
-          <div className="wordmark" style={{ fontSize: 26 }}>
-            {approvedCount} <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>ready to write</span>
+          <div className="label" style={{ marginBottom: 2 }}>Total approved</div>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+            <span style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 500,
+              fontSize: 28,
+              background: 'var(--copper-gradient)',
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              color: 'transparent',
+            }}>{approvedCount}</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>ready to write</span>
           </div>
         </div>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
           <button onClick={onBack} className="btn btn-ghost" disabled={busy}>← Back</button>
           <button onClick={onWrite} className="btn btn-primary" disabled={busy || approvedCount === 0}>
-            {busy ? 'Writing…' : `Write ${approvedCount} (Sonnet)`}
+            {busy ? 'Writing…' : `Write ${approvedCount} ${approvedCount === 1 ? 'piece' : 'pieces'}`}
           </button>
-          <button onClick={onWritePremium} className="btn btn-ghost" disabled={busy || approvedCount === 0} title="Higher quality, ~5x cost">
-            Premium (Opus)
+          <button onClick={onWritePremium} className="btn btn-ghost" disabled={busy || approvedCount === 0} title="Higher-quality writing pass">
+            Premium quality
           </button>
         </div>
       </div>

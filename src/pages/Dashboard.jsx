@@ -39,9 +39,9 @@ export default function Dashboard() {
           accent={hasDraft}
         />
         <StatCard
-          label="Engine"
-          value="Cadence v2"
-          subtle="Haiku ideas · Sonnet writing"
+          label="Active platforms"
+          value={Object.keys(content || {}).length || '—'}
+          subtle={hasDraft ? 'In your current draft' : 'Start a plan to populate'}
         />
       </div>
 

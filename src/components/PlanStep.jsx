@@ -90,9 +90,6 @@ export default function PlanStep({ niche, onNicheChange, selected, onTogglePlatf
         >
           {busy ? 'Sketching ideas…' : `Generate ${selected.length || 0} platform${selected.length === 1 ? '' : 's'} of ideas →`}
         </button>
-        <p style={{ color: 'var(--text-faint)', fontSize: 12, textAlign: 'center', marginTop: 14, marginBottom: 0 }}>
-          ✦ Ideas-only pass uses Claude Haiku. Typical cost: under a nickel.
-        </p>
       </div>
     </section>
   );
