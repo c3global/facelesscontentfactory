@@ -1,40 +1,33 @@
-export default function Header({ email, onSignOut, onOpenHistory }) {
+export default function Header({ email, onSignOut, onOpenHistory, onHome }) {
   return (
     <header style={{
-      borderBottom: '1px solid var(--border)',
-      background: 'var(--surface)',
-      padding: '16px 24px',
+      padding: '18px 28px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
+      gap: 16,
       flexWrap: 'wrap',
-      gap: 12,
+      borderBottom: '1px solid var(--border-muted)',
+      background: 'rgba(11, 22, 56, 0.7)',
+      backdropFilter: 'blur(10px)',
+      position: 'sticky',
+      top: 0,
+      zIndex: 20,
     }}>
-      <div>
-        <div style={{ color: 'var(--rose-gold)', fontWeight: 600, letterSpacing: 1, fontSize: 12 }}>C3 GLOBAL</div>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
-          <h1 style={{ margin: 0, fontSize: 24, fontWeight: 600 }}>Cadence</h1>
-          <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>by C3 Global</span>
+      <button onClick={onHome} style={{
+        background: 'transparent', border: 'none', padding: 0, textAlign: 'left', cursor: 'pointer',
+      }}>
+        <div className="eyebrow" style={{ color: 'var(--rose-gold)' }}>C3 GLOBAL</div>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginTop: 2 }}>
+          <span className="wordmark" style={{ fontSize: 26 }}>Cadence</span>
+          <span style={{ color: 'var(--text-faint)', fontSize: 12, fontStyle: 'italic' }}>your monthly content companion</span>
         </div>
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <button onClick={onOpenHistory} style={btn('ghost')}>My Plans</button>
-        <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>{email}</span>
-        <button onClick={onSignOut} style={btn('ghost')}>Sign out</button>
+      </button>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <button className="btn btn-ghost" onClick={onOpenHistory}>My Plans</button>
+        <span style={{ color: 'var(--text-muted)', fontSize: 13, padding: '0 6px' }}>{email}</span>
+        <button className="btn btn-ghost" onClick={onSignOut}>Sign out</button>
       </div>
     </header>
   );
-}
-
-function btn(variant) {
-  const base = {
-    padding: '8px 14px',
-    borderRadius: 8,
-    fontWeight: 500,
-    fontSize: 13,
-    border: '1px solid var(--border)',
-    background: 'transparent',
-    color: 'var(--text)',
-  };
-  return base;
 }

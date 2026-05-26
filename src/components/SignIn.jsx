@@ -18,7 +18,7 @@ export default function SignIn() {
       setStatus('idle');
       setError(
         /not allowed|signups not allowed|user not found/i.test(error.message)
-          ? "This email isn't on our active member list — join the Faceless Content Collective to get in."
+          ? "This email isn't on our active member list. Join the Faceless Content Collective to get access."
           : error.message
       );
     } else {
@@ -27,24 +27,26 @@ export default function SignIn() {
   }
 
   return (
-    <div className="container" style={{ maxWidth: 460, paddingTop: 80 }}>
-      <div style={{ color: 'var(--rose-gold)', fontWeight: 600, letterSpacing: 1, fontSize: 12 }}>C3 GLOBAL</div>
-      <h1 style={{ fontSize: 32, margin: '8px 0 4px', fontWeight: 600 }}>Cadence</h1>
-      <p style={{ color: 'var(--text-muted)', marginTop: 0 }}>
-        30 days of ready-to-post content, in one click. Members only.
+    <div className="container" style={{ maxWidth: 480, paddingTop: 90 }}>
+      <div className="eyebrow">C3 GLOBAL · FACELESS CONTENT COLLECTIVE</div>
+      <h1 className="wordmark" style={{ fontSize: 56, margin: '14px 0 4px', fontWeight: 500 }}>
+        Cadence
+      </h1>
+      <p style={{ color: 'var(--text-muted)', marginTop: 0, fontSize: 16, lineHeight: 1.5 }}>
+        Thirty days of ready-to-post content, planned and written with you in mind. Members only.
       </p>
 
       {status === 'sent' ? (
-        <div style={card}>
-          <strong>Check your email.</strong>
-          <p style={{ color: 'var(--text-muted)', marginBottom: 0 }}>
-            We sent a sign-in link to <b>{email}</b>. It expires in 1 hour.
+        <div className="card fade-in" style={{ marginTop: 30 }}>
+          <div className="eyebrow" style={{ color: 'var(--mint)' }}>CHECK YOUR EMAIL</div>
+          <p style={{ marginTop: 10, marginBottom: 0, color: 'var(--text)' }}>
+            We sent a sign-in link to <b style={{ color: 'var(--rose-gold)' }}>{email}</b>. It expires in 1 hour.
           </p>
         </div>
       ) : (
-        <form onSubmit={submit} style={card}>
-          <label style={{ display: 'block', marginBottom: 8, fontSize: 13, color: 'var(--text-muted)' }}>
-            Member email
+        <form onSubmit={submit} className="card" style={{ marginTop: 30 }}>
+          <label style={{ display: 'block', marginBottom: 8, fontSize: 12, color: 'var(--text-muted)', letterSpacing: 0.5 }}>
+            MEMBER EMAIL
           </label>
           <input
             type="email"
@@ -54,40 +56,24 @@ export default function SignIn() {
             placeholder="you@example.com"
             style={input}
           />
-          <button type="submit" disabled={status === 'sending'} style={primaryBtn}>
+          <button type="submit" disabled={status === 'sending'} className="btn btn-primary" style={{ width: '100%', padding: 14 }}>
             {status === 'sending' ? 'Sending…' : 'Send me a sign-in link'}
           </button>
-          {error && <div style={{ color: '#ff8a8a', marginTop: 10, fontSize: 14 }}>{error}</div>}
+          {error && <div style={{ color: 'var(--danger)', marginTop: 12, fontSize: 14, lineHeight: 1.5 }}>{error}</div>}
         </form>
       )}
     </div>
   );
 }
 
-const card = {
-  background: 'var(--surface)',
-  border: '1px solid var(--border)',
-  borderRadius: 12,
-  padding: 24,
-  marginTop: 24,
-};
 const input = {
   width: '100%',
-  padding: '12px 14px',
-  background: 'var(--bg)',
+  padding: '13px 14px',
+  background: 'var(--bg-elevated)',
   border: '1px solid var(--border)',
-  borderRadius: 8,
+  borderRadius: 10,
   color: 'var(--text)',
   fontSize: 15,
   marginBottom: 14,
-};
-const primaryBtn = {
-  width: '100%',
-  padding: '12px 16px',
-  borderRadius: 8,
-  border: 'none',
-  background: 'var(--cta-red)',
-  color: 'white',
-  fontWeight: 600,
-  fontSize: 15,
+  outline: 'none',
 };

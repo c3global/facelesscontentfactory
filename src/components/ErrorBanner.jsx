@@ -1,16 +1,15 @@
 export default function ErrorBanner({ message, onRetry }) {
   return (
     <div style={{
-      marginTop: 16, padding: 16, borderRadius: 12,
-      background: 'rgba(196, 26, 24, 0.12)', border: '1px solid var(--cta-red)',
-      color: '#ffb3b3', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12,
+      margin: '0 0 20px', padding: 14, borderRadius: 12,
+      background: 'rgba(255,107,107,0.10)', border: '1px solid var(--danger)',
+      color: '#ffd0d0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12,
     }}>
-      <span>{message}</span>
+      <span style={{ fontSize: 14 }}>{message}</span>
       {onRetry && (
-        <button onClick={onRetry} style={{
-          padding: '8px 14px', borderRadius: 8, border: '1px solid var(--cta-red)',
-          background: 'transparent', color: '#ffb3b3', fontWeight: 500,
-        }}>Retry</button>
+        <button onClick={onRetry} className="btn btn-ghost" style={{ fontSize: 13, padding: '6px 12px' }}>
+          Dismiss
+        </button>
       )}
     </div>
   );

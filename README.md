@@ -66,6 +66,17 @@ SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... npm run backfill -- ./members.csv
 
 ## Architecture notes
 
-- **No single-shot generation.** Fully-written content for 7 platforms × 30 days far exceeds one Opus response. The client fires 7 parallel `POST /.netlify/functions/generate?platform=...` calls, each generating one platform. Tabs populate progressively.
-- **History.** When all 7 succeed, the client POSTs the merged payload to `/.netlify/functions/save-plan`, which inserts a row into `plans`. The History drawer lists the user's last 30 plans and replays them from cache (no re-spend).
-- **Analytics.** Every per-platform call writes one `generation_events` row (success/error + duration). `/admin` calls the `admin_stats` RPC, which is `security definer` and checks `is_admin()`.
+**Three-step flow (plan → approve → write):**
+
+1. **Plan** — user picks niche + platforms.
+2. **Ideas pass (cheap)** — `/.netlify/functions/generate-ideas` runs **Claude Haiku 4.5** once per selected platform in parallel. Returns 30 idea cards (title + one-line angle) each. Typical cost: pennies for a full niche, all platforms.
+3. **Approve** — user reviews idea cards, approves the keepers, regenerates individual ones they don't like (Haiku, cheap).
+4. **Write pass** — `/.netlify/functions/generate-content` runs **Claude Sonnet 4.6** once per approved idea (concurrency 4). Only writes what was approved. Opus is an opt-in "Premium" toggle. Typical cost: a dime to a dollar per fully-written month.
+5. **History** — once writing finishes the merged payload is saved to `plans`. The History drawer replays plans for free.
+6. **Analytics** — every Anthropic call writes one `generation_events` row with model + token-derived cost. `/admin` shows daily generations, total $ spent, error rate, and top niches.
+
+**Why this matters vs. one-shot Opus generation:** the old one-shot Opus flow cost ~$10–13 per full month per user — unsustainable for a $27/mo product. The new flow is ~50–100x cheaper while letting the user curate quality before paying for the long-form writing.
+
+## Migration
+
+If you previously ran the v1 (Opus, one-shot) version, run `supabase/migrations/0002_two_phase.sql` in the SQL editor to add `phase`, `model`, and `cost_cents` columns and refresh the `admin_stats` RPC.

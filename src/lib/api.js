@@ -1,49 +1,37 @@
 import { supabase } from './supabase.js';
-import { PLATFORMS } from './platforms.js';
 
 async function authHeader() {
   const { data: { session } } = await supabase.auth.getSession();
   return session ? { Authorization: `Bearer ${session.access_token}` } : {};
 }
 
-export async function generatePlatform(niche, platform) {
-  const res = await fetch('/.netlify/functions/generate', {
+async function post(path, body) {
+  const res = await fetch(path, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...(await authHeader()) },
-    body: JSON.stringify({ niche, platform }),
+    body: JSON.stringify(body),
   });
   if (!res.ok) {
     const t = await res.text();
-    throw new Error(`Generation failed (${platform}): ${t}`);
+    throw new Error(t || `Request failed: ${res.status}`);
   }
   return res.json();
 }
 
-export async function generateAll(niche, onPlatformReady) {
-  const results = {};
-  await Promise.all(
-    PLATFORMS.map(async (p) => {
-      try {
-        const data = await generatePlatform(niche, p.id);
-        results[p.id] = data;
-        onPlatformReady?.(p.id, data, null);
-      } catch (err) {
-        results[p.id] = { error: err.message };
-        onPlatformReady?.(p.id, null, err.message);
-      }
-    })
-  );
-  return results;
+export function generateIdeas(niche, platform) {
+  return post('/.netlify/functions/generate-ideas', { niche, platform });
 }
 
-export async function savePlan(niche, payload) {
-  const res = await fetch('/.netlify/functions/save-plan', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...(await authHeader()) },
-    body: JSON.stringify({ niche, payload }),
-  });
-  if (!res.ok) throw new Error('Failed to save plan');
-  return res.json();
+export function regenerateIdea(niche, platform, day, avoidTitles) {
+  return post('/.netlify/functions/generate-ideas', { niche, platform, regenerateDay: day, avoidTitles });
+}
+
+export function generateContent(niche, platform, idea, premium = false) {
+  return post('/.netlify/functions/generate-content', { niche, platform, idea, premium });
+}
+
+export function savePlan(niche, payload) {
+  return post('/.netlify/functions/save-plan', { niche, payload });
 }
 
 export async function listPlans() {
@@ -57,11 +45,7 @@ export async function listPlans() {
 }
 
 export async function getPlan(id) {
-  const { data, error } = await supabase
-    .from('plans')
-    .select('*')
-    .eq('id', id)
-    .single();
+  const { data, error } = await supabase.from('plans').select('*').eq('id', id).single();
   if (error) throw error;
   return data;
 }

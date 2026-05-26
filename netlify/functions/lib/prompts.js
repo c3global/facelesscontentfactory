@@ -1,79 +1,133 @@
-// One prompt-builder per platform. Each asks Claude for that platform's
-// 30 fully-written items as JSON. The function caller parses and merges.
+// Two-phase prompt set:
+//   IDEAS_PROMPTS — cheap Haiku call. 30 idea cards per platform (title + one-line angle).
+//   CONTENT_PROMPTS — Sonnet call to write a single piece of long-form content from one approved idea.
 
-const SYSTEM_PREAMBLE = (niche) => `You are Cadence, an elite content strategist for faceless creators.
-Niche: "${niche}".
-Voice: confident, warm, specific. No fluff, no "in today's world", no AI-tells.
-Every piece must be FULLY WRITTEN and paste-ready — never outlines, never placeholders, never "[insert example]".
-Return ONLY valid JSON. No prose before or after.`;
+const VOICE = (niche) => `Niche: "${niche}".
+Voice: confident, warm, specific. No filler, no "in today's world", no AI-tells.
+You are Cadence, a strategist for faceless creators inside the C3 Global community.`;
 
-function jsonGuard(shape) {
-  return `Return ONLY valid JSON matching this exact shape:\n${shape}\nDo not include markdown, backticks, or commentary.`;
+const JSON_ONLY = `Return ONLY valid JSON. No markdown, no backticks, no commentary before or after.`;
+
+// =========================================================================
+// IDEAS (Haiku) — small, fast, cheap. Just title + angle per item.
+// =========================================================================
+
+export const IDEAS_PROMPTS = {
+  youtube: (niche) => `${VOICE(niche)}
+Plan 30 days of YouTube videos for this niche. Each idea has:
+- day (1-30)
+- title (under 70 chars, click-curious not clickbait)
+- angle (one sentence: what's the unique take or promise?)
+${JSON_ONLY}
+Shape: {"items":[{"day":1,"title":"...","angle":"..."}, ... 30 items]}`,
+
+  shorts: (niche) => `${VOICE(niche)}
+Plan 30 days of Shorts/Reels/TikTok videos. Each idea:
+- day (1-30)
+- title (5-9 word hook line)
+- angle (one sentence: the payoff or twist)
+${JSON_ONLY}
+Shape: {"items":[{"day":1,"title":"...","angle":"..."}, ... 30 items]}`,
+
+  linkedin: (niche) => `${VOICE(niche)}
+Plan 30 days of LinkedIn posts. Each idea:
+- day (1-30)
+- title (the opener line, under 90 chars)
+- angle (one sentence: the insight or story arc)
+${JSON_ONLY}
+Shape: {"items":[{"day":1,"title":"...","angle":"..."}, ... 30 items]}`,
+
+  blog: (niche) => `${VOICE(niche)}
+Plan 30 days of blog articles. Each idea:
+- day (1-30)
+- title (SEO-friendly headline, under 65 chars)
+- angle (one sentence: what the article promises to deliver)
+${JSON_ONLY}
+Shape: {"items":[{"day":1,"title":"...","angle":"..."}, ... 30 items]}`,
+
+  substack: (niche) => `${VOICE(niche)}
+Plan 30 days of Substack newsletter issues. Each idea:
+- day (1-30)
+- title (subject line, under 60 chars)
+- angle (one sentence: the core idea of the issue)
+${JSON_ONLY}
+Shape: {"items":[{"day":1,"title":"...","angle":"..."}, ... 30 items]}`,
+
+  social: (niche) => `${VOICE(niche)}
+Plan 30 days of Instagram/Facebook static posts. Each idea:
+- day (1-30)
+- title (the hook line)
+- angle (one sentence: the value or hot take)
+${JSON_ONLY}
+Shape: {"items":[{"day":1,"title":"...","angle":"..."}, ... 30 items]}`,
+
+  text: (niche) => `${VOICE(niche)}
+Plan 30 days of text-only posts (X / Threads style). Each idea:
+- day (1-30)
+- title (the opener / hook)
+- angle (one sentence: where it goes)
+${JSON_ONLY}
+Shape: {"items":[{"day":1,"title":"...","angle":"..."}, ... 30 items]}`,
+};
+
+// Regenerate ONE idea, given a platform + niche + the day number.
+export function regenerateIdeaPrompt(niche, platform, day, avoid = []) {
+  const base = IDEAS_PROMPTS[platform]?.(niche) ?? '';
+  const avoidLine = avoid.length
+    ? `\nAvoid repeating these titles: ${avoid.map((a) => `"${a}"`).join(', ')}.`
+    : '';
+  return `${base}
+But return ONLY one idea for day ${day}, not 30.${avoidLine}
+Shape: {"day":${day},"title":"...","angle":"..."}`;
 }
 
-export const PROMPTS = {
-  youtube: (niche) => `${SYSTEM_PREAMBLE(niche)}
+// =========================================================================
+// CONTENT (Sonnet) — write one fully-finished piece from one approved idea.
+// =========================================================================
 
-Produce 30 days of YouTube videos. Each item must include:
-- day (1-30)
-- title (under 70 chars, click-curious without being clickbait)
-- hook (the first 15 seconds, verbatim)
-- fullScript (600–900 words, complete script: hook → intro → 3-5 body beats → recap → CTA. Plain text, no stage directions in brackets.)
+const HEADER = (niche, idea) => `${VOICE(niche)}
+You are writing the full piece for ONE approved idea:
+- Title: ${idea.title}
+- Angle: ${idea.angle}
+Stay true to the title and angle. No placeholders, no "[insert example]", no outlines — finished, paste-ready copy.`;
 
-${jsonGuard('{"items":[{"day":1,"title":"...","hook":"...","fullScript":"..."}, ... 30 items]}')}`,
+export const CONTENT_PROMPTS = {
+  youtube: (niche, idea) => `${HEADER(niche, idea)}
+Write a complete YouTube video script (600-900 words): hook → intro → 3-5 body beats → recap → CTA.
+${JSON_ONLY}
+Shape: {"day":${idea.day},"title":"${escape(idea.title)}","hook":"...","fullScript":"..."}`,
 
-  shorts: (niche) => `${SYSTEM_PREAMBLE(niche)}
+  shorts: (niche, idea) => `${HEADER(niche, idea)}
+Write a complete vertical short script (80-150 words) with on-screen text cues in (parens). Add a caption under 150 chars and 5-8 hashtags (no #).
+${JSON_ONLY}
+Shape: {"day":${idea.day},"hook":"...","fullScript":"...","caption":"...","hashtags":["..."]}`,
 
-Produce 30 days of vertical short-form videos (Shorts/Reels/TikTok). Each item:
-- day (1-30)
-- hook (first 3 seconds, verbatim)
-- fullScript (80–150 words, complete script with on-screen text cues in (parens))
-- caption (under 150 chars)
-- hashtags (array of 5-8 strings, no # sign)
+  linkedin: (niche, idea) => `${HEADER(niche, idea)}
+Write a complete LinkedIn post (150-300 words): single-sentence opener, line breaks between thoughts, clear CTA or question at the end. Include 3-5 hashtags (no #).
+${JSON_ONLY}
+Shape: {"day":${idea.day},"fullPost":"...","hashtags":["..."]}`,
 
-${jsonGuard('{"items":[{"day":1,"hook":"...","fullScript":"...","caption":"...","hashtags":["..."]}, ... 30 items]}')}`,
+  blog: (niche, idea) => `${HEADER(niche, idea)}
+Write a complete blog article (800-1200 words) in markdown with H2 sections. No placeholders.
+${JSON_ONLY}
+Shape: {"day":${idea.day},"title":"${escape(idea.title)}","fullArticle":"..."}`,
 
-  linkedin: (niche) => `${SYSTEM_PREAMBLE(niche)}
+  substack: (niche, idea) => `${HEADER(niche, idea)}
+Write a complete Substack newsletter (500-800 words): greeting → one strong idea developed → personal aside → sign-off.
+${JSON_ONLY}
+Shape: {"day":${idea.day},"subject":"${escape(idea.title)}","fullNewsletter":"..."}`,
 
-Produce 30 days of LinkedIn posts. Each item:
-- day (1-30)
-- fullPost (150–300 words, complete post with single-sentence opener, line breaks between thoughts, ending with a clear CTA or question)
-- hashtags (array of 3-5 strings, no # sign)
+  social: (niche, idea) => `${HEADER(niche, idea)}
+Write a complete IG/FB caption (80-200 words): hook → body → CTA. Add 8-15 hashtags (no #).
+${JSON_ONLY}
+Shape: {"day":${idea.day},"fullCaption":"...","hashtags":["..."]}`,
 
-${jsonGuard('{"items":[{"day":1,"fullPost":"...","hashtags":["..."]}, ... 30 items]}')}`,
-
-  blog: (niche) => `${SYSTEM_PREAMBLE(niche)}
-
-Produce 30 days of blog articles. Each item:
-- day (1-30)
-- title (SEO-friendly, under 65 chars)
-- fullArticle (800–1200 words in markdown, with H2 sections, complete body, no placeholders)
-
-${jsonGuard('{"items":[{"day":1,"title":"...","fullArticle":"..."}, ... 30 items]}')}`,
-
-  substack: (niche) => `${SYSTEM_PREAMBLE(niche)}
-
-Produce 30 days of Substack newsletter issues. Each item:
-- day (1-30)
-- subject (compelling email subject line, under 60 chars)
-- fullNewsletter (500–800 words, complete: greeting → 1 strong idea fully developed → personal aside → sign-off)
-
-${jsonGuard('{"items":[{"day":1,"subject":"...","fullNewsletter":"..."}, ... 30 items]}')}`,
-
-  social: (niche) => `${SYSTEM_PREAMBLE(niche)}
-
-Produce 30 days of Instagram/Facebook static post captions. Each item:
-- day (1-30)
-- fullCaption (complete caption: hook line → body → CTA, 80–200 words)
-- hashtags (array of 8-15 strings, no # sign)
-
-${jsonGuard('{"items":[{"day":1,"fullCaption":"...","hashtags":["..."]}, ... 30 items]}')}`,
-
-  text: (niche) => `${SYSTEM_PREAMBLE(niche)}
-
-Produce 30 days of text-only posts (X / Threads style). Each item:
-- day (1-30)
-- fullPost (100–250 words, complete standalone post. Can be a thread written as one block with double-newlines between tweets, or a single longer post.)
-
-${jsonGuard('{"items":[{"day":1,"fullPost":"..."}, ... 30 items]}')}`,
+  text: (niche, idea) => `${HEADER(niche, idea)}
+Write a complete standalone post (100-250 words) in X / Threads style. Single block; double-newlines if it's a thread.
+${JSON_ONLY}
+Shape: {"day":${idea.day},"fullPost":"..."}`,
 };
+
+function escape(s = '') {
+  return String(s).replace(/"/g, '\\"');
+}

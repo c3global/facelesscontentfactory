@@ -18,9 +18,7 @@ export default function AdminDashboard() {
         const { data, error } = await supabase.rpc('admin_stats');
         if (error) throw error;
         setStats(data);
-      } catch (e) {
-        setError(e.message);
-      }
+      } catch (e) { setError(e.message); }
     })();
   }, [session]);
 
@@ -28,7 +26,7 @@ export default function AdminDashboard() {
     return <div className="container">You must <a href="/">sign in</a> first.</div>;
   }
   if (error) {
-    return <div className="container" style={{ color: '#ff8a8a' }}>
+    return <div className="container" style={{ color: 'var(--danger)' }}>
       {/permission|denied|not allowed/i.test(error) ? 'Admin access only.' : error}
     </div>;
   }
@@ -36,29 +34,36 @@ export default function AdminDashboard() {
 
   return (
     <div className="container">
-      <h1 style={{ fontSize: 24, fontWeight: 600 }}>Cadence — Admin</h1>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14, margin: '20px 0 30px' }}>
+      <div className="eyebrow">C3 GLOBAL · CADENCE</div>
+      <h1 className="wordmark" style={{ fontSize: 36, margin: '8px 0 30px' }}>Admin</h1>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14, marginBottom: 28 }}>
         <Stat label="Active members" value={stats.active_members} />
         <Stat label="Generations (7d)" value={stats.gens_7d} />
         <Stat label="Generations (30d)" value={stats.gens_30d} />
+        <Stat label="Cost (7d)" value={`$${((stats.cost_7d_cents || 0) / 100).toFixed(2)}`} />
+        <Stat label="Cost (30d)" value={`$${((stats.cost_30d_cents || 0) / 100).toFixed(2)}`} />
         <Stat label="Error rate (7d)" value={`${(stats.error_rate_7d * 100).toFixed(1)}%`} />
       </div>
 
       <Card title="Generations per day (last 30)">
         <ResponsiveContainer width="100%" height={260}>
           <BarChart data={stats.per_day || []}>
-            <XAxis dataKey="day" stroke="#8B85B8" fontSize={11} />
-            <YAxis stroke="#8B85B8" fontSize={11} />
-            <Tooltip contentStyle={{ background: '#1C1533', border: '1px solid #3D3570' }} />
-            <Bar dataKey="count" fill="#7F77DD" />
+            <XAxis dataKey="day" stroke="#94A3C8" fontSize={11} />
+            <YAxis stroke="#94A3C8" fontSize={11} />
+            <Tooltip contentStyle={{ background: '#152759', border: '1px solid #26407A', borderRadius: 8 }} />
+            <Bar dataKey="count" fill="#C9956C" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </Card>
 
       <Card title="Top niches (30 days)">
-        <ul style={{ listStyle: 'none', padding: 0 }}>
+        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           {(stats.top_niches || []).map((n) => (
-            <li key={n.niche} style={{ padding: '8px 0', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between' }}>
+            <li key={n.niche} style={{
+              padding: '10px 0', borderBottom: '1px solid var(--border-muted)',
+              display: 'flex', justifyContent: 'space-between',
+            }}>
               <span>{n.niche}</span>
               <span style={{ color: 'var(--text-muted)' }}>{n.count}</span>
             </li>
@@ -71,17 +76,17 @@ export default function AdminDashboard() {
 
 function Stat({ label, value }) {
   return (
-    <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 12, padding: 16 }}>
-      <div style={{ color: 'var(--text-muted)', fontSize: 12, textTransform: 'uppercase', letterSpacing: 1 }}>{label}</div>
-      <div style={{ fontSize: 26, fontWeight: 600, marginTop: 6 }}>{value ?? '–'}</div>
+    <div className="card">
+      <div className="eyebrow" style={{ color: 'var(--text-muted)' }}>{label}</div>
+      <div className="wordmark" style={{ fontSize: 28, marginTop: 6, color: 'var(--text)' }}>{value ?? '–'}</div>
     </div>
   );
 }
 
 function Card({ title, children }) {
   return (
-    <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 12, padding: 20, marginBottom: 20 }}>
-      <h2 style={{ fontSize: 14, margin: '0 0 14px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 1 }}>{title}</h2>
+    <div className="card" style={{ padding: 22, marginBottom: 20 }}>
+      <div className="eyebrow" style={{ marginBottom: 14 }}>{title}</div>
       {children}
     </div>
   );
