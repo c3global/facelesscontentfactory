@@ -37,19 +37,11 @@ Plan 30 days of LinkedIn posts. Each idea:
 ${JSON_ONLY}
 Shape: {"items":[{"day":1,"title":"...","angle":"..."}, ... 30 items]}`,
 
-  blog: (niche) => `${VOICE(niche)}
-Plan 30 days of blog articles. Each idea:
-- day (1-30)
-- title (SEO-friendly headline, under 65 chars)
-- angle (one sentence: what the article promises to deliver)
-${JSON_ONLY}
-Shape: {"items":[{"day":1,"title":"...","angle":"..."}, ... 30 items]}`,
-
   substack: (niche) => `${VOICE(niche)}
-Plan 30 days of Substack newsletter issues. Each idea:
+Plan 30 days of long-form pieces (Substack newsletter issues, blog posts, or Medium articles — same shape, different destinations). Each idea:
 - day (1-30)
-- title (subject line, under 60 chars)
-- angle (one sentence: the core idea of the issue)
+- title (compelling headline / subject line, under 65 chars)
+- angle (one sentence: the core idea or promise)
 ${JSON_ONLY}
 Shape: {"items":[{"day":1,"title":"...","angle":"..."}, ... 30 items]}`,
 
@@ -107,13 +99,10 @@ Write a complete LinkedIn post (150-300 words): single-sentence opener, line bre
 ${JSON_ONLY}
 Shape: {"day":${idea.day},"fullPost":"...","hashtags":["..."]}`,
 
-  blog: (niche, idea) => `${HEADER(niche, idea)}
-Write a complete blog article (800-1200 words) in markdown with H2 sections. No placeholders.
-${JSON_ONLY}
-Shape: {"day":${idea.day},"title":"${escape(idea.title)}","fullArticle":"..."}`,
-
   substack: (niche, idea) => `${HEADER(niche, idea)}
-Write a complete Substack newsletter (500-800 words): greeting → one strong idea developed → personal aside → sign-off.
+Write a complete long-form piece (600-900 words) that works equally well as a Substack issue or a blog post.
+Structure: a strong opening lead → one core idea developed across 2-4 distinct beats → a personal takeaway or sign-off.
+Use plain paragraphs separated by blank lines. You may use a small number of short subheadings if the piece naturally calls for them, but do not require them. Do not use markdown formatting characters (no #, no **, no \\n\\n— just clean paragraphs with real line breaks).
 ${JSON_ONLY}
 Shape: {"day":${idea.day},"subject":"${escape(idea.title)}","fullNewsletter":"..."}`,
 
