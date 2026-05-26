@@ -68,32 +68,32 @@ export default function TipTapEditor({ value, onChange, editorKey, placeholder, 
 
         .ProseMirror {
           min-height: 320px;
-          padding: 22px 24px;
+          padding: 26px 28px;
           background: var(--surface);
           border: 1px solid var(--border);
           border-radius: var(--radius-lg);
           color: var(--text);
           font-family: var(--font-body);
-          font-size: 16px;
+          font-size: 18px;
           line-height: 1.7;
           outline: none;
           transition: border-color 120ms;
         }
         .ProseMirror:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(102,241,217,0.15); }
-        .ProseMirror p { margin: 0 0 14px; }
+        .ProseMirror p { margin: 0 0 16px; }
         .ProseMirror p:last-child { margin-bottom: 0; }
         .ProseMirror h1, .ProseMirror h2, .ProseMirror h3 {
           font-family: var(--font-display);
           font-weight: 600;
           letter-spacing: -0.015em;
-          margin: 24px 0 10px;
+          margin: 28px 0 12px;
           line-height: 1.2;
         }
-        .ProseMirror h1 { font-size: 28px; }
-        .ProseMirror h2 { font-size: 22px; }
-        .ProseMirror h3 { font-size: 18px; }
-        .ProseMirror ul, .ProseMirror ol { padding-left: 22px; margin: 0 0 14px; }
-        .ProseMirror li { margin-bottom: 4px; }
+        .ProseMirror h1 { font-size: 32px; }
+        .ProseMirror h2 { font-size: 26px; }
+        .ProseMirror h3 { font-size: 21px; }
+        .ProseMirror ul, .ProseMirror ol { padding-left: 24px; margin: 0 0 16px; }
+        .ProseMirror li { margin-bottom: 6px; }
         .ProseMirror blockquote {
           margin: 0 0 14px;
           padding: 4px 0 4px 16px;
