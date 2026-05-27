@@ -44,8 +44,16 @@
   --font-ui:      "Sofia Sans Extra Condensed", "Sofia Sans", system-ui, sans-serif;
   --font-body:    "Sofia Sans", system-ui, -apple-system, sans-serif;
 
+  /* Sofia EC size scale — every uppercase / UI label uses one of these.
+     Sofia EC is condensed, so its visual size at a given px is ~70% of a
+     normal font. Hence the floors look big in raw px but read as standard. */
+  --text-ec-sm: 16px;   /* dense metadata: stat labels, chip captions */
+  --text-ec-md: 18px;   /* buttons, body labels, day-in-cell badges */
+  --text-ec-lg: 22px;   /* sidebar nav, weekday headers, section labels */
+  --text-ec-xl: 26px;   /* page eyebrows */
+
   /* Layout */
-  --sidebar-w: 240px;
+  --sidebar-w: 264px;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -146,20 +154,20 @@ a:hover { text-decoration: underline; }
 /* ----- Eyebrow / labels ----- */
 .eyebrow {
   font-family: var(--font-ui);
-  font-size: 11px;
-  letter-spacing: 0.18em;
+  font-size: var(--text-ec-xl);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .label {
   font-family: var(--font-ui);
-  font-size: 12px;
-  letter-spacing: 0.10em;
+  font-size: var(--text-ec-md);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* ----- Buttons ----- */
@@ -171,9 +179,9 @@ a:hover { text-decoration: underline; }
   border-radius: var(--radius-md);
   padding: 11px 18px;
   font-family: var(--font-ui);
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  font-size: var(--text-ec-md);
+  letter-spacing: 0.03em;
   border: 1px solid transparent;
   background: transparent;
   color: var(--text);

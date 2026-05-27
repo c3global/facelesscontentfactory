@@ -189,9 +189,10 @@ export default function Calendar() {
                     {cell.day && (
                       <span style={{
                         fontFamily: 'var(--font-ui)',
-                        fontSize: 10,
-                        fontWeight: 600,
-                        letterSpacing: '0.08em',
+                        fontSize: 'var(--text-ec-md)',
+                        fontWeight: 700,
+                        letterSpacing: '0.06em',
+                        textTransform: 'uppercase',
                         color: 'var(--text-faint)',
                       }}>
                         DAY {cell.day}
@@ -279,7 +280,7 @@ function WeekHeader() {
       borderBottom: '1px solid var(--border)',
     }}>
       {days.map((d) => (
-        <div key={d} className="label" style={{ textAlign: 'center', fontSize: 11 }}>{d}</div>
+        <div key={d} className="label" style={{ textAlign: 'center', fontSize: 'var(--text-ec-lg)' }}>{d}</div>
       ))}
     </div>
   );

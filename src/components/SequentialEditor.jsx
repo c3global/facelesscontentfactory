@@ -215,11 +215,11 @@ function ListRail({ items, selectedKey, onSelect, niche, onPersist, planId }) {
                   <span style={{
                     display: 'block',
                     fontFamily: 'var(--font-ui)',
-                    fontSize: 11,
-                    letterSpacing: '0.08em',
+                    fontSize: 'var(--text-ec-sm)',
+                    letterSpacing: '0.06em',
                     textTransform: 'uppercase',
                     color: 'var(--text-faint)',
-                    fontWeight: 600,
+                    fontWeight: 700,
                   }}>
                     Day {it.day} · {p.label}
                   </span>
@@ -294,7 +294,7 @@ function PiecePane({ piece, onUpdate, onPrev, onNext, position }) {
           <div className="label" style={{ marginBottom: 4 }}>
             Day {piece.day} · {platform.label}
           </div>
-          <div style={{ fontSize: 12, color: 'var(--text-faint)', fontFamily: 'var(--font-ui)' }}>
+          <div style={{ fontSize: 'var(--text-ec-sm)', color: 'var(--text-faint)', fontFamily: 'var(--font-ui)', letterSpacing: '0.04em', fontWeight: 600 }}>
             Piece {position.current} of {position.total} · {dirty ? 'editing…' : 'saved'}
           </div>
         </div>

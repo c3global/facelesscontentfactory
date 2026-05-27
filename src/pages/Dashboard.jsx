@@ -48,7 +48,7 @@ export default function Dashboard() {
       <section style={{ marginTop: 40 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 14 }}>
           <h2 style={{ fontSize: 22 }}>Recent plans</h2>
-          <Link to="/library" style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+          <Link to="/library" style={{ fontFamily: 'var(--font-ui)', fontSize: 'var(--text-ec-sm)', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
             See all →
           </Link>
         </div>

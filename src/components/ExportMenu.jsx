@@ -76,7 +76,7 @@ export default function ExportMenu({ getPiece, align = 'right' }) {
           borderRadius: 'var(--radius-sm)',
           color: 'var(--text)',
           fontFamily: 'var(--font-ui)',
-          fontSize: 12,
+          fontSize: 'var(--text-ec-sm)',
           whiteSpace: 'nowrap',
           boxShadow: 'var(--shadow-md)',
           zIndex: 10,

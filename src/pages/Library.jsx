@@ -84,7 +84,7 @@ export default function Library() {
                 <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>
                   {new Date(p.created_at).toLocaleDateString()} · {new Date(p.created_at).toLocaleTimeString()}
                 </div>
-                <div style={{ marginTop: 'auto', paddingTop: 12, color: 'var(--accent)', fontFamily: 'var(--font-ui)', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                <div style={{ marginTop: 'auto', paddingTop: 12, color: 'var(--accent)', fontFamily: 'var(--font-ui)', fontSize: 'var(--text-ec-sm)', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                   {opening === p.id ? 'Opening…' : 'Open →'}
                 </div>
               </button>

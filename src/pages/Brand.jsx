@@ -173,8 +173,9 @@ export default function Brand() {
                       background: active ? 'var(--copper-gradient)' : 'transparent',
                       color: active ? '#fff' : 'var(--text)',
                       fontFamily: 'var(--font-ui)',
-                      fontSize: 13,
-                      fontWeight: 600,
+                      fontSize: 'var(--text-ec-sm)',
+                      fontWeight: 700,
+                      letterSpacing: '0.02em',
                       cursor: 'pointer',
                     }}
                   >
@@ -239,7 +240,7 @@ function TrainingMeter({ pct, samplesCount }) {
             marginTop: 2,
           }}>{pct}% <span style={{ color: 'var(--text-muted)', fontSize: 14, fontFamily: 'var(--font-body)' }}>· {status}</span></div>
         </div>
-        <div style={{ fontFamily: 'var(--font-ui)', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', color: 'var(--text-faint)' }}>
+        <div style={{ fontFamily: 'var(--font-ui)', fontSize: 'var(--text-ec-md)', fontWeight: 700, letterSpacing: '0.06em', color: 'var(--text-faint)' }}>
           {samplesCount} SAMPLE{samplesCount === 1 ? '' : 'S'} LOADED
         </div>
       </div>
@@ -468,7 +469,7 @@ function SampleRow({ sample, onUpdate, onDelete }) {
               <div style={{ fontWeight: 600, fontSize: 15, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {sample.label || 'Untitled sample'}
               </div>
-              <div style={{ marginTop: 4, fontSize: 12, color: 'var(--text-faint)', fontFamily: 'var(--font-ui)', letterSpacing: '0.04em' }}>
+              <div style={{ marginTop: 4, fontSize: 'var(--text-ec-sm)', color: 'var(--text-faint)', fontFamily: 'var(--font-ui)', letterSpacing: '0.04em', fontWeight: 600 }}>
                 {sample.char_count.toLocaleString()} chars · {sample.source_type.toUpperCase()} · {new Date(sample.created_at).toLocaleDateString()}
               </div>
             </div>

@@ -4,11 +4,11 @@
 // canonical brand mark; use the `size` prop to scale for context.
 
 const SIZES = {
-  xs: { name: 18, caption: 8,  gap: 1  },
-  sm: { name: 26, caption: 9,  gap: 2  },
-  md: { name: 40, caption: 10, gap: 3  },
-  lg: { name: 72, caption: 13, gap: 6  },
-  xl: { name: 112, caption: 16, gap: 8 },
+  xs: { name: 18, caption: 11, gap: 1  },
+  sm: { name: 26, caption: 12, gap: 2  },
+  md: { name: 40, caption: 14, gap: 3  },
+  lg: { name: 72, caption: 18, gap: 6  },
+  xl: { name: 112, caption: 22, gap: 8 },
 };
 
 export default function Wordmark({ size = 'md', caption = true, as: Tag = 'span' }) {

@@ -19,16 +19,17 @@ export default function Stepper({ steps, active, onNavigate }) {
                   color: isActive ? 'var(--text)' : isDone ? 'var(--primary)' : 'var(--text-muted)',
                   fontFamily: 'var(--font-ui)',
                   fontWeight: isActive ? 700 : 600,
-                  fontSize: 16,
-                  letterSpacing: '0.02em',
+                  fontSize: 'var(--text-ec-lg)',
+                  letterSpacing: '0.03em',
                   cursor: 'pointer',
                   boxShadow: isActive ? 'var(--shadow-sm)' : 'none',
                 }}
               >
                 <span style={{
-                  width: 26, height: 26, borderRadius: '50%',
+                  width: 30, height: 30, borderRadius: '50%',
                   display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 12, fontWeight: 700,
+                  fontSize: 16, fontWeight: 700,
+                  fontFamily: 'var(--font-ui)',
                   background: isActive ? 'var(--copper-gradient)' : isDone ? 'var(--primary)' : 'var(--surface-alt)',
                   color: isActive || isDone ? '#fff' : 'var(--text-muted)',
                   border: isActive || isDone ? 'none' : '1px solid var(--border)',
