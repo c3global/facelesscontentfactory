@@ -3,6 +3,7 @@ import PageHeader from '../components/PageHeader.jsx';
 import {
   getBrandSettings, saveBrandSettings,
   listSamples, addSample, updateSample, deleteSample,
+  fetchUrlAsText,
 } from '../lib/api.js';
 import { parseFile } from '../lib/sample-parsers.js';
 
@@ -267,6 +268,8 @@ function SampleAdder({ onAdded, setError }) {
   const [open, setOpen]       = useState(false);
   const [label, setLabel]     = useState('');
   const [content, setContent] = useState('');
+  const [urlInput, setUrlInput] = useState('');
+  const [showUrl, setShowUrl] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const fileInputRef = useRef(null);
 
@@ -306,7 +309,29 @@ function SampleAdder({ onAdded, setError }) {
     }
   }
 
-  if (!open) {
+  async function handleUrlImport() {
+    const url = urlInput.trim();
+    if (!url) return;
+    setSubmitting(true);
+    setError(null);
+    try {
+      const { text, title } = await fetchUrlAsText(url);
+      const saved = await addSample({
+        label: label || title || 'Imported from URL',
+        content: text,
+        source_type: 'url',
+      });
+      onAdded(saved);
+      setLabel(''); setUrlInput('');
+      setShowUrl(false);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  if (!open && !showUrl) {
     return (
       <div style={{ display: 'flex', gap: 10, marginTop: 16, flexWrap: 'wrap' }}>
         <button className="btn btn-primary" onClick={() => setOpen(true)}>+ Paste a sample</button>
@@ -315,15 +340,49 @@ function SampleAdder({ onAdded, setError }) {
           onClick={() => fileInputRef.current?.click()}
           disabled={submitting}
         >
-          {submitting ? 'Reading file…' : 'Upload .txt · .md · .docx'}
+          {submitting ? 'Reading file…' : 'Upload .txt · .md · .docx · .pdf'}
+        </button>
+        <button className="btn btn-ghost" onClick={() => setShowUrl(true)} disabled={submitting}>
+          Import from URL
         </button>
         <input
           ref={fileInputRef}
           type="file"
-          accept=".txt,.md,.markdown,.docx,text/plain,text/markdown,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          accept=".txt,.md,.markdown,.docx,.pdf,text/plain,text/markdown,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"
           onChange={handleFile}
           style={{ display: 'none' }}
         />
+      </div>
+    );
+  }
+
+  if (showUrl) {
+    return (
+      <div className="card fade-in" style={{ marginTop: 16, padding: 18 }}>
+        <Field label="URL" hint="Paste the public URL of a post, article, or newsletter. Cadence fetches the page and extracts the readable text.">
+          <input
+            type="url"
+            value={urlInput}
+            onChange={(e) => setUrlInput(e.target.value)}
+            placeholder="https://yoursubstack.substack.com/p/your-best-post"
+            onKeyDown={(e) => e.key === 'Enter' && !submitting && urlInput.trim() && handleUrlImport()}
+          />
+        </Field>
+        <div style={{ height: 14 }} />
+        <Field label="Label (optional)" hint="Leave blank to use the page's title.">
+          <input
+            type="text"
+            value={label}
+            onChange={(e) => setLabel(e.target.value)}
+            placeholder="e.g., Substack — best opener I ever wrote"
+          />
+        </Field>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 14 }}>
+          <button className="btn btn-ghost" onClick={() => { setShowUrl(false); setUrlInput(''); setLabel(''); }} disabled={submitting}>Cancel</button>
+          <button className="btn btn-primary" onClick={handleUrlImport} disabled={submitting || !urlInput.trim()}>
+            {submitting ? 'Fetching…' : 'Import'}
+          </button>
+        </div>
       </div>
     );
   }

@@ -34,6 +34,10 @@ export function savePlan(niche, payload) {
   return post('/.netlify/functions/save-plan', { niche, payload });
 }
 
+export function fetchUrlAsText(url) {
+  return post('/.netlify/functions/fetch-url', { url });
+}
+
 export async function listPlans() {
   const { data, error } = await supabase
     .from('plans')

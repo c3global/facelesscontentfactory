@@ -17,7 +17,7 @@ import ExportMenu from './ExportMenu.jsx';
 
 const BODY_FIELDS = ['bodyHtml', 'fullScript', 'fullPost', 'fullArticle', 'fullNewsletter', 'fullCaption', 'caption'];
 
-export default function SequentialEditor({ niche, content, platforms, onUpdatePiece, onStartOver, initialKey }) {
+export default function SequentialEditor({ niche, content, platforms, onUpdatePiece, onStartOver, onPersist, planId, initialKey }) {
   // Build a flat, stable list of all pieces across platforms.
   const items = useMemo(() => {
     const out = [];
@@ -95,6 +95,8 @@ export default function SequentialEditor({ niche, content, platforms, onUpdatePi
         selectedKey={selectedKey}
         onSelect={setSelectedKey}
         niche={niche}
+        onPersist={onPersist}
+        planId={planId}
       />
 
       {selected && (
@@ -122,7 +124,26 @@ export default function SequentialEditor({ niche, content, platforms, onUpdatePi
 // List rail
 // ---------------------------------------------------------------------------
 
-function ListRail({ items, selectedKey, onSelect, niche }) {
+function ListRail({ items, selectedKey, onSelect, niche, onPersist, planId }) {
+  const [saving, setSaving] = useState(false);
+  const [savedFlash, setSavedFlash] = useState(false);
+  const [saveError, setSaveError] = useState(null);
+
+  async function handleSave() {
+    if (!onPersist) return;
+    setSaving(true);
+    setSaveError(null);
+    try {
+      await onPersist();
+      setSavedFlash(true);
+      setTimeout(() => setSavedFlash(false), 2000);
+    } catch (e) {
+      setSaveError(e.message);
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return (
     <aside className="list-rail card" style={{
       padding: 0,
@@ -141,9 +162,23 @@ function ListRail({ items, selectedKey, onSelect, niche }) {
         <div style={{ fontFamily: 'var(--font-display)', fontSize: 18, marginTop: 2, fontWeight: 500, lineHeight: 1.2 }}>
           {niche}
         </div>
-        <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4 }}>
-          {items.length} pieces
+        <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+          <span>{items.length} pieces</span>
+          {onPersist && (
+            <button
+              onClick={handleSave}
+              disabled={saving || !planId}
+              className="btn btn-ghost"
+              style={{ padding: '4px 10px', fontSize: 11 }}
+              title={planId ? 'Save all edits to the plan' : 'Generate or load a plan first'}
+            >
+              {saving ? 'Saving…' : savedFlash ? 'Saved ✓' : 'Save edits'}
+            </button>
+          )}
         </div>
+        {saveError && (
+          <div style={{ marginTop: 8, fontSize: 11, color: 'var(--danger)' }}>{saveError}</div>
+        )}
       </div>
       <ul style={{ listStyle: 'none', margin: 0, padding: 6 }}>
         {items.map((it) => {

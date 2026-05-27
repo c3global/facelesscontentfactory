@@ -27,9 +27,10 @@ export async function parseFile(file) {
     return { text, source_type: 'docx' };
   }
   if (ext === 'pdf' || mime === 'application/pdf') {
-    throw new Error('PDF upload is coming soon. For now, copy the text out of your PDF reader and paste it directly.');
+    const text = await parsePdf(file);
+    return { text, source_type: 'pdf' };
   }
-  throw new Error(`Unsupported file type: ${ext || mime}. Supported: .txt, .md, .docx`);
+  throw new Error(`Unsupported file type: ${ext || mime}. Supported: .txt, .md, .docx, .pdf`);
 }
 
 async function parseDocx(file) {
@@ -37,4 +38,25 @@ async function parseDocx(file) {
   const buffer = await file.arrayBuffer();
   const result = await mammoth.extractRawText({ arrayBuffer: buffer });
   return (result.value || '').trim();
+}
+
+async function parsePdf(file) {
+  // pdfjs-dist is large (~2MB); lazy-import so the bundle only pays the cost
+  // when a user actually uploads a PDF.
+  const pdfjs = await import('pdfjs-dist');
+  // Provide an inline worker so we don't need a separate URL for the worker
+  // script (avoids CSP / cross-origin headaches on Netlify).
+  const workerModule = await import('pdfjs-dist/build/pdf.worker.min.mjs?url');
+  pdfjs.GlobalWorkerOptions.workerSrc = workerModule.default;
+
+  const buffer = await file.arrayBuffer();
+  const doc = await pdfjs.getDocument({ data: buffer }).promise;
+  const pages = [];
+  for (let i = 1; i <= doc.numPages; i++) {
+    const page = await doc.getPage(i);
+    const content = await page.getTextContent();
+    const strings = content.items.map((it) => ('str' in it ? it.str : '')).filter(Boolean);
+    pages.push(strings.join(' '));
+  }
+  return pages.join('\n\n').replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
 }

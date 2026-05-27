@@ -41,7 +41,7 @@ export default function Planner() {
     handleGenerateIdeas, handleRegenerateOne,
     toggleApprove, approveAllPlatform, approvedCount,
     handleWriteContent,
-    updatePiece,
+    updatePiece, persistSchedule, planId,
   } = ctx;
 
   return (
@@ -111,6 +111,8 @@ export default function Planner() {
             onUpdatePiece={updatePiece}
             onStartOver={resetPlan}
             initialKey={focusKey}
+            onPersist={persistSchedule}
+            planId={planId}
           />
         )
       )}
