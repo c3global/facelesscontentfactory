@@ -5,6 +5,7 @@ import { useTheme } from '../lib/theme-context.jsx';
 const NAV = [
   { to: '/dashboard', label: 'Dashboard', icon: DashboardIcon },
   { to: '/planner',   label: 'Planner',   icon: PlannerIcon },
+  { to: '/calendar',  label: 'Calendar',  icon: CalendarIcon },
   { to: '/library',   label: 'Library',   icon: LibraryIcon },
   { to: '/brand',     label: 'Brand',     icon: BrandIcon },
 ];
@@ -95,7 +96,10 @@ function DashboardIcon() { return (
   <svg {...iconProps()}><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
 ); }
 function PlannerIcon() { return (
-  <svg {...iconProps()}><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 3v4"/><path d="M16 3v4"/></svg>
+  <svg {...iconProps()}><path d="M4 5h16v4H4z"/><path d="M4 11h10v4H4z"/><path d="M4 17h7v3H4z"/></svg>
+); }
+function CalendarIcon() { return (
+  <svg {...iconProps()}><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 3v4"/><path d="M16 3v4"/><circle cx="8" cy="14" r="0.8" fill="currentColor"/><circle cx="12" cy="14" r="0.8" fill="currentColor"/><circle cx="16" cy="14" r="0.8" fill="currentColor"/></svg>
 ); }
 function LibraryIcon() { return (
   <svg {...iconProps()}><path d="M4 4v16"/><path d="M8 4v16"/><rect x="12" y="4" width="8" height="16" rx="1.5"/></svg>

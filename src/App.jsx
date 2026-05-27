@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './lib/supabase.js';
-import { generateIdeas, regenerateIdea, generateContent, savePlan, getPlan } from './lib/api.js';
+import { generateIdeas, regenerateIdea, generateContent, savePlan, getPlan, updatePlanContent } from './lib/api.js';
 import SignIn from './components/SignIn.jsx';
 import AppShell from './components/AppShell.jsx';
 
@@ -33,6 +33,8 @@ export default function App() {
   const [content, setContent] = useState({});
   const [error, setError] = useState(null);
   const [busy, setBusy] = useState(false);
+  const [planId, setPlanId] = useState(null);
+  const [startDate, setStartDate] = useState(() => isoDate(new Date())); // ISO yyyy-mm-dd
 
   const resetPlan = useCallback(() => {
     setStep('plan');
@@ -40,6 +42,8 @@ export default function App() {
     setApproved({});
     setContent({});
     setError(null);
+    setPlanId(null);
+    setStartDate(isoDate(new Date()));
   }, []);
 
   const togglePlatform = useCallback((id) => {
@@ -136,12 +140,16 @@ export default function App() {
     await Promise.all(workers);
 
     try {
-      await savePlan(niche.trim(), { niche, platforms: results, ideas, model: premium ? 'opus' : 'sonnet' });
+      const saved = await savePlan(niche.trim(), {
+        niche, platforms: results, ideas, startDate,
+        model: premium ? 'opus' : 'sonnet',
+      });
+      if (saved?.id) setPlanId(saved.id);
     } catch (e) {
       console.warn('savePlan failed', e);
     }
     setBusy(false);
-  }, [selectedPlatforms, approved, ideas, niche]);
+  }, [selectedPlatforms, approved, ideas, niche, startDate]);
 
   const updatePiece = useCallback((platform, day, patch) => {
     setContent((prev) => {
@@ -151,13 +159,38 @@ export default function App() {
     });
   }, []);
 
-  const loadSavedPlan = useCallback(async (planId) => {
-    const saved = await getPlan(planId);
-    const p = saved.payload;
+  // Move a single piece from one day to another. If a piece on the same
+  // platform already lives on the target day, this just adds another piece
+  // for that day — multiple pieces per day is the expected calendar shape.
+  const setPieceDay = useCallback((platform, fromDay, toDay) => {
+    if (fromDay === toDay) return;
+    setContent((prev) => {
+      const list = prev[platform] || [];
+      const next = list.map((it) => (it.day === fromDay ? { ...it, day: toDay } : it));
+      // Sort so the editor/calendar see a stable order
+      next.sort((a, b) => a.day - b.day);
+      return { ...prev, [platform]: next };
+    });
+  }, []);
+
+  // Persist the in-memory plan (calendar order + edits) back to Supabase.
+  // No-op when there's no saved plan yet — generation always saves first.
+  const persistSchedule = useCallback(async () => {
+    if (!planId) throw new Error('No plan loaded to save into.');
+    await updatePlanContent(planId, {
+      niche, platforms: content, ideas, startDate,
+    });
+  }, [planId, niche, content, ideas, startDate]);
+
+  const loadSavedPlan = useCallback(async (id) => {
+    const saved = await getPlan(id);
+    const p = saved.payload || {};
     setNiche(saved.niche);
     setIdeas(p.ideas || {});
     setContent(p.platforms || {});
     setSelectedPlatforms(Object.keys(p.platforms || {}));
+    setStartDate(p.startDate || isoDate(new Date(saved.created_at)));
+    setPlanId(saved.id);
     setStep('write');
     navigate('/planner');
   }, [navigate]);
@@ -177,12 +210,15 @@ export default function App() {
     selectedPlatforms, togglePlatform, setSelectedPlatforms,
     ideas, approved, content,
     error, setError, busy,
+    planId, startDate, setStartDate,
     resetPlan,
     handleGenerateIdeas,
     handleRegenerateOne,
     toggleApprove, approveAllPlatform, approvedCount,
     handleWriteContent,
     updatePiece,
+    setPieceDay,
+    persistSchedule,
     loadSavedPlan,
   };
 
@@ -193,4 +229,11 @@ export default function App() {
       plannerContext={plannerContext}
     />
   );
+}
+
+function isoDate(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
 }

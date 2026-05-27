@@ -1,4 +1,5 @@
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Stepper from '../components/Stepper.jsx';
 import PlanStep from '../components/PlanStep.jsx';
 import ApproveStep from '../components/ApproveStep.jsx';
@@ -15,6 +16,21 @@ const STEPS = [
 
 export default function Planner() {
   const ctx = useOutletContext();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [focusKey, setFocusKey] = useState(null);
+
+  // When the Calendar links here with state.focusPiece, drop the editor
+  // straight onto that piece and clear the state so a refresh doesn't
+  // re-trigger it.
+  useEffect(() => {
+    const focus = location.state?.focusPiece;
+    if (focus?.platform && focus?.day != null) {
+      setFocusKey(`${focus.platform}:${focus.day}`);
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location, navigate]);
+
   const {
     step, setStep,
     niche, setNiche,
@@ -94,6 +110,7 @@ export default function Planner() {
             platforms={selectedPlatforms.filter((p) => content[p]?.length)}
             onUpdatePiece={updatePiece}
             onStartOver={resetPlan}
+            initialKey={focusKey}
           />
         )
       )}

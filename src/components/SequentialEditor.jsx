@@ -17,7 +17,7 @@ import ExportMenu from './ExportMenu.jsx';
 
 const BODY_FIELDS = ['bodyHtml', 'fullScript', 'fullPost', 'fullArticle', 'fullNewsletter', 'fullCaption', 'caption'];
 
-export default function SequentialEditor({ niche, content, platforms, onUpdatePiece, onStartOver }) {
+export default function SequentialEditor({ niche, content, platforms, onUpdatePiece, onStartOver, initialKey }) {
   // Build a flat, stable list of all pieces across platforms.
   const items = useMemo(() => {
     const out = [];
@@ -32,7 +32,17 @@ export default function SequentialEditor({ niche, content, platforms, onUpdatePi
     return out;
   }, [content, platforms]);
 
-  const [selectedKey, setSelectedKey] = useState(items[0]?.key);
+  const [selectedKey, setSelectedKey] = useState(
+    () => (initialKey && items.find((i) => i.key === initialKey) ? initialKey : items[0]?.key)
+  );
+
+  // If the caller hands us a focus target (e.g., the Calendar clicked into a
+  // specific piece), jump to it even if it changes after mount.
+  useEffect(() => {
+    if (initialKey && items.find((i) => i.key === initialKey)) {
+      setSelectedKey(initialKey);
+    }
+  }, [initialKey, items]);
 
   // Keep selection valid as items change (e.g., during streaming generation)
   useEffect(() => {

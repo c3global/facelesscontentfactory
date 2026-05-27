@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import Planner from './pages/Planner.jsx';
 import Library from './pages/Library.jsx';
 import Brand from './pages/Brand.jsx';
+import Calendar from './pages/Calendar.jsx';
 import { ThemeProvider } from './lib/theme-context.jsx';
 import './index.css';
 
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="planner" element={<Planner />} />
+          <Route path="calendar" element={<Calendar />} />
           <Route path="library" element={<Library />} />
           <Route path="brand" element={<Brand />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
