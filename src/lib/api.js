@@ -152,3 +152,50 @@ export async function deleteSample(id) {
   const { error } = await supabase.from('brand_samples').delete().eq('id', id);
   if (error) throw error;
 }
+
+// ---------------------------------------------------------------------------
+// Brands (multi-brand support: a user can own multiple brands; samples,
+// settings, and plans are scoped per brand)
+// ---------------------------------------------------------------------------
+
+export async function listBrands() {
+  const { data, error } = await supabase
+    .from('brands')
+    .select('id, name, accent_color, created_at, updated_at')
+    .order('created_at', { ascending: true });
+  if (error) throw error;
+  return data || [];
+}
+
+export async function createBrand({ name, accent_color }) {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) throw new Error('Not signed in');
+  const { data, error } = await supabase
+    .from('brands')
+    .insert({
+      user_id: session.user.id,
+      name: (name || '').trim() || 'New brand',
+      accent_color: accent_color || '#D9C0A6',
+    })
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function updateBrand(id, patch) {
+  const updates = { ...patch, updated_at: new Date().toISOString() };
+  const { data, error } = await supabase
+    .from('brands')
+    .update(updates)
+    .eq('id', id)
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function deleteBrand(id) {
+  const { error } = await supabase.from('brands').delete().eq('id', id);
+  if (error) throw error;
+}

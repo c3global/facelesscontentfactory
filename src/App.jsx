@@ -4,6 +4,7 @@ import { supabase } from './lib/supabase.js';
 import { generateIdeas, regenerateIdea, generateContent, savePlan, getPlan, updatePlanContent } from './lib/api.js';
 import SignIn from './components/SignIn.jsx';
 import AppShell from './components/AppShell.jsx';
+import { BrandProvider } from './lib/brand-context.jsx';
 
 // App is the authenticated shell. It owns the in-flight plan state so the user
 // can navigate between Dashboard / Planner / Library / Brand without losing
@@ -223,11 +224,13 @@ export default function App() {
   };
 
   return (
-    <AppShell
-      session={session}
-      onSignOut={() => supabase.auth.signOut()}
-      plannerContext={plannerContext}
-    />
+    <BrandProvider session={session}>
+      <AppShell
+        session={session}
+        onSignOut={() => supabase.auth.signOut()}
+        plannerContext={plannerContext}
+      />
+    </BrandProvider>
   );
 }
 
