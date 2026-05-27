@@ -41,7 +41,7 @@ export function fetchUrlAsText(url) {
 export async function listPlans(brandId) {
   let q = supabase
     .from('plans')
-    .select('id, niche, brand_id, created_at')
+    .select('id, niche, created_at')
     .order('created_at', { ascending: false })
     .limit(30);
   if (brandId) q = q.eq('brand_id', brandId);

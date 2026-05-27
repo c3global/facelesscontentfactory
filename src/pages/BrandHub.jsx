@@ -99,9 +99,23 @@ export default function BrandHub() {
         )}
       />
 
-      {error && (
+      {error === 'migration-needed' ? (
+        <div className="card" style={{
+          marginTop: 24,
+          padding: 24,
+          borderLeft: '3px solid var(--accent)',
+        }}>
+          <div className="eyebrow" style={{ marginBottom: 8 }}>Database migration needed</div>
+          <p style={{ color: 'var(--text-muted)', marginBottom: 12, lineHeight: 1.55 }}>
+            Multi-brand support requires running <code style={{ background: 'var(--surface-alt)', padding: '2px 6px', borderRadius: 4 }}>supabase/migrations/0005_brands.sql</code> against your Supabase database. Open the Supabase SQL editor, paste the file's contents, and run it — then refresh this page.
+          </p>
+          <p style={{ color: 'var(--text-faint)', fontSize: 13, margin: 0 }}>
+            The migration is rerun-safe and backfills your existing data into a default brand named after your <i>default niche</i>.
+          </p>
+        </div>
+      ) : error ? (
         <div style={{ color: 'var(--danger)', marginTop: 16 }}>{error}</div>
-      )}
+      ) : null}
 
       {creating && (
         <NewBrandForm

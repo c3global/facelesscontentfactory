@@ -2,15 +2,17 @@ import { useEffect, useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import { listPlans } from '../lib/api.js';
 import PageHeader from '../components/PageHeader.jsx';
+import { useBrands } from '../lib/brand-context.jsx';
 
 export default function Dashboard() {
   const { content, niche } = useOutletContext();
+  const { activeBrandId } = useBrands();
   const [plans, setPlans] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    listPlans().then(setPlans).catch((e) => setError(e.message));
-  }, []);
+    listPlans(activeBrandId).then(setPlans).catch((e) => setError(e.message));
+  }, [activeBrandId]);
 
   const hasDraft = Object.keys(content || {}).length > 0;
   const recent = plans?.slice(0, 3) || [];

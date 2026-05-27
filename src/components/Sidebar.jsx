@@ -1,4 +1,5 @@
-import { NavLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import Wordmark from './Wordmark.jsx';
 import BrandSwitcher from './BrandSwitcher.jsx';
 import { useTheme } from '../lib/theme-context.jsx';
@@ -13,83 +14,144 @@ const NAV = [
 
 export default function Sidebar({ email, onSignOut }) {
   const { mode, toggle } = useTheme();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+
+  // Close the drawer whenever the route changes (tapping a nav link).
+  useEffect(() => { setMobileOpen(false); }, [location.pathname]);
+
+  // Lock body scroll while the drawer is open.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, [mobileOpen]);
+
+  // Close on Esc.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e) => { if (e.key === 'Escape') setMobileOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [mobileOpen]);
+
   return (
-    <aside className="sidebar" style={{
-      display: 'flex', flexDirection: 'column',
-      width: 'var(--sidebar-w)', minHeight: '100vh',
-      padding: '28px 18px 20px',
-      background: 'var(--bg-soft)',
-      borderRight: '1px solid var(--border)',
-      position: 'sticky', top: 0,
-      gap: 20,
-    }}>
-      <div style={{ padding: '0 6px' }}>
-        <Wordmark size="md" />
+    <>
+      {/* ---- Mobile top bar (display: none on desktop) ---- */}
+      <div className="mobile-topbar">
+        <Wordmark size="sm" caption={false} />
+        <button
+          type="button"
+          onClick={() => setMobileOpen(true)}
+          className="mobile-menu-btn"
+          aria-label="Open menu"
+        >
+          <HamburgerIcon />
+        </button>
       </div>
 
-      <BrandSwitcher />
+      {/* ---- Mobile overlay (only when drawer is open) ---- */}
+      {mobileOpen && (
+        <div
+          className="mobile-overlay"
+          onClick={() => setMobileOpen(false)}
+          aria-hidden
+        />
+      )}
 
-      <nav className="sidebar__nav" style={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 4 }}>
-        {NAV.map(({ to, label, icon: Icon }) => (
-          <NavLink
-            key={to}
-            to={to}
-            className={({ isActive }) => `sidebar__link${isActive ? ' is-active' : ''}`}
-            style={({ isActive }) => ({
-              display: 'flex', alignItems: 'center', gap: 12,
-              padding: '12px 14px',
-              borderRadius: 'var(--radius-md)',
-              fontFamily: 'var(--font-ui)',
-              fontSize: 'var(--text-ec-lg)',
-              fontWeight: isActive ? 700 : 600,
-              letterSpacing: '0.03em',
-              color: isActive ? 'var(--text)' : 'var(--text-muted)',
-              background: isActive ? 'var(--surface)' : 'transparent',
-              border: '1px solid',
-              borderColor: isActive ? 'var(--border)' : 'transparent',
-              boxShadow: isActive ? 'var(--shadow-sm)' : 'none',
-              transition: 'background 120ms, color 120ms',
-            })}
+      {/* ---- Sidebar (desktop: fixed left column; mobile: slide-in drawer) ---- */}
+      <aside
+        className={`sidebar ${mobileOpen ? 'is-open' : ''}`}
+        style={{
+          display: 'flex', flexDirection: 'column',
+          width: 'var(--sidebar-w)', minHeight: '100vh',
+          padding: '28px 18px 20px',
+          background: 'var(--bg-soft)',
+          borderRight: '1px solid var(--border)',
+          position: 'sticky', top: 0,
+          gap: 20,
+        }}
+      >
+        {/* Mobile close button — hidden on desktop via CSS */}
+        <button
+          type="button"
+          onClick={() => setMobileOpen(false)}
+          className="sidebar-close-btn"
+          aria-label="Close menu"
+        >
+          ×
+        </button>
+
+        <div style={{ padding: '0 6px' }}>
+          <Wordmark size="md" />
+        </div>
+
+        <BrandSwitcher />
+
+        <nav className="sidebar__nav" style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: 4 }}>
+          {NAV.map(({ to, label, icon: Icon }) => (
+            <NavLink
+              key={to}
+              to={to}
+              className={({ isActive }) => `sidebar__link${isActive ? ' is-active' : ''}`}
+              style={({ isActive }) => ({
+                display: 'flex', alignItems: 'center', gap: 14,
+                padding: '12px 14px',
+                borderRadius: 'var(--radius-md)',
+                fontFamily: 'var(--font-ui)',
+                fontSize: 'var(--text-ec-lg)',
+                fontWeight: isActive ? 700 : 600,
+                letterSpacing: '0.03em',
+                color: isActive ? 'var(--text)' : 'var(--text-muted)',
+                background: isActive ? 'var(--surface)' : 'transparent',
+                border: '1px solid',
+                borderColor: isActive ? 'var(--border)' : 'transparent',
+                boxShadow: isActive ? 'var(--shadow-sm)' : 'none',
+                transition: 'background 120ms, color 120ms',
+                textDecoration: 'none',
+              })}
+            >
+              <Icon />
+              <span className="nav-label">{label}</span>
+            </NavLink>
+          ))}
+        </nav>
+
+        <div style={{ flex: 1 }} />
+
+        <div className="sidebar__footer" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <button
+            onClick={toggle}
+            className="btn btn-ghost"
+            style={{ justifyContent: 'flex-start', padding: '10px 12px' }}
+            aria-label="Toggle theme"
           >
-            <Icon />
-            <span className="nav-label">{label}</span>
-          </NavLink>
-        ))}
-      </nav>
-
-      <div style={{ flex: 1 }} />
-
-      <div className="sidebar__footer" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <button
-          onClick={toggle}
-          className="btn btn-ghost"
-          style={{ justifyContent: 'flex-start', padding: '10px 12px' }}
-          aria-label="Toggle theme"
-        >
-          {mode === 'dark' ? <SunIcon /> : <MoonIcon />}
-          <span>{mode === 'dark' ? 'Light mode' : 'Dark mode'}</span>
-        </button>
-        <div className="sidebar__email" style={{
-          fontSize: 13, color: 'var(--text-faint)',
-          padding: '0 4px',
-          overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-        }}>{email}</div>
-        <button
-          onClick={onSignOut}
-          className="btn btn-ghost"
-          style={{ justifyContent: 'flex-start', padding: '10px 12px' }}
-        >
-          Sign out
-        </button>
-      </div>
-    </aside>
+            {mode === 'dark' ? <SunIcon /> : <MoonIcon />}
+            <span>{mode === 'dark' ? 'Light mode' : 'Dark mode'}</span>
+          </button>
+          <div className="sidebar__email" style={{
+            fontSize: 13, color: 'var(--text-faint)',
+            padding: '0 4px',
+            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+          }}>{email}</div>
+          <button
+            onClick={onSignOut}
+            className="btn btn-ghost"
+            style={{ justifyContent: 'flex-start', padding: '10px 12px' }}
+          >
+            Sign out
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }
 
 /* ----- Inline icons (stroke uses currentColor) ----- */
 function iconProps(extra = {}) {
   return {
-    width: 18, height: 18, viewBox: '0 0 24 24',
+    width: 22, height: 22, viewBox: '0 0 24 24',
     fill: 'none', stroke: 'currentColor',
     strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round',
     ...extra,
@@ -115,4 +177,7 @@ function SunIcon() { return (
 ); }
 function MoonIcon() { return (
   <svg {...iconProps()}><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+); }
+function HamburgerIcon() { return (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
 ); }

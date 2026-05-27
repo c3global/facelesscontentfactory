@@ -65,7 +65,16 @@ export function BrandProvider({ children }) {
         return fallback;
       });
     } catch (e) {
-      setError(e.message || 'Failed to load brands');
+      // Most likely cause pre-migration: relation public.brands doesn't exist.
+      // Degrade gracefully — the rest of the app keeps working in single-brand
+      // mode and we surface the actionable message in the Brand Hub.
+      const msg = String(e.message || e);
+      if (/relation .* does not exist|brands.* does not exist/i.test(msg)) {
+        setError('migration-needed');
+      } else {
+        setError(msg);
+      }
+      setBrands([]);
     } finally {
       setLoading(false);
     }
