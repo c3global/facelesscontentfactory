@@ -571,54 +571,72 @@ function PlatformView({ cells, piecesByDay, onPieceClick }) {
 // ============================================================================
 
 function DayCell({ cell, pieces, isHover, tall, onDragStart, onDragOver, onDragLeave, onDrop, onPieceClick }) {
+  const inPlan = cell.day != null;
   return (
     <div
-      onDragOver={cell.day ? (e) => onDragOver(e, cell.day) : undefined}
-      onDragLeave={cell.day ? onDragLeave : undefined}
-      onDrop={cell.day ? (e) => onDrop(e, cell.day) : undefined}
+      onDragOver={inPlan ? (e) => onDragOver(e, cell.day) : undefined}
+      onDragLeave={inPlan ? onDragLeave : undefined}
+      onDrop={inPlan ? (e) => onDrop(e, cell.day) : undefined}
       style={{
         minHeight: tall ? 240 : 124,
         padding: 10,
-        background: cell.day
+        background: inPlan
           ? (isHover ? 'var(--surface-alt)' : 'var(--surface)')
           : 'transparent',
         border: '1px solid',
-        borderColor: isHover ? 'var(--primary)' : (cell.day ? 'var(--border)' : 'transparent'),
+        borderColor: isHover ? 'var(--primary)' : (inPlan ? 'var(--border)' : 'transparent'),
         borderRadius: 'var(--radius-md)',
-        opacity: cell.day ? 1 : 0.35,
+        opacity: inPlan ? 1 : 0.45,
         display: 'flex',
         flexDirection: 'column',
-        gap: 4,
+        gap: 6,
+        minWidth: 0,
         transition: 'background 120ms, border-color 120ms',
       }}
     >
+      {/* Header: date number + plan-day pill.
+          The pill is rendered first in the flex flow but pushed right with
+          margin-left:auto, so it can never collide with the date number even
+          when the cell is narrow. The two never share a baseline. */}
       <div style={{
         display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'baseline',
-        marginBottom: 4,
+        alignItems: 'center',
+        gap: 8,
+        marginBottom: 2,
+        minWidth: 0,
       }}>
         <span style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 18,
+          fontSize: 20,
           fontWeight: 500,
+          lineHeight: 1,
           color: cell.isToday ? 'transparent' : 'var(--text)',
           background: cell.isToday ? 'var(--copper-gradient)' : 'none',
           WebkitBackgroundClip: cell.isToday ? 'text' : 'border-box',
           backgroundClip: cell.isToday ? 'text' : 'border-box',
+          flexShrink: 0,
         }}>
           {cell.dateNum}
         </span>
-        {cell.day && (
+        {inPlan && (
           <span style={{
+            marginLeft: 'auto',
+            display: 'inline-block',
+            padding: '3px 8px',
+            borderRadius: 999,
+            background: 'var(--surface-alt)',
+            border: '1px solid var(--border)',
             fontFamily: 'var(--font-ui)',
-            fontSize: 'var(--text-ec-md)',
+            fontSize: 'var(--text-ec-sm)',
             fontWeight: 700,
             letterSpacing: '0.06em',
             textTransform: 'uppercase',
-            color: 'var(--text-faint)',
+            color: 'var(--text-muted)',
+            lineHeight: 1,
+            whiteSpace: 'nowrap',
+            flexShrink: 0,
           }}>
-            DAY {cell.day}
+            Day {cell.day}
           </span>
         )}
       </div>
