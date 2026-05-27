@@ -22,10 +22,13 @@ export async function handler(event) {
   if (!idea?.title || !idea?.day) return resp(400, 'Missing idea');
 
   const admin = adminClient();
-  const brand = await getBrand(admin, auth.user.id);
+  const [brand, samples] = await Promise.all([
+    getBrand(admin, auth.user.id),
+    getSamples(admin, auth.user.id),
+  ]);
 
   const model = premium ? MODELS.premium : MODELS.content;
-  const prompt = CONTENT_PROMPTS[platform](niche.trim(), idea, brand);
+  const prompt = CONTENT_PROMPTS[platform](niche.trim(), idea, brand, samples);
 
   // Long-form pieces (substack/blog, youtube scripts) need more headroom so the
   // JSON doesn't get truncated mid-string. Short pieces stay capped to keep
@@ -80,6 +83,21 @@ async function getBrand(admin, userId) {
       .maybeSingle();
     return data || null;
   } catch (e) { console.warn('getBrand', e.message); return null; }
+}
+
+// Pull the user's most recent active samples. The prompt layer caps total
+// character usage; we just hand over the candidate list.
+async function getSamples(admin, userId) {
+  try {
+    const { data } = await admin
+      .from('brand_samples')
+      .select('label, content')
+      .eq('user_id', userId)
+      .eq('archived', false)
+      .order('created_at', { ascending: false })
+      .limit(5);
+    return data || [];
+  } catch (e) { console.warn('getSamples', e.message); return []; }
 }
 
 function resp(statusCode, body) { return { statusCode, body }; }

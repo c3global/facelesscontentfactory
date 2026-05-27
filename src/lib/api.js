@@ -93,3 +93,58 @@ export async function updatePlanContent(id, payload) {
   if (error) throw error;
   return data;
 }
+
+// ---------------------------------------------------------------------------
+// Brand samples (content the model learns the user's voice from)
+// ---------------------------------------------------------------------------
+
+export async function listSamples() {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) throw new Error('Not signed in');
+  const { data, error } = await supabase
+    .from('brand_samples')
+    .select('id, label, content, source_type, char_count, created_at')
+    .eq('user_id', session.user.id)
+    .eq('archived', false)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return data || [];
+}
+
+export async function addSample({ label, content, source_type = 'paste' }) {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) throw new Error('Not signed in');
+  const text = (content || '').trim();
+  if (!text) throw new Error('Sample is empty');
+  const { data, error } = await supabase
+    .from('brand_samples')
+    .insert({
+      user_id: session.user.id,
+      label: (label || '').trim() || 'Untitled sample',
+      content: text,
+      source_type,
+      char_count: text.length,
+    })
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function updateSample(id, patch) {
+  const updates = { ...patch, updated_at: new Date().toISOString() };
+  if (typeof updates.content === 'string') updates.char_count = updates.content.trim().length;
+  const { data, error } = await supabase
+    .from('brand_samples')
+    .update(updates)
+    .eq('id', id)
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function deleteSample(id) {
+  const { error } = await supabase.from('brand_samples').delete().eq('id', id);
+  if (error) throw error;
+}
