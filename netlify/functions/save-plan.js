@@ -12,13 +12,25 @@ export async function handler(event) {
   } catch {
     return { statusCode: 400, body: 'Invalid JSON' };
   }
-  const { niche, payload } = body;
+  const { niche, payload, brand_id } = body;
   if (!niche || !payload) return { statusCode: 400, body: 'Missing niche or payload' };
+  if (!brand_id) return { statusCode: 400, body: 'Missing brand_id' };
 
   const admin = adminClient();
+
+  // Defense in depth: verify the brand belongs to the caller before writing.
+  const { data: brand, error: brandErr } = await admin
+    .from('brands')
+    .select('id, user_id')
+    .eq('id', brand_id)
+    .single();
+  if (brandErr || !brand || brand.user_id !== auth.user.id) {
+    return { statusCode: 403, body: 'Brand does not belong to caller' };
+  }
+
   const { data, error } = await admin
     .from('plans')
-    .insert({ user_id: auth.user.id, niche, payload })
+    .insert({ user_id: auth.user.id, brand_id, niche, payload })
     .select('id')
     .single();
 

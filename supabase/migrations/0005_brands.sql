@@ -103,5 +103,32 @@ create index if not exists plans_brand_idx
 create index if not exists brand_samples_brand_idx
   on public.brand_samples (brand_id, archived, created_at desc);
 
-create index if not exists brand_settings_brand_idx
-  on public.brand_settings (brand_id);
+-- ---------------------------------------------------------------------------
+-- Tighten constraints once backfill is complete.
+--
+-- brand_settings switches from user_id PK to brand_id PK so each brand gets
+-- its own voice settings (the whole point of multi-brand). Existing rows
+-- have brand_id populated by the backfill above so this is safe.
+-- ---------------------------------------------------------------------------
+
+alter table public.brand_samples
+  alter column brand_id set not null;
+
+alter table public.plans
+  alter column brand_id set not null;
+
+alter table public.brand_settings
+  alter column brand_id set not null;
+
+do $$
+begin
+  if exists (
+    select 1 from pg_constraint
+    where conname = 'brand_settings_pkey' and conrelid = 'public.brand_settings'::regclass
+  ) then
+    alter table public.brand_settings drop constraint brand_settings_pkey;
+  end if;
+end $$;
+
+alter table public.brand_settings
+  add constraint brand_settings_pkey primary key (brand_id);

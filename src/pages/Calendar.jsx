@@ -2,6 +2,8 @@ import { useMemo, useState, useCallback } from 'react';
 import { useOutletContext, useNavigate } from 'react-router-dom';
 import { PLATFORM_MAP } from '../lib/platforms.js';
 import PageHeader from '../components/PageHeader.jsx';
+import ActiveBrandBanner from '../components/ActiveBrandBanner.jsx';
+import { useBrands } from '../lib/brand-context.jsx';
 
 // Calendar — real-date monthly view of the current plan.
 //
@@ -15,6 +17,7 @@ import PageHeader from '../components/PageHeader.jsx';
 
 export default function Calendar() {
   const navigate = useNavigate();
+  const { activeBrand } = useBrands();
   const {
     niche, content, planId, startDate, setStartDate,
     setPieceDay, persistSchedule,
@@ -126,6 +129,8 @@ export default function Calendar() {
           </div>
         )}
       />
+
+      {activeBrand && <ActiveBrandBanner />}
 
       {error && <div style={{ color: 'var(--danger)', marginTop: 16 }}>{error}</div>}
 

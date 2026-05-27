@@ -7,12 +7,15 @@ import Dashboard from './pages/Dashboard.jsx';
 import Planner from './pages/Planner.jsx';
 import Library from './pages/Library.jsx';
 import Brand from './pages/Brand.jsx';
+import BrandHub from './pages/BrandHub.jsx';
 import Calendar from './pages/Calendar.jsx';
 import { ThemeProvider } from './lib/theme-context.jsx';
+import { BrandProvider } from './lib/brand-context.jsx';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <ThemeProvider>
+    <BrandProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/admin" element={<AdminDashboard />} />
@@ -23,9 +26,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="calendar" element={<Calendar />} />
           <Route path="library" element={<Library />} />
           <Route path="brand" element={<Brand />} />
+          <Route path="brands" element={<BrandHub />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Route>
       </Routes>
     </BrowserRouter>
+    </BrandProvider>
   </ThemeProvider>
 );

@@ -2,9 +2,12 @@ import { useEffect, useState } from 'react';
 import { useOutletContext, useSearchParams } from 'react-router-dom';
 import { listPlans } from '../lib/api.js';
 import PageHeader from '../components/PageHeader.jsx';
+import ActiveBrandBanner from '../components/ActiveBrandBanner.jsx';
+import { useBrands } from '../lib/brand-context.jsx';
 
 export default function Library() {
   const { loadSavedPlan } = useOutletContext();
+  const { activeBrandId, activeBrand } = useBrands();
   const [plans, setPlans] = useState(null);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
@@ -13,8 +16,13 @@ export default function Library() {
   const openId = params.get('open');
 
   useEffect(() => {
-    listPlans().then(setPlans).catch((e) => setError(e.message));
-  }, []);
+    if (!activeBrandId) {
+      setPlans([]);
+      return;
+    }
+    setPlans(null);
+    listPlans(activeBrandId).then(setPlans).catch((e) => setError(e.message));
+  }, [activeBrandId]);
 
   useEffect(() => {
     if (openId) {
@@ -46,6 +54,8 @@ export default function Library() {
         title="Your saved plans."
         subtitle="Every month you've generated, ready to revisit, edit, and re-export."
       />
+
+      {activeBrand && <ActiveBrandBanner />}
 
       <div style={{ marginTop: 24, marginBottom: 20 }}>
         <input

@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import Wordmark from './Wordmark.jsx';
+import BrandSwitcher from './BrandSwitcher.jsx';
 import { useTheme } from '../lib/theme-context.jsx';
 
 const NAV = [
@@ -26,7 +27,9 @@ export default function Sidebar({ email, onSignOut }) {
         <Wordmark size="md" />
       </div>
 
-      <nav className="sidebar__nav" style={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 8 }}>
+      <BrandSwitcher />
+
+      <nav className="sidebar__nav" style={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 4 }}>
         {NAV.map(({ to, label, icon: Icon }) => (
           <NavLink
             key={to}

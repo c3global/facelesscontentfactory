@@ -6,6 +6,7 @@
 // switch brands via the useBrands() hook.
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { supabase } from './supabase.js';
 import {
   listBrands,
   createBrand as apiCreateBrand,
@@ -16,7 +17,8 @@ import {
 const STORAGE_KEY = 'cadence:activeBrandId';
 const BrandContext = createContext(null);
 
-export function BrandProvider({ session, children }) {
+export function BrandProvider({ children }) {
+  const [hasSession, setHasSession] = useState(false);
   const [brands, setBrands] = useState([]);
   const [activeBrandId, _setActiveBrandId] = useState(() => {
     if (typeof window === 'undefined') return null;
@@ -24,6 +26,15 @@ export function BrandProvider({ session, children }) {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Track auth so we can refresh the brand list whenever the user signs in
+  // or out. Hook lives here so the provider is fully self-contained and can
+  // sit above App.jsx in the tree.
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setHasSession(!!data.session));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setHasSession(!!s));
+    return () => sub.subscription.unsubscribe();
+  }, []);
 
   const setActiveBrandId = useCallback((id) => {
     _setActiveBrandId(id);
@@ -33,7 +44,7 @@ export function BrandProvider({ session, children }) {
   }, []);
 
   const refresh = useCallback(async () => {
-    if (!session) {
+    if (!hasSession) {
       setBrands([]);
       setLoading(false);
       return;
@@ -58,7 +69,7 @@ export function BrandProvider({ session, children }) {
     } finally {
       setLoading(false);
     }
-  }, [session]);
+  }, [hasSession]);
 
   useEffect(() => { refresh(); }, [refresh]);
 

@@ -4,7 +4,7 @@ import { supabase } from './lib/supabase.js';
 import { generateIdeas, regenerateIdea, generateContent, savePlan, getPlan, updatePlanContent } from './lib/api.js';
 import SignIn from './components/SignIn.jsx';
 import AppShell from './components/AppShell.jsx';
-import { BrandProvider } from './lib/brand-context.jsx';
+import { useBrands } from './lib/brand-context.jsx';
 
 // App is the authenticated shell. It owns the in-flight plan state so the user
 // can navigate between Dashboard / Planner / Library / Brand without losing
@@ -14,6 +14,7 @@ export default function App() {
   const [session, setSession]   = useState(null);
   const [authReady, setAuthReady] = useState(false);
   const navigate = useNavigate();
+  const { activeBrandId } = useBrands();
 
   // ---- Auth ----
   useEffect(() => {
@@ -141,7 +142,8 @@ export default function App() {
     await Promise.all(workers);
 
     try {
-      const saved = await savePlan(niche.trim(), {
+      if (!activeBrandId) throw new Error('No active brand — pick or create one in the Brand Hub.');
+      const saved = await savePlan(activeBrandId, niche.trim(), {
         niche, platforms: results, ideas, startDate,
         model: premium ? 'opus' : 'sonnet',
       });
@@ -150,7 +152,7 @@ export default function App() {
       console.warn('savePlan failed', e);
     }
     setBusy(false);
-  }, [selectedPlatforms, approved, ideas, niche, startDate]);
+  }, [selectedPlatforms, approved, ideas, niche, startDate, activeBrandId]);
 
   const updatePiece = useCallback((platform, day, patch) => {
     setContent((prev) => {
@@ -224,13 +226,11 @@ export default function App() {
   };
 
   return (
-    <BrandProvider session={session}>
-      <AppShell
-        session={session}
-        onSignOut={() => supabase.auth.signOut()}
-        plannerContext={plannerContext}
-      />
-    </BrandProvider>
+    <AppShell
+      session={session}
+      onSignOut={() => supabase.auth.signOut()}
+      plannerContext={plannerContext}
+    />
   );
 }
 

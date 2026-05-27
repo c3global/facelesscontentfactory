@@ -30,20 +30,22 @@ export function generateContent(niche, platform, idea, premium = false) {
   return post('/.netlify/functions/generate-content', { niche, platform, idea, premium });
 }
 
-export function savePlan(niche, payload) {
-  return post('/.netlify/functions/save-plan', { niche, payload });
+export function savePlan(brandId, niche, payload) {
+  return post('/.netlify/functions/save-plan', { brand_id: brandId, niche, payload });
 }
 
 export function fetchUrlAsText(url) {
   return post('/.netlify/functions/fetch-url', { url });
 }
 
-export async function listPlans() {
-  const { data, error } = await supabase
+export async function listPlans(brandId) {
+  let q = supabase
     .from('plans')
-    .select('id, niche, created_at')
+    .select('id, niche, brand_id, created_at')
     .order('created_at', { ascending: false })
     .limit(30);
+  if (brandId) q = q.eq('brand_id', brandId);
+  const { data, error } = await q;
   if (error) throw error;
   return data;
 }
@@ -54,22 +56,23 @@ export async function getPlan(id) {
   return data;
 }
 
-export async function getBrandSettings() {
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) throw new Error('Not signed in');
+export async function getBrandSettings(brandId) {
+  if (!brandId) return null;
   const { data, error } = await supabase
     .from('brand_settings')
     .select('default_niche, voice_tags, voice_notes, signature_cta, banned_phrases')
-    .eq('user_id', session.user.id)
+    .eq('brand_id', brandId)
     .maybeSingle();
   if (error) throw error;
   return data;
 }
 
-export async function saveBrandSettings(settings) {
+export async function saveBrandSettings(brandId, settings) {
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) throw new Error('Not signed in');
+  if (!brandId) throw new Error('No active brand to save settings into');
   const payload = {
+    brand_id: brandId,
     user_id: session.user.id,
     default_niche: settings.default_niche ?? '',
     voice_tags:    settings.voice_tags ?? [],
@@ -80,7 +83,7 @@ export async function saveBrandSettings(settings) {
   };
   const { data, error } = await supabase
     .from('brand_settings')
-    .upsert(payload, { onConflict: 'user_id' })
+    .upsert(payload, { onConflict: 'brand_id' })
     .select()
     .single();
   if (error) throw error;
@@ -102,28 +105,29 @@ export async function updatePlanContent(id, payload) {
 // Brand samples (content the model learns the user's voice from)
 // ---------------------------------------------------------------------------
 
-export async function listSamples() {
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) throw new Error('Not signed in');
+export async function listSamples(brandId) {
+  if (!brandId) return [];
   const { data, error } = await supabase
     .from('brand_samples')
     .select('id, label, content, source_type, char_count, created_at')
-    .eq('user_id', session.user.id)
+    .eq('brand_id', brandId)
     .eq('archived', false)
     .order('created_at', { ascending: false });
   if (error) throw error;
   return data || [];
 }
 
-export async function addSample({ label, content, source_type = 'paste' }) {
+export async function addSample({ brandId, label, content, source_type = 'paste' }) {
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) throw new Error('Not signed in');
+  if (!brandId) throw new Error('No active brand to attach sample to');
   const text = (content || '').trim();
   if (!text) throw new Error('Sample is empty');
   const { data, error } = await supabase
     .from('brand_samples')
     .insert({
       user_id: session.user.id,
+      brand_id: brandId,
       label: (label || '').trim() || 'Untitled sample',
       content: text,
       source_type,

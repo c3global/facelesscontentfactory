@@ -6,6 +6,10 @@ import {
   fetchUrlAsText,
 } from '../lib/api.js';
 import { parseFile } from '../lib/sample-parsers.js';
+import { useBrands } from '../lib/brand-context.jsx';
+import BeatSignature from '../components/BeatSignature.jsx';
+import ActiveBrandBanner from '../components/ActiveBrandBanner.jsx';
+import { Link } from 'react-router-dom';
 
 const VOICE_TAGS = [
   'authoritative', 'warm', 'witty', 'plainspoken', 'inspirational',
@@ -34,6 +38,8 @@ const WEIGHTS = {
 };
 
 export default function Brand() {
+  const { activeBrand, activeBrandId, loading: brandsLoading } = useBrands();
+
   // ---- Voice settings ----
   const [settings, setSettings] = useState(EMPTY_SETTINGS);
   const [loaded, setLoaded] = useState(false);
@@ -45,14 +51,25 @@ export default function Brand() {
   const [samples, setSamples] = useState([]);
   const [samplesLoaded, setSamplesLoaded] = useState(false);
 
+  // Reload whenever the active brand changes — each brand has its own voice
+  // settings and samples.
   useEffect(() => {
-    getBrandSettings()
+    if (!activeBrandId) {
+      setSettings(EMPTY_SETTINGS);
+      setSamples([]);
+      setLoaded(true);
+      setSamplesLoaded(true);
+      return;
+    }
+    setLoaded(false);
+    setSamplesLoaded(false);
+    getBrandSettings(activeBrandId)
       .then((data) => { setSettings({ ...EMPTY_SETTINGS, ...(data || {}) }); setLoaded(true); })
       .catch(() => setLoaded(true));
-    listSamples()
+    listSamples(activeBrandId)
       .then((data) => { setSamples(data); setSamplesLoaded(true); })
       .catch(() => setSamplesLoaded(true));
-  }, []);
+  }, [activeBrandId]);
 
   function updateSetting(field, value) {
     setSettings((s) => ({ ...s, [field]: value }));
@@ -73,7 +90,7 @@ export default function Brand() {
     setSaving(true);
     setError(null);
     try {
-      await saveBrandSettings(settings);
+      await saveBrandSettings(activeBrandId, settings);
       setSavedFlash(true);
       setTimeout(() => setSavedFlash(false), 2000);
     } catch (e) {
@@ -102,14 +119,17 @@ export default function Brand() {
     <div className="container" style={{ maxWidth: 880 }}>
       <PageHeader
         eyebrow="Brand"
-        title="Your voice, locked in."
+        title={activeBrand ? `${activeBrand.name}` : 'Your voice, locked in.'}
         subtitle="Voice settings + past content together steer every piece Cadence writes. The more you feed it, the more it sounds like you."
         actions={(
-          <button onClick={handleSaveSettings} className="btn btn-primary" disabled={saving || !loaded}>
+          <button onClick={handleSaveSettings} className="btn btn-primary" disabled={saving || !loaded || !activeBrandId}>
             {saving ? 'Saving…' : savedFlash ? 'Saved ✓' : 'Save changes'}
           </button>
         )}
       />
+
+      {activeBrand && <ActiveBrandBanner brand={activeBrand} />}
+      {!brandsLoading && !activeBrandId && <NoBrandPrompt />}
 
       {error && <div style={{ color: 'var(--danger)', marginTop: 16 }}>{error}</div>}
 
@@ -123,7 +143,7 @@ export default function Brand() {
           title="Train Cadence on your real voice"
           subtitle="Paste or upload pieces you've actually published — newsletters, posts, scripts, articles. Cadence learns your sentence rhythm and structure from these, never copies them. 3–5 strong samples usually nail it."
         />
-        <SampleAdder onAdded={(s) => setSamples((cur) => [s, ...cur])} setError={setError} />
+        <SampleAdder brandId={activeBrandId} onAdded={(s) => setSamples((cur) => [s, ...cur])} setError={setError} />
         <SampleList
           samples={samples}
           loaded={samplesLoaded}
@@ -265,7 +285,7 @@ function TrainingMeter({ pct, samplesCount }) {
 // Sample adder (paste + file upload)
 // ---------------------------------------------------------------------------
 
-function SampleAdder({ onAdded, setError }) {
+function SampleAdder({ brandId, onAdded, setError }) {
   const [open, setOpen]       = useState(false);
   const [label, setLabel]     = useState('');
   const [content, setContent] = useState('');
@@ -282,7 +302,7 @@ function SampleAdder({ onAdded, setError }) {
     try {
       const { text, source_type } = await parseFile(file);
       const proposedLabel = label || file.name.replace(/\.[^.]+$/, '');
-      const saved = await addSample({ label: proposedLabel, content: text, source_type });
+      const saved = await addSample({ brandId, label: proposedLabel, content: text, source_type });
       onAdded(saved);
       setLabel(''); setContent('');
       setOpen(false);
@@ -299,7 +319,7 @@ function SampleAdder({ onAdded, setError }) {
     setSubmitting(true);
     setError(null);
     try {
-      const saved = await addSample({ label, content, source_type: 'paste' });
+      const saved = await addSample({ brandId, label, content, source_type: 'paste' });
       onAdded(saved);
       setLabel(''); setContent('');
       setOpen(false);
@@ -318,6 +338,7 @@ function SampleAdder({ onAdded, setError }) {
     try {
       const { text, title } = await fetchUrlAsText(url);
       const saved = await addSample({
+        brandId,
         label: label || title || 'Imported from URL',
         content: text,
         source_type: 'url',
@@ -565,5 +586,22 @@ function Field({ label, hint, children }) {
       {hint && <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8 }}>{hint}</div>}
       {children}
     </label>
+  );
+}
+
+function NoBrandPrompt() {
+  return (
+    <div className="card" style={{
+      marginTop: 18,
+      padding: 24,
+      borderLeft: '3px solid var(--accent)',
+    }}>
+      <div className="eyebrow" style={{ marginBottom: 8 }}>No active brand</div>
+      <p style={{ color: 'var(--text-muted)', marginBottom: 12 }}>
+        Cadence needs a brand to attach your voice settings and samples to.
+        Create one in the Brand Hub to get started.
+      </p>
+      <Link to="/brands" className="btn btn-primary">+ Create a brand</Link>
+    </div>
   );
 }
