@@ -154,7 +154,7 @@ export const planSchema = z.object({
   durationSec: z.number().positive(),
   theme: z
     .object({
-      field: z.enum(['crimson', 'charcoal', 'rosegold']).default('crimson'),
+      field: z.enum(['black', 'crimson', 'charcoal', 'rosegold']).default('black'),
       sans: z.enum(['DM Sans', 'Montserrat']).default('DM Sans'),
     })
     .prefault({}),

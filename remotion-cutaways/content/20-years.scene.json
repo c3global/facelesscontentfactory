@@ -3,7 +3,7 @@
   "video": "raw/20-years.mp4",
   "durationSec": 36.92,
   "theme": {
-    "field": "crimson",
+    "field": "black",
     "sans": "DM Sans"
   },
   "emphasis": [
@@ -110,7 +110,7 @@
     },
     {
       "id": "facilitator",
-      "mood": "dark",
+      "mood": "light",
       "segments": [
         {
           "start": 16.2,
@@ -217,8 +217,8 @@
       ]
     },
     {
-      "id": "cta",
-      "mood": "dark",
+      "id": "statement",
+      "mood": "light",
       "segments": [
         {
           "start": 27.95,
@@ -235,7 +235,13 @@
               }
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "mood": "dark",
+      "segments": [
         {
           "start": 32.7,
           "end": 36.92,

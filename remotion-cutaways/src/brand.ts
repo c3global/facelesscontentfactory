@@ -46,7 +46,8 @@ export const metalGradient = (kind: MetalKind, variant: MetalVariant, angle = 13
     .join(', ')})`;
 };
 
-export type FieldOption = 'crimson' | 'charcoal' | 'rosegold';
+/** `black` is the locked field. The others stay selectable in code but are retired from the video. */
+export type FieldOption = 'black' | 'crimson' | 'charcoal' | 'rosegold';
 export type SansOption = 'DM Sans' | 'Montserrat';
 export type Mood = 'dark' | 'light';
 
@@ -71,7 +72,7 @@ export const paletteFor = (mood: Mood, field: FieldOption): Palette => {
     mood,
     field,
     onBg: mood === 'light' ? brand.charcoal : onRose ? brand.charcoal : brand.white,
-    labelOnBg: mood === 'light' ? brand.crimson : onRose ? brand.charcoal : brand.white,
+    labelOnBg: mood === 'light' ? brand.charcoal : onRose ? brand.charcoal : brand.white,
     metalOnBg: mood === 'light' || onRose ? 'deep' : 'bright',
     onCard: brand.charcoal,
     shadow: mood === 'light' ? 'none' : '0 2px 18px rgba(0,0,0,0.45)',

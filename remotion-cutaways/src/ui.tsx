@@ -61,7 +61,7 @@ export const useCardMotion = (delayFrames = 0, enterFrames = 6, exitFrames = 6) 
   };
 };
 
-/** Small spaced-caps label. On a card it is crimson; on the field it follows the mood. */
+/** Small spaced-caps label. Charcoal on cards; white or charcoal on the field depending on mood. */
 export const Label: React.FC<{
   children: React.ReactNode;
   onCard?: boolean;
@@ -78,7 +78,7 @@ export const Label: React.FC<{
         fontSize: size,
         letterSpacing: '0.22em',
         textTransform: 'uppercase',
-        color: onCard ? brand.crimson : palette.labelOnBg,
+        color: onCard ? brand.charcoal : palette.labelOnBg,
         ...style,
       }}
     >

@@ -32,11 +32,11 @@ export const buildPages = (captions: Caption[], combineMs = 250): TikTokPage[] =
 
 type Spec = {y: number; size: number; pill: boolean};
 
-/** Larger DM Sans than before. B uses a tight glass pill below her window; others are plain text. */
-const specFor = (layout: LayoutKey, rosePill: boolean): Spec => {
-  if (layout === 'A') return {y: CAPTION.A_y, size: 124, pill: false};
+/** DM Sans in a tight glass pill everywhere: dark glass on dark scenes, light glass on white scenes. */
+const specFor = (layout: LayoutKey): Spec => {
+  if (layout === 'A') return {y: CAPTION.A_y, size: 94, pill: true};
   if (layout === 'B') return {y: CAPTION.pill_y, size: 60, pill: true};
-  return {y: CAPTION.bottom_y, size: 82, pill: rosePill};
+  return {y: CAPTION.bottom_y, size: 76, pill: true};
 };
 
 const lastEnd = (p: TikTokPage) => p.tokens[p.tokens.length - 1].toMs;
@@ -45,7 +45,6 @@ export const CaptionLayer: React.FC<{pages: TikTokPage[]; emphasis: string[]; fl
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const sans = useSans();
-  const {field} = useTheme();
   const tMs = (frame / fps) * 1000;
 
   const page = useMemo(
@@ -57,10 +56,8 @@ export const CaptionLayer: React.FC<{pages: TikTokPage[]; emphasis: string[]; fl
   const blend = layoutBlend(flat, frame);
   const mood = blend.cur.scene.mood;
   const dark = mood === 'dark';
-  // On the metallic rose gold field white text is not enough, so captions sit on a dark glass pill.
-  const rosePill = dark && field === 'rosegold';
-  const cur = specFor(blend.layout, rosePill);
-  const prev = blend.prev ? specFor(blend.prev.seg.layout, rosePill) : cur;
+  const cur = specFor(blend.layout);
+  const prev = blend.prev ? specFor(blend.prev.seg.layout) : cur;
   const y = interpolate(blend.p, [0, 1], [prev.y, cur.y]);
   const size = interpolate(blend.p, [0, 1], [prev.size, cur.size]);
   const pill = blend.p > 0.5 ? cur.pill : prev.pill;
@@ -71,14 +68,11 @@ export const CaptionLayer: React.FC<{pages: TikTokPage[]; emphasis: string[]; fl
   const inP = interpolate(frame - startFrame, [0, 3], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
 
   // Pill tone: dark glass on dark scenes (and on the rose gold field), light glass on white scenes.
-  const pillTone = dark || rosePill ? 'dark' : 'light';
-  const textColor = pill ? (pillTone === 'dark' ? brand.white : brand.charcoal) : dark ? (rosePill ? brand.white : brand.white) : brand.charcoal;
-  const metalVariant = pill ? (pillTone === 'dark' ? 'bright' : 'deep') : dark ? 'bright' : 'deep';
-  const shadow = overVideo
-    ? '0 2px 4px rgba(0,0,0,0.65), 0 6px 30px rgba(0,0,0,0.7)'
-    : !pill && dark
-      ? '0 2px 4px rgba(0,0,0,0.5), 0 4px 22px rgba(0,0,0,0.45)'
-      : 'none';
+  // plain white text on dark scenes, plain black on white scenes. Metal is only the emphasized Playfair word.
+  const pillTone = dark ? 'dark' : 'light';
+  const textColor = dark ? brand.white : brand.black;
+  const metalVariant = dark ? 'bright' : 'deep';
+  const shadow = 'none';
 
   const words = page.tokens.map((t) => t.text.trim());
   const pageIndex = pages.indexOf(page);
@@ -109,7 +103,19 @@ export const CaptionLayer: React.FC<{pages: TikTokPage[]; emphasis: string[]; fl
           padding: pill ? `${size * 0.13}px ${size * 0.42}px ${size * 0.17}px` : 0,
         }}
       >
-        {pill && <GlassSurface variant="clear" tone={pillTone} radius={999} fade={inP} refract rim={2.5} rimVariant={pillTone === 'dark' ? 'bright' : 'deep'} seed={80} />}
+        {pill && (
+          <GlassSurface
+            variant="clear"
+            tone={pillTone}
+            radius={999}
+            fade={inP}
+            refract
+            rim={2.5}
+            rimVariant={pillTone === 'dark' ? 'bright' : 'deep'}
+            seed={80}
+            darkAlpha={overVideo ? 0.9 : undefined}
+          />
+        )}
         {words.map((w, i) => {
           const em = isEmphasis(w, emphasis);
           return (

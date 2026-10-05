@@ -30,11 +30,11 @@ export const RefractDefs: React.FC = () => (
 type Variant = 'frosted' | 'clear';
 type Tone = 'light' | 'dark';
 
-const recipe = (variant: Variant, tone: Tone, refract: boolean, onDark: boolean) => {
+const recipe = (variant: Variant, tone: Tone, refract: boolean, onDark: boolean, darkAlpha?: number) => {
   if (variant === 'frosted') {
     // cards with body copy: higher blur and opacity so the text stays legible on any field
     return tone === 'light'
-      ? {filter: 'blur(34px) saturate(1.35) brightness(1.03)', bg: onDark ? 'rgba(255,255,255,0.955)' : 'rgba(255,255,255,0.84)'}
+      ? {filter: 'blur(34px) brightness(1.02)', bg: onDark ? 'rgba(255,255,255,0.985)' : 'rgba(255,255,255,0.92)'}
       : {filter: 'blur(30px) saturate(1.4)', bg: 'rgba(0,0,0,0.52)'};
   }
   const lens = refract ? 'url(#c3-refract) ' : '';
@@ -45,7 +45,7 @@ const recipe = (variant: Variant, tone: Tone, refract: boolean, onDark: boolean)
       }
     : {
         filter: `${lens}blur(12px) saturate(1.5)`,
-        bg: 'linear-gradient(135deg, rgba(0,0,0,0.42), rgba(0,0,0,0.26))',
+        bg: darkAlpha !== undefined ? `rgba(0,0,0,${darkAlpha})` : 'linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.34))',
       };
 };
 
@@ -59,9 +59,11 @@ export const GlassSurface: React.FC<{
   rimVariant?: 'deep' | 'bright';
   seed?: number;
   elevated?: boolean;
-}> = ({variant = 'frosted', tone = 'light', radius, fade = 1, refract = false, rim = 2.5, rimVariant, seed = 1, elevated = true}) => {
+  /** dark clear glass only: solid black tint alpha (use over video so nothing chromatic shows through) */
+  darkAlpha?: number;
+}> = ({variant = 'frosted', tone = 'light', radius, fade = 1, refract = false, rim = 2.5, rimVariant, seed = 1, elevated = true, darkAlpha}) => {
   const {mood} = useTheme();
-  const r = recipe(variant, tone, refract, mood === 'dark');
+  const r = recipe(variant, tone, refract, mood === 'dark', darkAlpha);
   const rv = rimVariant ?? (mood === 'dark' ? 'bright' : 'deep');
   const lightTone = tone === 'light';
   return (
@@ -70,6 +72,7 @@ export const GlassSurface: React.FC<{
         position: 'absolute',
         inset: 0,
         borderRadius: radius,
+        overflow: 'hidden',
         opacity: fade,
         background: r.bg,
         backdropFilter: r.filter,

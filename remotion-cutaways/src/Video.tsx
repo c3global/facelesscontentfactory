@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import {AbsoluteFill, OffthreadVideo, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {Backdrop, BackdropKind} from './backdrops';
-import {brand} from './brand';
+import {FieldOption, brand} from './brand';
 import {CaptionLayer, buildPages} from './Captions';
 import {loadBrandFonts} from './fonts';
 import {GlassSurface, RefractDefs} from './glass';
@@ -49,7 +49,7 @@ const renderGraphic = (g: Graphic): React.ReactNode => {
   }
 };
 
-const kindFor = (scene: Scene, field: 'crimson' | 'charcoal' | 'rosegold'): BackdropKind => (scene.mood === 'light' ? 'light' : field);
+const kindFor = (scene: Scene, field: FieldOption): BackdropKind => (scene.mood === 'light' ? 'light' : field);
 
 export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   loadBrandFonts();
@@ -149,7 +149,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
       {scrim > 0.01 && (
         <AbsoluteFill
           style={{
-            background: 'linear-gradient(180deg, rgba(0,0,0,0) 38%, rgba(0,0,0,0.42) 56%, rgba(0,0,0,0.68) 74%, rgba(0,0,0,0.74) 100%)',
+            background: 'linear-gradient(180deg, rgba(0,0,0,0) 34%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.86) 62%, rgba(0,0,0,0.92) 100%)',
             opacity: scrim,
           }}
         />

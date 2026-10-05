@@ -60,8 +60,8 @@ export const areaFor = (layout: LayoutKey, avatar?: AvatarMode): Rect =>
   layout === 'C' && avatar === 'hidden' ? GRAPHIC_AREA.Chidden : GRAPHIC_AREA[layout];
 
 export const CAPTION = {
-  /** centered at 540, max 780 wide so the right edge stays <= 930 */
-  maxWidth: 780,
+  /** centered at 540, max 820 wide so the right edge stays <= 950 */
+  maxWidth: 820,
   A_y: 1180,
   pill_y: 1440,
   bottom_y: 1430,

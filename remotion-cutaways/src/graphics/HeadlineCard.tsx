@@ -39,7 +39,7 @@ export const StruckLine: React.FC<{
                 left: -4,
                 top: '54%',
                 height: Math.max(4, size * 0.06),
-                width: `calc(${p * 100}% + 8px)`,
+                width: `calc(${p} * (100% + ${i < words.length - 1 ? '0.28em' : '0px'}) + 8px)`,
                 background: brand.crimson,
                 borderRadius: 4,
               }}
@@ -91,7 +91,7 @@ export const HeadlineCard: React.FC<Props> = ({label, line, emphasis, strikeAt})
         <Label>{label}</Label>
         <div style={{height: 22}} />
         {strikeAt !== undefined ? (
-          <StruckLine text={line} size={84} progress={strike} dim={dim} color={palette.onCard} />
+          <StruckLine text={line} size={68} progress={strike} dim={dim} color={palette.onCard} />
         ) : (
           <EmphasisLine text={line} emphasis={emphasis} size={84} color={palette.onCard} />
         )}

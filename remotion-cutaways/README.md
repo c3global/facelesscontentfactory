@@ -98,8 +98,9 @@ inside its layout area. `avatar` (`circle` or `hidden`) applies to layout C. Moo
   (shadow, mid, bright highlight, mid, shadow) in a `deep` variant for white cards and a `bright` variant for crimson and
   dark fields. Every use (text, rims, rings, lines, icons, badges) goes through `metal.tsx`, which adds a slow specular
   band that sweeps every 3.5 seconds, staggered per element with `seed`.
-- **Fields** (`theme.field`): `crimson`, `charcoal` (alternates #000000 and #3A3F42 across scenes) and `rosegold`
-  (metallic gradient with a moving light sweep, caustic-style highlights and grain). Each has an animated backdrop in
+- **Fields** (`theme.field`): `black` is the locked field (vertical charcoal #3A3F42 to true black, soft vignette, low
+  overlay-blend grain so blacks stay pure, faint rose gold and gold caustics and light blooms). `crimson`, `charcoal` and
+  `rosegold` are retired from the video but still selectable in code. Each has an animated backdrop in
   `src/backdrops.tsx`: slow light blooms, fine grain, gentle parallax. White scenes get studio-light blooms and a very
   faint charcoal line texture.
 - **Liquid glass** (`src/glass.tsx`): backdrop blur with a saturation lift, thin bright specular edge, inner top
@@ -110,6 +111,15 @@ inside its layout area. `avatar` (`circle` or `hidden`) applies to layout C. Moo
 - **Her**: she can be hidden completely (`"avatar": "hidden"`) while her audio keeps playing, or shown in a 280 px
   corner circle with a 16 px metal ring.
 - `REMOTION_LOCAL_FONTS=1` and `REMOTION_BROWSER_EXECUTABLE` are passed through to the renderer by the scripts.
+
+## Color rules (locked)
+
+- Metallic rose gold and gold appear only on black or white backgrounds, never over a chromatic one.
+- Crimson is not a field. It is one small accent per scene at most (a strike-through rule, the end-card pill) and any
+  text on or beside it is white or black. Labels are charcoal.
+- Body-copy cards are frosted glass at 98.5% white on black scenes, so they read as pure white.
+- Captions: DM Sans, white (black on white scenes), in a glass pill. Metal is only the emphasized Playfair word.
+- Scenes alternate dark and white. The end card is always on the black field.
 
 ## Brand
 

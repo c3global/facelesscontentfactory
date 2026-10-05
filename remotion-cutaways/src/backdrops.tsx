@@ -8,7 +8,7 @@ import {brand} from './brand';
  * field adds a slow light sweep and caustic-style highlights; the light field adds studio-light blooms and a
  * very faint charcoal line texture while still reading as white.
  */
-export type BackdropKind = 'crimson' | 'charcoal' | 'rosegold' | 'light';
+export type BackdropKind = 'black' | 'crimson' | 'charcoal' | 'rosegold' | 'light';
 const FPS = 30;
 
 const svgUri = (svg: string) => `url("data:image/svg+xml;utf8,${encodeURIComponent(svg)}")`;
@@ -19,10 +19,15 @@ const grain = (rgb: number) =>
     `<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 ${rgb} 0 0 0 0 ${rgb} 0 0 0 0 ${rgb} 1.8 0 0 0 -0.7'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>`,
   );
 
-/** Thin bright veins, caustic-style highlights. */
-const caustics = svgUri(
-  `<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='1600'><filter id='c' x='0' y='0' width='100%' height='100%'><feTurbulence type='turbulence' baseFrequency='0.0075 0.011' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 -26 0 0 0 3.5'/><feGaussianBlur stdDeviation='1.3'/></filter><rect width='100%' height='100%' filter='url(#c)'/></svg>`,
-);
+/** Thin bright veins, caustic-style highlights. `rgb` is the vein color as 0..1 floats. */
+const causticsTint = (r: number, g: number, b: number, seed: number, freq: string) =>
+  svgUri(
+    `<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='1600'><filter id='c' x='0' y='0' width='100%' height='100%'><feTurbulence type='turbulence' baseFrequency='${freq}' numOctaves='2' seed='${seed}' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 ${r} 0 0 0 0 ${g} 0 0 0 0 ${b} -40 0 0 0 4.3'/><feGaussianBlur stdDeviation='1.6'/></filter><rect width='100%' height='100%' filter='url(#c)'/></svg>`,
+  );
+const caustics = causticsTint(1, 1, 1, 11, '0.0075 0.011');
+// the black field: light catching metal, taken from the rose gold and gold highlight stops (#E9B3B4, #F8E8B4)
+const causticsRose = causticsTint(0.914, 0.702, 0.706, 11, '0.0075 0.011');
+const causticsGold = causticsTint(0.973, 0.91, 0.706, 29, '0.0062 0.0095');
 
 type BloomSpec = {
   rgb: string;
@@ -61,8 +66,16 @@ const GOLD = '213,170,74';
 const WHITE = '255,255,255';
 const DEEP_CRIMSON = '111,13,15';
 const DEEP_ROSE = '122,60,71';
+const ROSE_HI = '233,179,180'; // rose gold highlight stop
+const GOLD_HI = '248,232,180'; // gold highlight stop
 
 const BLOOMS: Record<BackdropKind, BloomSpec[]> = {
+  // soft metallic light, low opacity, slow. Warm glints on black, never a pink or gray wash.
+  black: [
+    {rgb: ROSE_HI, alpha: 0.085, size: 980, x: 260, y: 520, ax: 170, ay: 230, sx: 0.27, sy: 0.2, ph: 0.8},
+    {rgb: GOLD_HI, alpha: 0.065, size: 880, x: 860, y: 1120, ax: 150, ay: 210, sx: 0.23, sy: 0.3, ph: 2.6},
+    {rgb: ROSE_HI, alpha: 0.055, size: 720, x: 880, y: 330, ax: 120, ay: 160, sx: 0.33, sy: 0.25, ph: 4.4},
+  ],
   crimson: [
     {rgb: WHITE, alpha: 0.13, size: 1150, x: 260, y: 520, ax: 170, ay: 230, sx: 0.3, sy: 0.22, ph: 0},
     {rgb: ROSE, alpha: 0.28, size: 950, x: 860, y: 1120, ax: 150, ay: 210, sx: 0.26, sy: 0.34, ph: 2},
@@ -88,6 +101,9 @@ const BLOOMS: Record<BackdropKind, BloomSpec[]> = {
 const baseFor = (kind: BackdropKind, alt: number, t: number) => {
   const drift = Math.sin(t * 0.16) * 6;
   switch (kind) {
+    case 'black':
+      // vertical: charcoal at the very top, true black by the middle, so most of the frame is rich black
+      return `linear-gradient(180deg, ${brand.charcoal} 0%, #1A1C1D 11%, #070808 26%, ${brand.black} 46%, ${brand.black} 100%)`;
     case 'crimson':
       return `linear-gradient(${165 + drift}deg, ${brand.crimson} 0%, ${brand.crimsonMid} 52%, ${brand.crimsonDeep} 100%)`;
     case 'charcoal':
@@ -124,6 +140,56 @@ export const Backdrop: React.FC<{kind: BackdropKind; alt?: number; frame: number
           <Bloom key={i} spec={b} t={t} blend={blend} />
         ))}
       </div>
+
+      {kind === 'black' && (
+        <>
+          {/* caustic-style veins, rose gold highlight, drifting slowly (parallax B) */}
+          <div
+            style={{
+              position: 'absolute',
+              left: -200,
+              top: -300,
+              width: 1500,
+              height: 2400,
+              backgroundImage: causticsRose,
+              backgroundSize: '1000px 1600px',
+              transform: `translate(${-px * 3 + Math.sin(t * 0.09) * 60}px, ${-py * 3 + t * 8}px) scale(1.2)`,
+              mixBlendMode: 'screen',
+              opacity: 0.05,
+            }}
+          />
+          {/* second layer in the gold highlight, different scale and direction */}
+          <div
+            style={{
+              position: 'absolute',
+              left: -250,
+              top: -400,
+              width: 1500,
+              height: 2400,
+              backgroundImage: causticsGold,
+              backgroundSize: '1000px 1600px',
+              transform: `translate(${px * 2.5 + Math.cos(t * 0.07) * 80}px, ${py * 2 - t * 6}px) scale(1.35)`,
+              mixBlendMode: 'screen',
+              opacity: 0.035,
+            }}
+          />
+          {/* a slow, faint sweep of metallic light */}
+          <div
+            style={{
+              position: 'absolute',
+              left: -900 + ((t % 11) / 11) * 2800,
+              top: -200,
+              width: 700,
+              height: 2400,
+              transform: 'rotate(14deg)',
+              background: `linear-gradient(90deg, rgba(${ROSE_HI},0) 0%, rgba(${ROSE_HI},0.05) 50%, rgba(${ROSE_HI},0) 100%)`,
+              mixBlendMode: 'screen',
+            }}
+          />
+          {/* soft vignette: edges fall off to pure black */}
+          <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 46%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.82) 100%)'}} />
+        </>
+      )}
 
       {kind === 'crimson' && (
         <div
@@ -199,7 +265,7 @@ export const Backdrop: React.FC<{kind: BackdropKind; alt?: number; frame: number
         </>
       )}
 
-      {kind !== 'rosegold' && dark && (
+      {kind !== 'rosegold' && kind !== 'black' && dark && (
         <div style={{position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.30) 100%)'}} />
       )}
 
@@ -211,7 +277,9 @@ export const Backdrop: React.FC<{kind: BackdropKind; alt?: number; frame: number
           backgroundImage: grain(dark ? 1 : 0.2),
           backgroundSize: '260px 260px',
           backgroundPosition: `${(Math.floor(frame / 2) * 47) % 260}px ${(Math.floor(frame / 2) * 91) % 260}px`,
-          opacity: dark ? (kind === 'rosegold' ? 0.12 : 0.09) : 0.1,
+          // overlay blend: pure black stays pure black, so grain never lifts the blacks into gray haze
+          mixBlendMode: kind === 'black' ? 'overlay' : 'normal',
+          opacity: kind === 'black' ? 0.07 : dark ? (kind === 'rosegold' ? 0.12 : 0.09) : 0.1,
         }}
       />
     </AbsoluteFill>
