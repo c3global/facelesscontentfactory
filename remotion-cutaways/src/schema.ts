@@ -98,7 +98,11 @@ export const graphicSchema = z.discriminatedUnion('type', [
   z.object({
     ...base,
     type: z.literal('floating-chips'),
-    props: z.object({chips: z.array(z.object({text: z.string(), at: sec})).min(1).max(5)}),
+    props: z.object({
+      chips: z.array(z.object({text: z.string(), at: sec})).min(1).max(5),
+      /** stack: a centered column of large chips (hidden-avatar scenes); float: small chips drifting around her */
+      mode: z.enum(['float', 'stack']).default('float'),
+    }),
   }),
   z.object({
     ...base,
@@ -148,7 +152,7 @@ export const graphicSchema = z.discriminatedUnion('type', [
     props: z.object({
       label: z.string().default('SOURCE'),
       authors: z.string(),
-      year: z.string(),
+      year: z.string().optional(),
       title: z.string(),
       source: z.string(),
     }),
@@ -178,6 +182,8 @@ export const segmentSchema = z.object({
   layout: z.enum(['A', 'B', 'C', 'D', 'E', 'S']),
   /** where kinetic captions sit in this segment: bottom band, top band, or alternating by sentence (top first) */
   captionPos: z.enum(['bottom', 'top', 'alternate']).default('bottom'),
+  /** per-segment framing of her inside the window: where the face sits (focusY, percent) and extra zoom */
+  focus: z.object({y: z.number(), zoom: z.number()}).optional(),
   /** layouts C and E: show her as a small window, or hide her (audio keeps playing) */
   avatar: z.enum(['circle', 'hidden']).optional(),
   graphics: z.array(graphicSchema).default([]),

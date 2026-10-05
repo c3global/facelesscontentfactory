@@ -18,7 +18,7 @@ export const ScreenshotCard: React.FC<Props> = ({src, pan, mode}) => {
     return (
       <div style={{position: 'absolute', inset: 0, opacity, overflow: 'hidden', backgroundColor: '#000'}}>
         <Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover', objectPosition: `50% ${p * pan * 100}%`}} />
-        <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0) 32%, rgba(0,0,0,0.84) 56%, rgba(0,0,0,0.93) 100%)'}} />
+        <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0) 14%, rgba(0,0,0,0.8) 36%, rgba(0,0,0,0.92) 100%)'}} />
       </div>
     );
   }

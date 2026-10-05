@@ -54,7 +54,7 @@ export const QuietFeed: React.FC<{label: string; post: string; status: string; s
 };
 
 /** A research citation: the source she is drawing on, set like a reference line. */
-export const CitationCard: React.FC<{label: string; authors: string; year: string; title: string; source: string}> = ({label, authors, year, title, source}) => {
+export const CitationCard: React.FC<{label: string; authors: string; year?: string; title: string; source: string}> = ({label, authors, year, title, source}) => {
   const {opacity, frame, translateY} = useCardMotion(0, 8, 8);
   const sans = useSans();
   const {mood} = useTheme();
@@ -67,9 +67,11 @@ export const CitationCard: React.FC<{label: string; authors: string; year: strin
         <div style={{padding: '30px 48px'}}>
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
             <div style={{fontFamily: sans, fontWeight: 700, fontSize: 26, letterSpacing: '0.24em', color: ink, opacity: 0.7}}>{label}</div>
-            <MetalText kind="crimson" variant={dark ? 'bright' : 'deep'} seed={4} style={{fontFamily: sans, fontWeight: 800, fontSize: 40}}>
-              {year}
-            </MetalText>
+            {year && (
+              <MetalText kind="crimson" variant={dark ? 'bright' : 'deep'} seed={4} style={{fontFamily: sans, fontWeight: 800, fontSize: 40}}>
+                {year}
+              </MetalText>
+            )}
           </div>
           <div style={{fontFamily: serif, fontStyle: 'italic', fontWeight: 800, fontSize: 66, lineHeight: 1.05, color: ink, marginTop: 16, opacity: line(4), transform: `translateY(${(1 - line(4)) * 14}px)`}}>{authors}</div>
           <div style={{fontFamily: sans, fontWeight: 700, fontSize: 36, lineHeight: 1.2, color: ink, marginTop: 18, opacity: line(12)}}>{title}</div>

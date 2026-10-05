@@ -44,7 +44,8 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const DRIFT = 0.05;
 
 export const avatarStateAt = (fs: FlatSegment, frame: number): AvatarState => {
-  const s = stateFor(fs.seg.layout, fs.seg.avatar);
+  const base = stateFor(fs.seg.layout, fs.seg.avatar);
+  const s = fs.seg.focus ? {...base, focusY: fs.seg.focus.y, zoom: fs.seg.focus.zoom} : base;
   if (fs.seg.layout !== 'A') return s;
   const f = Math.min(Math.max(frame, fs.startF), fs.endF);
   const prog = (f - fs.startF) / Math.max(1, fs.endF - fs.startF);
