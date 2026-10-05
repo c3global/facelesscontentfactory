@@ -1,0 +1,53 @@
+{
+  "slug": "four-places",
+  "video": "raw/four-places.mp4",
+  "durationSec": 56.43,
+  "theme": {"field": "black", "sans": "DM Sans"},
+  "emphasis": ["quiet", "four", "disinterest", "speaks", "up"],
+  "captionStyle": "editorial",
+  "captionBand": {"top": 1056, "bottom": 1382},
+  "hero": ["work", "people", "structure", "culture", "substack", "bio"],
+  "boxed": ["substack"],
+  "scenes": [
+    {
+      "id": "hook",
+      "mood": "dark",
+      "segments": [{"start": 0, "end": 15.0, "layout": "A", "graphics": []}]
+    },
+    {
+      "id": "four-places",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 15.0,
+          "end": 54.0,
+          "layout": "E",
+          "avatar": "circle",
+          "graphics": [
+            {
+              "type": "congruence-map",
+              "at": 15.0,
+              "until": 54.0,
+              "props": {
+                "nodes": [
+                  {"label": "Work", "at": 15.4},
+                  {"label": "People", "at": 19.3},
+                  {"label": "Structure", "at": 27.5},
+                  {"label": "Culture", "at": 32.9}
+                ],
+                "connectAt": 38.0,
+                "pulseAt": 40.2
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "close",
+      "mood": "dark",
+      "segments": [{"start": 54.0, "end": 56.43, "layout": "A", "graphics": []}]
+    }
+  ],
+  "endCard": {"variant": "link-pill", "startAt": 54.2, "label": "LINK IN MY BIO", "url": "bio.c3global.co"}
+}

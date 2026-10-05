@@ -10,7 +10,8 @@
     "render": "tsx scripts/render-batch.mjs",
     "tests": "tsx scripts/render-tests.mjs",
     "finish": "tsx scripts/render-finish.mjs",
-    "captions:test": "tsx scripts/render-captions.mjs"
+    "captions:test": "tsx scripts/render-captions.mjs",
+    "stills": "tsx scripts/render-stills.mjs"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.0",

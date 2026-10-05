@@ -23,41 +23,85 @@ type KWord = {text: string; startMs: number; endMs: number};
 export type Lockup = {words: KWord[]; h0: number; h1: number; startMs: number; endMs: number};
 
 const STOP = new Set(
-  'a an the of to in on at for and or but i ive is are was that this it as my me we you your how where who get than with by from then there'.split(' '),
+  'a an the of to in on at for and or but i ive is are was that this it as my me we you your how where who get than with by from then there actually being exactly any one those like something what does when check wrote use comes problem'.split(' '),
 );
 
-const chunk = <T,>(arr: T[], n: number): T[][] => {
-  const out: T[][] = [];
-  for (let i = 0; i < arr.length; i += n) out.push(arr.slice(i, i + n));
+/** Words a chunk must not end on: they lean forward into the next chunk. */
+const CONNECTORS = new Set(
+  'a an the of to in on at for and or but nor so who whom whose that which when where while with by from as my your our their his her its this these those is are was were be been do does did if than because before after about into onto over under any one'.split(' '),
+);
+
+/** Splits support words into lines of at most `n`; a line never ends on a connector unless it is the last line. */
+const chunk = (arr: KWord[], n: number): KWord[][] => {
+  const out: KWord[][] = [];
+  let cur: KWord[] = [];
+  for (const w of arr) {
+    cur.push(w);
+    if (cur.length >= n) {
+      const tail: KWord[] = [];
+      while (cur.length > 1 && CONNECTORS.has(normalizeWord(cur[cur.length - 1].text))) tail.unshift(cur.pop() as KWord);
+      out.push(cur);
+      cur = tail;
+    }
+  }
+  if (cur.length) out.push(cur);
   return out;
+};
+
+const endsClause = (w: KWord) => /[,:;]$/.test(w.text);
+const endsSentence = (w: KWord) => /[.?!]$/.test(w.text);
+const isConnector = (w: KWord) => CONNECTORS.has(normalizeWord(w.text));
+
+/** Best split of one sentence into phrases of 3 to 6 words: break at commas and pauses, never end on a connector. */
+const splitSentence = (ws: KWord[]): KWord[][] => {
+  const n = ws.length;
+  const best: number[] = new Array(n + 1).fill(Infinity);
+  const from: number[] = new Array(n + 1).fill(0);
+  best[0] = 0;
+  for (let e = 1; e <= n; e++) {
+    for (let st = Math.max(0, e - 7); st < e; st++) {
+      if (best[st] === Infinity) continue;
+      const len = e - st;
+      const last = ws[e - 1];
+      let cost = Math.pow(len - 4, 2) * 0.35;
+      if (len <= 2 && !endsClause(last) && !endsSentence(last)) cost += 3.5;
+      else if (len <= 2) cost += 0.8;
+      if (len > 6) cost += 6;
+      if (e < n) {
+        const gap = ws[e].startMs - last.endMs;
+        if (isConnector(last)) cost += 6;
+        const natural = endsClause(last) ? 7 : gap >= 450 ? 4 : gap >= 250 ? 2 : gap >= 150 ? 1 : 0;
+        cost += 3 - natural;
+      }
+      if (best[st] + cost < best[e]) {
+        best[e] = best[st] + cost;
+        from[e] = st;
+      }
+    }
+  }
+  const out: KWord[][] = [];
+  for (let e = n; e > 0; e = from[e]) out.unshift(ws.slice(from[e], e));
+  return out;
+};
+
+const chunkSentence = (words: KWord[]): KWord[][] => {
+  const sentences: KWord[][] = [];
+  let cur: KWord[] = [];
+  for (const w of words) {
+    cur.push(w);
+    if (endsSentence(w)) {
+      sentences.push(cur);
+      cur = [];
+    }
+  }
+  if (cur.length) sentences.push(cur);
+  return sentences.flatMap(splitSentence);
 };
 
 /** Groups the word-level captions into lockups at pauses, sentence ends and a six-word cap. */
 export const buildLockups = (captions: Caption[], plan: Pick<ScenePlan, 'hero' | 'emphasis'>): Lockup[] => {
   const words: KWord[] = captions.map((c) => ({text: c.text.trim(), startMs: c.startMs, endMs: c.endMs}));
-  const groups: KWord[][] = [];
-  let cur: KWord[] = [];
-  for (const w of words) {
-    const prev = cur[cur.length - 1];
-    if (
-      prev &&
-      (w.startMs - prev.endMs >= 220 || cur.length >= 6 || /[.?!]$/.test(prev.text) || (/[,:]$/.test(prev.text) && cur.length >= 3))
-    ) {
-      groups.push(cur);
-      cur = [];
-    }
-    cur.push(w);
-  }
-  if (cur.length) groups.push(cur);
-  // never leave a lone trailing word on its own (for example "voice,"): fold it back into the previous lockup
-  for (let k = groups.length - 1; k > 0; k--) {
-    const g = groups[k];
-    const prev = groups[k - 1];
-    if (g.length === 1 && prev.length <= 6 && g[0].startMs - prev[prev.length - 1].endMs < 400) {
-      prev.push(g[0]);
-      groups.splice(k, 1);
-    }
-  }
+  const groups = chunkSentence(words);
 
   const heroSet = new Set([...plan.hero, ...plan.emphasis].map(normalizeWord));
   const emphSet = new Set(plan.emphasis.map(normalizeWord));
@@ -150,7 +194,8 @@ const LockupView: React.FC<{
   endShow: number;
   emphasis: string[];
   boxedSet: Set<string>;
-}> = ({l, style, mood, sans, endShow, emphasis, boxedSet}) => {
+  band: {top: number; bottom: number};
+}> = ({l, style, mood, sans, endShow, emphasis, boxedSet, band}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const t = (frame / fps) * 1000;
@@ -167,9 +212,15 @@ const LockupView: React.FC<{
   const heroText = heroWords.map((w) => w.text.replace(/[,:;]+$/, '')).join(' ');
   const heroBoxed = !heroIsMetal && heroWords.some((w) => boxedSet.has(normalizeWord(w.text)));
 
+  const preLines = chunk(pre, 4).length;
+  const postLines = chunk(post, 4).length;
+  const smallPx = style === 'editorial' ? 56 * 1.15 : 58 * 1.1;
+  // keep the whole lockup inside the caption band: the hero gets whatever height the support lines leave
+  const heroRoom = band.bottom - band.top - (preLines + postLines) * (smallPx + 14) - 30;
+  const squeeze = Math.min(1, heroRoom / 200);
   const small: React.CSSProperties =
     style === 'editorial'
-      ? {fontFamily: sans, fontWeight: 700, fontSize: 40, letterSpacing: '0.2em', textTransform: 'uppercase', lineHeight: 1.25, color, textShadow: shadow}
+      ? {fontFamily: sans, fontWeight: 700, fontSize: 56, letterSpacing: '-0.01em', lineHeight: 1.15, color, textShadow: shadow}
       : {fontFamily: sans, fontWeight: 700, fontSize: 58, letterSpacing: '-0.02em', lineHeight: 1.1, color, textShadow: shadow};
 
   let heroStyle: React.CSSProperties;
@@ -178,10 +229,11 @@ const LockupView: React.FC<{
       fontFamily: serifFamily,
       fontStyle: 'italic',
       fontWeight: 800,
-      fontSize: fitSize(heroText.length, 0.5, 200),
+      fontSize: fitSize(heroText.length, 0.5, 200 * squeeze),
       letterSpacing: '-0.015em',
       lineHeight: 1,
       paddingBottom: '0.16em',
+      paddingTop: '0.08em',
       filter: 'drop-shadow(0 4px 14px rgba(0,0,0,0.55))',
     };
   } else if (style === 'editorial') {
@@ -189,7 +241,7 @@ const LockupView: React.FC<{
       fontFamily: serifFamily,
       fontWeight: 900,
       textTransform: 'uppercase',
-      fontSize: fitSize(heroText.length, 0.74, 176),
+      fontSize: fitSize(heroText.length, 0.74, 176 * squeeze),
       letterSpacing: '-0.015em',
       lineHeight: 0.98,
       color,
@@ -199,7 +251,7 @@ const LockupView: React.FC<{
     heroStyle = {
       fontFamily: heavyFamily,
       textTransform: 'uppercase',
-      fontSize: fitSize(heroText.length, 0.46, 236),
+      fontSize: fitSize(heroText.length, 0.46, 236 * squeeze),
       letterSpacing: '0.005em',
       lineHeight: 0.98,
       color,
@@ -208,7 +260,7 @@ const LockupView: React.FC<{
   }
 
   const renderLine = (ws: KWord[], key: string) => (
-    <div key={key} style={{display: 'flex', flexWrap: 'nowrap', justifyContent: 'center', columnGap: style === 'editorial' ? 30 : 18, whiteSpace: 'nowrap'}}>
+    <div key={key} style={{display: 'flex', flexWrap: 'nowrap', justifyContent: 'center', columnGap: style === 'editorial' ? 18 : 18, whiteSpace: 'nowrap'}}>
       {ws.map((w, i) => (
         <Word key={i} w={w} kind="small" boxed={boxedSet.has(normalizeWord(w.text))} mood={mood} style={small}>
           {w.text.replace(/[,:;]+$/, '')}
@@ -223,7 +275,7 @@ const LockupView: React.FC<{
         position: 'absolute',
         left: LOCKUP.left,
         width: LOCKUP.width,
-        bottom: H - LOCKUP.bottom,
+        bottom: H - band.bottom,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -233,7 +285,7 @@ const LockupView: React.FC<{
         transform: `translateY(${-exit * 12}px) scale(${1 - exit * 0.03})`,
       }}
     >
-      {chunk(pre, 3).map((ws, i) => renderLine(ws, `pre${i}`))}
+      {chunk(pre, 4).map((ws, i) => renderLine(ws, `pre${i}`))}
       <div style={{display: 'flex', justifyContent: 'center', columnGap: style === 'editorial' ? 28 : 22, whiteSpace: 'nowrap'}}>
         {heroWords.map((w, i) => (
           <Word key={i} w={w} kind="hero" boxed={heroBoxed} mood={mood} style={heroStyle}>
@@ -247,7 +299,7 @@ const LockupView: React.FC<{
           </Word>
         ))}
       </div>
-      {chunk(post, 3).map((ws, i) => renderLine(ws, `post${i}`))}
+      {chunk(post, 4).map((ws, i) => renderLine(ws, `post${i}`))}
     </div>
   );
 };
@@ -279,6 +331,7 @@ export const KineticLayer: React.FC<{captions: Caption[]; plan: ScenePlan; mood:
       endShow={endShow}
       emphasis={plan.emphasis}
       boxedSet={boxedSet}
+      band={plan.captionBand}
     />
   );
 };

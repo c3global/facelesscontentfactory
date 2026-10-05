@@ -12,7 +12,7 @@ export const SAFE = {
   left: 60,
 };
 
-export type LayoutKey = 'A' | 'B' | 'C' | 'D';
+export type LayoutKey = 'A' | 'B' | 'C' | 'D' | 'E';
 export type AvatarMode = 'circle' | 'hidden';
 
 /** Where she lives for each layout. Everything is animated between these states. */
@@ -37,6 +37,8 @@ export const AVATAR: Record<LayoutKey | 'Chidden', AvatarState> = {
   C: {x: 70, y: 260, w: 300, h: 360, r: 64, zoom: 1, focusY: 0, opacity: 1, frame: 1},
   // C hidden: she is gone, audio keeps running
   Chidden: {x: 70, y: 260, w: 300, h: 360, r: 64, zoom: 1, focusY: 0, opacity: 0, frame: 1},
+  // E: centered portrait window at the top, room for a wide graphic underneath (plain-avatar preset)
+  E: {x: 370, y: 250, w: 340, h: 400, r: 64, zoom: 1, focusY: 0, opacity: 1, frame: 1},
   // D: small portrait window, top right, under the 12% safe line
   D: {x: 760, y: 250, w: 260, h: 440, r: 48, zoom: 1, focusY: 0, opacity: 1, frame: 1},
 };
@@ -54,6 +56,7 @@ export const GRAPHIC_AREA: Record<LayoutKey | 'Chidden', Rect> = {
   C: {x: 60, y: 650, w: 960, h: 480},
   Chidden: {x: 60, y: 250, w: 960, h: 880},
   D: {x: 60, y: 720, w: 960, h: 410},
+  E: {x: 60, y: 680, w: 960, h: 370},
 };
 
 export const areaFor = (layout: LayoutKey, avatar?: AvatarMode): Rect =>

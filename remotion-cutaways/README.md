@@ -129,3 +129,13 @@ No cream, ivory, off-white or eggplant anywhere. Captions: DM Sans bold; emphasi
 Display italic with the rose gold finish and a one-time sheen sweep.
 
 Motion timings were measured from the references: see `docs/MOTION_NOTES.md`.
+
+## Plain-avatar preset (four-places)
+
+For a talking head that stays full frame: Editorial kinetic captions in a 55 to 72 percent band (`captionBand` 1056 to 1382),
+sentence-case support words at 56 px, no chunk ending on a connector word (auto-chunker in `src/Kinetic.tsx`), highlight boxes white or black only,
+no hook tag. Layout `E` is a centered portrait window for scenes that need a wide graphic under it.
+
+Workflow: `npm run transcribe -- <slug> <video>` (needs huggingface.co and *.hf.co allowed), tidy tokens into `content/<slug>.words.tsv`,
+`node scripts/snap-words.mjs <slug>` to snap word timings to the real audio, `node scripts/words-to-captions.mjs <slug>`,
+then `npm run stills -- <slug> <seconds...>` for review stills. New graphics: `congruence-map`, `screenshot-card`.

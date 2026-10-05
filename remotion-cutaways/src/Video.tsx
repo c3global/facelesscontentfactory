@@ -7,6 +7,8 @@ import {KineticLayer} from './Kinetic';
 import {loadBrandFonts} from './fonts';
 import {GlassSurface, RefractDefs} from './glass';
 import {ChapterCard} from './graphics/ChapterCard';
+import {CongruenceMap} from './graphics/CongruenceMap';
+import {ScreenshotCard} from './graphics/ScreenshotCard';
 import {ChatUI} from './graphics/ChatUI';
 import {EndCard} from './graphics/EndCard';
 import {FloatingChips} from './graphics/FloatingChips';
@@ -23,7 +25,7 @@ import type {Graphic, Scene, VideoProps} from './schema';
 import {FlatSegment, avatarStateBlend, flatten, layoutBlend} from './timeline';
 import {GraphicTimeProvider, ThemeProvider} from './ui';
 
-const FULL_FRAME: Graphic['type'][] = ['tag', 'floating-chips', 'chapter-card'];
+const FULL_FRAME: Graphic['type'][] = ['tag', 'floating-chips', 'chapter-card', 'congruence-map', 'screenshot-card'];
 
 const renderGraphic = (g: Graphic): React.ReactNode => {
   switch (g.type) {
@@ -45,6 +47,10 @@ const renderGraphic = (g: Graphic): React.ReactNode => {
       return <FloatingChips {...g.props} />;
     case 'chapter-card':
       return <ChapterCard {...g.props} />;
+    case 'congruence-map':
+      return <CongruenceMap {...g.props} />;
+    case 'screenshot-card':
+      return <ScreenshotCard {...g.props} />;
     case 'statement-card':
       return <StatementCard {...g.props} />;
   }
@@ -59,6 +65,11 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   const flat = useMemo(() => flatten(plan, fps), [plan, fps]);
   const pages = useMemo(() => buildPages(captions, plan.captionPageMs), [captions, plan.captionPageMs]);
   const {field, sans} = plan.theme;
+  // the end card says the closing line itself, so captions stop where it begins
+  const kineticCaptions = useMemo(
+    () => (plan.endCard ? captions.filter((c) => c.startMs < plan.endCard!.startAt * 1000 - 40) : captions),
+    [captions, plan.endCard],
+  );
 
   const blend = layoutBlend(flat, frame);
   const av = avatarStateBlend(flat, frame);
@@ -217,7 +228,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
         {plan.captionStyle === 'pill' ? (
           <CaptionLayer pages={pages} emphasis={plan.emphasis} flat={flat as FlatSegment[]} />
         ) : (
-          <KineticLayer captions={captions} plan={plan} mood={curMood} />
+          <KineticLayer captions={kineticCaptions} plan={plan} mood={curMood} />
         )}
       </ThemeProvider>
     </AbsoluteFill>

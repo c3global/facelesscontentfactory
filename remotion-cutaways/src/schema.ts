@@ -112,6 +112,28 @@ export const graphicSchema = z.discriminatedUnion('type', [
   }),
   z.object({
     ...base,
+    type: z.literal('congruence-map'),
+    props: z.object({
+      /** four components in reading order: top, right, bottom, left. `at` is when each is introduced. */
+      nodes: z.array(z.object({label: z.string(), at: sec})).length(4),
+      /** the remaining links between the four are drawn */
+      connectAt: sec,
+      /** every link carries a pulse and a small crimson dot marks the shared center */
+      pulseAt: sec,
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('screenshot-card'),
+    props: z.object({
+      /** image in public/, for example shots/substack.png */
+      src: z.string(),
+      /** slow pan down a tall screenshot (0 = none, 1 = the full overflow) */
+      pan: z.number().min(0).max(1).default(0),
+    }),
+  }),
+  z.object({
+    ...base,
     type: z.literal('statement-card'),
     props: z.object({text: z.string(), emphasis}),
   }),
@@ -120,7 +142,7 @@ export const graphicSchema = z.discriminatedUnion('type', [
 export const segmentSchema = z.object({
   start: sec,
   end: sec,
-  layout: z.enum(['A', 'B', 'C', 'D']),
+  layout: z.enum(['A', 'B', 'C', 'D', 'E']),
   /** layout C only: show her as a small circle, or hide her */
   avatar: z.enum(['circle', 'hidden']).optional(),
   graphics: z.array(graphicSchema).default([]),
@@ -172,6 +194,8 @@ export const planSchema = z.object({
   /** words that get a highlight box behind them */
   boxed: z.array(z.string()).default([]),
   /** createTikTokStyleCaptions combineTokensWithinMilliseconds (pill style). Low = 1 to 3 words per page. */
+  /** vertical band for kinetic captions, in px. Default keeps them in the lower third; the plain-avatar preset uses 1056 to 1382 (55 to 72 percent). */
+  captionBand: z.object({top: z.number(), bottom: z.number()}).prefault({top: 1160, bottom: 1490}),
   captionPageMs: z.number().int().min(100).max(1500).default(500),
   scenes: z.array(sceneSchema).min(1),
   endCard: endCardSchema.optional(),
