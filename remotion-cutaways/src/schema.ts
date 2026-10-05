@@ -124,6 +124,15 @@ export const graphicSchema = z.discriminatedUnion('type', [
   }),
   z.object({
     ...base,
+    type: z.literal('notes-card'),
+    props: z.object({
+      label: z.string().default('Notes'),
+      title: z.string(),
+      items: z.array(z.object({text: z.string(), at: sec, /** the check mark draws this many seconds after the line appears */ checkAfter: z.number().min(0).optional()})).min(1).max(5),
+    }),
+  }),
+  z.object({
+    ...base,
     type: z.literal('quiet-feed'),
     props: z.object({
       label: z.string().default('COMMUNITY FEED'),
@@ -166,7 +175,7 @@ export const graphicSchema = z.discriminatedUnion('type', [
 export const segmentSchema = z.object({
   start: sec,
   end: sec,
-  layout: z.enum(['A', 'B', 'C', 'D', 'E']),
+  layout: z.enum(['A', 'B', 'C', 'D', 'E', 'S']),
   /** where kinetic captions sit in this segment: bottom band, top band, or alternating by sentence (top first) */
   captionPos: z.enum(['bottom', 'top', 'alternate']).default('bottom'),
   /** layouts C and E: show her as a small window, or hide her (audio keeps playing) */
@@ -223,6 +232,8 @@ export const planSchema = z.object({
   /** vertical band for kinetic captions, in px. Default keeps them in the lower third; the plain-avatar preset uses 1056 to 1382 (55 to 72 percent). */
   captionBand: z.object({top: z.number(), bottom: z.number()}).prefault({top: 1160, bottom: 1490}),
   /** the band used when a segment moves captions to the top */
+  /** film finish over the whole frame: grain (0 to 1) and light leaks (0 to 1, warm brand-tint leaks that drift and burst on cuts) */
+  finish: z.object({grain: z.number().min(0).max(1).default(0), lightLeaks: z.number().min(0).max(1).default(0)}).prefault({}),
   captionBandTop: z.object({top: z.number(), bottom: z.number()}).prefault({top: 250, bottom: 560}),
   captionPageMs: z.number().int().min(100).max(1500).default(500),
   scenes: z.array(sceneSchema).min(1),

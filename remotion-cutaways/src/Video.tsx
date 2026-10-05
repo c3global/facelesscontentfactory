@@ -7,6 +7,8 @@ import {KineticLayer} from './Kinetic';
 import {loadBrandFonts} from './fonts';
 import {GlassSurface, RefractDefs} from './glass';
 import {ChapterCard} from './graphics/ChapterCard';
+import {FilmFinish} from './Finish';
+import {NotesCard} from './graphics/NotesCard';
 import {CongruenceMap} from './graphics/CongruenceMap';
 import {CitationCard, QuietFeed} from './graphics/Cutaways';
 import {ScreenshotCard} from './graphics/ScreenshotCard';
@@ -50,6 +52,8 @@ const renderGraphic = (g: Graphic): React.ReactNode => {
       return <ChapterCard {...g.props} />;
     case 'congruence-map':
       return <CongruenceMap {...g.props} />;
+    case 'notes-card':
+      return <NotesCard {...g.props} />;
     case 'quiet-feed':
       return <QuietFeed {...g.props} />;
     case 'citation-card':
@@ -237,6 +241,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
           <KineticLayer captions={kineticCaptions} plan={plan} mood={curMood} />
         )}
       </ThemeProvider>
+      {(plan.finish.grain > 0 || plan.finish.lightLeaks > 0) && <FilmFinish plan={plan} />}
     </AbsoluteFill>
   );
 };

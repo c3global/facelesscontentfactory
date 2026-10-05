@@ -143,3 +143,11 @@ then `npm run stills -- <slug> <seconds...>` for review stills. New graphics: `c
 Templates (theme.field): `black` (plain black field), `marble-black`, `marble-white`, `marble-red`. Preview any plan in another template with
 `npm run stills -- <slug> <seconds...> --field=marble-white`. Segments can hide her (`"avatar": "hidden"` on layout C or E) and move captions
 with `"captionPos": "top" | "alternate"`. Liquid-glass pills use clear glass with metallic crimson (`MetalKind 'crimson'`, built on #C91B19) accents.
+
+## Templates (named)
+
+- **Black Glass**: black field, full-frame her plus picture-in-picture (layout E) and hidden-avatar scenes, holographic glass pills, source and feed cards.
+- **Fun Cuts**: alternating black and white scenes with full-screen cutaways (notifications, inbox, notes, hub diagram), new editorial captions.
+
+Optional pieces in either: split screen (layout `S`, cutaway on top and her in the lower half), `notes-card`, `notification-stack`, `citation-card`, `screenshot-card`.
+Film finish per plan: `"finish": {"grain": 0.6, "lightLeaks": 0.7}`. Always render with `RENDER_CONCURRENCY=1` and scan the result for flash frames.
