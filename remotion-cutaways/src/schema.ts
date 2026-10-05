@@ -115,11 +115,33 @@ export const graphicSchema = z.discriminatedUnion('type', [
     type: z.literal('congruence-map'),
     props: z.object({
       /** four components in reading order: top, right, bottom, left. `at` is when each is introduced. */
-      nodes: z.array(z.object({label: z.string(), at: sec})).length(4),
+      nodes: z.array(z.object({label: z.string(), at: sec, /** when the label replaces the bare numeral (defaults to `at`) */ labelAt: sec.optional()})).length(4),
       /** the remaining links between the four are drawn */
       connectAt: sec,
       /** every link carries a pulse and a small crimson dot marks the shared center */
       pulseAt: sec,
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('quiet-feed'),
+    props: z.object({
+      label: z.string().default('COMMUNITY FEED'),
+      post: z.string(),
+      /** shown under the post once it has had time to sit unanswered */
+      status: z.string(),
+      statusAt: sec,
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('citation-card'),
+    props: z.object({
+      label: z.string().default('SOURCE'),
+      authors: z.string(),
+      year: z.string(),
+      title: z.string(),
+      source: z.string(),
     }),
   }),
   z.object({

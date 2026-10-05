@@ -8,6 +8,7 @@ import {loadBrandFonts} from './fonts';
 import {GlassSurface, RefractDefs} from './glass';
 import {ChapterCard} from './graphics/ChapterCard';
 import {CongruenceMap} from './graphics/CongruenceMap';
+import {CitationCard, QuietFeed} from './graphics/Cutaways';
 import {ScreenshotCard} from './graphics/ScreenshotCard';
 import {ChatUI} from './graphics/ChatUI';
 import {EndCard} from './graphics/EndCard';
@@ -25,7 +26,7 @@ import type {Graphic, Scene, VideoProps} from './schema';
 import {FlatSegment, avatarStateBlend, flatten, layoutBlend} from './timeline';
 import {GraphicTimeProvider, ThemeProvider} from './ui';
 
-const FULL_FRAME: Graphic['type'][] = ['tag', 'floating-chips', 'chapter-card', 'congruence-map', 'screenshot-card'];
+const FULL_FRAME: Graphic['type'][] = ['tag', 'floating-chips', 'chapter-card', 'congruence-map', 'screenshot-card', 'quiet-feed', 'citation-card'];
 
 const renderGraphic = (g: Graphic): React.ReactNode => {
   switch (g.type) {
@@ -49,6 +50,10 @@ const renderGraphic = (g: Graphic): React.ReactNode => {
       return <ChapterCard {...g.props} />;
     case 'congruence-map':
       return <CongruenceMap {...g.props} />;
+    case 'quiet-feed':
+      return <QuietFeed {...g.props} />;
+    case 'citation-card':
+      return <CitationCard {...g.props} />;
     case 'screenshot-card':
       return <ScreenshotCard {...g.props} />;
     case 'statement-card':

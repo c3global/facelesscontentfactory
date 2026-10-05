@@ -6,7 +6,7 @@ import {GlassSurface} from '../glass';
 import {clamp, easeOut, useBgMetal, useCardMotion, useRel, useSans, useTheme} from '../ui';
 
 type Props = {
-  nodes: Array<{label: string; at: number}>;
+  nodes: Array<{label: string; at: number; labelAt?: number}>;
   connectAt: number;
   pulseAt: number;
 };
@@ -42,7 +42,7 @@ const EDGES: Array<[number, number, number]> = [
  * gold, white and a pale crimson tint, like light moving across a hologram. Nothing outside the palette.
  */
 const HOLO = ['#E9B3B4', '#F8E8B4', '#FFFFFF', '#F4A6A3', '#D48A8C', '#F8E8B4', '#E9B3B4'];
-const Holo: React.FC<{i: number; frame: number; active: boolean; fade: number; dark: boolean}> = ({i, frame, active, fade, dark}) => {
+export const Holo: React.FC<{i: number; frame: number; active: boolean; fade: number; dark: boolean; radius?: number}> = ({i, frame, active, fade, dark, radius = 999}) => {
   const angle = (frame * 2.4 + i * 70) % 360;
   const slide = ((frame * 1.3 + i * 25) % 150) - 25;
   const stops = HOLO.map((c, k) => `${c} ${Math.round((k / (HOLO.length - 1)) * 100)}%`).join(', ');
@@ -53,7 +53,7 @@ const Holo: React.FC<{i: number; frame: number; active: boolean; fade: number; d
         style={{
           position: 'absolute',
           inset: 0,
-          borderRadius: 999,
+          borderRadius: radius,
           overflow: 'hidden',
           opacity: fade * (dark ? 0.9 : 0.55),
           mixBlendMode: dark ? 'screen' : 'multiply',
@@ -66,7 +66,7 @@ const Holo: React.FC<{i: number; frame: number; active: boolean; fade: number; d
         style={{
           position: 'absolute',
           inset: 0,
-          borderRadius: 999,
+          borderRadius: radius,
           padding: active ? 4.5 : 3,
           opacity: fade,
           background: `conic-gradient(from ${angle}deg, ${stops})`,
@@ -90,7 +90,7 @@ export const CongruenceMap: React.FC<Props> = ({nodes, connectAt, pulseAt}) => {
   const connected = frame >= rel(connectAt);
   let active = -1;
   nodes.forEach((n, i) => {
-    if (frame >= rel(n.at)) active = i;
+    if (frame >= rel(n.labelAt ?? n.at)) active = i;
   });
   const pulseF = frame - rel(pulseAt);
 
@@ -110,7 +110,7 @@ export const CongruenceMap: React.FC<Props> = ({nodes, connectAt, pulseAt}) => {
         </defs>
         <g mask="url(#cm-mask)">
         {EDGES.map(([a, b, ev], i) => {
-          const startF = ev > 0 ? rel(nodes[ev].at) : rel(connectAt) + (i - 3) * 4;
+          const startF = ev > 0 ? rel(nodes[ev].labelAt ?? nodes[ev].at) : rel(connectAt) + (i - 3) * 4;
           const draw = interpolate(frame - startF, [0, 14], [0, 1], {...clamp, easing: easeOut});
           if (draw <= 0) return null;
           const [x1, y1] = PTS[a];
@@ -196,6 +196,7 @@ export const CongruenceMap: React.FC<Props> = ({nodes, connectAt, pulseAt}) => {
               <MetalText kind="crimson" variant={dark ? 'bright' : 'deep'} seed={80 + i} style={{fontFamily: sans, fontWeight: 800, fontSize: 44}}>
                 {i + 1}
               </MetalText>
+              {frame >= rel(n.labelAt ?? n.at) && (
               <span
                 style={{
                   fontFamily: sans,
@@ -208,6 +209,7 @@ export const CongruenceMap: React.FC<Props> = ({nodes, connectAt, pulseAt}) => {
               >
                 {n.label}
               </span>
+              )}
             </div>
           </div>
         );

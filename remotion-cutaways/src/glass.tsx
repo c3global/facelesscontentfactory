@@ -37,7 +37,9 @@ const recipe = (variant: Variant, tone: Tone, refract: boolean, onDark: boolean,
       ? {filter: 'blur(34px) brightness(1.02)', bg: onDark ? 'rgba(255,255,255,0.985)' : 'rgba(255,255,255,0.92)'}
       : {filter: 'blur(30px) saturate(1.4)', bg: 'rgba(0,0,0,0.52)'};
   }
-  const lens = refract ? 'url(#c3-refract) ' : '';
+  // the SVG refraction filter flashes white tiles and clips text when frames render in parallel, so it stays off
+  const lens = '';
+  void refract;
   return tone === 'light'
     ? {
         filter: `${lens}blur(9px) saturate(1.9) brightness(1.05)`,
@@ -75,8 +77,9 @@ export const GlassSurface: React.FC<{
         overflow: 'hidden',
         opacity: fade,
         background: r.bg,
-        backdropFilter: r.filter,
-        WebkitBackdropFilter: r.filter,
+        // clear glass skips backdrop-filter: in parallel video renders Chromium intermittently paints it as a white tile.
+        // The tint, edge light and foil rim carry the glass look on the dark fields.
+        ...(variant === 'frosted' ? {backdropFilter: r.filter, WebkitBackdropFilter: r.filter} : {}),
         boxShadow: [
           `inset 0 1.5px 0 rgba(255,255,255,${lightTone ? 0.95 : 0.55})`, // inner highlight, top edge
           `inset 0 -${variant === 'clear' ? 18 : 12}px ${variant === 'clear' ? 30 : 22}px rgba(${lightTone ? '58,63,66' : '0,0,0'},${lightTone ? (variant === 'clear' ? 0.2 : 0.1) : 0.28})`, // soft inner shadow, bottom edge

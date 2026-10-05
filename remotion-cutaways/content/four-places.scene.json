@@ -36,7 +36,44 @@
       "segments": [
         {
           "start": 0,
-          "end": 15.0,
+          "end": 3.0,
+          "layout": "A",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "quiet-feed",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 3.0,
+          "end": 6.0,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "quiet-feed",
+              "at": 3.0,
+              "until": 6.0,
+              "props": {
+                "label": "COMMUNITY FEED",
+                "post": "Welcome! Say hello below.",
+                "status": "No replies yet",
+                "statusAt": 4.6
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hold",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 6.0,
+          "end": 9.7,
           "layout": "A",
           "graphics": []
         }
@@ -47,7 +84,7 @@
       "mood": "dark",
       "segments": [
         {
-          "start": 15.0,
+          "start": 9.7,
           "end": 27.0,
           "layout": "E",
           "avatar": "hidden",
@@ -55,25 +92,29 @@
           "graphics": [
             {
               "type": "congruence-map",
-              "at": 15.0,
+              "at": 9.7,
               "until": 42.0,
               "props": {
                 "nodes": [
                   {
                     "label": "Work",
-                    "at": 15.4
+                    "at": 10.2,
+                    "labelAt": 15.4
                   },
                   {
                     "label": "People",
-                    "at": 19.3
+                    "at": 10.8,
+                    "labelAt": 19.3
                   },
                   {
                     "label": "Structure",
-                    "at": 27.5
+                    "at": 11.4,
+                    "labelAt": 27.5
                   },
                   {
                     "label": "Culture",
-                    "at": 32.9
+                    "at": 11.95,
+                    "labelAt": 32.9
                   }
                 ],
                 "connectAt": 38.0,
@@ -97,6 +138,44 @@
       "segments": [
         {
           "start": 42.0,
+          "end": 45.0,
+          "layout": "A",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "citation",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 45.0,
+          "end": 48.0,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "citation-card",
+              "at": 45.0,
+              "until": 48.0,
+              "props": {
+                "label": "SOURCE",
+                "authors": "Nadler and Tushman",
+                "year": "1980",
+                "title": "A Model for Diagnosing Organizational Behavior",
+                "source": "Organizational Dynamics"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "use",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 48.0,
           "end": 50.0,
           "layout": "A",
           "graphics": []
