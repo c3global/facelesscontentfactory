@@ -130,6 +130,8 @@ export const graphicSchema = z.discriminatedUnion('type', [
       src: z.string(),
       /** slow pan down a tall screenshot (0 = none, 1 = the full overflow) */
       pan: z.number().min(0).max(1).default(0),
+      /** card: glass frame beside or under her window. full: the page fills the whole frame like a screen recording */
+      mode: z.enum(['card', 'full']).default('card'),
     }),
   }),
   z.object({

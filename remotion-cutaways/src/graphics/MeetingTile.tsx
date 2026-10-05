@@ -36,7 +36,7 @@ export const MeetingTile: React.FC<Props> = ({title, status, participants, muted
     <div style={{zoom, width: 960 / zoom, transform: `translateY(${translateY}px) scale(${scale})`}}>
       <Card fade={opacity} seed={14} contentStyle={{padding: '36px 40px 34px'}}>
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24}}>
-          <div style={{fontFamily: serif, fontWeight: 700, fontSize: 50, color: palette.onCard}}>{title}</div>
+          <div style={{fontFamily: serif, fontStyle: 'italic', fontWeight: 700, fontSize: 50, color: palette.onCard}}>{title}</div>
           <MetalBox
             variant="deep"
             seed={15}

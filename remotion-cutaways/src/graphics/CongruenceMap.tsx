@@ -13,19 +13,19 @@ type Props = {
 
 /**
  * Four components that depend on each other, shown as a connected diamond with her hidden.
- * Coordinates are absolute in the 1080 x 1920 frame, with her hidden: x 140..940, y 595..1035. Captions use the bands above (250..560) and below (1056..1382).
+ * Coordinates are absolute in the 1080 x 1920 frame, sits under her picture-in-picture window (x 390..690, y 250..600) or alone when she is hidden: x 130..950, y 660..1000. Captions use the bands above (250..560) and below (1056..1382).
  * Nodes arrive as she names them, the active one lifts, the remaining links close the diamond and cross it,
  * then a pulse travels every link and a single small crimson dot marks the shared center.
  */
-const NODE_W = 340;
-const NODE_H = 100;
+const NODE_W = 320;
+const NODE_H = 92;
 const CX = 540;
-const CY = 815;
+const CY = 830;
 const PTS: Array<[number, number]> = [
-  [CX, 645],
-  [770, CY],
-  [CX, 985],
-  [310, CY],
+  [CX, 705],
+  [790, CY],
+  [CX, 955],
+  [290, CY],
 ];
 // [from, to, which event draws it]: 0..2 follow the nodes, 3 is drawn at connectAt
 const EDGES: Array<[number, number, number]> = [
@@ -98,10 +98,17 @@ export const CongruenceMap: React.FC<Props> = ({nodes, connectAt, pulseAt}) => {
     <div style={{position: 'absolute', inset: 0, opacity}}>
       <svg width={1080} height={1920} style={{position: 'absolute', left: 0, top: 0, overflow: 'visible'}}>
         <defs>
+          <mask id="cm-mask" maskUnits="userSpaceOnUse" x={0} y={0} width={1080} height={1920}>
+            <rect x={0} y={0} width={1080} height={1920} fill="white" />
+            {PTS.map(([x, y], k) => (
+              <rect key={k} x={x - NODE_W / 2 - 1} y={y - NODE_H / 2 - 1} width={NODE_W + 2} height={NODE_H + 2} rx={NODE_H / 2 + 1} fill="black" />
+            ))}
+          </mask>
           {EDGES.map(([a, b], i) => (
             <MetalGradient key={i} id={`cm-line-${i}`} x1={PTS[a][0]} y1={PTS[a][1]} x2={PTS[b][0]} y2={PTS[b][1]} variant={bg} seed={12 + i * 5} />
           ))}
         </defs>
+        <g mask="url(#cm-mask)">
         {EDGES.map(([a, b, ev], i) => {
           const startF = ev > 0 ? rel(nodes[ev].at) : rel(connectAt) + (i - 3) * 4;
           const draw = interpolate(frame - startF, [0, 14], [0, 1], {...clamp, easing: easeOut});
@@ -128,6 +135,7 @@ export const CongruenceMap: React.FC<Props> = ({nodes, connectAt, pulseAt}) => {
             </g>
           );
         })}
+        </g>
         {pulseF >= 0 && (
           <g>
             <circle cx={675} cy={455} r={11} fill={brand.crimson} />

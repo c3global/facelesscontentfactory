@@ -27,7 +27,7 @@ export const ChatUI: React.FC<Props> = ({title, items, badgeLabel, zoom}) => {
     <div style={{zoom, width: 960 / zoom, transform: `translateY(${translateY}px) scale(${scale})`}}>
       <Card fade={opacity} seed={9} contentStyle={{padding: '28px 44px 22px'}}>
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-          <div style={{fontFamily: serif, fontWeight: 700, fontSize: 48, color: palette.onCard}}>{title}</div>
+          <div style={{fontFamily: serif, fontStyle: 'italic', fontWeight: 700, fontSize: 48, color: palette.onCard}}>{title}</div>
           <MetalBox
             variant="deep"
             seed={11}

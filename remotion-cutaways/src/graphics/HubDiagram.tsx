@@ -151,7 +151,7 @@ export const HubDiagram: React.FC<Props> = ({center, centerAt, nodes, drawAt, ch
           style={{height: '100%'}}
           contentStyle={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 44px', textAlign: 'center'}}
         >
-          <div style={{fontFamily: serif, fontWeight: 700, fontSize: 70, lineHeight: 1.08, color: palette.onCard}}>{center}</div>
+          <div style={{fontFamily: serif, fontStyle: 'italic', fontWeight: 700, fontSize: 70, lineHeight: 1.08, color: palette.onCard}}>{center}</div>
         </Card>
       </div>
     </div>

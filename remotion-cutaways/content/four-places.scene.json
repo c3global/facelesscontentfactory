@@ -48,7 +48,7 @@
       "segments": [
         {
           "start": 15.0,
-          "end": 42.0,
+          "end": 27.0,
           "layout": "E",
           "avatar": "hidden",
           "captionPos": "alternate",
@@ -81,6 +81,13 @@
               }
             }
           ]
+        },
+        {
+          "start": 27.0,
+          "end": 42.0,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": []
         }
       ]
     },
@@ -109,11 +116,12 @@
           "graphics": [
             {
               "type": "screenshot-card",
-              "at": 50.2,
+              "at": 50.0,
               "until": 54.0,
               "props": {
                 "src": "shots/substack-four-places.png",
-                "pan": 0.3
+                "pan": 0.45,
+                "mode": "full"
               }
             }
           ]

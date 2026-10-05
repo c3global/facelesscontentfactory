@@ -25,7 +25,7 @@ export const ChapterCard: React.FC<Props> = ({numeral, title, flowLabel, flow}) 
         <MetalText
           variant={metal}
           seed={24}
-          style={{display: 'block', fontFamily: serif, fontWeight: 700, fontSize: 250, lineHeight: 1, filter: 'drop-shadow(0 6px 18px rgba(0,0,0,0.25))'}}
+          style={{display: 'block', fontFamily: serif, fontStyle: 'italic', fontWeight: 700, fontSize: 250, lineHeight: 1, filter: 'drop-shadow(0 6px 18px rgba(0,0,0,0.25))'}}
         >
           {numeral}
         </MetalText>
@@ -38,7 +38,7 @@ export const ChapterCard: React.FC<Props> = ({numeral, title, flowLabel, flow}) 
           width: 640,
           opacity: titleP,
           translate: `0px ${(1 - titleP) * 18}px`,
-          fontFamily: serif,
+          fontFamily: serif, fontStyle: 'italic',
           fontWeight: 600,
           fontSize: 64,
           lineHeight: 1.1,

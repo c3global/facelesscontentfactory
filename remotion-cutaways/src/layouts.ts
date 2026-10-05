@@ -38,7 +38,7 @@ export const AVATAR: Record<LayoutKey | 'Chidden', AvatarState> = {
   // C hidden: she is gone, audio keeps running
   Chidden: {x: 70, y: 260, w: 300, h: 360, r: 64, zoom: 1, focusY: 0, opacity: 0, frame: 1},
   // E: centered portrait window at the top, room for a wide graphic underneath (plain-avatar preset)
-  E: {x: 370, y: 250, w: 340, h: 400, r: 64, zoom: 1, focusY: 0, opacity: 1, frame: 1},
+  E: {x: 390, y: 250, w: 300, h: 350, r: 60, zoom: 1, focusY: 0, opacity: 1, frame: 1},
   // D: small portrait window, top right, under the 12% safe line
   D: {x: 760, y: 250, w: 260, h: 440, r: 48, zoom: 1, focusY: 0, opacity: 1, frame: 1},
 };

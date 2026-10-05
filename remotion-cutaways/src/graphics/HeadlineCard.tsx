@@ -19,7 +19,7 @@ export const StruckLine: React.FC<{
   return (
     <div
       style={{
-        fontFamily: serif,
+        fontFamily: serif, fontStyle: 'italic',
         fontWeight: 600,
         fontSize: size,
         lineHeight: 1.12,
@@ -61,7 +61,7 @@ export const EmphasisLine: React.FC<{
 }> = ({text, emphasis, size, color, weight = 700, seed = 3}) => {
   const words = text.split(' ');
   return (
-    <div style={{fontFamily: serif, fontWeight: weight, fontSize: size, lineHeight: 1.12, color}}>
+    <div style={{fontFamily: serif, fontStyle: 'italic', fontWeight: weight, fontSize: size, lineHeight: 1.12, color}}>
       {words.map((w, i) =>
         isEmphasis(w, emphasis) ? (
           <MetalText key={i} variant="deep" seed={seed + i} style={{display: 'inline-block', marginRight: '0.26em', fontStyle: 'italic', fontSize: size * 1.12}}>

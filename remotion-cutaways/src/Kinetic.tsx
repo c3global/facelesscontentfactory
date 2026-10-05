@@ -247,11 +247,12 @@ const LockupView: React.FC<{
   } else if (style === 'editorial') {
     heroStyle = {
       fontFamily: serifFamily,
-      fontWeight: 900,
-      textTransform: 'uppercase',
-      fontSize: fitSize(heroText.length, 0.74, 176 * squeeze),
+      fontStyle: 'italic',
+      fontWeight: 800,
+      fontSize: fitSize(heroText.length, 0.5, 200 * squeeze),
       letterSpacing: '-0.015em',
-      lineHeight: 0.98,
+      lineHeight: 1,
+      paddingBottom: '0.14em',
       color,
       textShadow: shadow,
     };

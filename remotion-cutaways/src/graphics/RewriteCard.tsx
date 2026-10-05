@@ -55,7 +55,7 @@ export const RewriteCard: React.FC<Props> = ({label, oldLine, newLine, emphasis,
         <div style={{height: 30}} />
         <div style={{display: 'flex', alignItems: 'flex-start', gap: 20}}>
           <div style={{flex: 1, height: areaH, overflow: 'hidden'}}>
-            <div ref={textRef} style={{fontFamily: serif, fontWeight: 700, fontSize: NEW_SIZE, lineHeight: 1.12, color: palette.onCard}}>
+            <div ref={textRef} style={{fontFamily: serif, fontStyle: 'italic', fontWeight: 700, fontSize: NEW_SIZE, lineHeight: 1.12, color: palette.onCard}}>
               {words.map((w, i) => {
                 const start = wf + (i / words.length) * total;
                 const p = interpolate(frame, [start, start + 8], [0, 1], {...clamp, easing: easeOut});
