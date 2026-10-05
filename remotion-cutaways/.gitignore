@@ -1,3 +1,7 @@
 node_modules
 out
-public/raw-avatar.mp4
+public/raw/
+whisper.cpp/
+.agents/
+.claude/
+skills-lock.json

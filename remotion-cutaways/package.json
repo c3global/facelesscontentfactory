@@ -4,19 +4,32 @@
   "version": "0.1.0",
   "scripts": {
     "studio": "remotion studio src/index.ts",
-    "render": "remotion render src/index.ts TalkingHead out/talking-head.mp4",
-    "still": "remotion still src/index.ts TalkingHead out/still.png"
+    "typecheck": "tsc --noEmit",
+    "transcribe": "node scripts/transcribe.mjs",
+    "captions:from-words": "node scripts/words-to-captions.mjs",
+    "render": "tsx scripts/render-batch.mjs",
+    "tests": "tsx scripts/render-tests.mjs"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.0",
     "@fontsource/manrope": "^5.2.0",
+    "@remotion/bundler": "^4.0.532",
+    "@remotion/captions": "^4.0.532",
     "@remotion/cli": "4.0.532",
+    "@remotion/google-fonts": "^4.0.532",
+    "@remotion/install-whisper-cpp": "^4.0.532",
+    "@remotion/renderer": "^4.0.532",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "remotion": "4.0.532"
+    "remotion": "4.0.532",
+    "zod": "4.5.4"
   },
   "devDependencies": {
+    "@fontsource/dm-sans": "^5.3.0",
+    "@fontsource/montserrat": "^5.3.0",
+    "@fontsource/playfair-display": "^5.3.0",
     "@types/react": "^18.3.0",
+    "tsx": "^4.23.15",
     "typescript": "^5.6.0"
   }
 }
