@@ -3,6 +3,7 @@ import {AbsoluteFill, OffthreadVideo, Sequence, staticFile, useCurrentFrame, use
 import {Backdrop, BackdropKind} from './backdrops';
 import {FieldOption, brand} from './brand';
 import {CaptionLayer, buildPages} from './Captions';
+import {KineticLayer} from './Kinetic';
 import {loadBrandFonts} from './fonts';
 import {GlassSurface, RefractDefs} from './glass';
 import {ChapterCard} from './graphics/ChapterCard';
@@ -73,8 +74,10 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   // circle factor: 0 for windows, 1 for the corner circle. Drives the thick metal ring.
   const half = Math.min(av.w, av.h) / 2;
   const cf = Math.min(1, Math.max(0, (av.r - 60) / Math.max(1, half - 60)));
-  const inset = av.frame * (22 - 6 * cf);
-  const rimT = av.frame * (4 + 12 * cf);
+  void cf;
+  // thin frame: a 10 px glass bezel and a 3.5 px metal rim
+  const inset = av.frame * 10;
+  const rimT = av.frame * 3.5;
 
   return (
     <AbsoluteFill style={{backgroundColor: curMood === 'light' && curField ? brand.white : brand.black}}>
@@ -211,7 +214,11 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
       )}
 
       <ThemeProvider mood={curMood} field={field} sans={sans}>
-        <CaptionLayer pages={pages} emphasis={plan.emphasis} flat={flat as FlatSegment[]} />
+        {plan.captionStyle === 'pill' ? (
+          <CaptionLayer pages={pages} emphasis={plan.emphasis} flat={flat as FlatSegment[]} />
+        ) : (
+          <KineticLayer captions={captions} plan={plan} mood={curMood} />
+        )}
       </ThemeProvider>
     </AbsoluteFill>
   );

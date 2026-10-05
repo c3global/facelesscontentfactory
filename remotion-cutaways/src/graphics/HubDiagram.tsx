@@ -13,6 +13,7 @@ type Props = {
   changeAt: number;
   fromLabel: string;
   toLabel: string;
+  fit: number;
 };
 
 /**
@@ -34,7 +35,7 @@ const SLOTS: Record<number, Array<[number, number]>> = {
   5: [[480, 100], [745, 270], [700, 940], [260, 940], [215, 270]],
 };
 
-export const HubDiagram: React.FC<Props> = ({center, centerAt, nodes, drawAt, changeAt, fromLabel, toLabel}) => {
+export const HubDiagram: React.FC<Props> = ({center, centerAt, nodes, drawAt, changeAt, fromLabel, toLabel, fit}) => {
   const {opacity, frame} = useCardMotion(0, 4, 8);
   const rel = useRel();
   const sans = useSans();
@@ -46,7 +47,8 @@ export const HubDiagram: React.FC<Props> = ({center, centerAt, nodes, drawAt, ch
   const changed = (i: number) => frame >= rel(changeAt) + i * 3;
 
   return (
-    <div style={{opacity, position: 'relative', width: AW, height: AH}}>
+    <div style={{width: AW * fit, height: AH * fit, margin: '0 auto'}}>
+    <div style={{opacity, position: 'relative', width: AW, height: AH, transform: `scale(${fit})`, transformOrigin: '0 0'}}>
       <svg width={AW} height={AH} style={{position: 'absolute', left: 0, top: 0, overflow: 'visible'}}>
         <defs>
           {pts.map((p, i) => (
@@ -152,6 +154,7 @@ export const HubDiagram: React.FC<Props> = ({center, centerAt, nodes, drawAt, ch
           <div style={{fontFamily: serif, fontWeight: 700, fontSize: 70, lineHeight: 1.08, color: palette.onCard}}>{center}</div>
         </Card>
       </div>
+    </div>
     </div>
   );
 };

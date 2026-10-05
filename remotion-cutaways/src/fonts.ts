@@ -2,11 +2,13 @@ import {continueRender, delayRender, staticFile} from 'remotion';
 import {loadFont as loadDMSans} from '@remotion/google-fonts/DMSans';
 import {loadFont as loadMontserrat} from '@remotion/google-fonts/Montserrat';
 import {loadFont as loadPlayfair} from '@remotion/google-fonts/PlayfairDisplay';
+import {loadFont as loadAnton} from '@remotion/google-fonts/Anton';
 import type {SansOption} from './brand';
 
 declare const process: {env: Record<string, string | undefined>};
 
 export const serifFamily = '"Playfair Display", Georgia, serif';
+export const heavyFamily = '"Anton", "Impact", "Arial Narrow", sans-serif';
 export const sansFamily = (sans: SansOption) => `"${sans}", "Helvetica Neue", Arial, sans-serif`;
 
 /**
@@ -25,6 +27,11 @@ const localFaces: Array<[string, string, string, string]> = [
   ['Playfair Display', 'playfair-display-latin-400-italic.woff2', '400', 'italic'],
   ['Playfair Display', 'playfair-display-latin-600-italic.woff2', '600', 'italic'],
   ['Playfair Display', 'playfair-display-latin-700-italic.woff2', '700', 'italic'],
+  ['Playfair Display', 'playfair-display-latin-800-normal.woff2', '800', 'normal'],
+  ['Playfair Display', 'playfair-display-latin-800-italic.woff2', '800', 'italic'],
+  ['Playfair Display', 'playfair-display-latin-900-normal.woff2', '900', 'normal'],
+  ['Playfair Display', 'playfair-display-latin-900-italic.woff2', '900', 'italic'],
+  ['Anton', 'anton-latin-400-normal.woff2', '400', 'normal'],
 ];
 
 let started = false;
@@ -52,6 +59,7 @@ export const loadBrandFonts = () => {
 
   loadDMSans('normal', {weights: ['500', '700'], subsets: ['latin']});
   loadMontserrat('normal', {weights: ['500', '700'], subsets: ['latin']});
-  loadPlayfair('normal', {weights: ['400', '600', '700'], subsets: ['latin']});
-  loadPlayfair('italic', {weights: ['400', '600', '700'], subsets: ['latin']});
+  loadPlayfair('normal', {weights: ['400', '600', '700', '800', '900'], subsets: ['latin']});
+  loadPlayfair('italic', {weights: ['400', '600', '700', '800', '900'], subsets: ['latin']});
+  loadAnton('normal', {weights: ['400'], subsets: ['latin']});
 };

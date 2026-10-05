@@ -185,7 +185,8 @@
                 "drawAt": 24.5,
                 "changeAt": 25.0,
                 "fromLabel": "Waiting",
-                "toLabel": "Agreeing"
+                "toLabel": "Agreeing",
+                "fit": 0.82
               }
             }
           ]

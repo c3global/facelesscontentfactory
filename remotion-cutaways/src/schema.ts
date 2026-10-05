@@ -64,6 +64,8 @@ export const graphicSchema = z.discriminatedUnion('type', [
       drawAt: sec,
       /** nodes switch from `fromLabel` to `toLabel` */
       changeAt: sec,
+      /** scale the whole diagram down to fit a shorter area (1 = full 960 x 1070) */
+      fit: z.number().min(0.5).max(1).default(1),
       fromLabel: z.string().default('Waiting'),
       toLabel: z.string().default('Agreeing'),
     }),
@@ -160,7 +162,16 @@ export const planSchema = z.object({
     .prefault({}),
   /** words rendered in the Playfair italic rose gold emphasis treatment */
   emphasis: z.array(z.string()).default([]),
-  /** createTikTokStyleCaptions combineTokensWithinMilliseconds. Low = 1 to 3 words per page. */
+  /**
+   * pill: small glass-pill subtitles. editorial / heavy: kinetic lockups (one hero word set huge, small
+   * support words around it, optional highlight box). Editorial sets the hero in Playfair Black, heavy in Anton.
+   */
+  captionStyle: z.enum(['pill', 'editorial', 'heavy']).default('editorial'),
+  /** words that should become the hero of a lockup (emphasis words always can) */
+  hero: z.array(z.string()).default([]),
+  /** words that get a highlight box behind them */
+  boxed: z.array(z.string()).default([]),
+  /** createTikTokStyleCaptions combineTokensWithinMilliseconds (pill style). Low = 1 to 3 words per page. */
   captionPageMs: z.number().int().min(100).max(1500).default(500),
   scenes: z.array(sceneSchema).min(1),
   endCard: endCardSchema.optional(),
