@@ -143,7 +143,9 @@ export const segmentSchema = z.object({
   start: sec,
   end: sec,
   layout: z.enum(['A', 'B', 'C', 'D', 'E']),
-  /** layout C only: show her as a small circle, or hide her */
+  /** where kinetic captions sit in this segment: bottom band, top band, or alternating by sentence (top first) */
+  captionPos: z.enum(['bottom', 'top', 'alternate']).default('bottom'),
+  /** layouts C and E: show her as a small window, or hide her (audio keeps playing) */
   avatar: z.enum(['circle', 'hidden']).optional(),
   graphics: z.array(graphicSchema).default([]),
 });
@@ -178,7 +180,7 @@ export const planSchema = z.object({
   durationSec: z.number().positive(),
   theme: z
     .object({
-      field: z.enum(['black', 'crimson', 'charcoal', 'rosegold']).default('black'),
+      field: z.enum(['black', 'crimson', 'charcoal', 'rosegold', 'marble-black', 'marble-white', 'marble-red']).default('black'),
       sans: z.enum(['DM Sans', 'Montserrat']).default('DM Sans'),
     })
     .prefault({}),
@@ -196,6 +198,8 @@ export const planSchema = z.object({
   /** createTikTokStyleCaptions combineTokensWithinMilliseconds (pill style). Low = 1 to 3 words per page. */
   /** vertical band for kinetic captions, in px. Default keeps them in the lower third; the plain-avatar preset uses 1056 to 1382 (55 to 72 percent). */
   captionBand: z.object({top: z.number(), bottom: z.number()}).prefault({top: 1160, bottom: 1490}),
+  /** the band used when a segment moves captions to the top */
+  captionBandTop: z.object({top: z.number(), bottom: z.number()}).prefault({top: 250, bottom: 560}),
   captionPageMs: z.number().int().min(100).max(1500).default(500),
   scenes: z.array(sceneSchema).min(1),
   endCard: endCardSchema.optional(),

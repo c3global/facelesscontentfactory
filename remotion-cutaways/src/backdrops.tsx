@@ -8,7 +8,7 @@ import {brand} from './brand';
  * field adds a slow light sweep and caustic-style highlights; the light field adds studio-light blooms and a
  * very faint charcoal line texture while still reading as white.
  */
-export type BackdropKind = 'black' | 'crimson' | 'charcoal' | 'rosegold' | 'light';
+export type BackdropKind = 'black' | 'crimson' | 'charcoal' | 'rosegold' | 'light' | 'marble-black' | 'marble-white' | 'marble-red';
 const FPS = 30;
 
 const svgUri = (svg: string) => `url("data:image/svg+xml;utf8,${encodeURIComponent(svg)}")`;
@@ -61,6 +61,123 @@ const Bloom: React.FC<{spec: BloomSpec; t: number; blend: 'screen' | 'normal'}> 
   );
 };
 
+const DEEP_CRIMSON_RGB = '111,13,15';
+/**
+ * Marble. Veins are the zero-crossings of Perlin turbulence: where the noise value is near 0 the alpha rises,
+ * which draws thin branching veins. A soft mottle sits underneath, and two vein layers drift in opposite
+ * directions so the stone feels alive without moving fast.
+ */
+/**
+ * Veins are contour lines of smooth fractal noise: a transfer table turns the noise value into a thin spike
+ * at chosen levels, so each level becomes a long, branching, hairline vein (the way real marble veins read).
+ * `levels` are noise values near 0.5; `w` is the spike half-width in noise units.
+ */
+const veinTile = (r: number, g: number, b: number, seed: number, freq: string, levels: number[], w: number, blur: number) => {
+  const N = 400;
+  const table = Array.from({length: N + 1}, (_, i) => {
+    const v = i / N;
+    return Math.max(...levels.map((L) => Math.max(0, 1 - Math.abs(v - L) / w))).toFixed(3);
+  }).join(' ');
+  return svgUri(
+    `<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='1600'><filter id='m' x='0' y='0' width='100%' height='100%' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='${freq}' numOctaves='3' seed='${seed}' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 ${r} 0 0 0 0 ${g} 0 0 0 0 ${b} 1 0 0 0 0'/><feComponentTransfer><feFuncA type='table' tableValues='${table}'/></feComponentTransfer><feGaussianBlur stdDeviation='${blur}'/></filter><rect width='100%' height='100%' filter='url(#m)'/></svg>`,
+  );
+};
+const mottleTile = (r: number, g: number, b: number, seed: number, gain: number, bias: number) =>
+  svgUri(
+    `<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='1600'><filter id='o' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='0.0028 0.0042' numOctaves='4' seed='${seed}' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 ${r} 0 0 0 0 ${g} 0 0 0 0 ${b} ${gain} 0 0 0 ${bias}'/></filter><rect width='100%' height='100%' filter='url(#o)'/></svg>`,
+  );
+
+type MarbleSpec = {
+  base: string;
+  mottle: Array<{img: string; opacity: number}>;
+  veins: Array<{img: string; opacity: number; scale: number; dir: 1 | -1; speed: number}>;
+  sweep: string;
+  vignette: string;
+};
+const MARBLES: Record<'marble-black' | 'marble-white' | 'marble-red', MarbleSpec> = {
+  'marble-black': {
+    base: 'linear-gradient(180deg, #101112 0%, #070708 40%, #020202 100%)',
+    mottle: [{img: mottleTile(0.23, 0.25, 0.26, 5, 1.2, -0.42), opacity: 0.35}],
+    veins: [
+      {img: veinTile(1, 1, 1, 7, '0.0022 0.0042', [0.47, 0.545], 0.012, 0.7), opacity: 0.58, scale: 1.3, dir: 1, speed: 6},
+      {img: veinTile(0.9, 0.9, 0.93, 19, '0.0035 0.006', [0.42, 0.6], 0.008, 0.6), opacity: 0.3, scale: 1.2, dir: -1, speed: 4},
+      {img: veinTile(0.96, 0.9, 0.88, 33, '0.009 0.014', [0.5], 0.01, 0.5), opacity: 0.16, scale: 1.1, dir: 1, speed: 3},
+    ],
+    sweep: 'rgba(255,255,255,0.06)',
+    vignette: 'radial-gradient(ellipse at 50% 46%, rgba(0,0,0,0) 42%, rgba(0,0,0,0.65) 100%)',
+  },
+  'marble-white': {
+    base: 'linear-gradient(180deg, #FFFFFF 0%, #FCFCFC 60%, #F6F6F6 100%)',
+    mottle: [{img: mottleTile(0.23, 0.25, 0.26, 9, 0.8, -0.26), opacity: 0.12}],
+    veins: [
+      {img: veinTile(0.23, 0.25, 0.26, 7, '0.0022 0.0042', [0.47, 0.545], 0.012, 0.7), opacity: 0.42, scale: 1.3, dir: 1, speed: 6},
+      {img: veinTile(0.72, 0.43, 0.47, 13, '0.0035 0.006', [0.43, 0.59], 0.008, 0.6), opacity: 0.24, scale: 1.2, dir: -1, speed: 5},
+      {img: veinTile(0.23, 0.25, 0.26, 33, '0.009 0.014', [0.5], 0.01, 0.5), opacity: 0.16, scale: 1.1, dir: 1, speed: 3},
+    ],
+    sweep: 'rgba(58,63,66,0.04)',
+    vignette: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0) 58%, rgba(58,63,66,0.08) 100%)',
+  },
+  'marble-red': {
+    base: `linear-gradient(170deg, ${brand.crimson} 0%, ${brand.crimsonMid} 50%, ${brand.crimsonDeep} 100%)`,
+    mottle: [
+      {img: mottleTile(0.435, 0.05, 0.059, 3, 1.4, -0.46), opacity: 0.5},
+      {img: mottleTile(1, 0.45, 0.43, 14, 1.0, -0.5), opacity: 0.12},
+    ],
+    veins: [
+      {img: veinTile(1, 1, 1, 7, '0.0022 0.0042', [0.47, 0.545], 0.012, 0.7), opacity: 0.55, scale: 1.3, dir: 1, speed: 6},
+      {img: veinTile(0, 0, 0, 19, '0.0035 0.006', [0.42, 0.6], 0.01, 0.6), opacity: 0.4, scale: 1.2, dir: -1, speed: 4},
+    ],
+    sweep: 'rgba(255,255,255,0.12)',
+    vignette: `radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 45%, rgba(${DEEP_CRIMSON_RGB},0.55) 100%)`,
+  },
+};
+
+const MarbleBackdrop: React.FC<{kind: 'marble-black' | 'marble-white' | 'marble-red'; frame: number}> = ({kind, frame}) => {
+  const t = frame / FPS;
+  const m = MARBLES[kind];
+  const layer = (img: string, opacity: number, tx: number, ty: number, scale: number, rot = 0, blend?: React.CSSProperties['mixBlendMode']) => (
+    <div
+      style={{
+        position: 'absolute',
+        left: -250,
+        top: -400,
+        width: 1600,
+        height: 2560,
+        backgroundImage: img,
+        backgroundSize: '1000px 1600px',
+        transform: `rotate(${rot}deg) translate(${tx}px, ${ty}px) scale(${scale})`,
+        opacity,
+        mixBlendMode: blend,
+      }}
+    />
+  );
+  return (
+    <AbsoluteFill style={{background: m.base, overflow: 'hidden'}}>
+      {m.mottle.map((l, i) => (
+        <React.Fragment key={`m${i}`}>{layer(l.img, l.opacity, Math.sin(t * 0.05 + i) * 40, Math.cos(t * 0.04 + i) * 50 + t * 2, 1.3)}</React.Fragment>
+      ))}
+      {m.veins.map((l, i) => (
+        <React.Fragment key={`v${i}`}>
+          {layer(l.img, l.opacity, l.dir * (Math.sin(t * 0.08 + i * 2) * 70), l.dir * t * l.speed, l.scale + Math.sin(t * 0.06 + i) * 0.03, i % 2 === 0 ? -32 : 24)}
+        </React.Fragment>
+      ))}
+      {/* polished stone: a slow broad sheen crossing the surface */}
+      <div
+        style={{
+          position: 'absolute',
+          left: -900 + ((t % 12) / 12) * 2900,
+          top: -200,
+          width: 760,
+          height: 2400,
+          transform: 'rotate(15deg)',
+          background: `linear-gradient(90deg, rgba(255,255,255,0) 0%, ${m.sweep} 50%, rgba(255,255,255,0) 100%)`,
+        }}
+      />
+      <div style={{position: 'absolute', inset: 0, background: m.vignette}} />
+    </AbsoluteFill>
+  );
+};
+
 const ROSE = '212,138,140';
 const GOLD = '213,170,74';
 const WHITE = '255,255,255';
@@ -69,7 +186,7 @@ const DEEP_ROSE = '122,60,71';
 const ROSE_HI = '233,179,180'; // rose gold highlight stop
 const GOLD_HI = '248,232,180'; // gold highlight stop
 
-const BLOOMS: Record<BackdropKind, BloomSpec[]> = {
+const BLOOMS: Record<Exclude<BackdropKind, 'marble-black' | 'marble-white' | 'marble-red'>, BloomSpec[]> = {
   // soft metallic light, low opacity, slow. Warm glints on black, never a pink or gray wash.
   black: [
     {rgb: ROSE_HI, alpha: 0.085, size: 980, x: 260, y: 520, ax: 170, ay: 230, sx: 0.27, sy: 0.2, ph: 0.8},
@@ -98,7 +215,7 @@ const BLOOMS: Record<BackdropKind, BloomSpec[]> = {
   ],
 };
 
-const baseFor = (kind: BackdropKind, alt: number, t: number) => {
+const baseFor = (kind: Exclude<BackdropKind, 'marble-black' | 'marble-white' | 'marble-red'>, alt: number, t: number) => {
   const drift = Math.sin(t * 0.16) * 6;
   switch (kind) {
     case 'black':
@@ -118,7 +235,11 @@ const baseFor = (kind: BackdropKind, alt: number, t: number) => {
   }
 };
 
-export const Backdrop: React.FC<{kind: BackdropKind; alt?: number; frame: number}> = ({kind, alt = 0, frame}) => {
+export const Backdrop: React.FC<{kind: BackdropKind; alt?: number; frame: number}> = ({kind: anyKind, alt = 0, frame}) => {
+  if (anyKind === 'marble-black' || anyKind === 'marble-white' || anyKind === 'marble-red') {
+    return <MarbleBackdrop kind={anyKind} frame={frame} />;
+  }
+  const kind = anyKind;
   const t = frame / FPS;
   const dark = kind !== 'light';
   const blend = dark ? 'screen' : 'normal';

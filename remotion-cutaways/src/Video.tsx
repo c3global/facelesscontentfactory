@@ -56,7 +56,8 @@ const renderGraphic = (g: Graphic): React.ReactNode => {
   }
 };
 
-const kindFor = (scene: Scene, field: FieldOption): BackdropKind => (scene.mood === 'light' ? 'light' : field);
+const kindFor = (scene: Scene, field: FieldOption): BackdropKind =>
+  field.startsWith('marble') ? (field as BackdropKind) : scene.mood === 'light' ? 'light' : (field as BackdropKind);
 
 export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   loadBrandFonts();

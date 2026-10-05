@@ -17,7 +17,7 @@ export const brand = {
   charcoal: '#3A3F42',
 } as const;
 
-export type MetalKind = 'rose' | 'gold';
+export type MetalKind = 'rose' | 'gold' | 'crimson';
 /** deep: for use on white cards. bright: for use on crimson and dark fields. */
 export type MetalVariant = 'deep' | 'bright';
 
@@ -29,6 +29,11 @@ const METAL_STOPS: Record<MetalKind, Record<MetalVariant, [string, string, strin
   rose: {
     deep: ['#7A3C47', '#B76E79', '#E9B3B4', '#B76E79', '#86444F'],
     bright: ['#B76E79', '#D48A8C', '#FCE2DF', '#D48A8C', '#B76E79'],
+  },
+  // metallic red: built on #C91B19 with its deeper tones (#A31516, #6F0D0F) and a lighter tint for the highlight
+  crimson: {
+    deep: ['#6F0D0F', '#C91B19', '#EE6E6B', '#C91B19', '#7C0E10'],
+    bright: ['#A31516', '#D92927', '#FF8E8A', '#D92927', '#A31516'],
   },
   gold: {
     deep: ['#85611A', '#D5AA4A', '#F8E8B4', '#D5AA4A', '#8E6B1E'],
@@ -47,7 +52,7 @@ export const metalGradient = (kind: MetalKind, variant: MetalVariant, angle = 13
 };
 
 /** `black` is the locked field. The others stay selectable in code but are retired from the video. */
-export type FieldOption = 'black' | 'crimson' | 'charcoal' | 'rosegold';
+export type FieldOption = 'black' | 'crimson' | 'charcoal' | 'rosegold' | 'marble-black' | 'marble-white' | 'marble-red';
 export type SansOption = 'DM Sans' | 'Montserrat';
 export type Mood = 'dark' | 'light';
 

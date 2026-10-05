@@ -139,3 +139,7 @@ no hook tag. Layout `E` is a centered portrait window for scenes that need a wid
 Workflow: `npm run transcribe -- <slug> <video>` (needs huggingface.co and *.hf.co allowed), tidy tokens into `content/<slug>.words.tsv`,
 `node scripts/snap-words.mjs <slug>` to snap word timings to the real audio, `node scripts/words-to-captions.mjs <slug>`,
 then `npm run stills -- <slug> <seconds...>` for review stills. New graphics: `congruence-map`, `screenshot-card`.
+
+Templates (theme.field): `black` (plain black field), `marble-black`, `marble-white`, `marble-red`. Preview any plan in another template with
+`npm run stills -- <slug> <seconds...> --field=marble-white`. Segments can hide her (`"avatar": "hidden"` on layout C or E) and move captions
+with `"captionPos": "top" | "alternate"`. Liquid-glass pills use clear glass with metallic crimson (`MetalKind 'crimson'`, built on #C91B19) accents.

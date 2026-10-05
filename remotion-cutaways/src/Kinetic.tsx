@@ -20,7 +20,7 @@ import {normalizeWord} from './ui';
  * there. Plain text is white on dark scenes and black on white scenes; boxes are white or black, never crimson.
  */
 type KWord = {text: string; startMs: number; endMs: number};
-export type Lockup = {words: KWord[]; h0: number; h1: number; startMs: number; endMs: number};
+export type Lockup = {words: KWord[]; h0: number; h1: number; startMs: number; endMs: number; sentence: number};
 
 const STOP = new Set(
   'a an the of to in on at for and or but i ive is are was that this it as my me we you your how where who get than with by from then there actually being exactly any one those like something what does when check wrote use comes problem'.split(' '),
@@ -101,6 +101,14 @@ const chunkSentence = (words: KWord[]): KWord[][] => {
 /** Groups the word-level captions into lockups at pauses, sentence ends and a six-word cap. */
 export const buildLockups = (captions: Caption[], plan: Pick<ScenePlan, 'hero' | 'emphasis'>): Lockup[] => {
   const words: KWord[] = captions.map((c) => ({text: c.text.trim(), startMs: c.startMs, endMs: c.endMs}));
+  const sentenceOf = new Map<KWord, number>();
+  {
+    let n = 0;
+    for (const w of words) {
+      sentenceOf.set(w, n);
+      if (endsSentence(w)) n++;
+    }
+  }
   const groups = chunkSentence(words);
 
   const heroSet = new Set([...plan.hero, ...plan.emphasis].map(normalizeWord));
@@ -121,7 +129,7 @@ export const buildLockups = (captions: Caption[], plan: Pick<ScenePlan, 'hero' |
     }
     let j = i;
     if (emphSet.has(normalizeWord(g[i].text)) && j + 1 < g.length && emphSet.has(normalizeWord(g[j + 1].text))) j++; // "20 years"
-    return {words: g, h0: i, h1: j, startMs: g[0].startMs, endMs: g[g.length - 1].endMs};
+    return {words: g, h0: i, h1: j, startMs: g[0].startMs, endMs: g[g.length - 1].endMs, sentence: sentenceOf.get(g[0]) ?? 0};
   });
 };
 
@@ -321,6 +329,16 @@ export const KineticLayer: React.FC<{captions: Caption[]; plan: ScenePlan; mood:
   const endShow = Math.min(l.endMs + 320, next ? next.startMs - 40 : Infinity);
   const style: Style = plan.captionStyle === 'heavy' ? 'heavy' : 'editorial';
 
+  // which band this lockup sits in: the segment can pin captions to the bottom, the top, or alternate by sentence
+  const sec = l.startMs / 1000;
+  const seg = plan.scenes.flatMap((sc) => sc.segments).find((sg) => sec >= sg.start - 0.001 && sec < sg.end - 0.001);
+  let band = plan.captionBand;
+  if (seg && seg.captionPos !== 'bottom') {
+    const first = Math.min(...lockups.filter((x) => x.startMs / 1000 >= seg.start - 0.001 && x.startMs / 1000 < seg.end - 0.001).map((x) => x.sentence));
+    const top = seg.captionPos === 'top' || (l.sentence - first) % 2 === 0;
+    if (top) band = plan.captionBandTop;
+  }
+
   return (
     <LockupView
       key={idx}
@@ -331,7 +349,7 @@ export const KineticLayer: React.FC<{captions: Caption[]; plan: ScenePlan; mood:
       endShow={endShow}
       emphasis={plan.emphasis}
       boxedSet={boxedSet}
-      band={plan.captionBand}
+      band={band}
     />
   );
 };

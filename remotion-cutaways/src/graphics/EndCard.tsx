@@ -6,7 +6,7 @@ import {SAFE, W} from '../layouts';
 import {Label, clamp, easeOut, serif, useBgMetal, useCardMotion, useSans, useTheme} from '../ui';
 import type {EndCard as EndCardPlan} from '../schema';
 
-const CHARS_PER_SEC = 13;
+const CHARS_PER_SEC = 24;
 
 /**
  * The single crimson accent of the end scene. White text only, no metal over it:
@@ -90,7 +90,7 @@ export const EndCard: React.FC<{card: EndCardPlan}> = ({card}) => {
             </div>
             <div style={{display: 'inline-block', scale: `${0.92 + pillIn * 0.08}`}}>
               <CrimsonPill fade={pillIn * opacity} padding="30px 56px">
-                <Typed text={card.url} startFrame={16} size={58} />
+                <Typed text={card.url} startFrame={10} size={58} />
               </CrimsonPill>
             </div>
           </>

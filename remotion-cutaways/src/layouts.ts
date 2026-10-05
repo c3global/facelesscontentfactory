@@ -44,7 +44,7 @@ export const AVATAR: Record<LayoutKey | 'Chidden', AvatarState> = {
 };
 
 export const stateFor = (layout: LayoutKey, avatar?: AvatarMode): AvatarState => {
-  if (layout === 'C' && avatar === 'hidden') return AVATAR.Chidden;
+  if ((layout === 'C' || layout === 'E') && avatar === 'hidden') return AVATAR.Chidden;
   return AVATAR[layout];
 };
 
@@ -60,7 +60,7 @@ export const GRAPHIC_AREA: Record<LayoutKey | 'Chidden', Rect> = {
 };
 
 export const areaFor = (layout: LayoutKey, avatar?: AvatarMode): Rect =>
-  layout === 'C' && avatar === 'hidden' ? GRAPHIC_AREA.Chidden : GRAPHIC_AREA[layout];
+  (layout === 'C' || layout === 'E') && avatar === 'hidden' ? GRAPHIC_AREA.Chidden : GRAPHIC_AREA[layout];
 
 /** Kinetic caption lockups live in this band, under every graphic, inside the bottom-22% safe line. */
 export const LOCKUP = {top: 1160, bottom: 1490, left: 130, width: 820};

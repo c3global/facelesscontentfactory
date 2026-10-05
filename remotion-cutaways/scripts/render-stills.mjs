@@ -8,14 +8,23 @@ import path from 'node:path';
 import {renderStill, selectComposition} from '@remotion/renderer';
 import {browserOptions, bundleProject, loadCaptions, loadPlan, root} from './lib.mjs';
 
-const [slug, ...secs] = process.argv.slice(2);
+const args = process.argv.slice(2);
+const flag = (n) => args.find((a) => a.startsWith(`--${n}=`))?.split('=')[1];
+const [slug, ...secs] = args.filter((a) => !a.startsWith('--'));
+const fieldOverride = flag('field');
+const tag = flag('out') ?? fieldOverride ?? '';
 if (!slug || !secs.length) {
   console.error('Usage: npm run stills -- <slug> <sec> [<sec> ...]');
   process.exit(1);
 }
-const plan = loadPlan(slug);
+let plan = loadPlan(slug);
+if (fieldOverride) {
+  // template preview: swap the field and flip scene moods so text colors follow the stone
+  const light = fieldOverride === 'marble-white';
+  plan = {...plan, theme: {...plan.theme, field: fieldOverride}, scenes: plan.scenes.map((sc) => ({...sc, mood: light ? 'light' : 'dark'}))};
+}
 const captions = loadCaptions(slug);
-const outDir = path.join(root, 'out', 'stills', slug);
+const outDir = path.join(root, 'out', 'stills', slug + (tag ? `-${tag}` : ''));
 mkdirSync(outDir, {recursive: true});
 const serveUrl = await bundleProject();
 const inputProps = {plan, captions};

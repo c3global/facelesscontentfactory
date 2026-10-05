@@ -1,8 +1,8 @@
 import React from 'react';
 import {interpolate} from 'remotion';
 import {brand} from '../brand';
-import {Card} from '../glass';
 import {MetalGradient, MetalText} from '../metal';
+import {GlassSurface} from '../glass';
 import {clamp, easeOut, useBgMetal, useCardMotion, useRel, useSans, useTheme} from '../ui';
 
 type Props = {
@@ -12,20 +12,20 @@ type Props = {
 };
 
 /**
- * Four components that depend on each other, shown as a connected diamond under her portrait window.
- * Coordinates are absolute in the 1080 x 1920 frame, centered under her portrait window: x 130..950, y 705..1060.
+ * Four components that depend on each other, shown as a connected diamond with her hidden.
+ * Coordinates are absolute in the 1080 x 1920 frame, with her hidden: x 140..940, y 595..1035. Captions use the bands above (250..560) and below (1056..1382).
  * Nodes arrive as she names them, the active one lifts, the remaining links close the diamond and cross it,
  * then a pulse travels every link and a single small crimson dot marks the shared center.
  */
-const NODE_W = 270;
-const NODE_H = 80;
+const NODE_W = 340;
+const NODE_H = 100;
 const CX = 540;
-const CY = 882;
+const CY = 815;
 const PTS: Array<[number, number]> = [
-  [CX, 745],
-  [815, CY],
-  [CX, 1020],
-  [265, CY],
+  [CX, 645],
+  [770, CY],
+  [CX, 985],
+  [310, CY],
 ];
 // [from, to, which event draws it]: 0..2 follow the nodes, 3 is drawn at connectAt
 const EDGES: Array<[number, number, number]> = [
@@ -41,7 +41,9 @@ export const CongruenceMap: React.FC<Props> = ({nodes, connectAt, pulseAt}) => {
   const {opacity, frame} = useCardMotion(0, 6, 8);
   const rel = useRel();
   const sans = useSans();
-  const {palette} = useTheme();
+  const {palette, mood} = useTheme();
+  const dark = mood === 'dark';
+  const textColor = dark ? brand.white : brand.charcoal;
   const bg = useBgMetal();
   const connected = frame >= rel(connectAt);
   let active = -1;
@@ -117,19 +119,46 @@ export const CongruenceMap: React.FC<Props> = ({nodes, connectAt, pulseAt}) => {
               opacity: inP,
             }}
           >
-            <Card
-              fade={inP}
+            {/* liquid glass: clear, translucent, refracting whatever is behind it */}
+            <GlassSurface
+              variant="clear"
+              tone={dark ? 'dark' : 'light'}
               radius={999}
-              rim={isActive ? 5 : 3}
+              fade={inP}
+              refract
+              rim={isActive ? 5 : 2.6}
+              rimVariant={dark ? 'bright' : 'deep'}
               seed={20 + i}
-              style={{height: '100%'}}
-              contentStyle={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14}}
-            >
-              <MetalText variant="deep" seed={80 + i} style={{fontFamily: sans, fontWeight: 800, fontSize: 38}}>
+              darkAlpha={dark ? 0.22 : undefined}
+            />
+            {isActive && (
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: -3,
+                  borderRadius: 999,
+                  boxShadow: `0 0 34px rgba(201,27,25,0.55), inset 0 0 0 1.5px rgba(238,110,107,0.8)`,
+                  pointerEvents: 'none',
+                }}
+              />
+            )}
+            <div style={{position: 'relative', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 18, opacity: inP}}>
+              <MetalText kind="crimson" variant={dark ? 'bright' : 'deep'} seed={80 + i} style={{fontFamily: sans, fontWeight: 800, fontSize: 44}}>
                 {i + 1}
               </MetalText>
-              <span style={{fontFamily: sans, fontWeight: 700, fontSize: 38, color: palette.onCard, letterSpacing: '-0.01em'}}>{n.label}</span>
-            </Card>
+              <span
+                style={{
+                  fontFamily: sans,
+                  fontWeight: 700,
+                  fontSize: 44,
+                  color: textColor,
+                  letterSpacing: '-0.01em',
+                  textShadow: dark ? '0 2px 14px rgba(0,0,0,0.55)' : 'none',
+                }}
+              >
+                {n.label}
+              </span>
+            </div>
           </div>
         );
       })}

@@ -2,17 +2,45 @@
   "slug": "four-places",
   "video": "raw/four-places.mp4",
   "durationSec": 56.43,
-  "theme": {"field": "black", "sans": "DM Sans"},
-  "emphasis": ["quiet", "four", "disinterest", "speaks", "up"],
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [
+    "quiet",
+    "four",
+    "disinterest",
+    "speaks",
+    "up"
+  ],
   "captionStyle": "editorial",
-  "captionBand": {"top": 1056, "bottom": 1382},
-  "hero": ["work", "people", "structure", "culture", "substack", "bio"],
-  "boxed": ["substack"],
+  "captionBand": {
+    "top": 1056,
+    "bottom": 1382
+  },
+  "hero": [
+    "work",
+    "people",
+    "structure",
+    "culture",
+    "substack",
+    "bio"
+  ],
+  "boxed": [
+    "substack"
+  ],
   "scenes": [
     {
       "id": "hook",
       "mood": "dark",
-      "segments": [{"start": 0, "end": 15.0, "layout": "A", "graphics": []}]
+      "segments": [
+        {
+          "start": 0,
+          "end": 15.0,
+          "layout": "A",
+          "graphics": []
+        }
+      ]
     },
     {
       "id": "four-places",
@@ -20,20 +48,33 @@
       "segments": [
         {
           "start": 15.0,
-          "end": 54.0,
+          "end": 42.0,
           "layout": "E",
-          "avatar": "circle",
+          "avatar": "hidden",
+          "captionPos": "alternate",
           "graphics": [
             {
               "type": "congruence-map",
               "at": 15.0,
-              "until": 54.0,
+              "until": 42.0,
               "props": {
                 "nodes": [
-                  {"label": "Work", "at": 15.4},
-                  {"label": "People", "at": 19.3},
-                  {"label": "Structure", "at": 27.5},
-                  {"label": "Culture", "at": 32.9}
+                  {
+                    "label": "Work",
+                    "at": 15.4
+                  },
+                  {
+                    "label": "People",
+                    "at": 19.3
+                  },
+                  {
+                    "label": "Structure",
+                    "at": 27.5
+                  },
+                  {
+                    "label": "Culture",
+                    "at": 32.9
+                  }
                 ],
                 "connectAt": 38.0,
                 "pulseAt": 40.2
@@ -44,10 +85,62 @@
       ]
     },
     {
+      "id": "model",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 42.0,
+          "end": 50.0,
+          "layout": "A",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "substack",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 50.0,
+          "end": 54.0,
+          "layout": "E",
+          "avatar": "hidden",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "screenshot-card",
+              "at": 50.2,
+              "until": 54.0,
+              "props": {
+                "src": "shots/substack-four-places.png",
+                "pan": 0.25
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "close",
       "mood": "dark",
-      "segments": [{"start": 54.0, "end": 56.43, "layout": "A", "graphics": []}]
+      "segments": [
+        {
+          "start": 54.0,
+          "end": 56.43,
+          "layout": "A",
+          "graphics": []
+        }
+      ]
     }
   ],
-  "endCard": {"variant": "link-pill", "startAt": 54.2, "label": "LINK IN MY BIO", "url": "bio.c3global.co"}
+  "endCard": {
+    "variant": "link-pill",
+    "startAt": 54.2,
+    "label": "LINK IN MY BIO",
+    "url": "bio.c3global.co"
+  },
+  "captionBandTop": {
+    "top": 250,
+    "bottom": 560
+  }
 }
