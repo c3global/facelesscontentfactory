@@ -37,6 +37,48 @@ const EDGES: Array<[number, number, number]> = [
   [1, 3, -1],
 ];
 
+/**
+ * Holographic foil, kept inside the brand palette: a rim and a sheen that slide through rose gold, champagne
+ * gold, white and a pale crimson tint, like light moving across a hologram. Nothing outside the palette.
+ */
+const HOLO = ['#E9B3B4', '#F8E8B4', '#FFFFFF', '#F4A6A3', '#D48A8C', '#F8E8B4', '#E9B3B4'];
+const Holo: React.FC<{i: number; frame: number; active: boolean; fade: number; dark: boolean}> = ({i, frame, active, fade, dark}) => {
+  const angle = (frame * 2.4 + i * 70) % 360;
+  const slide = ((frame * 1.3 + i * 25) % 150) - 25;
+  const stops = HOLO.map((c, k) => `${c} ${Math.round((k / (HOLO.length - 1)) * 100)}%`).join(', ');
+  return (
+    <>
+      {/* iridescent interior sheen */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          borderRadius: 999,
+          overflow: 'hidden',
+          opacity: fade * (dark ? 0.9 : 0.55),
+          mixBlendMode: dark ? 'screen' : 'multiply',
+          background: `linear-gradient(112deg, rgba(255,255,255,0) ${slide - 22}%, rgba(233,179,180,0.30) ${slide - 8}%, rgba(248,232,180,0.38) ${slide + 4}%, rgba(255,255,255,0.22) ${slide + 12}%, rgba(255,255,255,0) ${slide + 28}%)`,
+          pointerEvents: 'none',
+        }}
+      />
+      {/* foil rim */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          borderRadius: 999,
+          padding: active ? 4.5 : 3,
+          opacity: fade,
+          background: `conic-gradient(from ${angle}deg, ${stops})`,
+          WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+          WebkitMaskComposite: 'xor',
+          pointerEvents: 'none',
+        }}
+      />
+    </>
+  );
+};
+
 export const CongruenceMap: React.FC<Props> = ({nodes, connectAt, pulseAt}) => {
   const {opacity, frame} = useCardMotion(0, 6, 8);
   const rel = useRel();
@@ -126,11 +168,11 @@ export const CongruenceMap: React.FC<Props> = ({nodes, connectAt, pulseAt}) => {
               radius={999}
               fade={inP}
               refract
-              rim={isActive ? 5 : 2.6}
-              rimVariant={dark ? 'bright' : 'deep'}
+              rim={0}
               seed={20 + i}
               darkAlpha={dark ? 0.22 : undefined}
             />
+            <Holo i={i} frame={frame} active={isActive} fade={inP} dark={dark} />
             {isActive && (
               <div
                 style={{

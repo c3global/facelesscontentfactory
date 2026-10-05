@@ -132,6 +132,9 @@ const MARBLES: Record<'marble-black' | 'marble-white' | 'marble-red', MarbleSpec
   },
 };
 
+/** Marble is a quiet texture, not a pattern: every vein layer is scaled down by this. */
+const MARBLE_STRENGTH = 0.3;
+
 const MarbleBackdrop: React.FC<{kind: 'marble-black' | 'marble-white' | 'marble-red'; frame: number}> = ({kind, frame}) => {
   const t = frame / FPS;
   const m = MARBLES[kind];
@@ -154,11 +157,11 @@ const MarbleBackdrop: React.FC<{kind: 'marble-black' | 'marble-white' | 'marble-
   return (
     <AbsoluteFill style={{background: m.base, overflow: 'hidden'}}>
       {m.mottle.map((l, i) => (
-        <React.Fragment key={`m${i}`}>{layer(l.img, l.opacity, Math.sin(t * 0.05 + i) * 40, Math.cos(t * 0.04 + i) * 50 + t * 2, 1.3)}</React.Fragment>
+        <React.Fragment key={`m${i}`}>{layer(l.img, l.opacity * 0.6, Math.sin(t * 0.05 + i) * 40, Math.cos(t * 0.04 + i) * 50 + t * 2, 1.3)}</React.Fragment>
       ))}
       {m.veins.map((l, i) => (
         <React.Fragment key={`v${i}`}>
-          {layer(l.img, l.opacity, l.dir * (Math.sin(t * 0.08 + i * 2) * 70), l.dir * t * l.speed, l.scale + Math.sin(t * 0.06 + i) * 0.03, i % 2 === 0 ? -32 : 24)}
+          {layer(l.img, l.opacity * MARBLE_STRENGTH, l.dir * (Math.sin(t * 0.08 + i * 2) * 70), l.dir * t * l.speed, l.scale + Math.sin(t * 0.06 + i) * 0.03, i % 2 === 0 ? -32 : 24)}
         </React.Fragment>
       ))}
       {/* polished stone: a slow broad sheen crossing the surface */}
