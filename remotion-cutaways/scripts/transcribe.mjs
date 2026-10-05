@@ -28,8 +28,9 @@ if (!slug) {
 }
 
 const root = process.cwd();
-const plan = JSON.parse(readFileSync(path.join(root, 'content', `${slug}.scene.json`), 'utf8'));
-const videoPath = path.resolve(process.argv[3] ?? path.join('public', plan.video));
+const planFile = path.join(root, 'content', `${slug}.scene.json`);
+const plan = existsSync(planFile) ? JSON.parse(readFileSync(planFile, 'utf8')) : null;
+const videoPath = path.resolve(process.argv[3] ?? path.join('public', plan?.video ?? `raw/${slug}.mp4`));
 if (!existsSync(videoPath)) {
   console.error(`Video not found: ${videoPath}`);
   process.exit(1);
