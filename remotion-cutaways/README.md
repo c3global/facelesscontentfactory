@@ -27,6 +27,7 @@ Needs Node 20+ and ffmpeg. Fonts load through `@remotion/google-fonts` (DM Sans,
 4. Preview: `npm run studio`
 5. Render: `npm run render` (every `content/*.scene.json`) or `npm run render -- <slug>` -> `out/<slug>.mp4`.
 6. Review stills (field options and font comparison): `npm run tests -- <slug>` -> `out/tests/`.
+7. Finish-pass review set (fields x moments, close-ups, backdrop clips, glass render timing): `npm run finish -- <slug>` -> `out/finish/`.
 
 Check names, URLs and brand terms in the captions against the script before rendering.
 
@@ -91,10 +92,29 @@ inside its layout area. `avatar` (`circle` or `hidden`) applies to layout C. Moo
 
 `content/showcase.scene.json` exercises every graphic in both moods (composition `Showcase` in the Studio).
 
+## Finish layer (metal, backdrops, liquid glass)
+
+- **Metal** (`src/brand.ts`, `src/metal.tsx`): rose gold and gold are only ever multi-stop metallic gradients
+  (shadow, mid, bright highlight, mid, shadow) in a `deep` variant for white cards and a `bright` variant for crimson and
+  dark fields. Every use (text, rims, rings, lines, icons, badges) goes through `metal.tsx`, which adds a slow specular
+  band that sweeps every 3.5 seconds, staggered per element with `seed`.
+- **Fields** (`theme.field`): `crimson`, `charcoal` (alternates #000000 and #3A3F42 across scenes) and `rosegold`
+  (metallic gradient with a moving light sweep, caustic-style highlights and grain). Each has an animated backdrop in
+  `src/backdrops.tsx`: slow light blooms, fine grain, gentle parallax. White scenes get studio-light blooms and a very
+  faint charcoal line texture.
+- **Liquid glass** (`src/glass.tsx`): backdrop blur with a saturation lift, thin bright specular edge, inner top
+  highlight, soft inner bottom shadow, metallic rim, and (clear glass only) SVG displacement refraction through
+  `backdrop-filter: url(#c3-refract)`. Frosted glass for any card with body copy; clear glass for her window, the
+  caption pill and decorative elements. Fades are applied to the glass surface itself, because an ancestor with
+  opacity below 1 stops backdrop-filter from seeing the backdrop.
+- **Her**: she can be hidden completely (`"avatar": "hidden"`) while her audio keeps playing, or shown in a 280 px
+  corner circle with a 16 px metal ring.
+- `REMOTION_LOCAL_FONTS=1` and `REMOTION_BROWSER_EXECUTABLE` are passed through to the renderer by the scripts.
+
 ## Brand
 
 All tokens live in `src/brand.ts`: crimson `#C91B19` fields with a deeper crimson gradient, metallic rose gold
-(`#B76E79`, secondary `#D48A8C`) and gold (`#D5AA4A`) accents, neutrals white, black and charcoal `#3A3F42`.
+(`#B76E79`, tint `#D48A8C`) and gold (`#D5AA4A`) accents (never flat, see above), neutrals white, black and charcoal `#3A3F42`.
 No cream, ivory, off-white or eggplant anywhere. Captions: DM Sans bold; emphasis words and numerals: Playfair
 Display italic with the rose gold finish and a one-time sheen sweep.
 

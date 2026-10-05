@@ -1,7 +1,9 @@
 import React from 'react';
 import {interpolate} from 'remotion';
-import {brand, goldGradient, roseGoldBright, roseGoldGradient} from '../brand';
-import {Card, clamp, easeOut, serif, useCardMotion, useRel, useSans, useTheme} from '../ui';
+import {brand} from '../brand';
+import {Card} from '../glass';
+import {MetalCheck, MetalGradient} from '../metal';
+import {clamp, easeOut, serif, useBgMetal, useCardMotion, useRel, useSans, useTheme} from '../ui';
 
 type Props = {
   center: string;
@@ -13,42 +15,49 @@ type Props = {
   toLabel: string;
 };
 
+/**
+ * Scaled about 1.6x so it fills a hidden-avatar frame. Coordinates are inside a 960 x 1070 area:
+ * text stays inside x 60..950 of the full frame (right safe line), nodes never overlap the center card.
+ */
 const AW = 960;
-const AH = 800;
-const CX = AW / 2;
-const CY = 410;
-const RX = 338;
-const RY = 300;
-const NODE_W = 214;
-const NODE_H = 80;
+const AH = 1070;
+const CX = 480;
+const CY = 545;
+const CENTER_W = 620;
+const CENTER_H = 290;
+const NODE_W = 330;
+const NODE_H = 120;
 
-/** Center node, labeled spokes, lines that draw outward, nodes that change state. */
+const SLOTS: Record<number, Array<[number, number]>> = {
+  3: [[480, 110], [250, 960], [710, 960]],
+  4: [[215, 190], [745, 190], [215, 900], [745, 900]],
+  5: [[480, 100], [745, 270], [700, 940], [260, 940], [215, 270]],
+};
+
 export const HubDiagram: React.FC<Props> = ({center, centerAt, nodes, drawAt, changeAt, fromLabel, toLabel}) => {
   const {opacity, frame} = useCardMotion(0, 4, 8);
   const rel = useRel();
   const sans = useSans();
   const {palette, mood} = useTheme();
+  const bgMetal = useBgMetal();
   const dark = mood === 'dark';
-
+  const pts = nodes.map((nd, i) => ({x: SLOTS[nodes.length][i][0], y: SLOTS[nodes.length][i][1], ...nd}));
   const cIn = interpolate(frame - rel(centerAt), [0, 8], [0, 1], {...clamp, easing: easeOut});
-  const n = nodes.length;
-  const pts = nodes.map((nd, i) => {
-    const a = ((-90 + (i * 360) / n) * Math.PI) / 180;
-    return {x: CX + RX * Math.cos(a), y: CY + RY * Math.sin(a), ...nd};
-  });
-  const lineLen = (x: number, y: number) => Math.hypot(x - CX, y - CY);
   const changed = (i: number) => frame >= rel(changeAt) + i * 3;
 
   return (
     <div style={{opacity, position: 'relative', width: AW, height: AH}}>
       <svg width={AW} height={AH} style={{position: 'absolute', left: 0, top: 0, overflow: 'visible'}}>
+        <defs>
+          {pts.map((p, i) => (
+            <MetalGradient key={i} id={`hub-line-${i}`} x1={CX} y1={CY} x2={p.x} y2={p.y} variant={bgMetal} seed={10 + i * 3} />
+          ))}
+        </defs>
         {pts.map((p, i) => {
-          const len = lineLen(p.x, p.y);
+          const len = Math.hypot(p.x - CX, p.y - CY);
           const draw = interpolate(frame - rel(drawAt) - i * 3, [0, 12], [0, 1], {...clamp, easing: easeOut});
-          // pulses travel from node to center after the lines are drawn
-          const pulse = interpolate(frame - rel(drawAt) - 16 - i * 4, [0, 30], [0, 1], {...clamp});
           const t = (frame - rel(drawAt) - 16 - i * 4) % 60;
-          const loop = t < 0 ? -1 : (t / 60) % 1;
+          const loop = t < 0 ? -1 : t / 60;
           return (
             <g key={i}>
               <line
@@ -56,20 +65,20 @@ export const HubDiagram: React.FC<Props> = ({center, centerAt, nodes, drawAt, ch
                 y1={CY}
                 x2={p.x}
                 y2={p.y}
-                stroke={dark ? '#F6D2CC' : brand.roseGold}
-                strokeWidth={4}
+                stroke={`url(#hub-line-${i})`}
+                strokeWidth={10}
                 strokeLinecap="round"
                 strokeDasharray={len}
                 strokeDashoffset={len * (1 - draw)}
-                opacity={dark ? 0.95 : 0.85}
+                style={{filter: 'drop-shadow(0 2px 5px rgba(0,0,0,0.38))'}}
               />
-              {pulse > 0 && loop >= 0 && (
+              {loop >= 0 && (
                 <circle
                   cx={p.x + (CX - p.x) * loop}
                   cy={p.y + (CY - p.y) * loop}
-                  r={7}
-                  fill={dark ? brand.white : brand.roseGold}
-                  opacity={Math.sin(loop * Math.PI)}
+                  r={10}
+                  fill={dark ? brand.white : brand.charcoal}
+                  opacity={Math.sin(loop * Math.PI) * 0.9}
                 />
               )}
             </g>
@@ -77,11 +86,11 @@ export const HubDiagram: React.FC<Props> = ({center, centerAt, nodes, drawAt, ch
         })}
       </svg>
 
-      {/* nodes */}
       {pts.map((p, i) => {
         const inP = interpolate(frame - rel(p.at), [0, 8], [0, 1], {...clamp, easing: easeOut});
         const isChanged = changed(i);
         const flip = interpolate(frame - (rel(changeAt) + i * 3), [0, 8], [0, 1], clamp);
+        const check = interpolate(frame - (rel(changeAt) + i * 3), [0, 12], [0, 1], {...clamp, easing: easeOut});
         return (
           <div
             key={i}
@@ -91,41 +100,30 @@ export const HubDiagram: React.FC<Props> = ({center, centerAt, nodes, drawAt, ch
               top: p.y - NODE_H / 2,
               width: NODE_W,
               height: NODE_H,
-              opacity: inP,
               scale: `${0.9 + inP * 0.1 + Math.sin(flip * Math.PI) * 0.06}`,
             }}
           >
             <Card
-              style={{
-                height: '100%',
-                borderRadius: 999,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 12,
-                border: isChanged ? '3px solid #B76E79' : '2px solid rgba(183,110,121,0.5)',
-              }}
+              fade={inP * opacity}
+              radius={999}
+              rim={isChanged ? 4.5 : 3}
+              seed={30 + i}
+              style={{height: '100%'}}
+              contentStyle={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16}}
             >
-              <div
-                style={{
-                  width: 24,
-                  height: 24,
-                  borderRadius: '50%',
-                  flexShrink: 0,
-                  backgroundImage: isChanged ? goldGradient : 'none',
-                  border: isChanged ? 'none' : `3px solid ${brand.roseSecondary}`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                {isChanged && (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12.5l5 5 9-10" />
+              <div style={{width: 46, height: 46, flexShrink: 0}}>
+                {isChanged ? (
+                  <MetalCheck size={46} id={`hub-check-${i}`} seed={50 + i} progress={check} />
+                ) : (
+                  <svg width="46" height="46" viewBox="0 0 24 24">
+                    <defs>
+                      <MetalGradient id={`hub-ring-${i}`} x1={2} y1={2} x2={22} y2={22} variant="deep" seed={40 + i} />
+                    </defs>
+                    <circle cx="12" cy="12" r="8.5" fill="none" stroke={`url(#hub-ring-${i})`} strokeWidth="2.6" />
                   </svg>
                 )}
               </div>
-              <div style={{fontFamily: sans, fontWeight: 700, fontSize: 30, color: palette.onCard}}>
+              <div style={{fontFamily: sans, fontWeight: 700, fontSize: 48, color: palette.onCard, letterSpacing: '-0.01em'}}>
                 {isChanged ? toLabel : fromLabel}
               </div>
             </Card>
@@ -133,34 +131,25 @@ export const HubDiagram: React.FC<Props> = ({center, centerAt, nodes, drawAt, ch
         );
       })}
 
-      {/* center node, drawn last so it sits on top of the spokes */}
       <div
         style={{
           position: 'absolute',
-          left: CX - 200,
-          top: CY - 92,
-          width: 400,
-          height: 184,
-          opacity: cIn,
+          left: CX - CENTER_W / 2,
+          top: CY - CENTER_H / 2,
+          width: CENTER_W,
+          height: CENTER_H,
           scale: `${0.88 + cIn * 0.12}`,
         }}
       >
         <Card
-          style={{
-            height: '100%',
-            borderRadius: 40,
-            border: '4px solid transparent',
-            backgroundImage: `linear-gradient(#fff, #fff), ${dark ? roseGoldBright : roseGoldGradient}`,
-            backgroundOrigin: 'border-box',
-            backgroundClip: 'padding-box, border-box',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '0 28px',
-            textAlign: 'center',
-          }}
+          fade={cIn * opacity}
+          radius={64}
+          rim={6}
+          seed={60}
+          style={{height: '100%'}}
+          contentStyle={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 44px', textAlign: 'center'}}
         >
-          <div style={{fontFamily: serif, fontWeight: 700, fontSize: 44, lineHeight: 1.08, color: palette.onCard}}>{center}</div>
+          <div style={{fontFamily: serif, fontWeight: 700, fontSize: 70, lineHeight: 1.08, color: palette.onCard}}>{center}</div>
         </Card>
       </div>
     </div>

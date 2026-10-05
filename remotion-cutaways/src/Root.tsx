@@ -7,6 +7,8 @@ import showcasePlan from '../content/showcase.scene.json';
 import {FPS, H, W} from './layouts';
 import {planSchema, videoPropsSchema, VideoProps} from './schema';
 import {Video} from './Video';
+import {GlassLab} from './lab/GlassLab';
+import {FieldDemo} from './lab/FieldDemo';
 
 const calculateMetadata: CalculateMetadataFunction<VideoProps> = ({props}) => ({
   durationInFrames: Math.ceil(props.plan.durationSec * FPS),
@@ -39,5 +41,7 @@ export const Root: React.FC = () => (
       width={W}
       height={H}
     />
+    <Composition id="FieldDemo" component={FieldDemo} defaultProps={{field: 'crimson' as const}} durationInFrames={90} fps={FPS} width={W} height={H} />
+    <Composition id="GlassLab" component={GlassLab} durationInFrames={30} fps={30} width={1080} height={1920} />
   </>
 );

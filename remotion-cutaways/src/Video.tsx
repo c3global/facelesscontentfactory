@@ -1,13 +1,10 @@
 import React, {useMemo} from 'react';
 import {AbsoluteFill, OffthreadVideo, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
-import {
-  brand,
-  fieldGradients,
-  lightField,
-  Mood,
-} from './brand';
+import {Backdrop, BackdropKind} from './backdrops';
+import {brand} from './brand';
 import {CaptionLayer, buildPages} from './Captions';
 import {loadBrandFonts} from './fonts';
+import {GlassSurface, RefractDefs} from './glass';
 import {ChapterCard} from './graphics/ChapterCard';
 import {ChatUI} from './graphics/ChatUI';
 import {EndCard} from './graphics/EndCard';
@@ -19,8 +16,9 @@ import {NotificationStack} from './graphics/NotificationStack';
 import {RewriteCard} from './graphics/RewriteCard';
 import {StatementCard} from './graphics/StatementCard';
 import {Tag} from './graphics/Tag';
-import {GRAPHIC_AREA, H, W} from './layouts';
-import type {Graphic, VideoProps} from './schema';
+import {H, W, areaFor} from './layouts';
+import {MetalRim} from './metal';
+import type {Graphic, Scene, VideoProps} from './schema';
 import {FlatSegment, avatarStateBlend, flatten, layoutBlend} from './timeline';
 import {GraphicTimeProvider, ThemeProvider} from './ui';
 
@@ -51,14 +49,7 @@ const renderGraphic = (g: Graphic): React.ReactNode => {
   }
 };
 
-const Field: React.FC<{mood: Mood; field: 'crimson' | 'charcoal' | 'rosegold'; opacity: number}> = ({mood, field, opacity}) => (
-  <AbsoluteFill
-    style={{
-      background: mood === 'light' ? lightField : fieldGradients[field],
-      opacity,
-    }}
-  />
-);
+const kindFor = (scene: Scene, field: 'crimson' | 'charcoal' | 'rosegold'): BackdropKind => (scene.mood === 'light' ? 'light' : field);
 
 export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   loadBrandFonts();
@@ -73,74 +64,116 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   const curField = blend.layout !== 'A';
   const prevField = blend.prev ? blend.prev.seg.layout !== 'A' : false;
   const prevOpacity = prevField ? (curField ? 1 : 1 - blend.p) : 0;
-  const curOpacity = curField ? (prevField ? blend.p : blend.p) : 0;
+  const curOpacity = curField ? blend.p : 0;
   const scrim = 1 - av.frame;
+  const sceneIdx = (s: Scene) => plan.scenes.indexOf(s);
+  const curMood = blend.cur.scene.mood;
+  const metalVariant = curMood === 'dark' && field !== 'rosegold' ? 'bright' : 'deep';
+
+  // circle factor: 0 for windows, 1 for the corner circle. Drives the thick metal ring.
+  const half = Math.min(av.w, av.h) / 2;
+  const cf = Math.min(1, Math.max(0, (av.r - 60) / Math.max(1, half - 60)));
+  const inset = av.frame * (22 - 6 * cf);
+  const rimT = av.frame * (4 + 12 * cf);
 
   return (
-    <AbsoluteFill style={{backgroundColor: blend.cur.scene.mood === 'light' && curField ? brand.white : brand.black}}>
-      {/* field layers, previous one underneath so mood changes cross-fade */}
-      {blend.prev && <Field mood={blend.prev.scene.mood} field={field} opacity={prevOpacity} />}
-      <Field mood={blend.cur.scene.mood} field={field} opacity={curOpacity} />
+    <AbsoluteFill style={{backgroundColor: curMood === 'light' && curField ? brand.white : brand.black}}>
+      <RefractDefs />
 
-      {/* one video element for the whole runtime so her audio never cuts or restarts */}
-      <div
-        style={{
-          position: 'absolute',
-          left: av.x,
-          top: av.y,
-          width: av.w,
-          height: av.h,
-          borderRadius: av.r,
-          overflow: 'hidden',
-          opacity: av.opacity,
-          boxShadow:
-            av.frame > 0.01
-              ? `0 ${28 * av.frame}px ${70 * av.frame}px rgba(0,0,0,${0.32 * av.frame}), 0 0 0 ${3 * av.frame}px rgba(212,138,140,${0.9 * av.frame})`
-              : 'none',
-        }}
-      >
-        <OffthreadVideo
-          src={staticFile(plan.video)}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: `50% ${av.focusY}%`,
-            transform: `scale(${av.zoom})`,
-            transformOrigin: `50% ${av.focusY}%`,
-          }}
-        />
-      </div>
+      {/* animated field backdrops; the previous one sits underneath so mood changes cross-fade */}
+      {blend.prev && (
+        <AbsoluteFill style={{opacity: prevOpacity}}>
+          <Backdrop kind={kindFor(blend.prev.scene, field)} alt={sceneIdx(blend.prev.scene)} frame={frame} />
+        </AbsoluteFill>
+      )}
+      <AbsoluteFill style={{opacity: curOpacity}}>
+        <Backdrop kind={kindFor(blend.cur.scene, field)} alt={sceneIdx(blend.cur.scene)} frame={frame} />
+      </AbsoluteFill>
 
-      {/* bottom scrim only while she is full-bleed, so white captions stay readable */}
+      {/* her: one OffthreadVideo for the whole runtime so her audio never cuts or restarts */}
+      <ThemeProvider mood={curMood} field={field} sans={sans}>
+        <div style={{position: 'absolute', left: av.x, top: av.y, width: av.w, height: av.h, borderRadius: av.r}}>
+          {av.frame > 0.01 && av.opacity > 0.01 && (
+            <GlassSurface
+              variant="clear"
+              tone={curMood === 'dark' ? 'dark' : 'light'}
+              radius={av.r}
+              fade={av.frame * av.opacity}
+              refract
+              rim={0}
+              seed={70}
+            />
+          )}
+          <div
+            style={{
+              position: 'absolute',
+              inset,
+              borderRadius: Math.max(0, av.r - inset),
+              overflow: 'hidden',
+              opacity: av.opacity,
+              backgroundColor: brand.black,
+            }}
+          >
+            <OffthreadVideo
+              src={staticFile(plan.video)}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: `50% ${av.focusY}%`,
+                transform: `scale(${av.zoom})`,
+                transformOrigin: `50% ${av.focusY}%`,
+              }}
+            />
+          </div>
+          {av.frame > 0.01 && av.opacity > 0.01 && (
+            <>
+              {/* specular edge over the video */}
+              <div
+                style={{
+                  position: 'absolute',
+                  inset,
+                  borderRadius: Math.max(0, av.r - inset),
+                  boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.5), inset 0 2px 0 rgba(255,255,255,0.3)',
+                  opacity: av.opacity,
+                  pointerEvents: 'none',
+                }}
+              />
+              <MetalRim radius={av.r} thickness={rimT} variant={metalVariant} seed={71} opacity={av.opacity} />
+            </>
+          )}
+        </div>
+      </ThemeProvider>
+
+      {/* lower-third gradient behind the full-frame hook caption, plus a soft bottom scrim */}
       {scrim > 0.01 && (
         <AbsoluteFill
           style={{
-            background: 'linear-gradient(180deg, rgba(0,0,0,0) 52%, rgba(0,0,0,0.5) 100%)',
+            background: 'linear-gradient(180deg, rgba(0,0,0,0) 38%, rgba(0,0,0,0.42) 56%, rgba(0,0,0,0.68) 74%, rgba(0,0,0,0.74) 100%)',
             opacity: scrim,
           }}
         />
       )}
 
       {/* scene tags and graphics */}
-      {plan.scenes.map((scene) => {
+      {plan.scenes.map((scene, si) => {
         const sStart = Math.min(...scene.segments.map((s) => s.start));
         const sEnd = Math.max(...scene.segments.map((s) => s.end));
         return (
-          <ThemeProvider key={scene.id} mood={scene.mood} field={field} sans={sans}>
+          <ThemeProvider key={scene.id} mood={scene.mood} field={field} sans={sans} sceneIndex={si}>
             {scene.tag && (
               <Sequence from={Math.round(sStart * fps) + 8} durationInFrames={Math.max(1, Math.round((sEnd - sStart) * fps) - 8)} premountFor={fps}>
                 <Tag text={scene.tag} />
               </Sequence>
             )}
-            {scene.segments.map((seg, si) =>
+            {scene.segments.map((seg, sgi) =>
               seg.graphics.map((g, gi) => {
                 const from = Math.round(g.at * fps);
                 const until = Math.round((g.until ?? seg.end) * fps);
-                const area = GRAPHIC_AREA[seg.layout];
+                const area = areaFor(seg.layout, seg.avatar);
                 const full = FULL_FRAME.includes(g.type);
                 return (
-                  <Sequence key={`${scene.id}-${si}-${gi}`} from={from} durationInFrames={Math.max(1, until - from)} premountFor={fps}>
+                  <Sequence key={`${scene.id}-${sgi}-${gi}`} from={from} durationInFrames={Math.max(1, until - from)} premountFor={fps}>
                     <GraphicTimeProvider atSec={g.at}>
                       <div
                         style={{
@@ -177,7 +210,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
         </ThemeProvider>
       )}
 
-      <ThemeProvider mood={blend.cur.scene.mood} field={field} sans={sans}>
+      <ThemeProvider mood={curMood} field={field} sans={sans}>
         <CaptionLayer pages={pages} emphasis={plan.emphasis} flat={flat as FlatSegment[]} />
       </ThemeProvider>
     </AbsoluteFill>

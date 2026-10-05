@@ -8,7 +8,8 @@
     "transcribe": "node scripts/transcribe.mjs",
     "captions:from-words": "node scripts/words-to-captions.mjs",
     "render": "tsx scripts/render-batch.mjs",
-    "tests": "tsx scripts/render-tests.mjs"
+    "tests": "tsx scripts/render-tests.mjs",
+    "finish": "tsx scripts/render-finish.mjs"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.0",

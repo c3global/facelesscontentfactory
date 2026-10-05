@@ -1,7 +1,9 @@
 import React from 'react';
 import {interpolate} from 'remotion';
-import {Card, Label, clamp, easeOut, isEmphasis, metalText, normalizeWord, serif, useCardMotion, useRel, useTheme} from '../ui';
 import {brand} from '../brand';
+import {Card} from '../glass';
+import {MetalText} from '../metal';
+import {Label, clamp, easeOut, isEmphasis, serif, useCardMotion, useRel, useTheme} from '../ui';
 
 type Props = {label: string; line: string; emphasis?: string[]; strikeAt?: number};
 
@@ -53,36 +55,24 @@ export const EmphasisLine: React.FC<{
   text: string;
   emphasis?: string[];
   size: number;
-  /** frame at which the sheen sweeps across emphasis words */
-  sheenFrame?: number;
   color: string;
   weight?: number;
-}> = ({text, emphasis, size, sheenFrame, color, weight = 700}) => {
-  const {palette} = useTheme();
+  seed?: number;
+}> = ({text, emphasis, size, color, weight = 700, seed = 3}) => {
   const words = text.split(' ');
   return (
     <div style={{fontFamily: serif, fontWeight: weight, fontSize: size, lineHeight: 1.12, color}}>
-      {words.map((w, i) => {
-        const em = isEmphasis(w, emphasis);
-        return (
-          <span
-            key={i}
-            style={{
-              display: 'inline-block',
-              marginRight: '0.26em',
-              ...(em
-                ? {
-                    fontStyle: 'italic',
-                    fontSize: size * 1.12,
-                    ...metalText('roseOnWhite', sheenFrame !== undefined ? sheenFrame / 22 : undefined),
-                  }
-                : {}),
-            }}
-          >
+      {words.map((w, i) =>
+        isEmphasis(w, emphasis) ? (
+          <MetalText key={i} variant="deep" seed={seed + i} style={{display: 'inline-block', marginRight: '0.26em', fontStyle: 'italic', fontSize: size * 1.12}}>
+            {w}
+          </MetalText>
+        ) : (
+          <span key={i} style={{display: 'inline-block', marginRight: '0.26em'}}>
             {w}
           </span>
-        );
-      })}
+        ),
+      )}
     </div>
   );
 };
@@ -94,11 +84,10 @@ export const HeadlineCard: React.FC<Props> = ({label, line, emphasis, strikeAt})
   const strikeFrame = strikeAt !== undefined ? rel(strikeAt) : 1_000_000;
   const strike = interpolate(frame, [strikeFrame, strikeFrame + 5], [0, 1], {...clamp, easing: easeOut});
   const dim = interpolate(frame, [strikeFrame, strikeFrame + 8], [0, 1], clamp);
-  void normalizeWord;
 
   return (
-    <div style={{opacity, transform: `translateY(${translateY}px) scale(${scale})`}}>
-      <Card style={{padding: '46px 70px 54px 56px'}}>
+    <div style={{transform: `translateY(${translateY}px) scale(${scale})`}}>
+      <Card fade={opacity} seed={2} contentStyle={{padding: '46px 70px 54px 56px'}}>
         <Label>{label}</Label>
         <div style={{height: 22}} />
         {strikeAt !== undefined ? (

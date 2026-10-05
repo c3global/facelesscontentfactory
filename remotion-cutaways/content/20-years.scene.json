@@ -58,7 +58,7 @@
           "start": 8.0,
           "end": 16.2,
           "layout": "C",
-          "avatar": "circle",
+          "avatar": "hidden",
           "graphics": [
             {
               "type": "headline-card",
@@ -110,12 +110,12 @@
     },
     {
       "id": "facilitator",
-      "mood": "light",
+      "mood": "dark",
       "segments": [
         {
           "start": 16.2,
           "end": 23.0,
-          "layout": "B",
+          "layout": "C",
           "graphics": [
             {
               "type": "meeting-tile",
@@ -125,7 +125,8 @@
                 "title": "Team meeting",
                 "status": "Silence",
                 "participants": 4,
-                "mutedAt": 17.8
+                "mutedAt": 17.8,
+                "zoom": 1.6
               }
             },
             {
@@ -134,7 +135,7 @@
               "until": 23.0,
               "box": {
                 "y": 0,
-                "h": 380
+                "h": 540
               },
               "props": {
                 "title": "Inbox",
@@ -150,7 +151,8 @@
                     "text": "Wait, who owns this decision?",
                     "at": 20.8
                   }
-                ]
+                ],
+                "zoom": 1.5
               }
             },
             {
@@ -158,8 +160,8 @@
               "at": 21.3,
               "until": 23.0,
               "box": {
-                "y": 395,
-                "h": 375
+                "y": 565,
+                "h": 480
               },
               "props": {
                 "badgeLabel": "new",
@@ -174,10 +176,12 @@
                     "text": "Still not sure about this.",
                     "at": 22.1
                   }
-                ]
+                ],
+                "zoom": 1.5
               }
             }
-          ]
+          ],
+          "avatar": "hidden"
         }
       ]
     },
@@ -218,9 +222,9 @@
       "segments": [
         {
           "start": 27.95,
-          "end": 36.92,
+          "end": 32.7,
           "layout": "C",
-          "avatar": "circle",
+          "avatar": "hidden",
           "graphics": [
             {
               "type": "statement-card",
@@ -231,6 +235,13 @@
               }
             }
           ]
+        },
+        {
+          "start": 32.7,
+          "end": 36.92,
+          "layout": "C",
+          "avatar": "circle",
+          "graphics": []
         }
       ]
     }

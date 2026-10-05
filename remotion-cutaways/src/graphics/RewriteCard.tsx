@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useLayoutEffect, useRef, useState} from 'react';
 import {interpolate} from 'remotion';
-import {Card, Label, clamp, easeOut, isEmphasis, metalText, serif, useCardMotion, useRel, useTheme} from '../ui';
+import {Card} from '../glass';
+import {MetalCheck, MetalText} from '../metal';
+import {Label, clamp, easeOut, isEmphasis, serif, useCardMotion, useRel, useTheme} from '../ui';
 import {StruckLine} from './HeadlineCard';
 
 type Props = {
@@ -14,20 +16,23 @@ type Props = {
   writeSeconds: number;
 };
 
-/** Old text struck through, then the new line writes in beneath it word by word. */
-export const RewriteCard: React.FC<Props> = ({
-  label,
-  oldLine,
-  newLine,
-  emphasis,
-  struckAtStart,
-  strikeAt,
-  writeAt,
-  writeSeconds,
-}) => {
+const NEW_SIZE = 76;
+
+/**
+ * Old text struck through, then the new line writes in beneath it word by word.
+ * The card is sized to its text: the new-line area starts at one line high and grows as the line wraps in,
+ * so there is never a tall empty card.
+ */
+export const RewriteCard: React.FC<Props> = ({label, oldLine, newLine, emphasis, struckAtStart, strikeAt, writeAt, writeSeconds}) => {
   const {opacity, translateY, scale, frame} = useCardMotion();
   const rel = useRel();
   const {palette} = useTheme();
+  const textRef = useRef<HTMLDivElement>(null);
+  const [fullH, setFullH] = useState(NEW_SIZE * 1.2);
+
+  useLayoutEffect(() => {
+    if (textRef.current) setFullH(textRef.current.scrollHeight);
+  }, [newLine, emphasis]);
 
   const sf = strikeAt !== undefined ? rel(strikeAt) : 0;
   const strike = struckAtStart ? 1 : interpolate(frame, [sf, sf + 5], [0, 1], {...clamp, easing: easeOut});
@@ -36,76 +41,42 @@ export const RewriteCard: React.FC<Props> = ({
   const wf = rel(writeAt);
   const total = Math.round(writeSeconds * 30);
   const words = newLine.split(' ');
-  const writeEnd = wf + total;
-  const check = interpolate(frame, [writeEnd, writeEnd + 14], [0, 1], {...clamp, easing: easeOut});
+  const progress = interpolate(frame, [wf, wf + total], [0, 1], clamp);
+  const oneLine = NEW_SIZE * 1.2;
+  const areaH = oneLine + (fullH - oneLine) * easeOut(Math.min(1, progress * 1.15));
+  const check = interpolate(frame, [wf + total, wf + total + 14], [0, 1], {...clamp, easing: easeOut});
 
   return (
-    <div style={{opacity, transform: `translateY(${translateY}px) scale(${scale})`}}>
-      <Card style={{padding: '46px 70px 54px 56px'}}>
+    <div style={{transform: `translateY(${translateY}px) scale(${scale})`}}>
+      <Card fade={opacity} seed={4} contentStyle={{padding: '46px 70px 50px 56px'}}>
         <Label>{label}</Label>
-        <div style={{height: 22}} />
-        <StruckLine text={oldLine} size={64} progress={strike} dim={dim} color={palette.onCard} />
-        <div style={{height: 34}} />
-        <div style={{display: 'flex', alignItems: 'flex-start', gap: 22}}>
-          <div style={{flex: 1, fontFamily: serif, fontWeight: 700, fontSize: 76, lineHeight: 1.1, color: palette.onCard}}>
-            {words.map((w, i) => {
-              const start = wf + (i / words.length) * total;
-              const p = interpolate(frame, [start, start + 8], [0, 1], {...clamp, easing: easeOut});
-              const em = isEmphasis(w, emphasis);
-              const sheen = interpolate(frame, [start + 4, start + 26], [0, 1], clamp);
-              return (
-                <span
-                  key={i}
-                  style={{
-                    display: 'inline-block',
-                    marginRight: '0.26em',
-                    opacity: p,
-                    translate: `0px ${(1 - p) * 16}px`,
-                    ...(em ? {fontStyle: 'italic', fontSize: 84, ...metalText('roseOnWhite', sheen > 0 && sheen < 1 ? sheen : undefined)} : {}),
-                  }}
-                >
-                  {w}
-                </span>
-              );
-            })}
+        <div style={{height: 20}} />
+        <StruckLine text={oldLine} size={62} progress={strike} dim={dim} color={palette.onCard} />
+        <div style={{height: 30}} />
+        <div style={{display: 'flex', alignItems: 'flex-start', gap: 20}}>
+          <div style={{flex: 1, height: areaH, overflow: 'hidden'}}>
+            <div ref={textRef} style={{fontFamily: serif, fontWeight: 700, fontSize: NEW_SIZE, lineHeight: 1.12, color: palette.onCard}}>
+              {words.map((w, i) => {
+                const start = wf + (i / words.length) * total;
+                const p = interpolate(frame, [start, start + 8], [0, 1], {...clamp, easing: easeOut});
+                const common = {display: 'inline-block', marginRight: '0.26em', opacity: p, translate: `0px ${(1 - p) * 16}px`} as const;
+                return isEmphasis(w, emphasis) ? (
+                  <MetalText key={i} variant="deep" seed={5 + i} style={{...common, fontStyle: 'italic', fontSize: NEW_SIZE * 1.1}}>
+                    {w}
+                  </MetalText>
+                ) : (
+                  <span key={i} style={common}>
+                    {w}
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+          <div style={{opacity: check, flexShrink: 0, alignSelf: 'flex-end', marginBottom: 6}}>
+            <MetalCheck size={78} id="rewrite-check" seed={6} progress={check} />
           </div>
         </div>
-        {/* secondary gold accent: a small check that draws once the line is written */}
-        <svg
-          width="84"
-          height="84"
-          viewBox="0 0 24 24"
-          style={{position: 'absolute', right: 40, bottom: 34, opacity: check}}
-        >
-          <defs>
-            <linearGradient id="gk" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stopColor="#F6E3A6" />
-              <stop offset="0.5" stopColor="#D5AA4A" />
-              <stop offset="1" stopColor="#A47E2A" />
-            </linearGradient>
-          </defs>
-          <circle
-            cx="12"
-            cy="12"
-            r="10"
-            fill="none"
-            stroke="url(#gk)"
-            strokeWidth="1.6"
-            strokeDasharray={63}
-            strokeDashoffset={63 * (1 - check)}
-          />
-          <path
-            d="M7.5 12.5l3 3 6-6.5"
-            fill="none"
-            stroke="url(#gk)"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeDasharray={20}
-            strokeDashoffset={20 * (1 - Math.max(0, check * 2 - 1))}
-          />
-        </svg>
-            </Card>
+      </Card>
     </div>
   );
 };

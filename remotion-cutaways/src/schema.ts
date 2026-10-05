@@ -49,6 +49,8 @@ export const graphicSchema = z.discriminatedUnion('type', [
         .min(1)
         .max(5),
       badgeLabel: z.string().default('new'),
+      /** scales the whole panel so it fills the frame */
+      zoom: z.number().min(0.8).max(2).default(1),
     }),
   }),
   z.object({
@@ -57,7 +59,7 @@ export const graphicSchema = z.discriminatedUnion('type', [
     props: z.object({
       center: z.string(),
       centerAt: sec,
-      nodes: z.array(z.object({label: z.string(), at: sec})).min(3).max(6),
+      nodes: z.array(z.object({label: z.string(), at: sec})).min(3).max(5),
       /** lines draw outward from the center */
       drawAt: sec,
       /** nodes switch from `fromLabel` to `toLabel` */
@@ -76,6 +78,7 @@ export const graphicSchema = z.discriminatedUnion('type', [
         .min(1)
         .max(4),
       badgeLabel: z.string().default('unread'),
+      zoom: z.number().min(0.8).max(2).default(1),
     }),
   }),
   z.object({
@@ -87,6 +90,7 @@ export const graphicSchema = z.discriminatedUnion('type', [
       participants: z.number().int().min(2).max(6).default(4),
       /** second at which the mic-muted / silent state kicks in */
       mutedAt: sec.optional(),
+      zoom: z.number().min(0.8).max(2).default(1),
     }),
   }),
   z.object({

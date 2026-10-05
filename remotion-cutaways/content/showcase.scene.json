@@ -2,8 +2,16 @@
   "slug": "showcase",
   "video": "raw/20-years.mp4",
   "durationSec": 36.92,
-  "theme": {"field": "crimson", "sans": "DM Sans"},
-  "emphasis": ["20", "years", "psychological", "safety"],
+  "theme": {
+    "field": "crimson",
+    "sans": "DM Sans"
+  },
+  "emphasis": [
+    "20",
+    "years",
+    "psychological",
+    "safety"
+  ],
   "captionPageMs": 500,
   "scenes": [
     {
@@ -16,7 +24,27 @@
           "end": 4.5,
           "layout": "A",
           "graphics": [
-            {"type": "floating-chips", "at": 0.8, "until": 4.5, "props": {"chips": [{"text": "Open question", "at": 0.9}, {"text": "Next step", "at": 1.6}, {"text": "Quiet room", "at": 2.3}]}}
+            {
+              "type": "floating-chips",
+              "at": 0.8,
+              "until": 4.5,
+              "props": {
+                "chips": [
+                  {
+                    "text": "Open question",
+                    "at": 0.9
+                  },
+                  {
+                    "text": "Next step",
+                    "at": 1.6
+                  },
+                  {
+                    "text": "Quiet room",
+                    "at": 2.3
+                  }
+                ]
+              }
+            }
           ]
         }
       ]
@@ -30,7 +58,21 @@
           "end": 10.0,
           "layout": "D",
           "graphics": [
-            {"type": "chapter-card", "at": 4.6, "until": 10.0, "props": {"numeral": "01", "title": "What the silence means", "flowLabel": "THE ROOM", "flow": ["Before", "During", "After"]}}
+            {
+              "type": "chapter-card",
+              "at": 4.6,
+              "until": 10.0,
+              "props": {
+                "numeral": "01",
+                "title": "What the silence means",
+                "flowLabel": "THE ROOM",
+                "flow": [
+                  "Before",
+                  "During",
+                  "After"
+                ]
+              }
+            }
           ]
         }
       ]
@@ -44,7 +86,21 @@
           "end": 15.5,
           "layout": "D",
           "graphics": [
-            {"type": "chapter-card", "at": 10.1, "until": 15.5, "props": {"numeral": "02", "title": "Where the concerns go", "flowLabel": "THE ROOM", "flow": ["Meeting", "Email", "Group chat"]}}
+            {
+              "type": "chapter-card",
+              "at": 10.1,
+              "until": 15.5,
+              "props": {
+                "numeral": "02",
+                "title": "Where the concerns go",
+                "flowLabel": "THE ROOM",
+                "flow": [
+                  "Meeting",
+                  "Email",
+                  "Group chat"
+                ]
+              }
+            }
           ]
         }
       ]
@@ -62,7 +118,26 @@
               "type": "notification-stack",
               "at": 15.6,
               "until": 21.0,
-              "props": {"badgeLabel": "new", "items": [{"app": "EMAIL", "text": "Can we revisit the plan?", "at": 16.0}, {"app": "GROUP CHAT", "text": "Still not sure about this.", "at": 17.0}, {"app": "EMAIL", "text": "Who owns the next step?", "at": 18.0}]}
+              "props": {
+                "badgeLabel": "new",
+                "items": [
+                  {
+                    "app": "EMAIL",
+                    "text": "Can we revisit the plan?",
+                    "at": 16.0
+                  },
+                  {
+                    "app": "GROUP CHAT",
+                    "text": "Still not sure about this.",
+                    "at": 17.0
+                  },
+                  {
+                    "app": "EMAIL",
+                    "text": "Who owns the next step?",
+                    "at": 18.0
+                  }
+                ]
+              }
             }
           ]
         }
@@ -85,7 +160,28 @@
               "props": {
                 "center": "The most confident voice",
                 "centerAt": 21.4,
-                "nodes": [{"label": "Waiting", "at": 22.0}, {"label": "Waiting", "at": 22.3}, {"label": "Waiting", "at": 22.6}, {"label": "Waiting", "at": 22.9}, {"label": "Waiting", "at": 23.2}, {"label": "Waiting", "at": 23.5}],
+                "nodes": [
+                  {
+                    "label": "Waiting",
+                    "at": 22.0
+                  },
+                  {
+                    "label": "Waiting",
+                    "at": 22.3
+                  },
+                  {
+                    "label": "Waiting",
+                    "at": 22.6
+                  },
+                  {
+                    "label": "Waiting",
+                    "at": 22.9
+                  },
+                  {
+                    "label": "Waiting",
+                    "at": 23.2
+                  }
+                ],
                 "drawAt": 24.5,
                 "changeAt": 25.0,
                 "fromLabel": "Waiting",
@@ -106,11 +202,23 @@
           "layout": "C",
           "avatar": "circle",
           "graphics": [
-            {"type": "statement-card", "at": 28.1, "until": 32.0, "props": {"text": "Want to understand how culture shapes communication?"}}
+            {
+              "type": "statement-card",
+              "at": 28.1,
+              "until": 32.0,
+              "props": {
+                "text": "Want to understand how culture shapes communication?"
+              }
+            }
           ]
         }
       ]
     }
   ],
-  "endCard": {"variant": "comment-keyword", "startAt": 32.4, "prompt": "Comment", "keyword": "Compass"}
+  "endCard": {
+    "variant": "comment-keyword",
+    "startAt": 32.4,
+    "prompt": "Comment",
+    "keyword": "Compass"
+  }
 }
