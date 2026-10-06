@@ -247,9 +247,9 @@ export const planSchema = z.object({
     .object({
       src: z.string(),
       /** level when she is silent (0 to 1) */
-      volume: z.number().min(0).max(1).default(0.22),
+      volume: z.number().min(0).max(1).default(0.18),
       /** level while she speaks */
-      duckTo: z.number().min(0).max(1).default(0.07),
+      duckTo: z.number().min(0).max(1).default(0.06),
       fadeInSec: z.number().min(0).default(1.5),
       fadeOutSec: z.number().min(0).default(2.5),
       startFromSec: z.number().min(0).default(0),
