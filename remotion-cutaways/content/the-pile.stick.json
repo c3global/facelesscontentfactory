@@ -1,0 +1,33 @@
+{
+  "slug": "the-pile",
+  "stage": "the-pile",
+  "durationSec": 86.0,
+  "vo": "raw/the-pile-vo.mp3",
+  "music": {"src": "music/warm-marscott-warm-sunlight.mp3", "volume": 0.16, "duckTo": 0.05, "fadeInSec": 1.0, "fadeOutSec": 2.2, "startFromSec": 0},
+  "emphasis": ["pile", "silent", "work", "first", "load"],
+  "hero": ["belong", "matter", "tasks", "task", "capacity", "drops", "maybe", "intern", "needs", "role", "space", "step", "one", "two", "next", "judge", "bio", "substack"],
+  "captionsEnd": 80.1,
+  "cues": {
+    "join": 0.08, "week": 3.93, "ask1": 8.31, "ask2": 10.06, "ask3": 11.6, "ask4": 13.39, "ask5": 14.48,
+    "yes": 16.92, "belong": 20.42, "matter": 21.68, "heavy": 24.58, "silent": 25.78,
+    "ciciIn": 26.4, "admin": 28.32, "intern": 30.88, "clock": 32.4,
+    "group": 34.58, "role": 37.29, "space": 39.84, "load": 41.7, "capacity": 46.32,
+    "drops": 48.94, "decide": 50.1, "maybe": 52.09, "first": 53.69, "shrink": 55.3,
+    "model": 58.32, "work": 60.83, "lookThere": 63.91, "design": 65.12, "matters": 67.77,
+    "one": 69.18, "two": 70.35, "finish": 71.28, "next": 74.36, "judge": 74.86, "check": 77.3, "cta": 80.25
+  },
+  "cici": [
+    {"at": 26.4, "src": "pose-walking-in.png", "walkIn": true},
+    {"at": 27.3, "src": "composed/pose-standing-hands-clasped__face-concerned.png"},
+    {"at": 34.58, "src": "pose-explaining-open-arms.png"},
+    {"at": 41.7, "src": "pose-pointing.png"},
+    {"at": 47.66, "src": "pose-shrugging.png"},
+    {"at": 52.09, "src": "pose-thinking.png"},
+    {"at": 53.69, "src": "pose-hands-on-hips.png"},
+    {"at": 58.32, "src": "pose-pointing.png"},
+    {"at": 65.12, "src": "pose-explaining-open-arms.png"},
+    {"at": 71.28, "src": "pose-thumbs-up.png"},
+    {"at": 74.86, "src": "pose-stop-hand.png"},
+    {"at": 80.25, "src": "pose-waving.png"}
+  ]
+}

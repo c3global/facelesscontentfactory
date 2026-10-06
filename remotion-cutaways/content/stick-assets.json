@@ -1,0 +1,31 @@
+{
+  "note": "Dr. CiCi stick-figure sprites made by Kai, stored in Dr. CK's Drive folder 'Dr. CiCi Stick Figure Assets' (https://drive.google.com/drive/folders/1PnWVaQVAAtzb-4n_ngVp0MSNGJYrkcqU). Only ids are kept here. The images are downloaded into public/stick, which is git-ignored. Run: node scripts/sync-stick.mjs",
+  "files": [
+    {"file": "pose-front-neutral.png", "driveId": "1IggyWTYqCD3FwFpgpGexS5uQUdytLq9D"},
+    {"file": "pose-shrugging.png", "driveId": "1tsdkJnfjs7crRJUHVNBIBLHX1usVmVgg"},
+    {"file": "pose-explaining-open-arms.png", "driveId": "1aHFADopHzGKTZelOOaqmFCAR2I8taVem"},
+    {"file": "pose-sitting.png", "driveId": "1mXvFYAyfK9VaVhCvoYbjaTcjInvO_O34"},
+    {"file": "pose-whiteboard.png", "driveId": "17120mN5EwtARvg9e0qDaUNPZHE4SFtcF"},
+    {"file": "pose-thumbs-up.png", "driveId": "1KNxBo9Bh4VpWpUG65xVsfuMO5eU-VY8e"},
+    {"file": "pose-standing-hands-clasped.png", "driveId": "11Ik_Hy680Qq4Gg3Bmm1PjGoXLsX5b16f"},
+    {"file": "pose-hands-on-hips.png", "driveId": "10kRe0Km4yuKdWbPx3wCgvRKbzKp8n6lz"},
+    {"file": "pose-arms-crossed.png", "driveId": "1p8km6VkxrKmTvAcPLzuMjqnHF1SYReX9"},
+    {"file": "pose-pointing.png", "driveId": "1cg4i8XlmgD5kYpkgq1QYvxb3iVZ0puzH"},
+    {"file": "pose-stop-hand.png", "driveId": "1rUbvA9C2XnEvvw0RnfbWbG998d6VZmxP"},
+    {"file": "pose-thinking.png", "driveId": "17MwbT_glys_CtBUi-NMKJ7nujV-_iq8D"},
+    {"file": "pose-waving.png", "driveId": "1LRYfQ4XBN9kZsXpHyez_qlqXvq2M8YKA"},
+    {"file": "pose-laptop.png", "driveId": "1IXlYPH1MFN1_eq8a8dIrDBPKhAEVBr8c"},
+    {"file": "pose-three-quarter.png", "driveId": "1Ttzqfkx4JgeGfsDvJ1QyQuE2UYSyiTpH"},
+    {"file": "pose-walking-in.png", "driveId": "1H9sqfiPTwvvk8huwnChWucAVFXbb0zvQ"},
+    {"file": "pose-side-walking.png", "driveId": "1WP_x5IF40Dsx9iPGgodNtiGw5NpoV7Ar"},
+    {"file": "face-smiling.png", "driveId": "1zo1J-ZMdJtQxdRcaKxElIwD9SNqq_Pit"},
+    {"file": "face-talking.png", "driveId": "1JcuFwvJQfKARwh_8Oh9-hAddxe545gct"},
+    {"file": "face-laughing.png", "driveId": "1Cik3YjExQOq0Ojl0fMqYZtEwhmqmCEK3"},
+    {"file": "face-neutral.png", "driveId": "1RVhaGcixyAknVr3YgFrwXKABZf0-c2OR"},
+    {"file": "face-frowning.png", "driveId": "1A___0jO9JGzjkLqa5vR8zC2X_ZE6eGjJ"},
+    {"file": "face-concerned.png", "driveId": "10uMtpyLHiY5nuX-CaMERtowWQSJyS4cD"},
+    {"file": "face-angry.png", "driveId": "1MJ2xY1Lulj6pnDbbXYt9B5oiwJYZRv-W"},
+    {"file": "face-surprised.png", "driveId": "1iruUWXR0Sz2e5YN_-lCABJLoufggjoWP"},
+    {"file": "face-one-eyebrow.png", "driveId": "1Q93E8U0WDZ0EbOwp38qmMLCd2rtCvP3W"}
+  ]
+}
