@@ -1,0 +1,15 @@
+{
+  "note": "Licensed Audiio tracks from Dr. CK's Drive folder 'Music' (https://drive.google.com/drive/folders/1_zehp3xfDSjuOx8Zs8zKauSUQF9k5DU0). Only ids and tags are kept here. The audio itself is downloaded into public/music, which is git-ignored.",
+  "tracks": [
+    {"file": "warm-marscott-warm-sunlight.mp3", "driveId": "1w_z3YOPXDkbqe9lgq0WTyG0V9UhlRB5s", "bpm": 92, "use": "reflective, warm, lo-fi bed"},
+    {"file": "calm-jle-hayride-60s.mp3", "driveId": "1BhOOc2xBDgXWWq2udPgzXxVuF3HYc4kn", "bpm": 78, "use": "calm, short (60 s)"},
+    {"file": "warm-yellen-closer-than-before.mp3", "driveId": "1xZVlMTS0Hrm1KlW2TGbL5UOoSj9xMzEw", "bpm": 92, "use": "warm, fuller"},
+    {"file": "driving-liamback-phenomenon.mp3", "driveId": "1Ni0AE_VyNkbrCYKJllfqainIfAvgGYIU", "bpm": 129, "use": "energetic, bright"},
+    {"file": "driving-yellen-fearless-dropoff.mp3", "driveId": "1IeINd1Kj4xdLlMtwA0tk380hO8jOEVGn", "bpm": 144, "use": "fast, punchy"},
+    {"file": "bright-terem-moment-of-truth.mp3", "driveId": "1NeySFfEgDLxhPkkE7LHsZS2j4unetmuv", "bpm": 99, "use": "bright, medium"}
+  ],
+  "sfx": [
+    {"file": "sfx-whoosh-02.wav", "driveId": "16f2CXg8SfKubXcAyKCMvuL-VbDCsqIWY", "use": "cut transition"},
+    {"file": "sfx-bell-16.wav", "driveId": "1KZaw7uYonwvHxIDVRntU2jb_lY6dTH0l", "use": "accent"}
+  ]
+}

@@ -1,0 +1,9 @@
+node_modules
+out
+public/raw/
+whisper.cpp/
+.agents/
+.claude/
+skills-lock.json
+work/
+public/music/

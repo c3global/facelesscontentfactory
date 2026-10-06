@@ -1,0 +1,284 @@
+{
+  "slug": "20-years",
+  "video": "raw/20-years.mp4",
+  "durationSec": 36.92,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [
+    "20",
+    "years",
+    "psychological",
+    "safety"
+  ],
+  "captionPageMs": 500,
+  "scenes": [
+    {
+      "id": "hook",
+      "mood": "dark",
+      "tag": "CULTURAL INTELLIGENCE",
+      "segments": [
+        {
+          "start": 0,
+          "end": 4.0,
+          "layout": "A",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "silence",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 4.0,
+          "end": 8.0,
+          "layout": "B",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 4.1,
+              "until": 8.0,
+              "props": {
+                "label": "WHAT YOU THINK IT IS",
+                "line": "Silence means agreement.",
+                "strikeAt": 6.3
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "waiting",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 8.0,
+          "end": 16.2,
+          "layout": "C",
+          "avatar": "hidden",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 8.2,
+              "until": 10.6,
+              "props": {
+                "label": "WHERE I TAUGHT",
+                "line": "In some Asian contexts"
+              }
+            },
+            {
+              "type": "hub-diagram",
+              "at": 10.7,
+              "until": 16.2,
+              "props": {
+                "center": "The most confident voice",
+                "centerAt": 11.2,
+                "nodes": [
+                  {
+                    "label": "Waiting",
+                    "at": 13.1
+                  },
+                  {
+                    "label": "Waiting",
+                    "at": 13.4
+                  },
+                  {
+                    "label": "Waiting",
+                    "at": 13.7
+                  },
+                  {
+                    "label": "Waiting",
+                    "at": 14.0
+                  },
+                  {
+                    "label": "Waiting",
+                    "at": 14.3
+                  }
+                ],
+                "drawAt": 14.67,
+                "changeAt": 15.1,
+                "fromLabel": "Waiting",
+                "toLabel": "Agreeing",
+                "fit": 0.82
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "facilitator",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 16.2,
+          "end": 23.0,
+          "layout": "C",
+          "graphics": [
+            {
+              "type": "meeting-tile",
+              "at": 16.3,
+              "until": 19.15,
+              "props": {
+                "title": "Team meeting",
+                "status": "Silence",
+                "participants": 4,
+                "mutedAt": 17.8,
+                "zoom": 1.3
+              }
+            },
+            {
+              "type": "chat-ui",
+              "at": 19.2,
+              "until": 23.0,
+              "box": {
+                "y": 0,
+                "h": 440
+              },
+              "props": {
+                "title": "Inbox",
+                "badgeLabel": "unread",
+                "items": [
+                  {
+                    "channel": "EMAIL",
+                    "text": "I have a concern about the timeline.",
+                    "at": 19.9
+                  },
+                  {
+                    "channel": "GROUP CHAT",
+                    "text": "Wait, who owns this decision?",
+                    "at": 20.8
+                  }
+                ],
+                "zoom": 1.25
+              }
+            },
+            {
+              "type": "notification-stack",
+              "at": 21.3,
+              "until": 23.0,
+              "box": {
+                "y": 455,
+                "h": 420
+              },
+              "props": {
+                "badgeLabel": "new",
+                "items": [
+                  {
+                    "app": "EMAIL",
+                    "text": "Can we revisit the plan?",
+                    "at": 21.5
+                  },
+                  {
+                    "app": "GROUP CHAT",
+                    "text": "Still not sure about this.",
+                    "at": 22.1
+                  }
+                ],
+                "zoom": 1.25
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ]
+    },
+    {
+      "id": "gap",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 23.0,
+          "end": 27.95,
+          "layout": "C",
+          "avatar": "circle",
+          "graphics": [
+            {
+              "type": "rewrite-card",
+              "at": 23.0,
+              "until": 27.95,
+              "props": {
+                "label": "WHAT YOU THINK IT IS",
+                "oldLine": "Silence means agreement.",
+                "struckAtStart": true,
+                "newLine": "A gap that could signal missing psychological safety.",
+                "emphasis": [
+                  "psychological",
+                  "safety"
+                ],
+                "writeAt": 23.5,
+                "writeSeconds": 3.0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "statement",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 27.95,
+          "end": 32.7,
+          "layout": "C",
+          "avatar": "hidden",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 28.0,
+              "until": 32.6,
+              "props": {
+                "text": "Want to understand how culture shapes communication?"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 32.7,
+          "end": 36.92,
+          "layout": "C",
+          "avatar": "circle",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "variant": "link-pill",
+    "startAt": 32.8,
+    "label": "LINK BELOW OR IN MY BIO",
+    "url": "C3Global.co/CQCompass"
+  },
+  "captionStyle": "editorial",
+  "hero": [
+    "silence",
+    "agreement",
+    "confident",
+    "Asian",
+    "person",
+    "agreed",
+    "concerns",
+    "email",
+    "gap",
+    "missing",
+    "communication",
+    "culture",
+    "Compass",
+    "bio"
+  ],
+  "boxed": [
+    "agreement",
+    "concerns",
+    "missing"
+  ]
+}
