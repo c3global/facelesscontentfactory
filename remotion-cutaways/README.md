@@ -144,6 +144,8 @@ Templates (theme.field): `black` (plain black field), `marble-black`, `marble-wh
 `npm run stills -- <slug> <seconds...> --field=marble-white`. Segments can hide her (`"avatar": "hidden"` on layout C or E) and move captions
 with `"captionPos": "top" | "alternate"`. Liquid-glass pills use clear glass with metallic crimson (`MetalKind 'crimson'`, built on #C91B19) accents.
 
+See docs/PLAYBOOK.md for the full workflow and locked rules.
+
 ## Templates (named)
 
 - **Black Glass**: black field, full-frame her plus picture-in-picture (layout E) and hidden-avatar scenes, holographic glass pills, source and feed cards.

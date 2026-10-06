@@ -14,7 +14,10 @@
     "stills": "tsx scripts/render-stills.mjs",
     "pacing": "node scripts/pacing.mjs",
     "finalize": "node scripts/finalize.mjs",
-    "music": "node scripts/pick-music.mjs"
+    "music": "node scripts/pick-music.mjs",
+    "new": "node scripts/new-video.mjs",
+    "sync-music": "node scripts/sync-music.mjs",
+    "stitch": "node scripts/stitch.mjs"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.0",

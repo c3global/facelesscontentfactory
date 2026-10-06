@@ -1,0 +1,233 @@
+{
+  "slug": "black-glass",
+  "video": "raw/black-glass.mp4",
+  "durationSec": 56.43,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [
+    "quiet",
+    "four",
+    "disinterest",
+    "speaks",
+    "up"
+  ],
+  "captionStyle": "editorial",
+  "captionBand": {
+    "top": 1056,
+    "bottom": 1382
+  },
+  "hero": [
+    "work",
+    "people",
+    "structure",
+    "culture",
+    "substack",
+    "bio"
+  ],
+  "boxed": [
+    "substack"
+  ],
+  "scenes": [
+    {
+      "id": "hook",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 3.0,
+          "layout": "A",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "quiet-feed",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 3.0,
+          "end": 6.0,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "quiet-feed",
+              "at": 3.0,
+              "until": 6.0,
+              "props": {
+                "label": "COMMUNITY FEED",
+                "post": "Welcome! Say hello below.",
+                "status": "No replies yet",
+                "statusAt": 4.6
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hold",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 6.0,
+          "end": 9.7,
+          "layout": "A",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "four-places",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 9.7,
+          "end": 27.0,
+          "layout": "E",
+          "avatar": "hidden",
+          "captionPos": "alternate",
+          "graphics": [
+            {
+              "type": "congruence-map",
+              "at": 9.7,
+              "until": 42.0,
+              "props": {
+                "nodes": [
+                  {
+                    "label": "Work",
+                    "at": 10.2,
+                    "labelAt": 15.4
+                  },
+                  {
+                    "label": "People",
+                    "at": 10.8,
+                    "labelAt": 19.3
+                  },
+                  {
+                    "label": "Structure",
+                    "at": 11.4,
+                    "labelAt": 27.5
+                  },
+                  {
+                    "label": "Culture",
+                    "at": 11.95,
+                    "labelAt": 32.9
+                  }
+                ],
+                "connectAt": 38.0,
+                "pulseAt": 40.2
+              }
+            }
+          ]
+        },
+        {
+          "start": 27.0,
+          "end": 42.0,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "model",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 42.0,
+          "end": 45.0,
+          "layout": "A",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "citation",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 45.0,
+          "end": 48.0,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "citation-card",
+              "at": 45.0,
+              "until": 48.0,
+              "props": {
+                "label": "SOURCE",
+                "authors": "Nadler and Tushman",
+                "year": "1980",
+                "title": "A Model for Diagnosing Organizational Behavior",
+                "source": "Organizational Dynamics"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "use",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 48.0,
+          "end": 50.0,
+          "layout": "A",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "substack",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 50.0,
+          "end": 54.0,
+          "layout": "E",
+          "avatar": "hidden",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "screenshot-card",
+              "at": 50.0,
+              "until": 54.0,
+              "props": {
+                "src": "shots/substack-four-places.png",
+                "pan": 0.45,
+                "mode": "full"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "close",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 54.0,
+          "end": 56.43,
+          "layout": "A",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "variant": "link-pill",
+    "startAt": 54.2,
+    "label": "LINK IN MY BIO",
+    "url": "bio.c3global.co"
+  },
+  "captionBandTop": {
+    "top": 250,
+    "bottom": 560
+  }
+}
