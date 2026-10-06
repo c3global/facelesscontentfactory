@@ -12,7 +12,9 @@
     "finish": "tsx scripts/render-finish.mjs",
     "captions:test": "tsx scripts/render-captions.mjs",
     "stills": "tsx scripts/render-stills.mjs",
-    "pacing": "node scripts/pacing.mjs"
+    "pacing": "node scripts/pacing.mjs",
+    "finalize": "node scripts/finalize.mjs",
+    "music": "node scripts/pick-music.mjs"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.0",

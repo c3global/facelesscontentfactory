@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {AbsoluteFill, OffthreadVideo, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {Audio, AbsoluteFill, OffthreadVideo, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {Backdrop, BackdropKind} from './backdrops';
 import {FieldOption, brand} from './brand';
 import {CaptionLayer, buildPages} from './Captions';
@@ -75,6 +75,29 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   const flat = useMemo(() => flatten(plan, fps), [plan, fps]);
   const pages = useMemo(() => buildPages(captions, plan.captionPageMs), [captions, plan.captionPageMs]);
   const {field, sans} = plan.theme;
+  // music level per frame: ducks while she speaks (word timings, smoothed), fades in at the start and out at the end
+  const musicVolume = useMemo(() => {
+    const m = plan.music;
+    if (!m) return () => 0;
+    const spans = captions.map((c) => [c.startMs / 1000 - 0.12, c.endMs / 1000 + 0.25] as const);
+    const total = plan.durationSec;
+    return (f: number) => {
+      const t = f / fps;
+      let near = 0;
+      for (const [a, b] of spans) {
+        if (t >= a && t <= b) {
+          near = 1;
+          break;
+        }
+        const d = Math.min(Math.abs(t - a), Math.abs(t - b));
+        if (d < 0.35) near = Math.max(near, 1 - d / 0.35);
+      }
+      const level = m.volume + (m.duckTo - m.volume) * near;
+      const fin = m.fadeInSec > 0 ? Math.min(1, t / m.fadeInSec) : 1;
+      const fout = m.fadeOutSec > 0 ? Math.min(1, Math.max(0, (total - t) / m.fadeOutSec)) : 1;
+      return level * fin * fout;
+    };
+  }, [plan.music, plan.durationSec, captions, fps]);
   // the end card says the closing line itself, so captions stop where it begins
   const kineticCaptions = useMemo(
     () => (plan.endCard ? captions.filter((c) => c.startMs < plan.endCard!.startAt * 1000 - 40) : captions),
@@ -103,6 +126,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   return (
     <AbsoluteFill style={{backgroundColor: curMood === 'light' && curField ? brand.white : brand.black}}>
       <RefractDefs />
+      {plan.music && <Audio src={staticFile(plan.music.src)} volume={musicVolume} startFrom={Math.round(plan.music.startFromSec * fps)} loop />}
 
       {/* animated field backdrops; the previous one sits underneath so mood changes cross-fade */}
       {blend.prev && (

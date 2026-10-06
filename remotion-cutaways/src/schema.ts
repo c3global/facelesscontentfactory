@@ -240,6 +240,19 @@ export const planSchema = z.object({
   /** the band used when a segment moves captions to the top */
   /** film finish over the whole frame: grain (0 to 1) and light leaks (0 to 1, warm brand-tint leaks that drift and burst on cuts) */
   finish: z.object({grain: z.number().min(0).max(1).default(0), lightLeaks: z.number().min(0).max(1).default(0)}).prefault({}),
+  /** background music from public/music (licensed tracks stay out of git). Ducks under her voice automatically, fades in and out. */
+  music: z
+    .object({
+      src: z.string(),
+      /** level when she is silent (0 to 1) */
+      volume: z.number().min(0).max(1).default(0.22),
+      /** level while she speaks */
+      duckTo: z.number().min(0).max(1).default(0.07),
+      fadeInSec: z.number().min(0).default(1.5),
+      fadeOutSec: z.number().min(0).default(2.5),
+      startFromSec: z.number().min(0).default(0),
+    })
+    .optional(),
   captionBandTop: z.object({top: z.number(), bottom: z.number()}).prefault({top: 250, bottom: 560}),
   captionPageMs: z.number().int().min(100).max(1500).default(500),
   scenes: z.array(sceneSchema).min(1),
