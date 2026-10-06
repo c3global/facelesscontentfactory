@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill} from 'remotion';
+import {AbsoluteFill, Img, staticFile} from 'remotion';
 import {brand} from './brand';
 
 /**
@@ -404,6 +404,47 @@ export const Backdrop: React.FC<{kind: BackdropKind; alt?: number; frame: number
           // overlay blend: pure black stays pure black, so grain never lifts the blacks into gray haze
           mixBlendMode: kind === 'black' ? 'overlay' : 'normal',
           opacity: kind === 'black' ? 0.07 : dark ? (kind === 'rosegold' ? 0.12 : 0.09) : 0.1,
+        }}
+      />
+    </AbsoluteFill>
+  );
+};
+
+
+/**
+ * A photographic background (marble stone, for example). It drifts and breathes very slowly so the stone never
+ * sits dead still, a soft sheen crosses it every few seconds, and a light dim keeps captions and glass legible.
+ */
+export const PhotoBackdrop: React.FC<{src: string; mood: 'dark' | 'light'; frame: number}> = ({src, mood, frame}) => {
+  const t = frame / FPS;
+  const scale = 1.16 + Math.sin(t * 0.09) * 0.03;
+  const dx = Math.sin(t * 0.07) * 28;
+  const dy = Math.cos(t * 0.05) * 38 - t * 1.5;
+  const dark = mood === 'dark';
+  return (
+    <AbsoluteFill style={{overflow: 'hidden', backgroundColor: dark ? brand.black : brand.white}}>
+      <Img
+        src={staticFile(src)}
+        style={{position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', transform: `translate(${dx}px, ${dy}px) scale(${scale})`}}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          left: -900 + ((t % 12) / 12) * 2900,
+          top: -200,
+          width: 760,
+          height: 2400,
+          transform: 'rotate(15deg)',
+          background: `linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,${dark ? 0.1 : 0.35}) 50%, rgba(255,255,255,0) 100%)`,
+          mixBlendMode: 'screen',
+        }}
+      />
+      <div style={{position: 'absolute', inset: 0, background: dark ? 'rgba(0,0,0,0.22)' : 'rgba(255,255,255,0.1)'}} />
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: dark ? 'radial-gradient(ellipse at 50% 46%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.55) 100%)' : 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0) 55%, rgba(58,63,66,0.1) 100%)',
         }}
       />
     </AbsoluteFill>

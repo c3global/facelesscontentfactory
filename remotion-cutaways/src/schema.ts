@@ -194,6 +194,8 @@ export const sceneSchema = z.object({
   mood: z.enum(['dark', 'light']),
   /** small spaced-caps label at the top of the scene */
   tag: z.string().optional(),
+  /** photo background for this scene, a path inside public/ (for example backdrops/marble-black.jpg). Overrides the field. */
+  bg: z.string().optional(),
   segments: z.array(segmentSchema).min(1),
 });
 

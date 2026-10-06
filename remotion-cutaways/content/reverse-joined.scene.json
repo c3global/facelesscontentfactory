@@ -1,0 +1,464 @@
+{
+  "slug": "reverse-joined",
+  "video": "raw/reverse-joined.mp4",
+  "durationSec": 67.27,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [
+    "tightens",
+    "threat",
+    "flinches",
+    "private",
+    "teach",
+    "unspoken"
+  ],
+  "captionStyle": "editorial",
+  "captionBand": {
+    "top": 1056,
+    "bottom": 1382
+  },
+  "captionBandTop": {
+    "top": 250,
+    "bottom": 560
+  },
+  "hero": [
+    "news",
+    "paper",
+    "model",
+    "outperforms",
+    "identity",
+    "closeness",
+    "friend",
+    "cheer",
+    "building",
+    "leader",
+    "community",
+    "success",
+    "win",
+    "substack",
+    "bio"
+  ],
+  "boxed": [
+    "substack"
+  ],
+  "finish": {
+    "grain": 0.35,
+    "lightLeaks": 0.5
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 3.0,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "news",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 3.0,
+          "end": 6.6,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "notification-stack",
+              "at": 3.0,
+              "until": 6.6,
+              "props": {
+                "items": [
+                  {
+                    "app": "Friend",
+                    "text": "I have some news!",
+                    "at": 3.3
+                  },
+                  {
+                    "app": "Friend",
+                    "text": "It finally happened!",
+                    "at": 4.0
+                  }
+                ],
+                "badgeLabel": "new",
+                "zoom": 1.0
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "paper",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 6.6,
+          "end": 13.4,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "citation-card",
+              "at": 6.6,
+              "until": 13.4,
+              "props": {
+                "label": "PAPER",
+                "authors": "Tesser, Millar, & Moore",
+                "year": "1988",
+                "title": "Some affective consequences of social comparison and reflection processes",
+                "source": "Journal of Personality and Social Psychology"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "model",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 13.4,
+          "end": 16.8,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "close",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 16.8,
+          "end": 21.3,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "notes-card",
+              "at": 16.8,
+              "until": 21.3,
+              "props": {
+                "label": "Notes",
+                "title": "The model",
+                "items": [
+                  {
+                    "text": "Someone close to you",
+                    "at": 17.0,
+                    "checkAfter": 0.4
+                  },
+                  {
+                    "text": "Outperforms you",
+                    "at": 17.9,
+                    "checkAfter": 0.4
+                  },
+                  {
+                    "text": "On something central to you",
+                    "at": 19.0,
+                    "checkAfter": 0.4
+                  }
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "threat",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 21.3,
+          "end": 27.0,
+          "layout": "E",
+          "captionPos": "alternate",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 21.3,
+              "until": 27.0,
+              "box": {
+                "y": 380,
+                "h": 440
+              },
+              "props": {
+                "text": "The closer they are, the greater the threat.",
+                "emphasis": [
+                  "threat"
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ]
+    },
+    {
+      "id": "less",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 27.0,
+          "end": 30.0,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 30.0,
+          "end": 33.2,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 30.0,
+              "until": 33.2,
+              "props": {
+                "label": "AN AREA THAT MATTERS LESS",
+                "line": "Closeness works the other way."
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "friends",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 33.2,
+          "end": 38.7,
+          "layout": "E",
+          "captionPos": "alternate",
+          "graphics": [
+            {
+              "type": "floating-chips",
+              "at": 33.2,
+              "until": 38.7,
+              "props": {
+                "mode": "stack",
+                "chips": [
+                  {
+                    "text": "One friend cheers",
+                    "at": 34.2
+                  },
+                  {
+                    "text": "Another flinches",
+                    "at": 37.0
+                  }
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ]
+    },
+    {
+      "id": "building",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 38.7,
+          "end": 44.9,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "notes-card",
+              "at": 38.7,
+              "until": 44.9,
+              "props": {
+                "label": "Notes",
+                "title": "It can have less to do with",
+                "items": [
+                  {
+                    "text": "How much they love you",
+                    "at": 40.4,
+                    "checkAfter": 0.5
+                  },
+                  {
+                    "text": "What each of them is building",
+                    "at": 42.6,
+                    "checkAfter": 0.5
+                  }
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "leader",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 44.9,
+          "end": 47.0,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "rule",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 47.0,
+          "end": 50.2,
+          "layout": "E",
+          "captionPos": "alternate",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 47.0,
+              "until": 50.2,
+              "box": {
+                "y": 380,
+                "h": 440
+              },
+              "props": {
+                "text": "An unspoken rule about how success is received.",
+                "emphasis": [
+                  "unspoken"
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ]
+    },
+    {
+      "id": "learn",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 50.2,
+          "end": 53.8,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "private",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 53.8,
+          "end": 58.9,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 53.8,
+              "until": 58.9,
+              "props": {
+                "label": "WHICH MEANS",
+                "line": "The way you respond is never just private."
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "teach",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 58.9,
+          "end": 61.3,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "substack",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 61.3,
+          "end": 67.27,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "screenshot-card",
+              "at": 61.3,
+              "until": 67.27,
+              "props": {
+                "src": "shots/substack-home.png",
+                "pan": 0.5,
+                "mode": "full"
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ]
+    }
+  ],
+  "music": {
+    "src": "music/warm-marscott-warm-sunlight.mp3",
+    "volume": 0.24,
+    "duckTo": 0.085,
+    "fadeInSec": 1.5,
+    "fadeOutSec": 2.5,
+    "startFromSec": 0
+  },
+  "endCard": {
+    "variant": "link-pill",
+    "startAt": 63.2,
+    "label": "LINK BELOW OR IN MY BIO",
+    "url": "bio.c3global.co"
+  }
+}

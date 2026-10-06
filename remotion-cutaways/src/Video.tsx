@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import {Audio, AbsoluteFill, OffthreadVideo, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
-import {Backdrop, BackdropKind} from './backdrops';
+import {Backdrop, BackdropKind, PhotoBackdrop} from './backdrops';
 import {FieldOption, brand} from './brand';
 import {CaptionLayer, buildPages} from './Captions';
 import {KineticLayer} from './Kinetic';
@@ -131,11 +131,19 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
       {/* animated field backdrops; the previous one sits underneath so mood changes cross-fade */}
       {blend.prev && (
         <AbsoluteFill style={{opacity: prevOpacity}}>
-          <Backdrop kind={kindFor(blend.prev.scene, field)} alt={sceneIdx(blend.prev.scene)} frame={frame} />
+          {blend.prev.scene.bg ? (
+            <PhotoBackdrop src={blend.prev.scene.bg} mood={blend.prev.scene.mood} frame={frame} />
+          ) : (
+            <Backdrop kind={kindFor(blend.prev.scene, field)} alt={sceneIdx(blend.prev.scene)} frame={frame} />
+          )}
         </AbsoluteFill>
       )}
       <AbsoluteFill style={{opacity: curOpacity}}>
-        <Backdrop kind={kindFor(blend.cur.scene, field)} alt={sceneIdx(blend.cur.scene)} frame={frame} />
+        {blend.cur.scene.bg ? (
+          <PhotoBackdrop src={blend.cur.scene.bg} mood={blend.cur.scene.mood} frame={frame} />
+        ) : (
+          <Backdrop kind={kindFor(blend.cur.scene, field)} alt={sceneIdx(blend.cur.scene)} frame={frame} />
+        )}
       </AbsoluteFill>
 
       {/* her: one OffthreadVideo for the whole runtime so her audio never cuts or restarts */}

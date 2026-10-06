@@ -73,9 +73,9 @@ export const CitationCard: React.FC<{label: string; authors: string; year?: stri
               </MetalText>
             )}
           </div>
-          <div style={{fontFamily: serif, fontStyle: 'italic', fontWeight: 800, fontSize: 66, lineHeight: 1.05, color: ink, marginTop: 16, opacity: line(4), transform: `translateY(${(1 - line(4)) * 14}px)`}}>{authors}</div>
-          <div style={{fontFamily: sans, fontWeight: 700, fontSize: 36, lineHeight: 1.2, color: ink, marginTop: 18, opacity: line(12)}}>{title}</div>
-          <div style={{fontFamily: serif, fontStyle: 'italic', fontWeight: 600, fontSize: 36, color: ink, opacity: 0.75 * line(18), marginTop: 12}}>{source}</div>
+          <div style={{fontFamily: serif, fontStyle: 'italic', fontWeight: 800, fontSize: authors.length > 18 ? 54 : 66, lineHeight: 1.05, color: ink, marginTop: 16, opacity: line(4), transform: `translateY(${(1 - line(4)) * 14}px)`}}>{authors}</div>
+          <div style={{fontFamily: sans, fontWeight: 700, fontSize: 34, lineHeight: 1.2, color: ink, marginTop: 18, opacity: line(12)}}>{title}</div>
+          <div style={{fontFamily: serif, fontStyle: 'italic', fontWeight: 600, fontSize: source.length > 34 ? 31 : 36, color: ink, opacity: 0.75 * line(18), marginTop: 12}}>{source}</div>
         </div>
       </Shell>
     </div>
