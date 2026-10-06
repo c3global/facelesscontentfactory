@@ -61,7 +61,7 @@ export type Joints = {
 };
 
 export const joints = (x: number, y: number, h: number, p: Pose): Joints => {
-  const hr = 0.115 * h;
+  const hr = 0.125 * h;
   const drop = p.crouch * 0.15 * h;
   const hip: V = [x, y - 0.4 * h + drop];
   const neck: V = [x + p.lean * h, y - 0.8 * h + drop];
@@ -100,30 +100,44 @@ export const Stick: React.FC<{
   color?: string;
   sw?: number;
   opacity?: number;
-}> = ({x, y, h, pose = STAND, color = '#3A3F42', sw = 9, opacity = 1}) => {
+  shirt?: string;
+}> = ({x, y, h, pose = STAND, color = '#3A3F42', sw = 9, opacity = 1, shirt = '#E7EAEC'}) => {
   const j = joints(x, y, h, pose);
   const line = {fill: 'none', stroke: color, strokeLinecap: 'round', strokeLinejoin: 'round'} as const;
-  const eyeY = j.head[1] - j.hr * 0.05;
+  const eyeY = j.head[1] + j.hr * 0.02;
   const look = (pose.look ?? 0) * j.hr * 0.18;
-  const my = j.head[1] + j.hr * 0.42;
+  const my = j.head[1] + j.hr * 0.46;
   const mw = j.hr * 0.34;
+  const hx = j.head[0];
+  const brow = (side: -1 | 1) => {
+    const bx = hx + side * j.hr * 0.38 + look;
+    const by = eyeY - j.hr * 0.36;
+    const tilt = pose.mood === 'sad' ? side * j.hr * 0.14 : 0;
+    const lift = pose.mood === 'open' ? -j.hr * 0.1 : 0;
+    return `M ${bx - j.hr * 0.2} ${by + lift - tilt} L ${bx + j.hr * 0.2} ${by + lift + tilt}`;
+  };
+  const tw = 0.17 * h; // torso width
   return (
     <g opacity={opacity}>
-      <polyline points={pl([j.hip, j.kneeL, j.footL])} {...line} strokeWidth={sw} />
-      <polyline points={pl([j.hip, j.kneeR, j.footR])} {...line} strokeWidth={sw} />
-      <line x1={j.footL[0]} y1={j.footL[1]} x2={j.footL[0] - 0.06 * h} y2={j.footL[1]} {...line} strokeWidth={sw} />
-      <line x1={j.footR[0]} y1={j.footR[1]} x2={j.footR[0] + 0.06 * h} y2={j.footR[1]} {...line} strokeWidth={sw} />
-      <line x1={j.neck[0]} y1={j.neck[1]} x2={j.hip[0]} y2={j.hip[1]} {...line} strokeWidth={sw * 1.7} />
-      <line x1={j.shL[0]} y1={j.shL[1]} x2={j.shR[0]} y2={j.shR[1]} {...line} strokeWidth={sw} />
+      <polyline points={pl([j.hip, j.kneeL, j.footL])} {...line} strokeWidth={sw * 1.15} />
+      <polyline points={pl([j.hip, j.kneeR, j.footR])} {...line} strokeWidth={sw * 1.15} />
+      <line x1={j.footL[0]} y1={j.footL[1]} x2={j.footL[0] - 0.07 * h} y2={j.footL[1]} {...line} strokeWidth={sw * 1.9} />
+      <line x1={j.footR[0]} y1={j.footR[1]} x2={j.footR[0] + 0.07 * h} y2={j.footR[1]} {...line} strokeWidth={sw * 1.9} />
       <polyline points={pl([j.shL, j.elbowL, j.handL])} {...line} strokeWidth={sw} />
       <polyline points={pl([j.shR, j.elbowR, j.handR])} {...line} strokeWidth={sw} />
-      <circle cx={j.head[0]} cy={j.head[1]} r={j.hr} fill="#FFFFFF" stroke={color} strokeWidth={sw} />
-      <circle cx={j.head[0] - j.hr * 0.38 + look} cy={eyeY} r={Math.max(3, j.hr * 0.09)} fill={color} />
-      <circle cx={j.head[0] + j.hr * 0.38 + look} cy={eyeY} r={Math.max(3, j.hr * 0.09)} fill={color} />
-      {pose.mood === 'smile' && <path d={`M ${j.head[0] - mw} ${my} Q ${j.head[0]} ${my + j.hr * 0.3} ${j.head[0] + mw} ${my}`} {...line} strokeWidth={sw * 0.5} />}
-      {pose.mood === 'sad' && <path d={`M ${j.head[0] - mw} ${my + j.hr * 0.12} Q ${j.head[0]} ${my - j.hr * 0.18} ${j.head[0] + mw} ${my + j.hr * 0.12}`} {...line} strokeWidth={sw * 0.5} />}
-      {pose.mood === 'flat' && <line x1={j.head[0] - mw * 0.8} y1={my + 3} x2={j.head[0] + mw * 0.8} y2={my + 3} {...line} strokeWidth={sw * 0.5} />}
-      {pose.mood === 'open' && <ellipse cx={j.head[0]} cy={my + 2} rx={j.hr * 0.16} ry={j.hr * 0.2} fill={color} />}
+      <line x1={j.neck[0]} y1={j.neck[1] + 0.02 * h} x2={j.hip[0]} y2={j.hip[1] - 0.02 * h} stroke={color} strokeWidth={tw} strokeLinecap="round" />
+      <line x1={j.neck[0]} y1={j.neck[1] + 0.02 * h} x2={j.hip[0]} y2={j.hip[1] - 0.02 * h} stroke={shirt} strokeWidth={tw - sw * 1.1} strokeLinecap="round" />
+      <circle cx={j.handL[0]} cy={j.handL[1]} r={0.034 * h} fill="#FFFFFF" stroke={color} strokeWidth={sw * 0.8} />
+      <circle cx={j.handR[0]} cy={j.handR[1]} r={0.034 * h} fill="#FFFFFF" stroke={color} strokeWidth={sw * 0.8} />
+      <circle cx={hx} cy={j.head[1]} r={j.hr} fill="#FFFFFF" stroke={color} strokeWidth={sw} />
+      <path d={brow(-1)} {...line} strokeWidth={sw * 0.5} />
+      <path d={brow(1)} {...line} strokeWidth={sw * 0.5} />
+      <circle cx={hx - j.hr * 0.38 + look} cy={eyeY} r={Math.max(3.5, j.hr * 0.1)} fill={color} />
+      <circle cx={hx + j.hr * 0.38 + look} cy={eyeY} r={Math.max(3.5, j.hr * 0.1)} fill={color} />
+      {pose.mood === 'smile' && <path d={`M ${hx - mw} ${my} Q ${hx} ${my + j.hr * 0.3} ${hx + mw} ${my}`} {...line} strokeWidth={sw * 0.5} />}
+      {pose.mood === 'sad' && <path d={`M ${hx - mw} ${my + j.hr * 0.12} Q ${hx} ${my - j.hr * 0.18} ${hx + mw} ${my + j.hr * 0.12}`} {...line} strokeWidth={sw * 0.5} />}
+      {pose.mood === 'flat' && <line x1={hx - mw * 0.8} y1={my + 3} x2={hx + mw * 0.8} y2={my + 3} {...line} strokeWidth={sw * 0.5} />}
+      {pose.mood === 'open' && <ellipse cx={hx} cy={my + 2} rx={j.hr * 0.16} ry={j.hr * 0.2} fill={color} />}
     </g>
   );
 };

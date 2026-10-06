@@ -35,10 +35,10 @@ Separate from the talking-head template (`PLAYBOOK.md`). Same toolchain, differe
 Env: `REMOTION_LOCAL_FONTS=1`, `REMOTION_BROWSER_EXECUTABLE=/opt/pw-browsers/chromium-1194/chrome-linux/chrome`.
 
 ## 3. Layout (both formats come from one plan)
-- Portrait: stage art 960 wide, captions in a band below it, Dr. CiCi cropped at the hips at the bottom. Keep the top 12 percent and bottom 22 percent clear of key content.
+- Portrait: stage art on top, captions in a band below it, Dr. CiCi **full body** at the bottom (about 740 px tall, centred). Dr. CK asked for her whole body after the first cut. Before she enters the stage is larger and centred.  Keep the top 12 percent and bottom 22 percent clear of key content.
 - Landscape: Dr. CiCi full height on the left, stage art and captions on the right. Before she enters (first scene) the stage is centred; when she walks in the stage slides right.
-- Captions: editorial lockups (support words DM Sans 700, hero word Playfair italic 800 lowercase), bottom-anchored so a tall lockup grows upward. They stop at `captionsEnd`, where the end card begins.
-- Music ducks under her words (`music` block). Her voice is not re-levelled.
+- Captions: editorial lockups (support words DM Sans 700, hero word Playfair italic 800 lowercase), bottom-anchored so a tall lockup grows upward. They stop at `captionsEnd`, where the end card begins. The caption block is pinned by its **bottom** edge (CSS `bottom`), so a three-line lockup grows upward and never reaches her head. A fixed-height flex box with `flex-end` did not do this reliably.
+- Music ducks under her words (`music` block). Her voice is not re-levelled. **The Audiio beds are mastered hot (about -10 LUFS) while her voice sits near -23 LUFS, so the bed needs `volume` about 0.045 and `duckTo` about 0.02** (the first pilot at 0.16 / 0.05 was too loud, per Dr. CK).
 
 ## 4. Dr. CiCi sprites
 - Poses swap on the beats (hard cut with a 7-frame pop). A gentle bob keeps her alive. `walkIn` slides `pose-walking-in` in from the left.
@@ -50,3 +50,8 @@ Env: `REMOTION_LOCAL_FONTS=1`, `REMOTION_BROWSER_EXECUTABLE=/opt/pw-browsers/chr
 - Per-pose glasses boxes for more face patches (`BODY_GLASSES` in `compose-faces.py`).
 - Sound effects (whoosh, bell) are in `content/music-library.json` but not wired in.
 - Ask Kai for: front-facing whiteboard pose, a three-quarter pose with an expression set.
+
+## 6. Lessons from the first review
+- Never draw two figures at the same spot (one that idles and one that carries): it showed four arms. Blend one figure's pose with `mix()`.
+- The cast has a pale shirt-capsule torso, round hands, shoes and brows. Worried brows have the inner ends up. Diagrams sit on a `Panel` (white board with an offset shadow).
+- When a `str.replace` edit does not match, it fails silently. Assert the old text is present.

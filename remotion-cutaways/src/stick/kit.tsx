@@ -120,3 +120,11 @@ export const Bubble: React.FC<{x: number; y: number; w: number; h: number; opaci
     {children}
   </g>
 );
+
+/** A white board with a soft offset shadow: the "chart space" behind a diagram. */
+export const Panel: React.FC<{x: number; y: number; w: number; h: number; opacity?: number}> = ({x, y, w, h, opacity = 1}) => (
+  <g opacity={opacity}>
+    <rect x={x + 12} y={y + 14} width={w} height={h} rx={34} fill={C.soft} />
+    <rect x={x} y={y} width={w} height={h} rx={34} fill="#FFFFFF" stroke={C.ink} strokeWidth={5} />
+  </g>
+);

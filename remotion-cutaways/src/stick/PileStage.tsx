@@ -1,7 +1,7 @@
 import React from 'react';
 import {interpolate} from 'remotion';
-import {Stick, STAND, joints, type Pose} from './figure';
-import {Bubble, Card, Chair, Cross, Dots, Gauge, SANS, Tag, Window, C, between, bounce, prog, stackAt} from './kit';
+import {Stick, STAND, joints, mix, type Pose} from './figure';
+import {Bubble, Card, Chair, Cross, Dots, Gauge, Panel, SANS, Tag, Window, C, between, bounce, prog, stackAt} from './kit';
 
 /**
  * Stage art for "The Pile". Everything is drawn in a 1000 x 700 box; the video places that box on the page.
@@ -35,10 +35,13 @@ const Loaded: React.FC<{
   dropAt?: number;
   color?: string;
   mood?: Pose['mood'];
-  arms?: 'up' | 'down';
+  /** 0 = the idle pose, 1 = arms up holding the stack */
+  raise?: number;
+  idle?: Partial<Pose>;
   gap?: number;
-}> = ({x, h, crouch, cards, t, opacity = 1, wobble = 0, dropAt, color = C.cast, mood = 'sad', arms = 'up', gap = 66}) => {
-  const pose: Pose = arms === 'up' ? raised(crouch, mood) : {...STAND, crouch, mood, lh: [-0.1, 0.1], rh: [0.1, 0.1], lf: -0.1, rf: 0.1};
+}> = ({x, h, crouch, cards, t, opacity = 1, wobble = 0, dropAt, color = C.cast, mood = 'sad', raise = 1, idle, gap = 66}) => {
+  const up = raised(crouch, mood);
+  const pose: Pose = raise >= 1 ? up : mix({...STAND, ...(idle ?? {}), crouch, mood}, up, raise);
   const j = joints(x, G, h, pose);
   const baseY = Math.min(j.handL[1], j.handR[1]) - 40;
   const sway = Math.sin(t * 9) * wobble * 4;
@@ -90,7 +93,7 @@ export const PileStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
   const crouchA = Math.min(1, landed * 0.17 + prog(t, q.heavy, 0.9) * 0.2);
   const silentP = prog(t, q.silent, 0.6, (v) => v);
   const hello = prog(t, 1.9, 0.2, (v) => v) * (1 - prog(t, q.ask1 - 0.5, 0.3, (v) => v));
-  const waveHand = -0.3 + Math.sin(t * 9) * 0.05;
+  const waveHand = -0.2 + Math.sin(t * 9) * 0.05;
   const calendar = between(t, q.week - 0.1, q.ask1 + 0.2, 0.3);
   const day = Math.min(7, Math.floor(((t - q.week) / (q.ask1 - q.week)) * 7 + 0.0001) + 1);
   const bubble = prog(t, q.belong, 0.3);
@@ -127,10 +130,10 @@ export const PileStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
   const h = between(t, q.model, q.design, 0.3);
   const workLit = prog(t, q.work, 0.35);
   const nodes: {k: string; x: number; y: number}[] = [
-    {k: 'WORK', x: 500, y: 130},
-    {k: 'PEOPLE', x: 260, y: 300},
-    {k: 'STRUCTURE', x: 740, y: 300},
-    {k: 'CULTURE', x: 500, y: 470},
+    {k: 'WORK', x: 500, y: 150},
+    {k: 'PEOPLE', x: 270, y: 330},
+    {k: 'STRUCTURE', x: 730, y: 330},
+    {k: 'CULTURE', x: 500, y: 510},
   ];
 
   // ---------- I: design the first ask ----------
@@ -172,14 +175,10 @@ export const PileStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
             t={t}
             wobble={prog(t, q.heavy, 0.3) * (1 - silentP)}
             opacity={1 - 0.65 * silentP}
-            mood={silentP > 0.5 ? 'flat' : landed > 0 ? 'sad' : 'smile'}
-            arms={landed > 0 ? 'up' : 'down'}
+            mood={silentP > 0.5 ? 'flat' : t > q.ask1 - 0.2 ? 'sad' : 'smile'}
+            raise={prog(t, q.ask1 - 0.2, 0.5, (v) => v)}
+            idle={{...(walking ? walk(t) : {}), ...(hello > 0 ? {rh: [0.2, waveHand], lh: [-0.17, 0.27]} : {})}}
           />
-          {landed === 0 && (
-            <g opacity={1}>
-              <Stick x={nx} y={G} h={230} pose={{...STAND, ...(walking ? walk(t) : {}), ...(hello > 0 ? {rh: [0.12, waveHand], lh: [-0.17, 0.27]} : {})}} color={C.cast} />
-            </g>
-          )}
           {bubble > 0 && silentP < 0.5 && (
             <g opacity={bubble * (1 - prog(t, q.silent - 0.4, 0.3))}>
               <circle cx={700} cy={380} r={9} fill="none" stroke={C.ink} strokeWidth={4} />
@@ -286,7 +285,8 @@ export const PileStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
       {/* H: the four places */}
       {h > 0 && (
         <g opacity={h}>
-          <Tag x={500} y={42} text="NADLER AND TUSHMAN" size={22} fill="#FFFFFF" color={C.mid} />
+          <Panel x={120} y={10} w={760} h={668} />
+          <Tag x={500} y={62} text="NADLER AND TUSHMAN" size={22} fill="#FFFFFF" color={C.mid} />
           {[[0, 1], [1, 3], [3, 2], [2, 0], [0, 3], [1, 2]].map(([a, b], i) => (
             <line key={i} x1={nodes[a].x} y1={nodes[a].y} x2={nodes[b].x} y2={nodes[b].y} stroke={C.soft} strokeWidth={6} strokeLinecap="round" />
           ))}
@@ -295,17 +295,17 @@ export const PileStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
             const appear = prog(t, q.model + 0.3 + i * 0.2, 0.35, bounce);
             return (
               <g key={n.k} transform={`translate(${n.x} ${n.y}) scale(${appear})`}>
-                {on > 0 && <circle r={86 + (t - q.work) * 18 % 40} fill="none" stroke={C.crimson} strokeWidth={4} opacity={0.5 * (1 - ((t - q.work) * 18 % 40) / 40)} />}
-                <circle r={74} fill={on > 0.5 ? C.crimson : '#FFFFFF'} stroke={on > 0.5 ? C.crimson : C.ink} strokeWidth={6} />
-                <text y={9} textAnchor="middle" fontFamily={SANS} fontWeight={700} fontSize={n.k.length > 6 ? 20 : 26} letterSpacing={1.5} fill={on > 0.5 ? '#FFFFFF' : C.ink}>
+                {on > 0 && <circle r={96 + (t - q.work) * 18 % 40} fill="none" stroke={C.crimson} strokeWidth={4} opacity={0.5 * (1 - ((t - q.work) * 18 % 40) / 40)} />}
+                <circle r={84} fill={on > 0.5 ? C.crimson : '#FFFFFF'} stroke={on > 0.5 ? C.crimson : C.ink} strokeWidth={6} />
+                <text y={9} textAnchor="middle" fontFamily={SANS} fontWeight={700} fontSize={n.k.length > 6 ? 22 : 30} letterSpacing={1.5} fill={on > 0.5 ? '#FFFFFF' : C.ink}>
                   {n.k}
                 </text>
               </g>
             );
           })}
-          <Tag x={500} y={590} text="WHAT PEOPLE ARE ASKED TO DO" size={21} opacity={prog(t, q.work + 0.5, 0.4)} />
+          <Tag x={500} y={622} text="WHAT PEOPLE ARE ASKED TO DO" size={22} opacity={prog(t, q.work + 0.5, 0.4)} />
           {t >= q.lookThere && (
-            <g opacity={prog(t, q.lookThere, 0.2)} transform={`translate(${340 - Math.abs(Math.sin((t - q.lookThere) * 7)) * 18} 130)`}>
+            <g opacity={prog(t, q.lookThere, 0.2)} transform={`translate(${330 - Math.abs(Math.sin((t - q.lookThere) * 7)) * 18} 150)`}>
               <path d="M 0 0 L 60 0 M 38 -22 L 62 0 L 38 22" fill="none" stroke={C.ink} strokeWidth={9} strokeLinecap="round" strokeLinejoin="round" />
             </g>
           )}
@@ -315,6 +315,7 @@ export const PileStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
       {/* I: design the first ask */}
       {iOn > 0 && (
         <g opacity={iOn}>
+          <Panel x={140} y={90} w={720} h={540} />
           <g fill="none" stroke={C.ink} strokeWidth={6} strokeLinecap="round" opacity={1 - prog(t, q.one, 0.2)}>
             <path d="M 300 240 L 300 200 L 340 200 M 700 200 L 740 200 L 740 240 M 740 360 L 740 400 L 700 400 M 340 400 L 300 400 L 300 360" />
           </g>
@@ -334,8 +335,8 @@ export const PileStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
             2
           </text>
           <g opacity={prog(t, q.two + 0.5, 0.4)}>
-            <line x1={200} y1={500} x2={800} y2={500} stroke={C.crimson} strokeWidth={6} strokeDasharray="14 12" strokeLinecap="round" />
-            <Tag x={500} y={555} text="AT MOST" size={26} />
+            <line x1={200} y1={510} x2={800} y2={510} stroke={C.crimson} strokeWidth={6} strokeDasharray="14 12" strokeLinecap="round" />
+            <Tag x={500} y={575} text="AT MOST" size={26} />
           </g>
         </g>
       )}

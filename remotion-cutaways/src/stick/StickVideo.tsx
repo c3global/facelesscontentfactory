@@ -38,13 +38,13 @@ const layout = (fmt: Format, p: number) =>
   fmt === 'portrait'
     ? {
         viewBox: '110 0 780 700',
-        stage: lerpRect({x: 60, y: 250, w: 960, h: 862}, {x: 60, y: 170, w: 960, h: 862}, p),
-        caption: lerpRect({x: 60, y: 1130, w: 960, h: 300}, {x: 60, y: 985, w: 960, h: 285}, p),
-        spriteH: 1180,
-        spriteLeft: (1080 - 1180 * (1024 / 1536)) / 2,
-        spriteTop: 1225,
-        heroMax: 150,
-        smallPx: 50,
+        stage: lerpRect({x: 60, y: 250, w: 960, h: 862}, {x: 111, y: 150, w: 858, h: 770}, p),
+        caption: lerpRect({x: 60, y: 1130, w: 960, h: 300}, {x: 60, y: 925, w: 960, h: 250}, p),
+        spriteH: 740,
+        spriteLeft: (1080 - 740 * (1024 / 1536)) / 2,
+        spriteTop: 1195,
+        heroMax: 140,
+        smallPx: 48,
       }
     : {
         viewBox: '0 0 1000 700',
@@ -98,6 +98,7 @@ const normSet = (a: string[]) => new Set(a.map(normalizeWord));
 
 const CaptionView: React.FC<{l: Lockup; rect: Rect; emphasis: Set<string>; small: number; heroMax: number; endMs: number}> = ({l, rect, emphasis, small, heroMax, endMs}) => {
   const frame = useCurrentFrame();
+  const {height} = useVideoConfig();
   const t = (frame / 30) * 1000;
   const exit = interpolate(t, [endMs - 130, endMs], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   const pre = l.words.slice(0, l.h0);
@@ -118,7 +119,7 @@ const CaptionView: React.FC<{l: Lockup; rect: Rect; emphasis: Set<string>; small
   );
   const heroStyle: React.CSSProperties = {fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 800, fontSize: heroPx, letterSpacing: '-0.015em', lineHeight: 1, paddingBottom: '0.12em', color: C.ink};
   return (
-    <div style={{position: 'absolute', left: rect.x, top: rect.y, width: rect.w, height: rect.h, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end', gap: 10, opacity: 1 - exit, transform: `translateY(${-exit * 10}px)`}}>
+    <div style={{position: 'absolute', left: rect.x, bottom: height - (rect.y + rect.h), width: rect.w, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, opacity: 1 - exit, transform: `translateY(${-exit * 10}px)`}}>
       {line(pre, 'pre')}
       <div style={{display: 'flex', justifyContent: 'center', columnGap: 26, whiteSpace: 'nowrap'}}>
         {hero.map((w, i) => (
