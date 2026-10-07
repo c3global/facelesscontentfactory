@@ -25,7 +25,7 @@ export type StickPlan = {
   cues: Cues;
   cici: {at: number; src: string; walkIn?: boolean}[];
 };
-export type StickProps = {format: Format; plan: StickPlan; captions: Caption[]};
+export type StickProps = {format: Format; plan: StickPlan; captions: Caption[]; /** layout checks: draw only the captions or only the art */ debug?: 'captions' | 'art'};
 
 export const SIZES: Record<Format, {width: number; height: number}> = {portrait: {width: 1080, height: 1920}, landscape: {width: 1920, height: 1080}};
 
@@ -38,23 +38,23 @@ const layout = (fmt: Format, p: number) =>
   fmt === 'portrait'
     ? {
         viewBox: '110 0 780 700',
-        stage: lerpRect({x: 60, y: 250, w: 960, h: 862}, {x: 111, y: 150, w: 858, h: 770}, p),
-        caption: lerpRect({x: 60, y: 1130, w: 960, h: 300}, {x: 60, y: 925, w: 960, h: 250}, p),
+        stage: lerpRect({x: 60, y: 300, w: 960, h: 862}, {x: 127, y: 150, w: 826, h: 740}, p),
+        caption: lerpRect({x: 60, y: 1170, w: 960, h: 300}, {x: 60, y: 915, w: 960, h: 260}, p),
         spriteH: 740,
         spriteLeft: (1080 - 740 * (1024 / 1536)) / 2,
         spriteTop: 1195,
-        heroMax: 140,
-        smallPx: 48,
+        heroMax: 130,
+        smallPx: 46,
       }
     : {
         viewBox: '0 0 1000 700',
-        stage: lerpRect({x: 430, y: 25, w: 1060, h: 742}, {x: 790, y: 25, w: 1060, h: 742}, p),
-        caption: lerpRect({x: 300, y: 790, w: 1320, h: 255}, {x: 790, y: 790, w: 1060, h: 255}, p),
+        stage: lerpRect({x: 481, y: 12, w: 957, h: 670}, {x: 842, y: 12, w: 957, h: 670}, p),
+        caption: lerpRect({x: 300, y: 690, w: 1320, h: 235}, {x: 790, y: 690, w: 1060, h: 235}, p),
         spriteH: 1010,
         spriteLeft: 70,
         spriteTop: 115,
-        heroMax: 125,
-        smallPx: 42,
+        heroMax: 112,
+        smallPx: 38,
       };
 
 const Cici: React.FC<{plan: StickPlan; fmt: Format; t: number}> = ({plan, fmt, t}) => {
@@ -71,11 +71,14 @@ const Cici: React.FC<{plan: StickPlan; fmt: Format; t: number}> = ({plan, fmt, t
     dx = (1 - w) * (fmt === 'portrait' ? -900 : -820);
   }
   const bob = Math.sin(t * Math.PI * 2 * (cur.walkIn ? 2.4 : 0.7)) * (cur.walkIn ? 9 : 5);
-  const w = L.spriteH * (1024 / 1536);
+  const grow = fmt === 'portrait' ? prog(t, plan.cues.cta, 0.6) : 0;
+  const spriteH = L.spriteH + (920 - L.spriteH) * grow;
+  const spriteTop = L.spriteTop + (800 - L.spriteTop) * grow;
+  const w = spriteH * (1024 / 1536);
   return (
     <Img
       src={staticFile(`stick/${cur.src}`)}
-      style={{position: 'absolute', left: L.spriteLeft + dx, top: L.spriteTop + bob, width: w, height: L.spriteH, opacity: fade, transform: `scale(${pop})`, transformOrigin: '50% 100%'}}
+      style={{position: 'absolute', left: (1080 - w) / 2 * (fmt === 'portrait' ? 1 : 0) + (fmt === 'portrait' ? 0 : L.spriteLeft) + dx, top: spriteTop + bob, width: w, height: spriteH, opacity: fade, transform: `scale(${pop})`, transformOrigin: '50% 100%'}}
     />
   );
 };
@@ -139,7 +142,7 @@ const CaptionView: React.FC<{l: Lockup; rect: Rect; emphasis: Set<string>; small
   );
 };
 
-export const StickVideo: React.FC<StickProps> = ({format, plan, captions}) => {
+export const StickVideo: React.FC<StickProps> = ({format, plan, captions, debug}) => {
   loadBrandFonts();
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
@@ -181,13 +184,15 @@ export const StickVideo: React.FC<StickProps> = ({format, plan, captions}) => {
 
   return (
     <AbsoluteFill style={{backgroundColor: C.white}}>
+      {debug !== 'captions' && (
       <svg viewBox={L.viewBox} style={{position: 'absolute', left: L.stage.x, top: L.stage.y, width: L.stage.w, height: L.stage.h, overflow: 'visible'}}>
         <PileStage t={t} q={plan.cues} />
       </svg>
-      <Cici plan={plan} fmt={format} t={t} />
-      {lk && <CaptionView key={idx} l={lk} rect={L.caption} emphasis={emphasis} small={L.smallPx} heroMax={L.heroMax} endMs={Math.min(lk.endMs + 320, next ? next.startMs - 40 : Infinity)} />}
-      <Audio src={staticFile(plan.vo)} />
-      {plan.music && <Audio src={staticFile(plan.music.src)} volume={musicVolume} startFrom={Math.round(plan.music.startFromSec * fps)} loop />}
+      )}
+      {debug !== 'captions' && <Cici plan={plan} fmt={format} t={t} />}
+      {lk && debug !== 'art' && <CaptionView key={idx} l={lk} rect={L.caption} emphasis={emphasis} small={L.smallPx} heroMax={L.heroMax} endMs={Math.min(lk.endMs + 320, next ? next.startMs - 40 : Infinity)} />}
+      {!debug && <Audio src={staticFile(plan.vo)} />}
+      {!debug && plan.music && <Audio src={staticFile(plan.music.src)} volume={musicVolume} startFrom={Math.round(plan.music.startFromSec * fps)} loop />}
     </AbsoluteFill>
   );
 };

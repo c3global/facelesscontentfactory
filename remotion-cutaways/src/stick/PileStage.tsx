@@ -273,12 +273,12 @@ export const PileStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
           <Stand x={290} h={270} pose={{rh: [0.3, -0.12], lh: [-0.12, 0.25]}} />
           <Stand x={730} h={230} pose={{mood: 'smile', look: -1}} />
           {[1, 2, 3, 4].map((i) => {
-            const slot = stackAt(i, 510, 560, 70);
+            const slot = stackAt(i, 510, 560, 56);
             const out = gShrink(i);
             if (out >= 1) return null;
-            return <Card key={i} x={slot.x} y={slot.y - 20} rot={slot.rot} opacity={1 - out} scale={1 - 0.2 * out} />;
+            return <Card key={i} x={slot.x} y={slot.y - 20} rot={slot.rot} opacity={1 - out} scale={0.8 * (1 - 0.2 * out)} />;
           })}
-          <Card x={510} y={interpolate(prog(t, q.shrink + 1.3, 0.8), [0, 1], [540, 400])} w={400} h={86} label="FIRST STEP" accent scale={1 + 0.22 * prog(t, q.shrink + 1.3, 0.8)} />
+          <Card x={510} y={interpolate(prog(t, q.shrink + 1.3, 0.8), [0, 1], [540, 170])} w={400} h={86} label="FIRST STEP" accent scale={0.8 + 0.2 * prog(t, q.shrink + 1.3, 0.8)} />
         </g>
       )}
 
@@ -366,11 +366,11 @@ export const PileStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
       {/* L: end card */}
       {lOn > 0 && (
         <g opacity={lOn}>
-          <Tag x={500} y={290} text="LINK BELOW OR IN MY BIO" size={42} />
-          <text x={500} y={410} textAnchor="middle" fontFamily={SANS} fontWeight={700} fontSize={40} fill={C.ink}>
+          <Tag x={500} y={360} text="LINK BELOW OR IN MY BIO" size={46} />
+          <text x={500} y={475} textAnchor="middle" fontFamily={SANS} fontWeight={700} fontSize={44} fill={C.ink}>
             Read more on Substack
           </text>
-          <text x={500} y={460} textAnchor="middle" fontFamily={SANS} fontWeight={500} fontSize={32} fill={C.mid}>
+          <text x={500} y={535} textAnchor="middle" fontFamily={SANS} fontWeight={500} fontSize={34} fill={C.mid}>
             c3globalco.substack.com
           </text>
         </g>
