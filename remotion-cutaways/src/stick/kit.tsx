@@ -88,7 +88,7 @@ export const Gauge: React.FC<{x: number; y: number; h?: number; level: number; l
 );
 
 export const Tag: React.FC<{x: number; y: number; text: string; opacity?: number; fill?: string; color?: string; size?: number}> = ({x, y, text, opacity = 1, fill = C.ink, color = '#FFFFFF', size = 24}) => {
-  const w = text.length * size * 0.66 + 44;
+  const w = text.length * size * 0.78 + 44;
   return (
     <g opacity={opacity}>
       <rect x={x - w / 2} y={y - size * 0.95} width={w} height={size * 1.9} rx={size * 0.95} fill={fill} />

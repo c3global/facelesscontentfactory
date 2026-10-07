@@ -5,7 +5,8 @@ import {loadBrandFonts, serifFamily} from '../fonts';
 import {buildLockups, type Lockup} from '../Kinetic';
 import {MetalText} from '../metal';
 import {normalizeWord} from '../ui';
-import {PileStage, type Cues} from './PileStage';
+import type {Cues} from './PileStage';
+import {STAGES} from './stages';
 import {C, SANS, prog} from './kit';
 
 /**
@@ -147,6 +148,12 @@ export const StickVideo: React.FC<StickProps> = ({format, plan, captions, debug}
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const t = frame / fps;
+  const Stage = STAGES[plan.stage] ?? STAGES['the-pile'];
+  // a stage that reads a cue the plan does not define should fail loudly, not draw with NaN
+  const cues = useMemo(
+    () => new Proxy(plan.cues, {get: (o, k) => (typeof k === 'string' && !(k in o) ? (() => { throw new Error(`Missing cue "${k}" in content/${plan.slug}.stick.json`); })() : (o as Record<string | symbol, number>)[k])}),
+    [plan.cues, plan.slug],
+  );
   const present = prog(t, plan.cues.ciciIn, 0.7);
   const L = layout(format, present);
   const caps = useMemo(() => captions.filter((c) => c.startMs / 1000 < plan.captionsEnd), [captions, plan.captionsEnd]);
@@ -186,7 +193,7 @@ export const StickVideo: React.FC<StickProps> = ({format, plan, captions, debug}
     <AbsoluteFill style={{backgroundColor: C.white}}>
       {debug !== 'captions' && (
       <svg viewBox={L.viewBox} style={{position: 'absolute', left: L.stage.x, top: L.stage.y, width: L.stage.w, height: L.stage.h, overflow: 'visible'}}>
-        <PileStage t={t} q={plan.cues} />
+        <Stage t={t} q={cues} />
       </svg>
       )}
       {debug !== 'captions' && <Cici plan={plan} fmt={format} t={t} />}

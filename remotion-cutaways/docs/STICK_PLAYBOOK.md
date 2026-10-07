@@ -65,3 +65,12 @@ These came from her screenshots of the v2 render. She approved v2 as is and aske
 5. Review method: run the collision checker, then contact-sheet stills in both formats before rendering.
 
 **v3 applied these.** Landscape captions now end at y 925 and the stage is 957 px wide; portrait stage is 826 px wide while Dr. CiCi is on screen, and she grows on the end card. The first-step card sits above the figures' heads. `npx tsx scripts/check-stick.mjs <slug> <portrait|landscape> [step]` renders every sample twice (captions only, art only) and `scripts/overlap_report.py` lists moments where a caption comes within 22 px of the art. It does not check props against faces: look at those by eye.
+
+## 8. Batch notes (episodes two and three: Role and Relationship, Equity Theory)
+- **Read the Content Library row first.** `Explainer:` rows in Notion carry the title, CTA keyword, scene beats and Marky fields. The voiceover Dr. CK actually records can differ from the row (pronouns, closing line, keyword). The recording wins for the video; flag any difference before staging copy anywhere.
+- Marky captions were blank on both rows, and The Pile has no row. Staging a post needs approved caption copy: do not write it.
+- A stage that reads a cue the plan lacks now throws `Missing cue "name"` (it used to draw with NaN).
+- Dr. CiCi can be on screen from t = 0 (`ciciIn: 0`, first `cici` entry `walkIn`), which removes the empty bottom half of portrait for long scenario openings.
+- Tag widths are 0.78 x size per character; pillar labels must be short (GOALS, KNOWLEDGE, RESPECT) to fit a 250 px spacing.
+- Music level: measure each bed (`ffmpeg ... ebur128`) and set `volume` = 10^((-36.7 - LUFS)/20); duck to about 0.45 of that.
+- Run `check-stick.mjs` for every episode and format before rendering. All four passed.

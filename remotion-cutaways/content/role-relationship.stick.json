@@ -1,0 +1,132 @@
+{
+  "slug": "role-relationship",
+  "stage": "role-relationship",
+  "durationSec": 72.8,
+  "vo": "raw/role-relationship-vo.mp3",
+  "music": {
+    "src": "music/calm-jle-hayride-60s.mp3",
+    "volume": 0.045,
+    "duckTo": 0.02,
+    "fadeInSec": 1.0,
+    "fadeOutSec": 2.2,
+    "startFromSec": 0
+  },
+  "emphasis": [
+    "changed",
+    "disrupts",
+    "shifted",
+    "protecting",
+    "rebuild",
+    "slipped"
+  ],
+  "hero": [
+    "role",
+    "relationship",
+    "goals",
+    "knowledge",
+    "respect",
+    "communication",
+    "frequent",
+    "timely",
+    "accurate",
+    "reporting",
+    "overnight",
+    "settles",
+    "restate",
+    "share",
+    "decision",
+    "three",
+    "comments",
+    "word",
+    "title",
+    "team"
+  ],
+  "captionsEnd": 69.7,
+  "cues": {
+    "client": 0.87,
+    "same": 3.05,
+    "lead": 4.31,
+    "now": 4.96,
+    "msg": 7.23,
+    "word": 8.85,
+    "ciciIn": 0.0,
+    "title": 13.19,
+    "table": 14.12,
+    "goals": 20.08,
+    "knowledge": 21.62,
+    "respect": 22.87,
+    "travel": 24.38,
+    "frequent": 28.77,
+    "timely": 29.73,
+    "accurate": 30.76,
+    "solving": 32.3,
+    "disrupt": 34.14,
+    "goalsShift": 37.33,
+    "knowShift": 39.47,
+    "reporting": 44.94,
+    "wordAns": 46.98,
+    "protect": 48.84,
+    "rebuild": 52.18,
+    "restate": 55.27,
+    "share": 57.6,
+    "ask": 59.12,
+    "him": 64.36,
+    "which": 65.03,
+    "cta": 69.86
+  },
+  "cici": [
+    {
+      "at": 0.0,
+      "src": "pose-walking-in.png",
+      "walkIn": true
+    },
+    {
+      "at": 0.95,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 14.12,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 20.08,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 24.38,
+      "src": "pose-hands-on-hips.png"
+    },
+    {
+      "at": 34.14,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 40.98,
+      "src": "composed/pose-standing-hands-clasped__face-concerned.png"
+    },
+    {
+      "at": 46.98,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 52.18,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 55.27,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 59.12,
+      "src": "pose-thumbs-up.png"
+    },
+    {
+      "at": 65.03,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 69.86,
+      "src": "pose-waving.png"
+    }
+  ]
+}
