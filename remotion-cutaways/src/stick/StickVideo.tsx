@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {AbsoluteFill, Audio, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Audio, Img, Sequence, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import type {Caption} from '@remotion/captions';
 import {loadBrandFonts, serifFamily} from '../fonts';
 import {buildLockups, type Lockup} from '../Kinetic';
@@ -19,14 +19,14 @@ export type StickPlan = {
   stage: string;
   durationSec: number;
   vo: string;
-  music?: {src: string; volume: number; duckTo: number; fadeInSec: number; fadeOutSec: number; startFromSec: number};
+  music?: {src: string; volume: number; duckTo: number; fadeInSec: number; fadeOutSec: number; startFromSec: number; /** true when src was pre-attenuated by `volume` (scripts/prep-bed.mjs); the curve then runs 0..1 */ scaled?: boolean; /** usable track length in seconds (stop before the track's own fade-out tail); when shorter than the video it is chained with crossfades */ lengthSec?: number; crossfadeSec?: number};
   emphasis: string[];
   hero: string[];
   captionsEnd: number;
   cues: Cues;
   cici: {at: number; src: string; walkIn?: boolean}[];
 };
-export type StickProps = {format: Format; plan: StickPlan; captions: Caption[]; /** layout checks: draw only the captions or only the art */ debug?: 'captions' | 'art'};
+export type StickProps = {format: Format; plan: StickPlan; captions: Caption[]; /** layout checks: draw only the captions or only the art */ debug?: 'captions' | 'art' | 'music'};
 
 export const SIZES: Record<Format, {width: number; height: number}> = {portrait: {width: 1080, height: 1920}, landscape: {width: 1920, height: 1080}};
 
@@ -52,7 +52,7 @@ const layout = (fmt: Format, p: number) =>
         stage: lerpRect({x: 481, y: 12, w: 957, h: 670}, {x: 842, y: 12, w: 957, h: 670}, p),
         caption: lerpRect({x: 300, y: 690, w: 1320, h: 235}, {x: 790, y: 690, w: 1060, h: 235}, p),
         spriteH: 1010,
-        spriteLeft: 70,
+        spriteLeft: 190,
         spriteTop: 115,
         heroMax: 112,
         smallPx: 38,
@@ -160,12 +160,14 @@ export const StickVideo: React.FC<StickProps> = ({format, plan, captions, debug}
   const lockups = useMemo(() => buildLockups(caps, {hero: plan.hero, emphasis: plan.emphasis}), [caps, plan.hero, plan.emphasis]);
   const emphasis = useMemo(() => normSet(plan.emphasis), [plan.emphasis]);
 
-  const musicVolume = useMemo(() => {
-    const m = plan.music;
-    if (!m) return () => 0;
+  // The music bed. Tracks shorter than the video are chained with equal-power crossfades, and every level is
+  // computed from the absolute video time (Audio `loop` restarts the frame counter, which broke the ducking and
+  // the final fade-out on tracks shorter than the video).
+  const music = plan.music;
+  const bed = useMemo(() => {
+    if (!music) return () => 0;
     const spans = captions.map((c) => [c.startMs / 1000 - 0.12, c.endMs / 1000 + 0.25] as const);
-    return (f: number) => {
-      const s = f / fps;
+    return (s: number) => {
       let near = 0;
       for (const [a, b] of spans) {
         if (s >= a && s <= b) {
@@ -175,12 +177,30 @@ export const StickVideo: React.FC<StickProps> = ({format, plan, captions, debug}
         const d = Math.min(Math.abs(s - a), Math.abs(s - b));
         if (d < 0.35) near = Math.max(near, 1 - d / 0.35);
       }
-      const level = m.volume + (m.duckTo - m.volume) * near;
-      const fin = m.fadeInSec > 0 ? Math.min(1, s / m.fadeInSec) : 1;
-      const fout = m.fadeOutSec > 0 ? Math.min(1, Math.max(0, (plan.durationSec - s) / m.fadeOutSec)) : 1;
+      const top = music.scaled ? 1 : music.volume;
+      const low = music.scaled ? music.duckTo / music.volume : music.duckTo;
+      const level = top + (low - top) * near;
+      const fin = music.fadeInSec > 0 ? Math.min(1, s / music.fadeInSec) : 1;
+      const fx = music.fadeOutSec > 0 ? Math.min(1, Math.max(0, (plan.durationSec - s) / music.fadeOutSec)) : 1;
+      const fout = fx * fx; // squared so the fade is audible over its whole length, not just the last half second
       return level * fin * fout;
     };
-  }, [plan.music, plan.durationSec, captions, fps]);
+  }, [music, plan.durationSec, captions]);
+  const segments = useMemo(() => {
+    if (!music) return [];
+    const x = music.crossfadeSec ?? 2;
+    const total = music.lengthSec ?? Infinity;
+    const out: {start: number; offset: number; len: number}[] = [];
+    let start = 0;
+    for (let k = 0; k < 20; k++) {
+      const offset = k === 0 ? music.startFromSec : 0;
+      const len = total - offset;
+      out.push({start, offset, len});
+      if (start + len >= plan.durationSec) break;
+      start += len - x;
+    }
+    return out;
+  }, [music, plan.durationSec]);
 
   const idx = lockups.findIndex((l, k) => {
     const next = lockups[k + 1];
@@ -191,15 +211,31 @@ export const StickVideo: React.FC<StickProps> = ({format, plan, captions, debug}
 
   return (
     <AbsoluteFill style={{backgroundColor: C.white}}>
-      {debug !== 'captions' && (
+      {debug !== 'captions' && debug !== 'music' && (
       <svg viewBox={L.viewBox} style={{position: 'absolute', left: L.stage.x, top: L.stage.y, width: L.stage.w, height: L.stage.h, overflow: 'visible'}}>
         <Stage t={t} q={cues} />
       </svg>
       )}
-      {debug !== 'captions' && <Cici plan={plan} fmt={format} t={t} />}
-      {lk && debug !== 'art' && <CaptionView key={idx} l={lk} rect={L.caption} emphasis={emphasis} small={L.smallPx} heroMax={L.heroMax} endMs={Math.min(lk.endMs + 320, next ? next.startMs - 40 : Infinity)} />}
+      {debug !== 'captions' && debug !== 'music' && <Cici plan={plan} fmt={format} t={t} />}
+      {lk && debug !== 'art' && debug !== 'music' && <CaptionView key={idx} l={lk} rect={L.caption} emphasis={emphasis} small={L.smallPx} heroMax={L.heroMax} endMs={Math.min(lk.endMs + 320, next ? next.startMs - 40 : Infinity)} />}
       {!debug && <Audio src={staticFile(plan.vo)} />}
-      {!debug && plan.music && <Audio src={staticFile(plan.music.src)} volume={musicVolume} startFrom={Math.round(plan.music.startFromSec * fps)} loop />}
+      {(!debug || debug === 'music') &&
+        music &&
+        segments.map((sg, k) => (
+          <Sequence key={k} from={Math.round(sg.start * fps)} durationInFrames={Math.round(sg.len * fps)}>
+            <Audio
+              src={staticFile(music.src)}
+              startFrom={Math.round(sg.offset * fps)}
+              volume={(f) => {
+                const s = f / fps + sg.start;
+                const x = music.crossfadeSec ?? 2;
+                const fadeIn = k > 0 ? Math.sqrt(Math.min(1, Math.max(0, (s - sg.start) / x))) : 1;
+                const fadeOut = k < segments.length - 1 ? Math.sqrt(Math.min(1, Math.max(0, (sg.start + sg.len - s) / x))) : 1;
+                return bed(s) * fadeIn * fadeOut;
+              }}
+            />
+          </Sequence>
+        ))}
     </AbsoluteFill>
   );
 };

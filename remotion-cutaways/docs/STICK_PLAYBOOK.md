@@ -74,3 +74,15 @@ These came from her screenshots of the v2 render. She approved v2 as is and aske
 - Tag widths are 0.78 x size per character; pillar labels must be short (GOALS, KNOWLEDGE, RESPECT) to fit a 250 px spacing.
 - Music level: measure each bed (`ffmpeg ... ebur128`) and set `volume` = 10^((-36.7 - LUFS)/20); duck to about 0.45 of that.
 - Run `check-stick.mjs` for every episode and format before rendering. All four passed.
+
+## 9. Dr. CK's notes on episodes two and three (apply from the next episode on)
+The delivered videos stay as they are ("Let's just keep it all"). Do not re-render them unless she asks.
+- **Landscape: Dr. CiCi sits closer to the action.** `spriteLeft` went from 70 to 190 (about 6 points toward the centre; she asked for 4 to 7, not centred). Checked on Role: no collisions with the stage art or the pointing hand.
+- **Music loops and ends.** Tracks shorter than the video are chained as equal-power crossfaded `<Sequence>` segments, and every level is computed from absolute video time. Remotion's `<Audio loop>` restarts the frame counter on each pass, which broke the ducking and the final fade (this is what Dr. CK heard on Role: an awkward pause, then no fade-out).
+  - Set `music.lengthSec` to the usable length of the track, which is **before the track's own fade-out tail** (the Role track decays from about 57 s, so `lengthSec` is 56), and `crossfadeSec` to about 2.5. A crossfade placed on the track's own tail dips about 12 dB.
+  - The end fade is squared (`fadeOutSec` about 3.5) so it is audible over its whole length.
+  - **Remotion rounds every volume to 1/97 steps.** A bed at 0.02 therefore has about two levels, and ducking and fades turn into steps. Pre-attenuate the file with `node scripts/prep-bed.mjs public/music/<track>.mp3 <volume>`, point `music.src` at the `.bed.mp3` it writes and set `music.scaled: true` (the curve then runs 0 to 1). Role is the reference plan. The Pile and Equity were rendered before this and still use the unscaled path.
+  - Check a bed without rendering video: `npx tsx scripts/render-stick.mjs music <slug> portrait` writes `out/check/<slug>-music.mp3`. Look for a steady level through the crossfade and a smooth fall to silence at the end.
+- **Stick women.** `Stick` takes `hair`: `'bob' | 'long' | 'bun' | 'ponytail'` (a solid cap with a fringe above the brows, plus the style). Leave it out for the men. `npx tsx scripts/render-cast.mjs` writes the preview sheet to `out/review/cast.png`. Mix the cast in new episodes so it is not all men.
+- **Open: logo or end element.** She is considering a logo near the end of the landscape videos, maybe on all videos including the talking heads. She has not decided. Ask which logo(s) and where before building anything.
+- **CQ Compass CTA on Equity Theory** does not follow from that script. She is keeping it as an experiment. Do not change it unless she asks.

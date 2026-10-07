@@ -4,12 +4,15 @@
   "durationSec": 72.8,
   "vo": "raw/role-relationship-vo.mp3",
   "music": {
-    "src": "music/calm-jle-hayride-60s.mp3",
+    "src": "music/calm-jle-hayride-60s.bed.mp3",
     "volume": 0.045,
     "duckTo": 0.02,
     "fadeInSec": 1.0,
-    "fadeOutSec": 2.2,
-    "startFromSec": 0
+    "fadeOutSec": 3.5,
+    "startFromSec": 0,
+    "lengthSec": 56.0,
+    "crossfadeSec": 2.5,
+    "scaled": true
   },
   "emphasis": [
     "changed",

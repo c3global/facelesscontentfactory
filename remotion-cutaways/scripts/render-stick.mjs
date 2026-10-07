@@ -26,7 +26,15 @@ const serveUrl = await bundleProject();
 for (const format of formats) {
   const inputProps = {format, plan, captions};
   const composition = await selectComposition({serveUrl, id: `Stick-${format}`, inputProps, ...browserOptions()});
-  if (mode === 'stills') {
+  if (mode === 'music') {
+    // audio-only render of just the music bed, to check loops, ducking and the final fade
+    mkdirSync(path.join(root, 'out', 'check'), {recursive: true});
+    const mp = {...inputProps, debug: 'music'};
+    const mc = await selectComposition({serveUrl, id: `Stick-${format}`, inputProps: mp, ...browserOptions()});
+    const outputLocation = path.join(root, 'out', 'check', `${slug}-music.mp3`);
+    await renderMedia({composition: mc, serveUrl, codec: 'mp3', outputLocation, inputProps: mp, ...browserOptions()});
+    console.log(`  wrote ${path.relative(root, outputLocation)}`);
+  } else if (mode === 'stills') {
     const dir = path.join(root, 'out', 'stills', `${slug}-${format}`);
     mkdirSync(dir, {recursive: true});
     for (const s of secs) {

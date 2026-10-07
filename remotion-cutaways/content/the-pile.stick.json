@@ -9,7 +9,9 @@
     "duckTo": 0.02,
     "fadeInSec": 1.0,
     "fadeOutSec": 2.2,
-    "startFromSec": 0
+    "startFromSec": 0,
+    "lengthSec": 162.72,
+    "crossfadeSec": 2.5
   },
   "emphasis": [
     "pile",

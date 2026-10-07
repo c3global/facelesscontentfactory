@@ -92,6 +92,8 @@ export const joints = (x: number, y: number, h: number, p: Pose): Joints => {
 
 const pl = (pts: V[]) => pts.map((p) => p.join(',')).join(' ');
 
+export type Hair = 'bob' | 'long' | 'bun' | 'ponytail';
+
 export const Stick: React.FC<{
   x: number;
   y: number;
@@ -101,7 +103,9 @@ export const Stick: React.FC<{
   sw?: number;
   opacity?: number;
   shirt?: string;
-}> = ({x, y, h, pose = STAND, color = '#3A3F42', sw = 9, opacity = 1, shirt = '#E7EAEC'}) => {
+  /** a little hair for the women in the cast; leave out for the men */
+  hair?: Hair;
+}> = ({x, y, h, pose = STAND, color = '#3A3F42', sw = 9, opacity = 1, shirt = '#E7EAEC', hair}) => {
   const j = joints(x, y, h, pose);
   const line = {fill: 'none', stroke: color, strokeLinecap: 'round', strokeLinejoin: 'round'} as const;
   const eyeY = j.head[1] + j.hr * 0.02;
@@ -117,6 +121,14 @@ export const Stick: React.FC<{
     return `M ${bx - j.hr * 0.2} ${by + lift - tilt} L ${bx + j.hr * 0.2} ${by + lift + tilt}`;
   };
   const tw = 0.17 * h; // torso width
+  // hair sits over the head outline but under the brows and eyes: a cap with a fringe above the brows, plus one of four styles
+  const hy = j.head[1];
+  const r = j.hr;
+  const lock = (sd: -1 | 1, len: number) =>
+    `M ${hx + sd * r * 0.98} ${hy - r * 0.05} C ${hx + sd * r * 1.45} ${hy + r * 0.3}, ${hx + sd * r * 1.38} ${hy + r * len * 0.8}, ${hx + sd * r * 1.12} ${hy + r * len} L ${hx + sd * r * 0.78} ${hy + r * (len - 0.1)} C ${hx + sd * r * 0.95} ${hy + r * len * 0.55}, ${hx + sd * r * 0.9} ${hy + r * 0.4}, ${hx + sd * r * 0.76} ${hy + r * 0.1} Z`;
+  const cap = `M ${hx - r * 1.2} ${hy + r * 0.12} L ${hx - r * 1.2} ${hy - r * 1.4} L ${hx + r * 1.2} ${hy - r * 1.4} L ${hx + r * 1.2} ${hy + r * 0.12} L ${hx + r * 0.9} ${hy + r * 0.12} Q ${hx} ${hy - r * 1.25} ${hx - r * 0.9} ${hy + r * 0.12} Z`;
+  const clipId = `hc${Math.round(x)}_${Math.round(y)}`;
+  const hairFill = {fill: color, stroke: color, strokeWidth: sw * 0.4, strokeLinejoin: 'round'} as const;
   return (
     <g opacity={opacity}>
       <polyline points={pl([j.hip, j.kneeL, j.footL])} {...line} strokeWidth={sw * 1.15} />
@@ -130,6 +142,16 @@ export const Stick: React.FC<{
       <circle cx={j.handL[0]} cy={j.handL[1]} r={0.034 * h} fill="#FFFFFF" stroke={color} strokeWidth={sw * 0.8} />
       <circle cx={j.handR[0]} cy={j.handR[1]} r={0.034 * h} fill="#FFFFFF" stroke={color} strokeWidth={sw * 0.8} />
       <circle cx={hx} cy={j.head[1]} r={j.hr} fill="#FFFFFF" stroke={color} strokeWidth={sw} />
+      {hair && (
+        <g>
+          <clipPath id={clipId}><circle cx={hx} cy={hy} r={r} /></clipPath>
+          <path d={cap} fill={color} clipPath={`url(#${clipId})`} />
+          {hair === 'bob' && <><path d={lock(-1, 1.0)} {...hairFill} /><path d={lock(1, 1.0)} {...hairFill} /></>}
+          {hair === 'long' && <><path d={lock(-1, 2.2)} {...hairFill} /><path d={lock(1, 2.2)} {...hairFill} /></>}
+          {hair === 'bun' && <circle cx={hx} cy={hy - r * 1.22} r={r * 0.4} {...hairFill} />}
+          {hair === 'ponytail' && <path d={`M ${hx + r * 0.78} ${hy - r * 0.62} C ${hx + r * 1.7} ${hy - r * 0.8}, ${hx + r * 1.9} ${hy + r * 0.5}, ${hx + r * 1.5} ${hy + r * 1.5} C ${hx + r * 1.45} ${hy + r * 0.6}, ${hx + r * 1.2} ${hy - r * 0.1}, ${hx + r * 0.7} ${hy - r * 0.2} Z`} {...hairFill} />}
+        </g>
+      )}
       <path d={brow(-1)} {...line} strokeWidth={sw * 0.5} />
       <path d={brow(1)} {...line} strokeWidth={sw * 0.5} />
       <circle cx={hx - j.hr * 0.38 + look} cy={eyeY} r={Math.max(3.5, j.hr * 0.1)} fill={color} />
