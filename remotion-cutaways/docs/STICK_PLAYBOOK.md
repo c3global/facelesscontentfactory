@@ -87,3 +87,14 @@ The delivered videos stay as they are ("Let's just keep it all"). Do not re-rend
 - **Open: logo or end element.** She is considering a logo near the end of the landscape videos, maybe on all videos including the talking heads. She has not decided. Ask which logo(s) and where before building anything.
 - **CQ Compass CTA on Equity Theory** does not follow from that script. She is keeping it as an experiment. Do not change it unless she asks.
 - **Hair color (built, switched OFF).** `Stick` takes `hairColor` (`'blonde' | 'brown' | 'silver' | 'teal'`, muted on purpose, no red so it never competes with Dr. CiCi's hair). It does nothing until `COLOR_HAIR` in `src/stick/figure.tsx` is set to `true`, so every figure stays cast gray. **Dr. CK decides when to turn it on; do not flip it without her say-so.** It only affects new renders. Her reasoning: she is the only full-colour character (plus the crimson accent in the diagrams), and she wants to test the plain look first. Judge the test on three-second hold and completion rate, not raw views, and change one thing at a time. A preview of the colours is `npx tsx scripts/render-cast.mjs` (the sheet forces them on).
+
+## 10. Posting standard (Dr. CK, Oct 7)
+Dr. CK made this the standard for every post. Use the ContentOS schedule, never Marky's recurring queue: create each post with an explicit `scheduled_publish_time`. Times are ET and sit just before the platform's peak hour, never on or after the hour.
+- Instagram and TikTok: 9:53 AM. If the morning is missed, they go out the same day at the evening slot, 5:47 PM (Metricool's peak for both is 6 PM).
+- LinkedIn 10:53 AM (her personal profile, `linkedInProfile`), Facebook 11:47 AM, YouTube 3:47 PM (peak hour 4 PM), Google Business 9:47 AM, Pinterest 7:57 PM.
+- Added same-day slots used on Oct 7: YouTube landscape 2:47 PM, LinkedIn 4:47 PM.
+- One Marky post per platform. TikTok and YouTube take a title override. Portrait goes everywhere (Instagram Reel, TikTok, Facebook Reel, LinkedIn, YouTube Short). Landscape goes only to the YouTube channel as a regular video.
+- Captions are written from the idea, not copied from the script (a first pass overlapped the script by about 75 percent and Dr. CK called it out). Hook from a numbered library starter, one question at most, one ask, three hashtags, written-out "the link is in my bio". Links go in the caption on LinkedIn, Facebook and YouTube.
+- Marky upload: `create_media_upload`, then PUT the file (needs `api.mymarky.ai` allowed in the environment's network settings), then pass the media id to `create_post`.
+- Content Library `Destination` has no Substack option. For a Substack ask leave it blank and use CTA Mechanism "Direct link".
+- Check scripts against Copy Rules section 7 (no fictional clients) before rendering. Role and Relationship's recording says "A fictional client says to me"; Dr. CK saw this and chose to publish as it is.
