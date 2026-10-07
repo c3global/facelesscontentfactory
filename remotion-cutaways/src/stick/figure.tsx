@@ -94,6 +94,12 @@ const pl = (pts: V[]) => pts.map((p) => p.join(',')).join(' ');
 
 export type Hair = 'bob' | 'long' | 'bun' | 'ponytail';
 
+/** Hair colours for the cast. SWITCHED OFF: while this is false every figure's hair stays the cast gray, even if a
+ *  scene names a colour. Dr. CK decides when to turn it on (it applies to new renders only). */
+export const COLOR_HAIR = false;
+export const HAIR_COLORS = {blonde: '#D9B65B', brown: '#6A4B35', silver: '#A9AFB4', teal: '#3E8E8A'} as const;
+export type HairColor = keyof typeof HAIR_COLORS;
+
 export const Stick: React.FC<{
   x: number;
   y: number;
@@ -105,7 +111,10 @@ export const Stick: React.FC<{
   shirt?: string;
   /** a little hair for the women in the cast; leave out for the men */
   hair?: Hair;
-}> = ({x, y, h, pose = STAND, color = '#3A3F42', sw = 9, opacity = 1, shirt = '#E7EAEC', hair}) => {
+  /** a named hair colour; only used when COLOR_HAIR is on (or `colorHair` forces it, for preview sheets) */
+  hairColor?: HairColor;
+  colorHair?: boolean;
+}> = ({x, y, h, pose = STAND, color = '#3A3F42', sw = 9, opacity = 1, shirt = '#E7EAEC', hair, hairColor, colorHair}) => {
   const j = joints(x, y, h, pose);
   const line = {fill: 'none', stroke: color, strokeLinecap: 'round', strokeLinejoin: 'round'} as const;
   const eyeY = j.head[1] + j.hr * 0.02;
@@ -128,7 +137,8 @@ export const Stick: React.FC<{
     `M ${hx + sd * r * 0.98} ${hy - r * 0.05} C ${hx + sd * r * 1.45} ${hy + r * 0.3}, ${hx + sd * r * 1.38} ${hy + r * len * 0.8}, ${hx + sd * r * 1.12} ${hy + r * len} L ${hx + sd * r * 0.78} ${hy + r * (len - 0.1)} C ${hx + sd * r * 0.95} ${hy + r * len * 0.55}, ${hx + sd * r * 0.9} ${hy + r * 0.4}, ${hx + sd * r * 0.76} ${hy + r * 0.1} Z`;
   const cap = `M ${hx - r * 1.2} ${hy + r * 0.12} L ${hx - r * 1.2} ${hy - r * 1.4} L ${hx + r * 1.2} ${hy - r * 1.4} L ${hx + r * 1.2} ${hy + r * 0.12} L ${hx + r * 0.9} ${hy + r * 0.12} Q ${hx} ${hy - r * 1.25} ${hx - r * 0.9} ${hy + r * 0.12} Z`;
   const clipId = `hc${Math.round(x)}_${Math.round(y)}`;
-  const hairFill = {fill: color, stroke: color, strokeWidth: sw * 0.4, strokeLinejoin: 'round'} as const;
+  const hairInk = hairColor && (COLOR_HAIR || colorHair) ? HAIR_COLORS[hairColor] : color;
+  const hairFill = {fill: hairInk, stroke: hairInk, strokeWidth: sw * 0.4, strokeLinejoin: 'round'} as const;
   return (
     <g opacity={opacity}>
       <polyline points={pl([j.hip, j.kneeL, j.footL])} {...line} strokeWidth={sw * 1.15} />
@@ -145,7 +155,7 @@ export const Stick: React.FC<{
       {hair && (
         <g>
           <clipPath id={clipId}><circle cx={hx} cy={hy} r={r} /></clipPath>
-          <path d={cap} fill={color} clipPath={`url(#${clipId})`} />
+          <path d={cap} fill={hairInk} clipPath={`url(#${clipId})`} />
           {hair === 'bob' && <><path d={lock(-1, 1.0)} {...hairFill} /><path d={lock(1, 1.0)} {...hairFill} /></>}
           {hair === 'long' && <><path d={lock(-1, 2.2)} {...hairFill} /><path d={lock(1, 2.2)} {...hairFill} /></>}
           {hair === 'bun' && <circle cx={hx} cy={hy - r * 1.22} r={r * 0.4} {...hairFill} />}
