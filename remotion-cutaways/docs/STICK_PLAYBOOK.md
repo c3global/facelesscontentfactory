@@ -99,3 +99,4 @@ Dr. CK made this the standard for every post. Use the ContentOS schedule, never 
 - Marky upload: `create_media_upload`, then PUT the file (needs `api.mymarky.ai` allowed in the environment's network settings), then pass the media id to `create_post`.
 - Content Library `Destination` has no Substack option. For a Substack ask leave it blank and use CTA Mechanism "Direct link".
 - Check scripts against Copy Rules section 7 (no fictional clients) before rendering. Role and Relationship's recording says "A fictional client says to me"; Dr. CK saw this and chose to publish as it is.
+- **Caption voice (Dr. CK, Oct 7): always first person, and/or second person as an expert friend using "you" language. Never third person**, including on the LinkedIn company page and the YouTube channel. (Older channel posts used third-person Dr. CiCi; that is superseded.)
