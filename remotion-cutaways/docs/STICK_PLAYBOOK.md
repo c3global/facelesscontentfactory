@@ -55,3 +55,11 @@ Env: `REMOTION_LOCAL_FONTS=1`, `REMOTION_BROWSER_EXECUTABLE=/opt/pw-browsers/chr
 - Never draw two figures at the same spot (one that idles and one that carries): it showed four arms. Blend one figure's pose with `mix()`.
 - The cast has a pale shirt-capsule torso, round hands, shoes and brows. Worried brows have the inner ends up. Diagrams sit on a `Panel` (white board with an offset shadow).
 - When a `str.replace` edit does not match, it fails silently. Assert the old text is present.
+
+## 7. Layout rules from Dr. CK's review of the pilot (apply to every new episode)
+These came from her screenshots of the v2 render. She approved v2 as is and asked that they guide future episodes.
+1. **Balance the empty space.** Portrait scenes without Dr. CiCi, and the portrait end card, left large empty bands (CTA pill high on the page, a gap, then her at the bottom). Centre or scale the art so the page reads as one composition, and put the end-card pill and text close to her, larger.
+2. **No text collisions.** Keep at least 24 px between any caption line and any stage element (the portrait "What" line touched the bottom of the map panel). Check the busiest caption moments: three-line lockups and the frames where a panel or tag sits at the bottom of the stage.
+3. **Props must not cover faces.** In landscape the "FIRST STEP" card sat at head height and hid both stick figures' faces. Keep cards, labels and panels clear of every head: place them above, below or between, and re-check once the card moves (it animates upward).
+4. **Landscape captions sit too low.** The bottom of a 16:9 frame is covered by the player's progress bar and controls, and the caption block ended at y 1045. Keep landscape captions above about y 930 (86 percent of the height), and shrink the stage to make room.
+5. Review method: contact-sheet stills at every lockup start (not only at scene starts), in both formats, before rendering.
