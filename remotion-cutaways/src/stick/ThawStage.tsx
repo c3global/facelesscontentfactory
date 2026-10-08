@@ -171,10 +171,10 @@ const Badge: React.FC<{x: number; y: number; kind: Kind; p: number; ghost?: numb
       {kind === 'skill' && <polygon points={star} {...ink} transform="translate(0 2)" />}
       {kind === 'team' && (
         <g {...ink}>
-          <circle cx={-15} cy={-17} r={8} />
-          <circle cx={15} cy={-17} r={8} />
-          <path d="M -15 -4 L -15 18 M 15 -4 L 15 18" strokeWidth={11} />
-          <path d="M -7 6 L 7 6" strokeWidth={4} strokeDasharray="3 5" />
+          <circle cx={-14} cy={-15} r={9} />
+          <circle cx={14} cy={-15} r={9} />
+          <path d="M -29 22 Q -29 3 -14 3 Q 1 3 1 22 Z" fill="#FFFFFF" />
+          <path d="M -1 22 Q -1 3 14 3 Q 29 3 29 22 Z" fill="#FFFFFF" />
         </g>
       )}
     </g>
