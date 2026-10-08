@@ -1,0 +1,171 @@
+{
+  "slug": "useful-easy",
+  "stage": "useful-easy",
+  "durationSec": 62.46,
+  "vo": "raw/useful-easy-vo.mp3",
+  "music": {
+    "src": "music/warm-yellen-closer-than-before.bed.mp3",
+    "volume": 0.042,
+    "duckTo": 0.019,
+    "fadeInSec": 1.0,
+    "fadeOutSec": 3.5,
+    "startFromSec": 15,
+    "lengthSec": 118.39,
+    "crossfadeSec": 2.5,
+    "scaled": true
+  },
+  "emphasis": [
+    "useful",
+    "easy",
+    "judgments",
+    "demo",
+    "stuck",
+    "training",
+    "job",
+    "both"
+  ],
+  "hero": [
+    "tool",
+    "people",
+    "tuesday",
+    "1989",
+    "davis",
+    "technology",
+    "accept",
+    "vendor's",
+    "usefulness",
+    "ease",
+    "problem",
+    "steps",
+    "full",
+    "questions",
+    "users",
+    "hoped",
+    "answers",
+    "work",
+    "person"
+  ],
+  "captionsEnd": 56.3,
+  "cues": {
+    "ciciIn": 0.0,
+    "tool": 0.36,
+    "tool2": 24.23,
+    "useful1": 3.18,
+    "people": 4.08,
+    "use": 5.52,
+    "easy1": 7.34,
+    "busy": 8.33,
+    "tue": 8.76,
+    "davis": 10.1,
+    "fred": 11.08,
+    "accept": 13.12,
+    "mostly": 15.02,
+    "two": 16.0,
+    "usefulHigh": 18.12,
+    "work": 18.74,
+    "easyHigh": 20.51,
+    "tapped": 20.82,
+    "judg": 22.05,
+    "person": 23.28,
+    "demo": 24.86,
+    "cant": 25.6,
+    "usefulLow": 27.85,
+    "solve": 29.12,
+    "problem": 29.53,
+    "notHave": 30.81,
+    "exitRight": 31.7,
+    "reset": 31.9,
+    "easyLow": 32.69,
+    "add": 33.65,
+    "job": 34.5,
+    "full": 35.39,
+    "dialsOut": 36.5,
+    "find": 37.28,
+    "which": 37.94,
+    "twoQ": 39.56,
+    "users": 41.59,
+    "hoped": 42.78,
+    "tool3": 43.55,
+    "doIt": 44.29,
+    "where": 45.96,
+    "stuck": 46.9,
+    "answers": 48.04,
+    "tellYou": 48.46,
+    "change": 49.65,
+    "toolA": 50.28,
+    "training": 51.46,
+    "job2": 52.87,
+    "cta": 56.47,
+    "usefulEnd": 60.28,
+    "easyEnd": 60.97,
+    "both": 61.77,
+    "newTool": 1.55
+  },
+  "cici": [
+    {
+      "at": 0.0,
+      "src": "pose-walking-in.png",
+      "walkIn": true
+    },
+    {
+      "at": 0.95,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 2.78,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 6.47,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 10.1,
+      "src": "pose-standing-hands-clasped.png"
+    },
+    {
+      "at": 15.02,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 21.67,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 24.86,
+      "src": "pose-stop-hand.png"
+    },
+    {
+      "at": 26.89,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 32.14,
+      "src": "pose-hands-on-hips.png"
+    },
+    {
+      "at": 36.8,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 41.08,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 45.29,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 47.7,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 49.46,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 56.47,
+      "src": "pose-waving.png"
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "slug": "thaw",
+  "stage": "thaw",
+  "durationSec": 66.75,
+  "vo": "raw/thaw-vo.mp3",
+  "music": {
+    "src": "music/warm-marscott-warm-sunlight.bed.mp3",
+    "volume": 0.045,
+    "duckTo": 0.02,
+    "fadeInSec": 1,
+    "fadeOutSec": 3.5,
+    "startFromSec": 0,
+    "lengthSec": 162.72,
+    "crossfadeSec": 2.5,
+    "scaled": true
+  },
+  "emphasis": [
+    "unfreeze",
+    "refreeze",
+    "middle",
+    "skipped",
+    "thaw"
+  ],
+  "hero": [
+    "launched",
+    "tool",
+    "people",
+    "problem",
+    "old",
+    "three",
+    "move",
+    "steps",
+    "reasons",
+    "day",
+    "colleagues",
+    "unfreezing",
+    "asking",
+    "lose",
+    "habit",
+    "plan",
+    "work",
+    "follow",
+    "thing",
+    "skipped"
+  ],
+  "captionsEnd": 61.05,
+  "cues": {
+    "ciciIn": 0,
+    "launched": 0.3,
+    "newTool": 1.2,
+    "ran": 2.31,
+    "trained": 2.79,
+    "hardly": 3.96,
+    "using": 5.37,
+    "problem": 8.37,
+    "people": 7.52,
+    "check": 9.16,
+    "help": 10.98,
+    "letgo": 11.5,
+    "oldway": 12.2,
+    "lewin": 13.07,
+    "three": 14.85,
+    "unfreeze": 16.45,
+    "move": 17.72,
+    "refreeze": 18.95,
+    "start": 20.92,
+    "middle": 21.84,
+    "build": 23.21,
+    "announce": 24.86,
+    "expect": 26.06,
+    "moveAgain": 27.06,
+    "attached": 28.48,
+    "oldway2": 29.44,
+    "day": 31.35,
+    "goodAt": 33.37,
+    "colleagues": 35.05,
+    "unfreezing": 37.67,
+    "asking": 38.88,
+    "gives": 40.16,
+    "lose": 41.42,
+    "when": 42.67,
+    "skipped": 43.6,
+    "sits": 45.12,
+    "habit": 46.47,
+    "put": 47.92,
+    "thaw": 48.84,
+    "plan": 49.72,
+    "ask": 50.58,
+    "who": 51.04,
+    "work": 52.2,
+    "what": 52.87,
+    "current": 53.76,
+    "doyou": 54.92,
+    "that": 56.02,
+    "newtool2": 56.5,
+    "doesnt": 57.57,
+    "cta": 61.2
+  },
+  "cici": [
+    {
+      "at": 0,
+      "src": "pose-walking-in.png",
+      "walkIn": true
+    },
+    {
+      "at": 0.95,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 6.43,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 9.16,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 13.07,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 20.07,
+      "src": "pose-stop-hand.png"
+    },
+    {
+      "at": 23.08,
+      "src": "pose-hands-on-hips.png"
+    },
+    {
+      "at": 27.76,
+      "src": "composed/pose-standing-hands-clasped__face-concerned.png"
+    },
+    {
+      "at": 37.67,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 42.67,
+      "src": "pose-arms-crossed.png"
+    },
+    {
+      "at": 47.82,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 50.58,
+      "src": "pose-thumbs-up.png"
+    },
+    {
+      "at": 61.2,
+      "src": "pose-waving.png"
+    }
+  ]
+}
