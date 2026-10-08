@@ -113,7 +113,7 @@ export const AvoidStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
     const y1 = lerp(72, 490, a);
     const s1 = lerp(0.8, 1.05, a);
     const x = lerp(x1, [270, 500, 730][i], b);
-    const y = lerp(y1, 270, b) + settleBump * (1 - b);
+    const y = lerp(y1, 248, b) + settleBump * (1 - b);
     const s = lerp(s1, 1.5, b);
     const on = Math.max(act[i], cyc[i]);
     const vis = prog(t, signAt[i], 0.35, bounce) * signOut;
@@ -483,7 +483,7 @@ export const AvoidStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
       {o6 > 0 && (
         <g opacity={o6}>
           <Stick x={500} y={G} h={240} pose={figPose} />
-          <text x={500} y={175} textAnchor="middle" fontFamily={SANS} fontWeight={700} fontSize={96} fill={C.ink} opacity={prog(t, q.which, 0.4, bounce)} transform={`translate(500 175) scale(${prog(t, q.which, 0.4, bounce)}) translate(-500 -175)`}>
+          <text x={500} y={150} textAnchor="middle" fontFamily={SANS} fontWeight={700} fontSize={96} fill={C.ink} opacity={prog(t, q.which, 0.4, bounce)} transform={`translate(500 150) scale(${prog(t, q.which, 0.4, bounce)}) translate(-500 -150)`}>
             ?
           </text>
         </g>
