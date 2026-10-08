@@ -1,0 +1,179 @@
+{
+  "slug": "red-turns-green",
+  "stage": "red-turns-green",
+  "durationSec": 59.98,
+  "vo": "raw/red-turns-green-vo.mp3",
+  "music": {
+    "src": "music/warm-yellen-closer-than-before.bed.mp3",
+    "volume": 0.042,
+    "duckTo": 0.019,
+    "fadeInSec": 1.0,
+    "fadeOutSec": 3.5,
+    "startFromSec": 5,
+    "lengthSec": 118.39,
+    "crossfadeSec": 2.5,
+    "scaled": true
+  },
+  "emphasis": [
+    "tired",
+    "changing",
+    "defensive",
+    "routines",
+    "softened",
+    "spoils",
+    "changed"
+  ],
+  "hero": [
+    "green",
+    "report",
+    "color",
+    "embarrassment",
+    "learning",
+    "yellow",
+    "tomorrow",
+    "launch",
+    "reasonable",
+    "spot",
+    "exercise",
+    "list",
+    "item",
+    "red",
+    "change",
+    "team"
+  ],
+  "captionsEnd": 52.72,
+  "cues": {
+    "ciciIn": 0.0,
+    "reportGreen": 1.66,
+    "tired": 3.32,
+    "both": 4.55,
+    "canWord": 5.21,
+    "unknown": 7.52,
+    "colorWord": 9.02,
+    "workers": 9.76,
+    "climb": 10.91,
+    "readers": 11.8,
+    "reportWord": 12.52,
+    "argyris": 13.39,
+    "routines": 15.43,
+    "orgAct": 17.84,
+    "avoid": 20.2,
+    "keep": 22.56,
+    "learning": 24.23,
+    "problem": 25.48,
+    "redWord": 26.32,
+    "softened": 26.83,
+    "yellowWord": 27.7,
+    "meeting": 29.17,
+    "tomorrow": 29.87,
+    "becomes": 31.46,
+    "greenWord": 32.0,
+    "spoils": 34.62,
+    "launch": 35.28,
+    "each": 36.35,
+    "step": 36.48,
+    "feels": 36.8,
+    "reasonable": 37.21,
+    "own": 38.43,
+    "spot": 40.02,
+    "exercise": 40.88,
+    "ask": 41.96,
+    "list": 42.5,
+    "keeps": 43.95,
+    "reportDoc": 44.9,
+    "nextTo": 46.0,
+    "follow": 46.96,
+    "single": 47.48,
+    "item": 47.93,
+    "fromOne": 48.23,
+    "other": 49.12,
+    "where": 49.81,
+    "change": 50.62,
+    "who": 51.8,
+    "changed": 52.07,
+    "cta": 52.8
+  },
+  "cici": [
+    {
+      "at": 0.0,
+      "src": "pose-walking-in.png",
+      "walkIn": true
+    },
+    {
+      "at": 0.95,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 3.04,
+      "src": "composed/pose-standing-hands-clasped__face-concerned.png"
+    },
+    {
+      "at": 4.55,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 7.52,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 11.43,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 13.39,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 17.84,
+      "src": "pose-standing-hands-clasped.png"
+    },
+    {
+      "at": 21.95,
+      "src": "pose-stop-hand.png"
+    },
+    {
+      "at": 26.32,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 28.27,
+      "src": "pose-hands-on-hips.png"
+    },
+    {
+      "at": 31.09,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 36.35,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 39.14,
+      "src": "pose-thumbs-up.png"
+    },
+    {
+      "at": 41.96,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 44.72,
+      "src": "pose-standing-hands-clasped.png"
+    },
+    {
+      "at": 46.89,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 49.81,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 51.79,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 52.8,
+      "src": "pose-waving.png"
+    }
+  ]
+}

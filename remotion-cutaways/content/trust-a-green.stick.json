@@ -1,0 +1,166 @@
+{
+  "slug": "trust-a-green",
+  "stage": "trust-a-green",
+  "durationSec": 65.49,
+  "vo": "raw/trust-a-green-vo.mp3",
+  "music": {
+    "src": "music/warm-yellen-closer-than-before.bed.mp3",
+    "volume": 0.042,
+    "duckTo": 0.019,
+    "fadeInSec": 1.0,
+    "fadeOutSec": 3.5,
+    "startFromSec": 20,
+    "lengthSec": 118.39,
+    "crossfadeSec": 2.5,
+    "scaled": true
+  },
+  "emphasis": [
+    "green",
+    "wrote",
+    "red",
+    "yellow",
+    "replace",
+    "changed",
+    "wording",
+    "closer",
+    "cheap",
+    "help",
+    "failed",
+    "messier",
+    "useful"
+  ],
+  "hero": [
+    "status",
+    "three",
+    "questions",
+    "list",
+    "team",
+    "report",
+    "meeting",
+    "explanation",
+    "safe",
+    "first",
+    "spreadsheet",
+    "notebook"
+  ],
+  "captionsEnd": 60.85,
+  "cues": {
+    "ciciIn": 0.0,
+    "green": 1.52,
+    "ask": 3.06,
+    "three": 3.74,
+    "questions": 4.33,
+    "one": 5.52,
+    "who": 6.41,
+    "wrote": 6.58,
+    "bubble": 7.57,
+    "think": 8.48,
+    "happen": 9.18,
+    "said": 10.04,
+    "red": 10.45,
+    "two": 11.21,
+    "replace": 12.02,
+    "slotQ": 13.69,
+    "last": 15.0,
+    "yellow": 16.11,
+    "became": 16.75,
+    "thisMonth": 17.33,
+    "greenAgain": 18.44,
+    "askChanged": 19.13,
+    "changed": 19.64,
+    "between": 20.52,
+    "wording": 22.04,
+    "q3": 23.15,
+    "list": 24.29,
+    "sheet": 28.74,
+    "notebook": 29.98,
+    "chat": 31.15,
+    "listIs": 32.61,
+    "closer": 33.63,
+    "work": 34.32,
+    "report": 35.29,
+    "more": 36.33,
+    "oneMore": 37.14,
+    "make": 38.33,
+    "cheap": 39.05,
+    "line": 40.09,
+    "meeting": 41.26,
+    "explain": 42.35,
+    "letRed": 44.58,
+    "needHelp": 46.03,
+    "notSomeone": 47.5,
+    "failed": 48.49,
+    "safe": 49.9,
+    "write": 51.17,
+    "messyStart": 52.52,
+    "messier": 53.16,
+    "useful": 54.99,
+    "which": 55.91,
+    "those": 56.3,
+    "first": 57.95,
+    "cta": 60.93
+  },
+  "cici": [
+    {
+      "at": 0.0,
+      "src": "pose-walking-in.png",
+      "walkIn": true
+    },
+    {
+      "at": 0.95,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 3.06,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 5.52,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 11.21,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 19.13,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 23.15,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 32.44,
+      "src": "composed/pose-standing-hands-clasped__face-concerned.png"
+    },
+    {
+      "at": 36.33,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 40.09,
+      "src": "pose-hands-on-hips.png"
+    },
+    {
+      "at": 44.58,
+      "src": "pose-standing-hands-clasped.png"
+    },
+    {
+      "at": 49.9,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 55.91,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 57.62,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 60.93,
+      "src": "pose-waving.png"
+    }
+  ]
+}
