@@ -287,7 +287,7 @@
     "confidence": null
   },
   {
-    "text": " tell.",
+    "text": " tell.\"",
     "startMs": 13930,
     "endMs": 14310,
     "timestampMs": 14120,
@@ -371,7 +371,7 @@
     "confidence": null
   },
   {
-    "text": " features.\"",
+    "text": " features.",
     "startMs": 18180,
     "endMs": 18300,
     "timestampMs": 18240,
