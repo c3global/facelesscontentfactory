@@ -506,7 +506,7 @@ export const QuietStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
       {ctaOn > 0 && (
         <g opacity={Math.min(1, ctaOn * 2)}>
           <FollowIcon x={500} y={250} s={1.4 * ctaOn} />
-          {bellIn > 0 && <Bell x={500} y={408} s={1.3 * bellIn} ring={bellP} />}
+          {bellIn > 0 && <Bell x={500} y={396} s={1.3 * bellIn} ring={bellP} />}
           <Tag x={500} y={522} text="FOLLOW AND SUBSCRIBE" size={38} opacity={prog(t, q.cta + 0.15, 0.4, bounce)} />
           <rect x={330} y={580} width={340} height={14} rx={7} fill="none" stroke={C.crimson} strokeWidth={5} strokeDasharray="12 10" opacity={t >= q.quietEnd ? 0.35 + 0.65 * stretchPulse : 0.35} />
         </g>
