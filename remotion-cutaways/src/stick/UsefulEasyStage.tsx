@@ -252,7 +252,7 @@ export const UsefulEasyStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
   const stuckTag = pop(t, q.stuck, 0.35) * (1 - shrink);
   const hand1 = prog(t, q.hoped, 0.3) * (1 - prog(t, q.where - 0.2, 0.3));
   const stuckOn = prog(t, q.stuck, 0.3);
-  const poseU1 = pose({rh: [0.17 - 0.05 * hand1, 0.27 - 0.5 * hand1], mood: stuckOn > 0.5 ? 'flat' : 'smile', look: 1});
+  const poseU1 = pose({rh: [0.17 + 0.04 * hand1, 0.27 - 0.4 * hand1], mood: stuckOn > 0.5 ? 'flat' : 'smile', look: 1});
   const poseU2 = pose({mood: stuckOn > 0.5 ? 'sad' : 'smile'});
   const poseU3 = mix(pose({look: -1}), pose({lh: [-0.2, 0.08], rh: [0.2, 0.08], mood: 'sad', look: -1}), stuckOn);
   const bobOf = (k: number) => 1 + 0.015 * Math.sin(t * 3 + k);
