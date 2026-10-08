@@ -83,3 +83,24 @@ export const CommentIcon: React.FC<{x?: number; y?: number; s?: number; opacity?
     ))}
   </g>
 );
+
+/** End-card icon for "Follow and subscribe": a rounded button with a plus and a bell. */
+export const FollowIcon: React.FC<{x?: number; y?: number; s?: number; opacity?: number}> = ({x = 0, y = 0, s = 1, opacity = 1}) => (
+  <g transform={`translate(${x} ${y}) scale(${s})`} opacity={opacity}>
+    <rect x={-150} y={-52} width={300} height={104} rx={52} fill={C.crimson} />
+    <circle cx={-98} cy={0} r={30} fill="#FFFFFF" />
+    <path d="M -98 -14 L -98 14 M -112 0 L -84 0" stroke={C.crimson} strokeWidth={8} strokeLinecap="round" />
+    <text x={20} y={13} textAnchor="middle" fontFamily={SANS} fontWeight={700} fontSize={36} letterSpacing={3} fill="#FFFFFF">
+      FOLLOW
+    </text>
+  </g>
+);
+
+/** A notification bell. */
+export const Bell: React.FC<{x?: number; y?: number; s?: number; opacity?: number; ring?: number}> = ({x = 0, y = 0, s = 1, opacity = 1, ring = 0}) => (
+  <g transform={`translate(${x} ${y}) scale(${s}) rotate(${Math.sin(ring * 18) * 12 * Math.max(0, 1 - ring)})`} opacity={opacity}>
+    <path d="M -46 28 Q -46 -10 -34 -30 Q -24 -50 0 -52 Q 24 -50 34 -30 Q 46 -10 46 28 Z" fill="#FFFFFF" stroke={C.ink} strokeWidth={7} strokeLinejoin="round" />
+    <line x1={-58} y1={28} x2={58} y2={28} stroke={C.ink} strokeWidth={7} strokeLinecap="round" />
+    <circle cx={0} cy={48} r={11} fill={C.ink} />
+  </g>
+);
