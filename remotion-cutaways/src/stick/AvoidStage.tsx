@@ -214,9 +214,9 @@ export const AvoidStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
   const o6 = between(t, q.which - 0.2, q.cta - 0.05, 0.3);
   const figLook = cycIdx < 0 ? 0 : cycIdx - 1;
   const figPose: Pose = (() => {
-    if (cycIdx === 0) return P({lh: [-0.2, -0.3], look: -1, mood: 'flat'});
-    if (cycIdx === 1) return P({rh: [0.03, -0.34], look: 0, mood: 'flat'});
-    if (cycIdx === 2) return P({rh: [0.2, -0.3], look: 1, mood: 'flat'});
+    if (cycIdx === 0) return P({lh: [-0.28, -0.2], look: -1, mood: 'flat'});
+    if (cycIdx === 1) return P({rh: [0.17, -0.3], look: 0, mood: 'flat'});
+    if (cycIdx === 2) return P({rh: [0.28, -0.2], look: 1, mood: 'flat'});
     return P({mood: 'flat', look: figLook, lean: 0.01});
   })();
 
