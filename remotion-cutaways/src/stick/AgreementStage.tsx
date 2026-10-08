@@ -369,8 +369,8 @@ export const AgreementStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
             <g transform={`translate(500 ${CLOUD_Y}) scale(${eyeP * 1.2})`} opacity={Math.min(1, eyeP * 2)}>
               <path d="M -40 0 Q 0 -36 40 0 Q 0 36 -40 0 Z" fill="#FFFFFF" stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
               <circle r={12} fill={C.ink} />
-              <line x1={-44} y1={36} x2={44} y2={-36} stroke="#FFFFFF" strokeWidth={20} strokeLinecap="round" />
-              <line x1={-44} y1={36} x2={44} y2={-36} stroke={C.crimson} strokeWidth={9} strokeLinecap="round" />
+              <line x1={-40} y1={32} x2={40} y2={-32} stroke="#FFFFFF" strokeWidth={14} strokeLinecap="round" />
+              <line x1={-40} y1={32} x2={40} y2={-32} stroke={C.crimson} strokeWidth={7} strokeLinecap="round" />
             </g>
           )}
           {neqP > 0 && (
@@ -416,7 +416,7 @@ export const AgreementStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
               <text x={500} y={104} textAnchor="middle" fontFamily={SANS} fontWeight={700} fontSize={110} fill={C.mid}>
                 ?
               </text>
-              <path d="M 466 38 L 534 100 M 534 38 L 466 100" stroke={C.crimson} strokeWidth={11} strokeLinecap="round" strokeDasharray={94} strokeDashoffset={94 * (1 - prog(t, q.guessing, 0.35, (v) => v))} />
+              <path d="M 474 52 L 526 100 M 526 52 L 474 100" stroke={C.crimson} strokeWidth={9} strokeLinecap="round" strokeDasharray={72} strokeDashoffset={72 * (1 - prog(t, q.guessing, 0.35, (v) => v))} />
             </g>
           )}
         </g>

@@ -42,7 +42,9 @@
     "build",
     "sits",
     "know",
-    "app"
+    "app",
+    "say",
+    "how"
   ],
   "captionsEnd": 57.4,
   "cues": {
@@ -100,24 +102,82 @@
     "cta": 57.45
   },
   "cici": [
-    {"at": 0.0, "src": "pose-walking-in.png", "walkIn": true},
-    {"at": 0.95, "src": "pose-front-neutral.png"},
-    {"at": 4.91, "src": "pose-thinking.png"},
-    {"at": 8.38, "src": "pose-explaining-open-arms.png"},
-    {"at": 12.64, "src": "pose-pointing.png"},
-    {"at": 14.76, "src": "pose-hands-on-hips.png"},
-    {"at": 16.96, "src": "pose-shrugging.png"},
-    {"at": 19.39, "src": "pose-front-neutral.png"},
-    {"at": 22.57, "src": "pose-pointing.png"},
-    {"at": 24.17, "src": "pose-shrugging.png"},
-    {"at": 26.43, "src": "pose-explaining-open-arms.png"},
-    {"at": 32.7, "src": "pose-hands-on-hips.png"},
-    {"at": 37.94, "src": "pose-arms-crossed.png"},
-    {"at": 41.49, "src": "pose-shrugging.png"},
-    {"at": 45.09, "src": "pose-front-neutral.png"},
-    {"at": 46.95, "src": "pose-thinking.png"},
-    {"at": 52.0, "src": "pose-three-quarter.png"},
-    {"at": 53.33, "src": "composed/pose-standing-hands-clasped__face-concerned.png"},
-    {"at": 57.45, "src": "pose-waving.png"}
+    {
+      "at": 0.0,
+      "src": "pose-walking-in.png",
+      "walkIn": true
+    },
+    {
+      "at": 0.95,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 4.91,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 8.38,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 12.64,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 14.76,
+      "src": "pose-hands-on-hips.png"
+    },
+    {
+      "at": 16.96,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 19.39,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 22.57,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 24.17,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 26.43,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 32.7,
+      "src": "pose-hands-on-hips.png"
+    },
+    {
+      "at": 37.94,
+      "src": "pose-arms-crossed.png"
+    },
+    {
+      "at": 41.49,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 45.09,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 46.95,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 52.0,
+      "src": "pose-three-quarter.png"
+    },
+    {
+      "at": 53.33,
+      "src": "composed/pose-standing-hands-clasped__face-concerned.png"
+    },
+    {
+      "at": 57.45,
+      "src": "pose-waving.png"
+    }
   ]
 }

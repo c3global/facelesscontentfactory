@@ -27,11 +27,24 @@ const Dot: React.FC<{x?: number; y?: number; r?: number; kind: Kind; check?: num
       <circle r={r} fill="#FFFFFF" />
       {kind === 'red' && <circle r={r} fill={C.crimson} />}
       {kind === 'yellow' && <path d={`M 0 ${-r} A ${r} ${r} 0 0 0 0 ${r} Z`} fill={C.crimson} />}
-      <circle r={r} fill="none" stroke={C.ink} strokeWidth={sw} />
-      {kind === 'yellow' && <line x1={0} y1={-r} x2={0} y2={r} stroke={C.ink} strokeWidth={sw * 0.6} />}
+      <circle r={r} fill="none" stroke={kind === 'green' ? C.ink : C.crimson} strokeWidth={sw} />
       {kind === 'green' && (
         <path d={`M ${-r * 0.45} ${r * 0.02} L ${-r * 0.1} ${r * 0.36} L ${r * 0.48} ${-r * 0.34}`} fill="none" stroke={C.ink} strokeWidth={sw * 1.3} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={r * 3} strokeDashoffset={r * 3 * (1 - check)} />
       )}
+    </g>
+  );
+};
+
+/** A tiny white pill so the status reads without color (same look as the red-turns-green episode). */
+const MiniTag: React.FC<{x: number; y: number; text: string; opacity?: number; size?: number}> = ({x, y, text, opacity = 1, size = 15}) => {
+  const w = text.length * size * 0.72 + 24;
+  const h = size * 1.7;
+  return (
+    <g opacity={opacity}>
+      <rect x={x - w / 2} y={y - h / 2} width={w} height={h} rx={h / 2} fill="#FFFFFF" stroke={C.ink} strokeWidth={3} />
+      <text x={x} y={y + size * 0.35} textAnchor="middle" fontFamily={SANS} fontWeight={700} fontSize={size} letterSpacing={2} fill={C.ink}>
+        {text}
+      </text>
     </g>
   );
 };
@@ -76,7 +89,7 @@ const Report: React.FC<{
         <Dot kind={kind} r={h * 0.17} check={check} opacity={(kind2 ? 1 - Math.min(1, flip * 1.5) : 1) * Math.min(1, dotP * 2)} scale={0.7 + 0.3 * dotP} />
         {kind2 && flip > 0 && <Dot kind={kind2} r={h * 0.17} opacity={Math.min(1, flip * 1.5)} scale={0.8 + 0.2 * Math.min(1, flip * 1.5)} />}
       </g>
-      <Tag x={0} y={h / 2 - 34} text={KIND_TAG[k]} size={15} opacity={tagOn} />
+      <MiniTag x={0} y={h / 2 - 34} text={KIND_TAG[k]} size={16} opacity={tagOn} />
     </g>
   );
 };
@@ -132,8 +145,8 @@ export const TrustGreenStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
   const pipsOut = 1 - prog(t, q.safe - 0.3, 0.3, lin);
   const bigA = prog(t, q.three - 0.3, 0.01, lin) - prog(t, q.one - 0.1, 0.45); // 1 while the pips are the scene-one headline
   const pipY = 105 + 65 * bigA + 245 * toBig;
-  const pipR = 22 + 18 * bigA + 24 * toBig;
-  const pipGap = 62 + 54 * bigA + 68 * toBig;
+  const pipR = 26 + 18 * bigA + 24 * toBig;
+  const pipGap = 70 + 54 * bigA + 68 * toBig;
   const fourth = prog(t, q.oneMore, 0.4, bounce);
   const rowShift = -pipGap * 0.5 * fourth;
   const pips = [0, 1, 2, 3].map((i) => {
@@ -296,7 +309,8 @@ export const TrustGreenStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
                 )}
                 {redBub > 0 && (
                   <g>
-                    <Dot x={395} y={225} r={32} kind="red" scale={redBub} />
+                    <Dot x={395} y={218} r={30} kind="red" scale={redBub} />
+                    <MiniTag x={395} y={268} text="RED" size={14} opacity={redBub} />
                   </g>
                 )}
               </g>
@@ -351,14 +365,14 @@ export const TrustGreenStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
       {s4 > 0 && (
         <g opacity={s4}>
           <g transform={`translate(0 ${nod * 100})`}>
-            <Stick x={160} y={530} h={200} pose={smile({rh: [0.2, 0.03]})} opacity={team} />
-            <Stick x={255} y={530} h={200} pose={smile({lh: [-0.2, 0.03]})} hair="ponytail" opacity={team} />
+            <Stick x={150} y={530} h={200} pose={smile()} opacity={team} />
+            <Stick x={265} y={530} h={200} pose={smile({rh: [0.2, 0.0]})} hair="ponytail" opacity={team} />
           </g>
-          {workTag > 0 && <Tag x={207} y={285} text="THE WORK" size={20} opacity={workTag} />}
+          {workTag > 0 && <Tag x={208} y={285} text="THE WORK" size={20} opacity={workTag} />}
           {trayQ > 0 && (
             <g opacity={trayQ}>
               <rect x={345} y={375} width={210} height={130} rx={22} fill="#FFFFFF" stroke={trayOn > 0 ? C.ink : C.mid} strokeWidth={5} strokeDasharray={trayOn > 0.5 ? undefined : '14 12'} />
-              {ic[0] === 0 && (
+              {ic[0] < 0.05 && (
                 <text x={450} y={462} textAnchor="middle" fontFamily={SANS} fontWeight={700} fontSize={80} fill={C.mid}>
                   ?
                 </text>
@@ -458,8 +472,9 @@ export const TrustGreenStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
           <Stick x={725} y={630} h={260} pose={manPose} opacity={man} />
           {rowA > 0 && (
             <g opacity={rowA}>
-              <Dot x={555} y={225} r={24} kind="red" />
-              <text x={612} y={236} textAnchor="middle" fontFamily={SANS} fontWeight={700} fontSize={36} fill={C.ink}>
+              <Dot x={568} y={225} r={24} kind="red" />
+              <MiniTag x={568} y={263} text="RED" size={13} />
+              <text x={614} y={236} textAnchor="middle" fontFamily={SANS} fontWeight={700} fontSize={36} fill={C.ink}>
                 =
               </text>
               <Tag x={745} y={225} text="NEED HELP" size={24} />
@@ -467,12 +482,18 @@ export const TrustGreenStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
           )}
           {rowB > 0 && (
             <g opacity={rowB}>
-              <Dot x={555} y={312} r={24} kind="red" />
-              <text x={612} y={323} textAnchor="middle" fontFamily={SANS} fontWeight={700} fontSize={36} fill={C.ink}>
+              <Dot x={568} y={312} r={24} kind="red" />
+              <MiniTag x={568} y={350} text="RED" size={13} />
+              <text x={614} y={323} textAnchor="middle" fontFamily={SANS} fontWeight={700} fontSize={36} fill={C.ink}>
                 =
               </text>
-              <Tag x={760} y={312} text="SOMEONE FAILED" size={19} fill="#FFFFFF" color={C.mid} />
-              {crossB > 0 && <line x1={640} y1={312} x2={880} y2={312} stroke={C.crimson} strokeWidth={6} strokeLinecap="round" strokeDasharray={240} strokeDashoffset={240 * (1 - crossB)} />}
+              <g>
+                <rect x={642} y={290} width={236} height={44} rx={22} fill="#FFFFFF" stroke={C.ink} strokeWidth={4} />
+                <text x={760} y={319} textAnchor="middle" fontFamily={SANS} fontWeight={700} fontSize={19} letterSpacing={2.5} fill={C.ink}>
+                  SOMEONE FAILED
+                </text>
+              </g>
+              {crossB > 0 && <line x1={650} y1={312} x2={870} y2={312} stroke={C.crimson} strokeWidth={6} strokeLinecap="round" strokeDasharray={220} strokeDashoffset={220 * (1 - crossB)} />}
             </g>
           )}
         </g>
@@ -481,15 +502,16 @@ export const TrustGreenStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
       {/* 6: messier, more useful */}
       {s6 > 0 && (
         <g opacity={s6}>
-          <Panel x={150} y={130} w={500} h={470} />
+          <Panel x={150} y={130} w={500} h={490} />
           <line x1={185} y1={175} x2={400} y2={175} stroke={C.ink} strokeWidth={9} strokeLinecap="round" />
           {shield > 0 && (
-            <g transform={`translate(580 178)`} opacity={shield}>
-              <Shield s={0.55 * shield} />
+            <g transform={`translate(590 182)`} opacity={shield}>
+              <Shield s={0.7 * shield} />
+              <path d="M -13 2 L -3 14 L 15 -12" fill="none" stroke={C.crimson} strokeWidth={7} strokeLinecap="round" strokeLinejoin="round" transform={`scale(${shield * 0.7})`} />
             </g>
           )}
           {[0, 1, 2, 3, 4, 5].map((i) => {
-            const y = 245 + i * 62;
+            const y = 240 + i * 58;
             const rk = rowKind(i);
             const p = rk.at === 0 ? 0 : prog(t, rk.at, 0.35, bounce);
             const note = rk.at === 0 ? 0 : prog(t, rk.at + 0.15, 0.5, lin);
@@ -509,9 +531,16 @@ export const TrustGreenStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
               <Mark d="M 575 300 L 620 292" p={prog(t, q.messier, 0.4, lin)} len={60} />
               <Mark d="M 585 410 q 14 -26 28 0 q 12 24 24 -2" p={prog(t, q.messier + 0.3, 0.4, lin)} len={90} />
               <Mark d="M 560 520 L 625 540 M 560 540 L 625 520" p={prog(t, q.messier + 0.5, 0.4, lin)} len={160} color={C.crimson} />
-              <Mark d="M 190 585 q 40 -16 90 -4" p={prog(t, q.messier + 0.6, 0.4, lin)} len={110} />
             </g>
           )}
+          <g opacity={gaugeIn}>
+            {([['red', 'RED', 230], ['yellow', 'YELLOW', 360], ['green', 'GREEN', 510]] as const).map(([k, label, lx]) => (
+              <g key={label}>
+                <Dot x={lx - 38} y={594} r={10} kind={k} />
+                <MiniTag x={lx + 10} y={594} text={label} size={12} />
+              </g>
+            ))}
+          </g>
           {gaugeIn > 0 && <Gauge x={770} y={560} h={360} level={level} limit={0.55} opacity={gaugeIn} label="USEFUL" />}
         </g>
       )}

@@ -96,9 +96,9 @@ const AppWin: React.FC<{x: number; y: number; w: number; h: number; fill?: numbe
 /** A chair seen from the front. Hips of a seated Stick land on the seat bar. */
 const Seat: React.FC<{x: number; opacity?: number; dashed?: boolean}> = ({x, opacity = 1, dashed}) => (
   <g opacity={opacity} fill="none" stroke={C.ink} strokeWidth={7} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={dashed ? '12 12' : undefined}>
-    <rect x={x - 52} y={452} width={104} height={112} rx={14} fill="#FFFFFF" />
-    <rect x={x - 70} y={566} width={140} height={24} rx={10} fill="#FFFFFF" />
-    <path d={`M ${x - 56} 592 L ${x - 56} ${G} M ${x + 56} 592 L ${x + 56} ${G}`} />
+    <rect x={x - 58} y={432} width={116} height={124} rx={14} fill="#FFFFFF" />
+    <rect x={x - 76} y={556} width={152} height={26} rx={10} fill="#FFFFFF" />
+    <path d={`M ${x - 60} 584 L ${x - 60} ${G} M ${x + 60} 584 L ${x + 60} ${G}`} />
   </g>
 );
 
@@ -208,8 +208,8 @@ export const TacitStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
     lf: sit > 0 ? lerp(-0.07, -0.15, sit) : -0.07 + Math.sin(t * 15) * 0.07 * (walk < 1 ? 1 : 0),
     rf: sit > 0 ? lerp(0.07, 0.15, sit) : 0.07 + Math.sin(t * 15 + Math.PI) * 0.07 * (walk < 1 ? 1 : 0),
     crouch: sit,
-    lh: [lerp(-0.17, -0.025, sit), lerp(0.27, 0.27, sit)],
-    rh: [lerp(0.17, 0.025, sit), lerp(0.27, 0.27, sit)],
+    lh: [lerp(-0.17, -0.025, sit), lerp(0.27, 0.3, sit)],
+    rh: [lerp(0.17, 0.025, sit), lerp(0.27, 0.3, sit)],
     mood: sit > 0.5 ? 'flat' : 'smile',
     look: -1,
   });
@@ -432,16 +432,16 @@ export const TacitStage: React.FC<{t: number; q: Cues}> = ({t, q}) => {
             </g>
           )}
           {seatP > 0 && <Seat x={640} dashed={sit < 0.5} opacity={seatP} />}
-          {walk > 0 && <Stick x={sitterX} y={G} h={270} pose={sitterPose} hair="bun" />}
+          {walk > 0 && <Stick x={sitterX} y={G} h={320} pose={sitterPose} hair="bun" />}
           {eye2 > 0 && (
             <g transform={`translate(290 400) scale(${eye2 * 1.7 * pulse(t, 50.32, 0.4, 0.15)})`} opacity={Math.min(1, eye2 * 2)}>
               <Eye s={1} />
             </g>
           )}
           {sightP > 0 && eye2 > 0 && (
-            <path d="M 345 418 L 592 520" fill="none" stroke={C.crimson} strokeWidth={6} strokeLinecap="round" strokeDasharray="4 14" strokeDashoffset={-120 * (1 - sightP)} opacity={sightP * eye2} />
+            <path d="M 345 418 L 586 514" fill="none" stroke={C.crimson} strokeWidth={6} strokeLinecap="round" strokeDasharray="4 14" strokeDashoffset={-120 * (1 - sightP)} opacity={sightP * eye2} />
           )}
-          {ringHands > 0 && <circle cx={640} cy={540} r={46 * ringHands} fill="none" stroke={C.crimson} strokeWidth={7} opacity={Math.min(1, ringHands * 2)} />}
+          {ringHands > 0 && <circle cx={640} cy={532} r={52 * ringHands} fill="none" stroke={C.crimson} strokeWidth={7} opacity={Math.min(1, ringHands * 2)} />}
           {pageP > 0 && (
             <g transform={`translate(290 430) scale(${pageP})`} opacity={Math.min(1, pageP * 2)}>
               <rect x={-95} y={-125} width={190} height={250} rx={16} fill="#FFFFFF" stroke={C.ink} strokeWidth={6} />
