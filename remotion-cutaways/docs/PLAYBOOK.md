@@ -71,7 +71,7 @@ Marble photo backgrounds: waiting on Dr. CK's source files (see "Open items"). T
 - Larger idea: `captionStyle: "heavy"` exists but she prefers Editorial.
 
 ## 7. Image + voiceover with Jogg.ai (comparison only, not the primary method)
-Dr. CK's verdict on the first test (`terrace`, Oct 2026): the lip-sync is usable but the movements are not up to par, so this is **not** the primary way to make talking-head videos. Her primary method is stitching clips from her avatar generator (she called it MediaPlace.io). Keep `terrace` as the comparison piece against the stitched version of the same script.
+Dr. CK's first verdict on the Jogg test (`terrace`, Oct 2026): the movements were not up to par, so she did not make it the primary method. After comparing it with the stitched two-clip version (`week2`, clips from her other avatar generator, MediaPlace.io), she said the Jogg video looks much better: the other generator over-animates her and she keeps moving the mic away from her face. Which one becomes primary is her call; ask her before assuming. Her primary method is stitching clips from her avatar generator (she called it MediaPlace.io). Keep `terrace` as the comparison piece against the stitched version of the same script.
 How it was done, in case she wants it again:
 1. Allowed domains: `asset-intl.jogg.ai` and `res-intl.jogg.ai` (plus the usual list).
 2. Convert the still to JPG (`ffmpeg -i face.webp -q:v 2 face.jpg`). For a test, cut the voiceover to about 16 s at a pause; for the real thing use the full audio.
@@ -81,3 +81,5 @@ How it was done, in case she wants it again:
 6. Conform to 30 fps, pad 2.5 s of frozen picture and silence at the end for the end card (`tpad=stop_mode=clone:stop_duration=2.5`, `apad=pad_dur=2.5`), then follow section 2 from step 2 (transcribe the audio file itself).
 7. Align every scene cut to a caption chunk start (`buildLockups` prints chunk times). A cut inside a chunk puts the caption in the wrong band for part of the cut.
 Her Jogg account had 400 credits at the time; the OpenArt account is on the free plan (40 credits), too few for any video model.
+- Comparison pair for this decision: `out/terrace.mp4` (Jogg, one image plus voiceover, 50 s) and `out/week2.mp4` (two stitched clips, 78 s). Different scripts, same Fun Cuts template and music level.
+- Idea for either tool: use a source image where her hands rest in her lap and she holds no mic, so there is no prop to drift away from her face.
