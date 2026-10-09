@@ -1,0 +1,430 @@
+{
+  "slug": "terrace",
+  "video": "raw/terrace.mp4",
+  "durationSec": 52.17,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [
+    "verdict",
+    "agreement",
+    "cheer",
+    "betrayal",
+    "first"
+  ],
+  "captionStyle": "editorial",
+  "captionBand": {
+    "top": 1056,
+    "bottom": 1382
+  },
+  "captionBandTop": {
+    "top": 250,
+    "bottom": 560
+  },
+  "hero": [
+    "distance",
+    "climbed",
+    "verdict",
+    "friendship",
+    "agreed",
+    "level",
+    "unspoken",
+    "agreement",
+    "cheer",
+    "news",
+    "psychological",
+    "contract",
+    "takes",
+    "theirs",
+    "betrayal",
+    "term",
+    "loud",
+    "missed",
+    "work",
+    "quiet"
+  ],
+  "boxed": [
+    "verdict"
+  ],
+  "finish": {
+    "grain": 0.35,
+    "lightLeaks": 0.5
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 3.74,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "reading",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 3.74,
+          "end": 5.9,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 3.74,
+              "until": 5.9,
+              "props": {
+                "label": "THE READING",
+                "line": "Distance, read as a verdict."
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "agreed",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 5.9,
+          "end": 11.0,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 5.9,
+              "until": 11.0,
+              "box": {
+                "y": 330,
+                "h": 460
+              },
+              "props": {
+                "text": "What did you two agree to?",
+                "emphasis": [
+                  "agree"
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ]
+    },
+    {
+      "id": "level",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 11.0,
+          "end": 16.4,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "notes-card",
+              "at": 11.0,
+              "until": 16.4,
+              "props": {
+                "label": "Notes",
+                "title": "At the start",
+                "items": [
+                  {
+                    "text": "The same level",
+                    "at": 12.6,
+                    "checkAfter": 0.5
+                  },
+                  {
+                    "text": "An unspoken agreement",
+                    "at": 14.6,
+                    "checkAfter": 0.5
+                  }
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "cheer",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 16.4,
+          "end": 22.05,
+          "layout": "E",
+          "captionPos": "alternate",
+          "graphics": [
+            {
+              "type": "floating-chips",
+              "at": 16.4,
+              "until": 22.05,
+              "props": {
+                "chips": [
+                  {
+                    "text": "You cheer for me",
+                    "at": 16.8
+                  },
+                  {
+                    "text": "I cheer for you",
+                    "at": 18.1
+                  },
+                  {
+                    "text": "We hear each other's news first",
+                    "at": 19.8
+                  }
+                ],
+                "mode": "stack"
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ]
+    },
+    {
+      "id": "rousseau",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 22.05,
+          "end": 26.8,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "citation-card",
+              "at": 22.05,
+              "until": 26.8,
+              "props": {
+                "label": "CONCEPT",
+                "authors": "Denise Rousseau",
+                "year": "1989",
+                "title": "Psychological contract",
+                "source": "Concept introduced in 1989"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "takeoff",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 26.8,
+          "end": 30.55,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 26.8,
+              "until": 30.55,
+              "props": {
+                "label": "THEN",
+                "line": "Your work takes off."
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "theirs",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 30.55,
+          "end": 33.05,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "betrayal",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 33.05,
+          "end": 36.87,
+          "layout": "E",
+          "captionPos": "alternate",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 33.05,
+              "until": 36.87,
+              "box": {
+                "y": 330,
+                "h": 460
+              },
+              "props": {
+                "text": "Say one old term out loud.",
+                "emphasis": [
+                  "old"
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ]
+    },
+    {
+      "id": "text",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 36.87,
+          "end": 40.75,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "chat-ui",
+              "at": 36.87,
+              "until": 40.75,
+              "props": {
+                "title": "To a friend",
+                "items": [
+                  {
+                    "channel": "Messages",
+                    "text": "I used to text you first, and I missed that.",
+                    "at": 37.1
+                  }
+                ],
+                "badgeLabel": "new",
+                "zoom": 1.3
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "now",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 40.75,
+          "end": 42.35,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "week",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 42.35,
+          "end": 45.1,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 42.35,
+              "until": 45.1,
+              "props": {
+                "label": "THIS WEEK",
+                "line": "One old term you'd name."
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "follow",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 45.1,
+          "end": 48.02,
+          "layout": "E",
+          "captionPos": "alternate",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 45.1,
+              "until": 48.02,
+              "box": {
+                "y": 330,
+                "h": 460
+              },
+              "props": {
+                "text": "Read the quiet.",
+                "emphasis": [
+                  "quiet"
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ]
+    },
+    {
+      "id": "close",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 48.02,
+          "end": 49.9,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "variant": "link-pill",
+    "startAt": 49.9,
+    "label": "FOLLOW AND SUBSCRIBE",
+    "url": "bio.c3global.co"
+  },
+  "music": {
+    "src": "music/warm-marscott-warm-sunlight.mp3",
+    "volume": 0.18,
+    "duckTo": 0.06,
+    "fadeInSec": 1.5,
+    "fadeOutSec": 2.5,
+    "startFromSec": 0
+  }
+}

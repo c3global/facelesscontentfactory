@@ -69,3 +69,17 @@ Marble photo backgrounds: waiting on Dr. CK's source files (see "Open items"). T
 - **B-roll sourcing**: screenshots of real sources (PubMed abstracts, HBR, author pages) are possible; stock images need a licensed source she approves.
 - Sound effects (whoosh, bell) are in `content/music-library.json` but not wired into cuts yet.
 - Larger idea: `captionStyle: "heavy"` exists but she prefers Editorial.
+
+## 7. Image + voiceover with Jogg.ai (comparison only, not the primary method)
+Dr. CK's first verdict on the Jogg test (`terrace`, Oct 2026): the movements were not up to par, so she did not make it the primary method. After comparing it with the stitched two-clip version (`week2`, clips from her other avatar generator, MediaPlace.io), she said the Jogg video looks much better: the other generator over-animates her and she keeps moving the mic away from her face. Which one becomes primary is her call; ask her before assuming. Her primary method is stitching clips from her avatar generator (she called it MediaPlace.io). Keep `terrace` as the comparison piece against the stitched version of the same script.
+How it was done, in case she wants it again:
+1. Allowed domains: `asset-intl.jogg.ai` and `res-intl.jogg.ai` (plus the usual list).
+2. Convert the still to JPG (`ffmpeg -i face.webp -q:v 2 face.jpg`). For a test, cut the voiceover to about 16 s at a pause; for the real thing use the full audio.
+3. Jogg MCP `jogg_post_upload_asset` returns `sign_url` and `asset_url`. PUT the bytes to `sign_url` with the right `Content-Type` (curl), then use `asset_url` in later calls.
+4. `jogg_post_photo_avatar_add_motion` (model `2.0-Pro`, her custom voice id) makes the animated avatar. It took about 12 minutes; poll `jogg_get_photo_avatar` with the `motion_id`. It is paid work.
+5. `jogg_post_create_video_from_avatar` with `avatar_type: 1`, `voice.type: "audio"`, `audio_url` of the uploaded voiceover, `aspect_ratio: "portrait"`, `screen_style: 1`, `caption: false`. The render took seconds. Download `video_url`.
+6. Conform to 30 fps, pad 2.5 s of frozen picture and silence at the end for the end card (`tpad=stop_mode=clone:stop_duration=2.5`, `apad=pad_dur=2.5`), then follow section 2 from step 2 (transcribe the audio file itself).
+7. Align every scene cut to a caption chunk start (`buildLockups` prints chunk times). A cut inside a chunk puts the caption in the wrong band for part of the cut.
+Her Jogg account had 400 credits at the time; the OpenArt account is on the free plan (40 credits), too few for any video model.
+- Comparison pair for this decision: `out/terrace.mp4` (Jogg, one image plus voiceover, 50 s) and `out/week2.mp4` (two stitched clips, 78 s). Different scripts, same Fun Cuts template and music level.
+- The handheld mic is part of her influencer look on purpose. Do not suggest removing it. Jogg kept the mic in her hand and steady; the other generator (MediaPlace.io) over-animates and moves the mic away from her face.
