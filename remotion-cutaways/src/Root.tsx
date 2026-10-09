@@ -9,6 +9,9 @@ import {planSchema, videoPropsSchema, VideoProps} from './schema';
 import {Video} from './Video';
 import {GlassLab} from './lab/GlassLab';
 import {FieldDemo} from './lab/FieldDemo';
+import {PatientFile, patientFileFrames, patientFileSchema, PF_FPS} from './PatientFile';
+
+const patientFileProps = {number: '002', title: 'Afterglow', video: 'raw/patient-file-002.mp4', videoSec: 78.25};
 
 const calculateMetadata: CalculateMetadataFunction<VideoProps> = ({props}) => ({
   durationInFrames: Math.ceil(props.plan.durationSec * FPS),
@@ -40,6 +43,17 @@ export const Root: React.FC = () => (
       fps={FPS}
       width={W}
       height={H}
+    />
+    <Composition
+      id="PatientFile"
+      component={PatientFile}
+      schema={patientFileSchema}
+      defaultProps={patientFileProps}
+      calculateMetadata={({props}) => ({durationInFrames: patientFileFrames(props.videoSec), fps: PF_FPS, width: 1080, height: 1920})}
+      durationInFrames={patientFileFrames(patientFileProps.videoSec)}
+      fps={PF_FPS}
+      width={1080}
+      height={1920}
     />
     <Composition id="FieldDemo" component={FieldDemo} defaultProps={{field: 'crimson' as const}} durationInFrames={90} fps={FPS} width={W} height={H} />
     <Composition id="GlassLab" component={GlassLab} durationInFrames={30} fps={30} width={1080} height={1920} />
