@@ -82,4 +82,4 @@ How it was done, in case she wants it again:
 7. Align every scene cut to a caption chunk start (`buildLockups` prints chunk times). A cut inside a chunk puts the caption in the wrong band for part of the cut.
 Her Jogg account had 400 credits at the time; the OpenArt account is on the free plan (40 credits), too few for any video model.
 - Comparison pair for this decision: `out/terrace.mp4` (Jogg, one image plus voiceover, 50 s) and `out/week2.mp4` (two stitched clips, 78 s). Different scripts, same Fun Cuts template and music level.
-- Idea for either tool: use a source image where her hands rest in her lap and she holds no mic, so there is no prop to drift away from her face.
+- The handheld mic is part of her influencer look on purpose. Do not suggest removing it. Jogg kept the mic in her hand and steady; the other generator (MediaPlace.io) over-animates and moves the mic away from her face.
