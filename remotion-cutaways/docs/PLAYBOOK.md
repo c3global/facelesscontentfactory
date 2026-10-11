@@ -14,7 +14,7 @@ Start one with `npm run new -- <slug> black-glass` (or `fun-cuts`).
 | **Fun Cuts** | scenes alternate black and white, split screen (layout `S`), notes cards, notifications, headline cards, source cards | stories, contrast, research explainers |
 
 Both share: editorial kinetic captions, italic Playfair, metal and crimson rules, film finish, music, end card, pacing rule.
-Marble photo backgrounds: waiting on Dr. CK's source files (see "Open items"). The generated marble in `backdrops.tsx` was rejected as too busy; only `MARBLE_STRENGTH` 0.3 remains as an option.
+Red velvet background: `public/backdrops/red-velvet.jpg` (crimson velvet from Kai's carousels, 1122x1402), use per scene with `bg: "backdrops/red-velvet.jpg"` on dark scenes. Dr. CK loves it ("it is me") and wants it mixed in with black, not used everywhere. Rose gold emphasis words are low contrast on it; check stills. Marble photo backgrounds: waiting on Dr. CK's source files (see "Open items"). The generated marble in `backdrops.tsx` was rejected as too busy; only `MARBLE_STRENGTH` 0.3 remains as an option.
 
 ## 1. Environment (cloud session)
 - Allowed domains needed (Environment settings, Network access): `drive.google.com`, `drive.usercontent.google.com`, `huggingface.co`, `us.aws.cdn.hf.co` (or `*.hf.co`), `c3globalco.substack.com`, `substackcdn.com`.
