@@ -1,0 +1,1108 @@
+[
+  {
+    "text": "Here",
+    "startMs": 220,
+    "endMs": 330,
+    "timestampMs": 275,
+    "confidence": null
+  },
+  {
+    "text": " are",
+    "startMs": 330,
+    "endMs": 580,
+    "timestampMs": 455,
+    "confidence": null
+  },
+  {
+    "text": " three",
+    "startMs": 580,
+    "endMs": 700,
+    "timestampMs": 640,
+    "confidence": null
+  },
+  {
+    "text": " questions",
+    "startMs": 1020,
+    "endMs": 1700,
+    "timestampMs": 1360,
+    "confidence": null
+  },
+  {
+    "text": " to",
+    "startMs": 1800,
+    "endMs": 1920,
+    "timestampMs": 1860,
+    "confidence": null
+  },
+  {
+    "text": " ask",
+    "startMs": 1920,
+    "endMs": 2220,
+    "timestampMs": 2070,
+    "confidence": null
+  },
+  {
+    "text": " before",
+    "startMs": 2280,
+    "endMs": 2530,
+    "timestampMs": 2405,
+    "confidence": null
+  },
+  {
+    "text": " you",
+    "startMs": 2530,
+    "endMs": 2690,
+    "timestampMs": 2610,
+    "confidence": null
+  },
+  {
+    "text": " launch",
+    "startMs": 2690,
+    "endMs": 3030,
+    "timestampMs": 2860,
+    "confidence": null
+  },
+  {
+    "text": " an",
+    "startMs": 3030,
+    "endMs": 3360,
+    "timestampMs": 3195,
+    "confidence": null
+  },
+  {
+    "text": " AI",
+    "startMs": 3360,
+    "endMs": 3670,
+    "timestampMs": 3515,
+    "confidence": null
+  },
+  {
+    "text": " app.",
+    "startMs": 3690,
+    "endMs": 3870,
+    "timestampMs": 3780,
+    "confidence": null
+  },
+  {
+    "text": " One,",
+    "startMs": 4280,
+    "endMs": 4460,
+    "timestampMs": 4370,
+    "confidence": null
+  },
+  {
+    "text": " who",
+    "startMs": 4660,
+    "endMs": 4780,
+    "timestampMs": 4720,
+    "confidence": null
+  },
+  {
+    "text": " reads",
+    "startMs": 5230,
+    "endMs": 5470,
+    "timestampMs": 5350,
+    "confidence": null
+  },
+  {
+    "text": " what",
+    "startMs": 5470,
+    "endMs": 5880,
+    "timestampMs": 5675,
+    "confidence": null
+  },
+  {
+    "text": " it",
+    "startMs": 5880,
+    "endMs": 6080,
+    "timestampMs": 5980,
+    "confidence": null
+  },
+  {
+    "text": " says",
+    "startMs": 6080,
+    "endMs": 6530,
+    "timestampMs": 6305,
+    "confidence": null
+  },
+  {
+    "text": " after",
+    "startMs": 6690,
+    "endMs": 6890,
+    "timestampMs": 6790,
+    "confidence": null
+  },
+  {
+    "text": " launch?",
+    "startMs": 7000,
+    "endMs": 7330,
+    "timestampMs": 7165,
+    "confidence": null
+  },
+  {
+    "text": " Someone",
+    "startMs": 8060,
+    "endMs": 8620,
+    "timestampMs": 8340,
+    "confidence": null
+  },
+  {
+    "text": " has",
+    "startMs": 8620,
+    "endMs": 8850,
+    "timestampMs": 8735,
+    "confidence": null
+  },
+  {
+    "text": " to",
+    "startMs": 8900,
+    "endMs": 9090,
+    "timestampMs": 8995,
+    "confidence": null
+  },
+  {
+    "text": " own",
+    "startMs": 9090,
+    "endMs": 9340,
+    "timestampMs": 9215,
+    "confidence": null
+  },
+  {
+    "text": " that",
+    "startMs": 9870,
+    "endMs": 9910,
+    "timestampMs": 9890,
+    "confidence": null
+  },
+  {
+    "text": " by",
+    "startMs": 9870,
+    "endMs": 9940,
+    "timestampMs": 9905,
+    "confidence": null
+  },
+  {
+    "text": " name.",
+    "startMs": 9940,
+    "endMs": 10300,
+    "timestampMs": 10120,
+    "confidence": null
+  },
+  {
+    "text": " Two,",
+    "startMs": 10770,
+    "endMs": 10890,
+    "timestampMs": 10830,
+    "confidence": null
+  },
+  {
+    "text": " how",
+    "startMs": 11520,
+    "endMs": 11560,
+    "timestampMs": 11540,
+    "confidence": null
+  },
+  {
+    "text": " often",
+    "startMs": 11540,
+    "endMs": 11720,
+    "timestampMs": 11630,
+    "confidence": null
+  },
+  {
+    "text": " do",
+    "startMs": 11720,
+    "endMs": 11930,
+    "timestampMs": 11825,
+    "confidence": null
+  },
+  {
+    "text": " they",
+    "startMs": 11930,
+    "endMs": 12210,
+    "timestampMs": 12070,
+    "confidence": null
+  },
+  {
+    "text": " read",
+    "startMs": 12210,
+    "endMs": 12530,
+    "timestampMs": 12370,
+    "confidence": null
+  },
+  {
+    "text": " it?",
+    "startMs": 12530,
+    "endMs": 12650,
+    "timestampMs": 12590,
+    "confidence": null
+  },
+  {
+    "text": " A",
+    "startMs": 13130,
+    "endMs": 13170,
+    "timestampMs": 13150,
+    "confidence": null
+  },
+  {
+    "text": " weekly",
+    "startMs": 13130,
+    "endMs": 13820,
+    "timestampMs": 13475,
+    "confidence": null
+  },
+  {
+    "text": " review",
+    "startMs": 13820,
+    "endMs": 14230,
+    "timestampMs": 14025,
+    "confidence": null
+  },
+  {
+    "text": " catches",
+    "startMs": 14690,
+    "endMs": 15350,
+    "timestampMs": 15020,
+    "confidence": null
+  },
+  {
+    "text": " drift",
+    "startMs": 15350,
+    "endMs": 15470,
+    "timestampMs": 15410,
+    "confidence": null
+  },
+  {
+    "text": " and",
+    "startMs": 16110,
+    "endMs": 16200,
+    "timestampMs": 16155,
+    "confidence": null
+  },
+  {
+    "text": " a",
+    "startMs": 16200,
+    "endMs": 16280,
+    "timestampMs": 16240,
+    "confidence": null
+  },
+  {
+    "text": " yearly",
+    "startMs": 16280,
+    "endMs": 16740,
+    "timestampMs": 16510,
+    "confidence": null
+  },
+  {
+    "text": " one",
+    "startMs": 16740,
+    "endMs": 16990,
+    "timestampMs": 16865,
+    "confidence": null
+  },
+  {
+    "text": " catches",
+    "startMs": 16990,
+    "endMs": 17110,
+    "timestampMs": 17050,
+    "confidence": null
+  },
+  {
+    "text": " a",
+    "startMs": 17540,
+    "endMs": 17620,
+    "timestampMs": 17580,
+    "confidence": null
+  },
+  {
+    "text": " headline.",
+    "startMs": 17620,
+    "endMs": 18210,
+    "timestampMs": 17915,
+    "confidence": null
+  },
+  {
+    "text": " Three,",
+    "startMs": 18660,
+    "endMs": 18910,
+    "timestampMs": 18785,
+    "confidence": null
+  },
+  {
+    "text": " what",
+    "startMs": 19490,
+    "endMs": 19530,
+    "timestampMs": 19510,
+    "confidence": null
+  },
+  {
+    "text": " happens",
+    "startMs": 19490,
+    "endMs": 19940,
+    "timestampMs": 19715,
+    "confidence": null
+  },
+  {
+    "text": " when",
+    "startMs": 19940,
+    "endMs": 20270,
+    "timestampMs": 20105,
+    "confidence": null
+  },
+  {
+    "text": " it's",
+    "startMs": 20270,
+    "endMs": 20590,
+    "timestampMs": 20430,
+    "confidence": null
+  },
+  {
+    "text": " wrong?",
+    "startMs": 20630,
+    "endMs": 20950,
+    "timestampMs": 20790,
+    "confidence": null
+  },
+  {
+    "text": " There",
+    "startMs": 21360,
+    "endMs": 21710,
+    "timestampMs": 21535,
+    "confidence": null
+  },
+  {
+    "text": " should",
+    "startMs": 21710,
+    "endMs": 22270,
+    "timestampMs": 21990,
+    "confidence": null
+  },
+  {
+    "text": " be",
+    "startMs": 22270,
+    "endMs": 22460,
+    "timestampMs": 22365,
+    "confidence": null
+  },
+  {
+    "text": " a",
+    "startMs": 22460,
+    "endMs": 22550,
+    "timestampMs": 22505,
+    "confidence": null
+  },
+  {
+    "text": " way",
+    "startMs": 22550,
+    "endMs": 22840,
+    "timestampMs": 22695,
+    "confidence": null
+  },
+  {
+    "text": " to",
+    "startMs": 22880,
+    "endMs": 23020,
+    "timestampMs": 22950,
+    "confidence": null
+  },
+  {
+    "text": " correct",
+    "startMs": 23020,
+    "endMs": 23260,
+    "timestampMs": 23140,
+    "confidence": null
+  },
+  {
+    "text": " the",
+    "startMs": 23680,
+    "endMs": 23910,
+    "timestampMs": 23795,
+    "confidence": null
+  },
+  {
+    "text": " answer",
+    "startMs": 23910,
+    "endMs": 24240,
+    "timestampMs": 24075,
+    "confidence": null
+  },
+  {
+    "text": " and",
+    "startMs": 24670,
+    "endMs": 24810,
+    "timestampMs": 24740,
+    "confidence": null
+  },
+  {
+    "text": " a",
+    "startMs": 24810,
+    "endMs": 24890,
+    "timestampMs": 24850,
+    "confidence": null
+  },
+  {
+    "text": " way",
+    "startMs": 24890,
+    "endMs": 25130,
+    "timestampMs": 25010,
+    "confidence": null
+  },
+  {
+    "text": " to",
+    "startMs": 25130,
+    "endMs": 25250,
+    "timestampMs": 25190,
+    "confidence": null
+  },
+  {
+    "text": " change",
+    "startMs": 25470,
+    "endMs": 25820,
+    "timestampMs": 25645,
+    "confidence": null
+  },
+  {
+    "text": " the",
+    "startMs": 25820,
+    "endMs": 26070,
+    "timestampMs": 25945,
+    "confidence": null
+  },
+  {
+    "text": " instructions",
+    "startMs": 26070,
+    "endMs": 27090,
+    "timestampMs": 26580,
+    "confidence": null
+  },
+  {
+    "text": " behind",
+    "startMs": 27100,
+    "endMs": 27600,
+    "timestampMs": 27350,
+    "confidence": null
+  },
+  {
+    "text": " it.",
+    "startMs": 27600,
+    "endMs": 27770,
+    "timestampMs": 27685,
+    "confidence": null
+  },
+  {
+    "text": " Quality",
+    "startMs": 28260,
+    "endMs": 28700,
+    "timestampMs": 28480,
+    "confidence": null
+  },
+  {
+    "text": " teams",
+    "startMs": 28700,
+    "endMs": 29140,
+    "timestampMs": 28920,
+    "confidence": null
+  },
+  {
+    "text": " use",
+    "startMs": 29140,
+    "endMs": 29410,
+    "timestampMs": 29275,
+    "confidence": null
+  },
+  {
+    "text": " a",
+    "startMs": 29410,
+    "endMs": 29500,
+    "timestampMs": 29455,
+    "confidence": null
+  },
+  {
+    "text": " loop",
+    "startMs": 29500,
+    "endMs": 29820,
+    "timestampMs": 29660,
+    "confidence": null
+  },
+  {
+    "text": " called",
+    "startMs": 29960,
+    "endMs": 30370,
+    "timestampMs": 30165,
+    "confidence": null
+  },
+  {
+    "text": " plan,",
+    "startMs": 30660,
+    "endMs": 31140,
+    "timestampMs": 30900,
+    "confidence": null
+  },
+  {
+    "text": " do,",
+    "startMs": 31830,
+    "endMs": 32020,
+    "timestampMs": 31925,
+    "confidence": null
+  },
+  {
+    "text": " study,",
+    "startMs": 32510,
+    "endMs": 33110,
+    "timestampMs": 32810,
+    "confidence": null
+  },
+  {
+    "text": " act.",
+    "startMs": 33560,
+    "endMs": 33770,
+    "timestampMs": 33665,
+    "confidence": null
+  },
+  {
+    "text": " You",
+    "startMs": 34460,
+    "endMs": 34560,
+    "timestampMs": 34510,
+    "confidence": null
+  },
+  {
+    "text": " try",
+    "startMs": 34560,
+    "endMs": 34800,
+    "timestampMs": 34680,
+    "confidence": null
+  },
+  {
+    "text": " something,",
+    "startMs": 34800,
+    "endMs": 35380,
+    "timestampMs": 35090,
+    "confidence": null
+  },
+  {
+    "text": " you",
+    "startMs": 35870,
+    "endMs": 35930,
+    "timestampMs": 35900,
+    "confidence": null
+  },
+  {
+    "text": " look",
+    "startMs": 35930,
+    "endMs": 36240,
+    "timestampMs": 36085,
+    "confidence": null
+  },
+  {
+    "text": " at",
+    "startMs": 36240,
+    "endMs": 36350,
+    "timestampMs": 36295,
+    "confidence": null
+  },
+  {
+    "text": " what",
+    "startMs": 36350,
+    "endMs": 36630,
+    "timestampMs": 36490,
+    "confidence": null
+  },
+  {
+    "text": " happened,",
+    "startMs": 36630,
+    "endMs": 37000,
+    "timestampMs": 36815,
+    "confidence": null
+  },
+  {
+    "text": " you",
+    "startMs": 37390,
+    "endMs": 37520,
+    "timestampMs": 37455,
+    "confidence": null
+  },
+  {
+    "text": " adjust,",
+    "startMs": 37520,
+    "endMs": 38000,
+    "timestampMs": 37760,
+    "confidence": null
+  },
+  {
+    "text": " and",
+    "startMs": 38590,
+    "endMs": 38630,
+    "timestampMs": 38610,
+    "confidence": null
+  },
+  {
+    "text": " you",
+    "startMs": 38590,
+    "endMs": 38650,
+    "timestampMs": 38620,
+    "confidence": null
+  },
+  {
+    "text": " go",
+    "startMs": 38650,
+    "endMs": 38810,
+    "timestampMs": 38730,
+    "confidence": null
+  },
+  {
+    "text": " around",
+    "startMs": 38810,
+    "endMs": 39300,
+    "timestampMs": 39055,
+    "confidence": null
+  },
+  {
+    "text": " again.",
+    "startMs": 39300,
+    "endMs": 39680,
+    "timestampMs": 39490,
+    "confidence": null
+  },
+  {
+    "text": " After",
+    "startMs": 40130,
+    "endMs": 40490,
+    "timestampMs": 40310,
+    "confidence": null
+  },
+  {
+    "text": " launch,",
+    "startMs": 40490,
+    "endMs": 40910,
+    "timestampMs": 40700,
+    "confidence": null
+  },
+  {
+    "text": " the",
+    "startMs": 41390,
+    "endMs": 41550,
+    "timestampMs": 41470,
+    "confidence": null
+  },
+  {
+    "text": " review",
+    "startMs": 41550,
+    "endMs": 42100,
+    "timestampMs": 41825,
+    "confidence": null
+  },
+  {
+    "text": " is",
+    "startMs": 42200,
+    "endMs": 42280,
+    "timestampMs": 42240,
+    "confidence": null
+  },
+  {
+    "text": " the",
+    "startMs": 42280,
+    "endMs": 42730,
+    "timestampMs": 42505,
+    "confidence": null
+  },
+  {
+    "text": " study",
+    "startMs": 42730,
+    "endMs": 43210,
+    "timestampMs": 42970,
+    "confidence": null
+  },
+  {
+    "text": " step.",
+    "startMs": 43210,
+    "endMs": 43370,
+    "timestampMs": 43290,
+    "confidence": null
+  },
+  {
+    "text": " An",
+    "startMs": 43830,
+    "endMs": 43870,
+    "timestampMs": 43850,
+    "confidence": null
+  },
+  {
+    "text": " app",
+    "startMs": 43830,
+    "endMs": 44060,
+    "timestampMs": 43945,
+    "confidence": null
+  },
+  {
+    "text": " without",
+    "startMs": 44060,
+    "endMs": 44220,
+    "timestampMs": 44140,
+    "confidence": null
+  },
+  {
+    "text": " a",
+    "startMs": 44600,
+    "endMs": 44670,
+    "timestampMs": 44635,
+    "confidence": null
+  },
+  {
+    "text": " reviewer",
+    "startMs": 44670,
+    "endMs": 45240,
+    "timestampMs": 44955,
+    "confidence": null
+  },
+  {
+    "text": " is",
+    "startMs": 45450,
+    "endMs": 45510,
+    "timestampMs": 45480,
+    "confidence": null
+  },
+  {
+    "text": " a",
+    "startMs": 45510,
+    "endMs": 45600,
+    "timestampMs": 45555,
+    "confidence": null
+  },
+  {
+    "text": " plan",
+    "startMs": 45600,
+    "endMs": 45990,
+    "timestampMs": 45795,
+    "confidence": null
+  },
+  {
+    "text": " with",
+    "startMs": 45990,
+    "endMs": 46240,
+    "timestampMs": 46115,
+    "confidence": null
+  },
+  {
+    "text": " no",
+    "startMs": 46380,
+    "endMs": 46570,
+    "timestampMs": 46475,
+    "confidence": null
+  },
+  {
+    "text": " study",
+    "startMs": 46570,
+    "endMs": 47050,
+    "timestampMs": 46810,
+    "confidence": null
+  },
+  {
+    "text": " step.",
+    "startMs": 47050,
+    "endMs": 47390,
+    "timestampMs": 47220,
+    "confidence": null
+  },
+  {
+    "text": " It",
+    "startMs": 47900,
+    "endMs": 47940,
+    "timestampMs": 47920,
+    "confidence": null
+  },
+  {
+    "text": " keeps",
+    "startMs": 47900,
+    "endMs": 48270,
+    "timestampMs": 48085,
+    "confidence": null
+  },
+  {
+    "text": " giving",
+    "startMs": 48270,
+    "endMs": 48710,
+    "timestampMs": 48490,
+    "confidence": null
+  },
+  {
+    "text": " the",
+    "startMs": 48710,
+    "endMs": 48950,
+    "timestampMs": 48830,
+    "confidence": null
+  },
+  {
+    "text": " same",
+    "startMs": 48950,
+    "endMs": 49230,
+    "timestampMs": 49090,
+    "confidence": null
+  },
+  {
+    "text": " answers",
+    "startMs": 49300,
+    "endMs": 49760,
+    "timestampMs": 49530,
+    "confidence": null
+  },
+  {
+    "text": " whether",
+    "startMs": 49760,
+    "endMs": 50080,
+    "timestampMs": 49920,
+    "confidence": null
+  },
+  {
+    "text": " or",
+    "startMs": 50080,
+    "endMs": 50200,
+    "timestampMs": 50140,
+    "confidence": null
+  },
+  {
+    "text": " not",
+    "startMs": 50200,
+    "endMs": 50400,
+    "timestampMs": 50300,
+    "confidence": null
+  },
+  {
+    "text": " they",
+    "startMs": 50400,
+    "endMs": 50520,
+    "timestampMs": 50460,
+    "confidence": null
+  },
+  {
+    "text": " still",
+    "startMs": 50690,
+    "endMs": 50980,
+    "timestampMs": 50835,
+    "confidence": null
+  },
+  {
+    "text": " fit.",
+    "startMs": 51080,
+    "endMs": 51210,
+    "timestampMs": 51145,
+    "confidence": null
+  },
+  {
+    "text": " So",
+    "startMs": 51600,
+    "endMs": 51710,
+    "timestampMs": 51655,
+    "confidence": null
+  },
+  {
+    "text": " write",
+    "startMs": 51710,
+    "endMs": 52020,
+    "timestampMs": 51865,
+    "confidence": null
+  },
+  {
+    "text": " the",
+    "startMs": 52020,
+    "endMs": 52140,
+    "timestampMs": 52080,
+    "confidence": null
+  },
+  {
+    "text": " reviewer's",
+    "startMs": 52240,
+    "endMs": 52960,
+    "timestampMs": 52600,
+    "confidence": null
+  },
+  {
+    "text": " name",
+    "startMs": 52960,
+    "endMs": 53280,
+    "timestampMs": 53120,
+    "confidence": null
+  },
+  {
+    "text": " on",
+    "startMs": 53280,
+    "endMs": 53440,
+    "timestampMs": 53360,
+    "confidence": null
+  },
+  {
+    "text": " the",
+    "startMs": 53440,
+    "endMs": 53600,
+    "timestampMs": 53520,
+    "confidence": null
+  },
+  {
+    "text": " project",
+    "startMs": 53600,
+    "endMs": 54080,
+    "timestampMs": 53840,
+    "confidence": null
+  },
+  {
+    "text": " plan",
+    "startMs": 54240,
+    "endMs": 54400,
+    "timestampMs": 54320,
+    "confidence": null
+  },
+  {
+    "text": " before",
+    "startMs": 54400,
+    "endMs": 54610,
+    "timestampMs": 54505,
+    "confidence": null
+  },
+  {
+    "text": " launch",
+    "startMs": 54880,
+    "endMs": 55360,
+    "timestampMs": 55120,
+    "confidence": null
+  },
+  {
+    "text": " day.",
+    "startMs": 55360,
+    "endMs": 55560,
+    "timestampMs": 55460,
+    "confidence": null
+  },
+  {
+    "text": " Who",
+    "startMs": 56050,
+    "endMs": 56300,
+    "timestampMs": 56175,
+    "confidence": null
+  },
+  {
+    "text": " would",
+    "startMs": 56300,
+    "endMs": 57060,
+    "timestampMs": 56680,
+    "confidence": null
+  },
+  {
+    "text": " that",
+    "startMs": 57060,
+    "endMs": 57610,
+    "timestampMs": 57335,
+    "confidence": null
+  },
+  {
+    "text": " be",
+    "startMs": 58670,
+    "endMs": 58790,
+    "timestampMs": 58730,
+    "confidence": null
+  },
+  {
+    "text": " for",
+    "startMs": 58970,
+    "endMs": 59090,
+    "timestampMs": 59030,
+    "confidence": null
+  },
+  {
+    "text": " yours?",
+    "startMs": 59430,
+    "endMs": 59550,
+    "timestampMs": 59490,
+    "confidence": null
+  },
+  {
+    "text": " Follow",
+    "startMs": 59890,
+    "endMs": 60130,
+    "timestampMs": 60010,
+    "confidence": null
+  },
+  {
+    "text": " for",
+    "startMs": 60130,
+    "endMs": 60350,
+    "timestampMs": 60240,
+    "confidence": null
+  },
+  {
+    "text": " more",
+    "startMs": 60350,
+    "endMs": 60650,
+    "timestampMs": 60500,
+    "confidence": null
+  },
+  {
+    "text": " ideas",
+    "startMs": 60650,
+    "endMs": 61040,
+    "timestampMs": 60845,
+    "confidence": null
+  },
+  {
+    "text": " to",
+    "startMs": 61040,
+    "endMs": 61340,
+    "timestampMs": 61190,
+    "confidence": null
+  },
+  {
+    "text": " keep",
+    "startMs": 61340,
+    "endMs": 61610,
+    "timestampMs": 61475,
+    "confidence": null
+  },
+  {
+    "text": " an",
+    "startMs": 61680,
+    "endMs": 61880,
+    "timestampMs": 61780,
+    "confidence": null
+  },
+  {
+    "text": " AI",
+    "startMs": 61880,
+    "endMs": 62090,
+    "timestampMs": 61985,
+    "confidence": null
+  },
+  {
+    "text": " app",
+    "startMs": 62090,
+    "endMs": 62210,
+    "timestampMs": 62150,
+    "confidence": null
+  },
+  {
+    "text": " honest",
+    "startMs": 62400,
+    "endMs": 62520,
+    "timestampMs": 62460,
+    "confidence": null
+  },
+  {
+    "text": " after",
+    "startMs": 63060,
+    "endMs": 63390,
+    "timestampMs": 63225,
+    "confidence": null
+  },
+  {
+    "text": " launch",
+    "startMs": 63390,
+    "endMs": 63810,
+    "timestampMs": 63600,
+    "confidence": null
+  },
+  {
+    "text": " day.",
+    "startMs": 63810,
+    "endMs": 63980,
+    "timestampMs": 63895,
+    "confidence": null
+  }
+]

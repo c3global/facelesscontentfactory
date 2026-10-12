@@ -1,0 +1,132 @@
+{
+  "slug": "equity-theory",
+  "stage": "equity-theory",
+  "durationSec": 78.4,
+  "vo": "raw/equity-theory-vo.mp3",
+  "music": {
+    "src": "music/warm-yellen-closer-than-before.mp3",
+    "volume": 0.042,
+    "duckTo": 0.019,
+    "fadeInSec": 1.0,
+    "fadeOutSec": 2.2,
+    "startFromSec": 0,
+    "lengthSec": 118.39,
+    "crossfadeSec": 2.5
+  },
+  "emphasis": [
+    "ledger",
+    "equity",
+    "tilted",
+    "unnamed",
+    "unfinished"
+  ],
+  "hero": [
+    "good",
+    "bad",
+    "free",
+    "charging",
+    "sentences",
+    "ratio",
+    "even",
+    "outcomes",
+    "risen",
+    "input",
+    "right",
+    "thank",
+    "specific",
+    "built",
+    "contribution",
+    "word",
+    "cq",
+    "compass",
+    "friend",
+    "offer"
+  ],
+  "captionsEnd": 69.2,
+  "cues": {
+    "helped": 3.72,
+    "build": 4.16,
+    "first": 4.56,
+    "free": 6.02,
+    "which": 7.04,
+    "badNews": 8.96,
+    "charging": 11.28,
+    "ledger": 14.01,
+    "goodNews": 15.44,
+    "two": 18.97,
+    "ciciIn": 0.0,
+    "equity": 20.6,
+    "putin": 25.68,
+    "getout": 27.02,
+    "compare": 28.59,
+    "back": 31.68,
+    "even": 37.75,
+    "now": 38.4,
+    "outcomes": 39.18,
+    "unnamed": 44.58,
+    "tilted": 46.81,
+    "describe": 48.77,
+    "leaves": 50.95,
+    "ledger2": 52.59,
+    "deciding": 54.29,
+    "thank": 56.34,
+    "specific": 57.28,
+    "ask": 59.56,
+    "unfinished": 63.39,
+    "question": 65.37,
+    "unnamedQ": 68.57,
+    "cta": 69.28,
+    "built": 59.26
+  },
+  "cici": [
+    {
+      "at": 0.0,
+      "src": "pose-walking-in.png",
+      "walkIn": true
+    },
+    {
+      "at": 0.95,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 24.34,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 31.68,
+      "src": "pose-hands-on-hips.png"
+    },
+    {
+      "at": 38.4,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 41.0,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 45.9,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 50.95,
+      "src": "composed/pose-standing-hands-clasped__face-concerned.png"
+    },
+    {
+      "at": 56.34,
+      "src": "pose-thumbs-up.png"
+    },
+    {
+      "at": 59.56,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 65.37,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 69.28,
+      "src": "pose-waving.png"
+    }
+  ]
+}

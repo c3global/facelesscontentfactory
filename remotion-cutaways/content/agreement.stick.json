@@ -1,0 +1,174 @@
+{
+  "slug": "agreement",
+  "stage": "agreement",
+  "durationSec": 66.78,
+  "vo": "raw/agreement-vo.mp3",
+  "music": {
+    "src": "music/warm-yellen-closer-than-before.bed.mp3",
+    "volume": 0.042,
+    "duckTo": 0.019,
+    "fadeInSec": 1.0,
+    "fadeOutSec": 3.5,
+    "startFromSec": 0,
+    "lengthSec": 118.39,
+    "crossfadeSec": 2.5,
+    "scaled": true
+  },
+  "emphasis": [
+    "launch",
+    "psychological",
+    "private",
+    "mismatch",
+    "distance",
+    "renegotiating",
+    "guessing",
+    "never"
+  ],
+  "hero": [
+    "partner",
+    "wrong",
+    "contract",
+    "different",
+    "signed",
+    "believed",
+    "cheer",
+    "share",
+    "level",
+    "terms",
+    "same",
+    "old",
+    "new",
+    "miss",
+    "ask",
+    "name",
+    "first",
+    "follow",
+    "agreements",
+    "wrote",
+    "barely",
+    "replies"
+  ],
+  "captionsEnd": 62.0,
+  "cues": {
+    "ciciIn": 0.0,
+    "business": 0.64,
+    "started": 1.84,
+    "together": 2.21,
+    "launch": 4.07,
+    "msg": 4.49,
+    "barely": 4.75,
+    "wrong": 6.67,
+    "maybe": 7.78,
+    "contract": 10.76,
+    "each": 11.21,
+    "different": 13.81,
+    "signed": 15.2,
+    "early": 16.06,
+    "same": 18.91,
+    "cheer": 20.81,
+    "share": 22.34,
+    "stay": 24.32,
+    "psych": 27.99,
+    "private": 31.54,
+    "cant": 33.62,
+    "launch2": 34.93,
+    "changed": 35.42,
+    "terms": 36.33,
+    "herCopy": 37.6,
+    "stayed": 38.19,
+    "old": 40.91,
+    "newOne": 43.67,
+    "mismatch": 45.12,
+    "distance": 46.58,
+    "reneg": 47.57,
+    "guessing": 49.49,
+    "nameTerm": 50.7,
+    "oldWord": 51.38,
+    "term": 51.69,
+    "miss": 53.19,
+    "ask": 54.65,
+    "wouldWork": 55.47,
+    "now": 56.79,
+    "which": 57.3,
+    "cta": 62.11
+  },
+  "cici": [
+    {
+      "at": 0.0,
+      "src": "pose-walking-in.png",
+      "walkIn": true
+    },
+    {
+      "at": 0.95,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 4.46,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 6.15,
+      "src": "composed/pose-standing-hands-clasped__face-concerned.png"
+    },
+    {
+      "at": 7.78,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 9.07,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 13.26,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 20.31,
+      "src": "pose-thumbs-up.png"
+    },
+    {
+      "at": 26.53,
+      "src": "pose-hands-on-hips.png"
+    },
+    {
+      "at": 29.82,
+      "src": "pose-standing-hands-clasped.png"
+    },
+    {
+      "at": 34.57,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 37.21,
+      "src": "pose-arms-crossed.png"
+    },
+    {
+      "at": 39.67,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 44.6,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 47.57,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 50.7,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 54.21,
+      "src": "pose-standing-hands-clasped.png"
+    },
+    {
+      "at": 57.3,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 62.11,
+      "src": "pose-waving.png"
+    }
+  ]
+}

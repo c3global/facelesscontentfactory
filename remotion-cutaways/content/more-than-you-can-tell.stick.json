@@ -1,0 +1,183 @@
+{
+  "slug": "more-than-you-can-tell",
+  "stage": "more-than-you-can-tell",
+  "durationSec": 61.64,
+  "vo": "raw/more-than-you-can-tell-vo.mp3",
+  "music": {
+    "src": "music/warm-marscott-warm-sunlight.bed.mp3",
+    "volume": 0.045,
+    "duckTo": 0.02,
+    "fadeInSec": 1.0,
+    "fadeOutSec": 3.5,
+    "startFromSec": 60,
+    "lengthSec": 162.72,
+    "crossfadeSec": 2.5,
+    "scaled": true
+  },
+  "emphasis": [
+    "written",
+    "tell",
+    "tacit",
+    "notice",
+    "miss",
+    "move"
+  ],
+  "hero": [
+    "years",
+    "job",
+    "polanyi",
+    "face",
+    "crowd",
+    "features",
+    "coach",
+    "direction",
+    "expertise",
+    "next",
+    "book",
+    "course",
+    "transcript",
+    "explain",
+    "sound",
+    "thinking",
+    "build",
+    "sits",
+    "know",
+    "app",
+    "say",
+    "how"
+  ],
+  "captionsEnd": 57.4,
+  "cues": {
+    "ciciIn": 0.0,
+    "helper": 0.15,
+    "years": 0.66,
+    "help": 1.74,
+    "clientOut": 3.03,
+    "written": 3.36,
+    "down": 4.0,
+    "app": 5.32,
+    "flow": 5.91,
+    "writing": 6.56,
+    "job": 7.29,
+    "y1966": 8.5,
+    "polanyi": 10.64,
+    "know": 12.64,
+    "more": 13.06,
+    "tell": 13.93,
+    "recognize": 15.08,
+    "face": 15.84,
+    "crowd": 16.56,
+    "listing": 17.45,
+    "features": 18.18,
+    "coach": 19.4,
+    "sense": 20.24,
+    "conversation": 21.03,
+    "changed": 22.57,
+    "unsaid": 24.17,
+    "tacit": 26.64,
+    "lives": 29.32,
+    "notice": 30.34,
+    "pause": 31.04,
+    "next": 31.6,
+    "book": 32.7,
+    "course": 33.62,
+    "transcript": 34.58,
+    "explain": 36.84,
+    "appAgain": 37.95,
+    "those": 39.28,
+    "sound": 40.23,
+    "miss": 42.0,
+    "move": 42.62,
+    "thinking": 44.34,
+    "build": 45.8,
+    "ask": 46.95,
+    "yourself": 47.72,
+    "notice2": 49.65,
+    "someone": 51.6,
+    "sits": 52.0,
+    "down2": 52.38,
+    "andHave": 53.33,
+    "written2": 55.04,
+    "it": 57.0,
+    "cta": 57.45
+  },
+  "cici": [
+    {
+      "at": 0.0,
+      "src": "pose-walking-in.png",
+      "walkIn": true
+    },
+    {
+      "at": 0.95,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 4.91,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 8.38,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 12.64,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 14.76,
+      "src": "pose-hands-on-hips.png"
+    },
+    {
+      "at": 16.96,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 19.39,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 22.57,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 24.17,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 26.43,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 32.7,
+      "src": "pose-hands-on-hips.png"
+    },
+    {
+      "at": 37.94,
+      "src": "pose-arms-crossed.png"
+    },
+    {
+      "at": 41.49,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 45.09,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 46.95,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 52.0,
+      "src": "pose-three-quarter.png"
+    },
+    {
+      "at": 53.33,
+      "src": "composed/pose-standing-hands-clasped__face-concerned.png"
+    },
+    {
+      "at": 57.45,
+      "src": "pose-waving.png"
+    }
+  ]
+}

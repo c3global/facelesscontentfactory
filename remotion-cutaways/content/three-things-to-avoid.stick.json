@@ -1,0 +1,176 @@
+{
+  "slug": "three-things-to-avoid",
+  "stage": "three-things-to-avoid",
+  "durationSec": 60.63,
+  "vo": "raw/three-things-to-avoid-vo.mp3",
+  "music": {
+    "src": "music/warm-marscott-warm-sunlight.bed.mp3",
+    "volume": 0.045,
+    "duckTo": 0.02,
+    "fadeInSec": 1.0,
+    "fadeOutSec": 3.5,
+    "startFromSec": 35,
+    "lengthSec": 162.72,
+    "crossfadeSec": 2.5,
+    "scaled": true
+  },
+  "emphasis": [
+    "warn",
+    "avoid",
+    "method",
+    "sessions",
+    "confident",
+    "damage",
+    "reader",
+    "decline",
+    "skip"
+  ],
+  "hero": [
+    "expertise",
+    "book",
+    "explain",
+    "judge",
+    "yours",
+    "slow",
+    "questions",
+    "week",
+    "name",
+    "app",
+    "details",
+    "improved",
+    "settle",
+    "which"
+  ],
+  "captionsEnd": 55.8,
+  "cues": {
+    "ciciIn": 0.0,
+    "warn": 1.4,
+    "three": 3.31,
+    "things": 3.62,
+    "avoid": 4.2,
+    "hand": 5.71,
+    "expertise": 6.21,
+    "appIn": 7.63,
+    "one": 8.72,
+    "bookIs": 10.4,
+    "method": 11.05,
+    "holds": 12.17,
+    "explain": 13.6,
+    "sessions": 14.8,
+    "doing": 16.45,
+    "two": 17.26,
+    "judge": 18.62,
+    "appWord": 20.2,
+    "confidentWord": 20.78,
+    "sounds": 21.77,
+    "loudAnswer": 22.89,
+    "voice": 24.65,
+    "notYours": 25.22,
+    "damage": 27.0,
+    "slowAnswer": 28.0,
+    "isYours": 29.0,
+    "test": 29.81,
+    "questions": 30.28,
+    "methodSays": 31.45,
+    "wait": 33.0,
+    "three3": 33.82,
+    "launchNo": 34.93,
+    "reader": 36.12,
+    "decide": 37.09,
+    "answers": 38.5,
+    "week": 39.25,
+    "name": 40.4,
+    "decline": 42.97,
+    "answerNot": 43.51,
+    "many": 44.39,
+    "improved": 45.7,
+    "after": 46.45,
+    "launchLine": 47.6,
+    "these": 48.11,
+    "settle": 49.8,
+    "before": 50.44,
+    "which": 51.56,
+    "mostLikely": 52.53,
+    "skip": 53.42,
+    "cta": 55.87
+  },
+  "cici": [
+    {
+      "at": 0.0,
+      "src": "pose-walking-in.png",
+      "walkIn": true
+    },
+    {
+      "at": 0.95,
+      "src": "pose-stop-hand.png"
+    },
+    {
+      "at": 2.47,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 5.12,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 8.72,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 12.09,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 14.8,
+      "src": "pose-hands-on-hips.png"
+    },
+    {
+      "at": 17.26,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 18.62,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 22.89,
+      "src": "pose-front-neutral.png"
+    },
+    {
+      "at": 26.44,
+      "src": "composed/pose-standing-hands-clasped__face-concerned.png"
+    },
+    {
+      "at": 29.81,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 33.82,
+      "src": "pose-pointing.png"
+    },
+    {
+      "at": 37.09,
+      "src": "pose-explaining-open-arms.png"
+    },
+    {
+      "at": 41.58,
+      "src": "pose-stop-hand.png"
+    },
+    {
+      "at": 44.39,
+      "src": "pose-shrugging.png"
+    },
+    {
+      "at": 49.2,
+      "src": "pose-thumbs-up.png"
+    },
+    {
+      "at": 51.56,
+      "src": "pose-thinking.png"
+    },
+    {
+      "at": 55.87,
+      "src": "pose-waving.png"
+    }
+  ]
+}
