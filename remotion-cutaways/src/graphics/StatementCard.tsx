@@ -16,7 +16,7 @@ export const StatementCard: React.FC<Props> = ({text, emphasis}) => {
   return (
     <div style={{transform: `translateY(${translateY}px) scale(${scale})`}}>
       <Card fade={opacity} radius={44} rim={3} seed={27} contentStyle={{padding: '64px 70px 66px 60px'}}>
-        <MetalBox variant="deep" seed={28} style={{height: 7, width: 170 * rule, borderRadius: 4, marginBottom: 40}} />
+        <MetalBox kind="gold" variant="deep" seed={28} style={{height: 7, width: 170 * rule, borderRadius: 4, marginBottom: 40}} />
         <div style={{fontFamily: serif, fontStyle: 'italic', fontWeight: 700, fontSize: 96, lineHeight: 1.1, color: palette.onCard}}>
           {words.map((w, i) => {
             const start = 8 + i * 4;

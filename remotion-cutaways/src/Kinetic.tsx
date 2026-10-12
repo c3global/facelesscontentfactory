@@ -313,6 +313,48 @@ const LockupView: React.FC<{
   );
 };
 
+
+/**
+ * Text that is on screen as a graphic at time `sec` (statement, headline, chips, chat, notes, citation).
+ * When a caption lockup would only repeat words a graphic is already showing, the graphic becomes the caption
+ * and the lockup is skipped, so the viewer does not read the same words twice.
+ */
+const stem = (w: string) => normalizeWord(w).slice(0, 5);
+const graphicStems = (plan: ScenePlan, sec: number): Set<string> => {
+  const texts: string[] = [];
+  for (const sc of plan.scenes) {
+    for (const sg of sc.segments) {
+      for (const g of sg.graphics) {
+        if (sec < g.at || sec >= (g.until ?? sg.end)) continue;
+        const p = g.props as any;
+        if (g.type === 'statement-card') texts.push(p.text);
+        else if (g.type === 'headline-card') texts.push(p.line);
+        else if (g.type === 'floating-chips') {
+          for (const c of p.chips) if (sec >= c.at) texts.push(c.text);
+        }
+        else if (g.type === 'chat-ui') {
+          for (const c of p.items) if (sec >= c.at) texts.push(c.text);
+        }
+        else if (g.type === 'notes-card') {
+          texts.push(p.title);
+          for (const c of p.items) if (sec >= c.at) texts.push(c.text);
+        } else if (g.type === 'citation-card') texts.push(`${p.authors} ${p.title}`);
+      }
+    }
+  }
+  return new Set(texts.join(' ').split(/\s+/).map(stem).filter(Boolean));
+};
+const repeatsGraphic = (l: Lockup, plan: ScenePlan, sec: number): boolean => {
+  const gs = graphicStems(plan, sec);
+  if (!gs.size) return false;
+  const words = l.words.map((w) => w.text).filter((w) => normalizeWord(w));
+  const content = words.filter((w) => !STOP.has(normalizeWord(w)));
+  const pool = content.length ? content : words;
+  if (!pool.length) return false;
+  const hit = pool.filter((w) => gs.has(stem(w))).length;
+  return hit / pool.length >= 0.5;
+};
+
 export const KineticLayer: React.FC<{captions: Caption[]; plan: ScenePlan; mood: Mood}> = ({captions, plan, mood}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
@@ -326,6 +368,7 @@ export const KineticLayer: React.FC<{captions: Caption[]; plan: ScenePlan; mood:
   });
   if (idx < 0) return null;
   const l = lockups[idx];
+  if (repeatsGraphic(l, plan, Math.max(t / 1000, l.startMs / 1000))) return null;
   const next = lockups[idx + 1];
   const endShow = Math.min(l.endMs + 320, next ? next.startMs - 40 : Infinity);
   const style: Style = plan.captionStyle === 'heavy' ? 'heavy' : 'editorial';
