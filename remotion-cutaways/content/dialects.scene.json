@@ -100,8 +100,8 @@
               "at": 5.9,
               "until": 8.9,
               "box": {
-                "y": 330,
-                "h": 460
+                "y": 60,
+                "h": 620
               },
               "props": {
                 "text": "The person who went quiet after your launch.",
@@ -198,8 +198,8 @@
               "at": 17.62,
               "until": 22.35,
               "box": {
-                "y": 330,
-                "h": 460
+                "y": 60,
+                "h": 620
               },
               "props": {
                 "text": "CQ Strategy: check your assumptions",
@@ -281,8 +281,8 @@
               "at": 30.15,
               "until": 32.85,
               "box": {
-                "y": 330,
-                "h": 460
+                "y": 60,
+                "h": 620
               },
               "props": {
                 "text": "A private message the night before.",
@@ -385,8 +385,8 @@
               "at": 46.8,
               "until": 50.8,
               "box": {
-                "y": 330,
-                "h": 460
+                "y": 60,
+                "h": 620
               },
               "props": {
                 "text": "Listen before deciding what the distance means.",
@@ -429,8 +429,8 @@
               "at": 53.43,
               "until": 56.35,
               "box": {
-                "y": 330,
-                "h": 460
+                "y": 60,
+                "h": 620
               },
               "props": {
                 "text": "Public cheer or private message?",
@@ -465,9 +465,9 @@
     "url": "bio.c3global.co"
   },
   "music": {
-    "src": "music/warm-yellen-closer-than-before.mp3",
-    "volume": 0.18,
-    "duckTo": 0.06,
+    "src": "music/leveled/warm-yellen-closer-than-before.mp3",
+    "volume": 0.35,
+    "duckTo": 0.16,
     "fadeInSec": 1.5,
     "fadeOutSec": 2.5,
     "startFromSec": 0

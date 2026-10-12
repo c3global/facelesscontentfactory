@@ -11,6 +11,9 @@ import path from 'node:path';
 
 const [slug, mood] = process.argv.slice(2);
 const dir = 'public/music';
+// leveled copies (scripts/level-music.mjs) all sit at -24 LUFS, so the default volumes mean the same for every track
+const leveledDir = `${dir}/leveled`;
+const useLeveled = existsSync(leveledDir);
 const tracks = existsSync(dir) ? readdirSync(dir).filter((f) => /\.(mp3|wav|m4a|aac)$/i.test(f)).sort() : [];
 if (!tracks.length) {
   console.error('No tracks in public/music. Put licensed files there (they stay out of git).');
@@ -26,6 +29,7 @@ log.used.push(pick);
 writeFileSync(logFile, JSON.stringify(log, null, 2) + '\n');
 const planFile = path.join('content', `${slug}.scene.json`);
 const plan = JSON.parse(readFileSync(planFile, 'utf8'));
-plan.music = {...(plan.music ?? {}), src: `music/${pick}`};
+plan.music = {...(plan.music ?? {}), src: useLeveled && existsSync(`${leveledDir}/${pick}`) ? `music/leveled/${pick}` : `music/${pick}`};
+if (useLeveled) plan.music = {volume: 0.35, duckTo: 0.16, ...plan.music};
 writeFileSync(planFile, JSON.stringify(plan, null, 2) + '\n');
 console.log(`music for ${slug}: ${pick}`);

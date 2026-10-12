@@ -321,29 +321,36 @@ const LockupView: React.FC<{
  */
 const stem = (w: string) => normalizeWord(w).slice(0, 5);
 const graphicStems = (plan: ScenePlan, sec: number): Set<string> => {
-  const texts: string[] = [];
+  const words: string[] = [];
+  const add = (text: string) => words.push(...text.split(/\s+/));
   for (const sc of plan.scenes) {
     for (const sg of sc.segments) {
       for (const g of sg.graphics) {
         if (sec < g.at || sec >= (g.until ?? sg.end)) continue;
         const p = g.props as any;
-        if (g.type === 'statement-card') texts.push(p.text);
-        else if (g.type === 'headline-card') texts.push(p.line);
-        else if (g.type === 'floating-chips') {
-          for (const c of p.chips) if (sec >= c.at) texts.push(c.text);
+        if (g.type === 'statement-card') {
+          // words ease in one after another (see StatementCard): count a word only once it is on screen
+          (p.text as string).split(' ').forEach((w, i) => {
+            if (sec >= g.at + (8 + i * 4 + 6) / 30) words.push(w);
+          });
+        } else if (g.type === 'headline-card') {
+          if (sec >= g.at + 0.5) add(p.line);
+        } else if (g.type === 'floating-chips') {
+          for (const c of p.chips) if (sec >= c.at + 0.4) add(c.text);
+        } else if (g.type === 'chat-ui') {
+          for (const c of p.items) if (sec >= c.at + 0.5) add(c.text);
+        } else if (g.type === 'notes-card') {
+          add(p.title);
+          for (const c of p.items) if (sec >= c.at + 0.4) add(c.text);
+        } else if (g.type === 'citation-card') {
+          add(`${p.authors} ${p.title}`);
         }
-        else if (g.type === 'chat-ui') {
-          for (const c of p.items) if (sec >= c.at) texts.push(c.text);
-        }
-        else if (g.type === 'notes-card') {
-          texts.push(p.title);
-          for (const c of p.items) if (sec >= c.at) texts.push(c.text);
-        } else if (g.type === 'citation-card') texts.push(`${p.authors} ${p.title}`);
       }
     }
   }
-  return new Set(texts.join(' ').split(/\s+/).map(stem).filter(Boolean));
+  return new Set(words.map(stem).filter(Boolean));
 };
+/** True only when every content word of the lockup is already on screen in a graphic, so no word is ever lost. */
 const repeatsGraphic = (l: Lockup, plan: ScenePlan, sec: number): boolean => {
   const gs = graphicStems(plan, sec);
   if (!gs.size) return false;
@@ -351,8 +358,7 @@ const repeatsGraphic = (l: Lockup, plan: ScenePlan, sec: number): boolean => {
   const content = words.filter((w) => !STOP.has(normalizeWord(w)));
   const pool = content.length ? content : words;
   if (!pool.length) return false;
-  const hit = pool.filter((w) => gs.has(stem(w))).length;
-  return hit / pool.length >= 0.5;
+  return pool.every((w) => gs.has(stem(w)));
 };
 
 export const KineticLayer: React.FC<{captions: Caption[]; plan: ScenePlan; mood: Mood}> = ({captions, plan, mood}) => {
