@@ -350,15 +350,46 @@ const graphicStems = (plan: ScenePlan, sec: number): Set<string> => {
   }
   return new Set(words.map(stem).filter(Boolean));
 };
-/** True only when every content word of the lockup is already on screen in a graphic, so no word is ever lost. */
-const repeatsGraphic = (l: Lockup, plan: ScenePlan, sec: number): boolean => {
+/**
+ * Fine-tunes a caption lockup against the graphics on screen (Dr. CK's rule: the graphic becomes the caption, but
+ * no word may go missing):
+ *  - every content word already in a graphic: the lockup is skipped
+ *  - at least half of the content words in a graphic: the lockup is cut down to the words the graphic does NOT show
+ *  - fewer than half: the full lockup stays
+ * Coverage is judged at the middle of the lockup so it does not change while the lockup is on screen.
+ */
+const trimLockup = (l: Lockup, plan: ScenePlan): Lockup | null => {
+  const sec = (l.startMs + l.endMs) / 2000;
   const gs = graphicStems(plan, sec);
-  if (!gs.size) return false;
-  const words = l.words.map((w) => w.text).filter((w) => normalizeWord(w));
-  const content = words.filter((w) => !STOP.has(normalizeWord(w)));
-  const pool = content.length ? content : words;
-  if (!pool.length) return false;
-  return pool.every((w) => gs.has(stem(w)));
+  if (!gs.size) return l;
+  const isContent = (w: KWord) => normalizeWord(w.text) !== '' && !STOP.has(normalizeWord(w.text));
+  const covered = l.words.map((w) => normalizeWord(w.text) !== '' && gs.has(stem(w.text)));
+  const content = l.words.map((w, k) => (isContent(w) ? k : -1)).filter((k) => k >= 0);
+  if (!content.length) return l;
+  const coveredContent = content.filter((k) => covered[k]).length;
+  if (coveredContent === 0) return l;
+  if (coveredContent === content.length) return null;
+  if (coveredContent / content.length < 0.5) return l;
+  // keep only the words the graphic does not show, then drop leading and trailing connector words
+  let keep = l.words.map((_, k) => k).filter((k) => !covered[k]);
+  while (keep.length && !isContent(l.words[keep[0]])) keep.shift();
+  while (keep.length && !isContent(l.words[keep[keep.length - 1]])) keep.pop();
+  if (!keep.length) return null;
+  const words = keep.map((k) => l.words[k]);
+  let hero = keep.indexOf(l.h0);
+  if (hero < 0) {
+    let best = 0;
+    let bestLen = -1;
+    words.forEach((w, k) => {
+      const n = normalizeWord(w.text);
+      if (!STOP.has(n) && n.length >= bestLen) {
+        best = k;
+        bestLen = n.length;
+      }
+    });
+    hero = best;
+  }
+  return {words, h0: hero, h1: hero, startMs: words[0].startMs, endMs: words[words.length - 1].endMs, sentence: l.sentence};
 };
 
 export const KineticLayer: React.FC<{captions: Caption[]; plan: ScenePlan; mood: Mood}> = ({captions, plan, mood}) => {
@@ -373,14 +404,15 @@ export const KineticLayer: React.FC<{captions: Caption[]; plan: ScenePlan; mood:
     return t >= l.startMs - 80 && t < Math.min(l.endMs + 320, next ? next.startMs - 40 : Infinity);
   });
   if (idx < 0) return null;
-  const l = lockups[idx];
-  if (repeatsGraphic(l, plan, Math.max(t / 1000, l.startMs / 1000))) return null;
+  const full = lockups[idx];
+  const l = trimLockup(full, plan);
+  if (!l) return null;
   const next = lockups[idx + 1];
-  const endShow = Math.min(l.endMs + 320, next ? next.startMs - 40 : Infinity);
+  const endShow = Math.min(full.endMs + 320, next ? next.startMs - 40 : Infinity);
   const style: Style = plan.captionStyle === 'heavy' ? 'heavy' : 'editorial';
 
   // which band this lockup sits in: the segment can pin captions to the bottom, the top, or alternate by sentence
-  const sec = l.startMs / 1000;
+  const sec = full.startMs / 1000;
   const seg = plan.scenes.flatMap((sc) => sc.segments).find((sg) => sec >= sg.start - 0.001 && sec < sg.end - 0.001);
   let band = plan.captionBand;
   if (seg && seg.captionPos !== 'bottom') {

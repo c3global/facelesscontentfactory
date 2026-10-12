@@ -81,14 +81,14 @@
           "start": 3.0,
           "end": 6.8,
           "layout": "E",
-          "captionPos": "alternate",
+          "captionPos": "bottom",
           "graphics": [
             {
               "type": "statement-card",
               "at": 3.0,
               "until": 6.8,
               "box": {
-                "y": 60,
+                "y": 200,
                 "h": 620
               },
               "props": {
@@ -225,14 +225,14 @@
           "start": 24.6,
           "end": 27.75,
           "layout": "E",
-          "captionPos": "alternate",
+          "captionPos": "bottom",
           "graphics": [
             {
               "type": "statement-card",
               "at": 24.6,
               "until": 27.75,
               "box": {
-                "y": 60,
+                "y": 200,
                 "h": 620
               },
               "props": {
@@ -262,7 +262,7 @@
               "at": 27.75,
               "until": 29.62,
               "box": {
-                "y": 60,
+                "y": 200,
                 "h": 620
               },
               "props": {
@@ -338,14 +338,14 @@
           "start": 37.7,
           "end": 42.2,
           "layout": "E",
-          "captionPos": "alternate",
+          "captionPos": "bottom",
           "graphics": [
             {
               "type": "statement-card",
               "at": 37.7,
               "until": 42.2,
               "box": {
-                "y": 60,
+                "y": 200,
                 "h": 620
               },
               "props": {
@@ -407,14 +407,14 @@
           "start": 46.28,
           "end": 49.95,
           "layout": "E",
-          "captionPos": "alternate",
+          "captionPos": "bottom",
           "graphics": [
             {
               "type": "statement-card",
               "at": 46.28,
               "until": 49.95,
               "box": {
-                "y": 60,
+                "y": 200,
                 "h": 620
               },
               "props": {
@@ -451,14 +451,14 @@
           "start": 52.35,
           "end": 55.2,
           "layout": "E",
-          "captionPos": "alternate",
+          "captionPos": "bottom",
           "graphics": [
             {
               "type": "statement-card",
               "at": 52.35,
               "until": 55.2,
               "box": {
-                "y": 60,
+                "y": 200,
                 "h": 620
               },
               "props": {

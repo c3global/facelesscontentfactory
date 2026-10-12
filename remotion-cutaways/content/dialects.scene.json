@@ -100,7 +100,7 @@
               "at": 5.9,
               "until": 8.9,
               "box": {
-                "y": 60,
+                "y": 200,
                 "h": 620
               },
               "props": {
@@ -191,14 +191,14 @@
           "start": 17.62,
           "end": 22.35,
           "layout": "E",
-          "captionPos": "alternate",
+          "captionPos": "bottom",
           "graphics": [
             {
               "type": "statement-card",
               "at": 17.62,
               "until": 22.35,
               "box": {
-                "y": 60,
+                "y": 200,
                 "h": 620
               },
               "props": {
@@ -281,7 +281,7 @@
               "at": 30.15,
               "until": 32.85,
               "box": {
-                "y": 60,
+                "y": 200,
                 "h": 620
               },
               "props": {
@@ -378,14 +378,14 @@
           "start": 46.8,
           "end": 50.8,
           "layout": "E",
-          "captionPos": "alternate",
+          "captionPos": "bottom",
           "graphics": [
             {
               "type": "statement-card",
               "at": 46.8,
               "until": 50.8,
               "box": {
-                "y": 60,
+                "y": 200,
                 "h": 620
               },
               "props": {
@@ -422,14 +422,14 @@
           "start": 53.43,
           "end": 56.35,
           "layout": "E",
-          "captionPos": "alternate",
+          "captionPos": "bottom",
           "graphics": [
             {
               "type": "statement-card",
               "at": 53.43,
               "until": 56.35,
               "box": {
-                "y": 60,
+                "y": 200,
                 "h": 620
               },
               "props": {
