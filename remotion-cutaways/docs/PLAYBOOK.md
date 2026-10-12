@@ -83,3 +83,24 @@ How it was done, in case she wants it again:
 Her Jogg account had 400 credits at the time; the OpenArt account is on the free plan (40 credits), too few for any video model.
 - Comparison pair for this decision: `out/terrace.mp4` (Jogg, one image plus voiceover, 50 s) and `out/week2.mp4` (two stitched clips, 78 s). Different scripts, same Fun Cuts template and music level.
 - The handheld mic is part of her influencer look on purpose. Do not suggest removing it. Jogg kept the mic in her hand and steady; the other generator (MediaPlace.io) over-animates and moves the mic away from her face.
+
+## 8. From finished video to scheduled posts (Marky and the Notion Content Library)
+Run this only after Dr. CK approves the finished video. The approval can be a plain "this is it". She approved Dialects and Rough this way (Oct 2026) and then asked for scheduling.
+1. **Render both cuts.** Master (`out/<name>.mp4`) plus a share cut (`out/<name>-share.mp4`, about 20 MB) for the platforms.
+2. **Read the Content Library row** (Notion data source `collection://6d3eb389-7c81-4696-aa91-d4827ac1b6bf`): Publish Date, Platform, Marky Caption, CTA Mechanism, CTA Copy, CTA Keyword, CTA Link. If the row has no Marky Caption, the caption lives on the week's Scripts page in ContentOS (Instagram and Facebook version). Never write new copy; use what is there and flag gaps.
+3. **Check connected accounts** with `list_connected_social_accounts` (Marky business `29797760-861d-4235-bd99-880bddc16f09`, "C3 Global"). X is intentionally skipped (Dr. CK: do not worry about X). LinkedIn means the C3 Global Agency page (`linkedIn`), not the personal profile.
+4. **Upload the share cut.** `create_media_upload` returns a URL; PUT the file to it with curl (`Content-Type: video/mp4`). Sandbox egress to `api.mymarky.ai` works. The response gives the media id and its public `original_url`.
+5. **One `create_post` per platform**, `status: SCHEDULED`, `media_ids`, `restrict_publish_to`, and metadata (`format: talking-head`, `series: talking-head`, `episode`, `keyword`, `platform`). Times follow the existing explainer posts, America/New_York: Instagram, TikTok and Pinterest 9:53 AM; LinkedIn 10:53 AM; Facebook 11:53 AM; YouTube 2:53 PM. Send an explicit offset (`-04:00` in October, `-05:00` after the clocks change).
+6. **CTA wording per platform.** Instagram and Facebook: "Comment <KEYWORD> and ...". TikTok: "DM me <KEYWORD> and ...". LinkedIn, YouTube and Pinterest: drop the keyword line and put the CTA Link in the post text. Pinterest must always carry a link (pin `link` plus the same link in the caption); Dr. CK's rule. TikTok, YouTube and Pinterest get a `title` override (the row's Marky Title, or the video's title). Hashtags, when the week has them, go in the caption (that is how the existing scheduled posts do it). Do not invent hashtags a row does not have. Marky appends `https://www.c3global.co` to TikTok captions on its own.
+7. **Update Notion** after Marky confirms: Stage `Scheduled`, Marky Post ID (list each platform's id), Marky Caption if it was empty, and Render Link (the Marky `original_url` of the share cut; Dr. CK allowed Claude to fill this in). Dr. CK's approval of the video and the scheduling request count as the approval to move Stage to Scheduled.
+8. **Say what you did** in plain terms: platforms, dates, times, anything skipped, anything on the row that still needs her.
+
+## 9. Dr. CK's standing preferences for this work
+- Show **stills before a full render** whenever a look is new.
+- Do **not re-level the audio** for now. Music is already leveled (-24 LUFS tracks, steady ducking); apply the current levels to new videos without asking again.
+- Captions: the graphic becomes the caption where it carries every word; never drop a spoken word.
+- Do not merge pull requests without her explicit word. Tell her when one is waiting.
+- The handheld mic in her avatar image is intentional. Do not suggest removing it.
+- Never use em dashes in anything written for her, and address her as Dr. CK.
+- Drive sharing for source clips goes back to Restricted when she says so; do not change sharing on your own.
+- Open questions to ask her once, not every time: the voice profile accent line (A or B) and whether the recordings are her live voice or a clone; the exact sources for the Edward Hall and Coch and French cards.
