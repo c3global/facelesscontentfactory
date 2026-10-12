@@ -27,7 +27,7 @@ type MetalOpts = {
 };
 
 /** CSS background layers for any metal surface (fills, badges, rims, bars). */
-export const metalFill = ({kind = 'rose', variant, frame, seed = 1, angle = 135, shimmer = true}: MetalOpts): CSSProperties => {
+export const metalFill = ({kind = 'copper', variant, frame, seed = 1, angle = 135, shimmer = true}: MetalOpts): CSSProperties => {
   const base = metalGradient(kind, variant, angle);
   const p = shimmer ? shimmerPhase(frame, seed) : -1;
   if (p < 0) return {backgroundImage: base};
@@ -56,7 +56,7 @@ export const MetalText: React.FC<{
   seed?: number;
   style?: CSSProperties;
   children: React.ReactNode;
-}> = ({kind = 'rose', variant, seed = 1, style, children}) => {
+}> = ({kind = 'copper', variant, seed = 1, style, children}) => {
   const frame = useCurrentFrame();
   return <span style={{...metalTextStyle({kind, variant, frame, seed}), ...style}}>{children}</span>;
 };
@@ -70,7 +70,7 @@ export const MetalRim: React.FC<{
   seed?: number;
   opacity?: number;
   style?: CSSProperties;
-}> = ({radius, thickness, kind = 'rose', variant, seed = 1, opacity = 1, style}) => {
+}> = ({radius, thickness, kind = 'copper', variant, seed = 1, opacity = 1, style}) => {
   const frame = useCurrentFrame();
   return (
     <div
@@ -98,7 +98,7 @@ export const MetalBox: React.FC<{
   angle?: number;
   style?: CSSProperties;
   children?: React.ReactNode;
-}> = ({kind = 'rose', variant, seed = 1, angle = 135, style, children}) => {
+}> = ({kind = 'copper', variant, seed = 1, angle = 135, style, children}) => {
   const frame = useCurrentFrame();
   return <div style={{...metalFill({kind, variant, frame, seed, angle}), ...style}}>{children}</div>;
 };
@@ -117,7 +117,7 @@ export const MetalGradient: React.FC<{
   kind?: MetalKind;
   variant: MetalVariant;
   seed?: number;
-}> = ({id, x1, y1, x2, y2, kind = 'rose', variant, seed = 1}) => {
+}> = ({id, x1, y1, x2, y2, kind = 'copper', variant, seed = 1}) => {
   const frame = useCurrentFrame();
   const stops = metalStops(kind, variant);
   const len = Math.max(1, Math.hypot(x2 - x1, y2 - y1));
@@ -181,7 +181,7 @@ export const MetalArrow: React.FC<{size: number; id: string; seed?: number; vari
 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" style={style}>
     <defs>
-      <MetalGradient id={id} x1={4} y1={4} x2={20} y2={20} kind="rose" variant={variant} seed={seed} />
+      <MetalGradient id={id} x1={4} y1={4} x2={20} y2={20} kind="copper" variant={variant} seed={seed} />
     </defs>
     <path d="M12 4v15m0 0l-6-6m6 6l6-6" fill="none" stroke={`url(#${id})`} strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
