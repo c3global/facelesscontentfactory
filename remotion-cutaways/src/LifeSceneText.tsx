@@ -20,7 +20,7 @@ const lineSchema = z.object({
 
 export const lifeSceneTextSchema = z.object({
   /** text face: handwriting options or the plain brand sans */
-  font: z.enum(['covered', 'caveat', 'swanky', 'dmsans']).default('dmsans'),
+  font: z.enum(['covered', 'caveat', 'swanky', 'dmsans']).default('covered'),
   durationSec: z.number(),
   lines: z.array(lineSchema),
 });

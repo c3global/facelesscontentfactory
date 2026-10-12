@@ -69,3 +69,13 @@ Marble photo backgrounds: waiting on Dr. CK's source files (see "Open items"). T
 - **B-roll sourcing**: screenshots of real sources (PubMed abstracts, HBR, author pages) are possible; stock images need a licensed source she approves.
 - Sound effects (whoosh, bell) are in `content/music-library.json` but not wired into cuts yet.
 - Larger idea: `captionStyle: "heavy"` exists but she prefers Editorial.
+
+## 9. Life Scenes (cinematic clips from Flow, Seedance and similar)
+Dr. CK generates the footage elsewhere (clips of 10 seconds or less in Flow, longer in Seedance). Claude only finishes it. Rules she set on 2026-10-12:
+- **No talking heads.** Life Scenes are reenactments, voiceover over action, or music over image. Talking heads stay in section 1 to 8.
+- **No tags, badges or end cards.** The finish should read as cinematic: light grain, light vignette, slight contrast and color lift.
+- **Hard cuts only between clips. Never a fade or dissolve between clips.** Never trim a clip she wants shown in full. Use the original audio unless she supplies audio.
+- **On-screen text** is `LifeSceneText` (`src/LifeSceneText.tsx`): translucent crimson velvet box (cut from the crimson backdrop) with a holographic rim, white text, in **Covered By Your Grace** (her permanent choice; Caveat and Swanky and Moo Moo exist as options but Swanky is too thin). Placed in the caption band (y 1056 to 1382), clear of the bottom 22 percent and right 12 percent. Wording comes only from her approved copy in the Notion Content Library row.
+- Render the overlay as a transparent PNG sequence (`remotion render ... --sequence --image-format=png`), then composite over the clip with ffmpeg (`eq`, `vignette`, `noise=alls=3`, `overlay`), so the picture is encoded once. In a locked-down sandbox use `REMOTION_LOCAL_FONTS=1` and `--browser-executable` pointing at the installed Chromium.
+- Chat upload limit is 30 MB: encode with `-crf 18 -maxrate 14M` (a 10 s clip lands near 12 MB).
+- Claude cannot hear. Do not claim audio was checked. Dr. CK approves anything sonic by ear.
