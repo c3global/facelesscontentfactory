@@ -13,6 +13,7 @@ import {LifeSceneText, lifeSceneTextSchema, LS_FPS} from './LifeSceneText';
 import {PatientFile, patientFileFrames, patientFileSchema, PF_FPS} from './PatientFile';
 
 const lifeSceneTextProps = {
+  font: 'covered' as const,
   durationSec: 10,
   lines: [
     {text: ["The reply you're waiting", 'for may be waiting on you', 'to go first.'], fromSec: 0.6, toSec: 5.6, top: 1130},

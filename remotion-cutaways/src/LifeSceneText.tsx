@@ -3,7 +3,7 @@ import {AbsoluteFill, Easing, interpolate, useCurrentFrame} from 'remotion';
 import {z} from 'zod';
 import {brand} from './brand';
 import {Backdrop} from './backdrops';
-import {loadBrandFonts, sansFamily} from './fonts';
+import {handFamilies, loadBrandFonts, sansFamily} from './fonts';
 
 loadBrandFonts();
 
@@ -19,6 +19,8 @@ const lineSchema = z.object({
 });
 
 export const lifeSceneTextSchema = z.object({
+  /** text face: handwriting options or the plain brand sans */
+  font: z.enum(['covered', 'caveat', 'swanky', 'dmsans']).default('dmsans'),
   durationSec: z.number(),
   lines: z.array(lineSchema),
 });
@@ -26,7 +28,15 @@ export type LifeSceneTextProps = z.infer<typeof lifeSceneTextSchema>;
 
 const RIM = ['#B76E79', '#F8E8B4', '#FFFFFF', '#E9B3B4', '#B76E79'];
 
-const Card: React.FC<{lines: string[]; from: number; to: number; top: number}> = ({lines, from, to, top}) => {
+const FACES = {
+  covered: {family: handFamilies.covered, weight: 400, size: 78, lineHeight: 1.16},
+  caveat: {family: handFamilies.caveat, weight: 700, size: 78, lineHeight: 1.1},
+  swanky: {family: handFamilies.swanky, weight: 400, size: 62, lineHeight: 1.2},
+  dmsans: {family: sansFamily('DM Sans'), weight: 700, size: 52, lineHeight: 1.22},
+} as const;
+
+const Card: React.FC<{lines: string[]; from: number; to: number; top: number; font: keyof typeof FACES}> = ({lines, from, to, top, font}) => {
+  const face = FACES[font];
   const f = useCurrentFrame();
   const inP = interpolate(f, [from, from + 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)});
   const outP = interpolate(f, [to - 6, to], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
@@ -70,10 +80,10 @@ const Card: React.FC<{lines: string[]; from: number; to: number; top: number}> =
             position: 'relative',
             padding: '26px 46px 28px',
             color: brand.white,
-            fontFamily: sansFamily('DM Sans'),
-            fontWeight: 700,
-            fontSize: 52,
-            lineHeight: 1.22,
+            fontFamily: face.family,
+            fontWeight: face.weight,
+            fontSize: face.size,
+            lineHeight: face.lineHeight,
             textAlign: 'center',
             whiteSpace: 'nowrap',
             textShadow: '0 2px 10px rgba(60,0,0,0.45)',
@@ -89,10 +99,10 @@ const Card: React.FC<{lines: string[]; from: number; to: number; top: number}> =
 };
 
 /** Transparent overlay: render as a PNG sequence and composite over the finished clip. */
-export const LifeSceneText: React.FC<LifeSceneTextProps> = ({lines}) => (
+export const LifeSceneText: React.FC<LifeSceneTextProps> = ({lines, font}) => (
   <AbsoluteFill>
     {lines.map((l, i) => (
-      <Card key={i} lines={l.text} from={Math.round(l.fromSec * LS_FPS)} to={Math.round(l.toSec * LS_FPS)} top={l.top} />
+      <Card key={i} lines={l.text} from={Math.round(l.fromSec * LS_FPS)} to={Math.round(l.toSec * LS_FPS)} top={l.top} font={font} />
     ))}
   </AbsoluteFill>
 );
