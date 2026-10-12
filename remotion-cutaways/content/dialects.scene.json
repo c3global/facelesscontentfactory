@@ -1,0 +1,527 @@
+{
+  "slug": "dialects",
+  "video": "raw/dialects.mp4",
+  "durationSec": 62.46,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [
+    "dialects",
+    "quiet",
+    "private"
+  ],
+  "captionStyle": "editorial",
+  "captionBand": {
+    "top": 1056,
+    "bottom": 1382
+  },
+  "captionBandTop": {
+    "top": 250,
+    "bottom": 560
+  },
+  "hero": [
+    "dialects",
+    "quiet",
+    "launch",
+    "painful",
+    "cultural",
+    "strategy",
+    "assumptions",
+    "loud",
+    "private",
+    "Hall",
+    "context",
+    "setting",
+    "ask",
+    "listen",
+    "distance",
+    "public",
+    "cheer"
+  ],
+  "boxed": [],
+  "finish": {
+    "grain": 0.35,
+    "lightLeaks": 0.5
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 2.75,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "learn",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 2.75,
+          "end": 5.9,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 2.75,
+              "until": 5.9,
+              "props": {
+                "label": "SUPPORT",
+                "line": "Different dialects."
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "quiet",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 5.9,
+          "end": 8.9,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 5.9,
+              "until": 8.9,
+              "box": {
+                "y": 260,
+                "h": 900,
+                "center": true
+              },
+              "props": {
+                "text": "Think of the person who went quiet after your launch",
+                "emphasis": [
+                  "quiet"
+                ],
+                "wordTimes": [
+                  5.93,
+                  6.12,
+                  6.25,
+                  6.46,
+                  6.88,
+                  7.2,
+                  7.37,
+                  7.8,
+                  8.07,
+                  8.37
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "why",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 8.9,
+          "end": 12.48,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 9.05,
+              "until": 12.48,
+              "props": {
+                "label": "ASK",
+                "line": "What did you do to find out why?"
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "painful",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 12.48,
+          "end": 15.1,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "ci_a",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 15.1,
+          "end": 17.62,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 15.1,
+              "until": 17.62,
+              "props": {
+                "label": "CULTURAL INTELLIGENCE",
+                "line": "CQ Strategy."
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ci_b",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 17.62,
+          "end": 22.35,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 17.62,
+              "until": 22.35,
+              "box": {
+                "y": 200,
+                "h": 620
+              },
+              "props": {
+                "text": "CQ Strategy: check your assumptions",
+                "emphasis": [
+                  "assumptions"
+                ],
+                "wordTimes": [
+                  17.67,
+                  17.76,
+                  20.07,
+                  20.88,
+                  21.28
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "act",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 22.35,
+          "end": 24.45,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "loud",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 24.45,
+          "end": 30.15,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "notes-card",
+              "at": 24.45,
+              "until": 30.15,
+              "props": {
+                "label": "Notes",
+                "title": "Out loud",
+                "items": [
+                  {
+                    "text": "The first comment",
+                    "at": 27.87,
+                    "checkAfter": 0.5
+                  },
+                  {
+                    "text": "The loudest clap",
+                    "at": 28.98,
+                    "checkAfter": 0.5
+                  }
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "private",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 30.15,
+          "end": 32.85,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 30.15,
+              "until": 32.85,
+              "box": {
+                "y": 260,
+                "h": 900,
+                "center": true
+              },
+              "props": {
+                "text": "Others send a private message the night before.",
+                "emphasis": [
+                  "private"
+                ],
+                "wordTimes": [
+                  30.21,
+                  30.27,
+                  30.54,
+                  30.59,
+                  31.05,
+                  31.6,
+                  31.76,
+                  32.0
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ]
+    },
+    {
+      "id": "hall",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 32.85,
+          "end": 38.82,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "citation-card",
+              "at": 32.85,
+              "until": 38.82,
+              "props": {
+                "label": "CONCEPT",
+                "authors": "Edward Hall",
+                "title": "High-context and low-context communication",
+                "source": "Intercultural communication"
+              }
+            }
+          ]
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "shift",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 38.82,
+          "end": 41.1,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "ask",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 41.1,
+          "end": 46.8,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "chat-ui",
+              "at": 41.1,
+              "until": 46.8,
+              "props": {
+                "title": "Ask",
+                "items": [
+                  {
+                    "channel": "Message",
+                    "text": "What does support from me look like to you right now?",
+                    "at": 42.3
+                  }
+                ],
+                "badgeLabel": "new",
+                "zoom": 1.3
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "listen",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 46.8,
+          "end": 50.8,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 46.8,
+              "until": 50.8,
+              "box": {
+                "y": 260,
+                "h": 900,
+                "center": true
+              },
+              "props": {
+                "text": "And listen before deciding what the distance means.",
+                "emphasis": [
+                  "listen"
+                ],
+                "wordTimes": [
+                  46.84,
+                  47.04,
+                  48.04,
+                  48.32,
+                  48.88,
+                  49.22,
+                  49.55,
+                  50.23
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "dialect",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 50.8,
+          "end": 53.43,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "public",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 53.43,
+          "end": 56.35,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 53.43,
+              "until": 56.35,
+              "box": {
+                "y": 200,
+                "h": 620
+              },
+              "props": {
+                "text": "Public cheer or private message?",
+                "emphasis": [
+                  "private"
+                ],
+                "wordTimes": [
+                  53.47,
+                  53.73,
+                  54.16,
+                  54.59,
+                  55.28
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ]
+    },
+    {
+      "id": "close",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 56.35,
+          "end": 59.9,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "variant": "link-pill",
+    "startAt": 59.9,
+    "label": "FOLLOW AND SUBSCRIBE",
+    "url": "bio.c3global.co"
+  },
+  "music": {
+    "src": "music/leveled/warm-yellen-closer-than-before.mp3",
+    "volume": 0.35,
+    "duckTo": 0.16,
+    "fadeInSec": 1.5,
+    "fadeOutSec": 2.5,
+    "startFromSec": 0
+  }
+}

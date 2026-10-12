@@ -313,6 +313,54 @@ const LockupView: React.FC<{
   );
 };
 
+
+/**
+ * Text that is on screen as a graphic at time `sec` (statement, headline, chips, chat, notes, citation).
+ * When a caption lockup would only repeat words a graphic is already showing, the graphic becomes the caption
+ * and the lockup is skipped, so the viewer does not read the same words twice.
+ */
+const stem = (w: string) => normalizeWord(w).slice(0, 5);
+const graphicStems = (plan: ScenePlan, sec: number): Set<string> => {
+  const words: string[] = [];
+  const add = (text: string) => words.push(...text.split(/\s+/));
+  for (const sc of plan.scenes) {
+    for (const sg of sc.segments) {
+      for (const g of sg.graphics) {
+        if (sec < g.at || sec >= (g.until ?? sg.end)) continue;
+        const p = g.props as any;
+        if (g.type === 'statement-card') add(p.text);
+        else if (g.type === 'headline-card') add(p.line);
+        else if (g.type === 'floating-chips') {
+          for (const c of p.chips) if (sec >= c.at) add(c.text);
+        } else if (g.type === 'chat-ui') {
+          for (const c of p.items) if (sec >= c.at) add(c.text);
+        } else if (g.type === 'notes-card') {
+          add(p.title);
+          for (const c of p.items) if (sec >= c.at) add(c.text);
+        } else if (g.type === 'citation-card') add(`${p.authors} ${p.title}`);
+      }
+    }
+  }
+  return new Set(words.map(stem).filter(Boolean));
+};
+
+/**
+ * Strict rule (Dr. CK): a caption lockup is skipped only when every content word of it is already shown by a graphic
+ * (judged at the end of the lockup, when the graphic has caught up with her voice). Otherwise the whole lockup stays,
+ * so a caption never turns into a broken fragment and no word is lost. Segments with `captions: 'off'` carry the full
+ * spoken text in their graphic and show no captions at all.
+ */
+const trimLockup = (l: Lockup, plan: ScenePlan): Lockup | null => {
+  const startSec = l.startMs / 1000;
+  const seg = plan.scenes.flatMap((sc) => sc.segments).find((sg) => startSec >= sg.start - 0.001 && startSec < sg.end - 0.001);
+  if (seg && seg.captions === 'off') return null;
+  const gs = graphicStems(plan, l.endMs / 1000 - 0.05);
+  if (!gs.size) return l;
+  const content = l.words.filter((w) => normalizeWord(w.text) !== '' && !STOP.has(normalizeWord(w.text)));
+  if (!content.length) return l;
+  return content.every((w) => gs.has(stem(w.text))) ? null : l;
+};
+
 export const KineticLayer: React.FC<{captions: Caption[]; plan: ScenePlan; mood: Mood}> = ({captions, plan, mood}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
@@ -325,13 +373,15 @@ export const KineticLayer: React.FC<{captions: Caption[]; plan: ScenePlan; mood:
     return t >= l.startMs - 80 && t < Math.min(l.endMs + 320, next ? next.startMs - 40 : Infinity);
   });
   if (idx < 0) return null;
-  const l = lockups[idx];
+  const full = lockups[idx];
+  const l = trimLockup(full, plan);
+  if (!l) return null;
   const next = lockups[idx + 1];
-  const endShow = Math.min(l.endMs + 320, next ? next.startMs - 40 : Infinity);
+  const endShow = Math.min(full.endMs + 320, next ? next.startMs - 40 : Infinity);
   const style: Style = plan.captionStyle === 'heavy' ? 'heavy' : 'editorial';
 
   // which band this lockup sits in: the segment can pin captions to the bottom, the top, or alternate by sentence
-  const sec = l.startMs / 1000;
+  const sec = full.startMs / 1000;
   const seg = plan.scenes.flatMap((sc) => sc.segments).find((sg) => sec >= sg.start - 0.001 && sec < sg.end - 0.001);
   let band = plan.captionBand;
   if (seg && seg.captionPos !== 'bottom') {

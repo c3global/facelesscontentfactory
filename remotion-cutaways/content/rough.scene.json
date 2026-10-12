@@ -1,0 +1,511 @@
+{
+  "slug": "rough",
+  "video": "raw/rough.mp4",
+  "durationSec": 57.92,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [
+    "rough",
+    "say",
+    "three"
+  ],
+  "captionStyle": "editorial",
+  "captionBand": {
+    "top": 1056,
+    "bottom": 1382
+  },
+  "captionBandTop": {
+    "top": 250,
+    "bottom": 560
+  },
+  "hero": [
+    "rough",
+    "design",
+    "1948",
+    "Coch",
+    "factory",
+    "resisted",
+    "recovered",
+    "told",
+    "change",
+    "company",
+    "say",
+    "shape",
+    "themselves",
+    "rollout",
+    "three",
+    "people",
+    "ask",
+    "week"
+  ],
+  "boxed": [],
+  "finish": {
+    "grain": 0.35,
+    "lightLeaks": 0.5
+  },
+  "scenes": [
+    {
+      "id": "title",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 0,
+          "end": 3.0,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 0,
+              "until": 3.0,
+              "props": {
+                "label": "THE PRACTICE",
+                "line": "Bring them in while it's rough."
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "try",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 3.0,
+          "end": 6.8,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 3.0,
+              "until": 6.8,
+              "box": {
+                "y": 260,
+                "h": 900,
+                "center": true
+              },
+              "props": {
+                "text": "who will use it, try something else instead.",
+                "emphasis": [
+                  "else"
+                ],
+                "wordTimes": [
+                  3.04,
+                  3.36,
+                  3.49,
+                  3.6,
+                  4.44,
+                  4.64,
+                  5.28,
+                  5.68
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ]
+    },
+    {
+      "id": "rough",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 6.8,
+          "end": 9.35,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "study",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 9.35,
+          "end": 12.68,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 10.38,
+              "until": 12.68,
+              "props": {
+                "label": "THE STUDY",
+                "line": "Coch and French, 1948"
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "factory",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 12.68,
+          "end": 15.82,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "workers",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 15.82,
+          "end": 20.6,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "floating-chips",
+              "at": 15.82,
+              "until": 20.6,
+              "props": {
+                "chips": [
+                  {
+                    "text": "Workers who helped plan the change",
+                    "at": 15.86
+                  },
+                  {
+                    "text": "resisted it less and recovered",
+                    "at": 18.33
+                  }
+                ],
+                "mode": "stack"
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "result",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 20.6,
+          "end": 24.6,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 20.73,
+              "until": 24.6,
+              "props": {
+                "label": "THE RESULT",
+                "line": "Recovered output faster."
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "same",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 24.6,
+          "end": 29.62,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 24.6,
+              "until": 29.62,
+              "box": {
+                "y": 260,
+                "h": 900,
+                "center": true
+              },
+              "props": {
+                "text": "Same change, same company, the difference was who had a say.",
+                "emphasis": [
+                  "say"
+                ],
+                "wordTimes": [
+                  24.64,
+                  24.89,
+                  25.9,
+                  26.02,
+                  26.67,
+                  27.27,
+                  27.79,
+                  28.96,
+                  28.96,
+                  29.16,
+                  29.23
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "shape",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 29.62,
+          "end": 37.7,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "notes-card",
+              "at": 29.62,
+              "until": 37.7,
+              "props": {
+                "label": "Notes",
+                "title": "People who help shape it",
+                "items": [
+                  {
+                    "text": "Understand why it looks that way",
+                    "at": 31.79,
+                    "checkAfter": 0.5
+                  },
+                  {
+                    "text": "Put a little of themselves into it",
+                    "at": 35.47,
+                    "checkAfter": 0.5
+                  }
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "rollout",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 37.7,
+          "end": 42.2,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 37.7,
+              "until": 42.2,
+              "box": {
+                "y": 260,
+                "h": 900,
+                "center": true
+              },
+              "props": {
+                "text": "So before your next rollout, pick three people who live with it every day,",
+                "emphasis": [
+                  "three"
+                ],
+                "wordTimes": [
+                  37.73,
+                  37.87,
+                  38.31,
+                  38.56,
+                  38.89,
+                  39.7,
+                  40.11,
+                  40.32,
+                  40.65,
+                  40.8,
+                  41.09,
+                  41.38,
+                  41.58,
+                  41.88
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ]
+    },
+    {
+      "id": "show",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 42.2,
+          "end": 46.28,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "notes-card",
+              "at": 42.2,
+              "until": 46.28,
+              "props": {
+                "label": "Notes",
+                "title": "Before the rollout",
+                "items": [
+                  {
+                    "text": "Show them the rough version",
+                    "at": 42.23,
+                    "checkAfter": 0.5
+                  },
+                  {
+                    "text": "Ask what would get in their way",
+                    "at": 44.23,
+                    "checkAfter": 0.5
+                  }
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "which",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 46.28,
+          "end": 49.95,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 46.28,
+              "until": 49.95,
+              "box": {
+                "y": 200,
+                "h": 620
+              },
+              "props": {
+                "text": "Which three people?",
+                "emphasis": [
+                  "three"
+                ],
+                "wordTimes": [
+                  46.32,
+                  47.06,
+                  47.24
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "follow",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 49.95,
+          "end": 52.35,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "bring",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 52.35,
+          "end": 55.2,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 52.35,
+              "until": 55.2,
+              "box": {
+                "y": 260,
+                "h": 900,
+                "center": true
+              },
+              "props": {
+                "text": "for bringing your people in before the rollout.",
+                "emphasis": [
+                  "people"
+                ],
+                "wordTimes": [
+                  52.4,
+                  52.64,
+                  53.16,
+                  53.42,
+                  53.81,
+                  53.94,
+                  54.46,
+                  54.52
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "variant": "link-pill",
+    "startAt": 55.2,
+    "label": "FOLLOW AND SUBSCRIBE",
+    "url": "bio.c3global.co"
+  },
+  "music": {
+    "src": "music/leveled/calm-jle-hayride-60s.mp3",
+    "volume": 0.35,
+    "duckTo": 0.16,
+    "fadeInSec": 1.5,
+    "fadeOutSec": 2.5,
+    "startFromSec": 0
+  }
+}

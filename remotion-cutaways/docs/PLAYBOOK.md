@@ -14,7 +14,7 @@ Start one with `npm run new -- <slug> black-glass` (or `fun-cuts`).
 | **Fun Cuts** | scenes alternate black and white, split screen (layout `S`), notes cards, notifications, headline cards, source cards | stories, contrast, research explainers |
 
 Both share: editorial kinetic captions, italic Playfair, metal and crimson rules, film finish, music, end card, pacing rule.
-Marble photo backgrounds: waiting on Dr. CK's source files (see "Open items"). The generated marble in `backdrops.tsx` was rejected as too busy; only `MARBLE_STRENGTH` 0.3 remains as an option.
+Red velvet background: `public/backdrops/red-velvet.jpg` (crimson velvet from Kai's carousels, 1122x1402), use per scene with `bg: "backdrops/red-velvet.jpg"` on dark scenes. Dr. CK loves it ("it is me") and wants it mixed in with black, not used everywhere. Rose gold emphasis words are low contrast on it; check stills. Marble photo backgrounds: waiting on Dr. CK's source files (see "Open items"). The generated marble in `backdrops.tsx` was rejected as too busy; only `MARBLE_STRENGTH` 0.3 remains as an option.
 
 ## 1. Environment (cloud session)
 - Allowed domains needed (Environment settings, Network access): `drive.google.com`, `drive.usercontent.google.com`, `huggingface.co`, `us.aws.cdn.hf.co` (or `*.hf.co`), `c3globalco.substack.com`, `substackcdn.com`.
@@ -38,7 +38,7 @@ Marble photo backgrounds: waiting on Dr. CK's source files (see "Open items"). T
 8. Dr. CK's rule: **stills before a full render on a new look; a full render is fine once the look is approved.**
 
 ## 3. Locked style rules
-- Captions: **Editorial** kinetic lockups. Hero word huge in Playfair Display **italic** 800 (lowercase), small support words in DM Sans 700 sentence case at 56 px, white on dark scenes and black on white scenes. Highlight boxes white or black only. Emphasis words get the metallic rose gold italic.
+- Captions: **Editorial** kinetic lockups. When a graphic already shows every content word of a lockup (statement, headline, chips, chat, notes lines that are visible), the lockup is skipped so nothing is read twice; if even one word is missing from the graphic the caption stays, so no word is ever lost (Dr. CK's rule, Oct 2026). Statement cards in hidden-her scenes use `box {y: 60, h: 620}` so a 3 to 4 line card never reaches the caption band. Hero word huge in Playfair Display **italic** 800 (lowercase), small support words in DM Sans 700 sentence case at 56 px, white on dark scenes and black on white scenes. Highlight boxes white or black only. Emphasis words get the metallic rose gold italic.
   - Band: 55 to 72 percent of the frame (y 1056 to 1382). Captions can move to the top band (y 250 to 560) and may alternate by sentence in hidden-avatar scenes. Keep clear of the top 12 percent, bottom 22 percent and right 12 percent.
   - No chunk ends on a connector word. Auto-chunker is in `src/Kinetic.tsx`.
 - Fonts: Playfair Display and DM Sans. **Wherever Playfair appears it is italic.**
@@ -46,7 +46,7 @@ Marble photo backgrounds: waiting on Dr. CK's source files (see "Open items"). T
 - Glass: translucent pills with a holographic foil rim in brand tints only (rose gold, champagne, white, pale crimson). Labels 44 px in diagrams. Lines must stop at the pill edges (mask), never show through the glass.
 - Her face: **no hook tag on her forehead.** She stays full frame only up to about 4 seconds at a time (hard stop at 6). Picture-in-picture, split screen and hidden-avatar scenes all count as cuts.
 - Finish: `finish.grain` about 0.35 and `finish.lightLeaks` about 0.5 (she liked it, asked for it hoping it reduces the "fake" look).
-- Music: Audiio tracks from her Drive "Music" folder, mixed under her voice with automatic ducking (`music` in the plan). `npm run sync-music`, then `npm run music -- <slug> <mood>`. Defaults volume 0.18, duck 0.06 (lowered a little for new videos on Dr. CK's word; the Reverse Perspective video stays at 0.24 / 0.085 as delivered). She asked not to re-level audio for now (`npm run finalize -- <slug>` exists and does -14 LUFS if she changes her mind; her videos measure about -23 LUFS).
+- Music: Audiio tracks from her Drive "Music" folder, mixed under her voice with automatic ducking (`music` in the plan). `npm run sync-music`, then **`node scripts/level-music.mjs`** (levels every track to -24 LUFS with a gentle compressor into `public/music/leveled/`), then `npm run music -- <slug> <mood>`. Defaults for leveled tracks: volume 0.35 (rest), duckTo 0.16 (while she speaks: about 17 dB under her voice, her videos sit near -23 LUFS). Ducking bridges gaps shorter than 0.9 s, attacks in 0.15 s and releases over 0.6 s so the bed does not pump in every breath. History: Dr. CK said the music was too loud on `dialects` and `rough` (raw tracks are mastered near -10 LUFS and sat only 2 to 5 dB under her voice at the worst moments); `reverse-joined` stays at 0.24 / 0.085 on the raw track as delivered. She asked not to re-level the voice for now (`npm run finalize -- <slug>` exists and does -14 LUFS if she changes her mind).
 - End card: link pill. Typical label "LINK BELOW OR IN MY BIO", url `bio.c3global.co`; for article videos "FULL ARTICLE ON SUBSTACK" with `c3globalco.substack.com`. Captions stop where the end card starts.
 - Substack: show her **publication archive page** (a real capture) when the article is not live yet. Capture recipe: curl the page and its assets, rewrite urls to local files, screenshot with headless Chromium at 720 px wide (see git history, `work/sub*/snap.py` pattern), save to `public/shots/`, use `screenshot-card` with `mode: "full"`.
 - Never invent facts, numbers, quotes or credentials. Citations come from her own Content Pack docs. Illustrative message text (like "I have some news!") must stay generic.
@@ -69,3 +69,38 @@ Marble photo backgrounds: waiting on Dr. CK's source files (see "Open items"). T
 - **B-roll sourcing**: screenshots of real sources (PubMed abstracts, HBR, author pages) are possible; stock images need a licensed source she approves.
 - Sound effects (whoosh, bell) are in `content/music-library.json` but not wired into cuts yet.
 - Larger idea: `captionStyle: "heavy"` exists but she prefers Editorial.
+
+## 7. Image + voiceover with Jogg.ai (comparison only, not the primary method)
+Dr. CK's first verdict on the Jogg test (`terrace`, Oct 2026): the movements were not up to par, so she did not make it the primary method. After comparing it with the stitched two-clip version (`week2`, clips from her other avatar generator, MediaPlace.io), she said the Jogg video looks much better: the other generator over-animates her and she keeps moving the mic away from her face. Which one becomes primary is her call; ask her before assuming. Her primary method is stitching clips from her avatar generator (she called it MediaPlace.io). Keep `terrace` as the comparison piece against the stitched version of the same script.
+How it was done, in case she wants it again:
+1. Allowed domains: `asset-intl.jogg.ai` and `res-intl.jogg.ai` (plus the usual list).
+2. Convert the still to JPG (`ffmpeg -i face.webp -q:v 2 face.jpg`). For a test, cut the voiceover to about 16 s at a pause; for the real thing use the full audio.
+3. Jogg MCP `jogg_post_upload_asset` returns `sign_url` and `asset_url`. PUT the bytes to `sign_url` with the right `Content-Type` (curl), then use `asset_url` in later calls.
+4. `jogg_post_photo_avatar_add_motion` (model `2.0-Pro`, her custom voice id) makes the animated avatar. It took about 12 minutes; poll `jogg_get_photo_avatar` with the `motion_id`. It is paid work.
+5. `jogg_post_create_video_from_avatar` with `avatar_type: 1`, `voice.type: "audio"`, `audio_url` of the uploaded voiceover, `aspect_ratio: "portrait"`, `screen_style: 1`, `caption: false`. The render took seconds. Download `video_url`.
+6. Conform to 30 fps, pad 2.5 s of frozen picture and silence at the end for the end card (`tpad=stop_mode=clone:stop_duration=2.5`, `apad=pad_dur=2.5`), then follow section 2 from step 2 (transcribe the audio file itself).
+7. Align every scene cut to a caption chunk start (`buildLockups` prints chunk times). A cut inside a chunk puts the caption in the wrong band for part of the cut.
+Her Jogg account had 400 credits at the time; the OpenArt account is on the free plan (40 credits), too few for any video model.
+- Comparison pair for this decision: `out/terrace.mp4` (Jogg, one image plus voiceover, 50 s) and `out/week2.mp4` (two stitched clips, 78 s). Different scripts, same Fun Cuts template and music level.
+- The handheld mic is part of her influencer look on purpose. Do not suggest removing it. Jogg kept the mic in her hand and steady; the other generator (MediaPlace.io) over-animates and moves the mic away from her face.
+
+## 8. From finished video to scheduled posts (Marky and the Notion Content Library)
+Run this only after Dr. CK approves the finished video. The approval can be a plain "this is it". She approved Dialects and Rough this way (Oct 2026) and then asked for scheduling.
+1. **Render both cuts.** Master (`out/<name>.mp4`) plus a share cut (`out/<name>-share.mp4`, about 20 MB) for the platforms.
+2. **Read the Content Library row** (Notion data source `collection://6d3eb389-7c81-4696-aa91-d4827ac1b6bf`): Publish Date, Platform, Marky Caption, CTA Mechanism, CTA Copy, CTA Keyword, CTA Link. If the row has no Marky Caption, the caption lives on the week's Scripts page in ContentOS (Instagram and Facebook version). Never write new copy; use what is there and flag gaps.
+3. **Check connected accounts** with `list_connected_social_accounts` (Marky business `29797760-861d-4235-bd99-880bddc16f09`, "C3 Global"). X is intentionally skipped (Dr. CK: do not worry about X). LinkedIn means the C3 Global Agency page (`linkedIn`), not the personal profile.
+4. **Upload the share cut.** `create_media_upload` returns a URL; PUT the file to it with curl (`Content-Type: video/mp4`). Sandbox egress to `api.mymarky.ai` works. The response gives the media id and its public `original_url`.
+5. **One `create_post` per platform**, `status: SCHEDULED`, `media_ids`, `restrict_publish_to`, and metadata (`format: talking-head`, `series: talking-head`, `episode`, `keyword`, `platform`). Times follow the existing explainer posts, America/New_York: Instagram, TikTok and Pinterest 9:53 AM; LinkedIn 10:53 AM; Facebook 11:53 AM; YouTube 2:53 PM. Send an explicit offset (`-04:00` in October, `-05:00` after the clocks change).
+6. **CTA wording per platform.** Instagram and Facebook: "Comment <KEYWORD> and ...". TikTok: "DM me <KEYWORD> and ...". LinkedIn, YouTube and Pinterest: drop the keyword line and put the CTA Link in the post text. Pinterest must always carry a link (pin `link` plus the same link in the caption); Dr. CK's rule. TikTok, YouTube and Pinterest get a `title` override (the row's Marky Title, or the video's title). Hashtags, when the week has them, go in the caption (that is how the existing scheduled posts do it). Do not invent hashtags a row does not have. Marky appends `https://www.c3global.co` to TikTok captions on its own.
+7. **Update Notion** after Marky confirms: Stage `Scheduled`, Marky Post ID (list each platform's id), Marky Caption if it was empty, and Render Link (the Marky `original_url` of the share cut; Dr. CK allowed Claude to fill this in). Dr. CK's approval of the video and the scheduling request count as the approval to move Stage to Scheduled.
+8. **Say what you did** in plain terms: platforms, dates, times, anything skipped, anything on the row that still needs her.
+
+## 9. Dr. CK's standing preferences for this work
+- Show **stills before a full render** whenever a look is new.
+- Do **not re-level the audio** for now. Music is already leveled (-24 LUFS tracks, steady ducking); apply the current levels to new videos without asking again.
+- Captions: the graphic becomes the caption where it carries every word; never drop a spoken word.
+- Do not merge pull requests without her explicit word. Tell her when one is waiting.
+- The handheld mic in her avatar image is intentional. Do not suggest removing it.
+- Never use em dashes in anything written for her, and address her as Dr. CK.
+- Drive sharing for source clips goes back to Restricted when she says so; do not change sharing on your own.
+- Open questions to ask her once, not every time: the voice profile accent line (A or B) and whether the recordings are her live voice or a clone; the exact sources for the Edward Hall and Coch and French cards.

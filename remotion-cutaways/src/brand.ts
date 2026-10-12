@@ -17,7 +17,7 @@ export const brand = {
   charcoal: '#3A3F42',
 } as const;
 
-export type MetalKind = 'rose' | 'gold' | 'crimson';
+export type MetalKind = 'rose' | 'gold' | 'crimson' | 'copper';
 /** deep: for use on white cards. bright: for use on crimson and dark fields. */
 export type MetalVariant = 'deep' | 'bright';
 
@@ -34,6 +34,11 @@ const METAL_STOPS: Record<MetalKind, Record<MetalVariant, [string, string, strin
   crimson: {
     deep: ['#6F0D0F', '#C91B19', '#EE6E6B', '#C91B19', '#7C0E10'],
     bright: ['#A31516', '#D92927', '#FF8E8A', '#D92927', '#A31516'],
+  },
+  // shiny new-penny copper, the metal Dr. CK means by "rose gold": warm orange-copper body with a pinkish bright highlight
+  copper: {
+    deep: ['#6E3517', '#B5622C', '#F4B08A', '#B5622C', '#7D3C1B'],
+    bright: ['#B5622C', '#E08A57', '#FFD9BD', '#E08A57', '#B5622C'],
   },
   gold: {
     deep: ['#85611A', '#D5AA4A', '#F8E8B4', '#D5AA4A', '#8E6B1E'],

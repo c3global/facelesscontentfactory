@@ -31,7 +31,7 @@ export const FloatingChips: React.FC<Props> = ({chips, mode}) => {
           return (
             <div key={i} style={{translate: `0px ${dy + (1 - p) * 30}px`, scale: `${0.9 + p * 0.1}`}}>
               <Card fade={p * opacity} radius={999} seed={18 + i} contentStyle={{padding: '24px 54px 24px 40px', display: 'flex', alignItems: 'center', gap: 22}}>
-                <MetalBox variant="deep" seed={22 + i} style={{width: 30, height: 30, borderRadius: '50%'}} />
+                <MetalBox kind="gold" variant="deep" seed={22 + i} style={{width: 30, height: 30, borderRadius: '50%'}} />
                 <div style={{fontFamily: sans, fontWeight: 700, fontSize: 52, color: palette.onCard, whiteSpace: 'nowrap', letterSpacing: '-0.01em'}}>{chip.text}</div>
               </Card>
             </div>
@@ -51,7 +51,7 @@ export const FloatingChips: React.FC<Props> = ({chips, mode}) => {
         return (
           <div key={i} style={{position: 'absolute', left: slot.x, top: slot.y, translate: `${dx}px ${dy + (1 - p) * 24}px`, scale: `${0.9 + p * 0.1}`}}>
             <Card fade={p * opacity} radius={999} seed={18 + i} contentStyle={{padding: '16px 34px 16px 26px', display: 'flex', alignItems: 'center', gap: 14}}>
-              <MetalBox variant="deep" seed={22 + i} style={{width: 20, height: 20, borderRadius: '50%'}} />
+              <MetalBox kind="gold" variant="deep" seed={22 + i} style={{width: 20, height: 20, borderRadius: '50%'}} />
               <div style={{fontFamily: sans, fontWeight: 700, fontSize: 34, color: palette.onCard, whiteSpace: 'nowrap'}}>{chip.text}</div>
             </Card>
           </div>

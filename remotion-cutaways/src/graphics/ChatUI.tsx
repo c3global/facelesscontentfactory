@@ -36,7 +36,7 @@ export const ChatUI: React.FC<Props> = ({title, items, badgeLabel, zoom}) => {
             {count} {badgeLabel}
           </MetalBox>
         </div>
-        <MetalBox variant="deep" seed={12} style={{height: 3, margin: '16px 0 4px', borderRadius: 2}} />
+        <MetalBox kind="gold" variant="deep" seed={12} style={{height: 3, margin: '16px 0 4px', borderRadius: 2}} />
         {items.map((it, i) => {
           const p = interpolate(frame - rel(it.at), [0, 6], [0, 1], {...clamp, easing: easeOut});
           return (
@@ -52,7 +52,7 @@ export const ChatUI: React.FC<Props> = ({title, items, badgeLabel, zoom}) => {
                 borderBottom: i < items.length - 1 ? '1.5px solid rgba(58,63,66,0.1)' : 'none',
               }}
             >
-              <MetalBox variant="deep" seed={13 + i} style={{width: 18, height: 18, borderRadius: '50%', flexShrink: 0}} />
+              <MetalBox kind="gold" variant="deep" seed={13 + i} style={{width: 18, height: 18, borderRadius: '50%', flexShrink: 0}} />
               <div style={{minWidth: 0}}>
                 <Label size={19}>{it.channel}</Label>
                 <div style={{fontFamily: sans, fontWeight: 500, fontSize: 33, color: palette.onCard, marginTop: 4, lineHeight: 1.2}}>{it.text}</div>

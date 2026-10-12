@@ -79,7 +79,14 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   const musicVolume = useMemo(() => {
     const m = plan.music;
     if (!m) return () => 0;
-    const spans = captions.map((c) => [c.startMs / 1000 - 0.12, c.endMs / 1000 + 0.25] as const);
+    // her speech as spans, with gaps shorter than 0.9 s bridged so the bed does not pump up in every breath
+    const raw = captions.map((c) => [c.startMs / 1000 - 0.12, c.endMs / 1000 + 0.25] as [number, number]).sort((x, y) => x[0] - y[0]);
+    const spans: [number, number][] = [];
+    for (const sp of raw) {
+      const last = spans[spans.length - 1];
+      if (last && sp[0] - last[1] < 0.9) last[1] = Math.max(last[1], sp[1]);
+      else spans.push([sp[0], sp[1]]);
+    }
     const total = plan.durationSec;
     return (f: number) => {
       const t = f / fps;
@@ -89,8 +96,9 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
           near = 1;
           break;
         }
-        const d = Math.min(Math.abs(t - a), Math.abs(t - b));
-        if (d < 0.35) near = Math.max(near, 1 - d / 0.35);
+        // fast attack (0.15 s) when she starts, slow release (0.6 s) after she stops
+        if (t < a && a - t < 0.15) near = Math.max(near, 1 - (a - t) / 0.15);
+        if (t > b && t - b < 0.6) near = Math.max(near, 1 - (t - b) / 0.6);
       }
       const level = m.volume + (m.duckTo - m.volume) * near;
       const fin = m.fadeInSec > 0 ? Math.min(1, t / m.fadeInSec) : 1;
@@ -238,7 +246,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
                           top: full ? 0 : area.y + (g.box?.y ?? 0),
                           width: full ? W : area.w,
                           height: full ? H : (g.box?.h ?? area.h),
-                          ...(full || g.box ? {} : {display: 'flex', flexDirection: 'column', justifyContent: 'center'}),
+                          ...(full || (g.box && !g.box.center) ? {} : {display: 'flex', flexDirection: 'column', justifyContent: 'center'}),
                         }}
                       >
                         {renderGraphic(g)}

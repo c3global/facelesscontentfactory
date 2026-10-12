@@ -1,0 +1,605 @@
+{
+  "slug": "week2",
+  "video": "raw/week2.mp4",
+  "durationSec": 78.17,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [
+    "verdict",
+    "agreement",
+    "cheer",
+    "betrayal",
+    "first",
+    "private"
+  ],
+  "captionStyle": "editorial",
+  "captionBand": {
+    "top": 1056,
+    "bottom": 1382
+  },
+  "captionBandTop": {
+    "top": 250,
+    "bottom": 560
+  },
+  "hero": [
+    "distance",
+    "climbed",
+    "verdict",
+    "friendship",
+    "agreed",
+    "level",
+    "co-worker",
+    "partner",
+    "agreement",
+    "cheer",
+    "news",
+    "psychological",
+    "contract",
+    "beliefs",
+    "owe",
+    "private",
+    "copy",
+    "takes",
+    "calendar",
+    "faster",
+    "theirs",
+    "quiet",
+    "agreements",
+    "betrayal",
+    "term",
+    "loud",
+    "missed",
+    "work"
+  ],
+  "boxed": [
+    "verdict"
+  ],
+  "finish": {
+    "grain": 0.35,
+    "lightLeaks": 0.5
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 3.25,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "reading",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 3.25,
+          "end": 6.05,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 3.25,
+              "until": 6.05,
+              "props": {
+                "label": "THE READING",
+                "line": "Distance, read as a verdict."
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "agreed",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 6.05,
+          "end": 10.97,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 6.05,
+              "until": 10.97,
+              "box": {
+                "y": 330,
+                "h": 460
+              },
+              "props": {
+                "text": "What did the two of you agree on?",
+                "emphasis": [
+                  "agree"
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ]
+    },
+    {
+      "id": "level",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 10.97,
+          "end": 16.75,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "notes-card",
+              "at": 10.97,
+              "until": 16.75,
+              "props": {
+                "label": "Notes",
+                "title": "At the start",
+                "items": [
+                  {
+                    "text": "A friend",
+                    "at": 12.0,
+                    "checkAfter": 0.5
+                  },
+                  {
+                    "text": "A co-worker",
+                    "at": 13.6,
+                    "checkAfter": 0.5
+                  },
+                  {
+                    "text": "A business partner",
+                    "at": 15.0,
+                    "checkAfter": 0.5
+                  },
+                  {
+                    "text": "The same level",
+                    "at": 16.0,
+                    "checkAfter": 0.5
+                  }
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "agreement",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 16.75,
+          "end": 20.28,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "cheer",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 20.28,
+          "end": 26.1,
+          "layout": "E",
+          "captionPos": "alternate",
+          "graphics": [
+            {
+              "type": "floating-chips",
+              "at": 20.28,
+              "until": 26.1,
+              "props": {
+                "chips": [
+                  {
+                    "text": "You cheer for me",
+                    "at": 20.5
+                  },
+                  {
+                    "text": "I cheer for you",
+                    "at": 21.9
+                  },
+                  {
+                    "text": "We hear each other's news first",
+                    "at": 23.4
+                  }
+                ],
+                "mode": "stack"
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ]
+    },
+    {
+      "id": "rousseau",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 26.1,
+          "end": 30.95,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "citation-card",
+              "at": 26.1,
+              "until": 30.95,
+              "props": {
+                "label": "CONCEPT",
+                "authors": "Denise Rousseau",
+                "year": "1989",
+                "title": "Psychological contract",
+                "source": "Concept introduced in 1989"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quote",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 30.95,
+          "end": 36.95,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 30.95,
+              "until": 36.95,
+              "box": {
+                "y": 640,
+                "h": 520
+              },
+              "props": {
+                "text": "\u201cThe set of beliefs each person holds about what they owe the other.\u201d",
+                "emphasis": [
+                  "owe"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "private",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 36.95,
+          "end": 39.1,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 36.95,
+              "until": 39.1,
+              "box": {
+                "y": 330,
+                "h": 460
+              },
+              "props": {
+                "text": "Each person keeps a private copy.",
+                "emphasis": [
+                  "private"
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ]
+    },
+    {
+      "id": "takeoff",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 39.1,
+          "end": 44.9,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "notes-card",
+              "at": 39.1,
+              "until": 44.9,
+              "props": {
+                "label": "Notes",
+                "title": "Then, your work takes off",
+                "items": [
+                  {
+                    "text": "Work takes off",
+                    "at": 39.6,
+                    "checkAfter": 0.5
+                  },
+                  {
+                    "text": "Calendar changes",
+                    "at": 41.3,
+                    "checkAfter": 0.5
+                  },
+                  {
+                    "text": "News travels faster",
+                    "at": 43.0,
+                    "checkAfter": 0.5
+                  }
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "contract",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 44.9,
+          "end": 47.62,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "theirs",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 47.62,
+          "end": 51.85,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 47.62,
+              "until": 51.85,
+              "props": {
+                "label": "WHILE",
+                "line": "Theirs stays where it was."
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "quiet",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 51.85,
+          "end": 56.5,
+          "layout": "E",
+          "captionPos": "alternate",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 51.85,
+              "until": 56.5,
+              "box": {
+                "y": 330,
+                "h": 460
+              },
+              "props": {
+                "text": "Two people honoring two different agreements.",
+                "emphasis": [
+                  "two"
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ]
+    },
+    {
+      "id": "betrayal",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 56.5,
+          "end": 58.62,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "term",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 58.62,
+          "end": 61.92,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 58.62,
+              "until": 61.92,
+              "props": {
+                "label": "SAY IT OUT LOUD",
+                "line": "One old term."
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "text",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 61.92,
+          "end": 66.05,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "chat-ui",
+              "at": 61.92,
+              "until": 66.05,
+              "props": {
+                "title": "To a friend",
+                "items": [
+                  {
+                    "channel": "Messages",
+                    "text": "I used to text you first, and I missed that.",
+                    "at": 62.1
+                  }
+                ],
+                "badgeLabel": "new",
+                "zoom": 1.3
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "now",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 66.05,
+          "end": 68.6,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "week",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 68.6,
+          "end": 71.3,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 68.6,
+              "until": 71.3,
+              "props": {
+                "label": "THIS WEEK",
+                "line": "One old term you'd name."
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "follow",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 71.3,
+          "end": 73.9,
+          "layout": "E",
+          "captionPos": "alternate",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 71.3,
+              "until": 73.9,
+              "box": {
+                "y": 330,
+                "h": 460
+              },
+              "props": {
+                "text": "Read the quiet.",
+                "emphasis": [
+                  "quiet"
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden"
+        }
+      ]
+    },
+    {
+      "id": "close",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 73.9,
+          "end": 75.7,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "variant": "link-pill",
+    "startAt": 75.7,
+    "label": "FOLLOW AND SUBSCRIBE",
+    "url": "bio.c3global.co"
+  },
+  "music": {
+    "src": "music/warm-marscott-warm-sunlight.mp3",
+    "volume": 0.18,
+    "duckTo": 0.06,
+    "fadeInSec": 1.5,
+    "fadeOutSec": 2.5,
+    "startFromSec": 0
+  }
+}

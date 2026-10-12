@@ -4,7 +4,7 @@ const sec = z.number().min(0);
 const emphasis = z.array(z.string()).optional();
 
 /** Every graphic is `{type, at, until?, props}`. `at` and `until` are absolute seconds in the video. */
-const box = z.object({y: z.number().optional(), h: z.number().optional()}).optional();
+const box = z.object({y: z.number().optional(), h: z.number().optional(), /** center the graphic vertically inside the box */ center: z.boolean().optional()}).optional();
 const base = {at: sec, until: sec.optional(), box};
 
 export const graphicSchema = z.discriminatedUnion('type', [
@@ -172,7 +172,7 @@ export const graphicSchema = z.discriminatedUnion('type', [
   z.object({
     ...base,
     type: z.literal('statement-card'),
-    props: z.object({text: z.string(), emphasis}),
+    props: z.object({text: z.string(), emphasis, /** absolute second each word is spoken: the word pops in then */ wordTimes: z.array(sec).optional()}),
   }),
 ]);
 
@@ -182,6 +182,8 @@ export const segmentSchema = z.object({
   layout: z.enum(['A', 'B', 'C', 'D', 'E', 'S']),
   /** where kinetic captions sit in this segment: bottom band, top band, or alternating by sentence (top first) */
   captionPos: z.enum(['bottom', 'top', 'alternate']).default('bottom'),
+  /** 'off' when a graphic in this segment shows every spoken word itself (the graphic becomes the caption) */
+  captions: z.enum(['on', 'off']).default('on'),
   /** per-segment framing of her inside the window: where the face sits (focusY, percent) and extra zoom */
   focus: z.object({y: z.number(), zoom: z.number()}).optional(),
   /** layouts C and E: show her as a small window, or hide her (audio keeps playing) */
@@ -247,9 +249,9 @@ export const planSchema = z.object({
     .object({
       src: z.string(),
       /** level when she is silent (0 to 1) */
-      volume: z.number().min(0).max(1).default(0.18),
+      volume: z.number().min(0).max(1).default(0.35),
       /** level while she speaks */
-      duckTo: z.number().min(0).max(1).default(0.06),
+      duckTo: z.number().min(0).max(1).default(0.16),
       fadeInSec: z.number().min(0).default(1.5),
       fadeOutSec: z.number().min(0).default(2.5),
       startFromSec: z.number().min(0).default(0),
