@@ -370,10 +370,8 @@ const trimLockup = (l: Lockup, plan: ScenePlan): Lockup | null => {
   if (coveredContent === 0) return l;
   if (coveredContent === content.length) return null;
   if (coveredContent / content.length < 0.5) return l;
-  // keep only the words the graphic does not show, then drop leading and trailing connector words
-  let keep = l.words.map((_, k) => k).filter((k) => !covered[k]);
-  while (keep.length && !isContent(l.words[keep[0]])) keep.shift();
-  while (keep.length && !isContent(l.words[keep[keep.length - 1]])) keep.pop();
+  // keep every word the graphic does not show (connectors included), so no word the viewer is meant to read goes missing
+  const keep = l.words.map((_, k) => k).filter((k) => !covered[k]);
   if (!keep.length) return null;
   const words = keep.map((k) => l.words[k]);
   let hero = keep.indexOf(l.h0);
