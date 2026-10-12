@@ -79,3 +79,4 @@ Dr. CK generates the footage elsewhere (clips of 10 seconds or less in Flow, lon
 - Render the overlay as a transparent PNG sequence (`remotion render ... --sequence --image-format=png`), then composite over the clip with ffmpeg (`eq`, `vignette`, `noise=alls=3`, `overlay`), so the picture is encoded once. In a locked-down sandbox use `REMOTION_LOCAL_FONTS=1` and `--browser-executable` pointing at the installed Chromium.
 - Chat upload limit is 30 MB: encode with `-crf 18 -maxrate 14M` (a 10 s clip lands near 12 MB).
 - Claude cannot hear. Do not claim audio was checked. Dr. CK approves anything sonic by ear.
+- **File names:** `LS_Title_Words_With_Underscores.mp4`, for example `LS_Old_Voice_Memo.mp4`. The `LS_` prefix marks a Life Scene, then the scene title in Title Case. No version suffixes in the final name; keep drafts in `out/` as `LS_Old_Voice_Memo_draft1.mp4`.
