@@ -9,7 +9,16 @@ import {planSchema, videoPropsSchema, VideoProps} from './schema';
 import {Video} from './Video';
 import {GlassLab} from './lab/GlassLab';
 import {FieldDemo} from './lab/FieldDemo';
+import {LifeSceneText, lifeSceneTextSchema, LS_FPS} from './LifeSceneText';
 import {PatientFile, patientFileFrames, patientFileSchema, PF_FPS} from './PatientFile';
+
+const lifeSceneTextProps = {
+  durationSec: 10,
+  lines: [
+    {text: ["The reply you're waiting for", 'may be waiting on you', 'to go first.'], fromSec: 0.6, toSec: 5.6, top: 1170},
+    {text: ['Who would you record', 'a voice memo for?'], fromSec: 6.6, toSec: 10, top: 1170},
+  ],
+};
 
 const patientFileProps = {number: '002', title: 'Afterglow', video: 'raw/patient-file-002.mp4', videoSec: 78.25};
 
@@ -52,6 +61,17 @@ export const Root: React.FC = () => (
       calculateMetadata={({props}) => ({durationInFrames: patientFileFrames(props.videoSec), fps: PF_FPS, width: 1080, height: 1920})}
       durationInFrames={patientFileFrames(patientFileProps.videoSec)}
       fps={PF_FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="LifeSceneText"
+      component={LifeSceneText}
+      schema={lifeSceneTextSchema}
+      defaultProps={lifeSceneTextProps}
+      calculateMetadata={({props}) => ({durationInFrames: Math.ceil(props.durationSec * LS_FPS), fps: LS_FPS, width: 1080, height: 1920})}
+      durationInFrames={Math.ceil(lifeSceneTextProps.durationSec * LS_FPS)}
+      fps={LS_FPS}
       width={1080}
       height={1920}
     />
