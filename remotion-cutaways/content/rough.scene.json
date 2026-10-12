@@ -88,18 +88,30 @@
               "at": 3.0,
               "until": 6.8,
               "box": {
-                "y": 200,
-                "h": 620
+                "y": 260,
+                "h": 900,
+                "center": true
               },
               "props": {
-                "text": "Try something else instead.",
+                "text": "who will use it, try something else instead.",
                 "emphasis": [
                   "else"
+                ],
+                "wordTimes": [
+                  3.04,
+                  3.36,
+                  3.49,
+                  3.6,
+                  4.44,
+                  4.64,
+                  5.28,
+                  5.68
                 ]
               }
             }
           ],
-          "avatar": "hidden"
+          "avatar": "hidden",
+          "captions": "off"
         }
       ]
     },
@@ -128,7 +140,7 @@
           "graphics": [
             {
               "type": "headline-card",
-              "at": 9.35,
+              "at": 10.38,
               "until": 12.68,
               "props": {
                 "label": "THE STUDY",
@@ -173,19 +185,20 @@
               "props": {
                 "chips": [
                   {
-                    "text": "Helped plan the change",
-                    "at": 16.1
+                    "text": "Workers who helped plan the change",
+                    "at": 15.86
                   },
                   {
-                    "text": "Resisted it less",
-                    "at": 18.4
+                    "text": "resisted it less and recovered",
+                    "at": 18.33
                   }
                 ],
                 "mode": "stack"
               }
             }
           ],
-          "avatar": "hidden"
+          "avatar": "hidden",
+          "captions": "off"
         }
       ],
       "bg": "backdrops/red-velvet.jpg"
@@ -202,7 +215,7 @@
           "graphics": [
             {
               "type": "headline-card",
-              "at": 20.6,
+              "at": 20.73,
               "until": 24.6,
               "props": {
                 "label": "THE RESULT",
@@ -223,57 +236,42 @@
       "segments": [
         {
           "start": 24.6,
-          "end": 27.75,
-          "layout": "E",
-          "captionPos": "bottom",
-          "graphics": [
-            {
-              "type": "statement-card",
-              "at": 24.6,
-              "until": 27.75,
-              "box": {
-                "y": 200,
-                "h": 620
-              },
-              "props": {
-                "text": "Same change. Same company.",
-                "emphasis": [
-                  "Same"
-                ]
-              }
-            }
-          ],
-          "avatar": "hidden"
-        }
-      ]
-    },
-    {
-      "id": "say",
-      "mood": "dark",
-      "segments": [
-        {
-          "start": 27.75,
           "end": 29.62,
           "layout": "E",
           "captionPos": "bottom",
           "graphics": [
             {
               "type": "statement-card",
-              "at": 27.75,
+              "at": 24.6,
               "until": 29.62,
               "box": {
-                "y": 200,
-                "h": 620
+                "y": 260,
+                "h": 900,
+                "center": true
               },
               "props": {
-                "text": "The difference was who had a say.",
+                "text": "Same change, same company, the difference was who had a say.",
                 "emphasis": [
                   "say"
+                ],
+                "wordTimes": [
+                  24.64,
+                  24.89,
+                  25.9,
+                  26.02,
+                  26.67,
+                  27.27,
+                  27.79,
+                  28.96,
+                  28.96,
+                  29.16,
+                  29.23
                 ]
               }
             }
           ],
-          "avatar": "hidden"
+          "avatar": "hidden",
+          "captions": "off"
         }
       ],
       "bg": "backdrops/red-velvet.jpg"
@@ -284,26 +282,26 @@
       "segments": [
         {
           "start": 29.62,
-          "end": 35.65,
+          "end": 37.7,
           "layout": "S",
           "captionPos": "top",
           "graphics": [
             {
               "type": "notes-card",
               "at": 29.62,
-              "until": 35.65,
+              "until": 37.7,
               "props": {
                 "label": "Notes",
                 "title": "People who help shape it",
                 "items": [
                   {
                     "text": "Understand why it looks that way",
-                    "at": 32.7,
+                    "at": 31.79,
                     "checkAfter": 0.5
                   },
                   {
                     "text": "Put a little of themselves into it",
-                    "at": 34.2,
+                    "at": 35.47,
                     "checkAfter": 0.5
                   }
                 ]
@@ -314,19 +312,6 @@
             "y": 8,
             "zoom": 1.1
           }
-        }
-      ]
-    },
-    {
-      "id": "into",
-      "mood": "dark",
-      "segments": [
-        {
-          "start": 35.65,
-          "end": 37.7,
-          "layout": "A",
-          "captionPos": "bottom",
-          "graphics": []
         }
       ]
     },
@@ -345,18 +330,36 @@
               "at": 37.7,
               "until": 42.2,
               "box": {
-                "y": 200,
-                "h": 620
+                "y": 260,
+                "h": 900,
+                "center": true
               },
               "props": {
-                "text": "Pick three people who live with it every day.",
+                "text": "So before your next rollout, pick three people who live with it every day,",
                 "emphasis": [
                   "three"
+                ],
+                "wordTimes": [
+                  37.73,
+                  37.87,
+                  38.31,
+                  38.56,
+                  38.89,
+                  39.7,
+                  40.11,
+                  40.32,
+                  40.65,
+                  40.8,
+                  41.09,
+                  41.38,
+                  41.58,
+                  41.88
                 ]
               }
             }
           ],
-          "avatar": "hidden"
+          "avatar": "hidden",
+          "captions": "off"
         }
       ]
     },
@@ -380,12 +383,12 @@
                 "items": [
                   {
                     "text": "Show them the rough version",
-                    "at": 42.5,
+                    "at": 42.23,
                     "checkAfter": 0.5
                   },
                   {
                     "text": "Ask what would get in their way",
-                    "at": 44.8,
+                    "at": 44.23,
                     "checkAfter": 0.5
                   }
                 ]
@@ -421,6 +424,11 @@
                 "text": "Which three people?",
                 "emphasis": [
                   "three"
+                ],
+                "wordTimes": [
+                  46.32,
+                  47.06,
+                  47.24
                 ]
               }
             }
@@ -458,18 +466,30 @@
               "at": 52.35,
               "until": 55.2,
               "box": {
-                "y": 200,
-                "h": 620
+                "y": 260,
+                "h": 900,
+                "center": true
               },
               "props": {
-                "text": "Bring your people in before the rollout.",
+                "text": "for bringing your people in before the rollout.",
                 "emphasis": [
                   "people"
+                ],
+                "wordTimes": [
+                  52.4,
+                  52.64,
+                  53.16,
+                  53.42,
+                  53.81,
+                  53.94,
+                  54.46,
+                  54.52
                 ]
               }
             }
           ],
-          "avatar": "hidden"
+          "avatar": "hidden",
+          "captions": "off"
         }
       ]
     }

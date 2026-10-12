@@ -328,66 +328,37 @@ const graphicStems = (plan: ScenePlan, sec: number): Set<string> => {
       for (const g of sg.graphics) {
         if (sec < g.at || sec >= (g.until ?? sg.end)) continue;
         const p = g.props as any;
-        if (g.type === 'statement-card') {
-          // words ease in one after another (see StatementCard): count a word only once it is on screen
-          (p.text as string).split(' ').forEach((w, i) => {
-            if (sec >= g.at + (8 + i * 4 + 6) / 30) words.push(w);
-          });
-        } else if (g.type === 'headline-card') {
-          if (sec >= g.at + 0.5) add(p.line);
-        } else if (g.type === 'floating-chips') {
-          for (const c of p.chips) if (sec >= c.at + 0.4) add(c.text);
+        if (g.type === 'statement-card') add(p.text);
+        else if (g.type === 'headline-card') add(p.line);
+        else if (g.type === 'floating-chips') {
+          for (const c of p.chips) if (sec >= c.at) add(c.text);
         } else if (g.type === 'chat-ui') {
-          for (const c of p.items) if (sec >= c.at + 0.5) add(c.text);
+          for (const c of p.items) if (sec >= c.at) add(c.text);
         } else if (g.type === 'notes-card') {
           add(p.title);
-          for (const c of p.items) if (sec >= c.at + 0.4) add(c.text);
-        } else if (g.type === 'citation-card') {
-          add(`${p.authors} ${p.title}`);
-        }
+          for (const c of p.items) if (sec >= c.at) add(c.text);
+        } else if (g.type === 'citation-card') add(`${p.authors} ${p.title}`);
       }
     }
   }
   return new Set(words.map(stem).filter(Boolean));
 };
+
 /**
- * Fine-tunes a caption lockup against the graphics on screen (Dr. CK's rule: the graphic becomes the caption, but
- * no word may go missing):
- *  - every content word already in a graphic: the lockup is skipped
- *  - at least half of the content words in a graphic: the lockup is cut down to the words the graphic does NOT show
- *  - fewer than half: the full lockup stays
- * Coverage is judged at the middle of the lockup so it does not change while the lockup is on screen.
+ * Strict rule (Dr. CK): a caption lockup is skipped only when every content word of it is already shown by a graphic
+ * (judged at the end of the lockup, when the graphic has caught up with her voice). Otherwise the whole lockup stays,
+ * so a caption never turns into a broken fragment and no word is lost. Segments with `captions: 'off'` carry the full
+ * spoken text in their graphic and show no captions at all.
  */
 const trimLockup = (l: Lockup, plan: ScenePlan): Lockup | null => {
-  const sec = (l.startMs + l.endMs) / 2000;
-  const gs = graphicStems(plan, sec);
+  const startSec = l.startMs / 1000;
+  const seg = plan.scenes.flatMap((sc) => sc.segments).find((sg) => startSec >= sg.start - 0.001 && startSec < sg.end - 0.001);
+  if (seg && seg.captions === 'off') return null;
+  const gs = graphicStems(plan, l.endMs / 1000 - 0.05);
   if (!gs.size) return l;
-  const isContent = (w: KWord) => normalizeWord(w.text) !== '' && !STOP.has(normalizeWord(w.text));
-  const covered = l.words.map((w) => normalizeWord(w.text) !== '' && gs.has(stem(w.text)));
-  const content = l.words.map((w, k) => (isContent(w) ? k : -1)).filter((k) => k >= 0);
+  const content = l.words.filter((w) => normalizeWord(w.text) !== '' && !STOP.has(normalizeWord(w.text)));
   if (!content.length) return l;
-  const coveredContent = content.filter((k) => covered[k]).length;
-  if (coveredContent === 0) return l;
-  if (coveredContent === content.length) return null;
-  if (coveredContent / content.length < 0.5) return l;
-  // keep every word the graphic does not show (connectors included), so no word the viewer is meant to read goes missing
-  const keep = l.words.map((_, k) => k).filter((k) => !covered[k]);
-  if (!keep.length) return null;
-  const words = keep.map((k) => l.words[k]);
-  let hero = keep.indexOf(l.h0);
-  if (hero < 0) {
-    let best = 0;
-    let bestLen = -1;
-    words.forEach((w, k) => {
-      const n = normalizeWord(w.text);
-      if (!STOP.has(n) && n.length >= bestLen) {
-        best = k;
-        bestLen = n.length;
-      }
-    });
-    hero = best;
-  }
-  return {words, h0: hero, h1: hero, startMs: words[0].startMs, endMs: words[words.length - 1].endMs, sentence: l.sentence};
+  return content.every((w) => gs.has(stem(w.text))) ? null : l;
 };
 
 export const KineticLayer: React.FC<{captions: Caption[]; plan: ScenePlan; mood: Mood}> = ({captions, plan, mood}) => {

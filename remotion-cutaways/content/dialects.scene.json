@@ -100,18 +100,32 @@
               "at": 5.9,
               "until": 8.9,
               "box": {
-                "y": 200,
-                "h": 620
+                "y": 260,
+                "h": 900,
+                "center": true
               },
               "props": {
-                "text": "The person who went quiet after your launch.",
+                "text": "Think of the person who went quiet after your launch",
                 "emphasis": [
                   "quiet"
+                ],
+                "wordTimes": [
+                  5.93,
+                  6.12,
+                  6.25,
+                  6.46,
+                  6.88,
+                  7.2,
+                  7.37,
+                  7.8,
+                  8.07,
+                  8.37
                 ]
               }
             }
           ],
-          "avatar": "hidden"
+          "avatar": "hidden",
+          "captions": "off"
         }
       ],
       "bg": "backdrops/red-velvet.jpg"
@@ -128,7 +142,7 @@
           "graphics": [
             {
               "type": "headline-card",
-              "at": 8.9,
+              "at": 9.05,
               "until": 12.48,
               "props": {
                 "label": "ASK",
@@ -205,6 +219,13 @@
                 "text": "CQ Strategy: check your assumptions",
                 "emphasis": [
                   "assumptions"
+                ],
+                "wordTimes": [
+                  17.67,
+                  17.76,
+                  20.07,
+                  20.88,
+                  21.28
                 ]
               }
             }
@@ -247,12 +268,12 @@
                 "items": [
                   {
                     "text": "The first comment",
-                    "at": 26.7,
+                    "at": 27.87,
                     "checkAfter": 0.5
                   },
                   {
                     "text": "The loudest clap",
-                    "at": 28.9,
+                    "at": 28.98,
                     "checkAfter": 0.5
                   }
                 ]
@@ -281,18 +302,30 @@
               "at": 30.15,
               "until": 32.85,
               "box": {
-                "y": 200,
-                "h": 620
+                "y": 260,
+                "h": 900,
+                "center": true
               },
               "props": {
-                "text": "A private message the night before.",
+                "text": "Others send a private message the night before.",
                 "emphasis": [
                   "private"
+                ],
+                "wordTimes": [
+                  30.21,
+                  30.27,
+                  30.54,
+                  30.59,
+                  31.05,
+                  31.6,
+                  31.76,
+                  32.0
                 ]
               }
             }
           ],
-          "avatar": "hidden"
+          "avatar": "hidden",
+          "captions": "off"
         }
       ]
     },
@@ -355,7 +388,7 @@
                   {
                     "channel": "Message",
                     "text": "What does support from me look like to you right now?",
-                    "at": 42.4
+                    "at": 42.3
                   }
                 ],
                 "badgeLabel": "new",
@@ -385,18 +418,30 @@
               "at": 46.8,
               "until": 50.8,
               "box": {
-                "y": 200,
-                "h": 620
+                "y": 260,
+                "h": 900,
+                "center": true
               },
               "props": {
-                "text": "Listen before deciding what the distance means.",
+                "text": "And listen before deciding what the distance means.",
                 "emphasis": [
-                  "Listen"
+                  "listen"
+                ],
+                "wordTimes": [
+                  46.84,
+                  47.04,
+                  48.04,
+                  48.32,
+                  48.88,
+                  49.22,
+                  49.55,
+                  50.23
                 ]
               }
             }
           ],
-          "avatar": "hidden"
+          "avatar": "hidden",
+          "captions": "off"
         }
       ],
       "bg": "backdrops/red-velvet.jpg"
@@ -436,6 +481,13 @@
                 "text": "Public cheer or private message?",
                 "emphasis": [
                   "private"
+                ],
+                "wordTimes": [
+                  53.47,
+                  53.73,
+                  54.16,
+                  54.59,
+                  55.28
                 ]
               }
             }

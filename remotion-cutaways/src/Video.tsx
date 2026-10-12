@@ -246,7 +246,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
                           top: full ? 0 : area.y + (g.box?.y ?? 0),
                           width: full ? W : area.w,
                           height: full ? H : (g.box?.h ?? area.h),
-                          ...(full || g.box ? {} : {display: 'flex', flexDirection: 'column', justifyContent: 'center'}),
+                          ...(full || (g.box && !g.box.center) ? {} : {display: 'flex', flexDirection: 'column', justifyContent: 'center'}),
                         }}
                       >
                         {renderGraphic(g)}
