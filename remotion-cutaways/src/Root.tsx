@@ -15,8 +15,8 @@ import {PatientFile, patientFileFrames, patientFileSchema, PF_FPS} from './Patie
 const lifeSceneTextProps = {
   durationSec: 10,
   lines: [
-    {text: ["The reply you're waiting for", 'may be waiting on you', 'to go first.'], fromSec: 0.6, toSec: 5.6, top: 1170},
-    {text: ['Who would you record', 'a voice memo for?'], fromSec: 6.6, toSec: 10, top: 1170},
+    {text: ["The reply you're waiting", 'for may be waiting on you', 'to go first.'], fromSec: 0.6, toSec: 5.6, top: 1130},
+    {text: ['Who would you record', 'a voice memo for?'], fromSec: 6.6, toSec: 10, top: 1130},
   ],
 };
 
