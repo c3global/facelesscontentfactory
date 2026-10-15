@@ -5,7 +5,7 @@ Metal outlines use the brand metal stops (shadow, mid, highlight, mid, shadow) i
 import os, subprocess, sys
 import cv2, numpy as np
 slug, kind = sys.argv[1], sys.argv[2]
-px = int(sys.argv[3]) if len(sys.argv) > 3 else 6
+px = int(sys.argv[3]) if len(sys.argv) > 3 else 15
 W, H = 1080, 1920
 src = os.path.join('public', 'matte', f'{slug}.webm')
 tmp = os.path.join('public', 'matte', f'{slug}.{kind}.tmp.webm')
