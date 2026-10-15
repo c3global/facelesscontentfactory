@@ -1,4 +1,4 @@
-"""Synthesizes pencil-on-paper writing sounds (no licensed audio needed).
+"""Synthesizes pencil-on-paper writing sounds (no licensed audio needed). v2: warmer and lower, after Dr. CK found v1 too high and annoying.
 
 Writes public/sfx/pencil-line.wav (about one handwritten line, 1.17 s) and
 public/sfx/pencil-underline.wav (one quick stroke, 0.5 s). Run: python3 scripts/pencil_sfx.py
@@ -22,12 +22,18 @@ def bandpass(x, lo, hi):
 
 
 def stroke(n, bright):
+    """One pencil stroke: warm, mostly 300 to 2500 Hz, with only a little top end (no hiss)."""
     x = rng.standard_normal(n)
-    hi = bandpass(x, 2200, 7500)
-    mid = bandpass(x, 700, 2200)
-    y = bright * hi + (1 - bright) * 0.7 * mid
+    body = bandpass(x, 160, 520) * 0.35
+    mid = bandpass(x, 350, 2400)
+    top = bandpass(x, 2400, 4800) * 0.12 * bright
+    y = body + mid + top
+    # gentle roll-off above about 3 kHz
+    spec = np.fft.rfft(y)
+    f = np.fft.rfftfreq(len(y), 1 / SR)
+    y = np.fft.irfft(spec / (1 + (f / 2600.0) ** 2), len(y))
     t = np.linspace(0, 1, n)
-    env = np.sin(np.pi * t ** 0.7) ** 1.2  # quick attack, softer release
+    env = np.sin(np.pi * t) ** 1.6  # soft attack and release
     return y * env
 
 
@@ -37,7 +43,7 @@ def line(duration, words_every=(4, 7)):
     pos = int(0.03 * SR)
     count, next_word = 0, rng.integers(*words_every)
     while pos < n - int(0.12 * SR):
-        dur = int(rng.uniform(0.06, 0.15) * SR)
+        dur = int(rng.uniform(0.08, 0.2) * SR)
         amp = rng.uniform(0.55, 1.0)
         s = stroke(dur, rng.uniform(0.55, 1.0)) * amp
         end = min(n, pos + dur)
@@ -56,7 +62,7 @@ def line(duration, words_every=(4, 7)):
 
 def underline(duration):
     n = int(duration * SR)
-    s = stroke(n, 0.9)
+    s = stroke(n, 0.5)
     t = np.linspace(0, 1, n)
     return s * (0.5 + 0.5 * np.sin(np.pi * t))
 
