@@ -1,0 +1,124 @@
+{
+  "slug": "fxdemo-d",
+  "video": "raw/dialects.mp4",
+  "durationSec": 62.46,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [],
+  "captionStyle": "editorial",
+  "scenes": [
+    {
+      "id": "s1",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 62.46,
+          "layout": "A",
+          "captions": "off",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "matte": "dialects",
+  "fx": [
+    {
+      "type": "paper-cut",
+      "at": 3.0,
+      "until": 7.0,
+      "props": {
+        "tone": "kraft",
+        "label": "Paper cut"
+      }
+    },
+    {
+      "type": "doodle-boil",
+      "at": 9.0,
+      "until": 14.0,
+      "props": {
+        "marks": [
+          {
+            "kind": "circle",
+            "target": "head",
+            "at": 9.3,
+            "color": "white"
+          },
+          {
+            "kind": "arrow",
+            "target": "head",
+            "at": 10.4,
+            "text": "this part",
+            "side": "right",
+            "color": "gold"
+          },
+          {
+            "kind": "underline",
+            "target": "chest",
+            "at": 11.6,
+            "color": "white"
+          },
+          {
+            "kind": "star",
+            "target": "head",
+            "at": 12.4,
+            "side": "left",
+            "color": "gold"
+          },
+          {
+            "kind": "heart",
+            "target": "head",
+            "at": 12.9,
+            "side": "right",
+            "color": "red"
+          }
+        ]
+      }
+    },
+    {
+      "type": "vertigo",
+      "at": 20.0,
+      "until": 23.5,
+      "props": {
+        "to": 1.5,
+        "direction": "in"
+      }
+    },
+    {
+      "type": "cover-story",
+      "at": 28.0,
+      "until": 33.0,
+      "props": {
+        "masthead": "C3 GLOBAL",
+        "headline": "The dialects we carry",
+        "lines": [
+          "Culture at work",
+          "Why words land",
+          "Leading across borders"
+        ],
+        "issue": "The Leadership Issue",
+        "kicker": "Dr. CK"
+      }
+    },
+    {
+      "type": "glass-type",
+      "at": 36.0,
+      "until": 41.0,
+      "props": {
+        "y": 0.82,
+        "words": [
+          {
+            "text": "Dialects",
+            "at": 36.2
+          },
+          {
+            "text": "Culture",
+            "at": 38.2
+          }
+        ]
+      }
+    }
+  ]
+}

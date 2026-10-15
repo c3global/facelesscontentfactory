@@ -1,4 +1,5 @@
 import React from 'react';
+import {thirdOver} from './third';
 import {Audio, Sequence, staticFile, useVideoConfig} from 'remotion';
 import {Cutout, CloneCopies, behindFront, behindPlate, cutoutStyle} from './behind';
 import {LOOKS, extraOver, lookLayer} from './extra';
@@ -101,7 +102,7 @@ export const FxOver: React.FC<{fx: Fx[]}> = ({fx}) => {
   return (
     <>
       {fx.map((f, i) => {
-        const node = overItem(f) ?? extraOver(f);
+        const node = overItem(f) ?? extraOver(f) ?? thirdOver(f);
         if (!node) return null;
         const [a, b] = fxRange(f);
         return (

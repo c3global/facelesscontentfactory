@@ -43,10 +43,15 @@ const LEN: Record<FxType, number> = {
   'email-compose': 5,
   'lock-screen': 3.4,
   'date-stamp': 3,
+  'paper-cut': 4,
+  'doodle-boil': 4,
+  vertigo: 3,
+  'cover-story': 4,
+  'glass-type': 4,
 };
 
 /** effects that draw behind her (they need the person matte) */
-export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen'];
+export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story'];
 export const NEEDS_MATTE: FxType[] = [...BEHIND, 'freeze-sticker'];
 
 export const fxRange = (f: Fx): [number, number] => {
@@ -202,6 +207,16 @@ export const cuesFor = (f: Fx): Cue[] => {
       return [main('ding', f.at + 0.2, 0.5, 2)];
     case 'date-stamp':
       return [d('tick', f.at, 0.5)];
+    case 'paper-cut':
+      return [main('swish', f.at, 0.6, 2)];
+    case 'doodle-boil':
+      return f.props.marks.map((m) => d('pop', m.at, 0.5));
+    case 'vertigo':
+      return [main('whoosh', f.at, 0.7)];
+    case 'cover-story':
+      return [main('shutter', f.at, 0.7)];
+    case 'glass-type':
+      return f.props.words.map((w, i) => (i === 0 ? main('blip', w.at, 0.5, 2) : d('pop', w.at, 0.4)));
     default:
       return [];
   }
