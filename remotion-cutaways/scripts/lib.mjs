@@ -9,7 +9,7 @@ export const listSlugs = () =>
   readdirSync(path.join(root, 'content'))
     .filter((f) => f.endsWith('.scene.json'))
     .map((f) => f.replace('.scene.json', ''))
-    .filter((s) => s !== 'showcase');
+    .filter((s) => s !== 'showcase' && !s.startsWith('fx'));
 
 export const loadPlan = (slug) => {
   const raw = JSON.parse(readFileSync(path.join(root, 'content', `${slug}.scene.json`), 'utf8'));

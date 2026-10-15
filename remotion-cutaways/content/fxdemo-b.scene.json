@@ -1,0 +1,221 @@
+{
+  "slug": "fxdemo-b",
+  "video": "raw/rough.mp4",
+  "durationSec": 57.94,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [],
+  "captionStyle": "editorial",
+  "scenes": [
+    {
+      "id": "s1",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 57.94,
+          "layout": "A",
+          "captions": "off",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "matte": "rough",
+  "fx": [
+    {
+      "type": "freeze-sticker",
+      "at": 1.0,
+      "until": 4.4,
+      "props": {
+        "notes": [
+          "listen first",
+          "ask, don't guess"
+        ],
+        "angle": -5
+      }
+    },
+    {
+      "type": "the-stack",
+      "at": 4.8,
+      "until": 8.6,
+      "props": {
+        "rows": [
+          {
+            "label": "Resisted less",
+            "value": 78,
+            "display": "78%"
+          },
+          {
+            "label": "Recovered faster",
+            "value": 64,
+            "display": "64%"
+          },
+          {
+            "label": "Had a say",
+            "value": 92,
+            "display": "92%"
+          }
+        ]
+      }
+    },
+    {
+      "type": "sticky-text",
+      "at": 9.0,
+      "until": 12.0,
+      "props": {
+        "text": "Rough draft",
+        "anchor": "cap"
+      }
+    },
+    {
+      "type": "freeze-label",
+      "at": 12.4,
+      "until": 16.2,
+      "props": {
+        "labels": [
+          {
+            "text": "Who lives with it",
+            "target": "head",
+            "at": 13.0
+          },
+          {
+            "text": "What gets in the way",
+            "target": "chest",
+            "at": 14.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "phone-mockup",
+      "at": 16.6,
+      "until": 20.8,
+      "props": {
+        "side": "right",
+        "title": "Rollout",
+        "lines": [
+          "Show them the rough version",
+          "Ask what would get in the way",
+          "Pick three people"
+        ]
+      }
+    },
+    {
+      "type": "checklist",
+      "at": 21.2,
+      "until": 26.2,
+      "props": {
+        "title": "Before the rollout",
+        "items": [
+          {
+            "text": "Pick three people",
+            "at": 22.0
+          },
+          {
+            "text": "Show the rough version",
+            "at": 23.0
+          },
+          {
+            "text": "Ask what gets in the way",
+            "at": 24.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "pointer-callout",
+      "at": 26.6,
+      "until": 31.2,
+      "props": {
+        "cards": [
+          {
+            "text": "Who had a say",
+            "at": 27.2,
+            "target": "head"
+          },
+          {
+            "text": "Same change, same company",
+            "at": 28.4,
+            "target": "chest"
+          }
+        ]
+      }
+    },
+    {
+      "type": "odometer",
+      "at": 31.6,
+      "until": 35.4,
+      "props": {
+        "from": 0,
+        "to": 1948,
+        "label": "Coch and French",
+        "suffix": ""
+      }
+    },
+    {
+      "type": "before-after",
+      "at": 35.8,
+      "until": 39.2,
+      "props": {
+        "sweepSec": 1.4,
+        "beforeLabel": "Told",
+        "afterLabel": "Had a say"
+      }
+    },
+    {
+      "type": "chart-grow",
+      "at": 39.6,
+      "until": 43.8,
+      "props": {
+        "points": [
+          12,
+          14,
+          13,
+          22,
+          30,
+          41,
+          58
+        ],
+        "label": "Output recovered",
+        "endLabel": "Faster"
+      }
+    },
+    {
+      "type": "comment-bubble",
+      "at": 44.2,
+      "until": 49.2,
+      "props": {
+        "comment": "AIREADY",
+        "postAt": 46.0,
+        "replyAt": 47.4,
+        "reply": "Sent! Check your DMs",
+        "linkLabel": "Open link"
+      }
+    },
+    {
+      "type": "timeline-burn",
+      "at": 49.6,
+      "until": 54.4,
+      "props": {
+        "burnAt": 52.0,
+        "clips": 6
+      }
+    },
+    {
+      "type": "pull-back-reveal",
+      "at": 54.6,
+      "until": 58.0,
+      "props": {
+        "appTitle": "C3 Studio",
+        "cuts": [
+          56.0,
+          56.6,
+          57.2
+        ]
+      }
+    }
+  ]
+}

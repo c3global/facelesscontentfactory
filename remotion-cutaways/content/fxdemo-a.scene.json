@@ -1,0 +1,225 @@
+{
+  "slug": "fxdemo-a",
+  "video": "raw/dialects.mp4",
+  "durationSec": 62.46,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [],
+  "captionStyle": "editorial",
+  "scenes": [
+    {
+      "id": "s1",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 62.46,
+          "layout": "A",
+          "captions": "off",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "matte": "dialects",
+  "fx": [
+    {
+      "type": "digital-zoom",
+      "at": 1.0,
+      "until": 4.2,
+      "props": {
+        "creepTo": 1.14,
+        "snapAt": 3.5,
+        "snapTo": 1.38
+      }
+    },
+    {
+      "type": "zoom-through",
+      "at": 6.0,
+      "props": {
+        "diveSec": 0.5,
+        "nextZoom": 1.3,
+        "nextFocusY": 34
+      }
+    },
+    {
+      "type": "blackout",
+      "at": 8.2,
+      "props": {
+        "holdSec": 0.45
+      }
+    },
+    {
+      "type": "type-wall",
+      "at": 10.0,
+      "until": 14.2,
+      "props": {
+        "words": [
+          {
+            "text": "Support",
+            "at": 10.2
+          },
+          {
+            "text": "Dialects",
+            "at": 11.6
+          },
+          {
+            "text": "Quiet",
+            "at": 13.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "spotlight",
+      "at": 14.6,
+      "until": 19.0,
+      "props": {
+        "dim": 0.86,
+        "words": [
+          {
+            "text": "Quiet?",
+            "at": 15.2
+          },
+          {
+            "text": "Ask.",
+            "at": 17.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "orbit",
+      "at": 19.4,
+      "until": 24.0,
+      "props": {
+        "items": [
+          "Public cheer",
+          "Private message",
+          "High context",
+          "Low context",
+          "Ask first",
+          "Listen"
+        ],
+        "radius": 430
+      }
+    },
+    {
+      "type": "clone",
+      "at": 24.4,
+      "until": 28.6,
+      "props": {
+        "copies": [
+          {
+            "at": 25.0,
+            "side": "left",
+            "scale": 0.56,
+            "y": 0.62
+          },
+          {
+            "at": 26.2,
+            "side": "right",
+            "scale": 0.56,
+            "y": 0.62
+          }
+        ]
+      }
+    },
+    {
+      "type": "headline-wall",
+      "at": 29.0,
+      "until": 33.0,
+      "props": {
+        "lines": [
+          "Why the quiet friend may be your loudest fan",
+          "What a private message really means",
+          "Public cheers and private notes",
+          "How context changes what support sounds like",
+          "Ask before you assume",
+          "Listen before you decide"
+        ]
+      }
+    },
+    {
+      "type": "couch-wall",
+      "at": 33.4,
+      "until": 37.4,
+      "props": {
+        "tiles": [
+          "Support Has Dialects",
+          "The Quiet Friend",
+          "Ask First",
+          "Public Cheer",
+          "Private Message"
+        ]
+      }
+    },
+    {
+      "type": "knockout-tiles",
+      "at": 37.8,
+      "until": 43.0,
+      "props": {
+        "names": [
+          {
+            "text": "Assume",
+            "knockAt": 40.0
+          },
+          {
+            "text": "Guess",
+            "knockAt": 40.5
+          },
+          {
+            "text": "Ignore",
+            "knockAt": 41.0
+          },
+          {
+            "text": "Wait",
+            "knockAt": 41.5
+          },
+          {
+            "text": "Ask",
+            "knockAt": 99
+          },
+          {
+            "text": "Listen",
+            "knockAt": 99
+          }
+        ]
+      }
+    },
+    {
+      "type": "ui-world",
+      "at": 43.4,
+      "until": 47.6,
+      "props": {
+        "title": "C3 Studio",
+        "prompt": "Turn my launch silence into three questions I can ask",
+        "chips": [
+          "Quiet follower",
+          "Private message",
+          "Public cheer"
+        ]
+      }
+    },
+    {
+      "type": "green-screen",
+      "at": 48.0,
+      "until": 52.6,
+      "props": {
+        "plate": "text",
+        "text": "Which dialect do you speak?"
+      }
+    },
+    {
+      "type": "frame-break",
+      "at": 53.0,
+      "until": 58.0,
+      "props": {
+        "popAt": 54.2,
+        "label": "Support"
+      }
+    }
+  ]
+}
