@@ -200,7 +200,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
             }}
           >
             <OffthreadVideo src={staticFile(plan.video)} style={videoStyle} />
-            <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video} videoStyle={videoStyle}>
+            <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video} videoStyle={videoStyle} outline={plan.matteOutline}>
               <FxBehind fx={plan.fx} />
             </FxEnvProvider>
           </div>
@@ -274,10 +274,10 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
         );
       })}
 
-      <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video} videoStyle={videoStyle}>
+      <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video} videoStyle={videoStyle} outline={plan.matteOutline}>
         <FxOver fx={plan.fx} />
       </FxEnvProvider>
-      {plan.fx.length > 0 && <FxSound fx={plan.fx} volume={plan.fxVolume} />}
+      {plan.fx.length > 0 && <FxSound fx={plan.fx} volume={plan.fxVolume} mode={plan.fxSound} />}
 
       {plan.endCard && (
         <ThemeProvider mood={plan.scenes[plan.scenes.length - 1].mood} field={field} sans={sans}>

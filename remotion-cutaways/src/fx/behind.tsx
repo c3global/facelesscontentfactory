@@ -22,11 +22,13 @@ const useFade = (fx: Fx, i = 0.25, o = 0.25) => {
 
 const PLATE = 'radial-gradient(120% 75% at 50% 28%, #4a0b0e 0%, #1a0405 52%, #000 100%)';
 
-/** her cutout (transparent WebM made by `npm run matte`). Same framing as her base clip. */
-export const Cutout: React.FC<{from: number; style?: React.CSSProperties}> = ({from, style}) => {
-  const {slug, videoStyle} = useFxEnv();
+/** her cutout (transparent WebM made by `npm run matte`). Same framing as her base clip. With a matteOutline set, the outlined variant
+ * (baked by `npm run outline`) is used so the styled edge costs nothing extra at render time. */
+export const Cutout: React.FC<{from: number; style?: React.CSSProperties; plain?: boolean}> = ({from, style, plain}) => {
+  const {slug, videoStyle, outline = 'none'} = useFxEnv();
   if (!slug) return null;
-  return <OffthreadVideo src={staticFile(`matte/${slug}.webm`)} transparent muted startFrom={from} style={{...FILL, objectFit: 'cover', ...videoStyle, ...style}} />;
+  const file = plain || outline === 'none' ? `${slug}.webm` : `${slug}.${outline}.webm`;
+  return <OffthreadVideo src={staticFile(`matte/${file}`)} transparent muted startFrom={from} style={{...FILL, objectFit: 'cover', ...videoStyle, ...style}} />;
 };
 
 /** The cutout can be moved by effects (frame-break pops her out of the card, green-screen shrinks her to the bottom). */

@@ -36,7 +36,7 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('green-screen'), props: z.object({plate: z.enum(['crimson', 'screenshot', 'text']).default('crimson'), src: z.string().optional(), text: z.string().optional()})}),
   z.object({...base, type: z.literal('freeze-sticker'), props: z.object({notes: z.array(z.string()).max(3).default([]), angle: z.number().default(-5)}).prefault({})}),
   // ---- over her
-  z.object({...base, type: z.literal('the-stack'), props: z.object({rows: z.array(z.object({label: z.string(), value: z.number().min(0).max(100), display: z.string()})).min(2).max(4)})}),
+  z.object({...base, type: z.literal('the-stack'), props: z.object({rows: z.array(z.object({label: z.string(), value: z.number().min(0).max(100), display: z.string(), /** absolute second this row appears (defaults to a quick stagger) */ at: sec.optional()})).min(2).max(4)})}),
   z.object({...base, type: z.literal('sticky-text'), props: z.object({text: z.string(), anchor: target.default('cap')})}),
   z.object({...base, type: z.literal('freeze-label'), props: z.object({labels: z.array(z.object({text: z.string(), target, at: sec})).min(1).max(4)})}),
   z.object({...base, type: z.literal('phone-mockup'), props: z.object({side: z.enum(['left', 'right']).default('right'), title: z.string().default('Reel'), lines: z.array(z.string()).default([])}).prefault({})}),

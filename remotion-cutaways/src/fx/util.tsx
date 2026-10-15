@@ -59,11 +59,9 @@ export const useFxTime = (at: number) => {
 // ---------- the per-frame matte anchors (head top, head center x, chest y, left, right), normalized 0..1
 export type Anchors = {fps: number; frames: number; anchors: number[][]};
 const cache = new Map<string, Anchors>();
-type Env = {slug?: string; anchors?: Anchors; video: string; videoStyle: CSSProperties};
+type Env = {slug?: string; anchors?: Anchors; video: string; videoStyle: CSSProperties; outline?: 'none' | 'white' | 'copper' | 'gold'};
 const AnchorCtx = createContext<Env>({video: '', videoStyle: {}});
-export const FxEnvProvider: React.FC<Env & {children: React.ReactNode}> = ({slug, anchors, video, videoStyle, children}) => (
-  <AnchorCtx.Provider value={{slug, anchors, video, videoStyle}}>{children}</AnchorCtx.Provider>
-);
+export const FxEnvProvider: React.FC<Env & {children: React.ReactNode}> = ({children, ...env}) => <AnchorCtx.Provider value={env}>{children}</AnchorCtx.Provider>;
 export const useFxEnv = () => useContext(AnchorCtx);
 
 /** Loads matte/<slug>.anchors.json once (holds the render until it arrives). */
@@ -114,61 +112,64 @@ export const anchorPx = (a: Anchors | undefined, absFrame: number, tg: Target): 
 };
 
 // ---------- sound cues
-export type Cue = {at: number; name: string; vol?: number};
+/** tier 1 = the main entrance sound of an effect (the default "minimal" mode plays only these); tier 2 = detail sounds (ticks, pops, per-item cues). */
+export type Cue = {at: number; name: string; vol?: number; tier: 1 | 2};
 
-/** Default sounds per effect. `sfx: 'none'` on the event silences it; any other name replaces the main cue. */
+/** Default sounds per effect. `sfx: 'none'` on the event silences it; any other name replaces its main cue. */
 export const cuesFor = (f: Fx): Cue[] => {
   if (f.sfx === 'none') return [];
-  const main = (name: string, at = f.at, vol?: number): Cue => ({name: f.sfx && f.sfx !== 'auto' ? f.sfx : name, at, vol});
+  const main = (name: string, at = f.at, vol = 1, tier: 1 | 2 = 1): Cue => ({name: f.sfx && f.sfx !== 'auto' ? f.sfx : name, at, vol, tier});
+  const d = (name: string, at: number, vol = 1): Cue => ({name, at, vol, tier: 2});
   switch (f.type) {
     case 'digital-zoom':
-      return f.props.snapAt !== undefined ? [main('snap', f.props.snapAt, 0.9)] : [];
+      return f.props.snapAt !== undefined ? [main('snap', f.props.snapAt, 0.8)] : [];
     case 'zoom-through':
-      return [main('whoosh', f.at - f.props.diveSec * 0.9, 1)];
+      return [main('whoosh', f.at - f.props.diveSec * 0.9, 0.9)];
     case 'blackout':
-      return [main('thud', f.at, 0.8), {name: 'snap', at: f.at + f.props.holdSec, vol: 0.7}];
+      return [main('thud', f.at, 0.8), d('snap', f.at + f.props.holdSec, 0.6)];
     case 'type-wall':
-      return [main('swish', f.props.words[0].at, 0.6), ...f.props.words.slice(1).map((w) => ({name: 'pop', at: w.at, vol: 0.45}))];
+      return [main('swish', f.props.words[0].at, 0.6, 2), ...f.props.words.slice(1).map((w) => d('pop', w.at, 0.5))];
     case 'headline-wall':
     case 'couch-wall':
-      return [main('swish')];
+      return [main('swish', f.at, 0.6, 2)];
     case 'knockout-tiles':
-      return f.props.names.map((n) => ({name: 'thud', at: n.knockAt, vol: 0.7}));
+      return f.props.names.filter((n) => n.knockAt < (f.until ?? f.at + 6)).map((n) => d('thud', n.knockAt, 0.6));
     case 'spotlight':
-      return [main('boom', f.at, 0.8)];
+      return [main('boom', f.at, 0.7)];
     case 'orbit':
     case 'phone-mockup':
+      return [main('whoosh', f.at, 0.7, 2)];
     case 'green-screen':
-      return [main('whoosh')];
+      return [main('whoosh', f.at, 0.8)];
     case 'clone':
-      return f.props.copies.map((c) => ({name: 'pop', at: c.at, vol: 0.8}));
+      return f.props.copies.map((c) => d('pop', c.at, 0.7));
     case 'frame-break':
-      return [main('whoosh'), {name: 'pop', at: f.props.popAt, vol: 0.9}];
+      return [main('whoosh', f.at, 0.8), d('pop', f.props.popAt, 0.8)];
     case 'ui-world':
-      return [main('blip', f.at, 0.8)];
+      return [main('blip', f.at, 0.7, 2)];
     case 'freeze-sticker':
-      return [main('shutter')];
+      return [main('shutter', f.at, 0.8)];
     case 'freeze-label':
-      return [main('shutter'), ...f.props.labels.map((l) => ({name: 'pop', at: l.at, vol: 0.5}))];
+      return [main('shutter', f.at, 0.8), ...f.props.labels.map((l) => d('pop', l.at, 0.5))];
     case 'the-stack':
-      return f.props.rows.map((_, i) => ({name: 'tick', at: f.at + 0.15 + i * 0.22, vol: 0.7}));
+      return f.props.rows.map((r, i) => d('tick', r.at ?? f.at + 0.15 + i * 0.22, 0.6));
     case 'sticky-text':
-      return [main('pop')];
+      return [main('pop', f.at, 0.7, 2)];
     case 'checklist':
-      return f.props.items.map((it) => ({name: 'tick', at: it.at + 0.35, vol: 0.8}));
+      return f.props.items.map((it) => d('tick', it.at + 0.35, 0.7));
     case 'pointer-callout':
-      return f.props.cards.map((c) => ({name: 'pop', at: c.at, vol: 0.6}));
+      return f.props.cards.map((c) => d('pop', c.at, 0.5));
     case 'odometer':
-      return [main('riser', f.at, 0.55)];
+      return [main('riser', f.at, 0.4, 2)];
     case 'before-after':
-      return [main('swish', f.at + 0.15, 0.8)];
+      return [main('swish', f.at + 0.15, 0.6, 2)];
     case 'chart-grow':
-      return [main('riser', f.at + 0.2, 0.5)];
+      return [main('riser', f.at + 0.2, 0.4, 2)];
     case 'comment-bubble':
-      return [{name: 'type', at: f.props.postAt - 0.55, vol: 0.5}, {name: 'ding', at: f.props.postAt, vol: 0.7}, {name: 'pop', at: f.props.replyAt, vol: 0.7}];
+      return [d('type', f.props.postAt - 0.55, 0.5), main('ding', f.props.postAt, 0.6), d('pop', f.props.replyAt, 0.6)];
     case 'timeline-burn':
-      return [main('riser', f.props.burnAt - 1.2, 0.5), {name: 'crackle', at: f.props.burnAt, vol: 0.55}];
+      return [d('riser', f.props.burnAt - 1.2, 0.4), main('crackle', f.props.burnAt, 0.5)];
     case 'pull-back-reveal':
-      return [main('whoosh'), ...f.props.cuts.map((c) => ({name: 'snap', at: c, vol: 0.6}))];
+      return [main('whoosh', f.at, 0.8), ...f.props.cuts.map((c) => d('snap', c, 0.5))];
   }
 };

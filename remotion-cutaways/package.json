@@ -19,7 +19,9 @@
     "sync-music": "node scripts/sync-music.mjs",
     "stitch": "node scripts/stitch.mjs",
     "matte": "node scripts/matte.mjs",
-    "sfx": "node scripts/make-sfx.mjs"
+    "sfx": "node scripts/make-sfx.mjs",
+    "word": "node scripts/word-at.mjs",
+    "outline": "python3 scripts/outline.py"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.0",

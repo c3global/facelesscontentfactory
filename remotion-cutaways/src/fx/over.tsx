@@ -26,8 +26,9 @@ export const TheStack: React.FC<{fx: Of<'the-stack'>}> = ({fx}) => {
   return (
     <div style={{...FILL, opacity: outK}}>
       {fx.props.rows.map((r, i) => {
-        const k = tw(t, 0.15 + i * 0.22, 0.5 + i * 0.22, 0, 1, pop);
-        const bar = tw(t, 0.5 + i * 0.22, 1.5 + i * 0.22);
+        const rt = r.at !== undefined ? r.at - fx.at : 0.15 + i * 0.22;
+        const k = tw(t, rt, rt + 0.35, 0, 1, pop);
+        const bar = tw(t, rt + 0.3, rt + 1.3);
         return (
           <div key={i} style={{position: 'absolute', left: 54 + i * 10, top: 1120 + i * 170, width: 960 - i * 20, height: 156, borderRadius: 30, background: GLASS, border: HAIR, boxSizing: 'border-box', padding: '16px 34px', opacity: k, transform: `translateY(${(1 - k) * 60}px) scale(${0.94 + 0.06 * k})`, boxShadow: '0 18px 40px rgba(0,0,0,0.5)'}}>
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'baseline'}}>
@@ -412,7 +413,7 @@ export const FreezeSticker: React.FC<{fx: Of<'freeze-sticker'>}> = ({fx}) => {
         {/* the die-cut keeps head, shoulders and chest; the desk props are cropped off so the outline stays clean */}
         <div style={{...FILL, clipPath: 'inset(0 0 40% 0)'}}>
           <Freeze frame={0}>
-            <Cutout from={Math.round(a * fps)} />
+            <Cutout from={Math.round(a * fps)} plain />
           </Freeze>
         </div>
       </div>

@@ -91,10 +91,14 @@ export const FxOver: React.FC<{fx: Fx[]}> = ({fx}) => {
   );
 };
 
-/** Effect sounds. Same-name cues closer than 0.15 s collapse into one so a burst never stacks. */
-export const FxSound: React.FC<{fx: Fx[]; volume: number}> = ({fx, volume}) => {
+/** Effect sounds. Default mode `minimal` plays only each effect's main entrance sound; `full` adds the detail ticks and pops. Same-name cues closer than 0.15 s collapse into one. */
+export const FxSound: React.FC<{fx: Fx[]; volume: number; mode: 'minimal' | 'full' | 'off'}> = ({fx, volume, mode}) => {
   const {fps} = useVideoConfig();
-  const cues: Cue[] = fx.flatMap(cuesFor).sort((x, y) => x.at - y.at);
+  if (mode === 'off') return null;
+  const cues: Cue[] = fx
+    .flatMap(cuesFor)
+    .filter((c) => mode === 'full' || c.tier === 1)
+    .sort((x, y) => x.at - y.at);
   const kept: Cue[] = [];
   for (const c of cues) {
     const prev = kept[kept.length - 1];

@@ -27,138 +27,104 @@
   "fx": [
     {
       "type": "freeze-sticker",
-      "at": 1.0,
-      "until": 4.4,
+      "at": 0.3,
+      "until": 4.0,
       "props": {
         "notes": [
-          "listen first",
-          "ask, don't guess"
+          "too polished?",
+          "too late?"
         ],
         "angle": -5
       }
     },
     {
-      "type": "the-stack",
-      "at": 4.8,
-      "until": 8.6,
-      "props": {
-        "rows": [
-          {
-            "label": "Resisted less",
-            "value": 78,
-            "display": "78%"
-          },
-          {
-            "label": "Recovered faster",
-            "value": 64,
-            "display": "64%"
-          },
-          {
-            "label": "Had a say",
-            "value": 92,
-            "display": "92%"
-          }
-        ]
-      }
-    },
-    {
       "type": "sticky-text",
-      "at": 9.0,
-      "until": 12.0,
+      "at": 6.9,
+      "until": 9.3,
       "props": {
-        "text": "Rough draft",
+        "text": "Still rough",
         "anchor": "cap"
       }
     },
     {
+      "type": "odometer",
+      "at": 9.45,
+      "until": 13.0,
+      "props": {
+        "from": 0,
+        "to": 1948,
+        "label": "Coch and French"
+      }
+    },
+    {
       "type": "freeze-label",
-      "at": 12.4,
-      "until": 16.2,
+      "at": 13.2,
+      "until": 16.5,
       "props": {
         "labels": [
           {
-            "text": "Who lives with it",
+            "text": "Jobs were changing",
             "target": "head",
-            "at": 13.0
+            "at": 13.6
           },
           {
-            "text": "What gets in the way",
+            "text": "A real factory",
             "target": "chest",
-            "at": 14.0
+            "at": 14.6
           }
         ]
       }
     },
     {
-      "type": "phone-mockup",
-      "at": 16.6,
-      "until": 20.8,
+      "type": "the-stack",
+      "at": 18.2,
+      "until": 24.5,
       "props": {
-        "side": "right",
-        "title": "Rollout",
-        "lines": [
-          "Show them the rough version",
-          "Ask what would get in the way",
-          "Pick three people"
-        ]
-      }
-    },
-    {
-      "type": "checklist",
-      "at": 21.2,
-      "until": 26.2,
-      "props": {
-        "title": "Before the rollout",
-        "items": [
+        "rows": [
           {
-            "text": "Pick three people",
-            "at": 22.0
+            "label": "Resisted",
+            "value": 35,
+            "display": "Less",
+            "at": 18.33
           },
           {
-            "text": "Show the rough version",
-            "at": 23.0
+            "label": "Recovered output",
+            "value": 86,
+            "display": "Faster",
+            "at": 20.08
           },
           {
-            "text": "Ask what gets in the way",
-            "at": 24.0
+            "label": "Simply told",
+            "value": 24,
+            "display": "Told",
+            "at": 23.44
           }
         ]
       }
     },
     {
       "type": "pointer-callout",
-      "at": 26.6,
-      "until": 31.2,
+      "at": 24.6,
+      "until": 28.4,
       "props": {
         "cards": [
           {
-            "text": "Who had a say",
-            "at": 27.2,
+            "text": "Same change",
+            "at": 24.7,
             "target": "head"
           },
           {
-            "text": "Same change, same company",
-            "at": 28.4,
+            "text": "Same company",
+            "at": 25.8,
             "target": "chest"
           }
         ]
       }
     },
     {
-      "type": "odometer",
-      "at": 31.6,
-      "until": 35.4,
-      "props": {
-        "from": 0,
-        "to": 1948,
-        "label": "Coch and French",
-        "suffix": ""
-      }
-    },
-    {
       "type": "before-after",
-      "at": 35.8,
-      "until": 39.2,
+      "at": 28.4,
+      "until": 31.8,
       "props": {
         "sweepSec": 1.4,
         "beforeLabel": "Told",
@@ -166,55 +132,91 @@
       }
     },
     {
+      "type": "phone-mockup",
+      "at": 32.0,
+      "until": 36.0,
+      "props": {
+        "side": "right",
+        "title": "Rollout",
+        "lines": [
+          "Why it looks this way",
+          "A little of themselves",
+          "Their version"
+        ]
+      }
+    },
+    {
       "type": "chart-grow",
-      "at": 39.6,
-      "until": 43.8,
+      "at": 36.2,
+      "until": 39.6,
       "props": {
         "points": [
+          10,
           12,
-          14,
-          13,
-          22,
+          11,
+          20,
           30,
-          41,
-          58
+          44,
+          60
         ],
-        "label": "Output recovered",
-        "endLabel": "Faster"
+        "label": "Buy-in",
+        "endLabel": "Up"
+      }
+    },
+    {
+      "type": "checklist",
+      "at": 39.7,
+      "until": 46.2,
+      "props": {
+        "title": "Before the rollout",
+        "items": [
+          {
+            "text": "Pick three people",
+            "at": 39.7
+          },
+          {
+            "text": "Show the rough version",
+            "at": 42.2
+          },
+          {
+            "text": "Ask what gets in the way",
+            "at": 44.2
+          }
+        ]
+      }
+    },
+    {
+      "type": "pull-back-reveal",
+      "at": 46.3,
+      "until": 49.9,
+      "props": {
+        "appTitle": "C3 Studio",
+        "cuts": [
+          47.3,
+          48.3,
+          49.2
+        ]
       }
     },
     {
       "type": "comment-bubble",
-      "at": 44.2,
-      "until": 49.2,
+      "at": 50.0,
+      "until": 55.0,
       "props": {
         "comment": "AIREADY",
-        "postAt": 46.0,
-        "replyAt": 47.4,
+        "postAt": 52.2,
+        "replyAt": 53.6,
         "reply": "Sent! Check your DMs",
         "linkLabel": "Open link"
       }
     },
     {
       "type": "timeline-burn",
-      "at": 49.6,
-      "until": 54.4,
+      "at": 55.0,
+      "until": 57.9,
       "props": {
-        "burnAt": 52.0,
+        "burnAt": 56.4,
         "clips": 6
-      }
-    },
-    {
-      "type": "pull-back-reveal",
-      "at": 54.6,
-      "until": 58.0,
-      "props": {
-        "appTitle": "C3 Studio",
-        "cuts": [
-          56.0,
-          56.6,
-          57.2
-        ]
       }
     }
   ]

@@ -27,17 +27,17 @@
   "fx": [
     {
       "type": "digital-zoom",
-      "at": 1.0,
-      "until": 4.2,
+      "at": 0.3,
+      "until": 3.0,
       "props": {
         "creepTo": 1.14,
-        "snapAt": 3.5,
+        "snapAt": 1.97,
         "snapTo": 1.38
       }
     },
     {
       "type": "zoom-through",
-      "at": 6.0,
+      "at": 5.95,
       "props": {
         "diveSec": 0.5,
         "nextZoom": 1.3,
@@ -46,60 +46,53 @@
     },
     {
       "type": "blackout",
-      "at": 8.2,
+      "at": 7.45,
       "props": {
-        "holdSec": 0.45
+        "holdSec": 0.5
       }
     },
     {
-      "type": "type-wall",
-      "at": 10.0,
-      "until": 14.2,
+      "type": "headline-wall",
+      "at": 12.5,
+      "until": 15.1,
       "props": {
-        "words": [
-          {
-            "text": "Support",
-            "at": 10.2
-          },
-          {
-            "text": "Dialects",
-            "at": 11.6
-          },
-          {
-            "text": "Quiet",
-            "at": 13.0
-          }
+        "lines": [
+          "Why does silence feel so painful?",
+          "The story we tell ourselves",
+          "What the quiet might really mean",
+          "Assumptions fill the gap",
+          "Ask before you explain it away",
+          "Quiet is not always no"
         ]
       }
     },
     {
       "type": "spotlight",
-      "at": 14.6,
-      "until": 19.0,
+      "at": 17.6,
+      "until": 22.4,
       "props": {
         "dim": 0.86,
         "words": [
           {
-            "text": "Quiet?",
-            "at": 15.2
+            "text": "Strategy",
+            "at": 17.76
           },
           {
-            "text": "Ask.",
-            "at": 17.0
+            "text": "Check assumptions",
+            "at": 20.6
           }
         ]
       }
     },
     {
       "type": "orbit",
-      "at": 19.4,
-      "until": 24.0,
+      "at": 22.4,
+      "until": 24.4,
       "props": {
         "items": [
-          "Public cheer",
-          "Private message",
-          "High context",
-          "Low context",
+          "Assumptions",
+          "Context",
+          "Setting",
           "Ask first",
           "Listen"
         ],
@@ -107,76 +100,88 @@
       }
     },
     {
+      "type": "couch-wall",
+      "at": 24.6,
+      "until": 30.0,
+      "props": {
+        "tiles": [
+          "First comment",
+          "Loudest clap",
+          "Out loud",
+          "Public cheer",
+          "Support"
+        ]
+      }
+    },
+    {
       "type": "clone",
-      "at": 24.4,
-      "until": 28.6,
+      "at": 30.3,
+      "until": 33.0,
       "props": {
         "copies": [
           {
-            "at": 25.0,
+            "at": 30.59,
             "side": "left",
-            "scale": 0.56,
-            "y": 0.62
+            "scale": 0.52,
+            "y": 0.34
           },
           {
-            "at": 26.2,
+            "at": 31.76,
             "side": "right",
-            "scale": 0.56,
-            "y": 0.62
+            "scale": 0.52,
+            "y": 0.34
           }
         ]
       }
     },
     {
-      "type": "headline-wall",
-      "at": 29.0,
-      "until": 33.0,
+      "type": "type-wall",
+      "at": 34.7,
+      "until": 38.0,
       "props": {
-        "lines": [
-          "Why the quiet friend may be your loudest fan",
-          "What a private message really means",
-          "Public cheers and private notes",
-          "How context changes what support sounds like",
-          "Ask before you assume",
-          "Listen before you decide"
+        "words": [
+          {
+            "text": "High context",
+            "at": 34.92
+          },
+          {
+            "text": "Low context",
+            "at": 36.3
+          }
         ]
       }
     },
     {
-      "type": "couch-wall",
-      "at": 33.4,
-      "until": 37.4,
+      "type": "ui-world",
+      "at": 41.9,
+      "until": 46.6,
       "props": {
-        "tiles": [
-          "Support Has Dialects",
-          "The Quiet Friend",
-          "Ask First",
-          "Public Cheer",
-          "Private Message"
+        "title": "C3 Studio",
+        "prompt": "What does support from me look like to you right now?",
+        "chips": [
+          "Public cheer",
+          "Private message",
+          "Quiet follower"
         ]
       }
     },
     {
       "type": "knockout-tiles",
-      "at": 37.8,
-      "until": 43.0,
+      "at": 47.0,
+      "until": 50.5,
       "props": {
         "names": [
           {
             "text": "Assume",
-            "knockAt": 40.0
+            "knockAt": 49.6
           },
           {
             "text": "Guess",
-            "knockAt": 40.5
+            "knockAt": 49.8
           },
           {
             "text": "Ignore",
-            "knockAt": 41.0
-          },
-          {
-            "text": "Wait",
-            "knockAt": 41.5
+            "knockAt": 50.0
           },
           {
             "text": "Ask",
@@ -185,28 +190,18 @@
           {
             "text": "Listen",
             "knockAt": 99
+          },
+          {
+            "text": "Wait",
+            "knockAt": 50.2
           }
         ]
       }
     },
     {
-      "type": "ui-world",
-      "at": 43.4,
-      "until": 47.6,
-      "props": {
-        "title": "C3 Studio",
-        "prompt": "Turn my launch silence into three questions I can ask",
-        "chips": [
-          "Quiet follower",
-          "Private message",
-          "Public cheer"
-        ]
-      }
-    },
-    {
       "type": "green-screen",
-      "at": 48.0,
-      "until": 52.6,
+      "at": 50.8,
+      "until": 53.4,
       "props": {
         "plate": "text",
         "text": "Which dialect do you speak?"
@@ -214,12 +209,12 @@
     },
     {
       "type": "frame-break",
-      "at": 53.0,
-      "until": 58.0,
+      "at": 53.45,
+      "until": 56.3,
       "props": {
-        "popAt": 54.2,
-        "label": "Support"
+        "popAt": 54.6
       }
     }
-  ]
+  ],
+  "matteOutline": "copper"
 }
