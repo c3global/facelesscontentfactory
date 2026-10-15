@@ -65,7 +65,7 @@ export const DIALS: Record<DialName, Record<string, {note: string; set?: Record<
     spotlight: {note: 'Dramatic: spotlight, type wall, zoom-through, digital zoom, frame break, freeze sticker'},
     teach: {note: 'Explaining: UI world, the stack, checklist, pointer callout, chart grow, odometer, green screen, before and after'},
     hype: {note: 'Social energy: orbit, clone, couch wall, headline wall, knockout tiles, comment bubble, phone mockup, timeline burn'},
-    all: {note: 'All 26 effects are fair game'},
+    all: {note: 'Every effect is fair game'},
   },
 };
 
