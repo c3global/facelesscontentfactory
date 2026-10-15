@@ -10,6 +10,7 @@ import {Video} from './Video';
 import {GlassLab} from './lab/GlassLab';
 import {FieldDemo} from './lab/FieldDemo';
 import {LifeSceneText, lifeSceneTextSchema, LS_FPS} from './LifeSceneText';
+import {LSMessage, lsMessageSchema, LSNote, lsNoteSchema} from './LifeSceneOverlays';
 import {PatientFile, patientFileFrames, patientFileSchema, PF_FPS} from './PatientFile';
 
 const lifeSceneTextProps = {
@@ -73,6 +74,26 @@ export const Root: React.FC = () => (
       calculateMetadata={({props}) => ({durationInFrames: Math.ceil(props.durationSec * LS_FPS), fps: LS_FPS, width: 1080, height: 1920})}
       durationInFrames={Math.ceil(lifeSceneTextProps.durationSec * LS_FPS)}
       fps={LS_FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="LSMessage"
+      component={LSMessage}
+      schema={lsMessageSchema}
+      defaultProps={{sent: 'Thinking of you. Coffee soon?', reply: 'Yes. Finally.', typeFromSec: 2.6, replyFromSec: 7.4}}
+      durationInFrames={240}
+      fps={24}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="LSNote"
+      component={LSNote}
+      schema={lsNoteSchema}
+      defaultProps={{lines: ['Reply first.', 'Overthink later.'], fromSec: 3}}
+      durationInFrames={240}
+      fps={24}
       width={1080}
       height={1920}
     />
