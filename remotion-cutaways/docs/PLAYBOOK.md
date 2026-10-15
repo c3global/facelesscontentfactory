@@ -153,3 +153,14 @@ Dr. CK asked for "all of them" after seeing a paid bundle's effect list. These a
 
 ## 11. Style presets and mix-and-match
 Six named presets (Signature, Quiet Authority, Spotlight, Show and Tell, Hype Reel, Raw Tape) plus freestyle dials for captions, backdrop, finish, music, effect sounds, outline and an effects pack. Signature is the look Dr. CK approved and reproduces it exactly; plans without `style` or `mix` are untouched. Full table, rules and commands are in `docs/STYLES.md`. Use `npm run style -- list`, `set` and `show`. When she says "make it Spotlight but keep the Signature captions", set `"style": "spotlight"` and `"mix": {"captions": "editorial"}`. Show stills before a full render of a new combination (standing rule).
+
+## 12. "Do ya thing" (Dr. CK's one-line command)
+She drops raw clips (and scripts or captions text) and says **"do ya thing"**. It means: run the whole workflow below with the Signature style unless she names another, and stop where marked. She chose the phrase herself; do not call it "edit it".
+1. Read this playbook, `docs/STYLES.md` and `docs/EFFECTS-LIST.md`. Check the environment (section 1).
+2. Transcribe, build word timings and captions (section 2). Pad the end card.
+3. If the plan will use behind-her effects, a sticker, or pointers: `npm run matte -- <slug>` (and `npm run outline` if the style has one).
+4. Pick the style (default Signature; she may say "use Spotlight" or "mix: ..." in the same message). Plan scenes, graphics and effects. Place effects on her words with `npm run word`. Effects are placed by Claude, not automatic: if the script has no obvious moments, propose three to five and let her pick.
+5. **Stop and show stills** of every new look and effect moment (standing rule). Wait for her approval.
+6. Render master and share cut. Flash scan. Report what you did and did not check (Claude cannot hear audio).
+7. **Stop.** Do not schedule or merge anything until she asks (section 8 covers scheduling). Her approval of the video plus a request to schedule starts section 8.
+If footage is cluttered or the background touches her edges, say so and suggest the outline dial. If she gives only a script and no clips, this command does not apply (see section 7 for image plus voiceover).
