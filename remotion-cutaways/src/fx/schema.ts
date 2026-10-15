@@ -62,6 +62,12 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('email-compose'), props: z.object({to: z.string(), subject: z.string(), body: z.string(), /** absolute second the body starts typing */ typeAt: sec.optional(), sendAt: sec.optional()})}),
   z.object({...base, type: z.literal('lock-screen'), props: z.object({app: z.string().default('Messages'), title: z.string(), text: z.string(), time: z.string().default('9:41')})}),
   z.object({...base, type: z.literal('date-stamp'), props: z.object({text: z.string(), position: z.enum(['tl', 'tr', 'bl', 'br', 'top']).default('tl')})}),
+  // ---- third batch: paper cut, doodle boil, vertigo, cover story, glass type
+  z.object({...base, type: z.literal('paper-cut'), props: z.object({tone: z.enum(['kraft', 'cream', 'crimson']).default('kraft'), /** a ransom-note label cut from paper, over her */ label: z.string().optional()}).prefault({})}),
+  z.object({...base, type: z.literal('doodle-boil'), props: z.object({marks: z.array(z.object({kind: z.enum(['circle', 'underline', 'arrow', 'star', 'burst', 'heart', 'text']), target, at: sec, text: z.string().optional(), side: z.enum(['left', 'right']).default('right'), color: z.enum(['white', 'gold', 'red']).default('white')})).min(1).max(6)})}),
+  z.object({...base, type: z.literal('vertigo'), props: z.object({to: z.number().min(1.1).max(2).default(1.5), direction: z.enum(['in', 'out']).default('in')}).prefault({})}),
+  z.object({...base, type: z.literal('cover-story'), props: z.object({masthead: z.string().default('C3 GLOBAL'), headline: z.string(), lines: z.array(z.string()).max(3).default([]), issue: z.string().optional(), kicker: z.string().optional()})}),
+  z.object({...base, type: z.literal('glass-type'), props: z.object({words: z.array(z.object({text: z.string(), at: sec})).min(1), /** vertical position, 0 to 1 of the frame height */ y: z.number().min(0.1).max(0.95).default(0.82)})}),
 ]);
 
 

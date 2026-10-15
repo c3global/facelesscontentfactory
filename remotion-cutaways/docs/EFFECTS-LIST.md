@@ -1,6 +1,6 @@
 # The full list: everything in the talking-head template (Oct 2026)
 
-**56 effects in all: 17 original graphics and end cards, 26 from the first FX batch, and 13 from the second batch.** Plus the speed ramp tool, 2 extra modes, and the look dial. Also: 6 layouts, 3 caption styles, 14 sounds, 6 style presets. Names below are what goes in a video plan (`type`). Say any name in chat and Claude can use it.
+**61 effects in all: 17 original graphics and end cards, 26 from the first FX batch, 13 from the second batch, and 5 from the third.** Plus the speed ramp tool, 2 extra modes, and the look dial. Also: 6 layouts, 3 caption styles, 14 sounds, 6 style presets. Names below are what goes in a video plan (`type`). Say any name in chat and Claude can use it.
 
 ## Original graphics and end cards (17), in the `graphics` list of a scene segment
 | Name | What it does |
@@ -73,6 +73,18 @@ Over her: `the-stack`, `sticky-text`, `freeze-label`, `phone-mockup`, `checklist
 | `email-compose` | An email types itself and sends |
 | `lock-screen` | A phone lock-screen notification slides in over the scene |
 | `date-stamp` | A small stamp like "Tuesday, 4:20 PM" in a corner |
+
+## Third batch (5 more), in the `fx` list
+
+| Name | What it does |
+|---|---|
+| `paper-cut` | Behind her: torn paper sheets in kraft, cream or crimson with hard cut-paper shadows that jitter like stop motion. Optional `label` becomes a ransom-note strip of paper letters. Needs the matte |
+| `doodle-boil` | Over her: hand-drawn marks that draw on and wobble 8 times a second. Marks: `circle`, `underline`, `arrow`, `star`, `burst`, `heart`, `text`, each pinned to `head`, `chest` and so on, with optional handwritten text and white, gold or red ink |
+| `vertigo` | Behind her: the dolly-zoom feel. She holds her size while the room stretches and blurs away (`to` 1.1 to 2, `direction` in or out). Needs the matte |
+| `cover-story` | Behind her: a magazine cover. Masthead, issue line and cover lines, her head in front of the masthead, a big headline and barcode in front. Needs the matte |
+| `glass-type` | Over her: frosted-glass lettering that blurs the room under it, one word at a time (`words` with `at`, `y` as a fraction of the frame, default low on the desk) |
+
+Notes: `vertigo` hides her enlarged copy with a soft hole around her, so the edges of the room stretch while she stays sharp. It reads best on a clean room. `glass-type` sits low by default because her face and body cover the middle of the frame.
 
 New modes on earlier effects: `before-after` has `"mode": "cut"` (a hard A/B cut at `cutAt`, no wipe). `timeline-burn` has `"style": "line"` (one crimson timeline with a flame burning along it).
 
