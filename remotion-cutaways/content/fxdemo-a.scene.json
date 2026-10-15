@@ -1,0 +1,220 @@
+{
+  "slug": "fxdemo-a",
+  "video": "raw/dialects.mp4",
+  "durationSec": 62.46,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [],
+  "captionStyle": "editorial",
+  "scenes": [
+    {
+      "id": "s1",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 62.46,
+          "layout": "A",
+          "captions": "off",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "matte": "dialects",
+  "fx": [
+    {
+      "type": "digital-zoom",
+      "at": 0.3,
+      "until": 3.0,
+      "props": {
+        "creepTo": 1.14,
+        "snapAt": 1.97,
+        "snapTo": 1.38
+      }
+    },
+    {
+      "type": "zoom-through",
+      "at": 5.95,
+      "props": {
+        "diveSec": 0.5,
+        "nextZoom": 1.3,
+        "nextFocusY": 34
+      }
+    },
+    {
+      "type": "blackout",
+      "at": 7.45,
+      "props": {
+        "holdSec": 0.5
+      }
+    },
+    {
+      "type": "headline-wall",
+      "at": 12.5,
+      "until": 15.1,
+      "props": {
+        "lines": [
+          "Why does silence feel so painful?",
+          "The story we tell ourselves",
+          "What the quiet might really mean",
+          "Assumptions fill the gap",
+          "Ask before you explain it away",
+          "Quiet is not always no"
+        ]
+      }
+    },
+    {
+      "type": "spotlight",
+      "at": 17.6,
+      "until": 22.4,
+      "props": {
+        "dim": 0.86,
+        "words": [
+          {
+            "text": "Strategy",
+            "at": 17.76
+          },
+          {
+            "text": "Check assumptions",
+            "at": 20.6
+          }
+        ]
+      }
+    },
+    {
+      "type": "orbit",
+      "at": 22.4,
+      "until": 24.4,
+      "props": {
+        "items": [
+          "Assumptions",
+          "Context",
+          "Setting",
+          "Ask first",
+          "Listen"
+        ],
+        "radius": 430
+      }
+    },
+    {
+      "type": "couch-wall",
+      "at": 24.6,
+      "until": 30.0,
+      "props": {
+        "tiles": [
+          "First comment",
+          "Loudest clap",
+          "Out loud",
+          "Public cheer",
+          "Support"
+        ]
+      }
+    },
+    {
+      "type": "clone",
+      "at": 30.3,
+      "until": 33.0,
+      "props": {
+        "copies": [
+          {
+            "at": 30.59,
+            "side": "left",
+            "scale": 0.52,
+            "y": 0.34
+          },
+          {
+            "at": 31.76,
+            "side": "right",
+            "scale": 0.52,
+            "y": 0.34
+          }
+        ]
+      }
+    },
+    {
+      "type": "type-wall",
+      "at": 34.7,
+      "until": 38.0,
+      "props": {
+        "words": [
+          {
+            "text": "High context",
+            "at": 34.92
+          },
+          {
+            "text": "Low context",
+            "at": 36.3
+          }
+        ]
+      }
+    },
+    {
+      "type": "ui-world",
+      "at": 41.9,
+      "until": 46.6,
+      "props": {
+        "title": "C3 Studio",
+        "prompt": "What does support from me look like to you right now?",
+        "chips": [
+          "Public cheer",
+          "Private message",
+          "Quiet follower"
+        ]
+      }
+    },
+    {
+      "type": "knockout-tiles",
+      "at": 47.0,
+      "until": 50.5,
+      "props": {
+        "names": [
+          {
+            "text": "Assume",
+            "knockAt": 49.6
+          },
+          {
+            "text": "Guess",
+            "knockAt": 49.8
+          },
+          {
+            "text": "Ignore",
+            "knockAt": 50.0
+          },
+          {
+            "text": "Ask",
+            "knockAt": 99
+          },
+          {
+            "text": "Listen",
+            "knockAt": 99
+          },
+          {
+            "text": "Wait",
+            "knockAt": 50.2
+          }
+        ]
+      }
+    },
+    {
+      "type": "green-screen",
+      "at": 50.8,
+      "until": 53.4,
+      "props": {
+        "plate": "text",
+        "text": "Which dialect do you speak?"
+      }
+    },
+    {
+      "type": "frame-break",
+      "at": 53.45,
+      "until": 56.3,
+      "props": {
+        "popAt": 54.6
+      }
+    }
+  ],
+  "matteOutline": "copper"
+}

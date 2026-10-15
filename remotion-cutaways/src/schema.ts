@@ -1,4 +1,5 @@
 import {z} from 'zod';
+import {fxSchema} from './fx/schema';
 
 const sec = z.number().min(0);
 const emphasis = z.array(z.string()).optional();
@@ -261,6 +262,16 @@ export const planSchema = z.object({
   captionPageMs: z.number().int().min(100).max(1500).default(500),
   scenes: z.array(sceneSchema).min(1),
   endCard: endCardSchema.optional(),
+  /** effects on her clip (see src/fx). Behind-her effects need `matte`. */
+  fx: z.array(fxSchema).default([]),
+  /** slug of her person matte: public/matte/<slug>.webm and .anchors.json, made by `npm run matte -- <slug>` */
+  matte: z.string().optional(),
+  /** effect sound level (0 to 1). Each effect has a default sound; `sfx: 'none'` on an event silences it. */
+  fxVolume: z.number().min(0).max(1).default(0.5),
+  /** minimal: only each effect's main entrance sound. full: adds ticks, pops and per-item cues. off: silent. */
+  fxSound: z.enum(['minimal', 'full', 'off']).default('minimal'),
+  /** outline around her cutout in the behind-her effects: a clean edge on busy backgrounds, or a metallic look. Bake it first: npm run outline -- <slug> <white|copper|gold> */
+  matteOutline: z.enum(['none', 'white', 'copper', 'gold']).default('none'),
 });
 
 export type Graphic = z.infer<typeof graphicSchema>;

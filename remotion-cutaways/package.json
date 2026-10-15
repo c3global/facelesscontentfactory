@@ -17,7 +17,12 @@
     "music": "node scripts/pick-music.mjs",
     "new": "node scripts/new-video.mjs",
     "sync-music": "node scripts/sync-music.mjs",
-    "stitch": "node scripts/stitch.mjs"
+    "stitch": "node scripts/stitch.mjs",
+    "matte": "node scripts/matte.mjs",
+    "sfx": "node scripts/make-sfx.mjs",
+    "word": "node scripts/word-at.mjs",
+    "outline": "python3 scripts/outline.py",
+    "style": "tsx scripts/style.mjs"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.0",
@@ -35,6 +40,7 @@
   },
   "devDependencies": {
     "@fontsource/anton": "^5.3.0",
+    "@fontsource/caveat": "^5.3.0",
     "@fontsource/dm-sans": "^5.3.0",
     "@fontsource/montserrat": "^5.3.0",
     "@fontsource/playfair-display": "^5.3.0",

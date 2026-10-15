@@ -3,11 +3,13 @@ import {loadFont as loadDMSans} from '@remotion/google-fonts/DMSans';
 import {loadFont as loadMontserrat} from '@remotion/google-fonts/Montserrat';
 import {loadFont as loadPlayfair} from '@remotion/google-fonts/PlayfairDisplay';
 import {loadFont as loadAnton} from '@remotion/google-fonts/Anton';
+import {loadFont as loadCaveat} from '@remotion/google-fonts/Caveat';
 import type {SansOption} from './brand';
 
 declare const process: {env: Record<string, string | undefined>};
 
 export const serifFamily = '"Playfair Display", Georgia, serif';
+export const handFamily = '"Caveat", "Bradley Hand", cursive';
 export const heavyFamily = '"Anton", "Impact", "Arial Narrow", sans-serif';
 export const sansFamily = (sans: SansOption) => `"${sans}", "Helvetica Neue", Arial, sans-serif`;
 
@@ -32,6 +34,7 @@ const localFaces: Array<[string, string, string, string]> = [
   ['Playfair Display', 'playfair-display-latin-900-normal.woff2', '900', 'normal'],
   ['Playfair Display', 'playfair-display-latin-900-italic.woff2', '900', 'italic'],
   ['Anton', 'anton-latin-400-normal.woff2', '400', 'normal'],
+  ['Caveat', 'caveat-latin-700-normal.woff2', '700', 'normal'],
 ];
 
 let started = false;
@@ -62,4 +65,5 @@ export const loadBrandFonts = () => {
   loadPlayfair('normal', {weights: ['400', '600', '700', '800', '900'], subsets: ['latin']});
   loadPlayfair('italic', {weights: ['400', '600', '700', '800', '900'], subsets: ['latin']});
   loadAnton('normal', {weights: ['400'], subsets: ['latin']});
+  loadCaveat('normal', {weights: ['700'], subsets: ['latin']});
 };

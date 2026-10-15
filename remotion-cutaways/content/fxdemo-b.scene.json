@@ -1,0 +1,223 @@
+{
+  "slug": "fxdemo-b",
+  "video": "raw/rough.mp4",
+  "durationSec": 57.94,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [],
+  "captionStyle": "editorial",
+  "scenes": [
+    {
+      "id": "s1",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 57.94,
+          "layout": "A",
+          "captions": "off",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "matte": "rough",
+  "fx": [
+    {
+      "type": "freeze-sticker",
+      "at": 0.3,
+      "until": 4.0,
+      "props": {
+        "notes": [
+          "too polished?",
+          "too late?"
+        ],
+        "angle": -5
+      }
+    },
+    {
+      "type": "sticky-text",
+      "at": 6.9,
+      "until": 9.3,
+      "props": {
+        "text": "Still rough",
+        "anchor": "cap"
+      }
+    },
+    {
+      "type": "odometer",
+      "at": 9.45,
+      "until": 13.0,
+      "props": {
+        "from": 0,
+        "to": 1948,
+        "label": "Coch and French"
+      }
+    },
+    {
+      "type": "freeze-label",
+      "at": 13.2,
+      "until": 16.5,
+      "props": {
+        "labels": [
+          {
+            "text": "Jobs were changing",
+            "target": "head",
+            "at": 13.6
+          },
+          {
+            "text": "A real factory",
+            "target": "chest",
+            "at": 14.6
+          }
+        ]
+      }
+    },
+    {
+      "type": "the-stack",
+      "at": 18.2,
+      "until": 24.5,
+      "props": {
+        "rows": [
+          {
+            "label": "Resisted",
+            "value": 35,
+            "display": "Less",
+            "at": 18.33
+          },
+          {
+            "label": "Recovered output",
+            "value": 86,
+            "display": "Faster",
+            "at": 20.08
+          },
+          {
+            "label": "Simply told",
+            "value": 24,
+            "display": "Told",
+            "at": 23.44
+          }
+        ]
+      }
+    },
+    {
+      "type": "pointer-callout",
+      "at": 24.6,
+      "until": 28.4,
+      "props": {
+        "cards": [
+          {
+            "text": "Same change",
+            "at": 24.7,
+            "target": "head"
+          },
+          {
+            "text": "Same company",
+            "at": 25.8,
+            "target": "chest"
+          }
+        ]
+      }
+    },
+    {
+      "type": "before-after",
+      "at": 28.4,
+      "until": 31.8,
+      "props": {
+        "sweepSec": 1.4,
+        "beforeLabel": "Told",
+        "afterLabel": "Had a say"
+      }
+    },
+    {
+      "type": "phone-mockup",
+      "at": 32.0,
+      "until": 36.0,
+      "props": {
+        "side": "right",
+        "title": "Rollout",
+        "lines": [
+          "Why it looks this way",
+          "A little of themselves",
+          "Their version"
+        ]
+      }
+    },
+    {
+      "type": "chart-grow",
+      "at": 36.2,
+      "until": 39.6,
+      "props": {
+        "points": [
+          10,
+          12,
+          11,
+          20,
+          30,
+          44,
+          60
+        ],
+        "label": "Buy-in",
+        "endLabel": "Up"
+      }
+    },
+    {
+      "type": "checklist",
+      "at": 39.7,
+      "until": 46.2,
+      "props": {
+        "title": "Before the rollout",
+        "items": [
+          {
+            "text": "Pick three people",
+            "at": 39.7
+          },
+          {
+            "text": "Show the rough version",
+            "at": 42.2
+          },
+          {
+            "text": "Ask what gets in the way",
+            "at": 44.2
+          }
+        ]
+      }
+    },
+    {
+      "type": "pull-back-reveal",
+      "at": 46.3,
+      "until": 49.9,
+      "props": {
+        "appTitle": "C3 Studio",
+        "cuts": [
+          47.3,
+          48.3,
+          49.2
+        ]
+      }
+    },
+    {
+      "type": "comment-bubble",
+      "at": 50.0,
+      "until": 55.0,
+      "props": {
+        "comment": "AIREADY",
+        "postAt": 52.2,
+        "replyAt": 53.6,
+        "reply": "Sent! Check your DMs",
+        "linkLabel": "Open link"
+      }
+    },
+    {
+      "type": "timeline-burn",
+      "at": 55.0,
+      "until": 57.9,
+      "props": {
+        "burnAt": 56.4,
+        "clips": 6
+      }
+    }
+  ]
+}

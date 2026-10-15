@@ -27,6 +27,8 @@ import {MetalRim} from './metal';
 import type {Graphic, Scene, VideoProps} from './schema';
 import {FlatSegment, avatarStateBlend, flatten, layoutBlend} from './timeline';
 import {GraphicTimeProvider, ThemeProvider} from './ui';
+import {FxBehind, FxOver, FxSound, videoMods} from './fx/FxLayers';
+import {FxEnvProvider, fxRange, useLoadedAnchors} from './fx/util';
 
 const FULL_FRAME: Graphic['type'][] = ['tag', 'floating-chips', 'chapter-card', 'congruence-map', 'screenshot-card', 'quiet-feed', 'citation-card'];
 
@@ -75,6 +77,8 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   const flat = useMemo(() => flatten(plan, fps), [plan, fps]);
   const pages = useMemo(() => buildPages(captions, plan.captionPageMs), [captions, plan.captionPageMs]);
   const {field, sans} = plan.theme;
+  const anchors = useLoadedAnchors(plan.matte);
+  const mods = videoMods(plan.fx, frame / fps);
   // music level per frame: ducks while she speaks (word timings, smoothed), fades in at the start and out at the end
   const musicVolume = useMemo(() => {
     const m = plan.music;
@@ -118,7 +122,13 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   const prevField = blend.prev ? blend.prev.seg.layout !== 'A' : false;
   const prevOpacity = prevField ? (curField ? 1 : 1 - blend.p) : 0;
   const curOpacity = curField ? blend.p : 0;
-  const scrim = 1 - av.frame;
+  // the hook scrim darkens the lower half for the full-frame caption; effects bring their own plates, so it steps aside while one runs
+  const tNow = frame / fps;
+  const fxOn = plan.fx.some((f) => {
+    const [fa, fb] = fxRange(f);
+    return tNow >= fa && tNow <= fb;
+  });
+  const scrim = (1 - av.frame) * (fxOn ? 0 : 1);
   const sceneIdx = (s: Scene) => plan.scenes.indexOf(s);
   const curMood = blend.cur.scene.mood;
   const metalVariant = curMood === 'dark' && field !== 'rosegold' ? 'bright' : 'deep';
@@ -127,6 +137,17 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   const half = Math.min(av.w, av.h) / 2;
   const cf = Math.min(1, Math.max(0, (av.r - 60) / Math.max(1, half - 60)));
   void cf;
+  // her clip's framing (camera-move effects add zoom and blur); the cutout uses the same style so it lines up
+  const fy = mods.focusY ?? av.focusY;
+  const videoStyle: React.CSSProperties = {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    objectPosition: `50% ${fy}%`,
+    transform: `scale(${av.zoom * mods.zoom})`,
+    transformOrigin: `50% ${fy}%`,
+    filter: mods.blur > 0.2 ? `blur(${mods.blur}px)` : undefined,
+  };
   // thin frame: a 10 px glass bezel and a 3.5 px metal rim
   const inset = av.frame * 10;
   const rimT = av.frame * 3.5;
@@ -178,17 +199,10 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
               backgroundColor: brand.black,
             }}
           >
-            <OffthreadVideo
-              src={staticFile(plan.video)}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: `50% ${av.focusY}%`,
-                transform: `scale(${av.zoom})`,
-                transformOrigin: `50% ${av.focusY}%`,
-              }}
-            />
+            <OffthreadVideo src={staticFile(plan.video)} style={videoStyle} />
+            <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video} videoStyle={videoStyle} outline={plan.matteOutline}>
+              <FxBehind fx={plan.fx} />
+            </FxEnvProvider>
           </div>
           {av.frame > 0.01 && av.opacity > 0.01 && (
             <>
@@ -259,6 +273,11 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
           </ThemeProvider>
         );
       })}
+
+      <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video} videoStyle={videoStyle} outline={plan.matteOutline}>
+        <FxOver fx={plan.fx} />
+      </FxEnvProvider>
+      {plan.fx.length > 0 && <FxSound fx={plan.fx} volume={plan.fxVolume} mode={plan.fxSound} />}
 
       {plan.endCard && (
         <ThemeProvider mood={plan.scenes[plan.scenes.length - 1].mood} field={field} sans={sans}>

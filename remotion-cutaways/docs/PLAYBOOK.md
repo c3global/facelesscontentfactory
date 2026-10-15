@@ -104,3 +104,52 @@ Run this only after Dr. CK approves the finished video. The approval can be a pl
 - Never use em dashes in anything written for her, and address her as Dr. CK.
 - Drive sharing for source clips goes back to Restricted when she says so; do not change sharing on your own.
 - Open questions to ask her once, not every time: the voice profile accent line (A or B) and whether the recordings are her live voice or a clone; the exact sources for the Edward Hall and Coch and French cards.
+
+## 10. FX Pack: 26 effects on her clip, plus the sound kit (added Oct 2026)
+Dr. CK asked for "all of them" after seeing a paid bundle's effect list. These are our own builds in the C3 look (crimson, black, white, copper, gold, Playfair, DM Sans, Anton, Caveat for handwriting). Code lives in `src/fx/`; plans use a top-level `fx` array and a `matte` slug. Two demo reels show every effect: `content/fxdemo-a.scene.json` (Dialects footage: the behind-her effects) and `fxdemo-b.scene.json` (Rough footage: the over-her effects). Render them with `npm run render -- fxdemo-a` (the default `npm run render` skips slugs that start with `fx`).
+
+**Person matte (needed by the behind-her effects, the sticker, and pointers/labels).** `npm run matte -- <slug>` reads `public/raw/<slug>.mp4` and writes `public/matte/<slug>.webm` (transparent cutout, full size) and `<slug>.anchors.json` (per-frame head, chest, shoulder positions). Both are git-ignored. Needs `pip install mediapipe opencv-python-headless` and, on a bare Linux box, `apt-get install libegl1 libgles2`. The model is committed in `scripts/models/`. About 3 minutes of segmenting plus 3 to 5 minutes of VP9 encoding for a 60 s clip. Then set `"matte": "<slug>"` in the plan. The matte edge is choked slightly to remove the gray-room halo around her curls; look at hair edges in stills before a full render. Desk props touching her (notebook, flowers, mic) count as foreground, which is fine because effects sit behind them.
+
+**Plan syntax.** `"fx": [{"type": "type-wall", "at": 10.0, "until": 14.2, "props": {...}}]`. Times are absolute seconds like graphics. `until` is optional (each type has a default length). `"sfx": "none"` silences one event; any file name in `public/sfx/fx-<name>.wav` replaces its main sound. `"fxVolume"` (0 to 1, default 0.6) sets the whole kit under her voice.
+
+| Effect (`type`) | What it does | Needs matte |
+| --- | --- | --- |
+| `digital-zoom` | slow creep onto her face, hard snap on a key word | no |
+| `zoom-through` | camera dives through her, cuts to a tighter second framing | no |
+| `blackout` | lights cut on a line and snap back | no |
+| `type-wall` | giant words march behind her and swap on the word she says | yes |
+| `headline-wall` | the wall behind her fills with scrolling headline cards | yes |
+| `couch-wall` | grid of cover tiles on the wall behind her | yes |
+| `knockout-tiles` | name tiles slam on, then are knocked out one by one | yes |
+| `spotlight` | room goes dark, she stays lit, key words land in gold | yes |
+| `orbit` | cards circle her, passing behind and in front | yes |
+| `clone` | copies of her pop up beside her on her words | yes |
+| `frame-break` | her clip shrinks into a gold-rimmed card and she pops out of it | yes |
+| `ui-world` | an app screen fills the frame, she steps back in front of it | yes |
+| `green-screen` | a full-screen plate (text or screenshot) with her shrunk at the bottom | yes |
+| `freeze-sticker` | freeze frame becomes a die-cut sticker with handwritten notes | yes |
+| `the-stack` | data cards with racing bars (lower third) | no |
+| `sticky-text` | copper tag stuck above her cap that follows her | anchors |
+| `freeze-label` | picture freezes, labels point at her | anchors |
+| `phone-mockup` | 3D phone flies in beside her | no |
+| `checklist` | steps tick off as she says them (lower third) | no |
+| `pointer-callout` | cards tied to her by lines that follow her | anchors |
+| `odometer` | numbers roll digit by digit | no |
+| `before-after` | wipe line turns the raw look into the edit | no |
+| `chart-grow` | a chart draws and ends on a gold label | no |
+| `comment-bubble` | the keyword types itself, posts, reply with link lands | no |
+| `timeline-burn` | an editing timeline builds, then catches fire | no |
+| `pull-back-reveal` | her clip shrinks into an editing app window and gets cut | no |
+
+**Rules learned in the stills.** Her face fills the frame, so cards that sit in the top half cover her face: lists, charts, odometer and comment bubbles go in the lower third (already their defaults). Behind-her effects work best in layout A (full frame); the hook scrim steps aside while any effect runs. Do not stack two effects that both cover the lower third. One strong effect every 4 to 6 seconds is plenty; the demos are packed on purpose. Show stills before any full render of a new effect combination (standing rule).
+
+**Sound kit (v2).** `npm run sfx` synthesizes 14 sounds into `public/sfx/fx-*.wav` (numpy and scipy, no licensing): whoosh, swish, riser, thud, boom, snap, pop, blip, tick, type, ding, shutter, crackle, glitch. Dr. CK said the first version sounded amateur and misplaced, so v2 uses real frequency sweeps, rounded UI sounds, a short room tail, and plays far fewer cues. `"fxSound"` in the plan: `minimal` (default, only each effect's main entrance sound, about 11 cues across all 26 effects), `full` (adds ticks, pops and per-item cues) or `off`. `"fxVolume"` (default 0.5) sets the level under her voice; `"sfx": "none"` silences one event. Claude cannot hear audio, so Dr. CK's ear decides; ask which names felt wrong.
+
+**Land effects on her words.** `npm run word -- <slug> "phrase" ["phrase" ...]` prints the second she says each phrase (from `content/<slug>.words.tsv`). Use it for `at`, word times, `knockAt`, checklist and stack row times so text and effects hit the right word. The first demos used guessed times and felt off; the demos now use these lookups. The stack rows and chart in the demos are illustrative bars only, never real study numbers.
+
+**Cutout outline (optional).** If edges look soft against a busy room, bake an outline: `npm run outline -- <slug> copper` (also `white` or `gold`, optional width in px, default 6), then set `"matteOutline": "copper"` in the plan. The outline is baked into `public/matte/<slug>.<kind>.webm`, with the brand metal bands and the slow 3.5 s shimmer sweep, so rendering costs the same as the plain cutout. Do not use a CSS filter outline: it made stills take over ten minutes.
+
+**Footage advice.** The cutout and the effects look best with a plain, uncluttered background and clear light between her and the wall. Busy shelves, a black-and-white outfit and red locs are all fine, but clutter touching her edges costs the most cleanup.
+
+## 11. Style presets and mix-and-match
+Six named presets (Signature, Quiet Authority, Spotlight, Show and Tell, Hype Reel, Raw Tape) plus freestyle dials for captions, backdrop, finish, music, effect sounds, outline and an effects pack. Signature is the look Dr. CK approved and reproduces it exactly; plans without `style` or `mix` are untouched. Full table, rules and commands are in `docs/STYLES.md`. Use `npm run style -- list`, `set` and `show`. When she says "make it Spotlight but keep the Signature captions", set `"style": "spotlight"` and `"mix": {"captions": "editorial"}`. Show stills before a full render of a new combination (standing rule).
