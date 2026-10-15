@@ -5,7 +5,7 @@ import {Cutout, CloneCopies, behindFront, behindPlate, cutoutStyle} from './behi
 import {LOOKS, extraOver, lookLayer} from './extra';
 import {overItem} from './over';
 import type {Fx} from './schema';
-import {BEHIND, Cue, cuesFor, fxRange, pop, tw, useFxTime, easeInC, easeOutC} from './util';
+import {BEHIND, Cue, cuesFor, fxRange, pop, tw, useFxEnv, useFxTime, easeInC, easeOutC} from './util';
 
 /** Camera moves on her clip: extra zoom, blur and face position for a given second. */
 export const videoMods = (fx: Fx[], t: number): {zoom: number; blur: number; focusY?: number} => {
@@ -56,6 +56,14 @@ const BehindItem: React.FC<{fx: Fx}> = ({fx}) => {
       {behindFront(fx)}
     </>
   );
+};
+
+/** With a matteOutline set, her outlined cutout sits over her base clip for the whole video, so the outline shows even when no behind-her effect is running.
+ * It lines up exactly with the clip (same framing and zoom), so only the outline ring is new. Behind-her effects draw over it with their own plate and cutout. */
+export const OutlineAlways: React.FC = () => {
+  const {slug, outline = 'none'} = useFxEnv();
+  if (!slug || outline === 'none') return null;
+  return <Cutout from={0} />;
 };
 
 /** Inside her window: the matte-based effects draw between her room and her cutout. */

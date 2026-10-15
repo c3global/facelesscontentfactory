@@ -27,7 +27,7 @@ import {MetalRim} from './metal';
 import type {Graphic, Scene, VideoProps} from './schema';
 import {FlatSegment, avatarStateBlend, flatten, layoutBlend} from './timeline';
 import {GraphicTimeProvider, ThemeProvider} from './ui';
-import {FxBehind, FxLooks, FxOver, FxSound, videoMods} from './fx/FxLayers';
+import {FxBehind, FxLooks, FxOver, FxSound, OutlineAlways, videoMods} from './fx/FxLayers';
 import {FxEnvProvider, fxRange, useLoadedAnchors} from './fx/util';
 
 const FULL_FRAME: Graphic['type'][] = ['tag', 'floating-chips', 'chapter-card', 'congruence-map', 'screenshot-card', 'quiet-feed', 'citation-card'];
@@ -214,6 +214,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
           >
             <OffthreadVideo src={staticFile(plan.video)} style={videoStyle} />
             <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video} videoStyle={videoStyle} outline={plan.matteOutline} speech={speech}>
+              <OutlineAlways />
               <FxBehind fx={plan.fx} />
               <FxLooks fx={plan.fx} />
             </FxEnvProvider>
