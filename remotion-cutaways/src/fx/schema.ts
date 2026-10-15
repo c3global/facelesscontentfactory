@@ -43,12 +43,27 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('checklist'), props: z.object({title: z.string().optional(), items: z.array(z.object({text: z.string(), at: sec})).min(2).max(5)})}),
   z.object({...base, type: z.literal('pointer-callout'), props: z.object({cards: z.array(z.object({text: z.string(), at: sec, target})).min(1).max(4)})}),
   z.object({...base, type: z.literal('odometer'), props: z.object({from: z.number().default(0), to: z.number(), prefix: z.string().default(''), suffix: z.string().default(''), label: z.string().optional()})}),
-  z.object({...base, type: z.literal('before-after'), props: z.object({sweepSec: z.number().default(1.3), beforeLabel: z.string().default('Raw'), afterLabel: z.string().default('Edited')}).prefault({})}),
+  z.object({...base, type: z.literal('before-after'), props: z.object({mode: z.enum(['wipe', 'cut']).default('wipe'), sweepSec: z.number().default(1.3), /** cut mode: absolute second the raw version hard-cuts to the edit */ cutAt: sec.optional(), beforeLabel: z.string().default('Raw'), afterLabel: z.string().default('Edited')}).prefault({})}),
   z.object({...base, type: z.literal('chart-grow'), props: z.object({points: z.array(z.number()).min(3).max(10), label: z.string().optional(), endLabel: z.string().optional()})}),
   z.object({...base, type: z.literal('comment-bubble'), props: z.object({comment: z.string(), postAt: sec, replyAt: sec, reply: z.string(), linkLabel: z.string().default('Open link')})}),
-  z.object({...base, type: z.literal('timeline-burn'), props: z.object({burnAt: sec, clips: z.number().int().min(3).max(8).default(6)})}),
+  z.object({...base, type: z.literal('timeline-burn'), props: z.object({burnAt: sec, clips: z.number().int().min(3).max(8).default(6), /** clips: a multi-color editing timeline that catches fire. line: one crimson timeline with a glowing flame burning along it */ style: z.enum(['clips', 'line']).default('clips')})}),
   z.object({...base, type: z.literal('pull-back-reveal'), props: z.object({appTitle: z.string().default('C3 Studio'), cuts: z.array(sec).default([])}).prefault({})}),
+  // ---- camera, looks and marks (added in the second FX batch)
+  z.object({...base, type: z.literal('pull-back'), props: z.object({from: z.number().default(1.3)}).prefault({})}),
+  z.object({...base, type: z.literal('flash-frame'), props: z.object({frames: z.number().int().min(1).max(4).default(2), color: z.enum(['white', 'warm']).default('white')}).prefault({})}),
+  z.object({...base, type: z.literal('freeze-hold'), props: z.object({text: z.string().optional(), desaturate: z.boolean().default(false)}).prefault({})}),
+  z.object({...base, type: z.literal('grade'), props: z.object({look: z.enum(['golden-hour', 'blue-hour', 'warm', 'cool']), strength: z.number().min(0).max(1).default(0.55)})}),
+  z.object({...base, type: z.literal('glow'), props: z.object({strength: z.number().min(0).max(1).default(0.35), blurPx: z.number().default(26)}).prefault({})}),
+  z.object({...base, type: z.literal('dust'), props: z.object({count: z.number().int().min(10).max(120).default(46), strength: z.number().min(0).max(1).default(0.6)}).prefault({})}),
+  z.object({...base, type: z.literal('letterbox'), props: z.object({heightPx: z.number().default(220), animSec: z.number().default(0.5)}).prefault({})}),
+  z.object({...base, type: z.literal('voice-memo'), props: z.object({title: z.string().default('Voice Memo'), subtitle: z.string().optional()}).prefault({})}),
+  z.object({...base, type: z.literal('polaroid-drop'), props: z.object({src: z.string().optional(), caption: z.string().optional(), angle: z.number().default(6)}).prefault({})}),
+  z.object({...base, type: z.literal('notes-page'), props: z.object({title: z.string(), lines: z.array(z.object({text: z.string(), at: sec})).min(1).max(8)})}),
+  z.object({...base, type: z.literal('email-compose'), props: z.object({to: z.string(), subject: z.string(), body: z.string(), /** absolute second the body starts typing */ typeAt: sec.optional(), sendAt: sec.optional()})}),
+  z.object({...base, type: z.literal('lock-screen'), props: z.object({app: z.string().default('Messages'), title: z.string(), text: z.string(), time: z.string().default('9:41')})}),
+  z.object({...base, type: z.literal('date-stamp'), props: z.object({text: z.string(), position: z.enum(['tl', 'tr', 'bl', 'br', 'top']).default('tl')})}),
 ]);
+
 
 export type Fx = z.infer<typeof fxSchema>;
 export type FxType = Fx['type'];

@@ -1,9 +1,10 @@
 import React from 'react';
 import {Audio, Sequence, staticFile, useVideoConfig} from 'remotion';
 import {Cutout, CloneCopies, behindFront, behindPlate, cutoutStyle} from './behind';
+import {LOOKS, extraOver, lookLayer} from './extra';
 import {overItem} from './over';
 import type {Fx} from './schema';
-import {BEHIND, Cue, cuesFor, fxRange, pop, tw, useFxTime, easeInC} from './util';
+import {BEHIND, Cue, cuesFor, fxRange, pop, tw, useFxTime, easeInC, easeOutC} from './util';
 
 /** Camera moves on her clip: extra zoom, blur and face position for a given second. */
 export const videoMods = (fx: Fx[], t: number): {zoom: number; blur: number; focusY?: number} => {
@@ -19,6 +20,9 @@ export const videoMods = (fx: Fx[], t: number): {zoom: number; blur: number; foc
         else if (t <= b) zoom *= f.props.snapTo;
         else zoom *= 1 + (f.props.snapTo - 1) * (1 - tw(t, b, b + 0.25));
       }
+    } else if (f.type === 'pull-back') {
+      // start tight and ease out to the normal framing (keep `from` modest on 720p sources)
+      if (t >= a && t <= b) zoom *= f.props.from + (1 - f.props.from) * tw(t, a, b, 0, 1, easeOutC);
     } else if (f.type === 'zoom-through') {
       if (t >= a && t < f.at) {
         const p = tw(t, a, f.at, 0, 1, easeInC);
@@ -72,13 +76,32 @@ export const FxBehind: React.FC<{fx: Fx[]}> = ({fx}) => {
   );
 };
 
+/** Looks (color grade, glow, dust) drawn inside her frame so they tint her and her plate, not the cards. */
+export const FxLooks: React.FC<{fx: Fx[]}> = ({fx}) => {
+  const {fps} = useVideoConfig();
+  return (
+    <>
+      {fx
+        .filter((f) => LOOKS.includes(f.type))
+        .map((f, i) => {
+          const [a, b] = fxRange(f);
+          return (
+            <Sequence key={`l${i}`} from={Math.round(a * fps)} durationInFrames={Math.max(1, Math.round((b - a) * fps))} premountFor={fps}>
+              {lookLayer(f)}
+            </Sequence>
+          );
+        })}
+    </>
+  );
+};
+
 /** Above the scene graphics and below the captions. */
 export const FxOver: React.FC<{fx: Fx[]}> = ({fx}) => {
   const {fps} = useVideoConfig();
   return (
     <>
       {fx.map((f, i) => {
-        const node = overItem(f);
+        const node = overItem(f) ?? extraOver(f);
         if (!node) return null;
         const [a, b] = fxRange(f);
         return (

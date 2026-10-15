@@ -1,6 +1,6 @@
 # The full list: everything in the talking-head template (Oct 2026)
 
-**43 effects in all: 17 from before tonight plus 26 new.** Also: 6 layouts, 3 caption styles, 14 sounds, 6 style presets. Names below are what goes in a video plan (`type`). Say any name in chat and Claude can use it.
+**56 effects in all: 17 original graphics and end cards, 26 from the first FX batch, and 13 from the second batch.** Plus the speed ramp tool, 2 extra modes, and the look dial. Also: 6 layouts, 3 caption styles, 14 sounds, 6 style presets. Names below are what goes in a video plan (`type`). Say any name in chat and Claude can use it.
 
 ## Original graphics and end cards (17), in the `graphics` list of a scene segment
 | Name | What it does |
@@ -56,6 +56,29 @@ Over her: `the-stack`, `sticky-text`, `freeze-label`, `phone-mockup`, `checklist
 | `comment-bubble` | The keyword types itself, posts, reply with link lands |
 | `timeline-burn` | An editing timeline builds, then catches fire |
 | `pull-back-reveal` | Her clip shrinks into an editing app window and gets cut |
+
+## Second batch (13 more), in the `fx` list
+| Name | What it does |
+| --- | --- |
+| `pull-back` | Camera starts tight and eases out to normal framing (keep `from` near 1.10 on 720p sources) |
+| `flash-frame` | One or two frames of white (or warm) like a camera flash |
+| `freeze-hold` | Holds the frame while a line of gold text lands. Her voice keeps playing, so use it on a pause |
+| `grade` | Color look over her frame: `golden-hour`, `blue-hour`, `warm`, `cool` |
+| `glow` | Soft bloom on the highlights |
+| `dust` | Drifting warm dust particles |
+| `letterbox` | Cinema bars top and bottom that slide in and out |
+| `voice-memo` | Voice-memo card with a copper waveform that moves while she speaks (driven by her word timings, not a true audio spectrum) |
+| `polaroid-drop` | A photo with handwritten caption drops in and lands. Give it `src`, or it shows "photo goes here" |
+| `notes-page` | A notes page with lines that type in on her words |
+| `email-compose` | An email types itself and sends |
+| `lock-screen` | A phone lock-screen notification slides in over the scene |
+| `date-stamp` | A small stamp like "Tuesday, 4:20 PM" in a corner |
+
+New modes on earlier effects: `before-after` has `"mode": "cut"` (a hard A/B cut at `cutAt`, no wipe). `timeline-burn` has `"style": "line"` (one crimson timeline with a flame burning along it).
+
+**Looks as a style dial.** `look`: none, golden-hour, blue-hour, soft-glow, dust, letterbox, cinema (grade plus glow plus dust plus bars). Mix it with any preset.
+
+**Speed ramp (a tool, not an effect in the list).** `npm run ramp -- <slug> --at 12 --dur 2 --factor 0.5 [--audio stretch|silence] [--smooth]` slows her clip on a key moment and ramps back, and re-times her words, captions and every plan time to match. It writes `<slug>-ramp` files; the original is untouched.
 
 ## Layouts (6)
 `A` full-bleed hook, `B` glass window, `C` rounded portrait, `D` small portrait top right, `E` centered portrait at the top, `S` split screen (cutaway on top, her below).

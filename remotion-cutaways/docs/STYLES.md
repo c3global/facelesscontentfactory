@@ -25,6 +25,7 @@ A video plan can say `"style": "<preset>"` and/or `"mix": {"<dial>": "<value>"}`
 - **captions**: editorial, heavy, pill
 - **backdrop**: as-planned, velvet (photo behind every dark scene without one), black, crimson, charcoal, marble-black, marble-red, marble-white. The plain ones replace scene photos so the whole video changes.
 - **finish**: clean, film, cinematic
+- **look**: none, golden-hour, blue-hour, soft-glow, dust, letterbox, cinema (whole-video color and texture looks; none by default, so the approved look is untouched)
 - **music**: as-planned, bed, soft, none (levels only; a plan with no track keeps no music)
 - **sound**: off, minimal, full (effect sounds)
 - **outline**: none, white, copper, gold (bake first: `npm run outline -- <slug> <kind>`)

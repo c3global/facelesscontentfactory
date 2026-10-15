@@ -22,7 +22,8 @@
     "sfx": "node scripts/make-sfx.mjs",
     "word": "node scripts/word-at.mjs",
     "outline": "python3 scripts/outline.py",
-    "style": "tsx scripts/style.mjs"
+    "style": "tsx scripts/style.mjs",
+    "ramp": "node scripts/speed-ramp.mjs"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.0",
