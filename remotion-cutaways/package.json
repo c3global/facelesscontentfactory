@@ -21,7 +21,8 @@
     "matte": "node scripts/matte.mjs",
     "sfx": "node scripts/make-sfx.mjs",
     "word": "node scripts/word-at.mjs",
-    "outline": "python3 scripts/outline.py"
+    "outline": "python3 scripts/outline.py",
+    "style": "tsx scripts/style.mjs"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.0",

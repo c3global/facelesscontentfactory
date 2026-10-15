@@ -6,6 +6,7 @@ import plan from '../content/20-years.scene.json';
 import showcasePlan from '../content/showcase.scene.json';
 import {FPS, H, W} from './layouts';
 import {planSchema, videoPropsSchema, VideoProps} from './schema';
+import {applyStyle} from './styles';
 import {Video} from './Video';
 import {GlassLab} from './lab/GlassLab';
 import {FieldDemo} from './lab/FieldDemo';
@@ -33,7 +34,7 @@ export const Root: React.FC = () => (
       id="Video"
       component={Video}
       schema={videoPropsSchema}
-      defaultProps={{plan: planSchema.parse(plan), captions}}
+      defaultProps={{plan: planSchema.parse(applyStyle(plan)), captions}}
       calculateMetadata={calculateMetadata}
       durationInFrames={Math.ceil(plan.durationSec * FPS)}
       fps={FPS}

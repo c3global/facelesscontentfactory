@@ -2,6 +2,7 @@ import {existsSync, readFileSync, readdirSync} from 'node:fs';
 import path from 'node:path';
 import {bundle} from '@remotion/bundler';
 import {planSchema} from './plan-schema.mjs';
+import {applyStyle} from '../src/styles.ts';
 
 export const root = process.cwd();
 
@@ -13,7 +14,7 @@ export const listSlugs = () =>
 
 export const loadPlan = (slug) => {
   const raw = JSON.parse(readFileSync(path.join(root, 'content', `${slug}.scene.json`), 'utf8'));
-  return planSchema.parse(raw); // throws a readable zod error if the scene plan is invalid
+  return planSchema.parse(applyStyle(raw)); // throws a readable zod error if the scene plan is invalid
 };
 
 export const loadCaptions = (slug) => {
