@@ -214,7 +214,10 @@ export const Odometer: React.FC<{fx: Of<'odometer'>}> = ({fx}) => {
 export const BeforeAfter: React.FC<{fx: Of<'before-after'>}> = ({fx}) => {
   const {a, t, fps, outK} = useSpan(fx);
   const {video} = useFxEnv();
-  const p = tw(t, 0.4, 0.4 + fx.props.sweepSec, 0, 1, (x) => x * x * (3 - 2 * x));
+  const cutAt = fx.props.cutAt ?? a + 1.3;
+  const wipeP = tw(t, 0.4, 0.4 + fx.props.sweepSec, 0, 1, (x) => x * x * (3 - 2 * x));
+  const isCut = fx.props.mode === 'cut';
+  const p = isCut ? (a + t >= cutAt ? 1 : 0) : wipeP;
   const x = p * 1080;
   const show = p < 0.999 ? 1 : outK;
   return (
@@ -224,9 +227,9 @@ export const BeforeAfter: React.FC<{fx: Of<'before-after'>}> = ({fx}) => {
           <OffthreadVideo src={staticFile(video)} muted startFrom={Math.round(a * fps)} style={{...FILL, objectFit: 'cover', filter: 'saturate(0.5) contrast(0.8) brightness(1.1) blur(0.5px)'}} />
         </div>
       )}
-      {p > 0.001 && p < 0.999 && <div style={{position: 'absolute', left: x - 3, top: 0, width: 6, height: 1920, background: 'linear-gradient(180deg,#FFF3C9,#E3BF63)', boxShadow: '0 0 30px 8px rgba(227,191,99,0.7)'}} />}
-      <div style={{position: 'absolute', left: 40, top: 250, padding: '10px 26px', borderRadius: 30, background: 'rgba(0,0,0,0.7)', fontFamily: SANS, fontWeight: 700, fontSize: 32, letterSpacing: 4, textTransform: 'uppercase', color: '#F8E8B4', opacity: tw(t, 1.0, 1.4) * outK}}>{fx.props.afterLabel}</div>
-      <div style={{position: 'absolute', right: 40, top: 250, padding: '10px 26px', borderRadius: 30, background: 'rgba(0,0,0,0.7)', fontFamily: SANS, fontWeight: 700, fontSize: 32, letterSpacing: 4, textTransform: 'uppercase', color: brand.white, opacity: (1 - tw(t, 0.4 + fx.props.sweepSec * 0.7, 0.4 + fx.props.sweepSec)) * tw(t, 0, 0.3)}}>{fx.props.beforeLabel}</div>
+      {!isCut && p > 0.001 && p < 0.999 && <div style={{position: 'absolute', left: x - 3, top: 0, width: 6, height: 1920, background: 'linear-gradient(180deg,#FFF3C9,#E3BF63)', boxShadow: '0 0 30px 8px rgba(227,191,99,0.7)'}} />}
+      <div style={{position: 'absolute', left: 40, top: 250, padding: '10px 26px', borderRadius: 30, background: 'rgba(0,0,0,0.7)', fontFamily: SANS, fontWeight: 700, fontSize: 32, letterSpacing: 4, textTransform: 'uppercase', color: '#F8E8B4', opacity: (isCut ? (p >= 1 ? 1 : 0) : tw(t, 1.0, 1.4)) * outK}}>{fx.props.afterLabel}</div>
+      <div style={{position: 'absolute', right: 40, top: 250, padding: '10px 26px', borderRadius: 30, background: 'rgba(0,0,0,0.7)', fontFamily: SANS, fontWeight: 700, fontSize: 32, letterSpacing: 4, textTransform: 'uppercase', color: brand.white, opacity: (isCut ? (p >= 1 ? 0 : 1) : 1 - tw(t, 0.4 + fx.props.sweepSec * 0.7, 0.4 + fx.props.sweepSec)) * tw(t, 0, 0.3)}}>{fx.props.beforeLabel}</div>
     </div>
   );
 };
@@ -301,6 +304,34 @@ export const CommentBubble: React.FC<{fx: Of<'comment-bubble'>}> = ({fx}) => {
 export const TimelineBurn: React.FC<{fx: Of<'timeline-burn'>}> = ({fx}) => {
   const {abs, t, frame, outK} = useSpan(fx);
   const {burnAt, clips} = fx.props;
+  if (fx.props.style === 'line') {
+    const prog = tw(abs, burnAt - 1.0, burnAt + 2.2, 0, 1, (x) => x);
+    const x0 = 70;
+    const w = 940;
+    const head = x0 + w * prog;
+    const inK2 = tw(t, 0, 0.35, 0, 1, pop);
+    return (
+      <div style={{...FILL, opacity: outK}}>
+        <div style={{position: 'absolute', left: x0, top: 1330, width: w, height: 22, borderRadius: 11, background: 'linear-gradient(90deg,#6F0D0F,#C91B19,#6F0D0F)', opacity: inK2, boxShadow: '0 0 24px rgba(201,27,25,0.55)'}} />
+        {[0.12, 0.34, 0.58, 0.8].map((m, i) => (
+          <div key={i} style={{position: 'absolute', left: x0 + w * m, top: 1310, width: 4, height: 62, background: 'rgba(255,255,255,0.55)', opacity: inK2}} />
+        ))}
+        {prog > 0 && (
+          <>
+            <div style={{position: 'absolute', left: x0, top: 1330, width: Math.max(0, head - x0), height: 22, borderRadius: 11, background: '#1a1a1a', boxShadow: '0 0 12px rgba(0,0,0,0.6)'}} />
+            {Array.from({length: 8}).map((_, i) => {
+              const hh = (90 + ((i * 53) % 90)) * (0.6 + 0.4 * Math.sin(frame * 0.5 + i * 1.7)) * Math.min(1, prog * 6) * (1 - tw(abs, burnAt + 2.2, burnAt + 3.0));
+              return <div key={i} style={{position: 'absolute', left: head - 46 + (i - 4) * 12, bottom: 1920 - 1345, width: 70, height: Math.max(0, hh), borderRadius: '50% 50% 40% 40% / 70% 70% 30% 30%', background: 'radial-gradient(ellipse at 50% 90%, #FFF1B0 0%, #FFB020 30%, #F0561A 62%, rgba(201,27,25,0) 100%)', filter: 'blur(6px)', mixBlendMode: 'screen'}} />;
+            })}
+            {Array.from({length: 14}).map((_, i) => {
+              const life = (frame * 0.03 + i * 0.211) % 1;
+              return <div key={`e${i}`} style={{position: 'absolute', left: head + Math.sin(life * 8 + i) * 40 - 20, top: 1330 - life * 260, width: 6, height: 6, borderRadius: 3, background: '#FFB020', opacity: (1 - life) * Math.min(1, prog * 4), boxShadow: '0 0 10px #F0561A'}} />;
+            })}
+          </>
+        )}
+      </div>
+    );
+  }
   const burn = tw(abs, burnAt, burnAt + 1.2, 0, 1, (x) => x);
   const shake = abs >= burnAt ? Math.sin(frame * 3.1) * 4 * (1 - burn) : 0;
   const colors = ['#C91B19', '#D5AA4A', '#3A3F42', '#B5622C', '#8d1214', '#E3BF63', '#6F0D0F', '#9aa0a3'];

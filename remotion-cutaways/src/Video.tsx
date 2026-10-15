@@ -27,7 +27,7 @@ import {MetalRim} from './metal';
 import type {Graphic, Scene, VideoProps} from './schema';
 import {FlatSegment, avatarStateBlend, flatten, layoutBlend} from './timeline';
 import {GraphicTimeProvider, ThemeProvider} from './ui';
-import {FxBehind, FxOver, FxSound, videoMods} from './fx/FxLayers';
+import {FxBehind, FxLooks, FxOver, FxSound, videoMods} from './fx/FxLayers';
 import {FxEnvProvider, fxRange, useLoadedAnchors} from './fx/util';
 
 const FULL_FRAME: Graphic['type'][] = ['tag', 'floating-chips', 'chapter-card', 'congruence-map', 'screenshot-card', 'quiet-feed', 'citation-card'];
@@ -78,6 +78,18 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   const pages = useMemo(() => buildPages(captions, plan.captionPageMs), [captions, plan.captionPageMs]);
   const {field, sans} = plan.theme;
   const anchors = useLoadedAnchors(plan.matte);
+  // seconds she is speaking (gaps under 0.45 s bridged), used by the voice-memo waveform
+  const speech = useMemo(() => {
+    const out: [number, number][] = [];
+    for (const c of [...captions].sort((x, y) => x.startMs - y.startMs)) {
+      const a = c.startMs / 1000;
+      const b = c.endMs / 1000;
+      const last = out[out.length - 1];
+      if (last && a - last[1] < 0.45) last[1] = Math.max(last[1], b);
+      else out.push([a, b]);
+    }
+    return out;
+  }, [captions]);
   const mods = videoMods(plan.fx, frame / fps);
   // music level per frame: ducks while she speaks (word timings, smoothed), fades in at the start and out at the end
   const musicVolume = useMemo(() => {
@@ -125,6 +137,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   // the hook scrim darkens the lower half for the full-frame caption; effects bring their own plates, so it steps aside while one runs
   const tNow = frame / fps;
   const fxOn = plan.fx.some((f) => {
+    if (['grade', 'glow', 'dust', 'letterbox', 'date-stamp', 'flash-frame', 'pull-back'].includes(f.type)) return false; // looks and marks do not replace the scrim
     const [fa, fb] = fxRange(f);
     return tNow >= fa && tNow <= fb;
   });
@@ -200,8 +213,9 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
             }}
           >
             <OffthreadVideo src={staticFile(plan.video)} style={videoStyle} />
-            <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video} videoStyle={videoStyle} outline={plan.matteOutline}>
+            <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video} videoStyle={videoStyle} outline={plan.matteOutline} speech={speech}>
               <FxBehind fx={plan.fx} />
+              <FxLooks fx={plan.fx} />
             </FxEnvProvider>
           </div>
           {av.frame > 0.01 && av.opacity > 0.01 && (
@@ -274,7 +288,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
         );
       })}
 
-      <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video} videoStyle={videoStyle} outline={plan.matteOutline}>
+      <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video} videoStyle={videoStyle} outline={plan.matteOutline} speech={speech}>
         <FxOver fx={plan.fx} />
       </FxEnvProvider>
       {plan.fx.length > 0 && <FxSound fx={plan.fx} volume={plan.fxVolume} mode={plan.fxSound} />}

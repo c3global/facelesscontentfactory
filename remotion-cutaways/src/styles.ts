@@ -7,7 +7,7 @@
  * Plans without `style` or `mix` are untouched, so every earlier video renders exactly as before.
  */
 
-export const DIAL_NAMES = ['captions', 'backdrop', 'finish', 'music', 'sound', 'outline', 'effects'] as const;
+export const DIAL_NAMES = ['captions', 'backdrop', 'finish', 'look', 'music', 'sound', 'outline', 'effects'] as const;
 export type DialName = (typeof DIAL_NAMES)[number];
 export type Mix = Partial<Record<DialName, string>>;
 
@@ -32,6 +32,15 @@ export const DIALS: Record<DialName, Record<string, {note: string; set?: Record<
     clean: {note: 'No grain, no light leaks', set: {finish: {grain: 0, lightLeaks: 0}}},
     film: {note: 'Light grain and warm leaks (the approved look)', set: {finish: {grain: 0.35, lightLeaks: 0.5}}},
     cinematic: {note: 'Heavier grain and stronger leaks', set: {finish: {grain: 0.55, lightLeaks: 0.8}}},
+  },
+  look: {
+    none: {note: 'No color look (default; the approved look)'},
+    'golden-hour': {note: 'Warm golden-hour grade over her frame'},
+    'blue-hour': {note: 'Cool blue-hour grade over her frame'},
+    'soft-glow': {note: 'Soft bloom: a gentle glow on the highlights'},
+    dust: {note: 'Drifting warm dust particles'},
+    letterbox: {note: 'Cinema bars top and bottom'},
+    cinema: {note: 'Golden-hour grade, soft glow, drifting dust and letterbox bars together'},
   },
   music: {
     'as-planned': {note: 'Keep the plan\'s own music levels (each track is leveled separately; the approved look)'},
@@ -112,6 +121,31 @@ const derive = (mix: Mix): Record<string, unknown> => {
   return out;
 };
 
+/** The `look` dial becomes whole-video effects (looks never move her speech or captions). */
+const lookFx = (look: string, dur: number): any[] => {
+  const span = {at: 0, until: dur};
+  const grade = (l: string, strength: number) => ({type: 'grade', ...span, props: {look: l, strength}});
+  const glow = (strength: number) => ({type: 'glow', ...span, props: {strength, blurPx: 26}});
+  const dust = (strength: number) => ({type: 'dust', ...span, props: {count: 46, strength}});
+  const bars = () => ({type: 'letterbox', ...span, props: {heightPx: 200, animSec: 0.6}});
+  switch (look) {
+    case 'golden-hour':
+      return [grade('golden-hour', 0.5)];
+    case 'blue-hour':
+      return [grade('blue-hour', 0.5)];
+    case 'soft-glow':
+      return [glow(0.3)];
+    case 'dust':
+      return [dust(0.6)];
+    case 'letterbox':
+      return [bars()];
+    case 'cinema':
+      return [grade('golden-hour', 0.4), glow(0.22), dust(0.4), bars()];
+    default:
+      return [];
+  }
+};
+
 /**
  * Resolves `style` and `mix` into plan fields. Plans with neither are returned unchanged.
  * Order, later wins: fields written in the plan, then the preset's dials, then `mix` (a deliberate override).
@@ -131,5 +165,6 @@ export const applyStyle = (raw: any): any => {
   if (resolved.backdrop && !['as-planned', 'velvet'].includes(resolved.backdrop) && Array.isArray(plan.scenes)) plan.scenes = plan.scenes.map(({bg: _bg, ...sc}: any) => sc);
   if (resolved.backdrop === 'velvet' && Array.isArray(plan.scenes)) plan.scenes = plan.scenes.map((s: any) => (s.mood === 'dark' && !s.bg ? {...s, bg: 'backdrops/red-velvet.jpg'} : s));
   if (resolved.backdrop === 'marble-white' && Array.isArray(plan.scenes)) plan.scenes = plan.scenes.map((s: any) => ({...s, mood: 'light'}));
+  if (resolved.look && resolved.look !== 'none' && typeof plan.durationSec === 'number') plan.fx = [...lookFx(resolved.look, plan.durationSec), ...(plan.fx ?? [])];
   return plan;
 };

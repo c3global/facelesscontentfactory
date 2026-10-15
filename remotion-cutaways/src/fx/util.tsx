@@ -30,6 +30,19 @@ const LEN: Record<FxType, number> = {
   'comment-bubble': 5,
   'timeline-burn': 5,
   'pull-back-reveal': 5,
+  'pull-back': 1.6,
+  'flash-frame': 0.2,
+  'freeze-hold': 1.6,
+  grade: 6,
+  glow: 6,
+  dust: 6,
+  letterbox: 6,
+  'voice-memo': 5,
+  'polaroid-drop': 3.4,
+  'notes-page': 5,
+  'email-compose': 5,
+  'lock-screen': 3.4,
+  'date-stamp': 3,
 };
 
 /** effects that draw behind her (they need the person matte) */
@@ -59,7 +72,7 @@ export const useFxTime = (at: number) => {
 // ---------- the per-frame matte anchors (head top, head center x, chest y, left, right), normalized 0..1
 export type Anchors = {fps: number; frames: number; anchors: number[][]};
 const cache = new Map<string, Anchors>();
-type Env = {slug?: string; anchors?: Anchors; video: string; videoStyle: CSSProperties; outline?: 'none' | 'white' | 'copper' | 'gold'};
+type Env = {slug?: string; anchors?: Anchors; video: string; videoStyle: CSSProperties; outline?: 'none' | 'white' | 'copper' | 'gold'; /** seconds she is speaking, from the word timings (drives the voice-memo waveform) */ speech?: [number, number][]};
 const AnchorCtx = createContext<Env>({video: '', videoStyle: {}});
 export const FxEnvProvider: React.FC<Env & {children: React.ReactNode}> = ({children, ...env}) => <AnchorCtx.Provider value={env}>{children}</AnchorCtx.Provider>;
 export const useFxEnv = () => useContext(AnchorCtx);
@@ -171,5 +184,25 @@ export const cuesFor = (f: Fx): Cue[] => {
       return [d('riser', f.props.burnAt - 1.2, 0.4), main('crackle', f.props.burnAt, 0.5)];
     case 'pull-back-reveal':
       return [main('whoosh', f.at, 0.8), ...f.props.cuts.map((c) => d('snap', c, 0.5))];
+    case 'pull-back':
+      return [main('whoosh', f.at, 0.5, 2)];
+    case 'flash-frame':
+      return [main('shutter', f.at, 0.7, 2)];
+    case 'freeze-hold':
+      return [main('shutter', f.at, 0.7, 2)];
+    case 'voice-memo':
+      return [main('blip', f.at, 0.6, 2)];
+    case 'polaroid-drop':
+      return [main('pop', f.at + 0.45, 0.8, 2)];
+    case 'notes-page':
+      return f.props.lines.map((l) => d('type', l.at, 0.4));
+    case 'email-compose':
+      return [d('type', f.props.typeAt ?? f.at + 0.6, 0.4), d('whoosh', f.props.sendAt ?? f.at + 3.6, 0.5)];
+    case 'lock-screen':
+      return [main('ding', f.at + 0.2, 0.5, 2)];
+    case 'date-stamp':
+      return [d('tick', f.at, 0.5)];
+    default:
+      return [];
   }
 };

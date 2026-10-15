@@ -1,0 +1,187 @@
+{
+  "slug": "fxdemo-c",
+  "video": "raw/dialects.mp4",
+  "durationSec": 62.46,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [],
+  "captionStyle": "editorial",
+  "scenes": [
+    {
+      "id": "s1",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 62.46,
+          "layout": "A",
+          "captions": "off",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "matte": "dialects",
+  "fx": [
+    {
+      "type": "date-stamp",
+      "at": 0.3,
+      "until": 3.2,
+      "props": {
+        "text": "Tuesday, 4:20 PM",
+        "position": "tl"
+      }
+    },
+    {
+      "type": "flash-frame",
+      "at": 1.97,
+      "props": {
+        "frames": 2,
+        "color": "white"
+      }
+    },
+    {
+      "type": "pull-back",
+      "at": 3.4,
+      "until": 5.6,
+      "props": {
+        "from": 1.3
+      }
+    },
+    {
+      "type": "grade",
+      "at": 5.9,
+      "until": 10.2,
+      "props": {
+        "look": "golden-hour",
+        "strength": 0.6
+      }
+    },
+    {
+      "type": "before-after",
+      "at": 10.4,
+      "until": 12.4,
+      "props": {
+        "mode": "cut",
+        "cutAt": 11.4,
+        "beforeLabel": "Raw",
+        "afterLabel": "Edited"
+      }
+    },
+    {
+      "type": "freeze-hold",
+      "at": 12.5,
+      "until": 14.3,
+      "props": {
+        "text": "Painful explanation"
+      }
+    },
+    {
+      "type": "glow",
+      "at": 15.2,
+      "until": 19.8,
+      "props": {
+        "strength": 0.35,
+        "blurPx": 26
+      }
+    },
+    {
+      "type": "dust",
+      "at": 20.0,
+      "until": 24.4,
+      "props": {
+        "count": 46,
+        "strength": 0.7
+      }
+    },
+    {
+      "type": "timeline-burn",
+      "at": 20.0,
+      "until": 24.4,
+      "props": {
+        "burnAt": 22.2,
+        "clips": 6,
+        "style": "line"
+      }
+    },
+    {
+      "type": "letterbox",
+      "at": 24.5,
+      "until": 30.1,
+      "props": {
+        "heightPx": 200,
+        "animSec": 0.6
+      }
+    },
+    {
+      "type": "grade",
+      "at": 30.2,
+      "until": 33.0,
+      "props": {
+        "look": "blue-hour",
+        "strength": 0.6
+      }
+    },
+    {
+      "type": "voice-memo",
+      "at": 33.0,
+      "until": 38.8,
+      "props": {
+        "title": "Voice Memo",
+        "subtitle": "High and low context"
+      }
+    },
+    {
+      "type": "notes-page",
+      "at": 41.2,
+      "until": 50.2,
+      "props": {
+        "title": "Ask first",
+        "lines": [
+          {
+            "text": "What does support from me look like to you right now?",
+            "at": 42.3
+          },
+          {
+            "text": "Listen before deciding.",
+            "at": 46.9
+          }
+        ]
+      }
+    },
+    {
+      "type": "lock-screen",
+      "at": 50.8,
+      "until": 54.0,
+      "props": {
+        "app": "Messages",
+        "title": "Which dialect do you speak?",
+        "text": "The public cheer or the private message?",
+        "time": "9:41"
+      }
+    },
+    {
+      "type": "polaroid-drop",
+      "at": 54.2,
+      "until": 57.6,
+      "props": {
+        "caption": "support",
+        "angle": 6
+      }
+    },
+    {
+      "type": "email-compose",
+      "at": 58.0,
+      "until": 62.3,
+      "props": {
+        "to": "a friend",
+        "subject": "What does support look like to you?",
+        "body": "I want to ask before I assume.",
+        "typeAt": 58.5,
+        "sendAt": 61.0
+      }
+    }
+  ]
+}
