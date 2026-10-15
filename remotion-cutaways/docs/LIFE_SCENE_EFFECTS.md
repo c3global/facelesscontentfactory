@@ -26,11 +26,11 @@ Status key: **Built** (ready now), **Easy** (small build, same day), **Build** (
 
 | ID | Effect | What it does | Best for | Status |
 |---|---|---|---|---|
-| M01 | Digital zoom | Slow push-in across the whole clip | All types | Easy |
+| M01 | Digital zoom | Slow push-in across the whole clip | All types | **Built** |
 | M02 | Punch-in | Quick zoom on a beat or a gesture | A, B | Easy |
-| M03 | Pull-back reveal | Starts tight on a detail (the phone), pulls back to show her | A, C | Easy (keep the zoom modest on 720p) |
+| M03 | Pull-back reveal | Starts tight on a detail (the phone), pulls back to show her | A, C | **Built** (starts at 1.4x, the limit for a 720p source) |
 | M04 | Zoom-through cut | Fast zoom into one thing, then a hard cut out of it | A, B | Build |
-| M05 | Blackout | Instant cut to black for a beat, then a hard cut back. Never a fade. Also works as an ending | All types | Easy |
+| M05 | Blackout | Instant cut to black for a beat, then a hard cut back. Never a fade. Also works as an ending | All types | **Built** |
 | M06 | Flash frame | One or two frames of bright white, like a camera flash | A, B | Easy |
 | M07 | Speed ramp | Slows down on a key gesture (needs frame smoothing at 24 fps) | A, C | Build |
 | M08 | Freeze and hold | Holds the last frame while text lands | All types | Easy |
@@ -49,9 +49,9 @@ Status key: **Built** (ready now), **Easy** (small build, same day), **Build** (
 |---|---|---|---|---|---|
 | G01 | Text message | Bubble types out, "Sent," typing dots, reply bubble | A, B | Message and reply wording | **Built** |
 | G02 | Handwritten note | White paper note with crimson velvet tape, writes itself line by line, crimson underline | A, C | Note wording | **Built** (pencil sound pending a real recording) |
-| G03 | The stack | Notification cards pile up | A, B | Card wording | Build (repo has a close cousin) |
-| G04 | Phone mockup | A phone frame inset showing a screen | A, C | What the screen shows | Build |
-| G05 | Checklist | Items tick off one by one | A, C | List items | Build (repo has a notes card to adapt) |
+| G03 | The stack | Notification cards pile up, older ones peek out behind | A, B | Card wording | **Built** |
+| G04 | Phone mockup | A tilted phone inset with a recordings screen and moving waveform | A, C | Screen title and rows | **Built** |
+| G05 | Checklist | Items tick off one by one with a crimson check and strike-through | A, C | List items | **Built** |
 | G06 | Comment bubble | A comment pops in, in velvet style | A, B | Comment wording | Build |
 | G07 | Timeline burn | A crimson timeline with a glowing line burning along it | A, C | Events and dates | Build |
 | G08 | Before and after | Hard A/B cut or a sliding wipe between two states | A, C | Two states to compare | Build |
@@ -82,3 +82,9 @@ Place each at its exact moment. Sources: your Audiio library first, then free co
 | G15 | Paper or photo slap, soft |
 
 Synthesized sounds were tried (stamp thud, whoosh, pencil) and missed twice. Use real recordings.
+
+## How effects are built (for Claude)
+- M01 and M03: `LSClip` composition (`src/LSClip.tsx`) renders the picture as a sequence with a smooth CSS zoom. Props: `effect` (`zoom` or `pullback`), `from`, `to`, `moveSec`, and `px, py` (the point to move toward).
+- G03, G04, G05: `LSStack`, `LSPhone`, `LSChecklist` in `src/LifeSceneEffects.tsx`, rendered as transparent PNG sequences.
+- M05 and the final finish: `scripts/ls_finish.py` (`--blackout START END` for the hard black).
+- Combine any of them: render the camera sequence (M01 or M03) and the overlay sequence, then `ls_finish.py --picture CAMERA_SEQ --overlay OVERLAY_SEQ --audio-from CLIP --out LS_Name.mp4`.

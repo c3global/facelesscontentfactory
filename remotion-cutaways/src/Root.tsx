@@ -11,6 +11,8 @@ import {GlassLab} from './lab/GlassLab';
 import {FieldDemo} from './lab/FieldDemo';
 import {LifeSceneText, lifeSceneTextSchema, LS_FPS} from './LifeSceneText';
 import {LSMessage, lsMessageSchema, LSNote, lsNoteSchema} from './LifeSceneOverlays';
+import {LSChecklist, lsChecklistSchema, LSPhone, lsPhoneSchema, LSStack, lsStackSchema} from './LifeSceneEffects';
+import {LSClip, lsClipSchema} from './LSClip';
 import {PatientFile, patientFileFrames, patientFileSchema, PF_FPS} from './PatientFile';
 
 const lifeSceneTextProps = {
@@ -92,6 +94,50 @@ export const Root: React.FC = () => (
       component={LSNote}
       schema={lsNoteSchema}
       defaultProps={{lines: ['Reply first.', 'Overthink later.'], fromSec: 3}}
+      durationInFrames={240}
+      fps={24}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="LSStack"
+      component={LSStack}
+      schema={lsStackSchema}
+      defaultProps={{cards: [
+        {initial: 'M', title: 'New message', body: 'Are you free later?', atSec: 3.2},
+        {initial: 'R', title: 'Reminder', body: 'Three o\'clock today', atSec: 4.9},
+        {initial: 'C', title: 'Missed call', body: 'Tried you twice', atSec: 6.6},
+      ]}}
+      durationInFrames={240}
+      fps={24}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="LSPhone"
+      component={LSPhone}
+      schema={lsPhoneSchema}
+      defaultProps={{header: 'Recordings', rows: [{title: 'Recording 3', meta: '0:08'}, {title: 'Recording 2', meta: '0:31'}, {title: 'Recording 1', meta: '1:12'}], highlight: 1, fromSec: 2.5, toSec: 8.5}}
+      durationInFrames={240}
+      fps={24}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="LSChecklist"
+      component={LSChecklist}
+      schema={lsChecklistSchema}
+      defaultProps={{items: ['Start small', 'Say it out loud', 'Press send'], fromSec: 3, everySec: 1.3}}
+      durationInFrames={240}
+      fps={24}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="LSClip"
+      component={LSClip}
+      schema={lsClipSchema}
+      defaultProps={{src: 'raw/clip.mp4', effect: 'zoom' as const, from: 1, to: 1.1, moveSec: 10, px: 0.5, py: 0.35}}
       durationInFrames={240}
       fps={24}
       width={1080}
