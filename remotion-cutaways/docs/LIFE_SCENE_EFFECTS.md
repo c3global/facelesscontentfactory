@@ -12,7 +12,7 @@ Send Claude four things:
 ## Rules every effect follows
 - Hard cuts only between clips. Never a fade or dissolve between clips.
 - No tags, badges or end cards. It should look cinematic.
-- Crimson velvet with a holographic rim, white text, Covered By Your Grace, inside the caption band (y 1056 to 1382, clear of the bottom 22 percent and right 12 percent).
+- Crimson velvet with a shiny penny copper metal rim (charcoal cards get a gold rim), small glints, white text, Covered By Your Grace, inside the caption band (y 1056 to 1382, clear of the bottom 22 percent and right 12 percent).
 - Palette: crimson, white, black, charcoal, rose gold, gold. No cream or ivory.
 - Sources are usually 720p. Digital zoom beyond about 10 percent starts to soften.
 - Never invent figures. Odometer and chart effects need numbers you give.

@@ -4,6 +4,8 @@ import {z} from 'zod';
 import {brand} from './brand';
 import {Backdrop} from './backdrops';
 import {handFamilies, loadBrandFonts, sansFamily} from './fonts';
+import {MetalRim, metalFill} from './metal';
+import {Sparkle} from './sparkle';
 
 loadBrandFonts();
 
@@ -18,6 +20,7 @@ const VelvetChip: React.FC<{size: number; radius: number; frame: number; childre
     <div style={{position: 'absolute', inset: 0}}>
       <Backdrop kind="crimson" frame={frame} />
     </div>
+    <MetalRim radius={radius} thickness={3} kind="copper" variant="bright" seed={23} />
     <div style={{position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: handFamilies.covered, color: '#fff', fontSize: size * 0.62}}>{children}</div>
   </div>
 );
@@ -58,7 +61,9 @@ export const LSStack: React.FC<LSStackProps> = ({cards}) => {
               zIndex: i,
             }}
           >
-            <div style={{display: 'flex', alignItems: 'center', gap: 22, padding: '22px 30px', borderRadius: 34, background: '#1A1C1D', border: '2px solid rgba(255,255,255,0.28)', boxShadow: '0 14px 36px rgba(0,0,0,0.42)'}}>
+            <div style={{position: 'relative', display: 'flex', alignItems: 'center', gap: 22, padding: '22px 30px', borderRadius: 34, background: '#1A1C1D', boxShadow: '0 14px 36px rgba(0,0,0,0.42)'}}>
+              <MetalRim radius={34} thickness={4} kind="gold" variant="bright" seed={29 + i} />
+              {newer === 0 && <Sparkle left="94%" top={8} size={26} phase={i * 0.7} />}
               <div style={{display: 'contents', opacity: 1}} />
               <div style={{opacity: Math.max(0, 1 - pushed * 1.8), display: 'flex', alignItems: 'center', gap: 22, width: '100%'}}>
               <VelvetChip size={78} radius={20} frame={f}>{c.initial}</VelvetChip>
@@ -105,6 +110,9 @@ export const LSPhone: React.FC<LSPhoneProps> = ({header, rows, highlight, fromSe
       <div style={{position: 'absolute', left: 90, top: 780, width: W, height: H, opacity: o, transform: `translateY(${(1 - inP) * 60}px) rotate(-4deg)`, transformOrigin: '50% 100%', filter: 'drop-shadow(0 22px 34px rgba(0,0,0,0.5))'}}>
         {/* body */}
         <div style={{position: 'absolute', inset: 0, borderRadius: 54, background: 'linear-gradient(145deg,#3A3F42,#0b0c0c 60%)', padding: 11}}>
+          <MetalRim radius={54} thickness={6} kind="copper" variant="bright" seed={31} />
+          <Sparkle left="12%" top="4%" size={30} phase={0.4} />
+          <Sparkle left="90%" top="94%" size={26} phase={1.9} />
           {/* screen */}
           <div style={{position: 'relative', width: '100%', height: '100%', borderRadius: 44, background: '#050505', overflow: 'hidden'}}>
             {/* island */}
@@ -119,6 +127,7 @@ export const LSPhone: React.FC<LSPhoneProps> = ({header, rows, highlight, fromSe
                     {isHi && (
                       <div style={{position: 'absolute', inset: 0, opacity: hi}}>
                         <Backdrop kind="crimson" frame={f} />
+                        <MetalRim radius={18} thickness={3} kind="copper" variant="bright" seed={37} />
                       </div>
                     )}
                     <div style={{position: 'relative', padding: '10px 16px'}}>
@@ -134,7 +143,7 @@ export const LSPhone: React.FC<LSPhoneProps> = ({header, rows, highlight, fromSe
               <div style={{display: 'flex', alignItems: 'center', gap: 4, height: 60, justifyContent: 'space-between'}}>
                 {bars.map((_, i) => {
                   const h = 10 + 38 * Math.abs(Math.sin(i * 0.9 + (f / FPS) * 6)) * (0.5 + 0.5 * Math.sin(i * 0.37 + 1));
-                  return <div key={i} style={{width: 6, height: h, borderRadius: 3, background: i / bars.length < ((f - from) / (to - from)) * 1.2 ? brand.crimson : 'rgba(255,255,255,0.55)'}} />;
+                  return <div key={i} style={{width: 6, height: h, borderRadius: 3, background: i / bars.length < ((f - from) / (to - from)) * 1.2 ? '#D8895A' : 'rgba(255,255,255,0.55)'}} />;
                 })}
               </div>
             </div>
@@ -162,14 +171,17 @@ export const LSChecklist: React.FC<LSChecklistProps> = ({items, fromSec, everySe
   return (
     <AbsoluteFill>
       <div style={{position: 'absolute', left: 150, top: 1090, width: 780, opacity: cardIn, transform: `translateY(${(1 - cardIn) * 30}px)`}}>
-        <div style={{padding: '30px 38px 26px', borderRadius: 30, background: 'rgba(22,24,25,0.9)', border: '2px solid rgba(255,255,255,0.28)', boxShadow: '0 16px 40px rgba(0,0,0,0.45)'}}>
+        <div style={{position: 'relative', padding: '30px 38px 26px', borderRadius: 30, background: 'rgba(22,24,25,0.92)', boxShadow: '0 16px 40px rgba(0,0,0,0.45)'}}>
+          <MetalRim radius={30} thickness={4} kind="gold" variant="bright" seed={41} />
+          <Sparkle left="95%" top={10} size={28} phase={0.2} />
           {items.map((t, i) => {
             const start = from + 10 + i * step;
             const tick = interpolate(f, [start, start + 10], [0, 1], {...clamp, easing: easeOut});
             const strike = interpolate(f, [start + 4, start + 14], [0, 1], clamp);
             return (
               <div key={i} style={{display: 'flex', alignItems: 'center', gap: 26, padding: '8px 0'}}>
-                <div style={{position: 'relative', width: 52, height: 52, borderRadius: 26, border: '3px solid rgba(255,255,255,0.7)', flexShrink: 0, overflow: 'hidden'}}>
+                <div style={{position: 'relative', width: 52, height: 52, borderRadius: 26, flexShrink: 0, overflow: 'hidden'}}>
+                  <MetalRim radius={26} thickness={3} kind="copper" variant="bright" seed={43 + i} />
                   <div style={{position: 'absolute', inset: 0, opacity: tick}}>
                     <Backdrop kind="crimson" frame={f} />
                   </div>
@@ -179,7 +191,7 @@ export const LSChecklist: React.FC<LSChecklistProps> = ({items, fromSec, everySe
                 </div>
                 <div style={{position: 'relative', fontFamily: handFamilies.covered, fontSize: 56, color: '#fff', opacity: 1 - 0.35 * tick, whiteSpace: 'nowrap'}}>
                   {t}
-                  <div style={{position: 'absolute', left: 0, top: '56%', height: 4, width: `${strike * 100}%`, background: brand.crimson, borderRadius: 2}} />
+                  <div style={{position: 'absolute', left: 0, top: '56%', height: 5, width: `${strike * 100}%`, borderRadius: 2, ...metalFill({kind: 'copper', variant: 'bright', frame: f, seed: 47 + i})}} />
                 </div>
               </div>
             );

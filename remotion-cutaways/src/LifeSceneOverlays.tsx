@@ -4,11 +4,12 @@ import {z} from 'zod';
 import {brand} from './brand';
 import {Backdrop} from './backdrops';
 import {handFamilies, loadBrandFonts, sansFamily} from './fonts';
+import {MetalRim, MetalText, metalFill} from './metal';
+import {Sparkle} from './sparkle';
 
 loadBrandFonts();
 
 const FPS = 24;
-const RIM = ['#B76E79', '#F8E8B4', '#FFFFFF', '#E9B3B4', '#B76E79'];
 const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 
 /* ---------- shared: crimson velvet surface with a holographic rim ---------- */
@@ -28,19 +29,9 @@ const Velvet: React.FC<{frame: number; radius: number | string}> = ({frame, radi
           backgroundPosition: `${120 - ((t * 38) % 140)}% 0`,
         }}
       />
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          borderRadius: radius,
-          padding: 3,
-          background: `linear-gradient(${(t * 60) % 360}deg, ${RIM.join(',')})`,
-          WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-          WebkitMaskComposite: 'xor',
-          maskComposite: 'exclude',
-          opacity: 0.8,
-        }}
-      />
+      <MetalRim radius={radius} thickness={5} kind="copper" variant="bright" seed={5} />
+      <Sparkle left="8%" top={10} size={28} phase={0} />
+      <Sparkle left="94%" top="86%" size={24} phase={1.5} />
     </>
   );
 };
@@ -93,20 +84,24 @@ export const LSMessage: React.FC<LSMessageProps> = ({sent, reply, typeFromSec, r
               <span style={{opacity: 0}}>{sent.slice(typed)}</span>
             </div>
           </div>
-          <div style={{textAlign: 'right', marginTop: 10, marginRight: 8, fontFamily: sansFamily('DM Sans'), fontWeight: 700, fontSize: 28, color: 'rgba(255,255,255,0.85)', opacity: sentTagO, textShadow: '0 2px 8px rgba(0,0,0,0.6)'}}>Sent</div>
+          <div style={{textAlign: 'right', marginTop: 10, marginRight: 8, fontFamily: sansFamily('DM Sans'), fontWeight: 700, fontSize: 28, opacity: sentTagO, filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.7))'}}>
+            <MetalText kind="gold" variant="bright" seed={13}>Sent</MetalText>
+          </div>
         </div>
       )}
       {/* incoming, left side: typing dots, then the reply */}
       {f >= dotsFrom && f < replyFrom && (
         <div style={{position: 'absolute', left: 90, top: 1250, opacity: dotsPop, transform: `scale(${0.92 + 0.08 * dotsPop})`, transformOrigin: 'left bottom'}}>
-          <div style={{background: 'rgba(58,63,66,0.88)', borderRadius: '34px 34px 34px 8px', padding: '24px 34px', boxShadow: '0 12px 34px rgba(0,0,0,0.38)', border: '2px solid rgba(255,255,255,0.35)'}}>
+          <div style={{position: 'relative', background: 'rgba(58,63,66,0.9)', borderRadius: '34px 34px 34px 8px', padding: '24px 34px', boxShadow: '0 12px 34px rgba(0,0,0,0.38)'}}>
+            <MetalRim radius="34px 34px 34px 8px" thickness={4} kind="gold" variant="bright" seed={11} />
             <Dots f={f} />
           </div>
         </div>
       )}
       {f >= replyFrom && (
         <div style={{position: 'absolute', left: 90, top: 1250, opacity: replyPop, transform: `scale(${0.92 + 0.08 * replyPop})`, transformOrigin: 'left bottom'}}>
-          <div style={{background: 'rgba(58,63,66,0.88)', borderRadius: '34px 34px 34px 8px', padding: '22px 38px 26px', maxWidth: 640, boxShadow: '0 12px 34px rgba(0,0,0,0.38)', border: '2px solid rgba(255,255,255,0.35)', ...bubbleFont}}>
+          <div style={{position: 'relative', background: 'rgba(58,63,66,0.9)', borderRadius: '34px 34px 34px 8px', padding: '22px 38px 26px', maxWidth: 640, boxShadow: '0 12px 34px rgba(0,0,0,0.38)', ...bubbleFont}}>
+            <MetalRim radius="34px 34px 34px 8px" thickness={4} kind="gold" variant="bright" seed={11} />
             {reply}
           </div>
         </div>
@@ -147,8 +142,9 @@ export const LSNote: React.FC<LSNoteProps> = ({lines, fromSec}) => {
         {/* white paper */}
         <div style={{background: brand.white, padding: '54px 46px 42px', boxShadow: '0 16px 40px rgba(0,0,0,0.42)', borderRadius: 4, position: 'relative'}}>
           {/* crimson velvet tape */}
-          <div style={{position: 'absolute', top: -20, left: '50%', marginLeft: -90, width: 180, height: 44, overflow: 'hidden', transform: 'rotate(2deg)', opacity: 0.92, boxShadow: '0 4px 10px rgba(0,0,0,0.3)'}}>
+          <div style={{position: 'absolute', top: -20, left: '50%', marginLeft: -90, width: 180, height: 44, overflow: 'hidden', transform: 'rotate(2deg)', opacity: 0.95, boxShadow: '0 4px 10px rgba(0,0,0,0.3)'}}>
             <Backdrop kind="crimson" frame={f} />
+            <MetalRim radius={2} thickness={3} kind="copper" variant="bright" seed={19} />
           </div>
           {lines.map((l, i) => {
             const p = interpolate(f, [startWrite + i * perLine, startWrite + (i + 1) * perLine], [0, 1], clamp);
@@ -158,7 +154,7 @@ export const LSNote: React.FC<LSNoteProps> = ({lines, fromSec}) => {
               </div>
             );
           })}
-          <div style={{height: 5, marginTop: 8, width: `${underline * 62}%`, background: brand.crimson, borderRadius: 3}} />
+          <div style={{height: 6, marginTop: 8, width: `${underline * 62}%`, borderRadius: 3, ...metalFill({kind: 'copper', variant: 'deep', frame: f, seed: 17})}} />
         </div>
       </div>
     </AbsoluteFill>

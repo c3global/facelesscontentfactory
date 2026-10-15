@@ -17,7 +17,7 @@ export const brand = {
   charcoal: '#3A3F42',
 } as const;
 
-export type MetalKind = 'rose' | 'gold' | 'crimson';
+export type MetalKind = 'rose' | 'gold' | 'crimson' | 'copper';
 /** deep: for use on white cards. bright: for use on crimson and dark fields. */
 export type MetalVariant = 'deep' | 'bright';
 
@@ -38,6 +38,11 @@ const METAL_STOPS: Record<MetalKind, Record<MetalVariant, [string, string, strin
   gold: {
     deep: ['#85611A', '#D5AA4A', '#F8E8B4', '#D5AA4A', '#8E6B1E'],
     bright: ['#B38A32', '#E3BF63', '#FFF3C9', '#E3BF63', '#B38A32'],
+  },
+  // shiny penny copper: built on #B87333 with a deep shade and a warm peach highlight
+  copper: {
+    deep: ['#6B2F14', '#B4693C', '#F0B58C', '#B4693C', '#73361A'],
+    bright: ['#8F4A24', '#CB7F4E', '#FFD6B4', '#CB7F4E', '#8F4A24'],
   },
 };
 export const STOP_OFFSETS = [0, 0.28, 0.5, 0.72, 1] as const;

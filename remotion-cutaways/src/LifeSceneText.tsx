@@ -3,6 +3,8 @@ import {AbsoluteFill, Easing, interpolate, useCurrentFrame} from 'remotion';
 import {z} from 'zod';
 import {brand} from './brand';
 import {Backdrop} from './backdrops';
+import {MetalRim} from './metal';
+import {Sparkle} from './sparkle';
 import {handFamilies, loadBrandFonts, sansFamily} from './fonts';
 
 loadBrandFonts();
@@ -25,8 +27,6 @@ export const lifeSceneTextSchema = z.object({
   lines: z.array(lineSchema),
 });
 export type LifeSceneTextProps = z.infer<typeof lifeSceneTextSchema>;
-
-const RIM = ['#B76E79', '#F8E8B4', '#FFFFFF', '#E9B3B4', '#B76E79'];
 
 const FACES = {
   covered: {family: handFamilies.covered, weight: 400, size: 78, lineHeight: 1.16},
@@ -61,20 +61,11 @@ const Card: React.FC<{lines: string[]; from: number; to: number; top: number; fo
             backgroundPosition: `${120 - ((t * 38) % 140)}% 0`,
           }}
         />
-        {/* holographic foil rim */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            borderRadius: R,
-            padding: 3,
-            background: `linear-gradient(${(t * 60) % 360}deg, ${RIM.join(',')})`,
-            WebkitMask: 'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-            WebkitMaskComposite: 'xor',
-            maskComposite: 'exclude',
-            opacity: 0.8,
-          }}
-        />
+        {/* shiny penny copper rim with a few glints */}
+        <MetalRim radius={R} thickness={5} kind="copper" variant="bright" seed={3} />
+        <Sparkle left="7%" top={9} size={30} phase={0} />
+        <Sparkle left="93%" top="88%" size={26} phase={1.3} />
+        <Sparkle left="52%" top="96%" size={22} phase={2.2} />
         <div
           style={{
             position: 'relative',
