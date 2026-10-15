@@ -1,0 +1,187 @@
+{
+  "slug": "fxdemo-e",
+  "video": "raw/dialects.mp4",
+  "durationSec": 62.46,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [],
+  "captionStyle": "editorial",
+  "scenes": [
+    {
+      "id": "s1",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 62.46,
+          "layout": "A",
+          "captions": "off",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "matte": "dialects",
+  "fx": [
+    {
+      "type": "digital-zoom",
+      "at": 1.5,
+      "until": 4.0,
+      "props": {
+        "creepTo": 1.1,
+        "snapAt": 3.2,
+        "snapTo": 1.3
+      }
+    },
+    {
+      "type": "zoom-through",
+      "at": 6.0,
+      "props": {}
+    },
+    {
+      "type": "blackout",
+      "at": 9.0,
+      "props": {
+        "holdSec": 0.5
+      }
+    },
+    {
+      "type": "spotlight",
+      "at": 12.0,
+      "until": 15.0,
+      "props": {
+        "words": [
+          {
+            "text": "Sound test",
+            "at": 12.4
+          }
+        ]
+      }
+    },
+    {
+      "type": "headline-wall",
+      "at": 16.0,
+      "until": 19.0,
+      "props": {
+        "lines": [
+          "Sound",
+          "Test",
+          "Swish"
+        ]
+      }
+    },
+    {
+      "type": "the-stack",
+      "at": 20.0,
+      "until": 24.0,
+      "props": {
+        "rows": [
+          {
+            "label": "One",
+            "value": 40,
+            "display": "A"
+          },
+          {
+            "label": "Two",
+            "value": 65,
+            "display": "B"
+          },
+          {
+            "label": "Three",
+            "value": 85,
+            "display": "C"
+          }
+        ]
+      }
+    },
+    {
+      "type": "sticky-text",
+      "at": 25.0,
+      "until": 28.0,
+      "props": {
+        "text": "Pop",
+        "anchor": "cap"
+      }
+    },
+    {
+      "type": "odometer",
+      "at": 29.0,
+      "until": 32.6,
+      "props": {
+        "from": 0,
+        "to": 100,
+        "suffix": "%",
+        "label": "Sound test"
+      }
+    },
+    {
+      "type": "ui-world",
+      "at": 34.0,
+      "until": 38.5,
+      "props": {
+        "title": "C3 Studio",
+        "prompt": "Sound test: blip",
+        "chips": [
+          "Blip"
+        ]
+      }
+    },
+    {
+      "type": "comment-bubble",
+      "at": 40.0,
+      "until": 45.0,
+      "props": {
+        "comment": "Sound test",
+        "postAt": 41.8,
+        "replyAt": 43.4,
+        "reply": "Type, ding, pop",
+        "linkLabel": "Open link"
+      }
+    },
+    {
+      "type": "freeze-sticker",
+      "at": 46.0,
+      "until": 49.2,
+      "props": {
+        "notes": [
+          "Shutter"
+        ]
+      }
+    },
+    {
+      "type": "timeline-burn",
+      "at": 50.0,
+      "until": 55.0,
+      "props": {
+        "burnAt": 53.0,
+        "clips": 6,
+        "style": "clips"
+      }
+    },
+    {
+      "type": "flash-frame",
+      "at": 56.0,
+      "sfx": "glitch",
+      "props": {
+        "frames": 2,
+        "color": "white"
+      }
+    },
+    {
+      "type": "lock-screen",
+      "at": 57.5,
+      "until": 60.9,
+      "props": {
+        "app": "Messages",
+        "title": "Sound test",
+        "text": "Ding",
+        "time": "9:41"
+      }
+    }
+  ],
+  "fxSound": "full",
+  "fxVolume": 0.8,
+  "soundLabels": true
+}

@@ -292,7 +292,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
       <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video} videoStyle={videoStyle} outline={plan.matteOutline} speech={speech}>
         <FxOver fx={plan.fx} />
       </FxEnvProvider>
-      {plan.fx.length > 0 && <FxSound fx={plan.fx} volume={plan.fxVolume} mode={plan.fxSound} />}
+      {plan.fx.length > 0 && <FxSound fx={plan.fx} volume={plan.fxVolume} mode={plan.fxSound} labels={plan.soundLabels} />}
 
       {plan.endCard && (
         <ThemeProvider mood={plan.scenes[plan.scenes.length - 1].mood} field={field} sans={sans}>

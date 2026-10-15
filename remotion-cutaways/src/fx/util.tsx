@@ -131,10 +131,11 @@ export const anchorPx = (a: Anchors | undefined, absFrame: number, tg: Target): 
 
 // ---------- sound cues
 /** tier 1 = the main entrance sound of an effect (the default "minimal" mode plays only these); tier 2 = detail sounds (ticks, pops, per-item cues). */
-export type Cue = {at: number; name: string; vol?: number; tier: 1 | 2};
+export type Cue = {at: number; name: string; vol?: number; tier: 1 | 2; /** the effect type that makes this cue (shown by the sound labels) */ from?: string};
 
 /** Default sounds per effect. `sfx: 'none'` on the event silences it; any other name replaces its main cue. */
-export const cuesFor = (f: Fx): Cue[] => {
+export const cuesFor = (f: Fx): Cue[] => rawCues(f).map((c) => ({...c, from: f.type}));
+const rawCues = (f: Fx): Cue[] => {
   if (f.sfx === 'none') return [];
   const main = (name: string, at = f.at, vol = 1, tier: 1 | 2 = 1): Cue => ({name: f.sfx && f.sfx !== 'auto' ? f.sfx : name, at, vol, tier});
   const d = (name: string, at: number, vol = 1): Cue => ({name, at, vol, tier: 2});

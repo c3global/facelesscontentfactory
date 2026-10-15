@@ -123,8 +123,19 @@ export const FxOver: React.FC<{fx: Fx[]}> = ({fx}) => {
   );
 };
 
+const SoundLabel: React.FC<{name: string; from?: string; row: number}> = ({name, from, row}) => {
+  const {t} = useFxTime(0);
+  const k = tw(t, 0, 0.12, 0, 1, pop) * (1 - tw(t, 0.9, 1.1));
+  return (
+    <div style={{position: 'absolute', left: 40, top: 150 + row * 118, opacity: k, transform: `scale(${0.9 + 0.1 * k})`, transformOrigin: 'left top', padding: '12px 26px 14px', borderRadius: 18, background: 'rgba(10,10,12,0.9)', border: '3px solid #E4BC62', color: '#fff', fontFamily: '"DM Sans", Arial, sans-serif'}}>
+      <div style={{fontSize: 22, fontWeight: 700, letterSpacing: 3, color: '#E4BC62'}}>SOUND{from ? ` · ${from.toUpperCase()}` : ''}</div>
+      <div style={{fontSize: 64, fontWeight: 700, lineHeight: 1.05, letterSpacing: 2}}>{name.toUpperCase()}</div>
+    </div>
+  );
+};
+
 /** Effect sounds. Default mode `minimal` plays only each effect's main entrance sound; `full` adds the detail ticks and pops. Same-name cues closer than 0.15 s collapse into one. */
-export const FxSound: React.FC<{fx: Fx[]; volume: number; mode: 'minimal' | 'full' | 'off'}> = ({fx, volume, mode}) => {
+export const FxSound: React.FC<{fx: Fx[]; volume: number; mode: 'minimal' | 'full' | 'off'; labels?: boolean}> = ({fx, volume, mode, labels}) => {
   const {fps} = useVideoConfig();
   if (mode === 'off') return null;
   const cues: Cue[] = fx
@@ -137,6 +148,14 @@ export const FxSound: React.FC<{fx: Fx[]; volume: number; mode: 'minimal' | 'ful
     if (prev && prev.name === c.name && c.at - prev.at < 0.15) continue;
     kept.push(c);
   }
+  // sound labels (review aid): each cue shows its name for 1.1 s. Cues close together stack in rows.
+  const rowEnd: number[] = [];
+  const rows = kept.map((c) => {
+    let r = rowEnd.findIndex((e) => e <= c.at);
+    if (r < 0) r = rowEnd.length;
+    rowEnd[r] = c.at + 1.1;
+    return r;
+  });
   return (
     <>
       {kept.map((c, i) => (
@@ -144,6 +163,12 @@ export const FxSound: React.FC<{fx: Fx[]; volume: number; mode: 'minimal' | 'ful
           <Audio src={staticFile(`sfx/fx-${c.name}.wav`)} volume={volume * (c.vol ?? 1)} />
         </Sequence>
       ))}
+      {labels &&
+        kept.map((c, i) => (
+          <Sequence key={`l${i}`} from={Math.max(0, Math.round(c.at * fps))} durationInFrames={Math.round(1.1 * fps)}>
+            <SoundLabel name={c.name} from={c.from} row={rows[i]} />
+          </Sequence>
+        ))}
     </>
   );
 };
