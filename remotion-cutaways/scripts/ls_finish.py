@@ -23,6 +23,7 @@ ap.add_argument('--picture', required=True, help='mp4, or a PNG sequence pattern
 ap.add_argument('--audio-from', help='clip whose audio to keep (defaults to --picture when it is an mp4)')
 ap.add_argument('--overlay', help='PNG sequence pattern with alpha (Remotion overlay)')
 ap.add_argument('--blackout', nargs=2, type=float, metavar=('START', 'END'), help='seconds: instant black and back, picture and sound')
+ap.add_argument('--no-audio', action='store_true', help='drop the clip audio (for a voiceover that replaces it)')
 ap.add_argument('--plain', action='store_true', help='no contrast, saturation or vignette: grain only, for clips already color graded')
 ap.add_argument('--grade', choices=['golden', 'blue'])
 ap.add_argument('--glow', action='store_true')
@@ -33,7 +34,7 @@ ap.add_argument('--out', required=True)
 a = ap.parse_args()
 
 is_seq = '%' in a.picture
-audio_src = a.audio_from or (None if is_seq else a.picture)
+audio_src = None if a.no_audio else (a.audio_from or (None if is_seq else a.picture))
 
 cmd = ['ffmpeg', '-v', 'error', '-y']
 cmd += ['-framerate', '24', '-i', a.picture] if is_seq else ['-i', a.picture]
