@@ -23,7 +23,8 @@
     "word": "node scripts/word-at.mjs",
     "outline": "python3 scripts/outline.py",
     "style": "tsx scripts/style.mjs",
-    "ramp": "node scripts/speed-ramp.mjs"
+    "ramp": "node scripts/speed-ramp.mjs",
+    "matte:refine": "python3 scripts/matte-refine.py"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.0",

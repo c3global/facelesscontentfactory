@@ -1,0 +1,532 @@
+{
+  "slug": "how-know-working",
+  "video": "raw/how-know-working.mp4",
+  "durationSec": 56.17,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [
+    "declines",
+    "person",
+    "answers"
+  ],
+  "captionStyle": "editorial",
+  "captionBand": {
+    "top": 1056,
+    "bottom": 1382
+  },
+  "captionBandTop": {
+    "top": 250,
+    "bottom": 560
+  },
+  "hero": [
+    "working",
+    "speed",
+    "declines",
+    "person",
+    "launch",
+    "list",
+    "answers",
+    "report",
+    "question",
+    "teach",
+    "read",
+    "checks"
+  ],
+  "boxed": [],
+  "finish": {
+    "grain": 0.35,
+    "lightLeaks": 0.5
+  },
+  "endCard": {
+    "variant": "link-pill",
+    "startAt": 53.5,
+    "label": "FOLLOW FOR MORE",
+    "url": "bio.c3global.co"
+  },
+  "music": {
+    "src": "music/leveled/warm-marscott-warm-sunlight.mp3",
+    "volume": 0.35,
+    "duckTo": 0.16,
+    "fadeInSec": 1.5,
+    "fadeOutSec": 2.5,
+    "startFromSec": 0
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 3.59,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "numbers",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 3.59,
+          "end": 6.62,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 3.59,
+              "until": 6.62,
+              "props": {
+                "label": "SPEED AND USAGE",
+                "line": "Numbers won't tell you.",
+                "emphasis": [
+                  "tell"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "declines",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 6.62,
+          "end": 9.05,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 6.62,
+              "until": 9.05,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
+              "props": {
+                "text": "Start with what it declines.",
+                "emphasis": [
+                  "declines"
+                ],
+                "wordTimes": [
+                  6.62,
+                  6.94,
+                  7.3,
+                  7.65,
+                  7.88
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "method",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 9.05,
+          "end": 14.08,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 9.05,
+              "until": 14.08,
+              "props": {
+                "label": "A HUMAN METHOD",
+                "line": "Knows where the method says stop.",
+                "emphasis": [
+                  "stop"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "person",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 14.08,
+          "end": 16.04,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 14.08,
+              "until": 16.04,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
+              "props": {
+                "text": "This one needs a person.",
+                "emphasis": [
+                  "person"
+                ],
+                "wordTimes": [
+                  14.08,
+                  14.41,
+                  14.59,
+                  15.07,
+                  15.16
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "declines",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 16.04,
+          "end": 22.29,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": [],
+          "captions": "off"
+        }
+      ]
+    },
+    {
+      "id": "launch",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 22.29,
+          "end": 24.87,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 22.29,
+              "until": 24.87,
+              "props": {
+                "label": "BEFORE LAUNCH",
+                "line": "Write that list.",
+                "emphasis": [
+                  "list"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "instead",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 24.87,
+          "end": 29.71,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 24.87,
+              "until": 29.71,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
+              "props": {
+                "text": "For each item, decide what the app says instead and who sees the question.",
+                "emphasis": [
+                  "instead"
+                ],
+                "wordTimes": [
+                  24.87,
+                  24.89,
+                  25.27,
+                  25.76,
+                  26.23,
+                  26.55,
+                  26.79,
+                  27.03,
+                  27.35,
+                  27.91,
+                  28.12,
+                  28.32,
+                  28.58,
+                  28.78
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "sample",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 29.71,
+          "end": 33.59,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "answers",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 33.59,
+          "end": 37.39,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 33.59,
+              "until": 37.39,
+              "props": {
+                "label": "EVERY WEEK",
+                "line": "Read the answers themselves, not a report about them.",
+                "emphasis": [
+                  "answers"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ask",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 37.39,
+          "end": 40.24,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "would",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 40.24,
+          "end": 42.45,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 40.24,
+              "until": 42.45,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
+              "props": {
+                "text": "Would I have said this?",
+                "emphasis": [
+                  "Would"
+                ],
+                "wordTimes": [
+                  40.24,
+                  40.74,
+                  40.74,
+                  41.13,
+                  41.59
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "teach",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 42.45,
+          "end": 46.62,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 42.45,
+              "until": 46.62,
+              "props": {
+                "label": "IF THE ANSWER IS NO",
+                "line": "You found something to teach it.",
+                "emphasis": [
+                  "teach"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "who",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 46.62,
+          "end": 49.66,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "follow",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 49.66,
+          "end": 53.5,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 49.66,
+              "until": 53.5,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
+              "props": {
+                "text": "Follow for more checks to tell whether your AI app is really working.",
+                "emphasis": [
+                  "working"
+                ],
+                "wordTimes": [
+                  49.66,
+                  49.84,
+                  50.08,
+                  50.31,
+                  50.76,
+                  50.89,
+                  51.11,
+                  51.58,
+                  51.85,
+                  51.98,
+                  52.18,
+                  52.41,
+                  52.71
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "end",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 53.5,
+          "end": 56.17,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "fx": [
+    {
+      "type": "checklist",
+      "at": 16.04,
+      "until": 22.5,
+      "props": {
+        "title": "What the app declines",
+        "items": [
+          {
+            "text": "Firing someone",
+            "at": 16.04
+          },
+          {
+            "text": "A medical question",
+            "at": 17.53
+          },
+          {
+            "text": "A client who's grieving",
+            "at": 19.16
+          },
+          {
+            "text": "A legal question",
+            "at": 21.03
+          }
+        ]
+      }
+    }
+  ]
+}
