@@ -59,9 +59,6 @@
     "startFromSec": 0
   },
   "style": "spotlight",
-  "mix": {
-    "outline": "none"
-  },
   "scenes": [
     {
       "id": "hook",
