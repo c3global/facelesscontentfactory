@@ -11,6 +11,7 @@ Send Claude four things:
 
 ## Rules every effect follows
 - **No color changes unless Dr. CK asks.** Her clips arrive already graded. Do not apply M11, M12, M13, M15 or any other look effect by default, and use `ls_finish.py --plain` (grain only) on pre-graded clips. No letterbox bars on reels. She liked the Finished Version's drift, so motion effects are fine; grades and bars were rejected on 2026-10-16.
+- **Copy sounds like Dr. CK talking, in plain spoken English.** Do not reuse the generated voiceover or tagline lines from the Flow/Seedance briefs as on-screen text or voiceover without checking they read naturally aloud; she rejected several on 2026-10-16 as stiff and AI-sounding. Start from her own spoken wording and tighten it.
 - **Text is the point of a Life Scene edit.** If she has not supplied wording, ask for it or propose lines for her approval. Never invent it.
 - Hard cuts only between clips. Never a fade or dissolve between clips.
 - No tags, badges or end cards. It should look cinematic.
