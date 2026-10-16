@@ -77,7 +77,28 @@ if __name__ == '__main__':
     with Pool(int(os.environ.get('REFINE_PROCS', '3'))) as p:
         for _ in p.imap_unordered(refine, frames):
             pass
-    load = lambda i: np.load(os.path.join(tmp, f'{i:05d}.npy'))
+    vid = cv2.VideoCapture(raw)
+
+    def clean_edges(a, i):
+        # pale, unsaturated pixels that sit only on the edge band are room (a lit sofa back), not her: drop them
+        vid.set(cv2.CAP_PROP_POS_FRAMES, i)
+        ok, bgr = vid.read()
+        bgr = cv2.resize(bgr, (OW, OH), interpolation=cv2.INTER_CUBIC)
+        hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV).astype(np.float32)
+        core = cv2.erode((a > 0.97).astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (41, 41)))
+        band = (a > 0.02) & (core == 0)
+        pale = (hsv[..., 1] / 255 < 0.26) & (hsv[..., 2] / 255 > 0.40)
+        a = a.copy()
+        a[band & pale] = 0
+        return cv2.GaussianBlur(a, (0, 0), 0.8)
+
+    cache = {}
+
+    def load(i):
+        if i not in cache:
+            cache[i] = clean_edges(np.load(os.path.join(tmp, f'{i:05d}.npy')), i)
+        return cache[i]
+
     # old cutout's alpha stream, frame by frame; refined frames replace it, lightly smoothed over time
     dec = subprocess.Popen(['ffmpeg', '-v', 'error', '-c:v', 'libvpx-vp9', '-i', webm, '-vf', 'alphaextract,format=gray', '-f', 'rawvideo', '-pix_fmt', 'gray', '-'], stdout=subprocess.PIPE)
     alpha_mp4 = os.path.join(tmp, 'alpha.mp4')
