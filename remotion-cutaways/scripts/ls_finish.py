@@ -23,6 +23,7 @@ ap.add_argument('--picture', required=True, help='mp4, or a PNG sequence pattern
 ap.add_argument('--audio-from', help='clip whose audio to keep (defaults to --picture when it is an mp4)')
 ap.add_argument('--overlay', help='PNG sequence pattern with alpha (Remotion overlay)')
 ap.add_argument('--blackout', nargs=2, type=float, metavar=('START', 'END'), help='seconds: instant black and back, picture and sound')
+ap.add_argument('--plain', action='store_true', help='no contrast, saturation or vignette: grain only, for clips already color graded')
 ap.add_argument('--grade', choices=['golden', 'blue'])
 ap.add_argument('--glow', action='store_true')
 ap.add_argument('--leaks', help='opaque PNG/JPEG sequence pattern, screen-blended over the picture')
@@ -55,7 +56,7 @@ if audio_src and audio_src != a.picture:
 elif audio_src:
     audio_idx = 0
 
-fin = 'eq=contrast=1.04:saturation=1.03,vignette=angle=PI/7,noise=alls=3:allf=t'
+fin = 'noise=alls=3:allf=t' if a.plain else 'eq=contrast=1.04:saturation=1.03,vignette=angle=PI/7,noise=alls=3:allf=t'
 GRADES = {
     # warm sunlit: lifts reds and yellows, pulls blue out of the shadows and highlights
     'golden': 'colorbalance=rs=.05:gs=.01:bs=-.07:rm=.07:gm=.025:bm=-.08:rh=.05:gh=.015:bh=-.06,eq=saturation=1.07:contrast=1.03',
