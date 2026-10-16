@@ -14,6 +14,7 @@ import {LSMessage, lsMessageSchema, LSNote, lsNoteSchema} from './LifeSceneOverl
 import {LSChecklist, lsChecklistSchema, LSPhone, lsPhoneSchema, LSStack, lsStackSchema} from './LifeSceneEffects';
 import {LSClip, lsClipSchema} from './LSClip';
 import {LSZoomThrough, lsZoomThroughSchema} from './LSZoomThrough';
+import {LSDust, lsDustSchema, LSLeaks, lsLeaksSchema} from './LSAtmosphere';
 import {LSComment, lsCommentSchema, LSTimeline, lsTimelineSchema} from './LifeSceneEffects2';
 import {PatientFile, patientFileFrames, patientFileSchema, PF_FPS} from './PatientFile';
 
@@ -140,6 +141,26 @@ export const Root: React.FC = () => (
       component={LSClip}
       schema={lsClipSchema}
       defaultProps={{src: 'raw/clip.mp4', effect: 'zoom' as const, from: 1, to: 1.1, moveSec: 10, px: 0.5, py: 0.35}}
+      durationInFrames={240}
+      fps={24}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="LSDust"
+      component={LSDust}
+      schema={lsDustSchema}
+      defaultProps={{count: 55}}
+      durationInFrames={240}
+      fps={24}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="LSLeaks"
+      component={LSLeaks}
+      schema={lsLeaksSchema}
+      defaultProps={{strength: 0.85}}
       durationInFrames={240}
       fps={24}
       width={1080}

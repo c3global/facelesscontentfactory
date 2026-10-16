@@ -27,20 +27,20 @@ Status key: **Built** (ready now), **Easy** (small build, same day), **Build** (
 | ID | Effect | What it does | Best for | Status |
 |---|---|---|---|---|
 | M01 | Digital zoom | Slow push-in across the whole clip | All types | **Built** |
-| M02 | Punch-in | Quick zoom on a beat or a gesture | A, B | Easy |
+| M02 | Punch-in | Quick zoom on a beat or a gesture | A, B | **Built** (`LSClip` effect `punch`) |
 | M03 | Pull-back reveal | Starts tight on a detail (the phone), pulls back to show her | A, C | **Built** (starts at 1.4x, the limit for a 720p source) |
 | M04 | Zoom-through cut | Clip one accelerates into a point with motion blur, hard cut to clip two, which starts at the same zoom and pulls back out | A, B | **Built** (needs two clips) |
 | M05 | Blackout | Instant cut to black for a beat, then a hard cut back. Never a fade. Also works as an ending | All types | **Built** |
-| M06 | Flash frame | One or two frames of bright white, like a camera flash | A, B | Easy |
+| M06 | Flash frame | One or two frames of bright white, like a camera flash | A, B | **Built** (2 frames of white, shutter sound pending a real recording) |
 | M07 | Speed ramp | Slows down on a key gesture (needs frame smoothing at 24 fps) | A, C | Build |
-| M08 | Freeze and hold | Holds the last frame while text lands | All types | Easy |
-| M09 | Handheld drift | Slight camera sway, as if filmed by hand | A, B | Easy |
-| M10 | Light leaks | Warm flares drift across the picture | All types | Easy (already in the repo's finish) |
-| M11 | Golden-hour grade | Warm, sunlit color look | All types | Easy |
-| M12 | Blue-hour grade | Cool, evening color look | All types | Easy |
-| M13 | Soft glow | Gentle bloom on highlights | All types | Easy |
-| M14 | Floating dust | Tiny particles drifting in the light | All types | Easy |
-| M15 | Letterbox bars | Cinema bars top and bottom | All types | Easy (check they clear the text band) |
+| M08 | Freeze and hold | Holds the last frame while text lands | All types | **Built** (freezes the picture, room sound keeps running) |
+| M09 | Handheld drift | Slight camera sway, as if filmed by hand | A, B | **Built** (`LSClip` effect `drift`) |
+| M10 | Light leaks | Warm flares drift across the picture | All types | **Built** (opaque leaks screen-blended) |
+| M11 | Golden-hour grade | Warm, sunlit color look | All types | **Built** |
+| M12 | Blue-hour grade | Cool, evening color look | All types | **Built** |
+| M13 | Soft glow | Gentle bloom on highlights | All types | **Built** |
+| M14 | Floating dust | Tiny particles drifting in the light | All types | **Built** |
+| M15 | Letterbox bars | Cinema bars top and bottom | All types | **Built** (150 px bars, clear of the text band) |
 | M16 | Rewind | A short reverse playback for a "if only" moment | A, B | Build |
 
 ## Graphics
@@ -90,3 +90,7 @@ Synthesized sounds were tried (stamp thud, whoosh, pencil) and missed twice. Use
 - Combine any of them: render the camera sequence (M01 or M03) and the overlay sequence, then `ls_finish.py --picture CAMERA_SEQ --overlay OVERLAY_SEQ --audio-from CLIP --out LS_Name.mp4`.
 - M04: `LSZoomThrough` (`src/LSZoomThrough.tsx`). Props: the two clips, start and length of each, the point to zoom toward in each (`outPx/outPy`, `inPx/inPy`), `peak` zoom (3.4 works on 720p because of the blur) and `moveSec`. Audio: hard cut, build it with ffmpeg `concat` and pass `--audio-from` a wav.
 - G06 and G07: `LSComment` and `LSTimeline` in `src/LifeSceneEffects2.tsx`.
+- M02, M08, M09: `LSClip` effects `punch` (props `from`, `to`, `atSec`), `freeze` (`atSec`) and `drift` (`drift` strength, 1 is gentle).
+- M06, M11, M12, M13, M15: flags on `scripts/ls_finish.py`: `--flash T [T...]`, `--grade golden|blue`, `--glow`, `--letterbox [PX]`. They combine with any camera or overlay sequence.
+- M10: render `LSLeaks` as a JPEG sequence (opaque on black), then `ls_finish.py --leaks SEQ`. Screen blending is done in RGB; in YUV it turns the picture magenta.
+- M14: `LSDust` (`src/LSAtmosphere.tsx`) as a transparent PNG sequence, passed as `--overlay`.
