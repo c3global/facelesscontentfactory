@@ -13,6 +13,8 @@ import {LifeSceneText, lifeSceneTextSchema, LS_FPS} from './LifeSceneText';
 import {LSMessage, lsMessageSchema, LSNote, lsNoteSchema} from './LifeSceneOverlays';
 import {LSChecklist, lsChecklistSchema, LSPhone, lsPhoneSchema, LSStack, lsStackSchema} from './LifeSceneEffects';
 import {LSClip, lsClipSchema} from './LSClip';
+import {LSZoomThrough, lsZoomThroughSchema} from './LSZoomThrough';
+import {LSComment, lsCommentSchema, LSTimeline, lsTimelineSchema} from './LifeSceneEffects2';
 import {PatientFile, patientFileFrames, patientFileSchema, PF_FPS} from './PatientFile';
 
 const lifeSceneTextProps = {
@@ -138,6 +140,39 @@ export const Root: React.FC = () => (
       component={LSClip}
       schema={lsClipSchema}
       defaultProps={{src: 'raw/clip.mp4', effect: 'zoom' as const, from: 1, to: 1.1, moveSec: 10, px: 0.5, py: 0.35}}
+      durationInFrames={240}
+      fps={24}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="LSZoomThrough"
+      component={LSZoomThrough}
+      schema={lsZoomThroughSchema}
+      defaultProps={{outSrc: 'raw/fx_walk_c1.mp4', outStartSec: 5, outSec: 5, outPx: 0.52, outPy: 0.37, inSrc: 'raw/fx_text_c2.mp4', inStartSec: 0, inSec: 5, inPx: 0.5, inPy: 0.37, peak: 3.4, moveSec: 0.7}}
+      durationInFrames={240}
+      fps={24}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="LSComment"
+      component={LSComment}
+      schema={lsCommentSchema}
+      defaultProps={{comments: [
+        {handle: '@a.friend', initial: 'A', text: 'Wait, this is so me.', atSec: 3.0},
+        {handle: '@another.one', initial: 'J', text: 'Sending this to her now.', atSec: 5.4},
+      ]}}
+      durationInFrames={240}
+      fps={24}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="LSTimeline"
+      component={LSTimeline}
+      schema={lsTimelineSchema}
+      defaultProps={{items: ['Day 1', 'Week 2', 'Month 3', 'Year 1'], startSec: 2.5, endSec: 8.0}}
       durationInFrames={240}
       fps={24}
       width={1080}
