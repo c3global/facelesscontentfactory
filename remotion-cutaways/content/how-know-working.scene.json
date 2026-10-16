@@ -112,8 +112,8 @@
               "at": 6.62,
               "until": 9.05,
               "box": {
-                "y": 260,
-                "h": 900,
+                "y": 360,
+                "h": 1200,
                 "center": true
               },
               "props": {
@@ -182,8 +182,8 @@
               "at": 14.08,
               "until": 16.04,
               "box": {
-                "y": 260,
-                "h": 900,
+                "y": 360,
+                "h": 1200,
                 "center": true
               },
               "props": {
@@ -208,27 +208,13 @@
       "bg": "backdrops/red-velvet.jpg"
     },
     {
-      "id": "declines-a",
+      "id": "declines",
       "mood": "dark",
       "segments": [
         {
           "start": 16.04,
-          "end": 19.16,
+          "end": 22.29,
           "layout": "A",
-          "captionPos": "bottom",
-          "graphics": [],
-          "captions": "off"
-        }
-      ]
-    },
-    {
-      "id": "declines-b",
-      "mood": "dark",
-      "segments": [
-        {
-          "start": 19.16,
-          "end": 22.77,
-          "layout": "E",
           "captionPos": "bottom",
           "graphics": [],
           "captions": "off"
@@ -240,14 +226,14 @@
       "mood": "light",
       "segments": [
         {
-          "start": 22.77,
+          "start": 22.29,
           "end": 24.87,
           "layout": "S",
           "captionPos": "top",
           "graphics": [
             {
               "type": "headline-card",
-              "at": 22.77,
+              "at": 22.29,
               "until": 24.87,
               "props": {
                 "label": "BEFORE LAUNCH",
@@ -280,8 +266,9 @@
               "at": 24.87,
               "until": 29.71,
               "box": {
-                "y": 60,
-                "h": 620
+                "y": 360,
+                "h": 1200,
+                "center": true
               },
               "props": {
                 "text": "For each item, decide what the app says instead and who sees the question.",
@@ -384,8 +371,8 @@
               "at": 40.24,
               "until": 42.45,
               "box": {
-                "y": 260,
-                "h": 900,
+                "y": 360,
+                "h": 1200,
                 "center": true
               },
               "props": {
@@ -454,33 +441,51 @@
     },
     {
       "id": "follow",
-      "mood": "light",
+      "mood": "dark",
       "segments": [
         {
           "start": 49.66,
           "end": 53.5,
-          "layout": "S",
-          "captionPos": "top",
+          "layout": "E",
+          "captionPos": "bottom",
           "graphics": [
             {
-              "type": "headline-card",
+              "type": "statement-card",
               "at": 49.66,
               "until": 53.5,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
               "props": {
-                "label": "FOLLOW",
-                "line": "Checks that show it is really working.",
+                "text": "Follow for more checks to tell whether your AI app is really working.",
                 "emphasis": [
                   "working"
+                ],
+                "wordTimes": [
+                  49.66,
+                  49.84,
+                  50.08,
+                  50.31,
+                  50.76,
+                  50.89,
+                  51.11,
+                  51.58,
+                  51.85,
+                  51.98,
+                  52.18,
+                  52.41,
+                  52.71
                 ]
               }
             }
           ],
-          "focus": {
-            "y": 8,
-            "zoom": 1.1
-          }
+          "avatar": "hidden",
+          "captions": "off"
         }
-      ]
+      ],
+      "bg": "backdrops/red-velvet.jpg"
     },
     {
       "id": "end",

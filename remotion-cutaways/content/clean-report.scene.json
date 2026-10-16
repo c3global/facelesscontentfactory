@@ -65,17 +65,7 @@
           "end": 1.6,
           "layout": "A",
           "captionPos": "bottom",
-          "graphics": [
-            {
-              "type": "tag",
-              "at": 0,
-              "until": 1.6,
-              "props": {
-                "text": "A spotless report deserves a second look",
-                "y": 940
-              }
-            }
-          ]
+          "graphics": []
         }
       ]
     },
@@ -90,20 +80,12 @@
           "captionPos": "bottom",
           "graphics": [
             {
-              "type": "tag",
-              "at": 1.6,
-              "until": 3.42,
-              "props": {
-                "text": "A spotless report deserves a second look"
-              }
-            },
-            {
               "type": "statement-card",
               "at": 1.6,
               "until": 3.42,
               "box": {
-                "y": 260,
-                "h": 900,
+                "y": 360,
+                "h": 1200,
                 "center": true
               },
               "props": {
@@ -184,8 +166,8 @@
               "at": 12.64,
               "until": 15.03,
               "box": {
-                "y": 260,
-                "h": 900,
+                "y": 360,
+                "h": 1200,
                 "center": true
               },
               "props": {
@@ -266,8 +248,9 @@
               "at": 22.42,
               "until": 26.48,
               "box": {
-                "y": 60,
-                "h": 620
+                "y": 360,
+                "h": 1200,
+                "center": true
               },
               "props": {
                 "text": "I read it as a question about whether it feels safe to bring one.",
@@ -343,8 +326,9 @@
               "at": 28.64,
               "until": 33.59,
               "box": {
-                "y": 60,
-                "h": 620
+                "y": 360,
+                "h": 1200,
+                "center": true
               },
               "props": {
                 "text": "What would you have told me if you knew I wouldn't be upset?",
@@ -390,33 +374,54 @@
     },
     {
       "id": "follow",
-      "mood": "light",
+      "mood": "dark",
       "segments": [
         {
           "start": 37.99,
           "end": 43.3,
-          "layout": "S",
-          "captionPos": "top",
+          "layout": "E",
+          "captionPos": "bottom",
           "graphics": [
             {
-              "type": "headline-card",
+              "type": "statement-card",
               "at": 37.99,
               "until": 43.3,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
               "props": {
-                "label": "FOLLOW",
-                "line": "Hear the truth before it reaches the report.",
+                "text": "Follow and subscribe for more ideas for hearing the truth before it ever reaches the report.",
                 "emphasis": [
                   "truth"
+                ],
+                "wordTimes": [
+                  37.99,
+                  38.35,
+                  38.54,
+                  39.26,
+                  39.5,
+                  39.82,
+                  40.23,
+                  40.41,
+                  40.8,
+                  40.96,
+                  41.31,
+                  41.73,
+                  41.87,
+                  42.15,
+                  42.64,
+                  42.85
                 ]
               }
             }
           ],
-          "focus": {
-            "y": 8,
-            "zoom": 1.1
-          }
+          "avatar": "hidden",
+          "captions": "off"
         }
-      ]
+      ],
+      "bg": "backdrops/red-velvet.jpg"
     },
     {
       "id": "end",
@@ -450,21 +455,6 @@
       "props": {
         "text": "Edmondson, 1996",
         "anchor": "chest"
-      }
-    },
-    {
-      "type": "doodle-boil",
-      "at": 35.36,
-      "until": 37.9,
-      "props": {
-        "marks": [
-          {
-            "kind": "circle",
-            "target": "head",
-            "at": 35.36,
-            "color": "gold"
-          }
-        ]
       }
     }
   ]

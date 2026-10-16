@@ -66,17 +66,7 @@
           "end": 3.16,
           "layout": "A",
           "captionPos": "bottom",
-          "graphics": [
-            {
-              "type": "tag",
-              "at": 0,
-              "until": 3.16,
-              "props": {
-                "text": "Test the smallest piece",
-                "y": 940
-              }
-            }
-          ]
+          "graphics": []
         }
       ]
     },
@@ -95,8 +85,8 @@
               "at": 3.16,
               "until": 6.04,
               "box": {
-                "y": 260,
-                "h": 900,
+                "y": 360,
+                "h": 1200,
                 "center": true
               },
               "props": {
@@ -209,8 +199,9 @@
               "at": 20.03,
               "until": 25.46,
               "box": {
-                "y": 60,
-                "h": 620
+                "y": 360,
+                "h": 1200,
+                "center": true
               },
               "props": {
                 "text": "Pick one thing you'd change, such as a welcome message or a first-page layout,",
@@ -330,8 +321,8 @@
               "at": 36.8,
               "until": 40.43,
               "box": {
-                "y": 260,
-                "h": 900,
+                "y": 360,
+                "h": 1200,
                 "center": true
               },
               "props": {
@@ -371,8 +362,9 @@
               "at": 40.43,
               "until": 46.02,
               "box": {
-                "y": 60,
-                "h": 620
+                "y": 360,
+                "h": 1200,
+                "center": true
               },
               "props": {
                 "text": "If you're about to rebuild something big, find the smallest piece you can test first.",
@@ -413,49 +405,54 @@
           "end": 48.23,
           "layout": "A",
           "captionPos": "bottom",
-          "graphics": [
-            {
-              "type": "tag",
-              "at": 46.02,
-              "until": 48.23,
-              "props": {
-                "text": "What's your smallest piece?",
-                "y": 940
-              }
-            }
-          ]
+          "graphics": []
         }
       ]
     },
     {
       "id": "follow",
-      "mood": "light",
+      "mood": "dark",
       "segments": [
         {
           "start": 48.23,
           "end": 52.76,
-          "layout": "S",
-          "captionPos": "top",
+          "layout": "E",
+          "captionPos": "bottom",
           "graphics": [
             {
-              "type": "headline-card",
+              "type": "statement-card",
               "at": 48.23,
               "until": 52.76,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
               "props": {
-                "label": "FOLLOW",
-                "line": "Small tests that make big changes safer.",
+                "text": "Follow for more small tests that make big changes safer.",
                 "emphasis": [
                   "safer"
+                ],
+                "wordTimes": [
+                  48.23,
+                  48.69,
+                  48.91,
+                  49.32,
+                  49.82,
+                  50.36,
+                  50.88,
+                  51.13,
+                  51.43,
+                  52.14
                 ]
               }
             }
           ],
-          "focus": {
-            "y": 8,
-            "zoom": 1.1
-          }
+          "avatar": "hidden",
+          "captions": "off"
         }
-      ]
+      ],
+      "bg": "backdrops/red-velvet.jpg"
     },
     {
       "id": "end",

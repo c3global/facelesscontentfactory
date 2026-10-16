@@ -65,17 +65,7 @@
           "end": 3.21,
           "layout": "A",
           "captionPos": "bottom",
-          "graphics": [
-            {
-              "type": "tag",
-              "at": 0,
-              "until": 3.21,
-              "props": {
-                "text": "Listen for the second sentence",
-                "y": 940
-              }
-            }
-          ]
+          "graphics": []
         }
       ]
     },
@@ -124,8 +114,9 @@
               "at": 8.58,
               "until": 12.65,
               "box": {
-                "y": 60,
-                "h": 620
+                "y": 360,
+                "h": 1200,
+                "center": true
               },
               "props": {
                 "text": "It's tidy and it's what they think you want to hear.",
@@ -255,8 +246,9 @@
               "at": 28.14,
               "until": 33.43,
               "box": {
-                "y": 60,
-                "h": 620
+                "y": 360,
+                "h": 1200,
+                "center": true
               },
               "props": {
                 "text": "A good practitioner hears the shift and responds to it before she could name it.",
@@ -369,33 +361,49 @@
     },
     {
       "id": "follow",
-      "mood": "light",
+      "mood": "dark",
       "segments": [
         {
           "start": 52.02,
           "end": 55.35,
-          "layout": "S",
-          "captionPos": "top",
+          "layout": "E",
+          "captionPos": "bottom",
           "graphics": [
             {
-              "type": "headline-card",
+              "type": "statement-card",
               "at": 52.02,
               "until": 55.35,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
               "props": {
-                "label": "FOLLOW",
-                "line": "Hear the second sentence.",
+                "text": "Follow and subscribe for more tips on hearing the second sentence.",
                 "emphasis": [
                   "second"
+                ],
+                "wordTimes": [
+                  52.02,
+                  52.19,
+                  52.35,
+                  52.99,
+                  53.06,
+                  53.29,
+                  53.52,
+                  53.63,
+                  54.05,
+                  54.21,
+                  54.61
                 ]
               }
             }
           ],
-          "focus": {
-            "y": 8,
-            "zoom": 1.1
-          }
+          "avatar": "hidden",
+          "captions": "off"
         }
-      ]
+      ],
+      "bg": "backdrops/red-velvet.jpg"
     },
     {
       "id": "end",
