@@ -141,7 +141,7 @@ export const Root: React.FC = () => (
       component={LSClip}
       schema={lsClipSchema}
       defaultProps={{src: 'raw/clip.mp4', effect: 'zoom' as const, from: 1, to: 1.1, moveSec: 10, px: 0.5, py: 0.35}}
-      durationInFrames={240}
+      durationInFrames={480}
       fps={24}
       width={1080}
       height={1920}
@@ -151,7 +151,7 @@ export const Root: React.FC = () => (
       component={LSDust}
       schema={lsDustSchema}
       defaultProps={{count: 55}}
-      durationInFrames={240}
+      durationInFrames={480}
       fps={24}
       width={1080}
       height={1920}
