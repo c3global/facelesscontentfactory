@@ -94,3 +94,4 @@ Synthesized sounds were tried (stamp thud, whoosh, pencil) and missed twice. Use
 - M06, M11, M12, M13, M15: flags on `scripts/ls_finish.py`: `--flash T [T...]`, `--grade golden|blue`, `--glow`, `--letterbox [PX]`. They combine with any camera or overlay sequence.
 - M10: render `LSLeaks` as a JPEG sequence (opaque on black), then `ls_finish.py --leaks SEQ`. Screen blending is done in RGB; in YUV it turns the picture magenta.
 - M14: `LSDust` (`src/LSAtmosphere.tsx`) as a transparent PNG sequence, passed as `--overlay`.
+- M02 strength: the 1.10x sample read too subtle. Use `to` 1.20 to 1.25 on 1080p or 4K sources (Flow and Seedance exports), and keep 1.10 only for 720p. Add a 2 to 3 frame overshoot if it still feels soft.
