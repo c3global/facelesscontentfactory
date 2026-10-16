@@ -12,7 +12,7 @@ export const graphicSchema = z.discriminatedUnion('type', [
   z.object({
     ...base,
     type: z.literal('tag'),
-    props: z.object({text: z.string()}),
+    props: z.object({text: z.string(), /** top of the tag in px; default is the top safe line. Hook tags on a full-frame hook go lower so they never sit on her forehead. */ y: z.number().optional()}),
   }),
   z.object({
     ...base,

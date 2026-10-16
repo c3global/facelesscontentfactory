@@ -1,0 +1,502 @@
+{
+  "slug": "smallest-piece",
+  "video": "raw/smallest-piece.mp4",
+  "durationSec": 55.17,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [
+    "smallest",
+    "small",
+    "cheap",
+    "evidence"
+  ],
+  "captionStyle": "editorial",
+  "captionBand": {
+    "top": 1056,
+    "bottom": 1382
+  },
+  "captionBandTop": {
+    "top": 250,
+    "bottom": 560
+  },
+  "hero": [
+    "rebuild",
+    "Lewin",
+    "loop",
+    "budget",
+    "welcome",
+    "layout",
+    "week",
+    "noticed",
+    "mistake",
+    "experience",
+    "smallest",
+    "test",
+    "safer",
+    "research"
+  ],
+  "boxed": [],
+  "finish": {
+    "grain": 0.35,
+    "lightLeaks": 0.5
+  },
+  "endCard": {
+    "variant": "link-pill",
+    "startAt": 52.76,
+    "label": "FOLLOW FOR MORE",
+    "url": "bio.c3global.co"
+  },
+  "music": {
+    "src": "music/leveled/bright-terem-moment-of-truth.mp3",
+    "volume": 0.35,
+    "duckTo": 0.16,
+    "fadeInSec": 1.5,
+    "fadeOutSec": 2.5,
+    "startFromSec": 0
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 3.16,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "tag",
+              "at": 0,
+              "until": 3.16,
+              "props": {
+                "text": "Test the smallest piece",
+                "y": 940
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "learn",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 3.16,
+          "end": 6.04,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 3.16,
+              "until": 6.04,
+              "box": {
+                "y": 260,
+                "h": 900,
+                "center": true
+              },
+              "props": {
+                "text": "stop you from learning anything?",
+                "emphasis": [
+                  "learning"
+                ],
+                "wordTimes": [
+                  3.16,
+                  3.54,
+                  3.72,
+                  3.86,
+                  4.2
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "lewin",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 6.04,
+          "end": 11.01,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "citation-card",
+              "at": 6.04,
+              "until": 11.01,
+              "props": {
+                "label": "SOURCE",
+                "authors": "Kurt Lewin",
+                "year": "1946",
+                "title": "Action Research and Minority Problems",
+                "source": "Journal of Social Issues"
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "loop",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 11.01,
+          "end": 16.51,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": [],
+          "captions": "off"
+        }
+      ]
+    },
+    {
+      "id": "budget",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 16.51,
+          "end": 20.03,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 16.51,
+              "until": 20.03,
+              "props": {
+                "label": "THE LOOP",
+                "line": "Before you spend the budget.",
+                "emphasis": [
+                  "budget"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "pick",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 20.03,
+          "end": 25.46,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 20.03,
+              "until": 25.46,
+              "box": {
+                "y": 60,
+                "h": 620
+              },
+              "props": {
+                "text": "Pick one thing you'd change, such as a welcome message or a first-page layout,",
+                "emphasis": [
+                  "welcome",
+                  "first-page"
+                ],
+                "wordTimes": [
+                  20.03,
+                  20.32,
+                  20.56,
+                  20.96,
+                  21.35,
+                  22.16,
+                  22.19,
+                  22.31,
+                  22.32,
+                  22.65,
+                  23.0,
+                  23.25,
+                  23.31,
+                  24.35
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ]
+    },
+    {
+      "id": "group",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 25.46,
+          "end": 29.0,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 25.46,
+              "until": 29.0,
+              "props": {
+                "label": "ONE WEEK",
+                "line": "A small group of members.",
+                "emphasis": [
+                  "small"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "watch",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 29.0,
+          "end": 32.04,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "cheap",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 32.04,
+          "end": 36.8,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 32.04,
+              "until": 36.8,
+              "props": {
+                "label": "SMALL TESTS",
+                "line": "Evidence while a mistake is still cheap.",
+                "emphasis": [
+                  "cheap"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "steer",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 36.8,
+          "end": 40.43,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 36.8,
+              "until": 40.43,
+              "box": {
+                "y": 260,
+                "h": 900,
+                "center": true
+              },
+              "props": {
+                "text": "their experience is steering the work.",
+                "emphasis": [
+                  "experience"
+                ],
+                "wordTimes": [
+                  37.6,
+                  37.97,
+                  38.86,
+                  38.86,
+                  39.43,
+                  39.65
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "rebuild",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 40.43,
+          "end": 46.02,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 40.43,
+              "until": 46.02,
+              "box": {
+                "y": 60,
+                "h": 620
+              },
+              "props": {
+                "text": "If you're about to rebuild something big, find the smallest piece you can test first.",
+                "emphasis": [
+                  "smallest"
+                ],
+                "wordTimes": [
+                  40.43,
+                  40.43,
+                  40.43,
+                  40.7,
+                  40.81,
+                  41.19,
+                  41.74,
+                  42.0,
+                  42.4,
+                  43.11,
+                  43.62,
+                  44.03,
+                  44.33,
+                  44.7,
+                  45.1
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ]
+    },
+    {
+      "id": "ask",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 46.02,
+          "end": 48.23,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "tag",
+              "at": 46.02,
+              "until": 48.23,
+              "props": {
+                "text": "What's your smallest piece?",
+                "y": 940
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "follow",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 48.23,
+          "end": 52.76,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 48.23,
+              "until": 52.76,
+              "props": {
+                "label": "FOLLOW",
+                "line": "Small tests that make big changes safer.",
+                "emphasis": [
+                  "safer"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 52.76,
+          "end": 55.17,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "fx": [
+    {
+      "type": "checklist",
+      "at": 11.01,
+      "until": 16.6,
+      "props": {
+        "title": "Lewin's loop",
+        "items": [
+          {
+            "text": "Plan a small step",
+            "at": 11.01
+          },
+          {
+            "text": "Take it",
+            "at": 12.0
+          },
+          {
+            "text": "Look at what happened",
+            "at": 12.98
+          },
+          {
+            "text": "Decide the next step",
+            "at": 15.39
+          }
+        ]
+      }
+    }
+  ]
+}

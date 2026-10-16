@@ -1,0 +1,490 @@
+{
+  "slug": "gotten-used-to",
+  "video": "raw/gotten-used-to.mp4",
+  "durationSec": 55.43,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [
+    "false",
+    "normalization",
+    "deviance",
+    "weekend"
+  ],
+  "captionStyle": "editorial",
+  "captionBand": {
+    "top": 1056,
+    "bottom": 1382
+  },
+  "captionBandTop": {
+    "top": 250,
+    "bottom": 560
+  },
+  "hero": [
+    "True",
+    "false",
+    "warning",
+    "Vaughan",
+    "Challenger",
+    "known",
+    "normalization",
+    "deviance",
+    "gentle",
+    "deadline",
+    "yellow",
+    "weekend",
+    "gotten",
+    "flagged",
+    "month",
+    "noticing"
+  ],
+  "boxed": [],
+  "finish": {
+    "grain": 0.35,
+    "lightLeaks": 0.5
+  },
+  "endCard": {
+    "variant": "link-pill",
+    "startAt": 52.95,
+    "label": "FOLLOW FOR MORE",
+    "url": "bio.c3global.co"
+  },
+  "music": {
+    "src": "music/leveled/warm-yellen-closer-than-before.mp3",
+    "volume": 0.35,
+    "duckTo": 0.16,
+    "fadeInSec": 1.5,
+    "fadeOutSec": 2.5,
+    "startFromSec": 0
+  },
+  "style": "spotlight",
+  "mix": {
+    "outline": "none"
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 3.01,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "tag",
+              "at": 0,
+              "until": 3.01,
+              "props": {
+                "text": "True or false?",
+                "y": 940
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "warning",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 3.01,
+          "end": 5.98,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 3.01,
+              "until": 5.98,
+              "box": {
+                "y": 60,
+                "h": 620
+              },
+              "props": {
+                "text": "times and nothing went wrong, it's probably nothing.",
+                "emphasis": [
+                  "nothing"
+                ],
+                "wordTimes": [
+                  3.01,
+                  3.36,
+                  3.52,
+                  3.84,
+                  4.26,
+                  4.98,
+                  5.12,
+                  5.6
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ]
+    },
+    {
+      "id": "answer",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 5.98,
+          "end": 7.55,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "vaughan",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 7.55,
+          "end": 12.54,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "citation-card",
+              "at": 7.55,
+              "until": 12.54,
+              "props": {
+                "label": "SOURCE",
+                "authors": "Diane Vaughan",
+                "year": "1996",
+                "title": "The Challenger Launch Decision",
+                "source": "University of Chicago Press"
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "challenger",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 12.54,
+          "end": 16.15,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 12.54,
+              "until": 16.15,
+              "box": {
+                "y": 260,
+                "h": 900,
+                "center": true
+              },
+              "props": {
+                "text": "The decision to launch the Challenger space shuttle.",
+                "emphasis": [
+                  "Challenger"
+                ],
+                "wordTimes": [
+                  12.54,
+                  12.56,
+                  13.12,
+                  13.36,
+                  14.39,
+                  14.53,
+                  15.15,
+                  15.48
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "acceptable",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 16.15,
+          "end": 20.65,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 16.15,
+              "until": 20.65,
+              "props": {
+                "label": "A KNOWN PROBLEM",
+                "line": "Became acceptable.",
+                "emphasis": [
+                  "acceptable"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "norm",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 20.65,
+          "end": 25.55,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "gentle",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 25.55,
+          "end": 28.83,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 25.55,
+              "until": 28.83,
+              "box": {
+                "y": 260,
+                "h": 900,
+                "center": true
+              },
+              "props": {
+                "text": "Organizations do a gentle version daily.",
+                "emphasis": [
+                  "gentle"
+                ],
+                "wordTimes": [
+                  25.55,
+                  26.4,
+                  26.64,
+                  26.8,
+                  27.37,
+                  28.02
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "list",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 28.83,
+          "end": 34.82,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": [],
+          "captions": "off"
+        }
+      ]
+    },
+    {
+      "id": "weekend",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 34.82,
+          "end": 40.04,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 34.82,
+              "until": 40.04,
+              "props": {
+                "label": "UNTIL",
+                "line": "Every weekend looks like that one.",
+                "emphasis": [
+                  "weekend"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "used",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 40.04,
+          "end": 44.99,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 40.04,
+              "until": 44.99,
+              "box": {
+                "y": 60,
+                "h": 620
+              },
+              "props": {
+                "text": "What have you gotten used to that you'd have flagged in your first month?",
+                "emphasis": [
+                  "gotten"
+                ],
+                "wordTimes": [
+                  40.04,
+                  40.19,
+                  40.46,
+                  40.66,
+                  41.07,
+                  41.36,
+                  41.6,
+                  42.31,
+                  42.32,
+                  42.64,
+                  43.2,
+                  43.39,
+                  43.69,
+                  44.09
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "pick",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 44.99,
+          "end": 48.37,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "follow",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 48.37,
+          "end": 52.95,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 48.37,
+              "until": 52.95,
+              "props": {
+                "label": "FOLLOW",
+                "line": "Notice what you've stopped noticing.",
+                "emphasis": [
+                  "noticing"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 52.95,
+          "end": 55.43,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "matte": "gotten-used-to",
+  "fx": [
+    {
+      "type": "blackout",
+      "at": 6.25,
+      "until": 6.75,
+      "props": {
+        "holdSec": 0.4
+      }
+    },
+    {
+      "type": "digital-zoom",
+      "at": 22.39,
+      "until": 25.3,
+      "props": {
+        "creepTo": 1.18
+      }
+    },
+    {
+      "type": "checklist",
+      "at": 28.83,
+      "until": 34.8,
+      "props": {
+        "title": "Gentle version",
+        "items": [
+          {
+            "text": "A deadline slips",
+            "at": 28.83
+          },
+          {
+            "text": "A red stays yellow",
+            "at": 30.57
+          },
+          {
+            "text": "Someone works a weekend",
+            "at": 31.87
+          }
+        ]
+      }
+    }
+  ]
+}
