@@ -117,6 +117,7 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('storyboard-wall'), props: z.object({offsets: z.array(sec).min(4).max(12).default([1, 3, 5, 7, 9, 11]), rows: z.number().int().min(1).max(2).default(1), y: z.number().default(1450)}).prefault({})}),
   z.object({...base, type: z.literal('step-chips'), props: z.object({steps: z.array(z.object({label: z.string(), at: sec})).min(2).max(5), y: z.number().default(1470)})}),
   z.object({...base, type: z.literal('pen-circle'), props: z.object({note: z.string().optional(), target: target.default('head'), bw: z.boolean().default(true)}).prefault({})}),
+  z.object({...base, type: z.literal('script-panel'), props: z.object({title: z.string().default('Script'), beats: z.array(z.object({quote: z.string(), time: z.string().optional(), label: z.string().optional(), notes: z.array(z.string()).max(3).optional()})).min(2).max(8), steps: z.array(z.object({label: z.string(), at: sec})).max(5).default([])})}),
   z.object({...base, type: z.literal('caption-stack'), props: z.object({words: z.array(z.string()).min(2).max(5), y: z.number().default(1420)})}),
 ]);
 

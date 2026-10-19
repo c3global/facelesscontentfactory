@@ -95,10 +95,11 @@ const LEN: Record<FxType, number> = {
   'step-chips': 6,
   'pen-circle': 3.2,
   'caption-stack': 3.4,
+  'script-panel': 7,
 };
 
 /** effects that draw behind her (they need the person matte) */
-export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story'];
+export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story', 'script-panel'];
 export const NEEDS_MATTE: FxType[] = [...BEHIND, 'freeze-sticker'];
 
 export const fxRange = (f: Fx): [number, number] => {
@@ -334,6 +335,8 @@ const rawCues = (f: Fx): Cue[] => {
       return [d('type', f.at + 0.5, 0.4)];
     case 'defocus':
       return [main('whoosh', f.at, 0.5, 2)];
+    case 'script-panel':
+      return [main('whoosh', f.at, 0.5, 2), d('pop', f.props.steps[0]?.at ?? f.at + 1, 0.45)];
     case 'receipt-ticket':
       return [main('swish', f.at + 0.1, 0.5), d('type', f.at + 0.8, 0.4), d('thud', f.at + 2.4, 0.7)];
     case 'frame-calendar':

@@ -173,6 +173,7 @@ Stick-figure explainers (Dr. CiCi with a modern gray cast) have their own playbo
 | `storyboard-wall` | A row (or two) of small numbered cards of her clip fly in and pin low on the screen |
 | `step-chips` | One numbered chip at a time ("01 The raw take"), each timed by `steps[].at` |
 | `pen-circle` | A hand-drawn crimson ring around her head (follows the matte anchors), an arrow and a handwritten `note`, with a black-and-white grade |
+| `script-panel` | Behind her (needs the matte): a dark script document scrolls across the screen while she steps to the lower left. `beats` hold your real lines (`quote`, optional `time`, `label`, `notes`) and `steps` show numbered chips on her words. Lab plan: `content/fxlab15.scene.json`, which borrows the clean-report matte |
 | `caption-stack` | Each line steps up in size ("and the / captions / come / in"), the last in copper |
 
-Lab plans: `content/fxlab12`, `fxlab13` and `fxlab14`. The reference reel also has her cutout standing in front of a scrolling script panel; that one is not built (it needs the matte and a panel plate).
+Lab plans: `content/fxlab12`, `fxlab13` and `fxlab14`. 

@@ -4,7 +4,7 @@ import {handFamily, heavyFamily, serifFamily} from '../fonts';
 import {Caret, ClipTile, flyPose, typedSlice, useSpan} from './fourth';
 import type {Fx} from './schema';
 import {C3, GlobeIcon} from './theme';
-import {anchorPx, pop, tw, useFxEnv} from './util';
+import {anchorPx, fxRange, pop, tw, useFxEnv} from './util';
 
 /** Sixth FX batch (C3 skin): editing-desk moments from the Claude edit reel. Cutaway panels are solid and brief; labels sit low, never over her face. */
 type Of<T extends Fx['type']> = Extract<Fx, {type: T}>;
@@ -320,6 +320,54 @@ export const CaptionStack: React.FC<{fx: Of<'caption-stack'>}> = ({fx}) => {
     </div>
   );
 };
+
+// ---------------------------------------------------------------- script panel (behind her: a scrolling script doc fills the screen, she stands in front at the bottom left)
+export const scriptPanelCutout = (fx: Of<'script-panel'>, abs: number): React.CSSProperties => {
+  const [a, b] = fxRange(fx);
+  const k = tw(abs, a, a + 0.5) * (1 - tw(abs, b - 0.35, b));
+  const fade = 'linear-gradient(90deg, transparent 0%, #000 12%, #000 80%, transparent 96%)';
+  return {transform: `translateX(${-190 * k}px) scale(${1 - 0.46 * k})`, transformOrigin: '50% 100%', WebkitMaskImage: fade, maskImage: fade};
+};
+export const ScriptPanelPlate: React.FC<{fx: Of<'script-panel'>}> = ({fx}) => {
+  const {t, len, outK} = useSpan(fx);
+  const {title, beats, steps} = fx.props;
+  const inK = tw(t, 0, 0.4);
+  const cardH = 330;
+  const total = beats.length * (cardH + 24);
+  const view = 880;
+  const scroll = tw(t, 0.6, len - 0.5, 0, Math.max(0, total - view), (x) => x * x * (3 - 2 * x));
+  const [a] = fxRange(fx);
+  const idx = steps.reduce((acc, s, i) => (t + a >= s.at ? i : acc), -1);
+  const chip = idx >= 0 ? steps[idx] : null;
+  const ck = chip ? tw(t + a, chip.at, chip.at + 0.3, 0, 1, pop) : 0;
+  return (
+    <div style={{...FILL, background: PANEL, opacity: inK * outK, overflow: 'hidden'}}>
+      <div style={{position: 'absolute', left: 70, top: 110, width: 940, ...cap({fontSize: 24, color: C3.copper})}}>{title}</div>
+      <div style={{position: 'absolute', left: 70, top: 170, width: 940, height: view, overflow: 'hidden', WebkitMaskImage: 'linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent)', maskImage: 'linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent)'}}>
+        <div style={{transform: `translateY(${-scroll}px)`}}>
+          {beats.map((b, i) => (
+            <div key={i} style={{height: cardH, marginBottom: 24, borderRadius: 22, background: 'rgba(255,255,255,0.06)', border: '1.5px solid rgba(224,138,87,0.45)', boxSizing: 'border-box', padding: '22px 30px', overflow: 'hidden'}}>
+              <div style={{display: 'flex', gap: 14, alignItems: 'center', ...cap({fontSize: 18, color: C3.copper})}}>
+                <span style={{width: 34, height: 34, borderRadius: 17, background: C3.copperGrad, color: '#2a1206', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', letterSpacing: 0}}>{i + 1}</span>
+                {b.time && <span>{b.time}</span>}
+                {b.label && <span style={{color: 'rgba(255,255,255,0.55)'}}>{b.label}</span>}
+              </div>
+              <div style={{marginTop: 16, fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 600, fontSize: 40, lineHeight: 1.2, color: '#fff'}}>“{b.quote}”</div>
+              {b.notes && b.notes.slice(0, 3).map((n, j) => <div key={j} style={{marginTop: 8, fontFamily: C3.sans, fontWeight: 500, fontSize: 24, lineHeight: 1.25, color: 'rgba(255,255,255,0.72)'}}>• {n}</div>)}
+            </div>
+          ))}
+        </div>
+      </div>
+      {chip && (
+        <div style={{position: 'absolute', left: 690, top: 1600, display: 'flex', alignItems: 'center', gap: 14, padding: '10px 24px 10px 12px', borderRadius: 38, background: C3.glass, border: C3.hair, opacity: ck, transform: `translateX(${(1 - ck) * 60}px)`, boxShadow: '0 12px 30px rgba(0,0,0,0.5)'}}>
+          <div style={{width: 44, height: 44, borderRadius: 22, background: C3.copperGrad, color: '#2a1206', fontFamily: C3.sans, fontWeight: 700, fontSize: 22, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{String(idx + 1).padStart(2, '0')}</div>
+          <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 30, color: '#fff'}}>{chip.label}</div>
+        </div>
+      )}
+    </div>
+  );
+};
+export const sixthPlate = (fx: Fx): React.ReactNode => (fx.type === 'script-panel' ? <ScriptPanelPlate fx={fx} /> : null);
 
 export const sixthOver = (fx: Fx): React.ReactNode => {
   switch (fx.type) {
