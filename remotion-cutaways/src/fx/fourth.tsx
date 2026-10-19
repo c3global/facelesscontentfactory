@@ -1,8 +1,10 @@
 import React from 'react';
-import {metalFill} from '../metal';
+import {Freeze, OffthreadVideo, staticFile, useVideoConfig} from 'remotion';
+import {serifFamily} from '../fonts';
+import {metalFill, metalTextStyle} from '../metal';
 import type {Fx} from './schema';
 import {AppIcon, BrandAvatar, C3, CheckMark, HeartIcon, SendArrow} from './theme';
-import {easeInC, fxRange, pop, tw, useFxTime} from './util';
+import {easeInC, fxRange, pop, tw, useFxEnv, useFxTime} from './util';
 
 /**
  * Fourth FX batch, in the C3 skin (src/fx/theme.tsx): UI-style effects taken from the effect list Dr. CK collected.
@@ -236,6 +238,155 @@ export const JiggleDelete: React.FC<{fx: Of<'jiggle-delete'>}> = ({fx}) => {
   );
 };
 
+// ================================================================ storyboard deck
+export const StoryboardDeck: React.FC<{fx: Of<'storyboard-deck'>}> = ({fx}) => {
+  const {t, outK} = useSpan(fx);
+  const {video} = useFxEnv();
+  const {fps} = useVideoConfig();
+  const {stills, labels, lines, y} = fx.props;
+  const cards = [0, 1, 2];
+  const rot = [-9, 0, 9];
+  const cx = [300, 540, 780];
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      {cards.map((c) => {
+        const k = tw(t, 0.12 + c * 0.18, 0.5 + c * 0.18, 0, 1, pop);
+        return (
+          <div key={c} style={{position: 'absolute', left: cx[c] - 135, top: y + (c === 1 ? -14 : 8), width: 270, height: 360, borderRadius: 26, background: C3.card, border: C3.hair, boxSizing: 'border-box', overflow: 'hidden', opacity: k, transform: `translateY(${(1 - k) * 90}px) rotate(${rot[c] * k}deg) scale(${0.85 + 0.15 * k})`, boxShadow: '0 22px 50px rgba(0,0,0,0.55)'}}>
+            {c === 0 ? (
+              <div style={{padding: '22px 20px'}}>
+                <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 18, letterSpacing: 4, textTransform: 'uppercase', color: '#A5551F', marginBottom: 14}}>Storyboard</div>
+                {lines.map((l, i) => (
+                  <div key={i} style={{display: 'flex', gap: 10, marginBottom: 14, opacity: tw(t, 0.6 + i * 0.2, 0.85 + i * 0.2)}}>
+                    <div style={{flex: 'none', width: 28, height: 28, borderRadius: 14, background: C3.copperGrad, color: '#2a1206', fontFamily: C3.sans, fontWeight: 700, fontSize: 17, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{i + 1}</div>
+                    <div style={{fontFamily: C3.sans, fontWeight: 500, fontSize: 21, lineHeight: 1.2, color: C3.cardText}}>{l}</div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <>
+                <div style={{position: 'absolute', left: 0, top: 0, width: 270, height: 360, overflow: 'hidden'}}>
+                  <Freeze frame={0}>
+                    <OffthreadVideo src={staticFile(video)} muted startFrom={Math.round((stills[c - 1] ?? stills[0]) * fps)} style={{width: 270, height: 480, objectFit: 'cover', objectPosition: '50% 0%'}} />
+                  </Freeze>
+                </div>
+                <div style={{position: 'absolute', left: 14, bottom: 14, fontFamily: C3.sans, fontWeight: 700, fontSize: 20, letterSpacing: 3, textTransform: 'uppercase', color: '#fff', textShadow: '0 2px 10px rgba(0,0,0,0.8)'}}>{String(c).padStart(2, '0')} · {labels[c - 1] ?? ''}</div>
+              </>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+// ================================================================ gravity drop
+const bounceFall = (p: number) => {
+  // 0..1 progress -> 0 (high) .. 1 (landed), two bounces
+  if (p < 0.55) return (p / 0.55) ** 2;
+  if (p < 0.78) return 1 - 0.16 * Math.sin(((p - 0.55) / 0.23) * Math.PI);
+  if (p < 0.92) return 1 - 0.05 * Math.sin(((p - 0.78) / 0.14) * Math.PI);
+  return 1;
+};
+export const GravityDrop: React.FC<{fx: Of<'gravity-drop'>}> = ({fx}) => {
+  const {abs, outK} = useSpan(fx);
+  const dropAt = fx.props.dropAt ?? fx.at + 0.2;
+  const letters = fx.props.word.split('');
+  const kick = tw(abs, dropAt + 0.1, dropAt + 0.5);
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      {fx.props.kicker && (
+        <div style={{position: 'absolute', left: 0, width: 1080, top: fx.props.y - 290, textAlign: 'center', fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 600, fontSize: 72, color: '#fff', textShadow: '0 4px 22px rgba(0,0,0,0.85)', opacity: kick, transform: `translateY(${(1 - kick) * -30}px)`}}>{fx.props.kicker}</div>
+      )}
+      <div style={{position: 'absolute', left: 0, width: 1080, top: fx.props.y - 190, display: 'flex', justifyContent: 'center', gap: 4}}>
+        {letters.map((ch, i) => {
+          const p = tw(abs, dropAt + i * 0.085, dropAt + i * 0.085 + 0.75, 0, 1, (x) => x);
+          const fall = bounceFall(p);
+          const rot = (1 - fall) * (i % 2 ? 14 : -14);
+          return (
+            <div key={i} style={{fontFamily: serifFamily, fontWeight: 800, fontSize: 210, lineHeight: 1, transform: `translateY(${(1 - fall) * -900}px) rotate(${rot}deg)`, opacity: p > 0 ? 1 : 0, ...metalTextStyle({kind: 'copper', variant: 'bright', frame: 0, shimmer: false}), filter: 'drop-shadow(0 8px 22px rgba(0,0,0,0.7))'}}>
+              {ch === ' ' ? '\u00A0' : ch}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+// ================================================================ grade slider + eyedropper grade
+const TINTS = {warm: '255,140,60', cool: '70,120,255', golden: '255,190,80'} as const;
+const TintLayer: React.FC<{rgb: string; k: number}> = ({rgb, k}) => (
+  <>
+    <div style={{...FILL, background: `rgba(${rgb},1)`, opacity: 0.65 * k, mixBlendMode: 'soft-light'}} />
+    <div style={{...FILL, background: `rgba(${rgb},1)`, opacity: 0.1 * k, mixBlendMode: 'color'}} />
+  </>
+);
+
+export const GradeSlider: React.FC<{fx: Of<'grade-slider'>}> = ({fx}) => {
+  const {abs, inK, outK} = useSpan(fx);
+  const moveAt = fx.props.moveAt ?? fx.at + 0.6;
+  const k = tw(abs, moveAt, moveAt + 1.5, 0, fx.props.to, (x) => x * x * (3 - 2 * x));
+  const trackW = 560;
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      <TintLayer rgb={TINTS[fx.props.look]} k={k * inK} />
+      <div style={{position: 'absolute', left: 120, top: fx.props.y, width: 840, height: 120, borderRadius: 44, background: C3.card, border: C3.hair, boxSizing: 'border-box', display: 'flex', alignItems: 'center', padding: '0 34px', gap: 26, opacity: inK, transform: `translateY(${(1 - inK) * 40}px)`, boxShadow: C3.cardShadow}}>
+        <div style={{flex: 'none', fontFamily: C3.sans, fontWeight: 700, fontSize: 24, letterSpacing: 4, textTransform: 'uppercase', color: '#A5551F', width: 130}}>{fx.props.label}</div>
+        <div style={{position: 'relative', width: trackW, height: 14, borderRadius: 7, background: 'rgba(58,63,66,0.16)'}}>
+          <div style={{position: 'absolute', left: 0, top: 0, height: 14, borderRadius: 7, width: trackW * k, background: C3.copperGrad}} />
+          <div style={{position: 'absolute', top: -17, left: trackW * k - 24, width: 48, height: 48, borderRadius: 24, background: '#fff', border: `5px solid ${C3.copper}`, boxSizing: 'border-box', boxShadow: '0 4px 12px rgba(0,0,0,0.35)'}} />
+        </div>
+        <div style={{flex: 'none', width: 70, textAlign: 'right', fontFamily: C3.sans, fontWeight: 700, fontSize: 30, color: C3.cardText}}>{Math.round(k * 100)}</div>
+      </div>
+    </div>
+  );
+};
+
+const Dropper: React.FC<{size: number}> = ({size}) => (
+  <svg width={size} height={size} viewBox="0 0 48 48" style={{display: 'block', filter: 'drop-shadow(0 6px 10px rgba(0,0,0,0.5))'}}>
+    <g fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M33 6l9 9-5 5-9-9z" fill="#3A3F42" />
+      <path d="M28 11L9 30c-1.5 1.5-2 3.5-2 5.5L6 42l6.5-1c2 0 4-.6 5.5-2L37 20" fill="#B5622C" />
+      <path d="M11 38L6 43" />
+    </g>
+  </svg>
+);
+
+export const EyedropperGrade: React.FC<{fx: Of<'eyedropper-grade'>}> = ({fx}) => {
+  const {abs, inK, outK} = useSpan(fx);
+  const {swatches, pick, y} = fx.props;
+  const idx = Math.min(pick, swatches.length - 1);
+  const pickAt = fx.props.pickAt ?? fx.at + 1.1;
+  const picked = abs >= pickAt;
+  const gap = 118;
+  const sx = (i: number) => 540 + (i - (swatches.length - 1) / 2) * gap;
+  const fly = tw(abs, fx.at + 0.35, pickAt, 0, 1, (x) => 1 - (1 - x) ** 3);
+  const dx = 960 + (sx(idx) - 960) * fly;
+  const dy = y - 190 + (190 + 74) * fly * fly;
+  const tap = tw(abs, pickAt, pickAt + 0.12) * (1 - tw(abs, pickAt + 0.12, pickAt + 0.3));
+  const grade = tw(abs, pickAt, pickAt + 0.9);
+  const hex = swatches[idx];
+  const rgb = [1, 3, 5].map((o) => parseInt(hex.slice(o, o + 2), 16)).join(',');
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      <TintLayer rgb={rgb} k={grade * inK} />
+      <div style={{position: 'absolute', left: 180, top: y, width: 720, height: 150, borderRadius: 46, background: C3.card, border: C3.hair, boxSizing: 'border-box', opacity: inK, transform: `translateY(${(1 - inK) * 40}px)`, boxShadow: C3.cardShadow}}>
+        <div style={{position: 'absolute', left: 36, top: 16, fontFamily: C3.sans, fontWeight: 700, fontSize: 21, letterSpacing: 4, textTransform: 'uppercase', color: '#A5551F'}}>{fx.props.label}</div>
+      </div>
+      {swatches.map((c, i) => {
+        const hit = picked && i === idx;
+        return (
+          <div key={i} style={{position: 'absolute', left: sx(i) - 42, top: y + 48, width: 84, height: 84, borderRadius: 42, background: c, border: hit ? `5px solid ${C3.copper}` : '4px solid #fff', boxSizing: 'border-box', outline: hit ? '3px solid #fff' : 'none', opacity: inK, transform: `scale(${(hit ? 1.16 : 1) * (0.7 + 0.3 * inK)})`, boxShadow: '0 4px 12px rgba(0,0,0,0.3)'}} />
+        );
+      })}
+      <div style={{position: 'absolute', left: dx - 10, top: dy - 73, opacity: tw(abs, fx.at + 0.2, fx.at + 0.45) * inK, transform: `scale(${1 - 0.1 * tap})`, transformOrigin: '10px 73px'}}>
+        <Dropper size={82} />
+      </div>
+    </div>
+  );
+};
+
 export const fourthOver = (fx: Fx): React.ReactNode => {
   switch (fx.type) {
     case 'prompt-bar':
@@ -250,6 +401,14 @@ export const fourthOver = (fx: Fx): React.ReactNode => {
       return <IconStrike fx={fx} />;
     case 'jiggle-delete':
       return <JiggleDelete fx={fx} />;
+    case 'storyboard-deck':
+      return <StoryboardDeck fx={fx} />;
+    case 'gravity-drop':
+      return <GravityDrop fx={fx} />;
+    case 'grade-slider':
+      return <GradeSlider fx={fx} />;
+    case 'eyedropper-grade':
+      return <EyedropperGrade fx={fx} />;
     default:
       return null;
   }

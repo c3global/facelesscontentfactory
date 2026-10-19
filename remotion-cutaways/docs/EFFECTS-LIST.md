@@ -95,6 +95,10 @@ Built Oct 2026 from the effect list Dr. CK collected. They read colors, icons an
 | `file-drop` | A file card drops into a dashed drop zone and settles with a check |
 | `icon-strike` | A generic app tile gets a crimson strike, then the C3 mark pops in beside it |
 | `jiggle-delete` | An "Edit mode" tray of wiggling app tiles where the unwanted ones are deleted and the kept one centers |
+| `storyboard-deck` | A fan of three cards: a script page with numbered lines and two real freeze frames from her clip (`stills` seconds) |
+| `gravity-drop` | A big copper serif word whose letters fall and bounce into place, with an optional italic `kicker` (turn captions off for that moment, the kicker sits in the caption band) |
+| `grade-slider` | A slider card whose knob moves while a warm, cool or golden grade fades in over the frame |
+| `eyedropper-grade` | An eyedropper picks a brand swatch (`pick` index) and the frame grades toward it |
 
 Notes: `vertigo` hides her enlarged copy with a soft hole around her, so the edges of the room stretch while she stays sharp. It reads best on a clean room. `glass-type` sits low by default because her face and body cover the middle of the frame.
 

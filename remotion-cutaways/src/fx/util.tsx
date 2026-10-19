@@ -54,6 +54,10 @@ const LEN: Record<FxType, number> = {
   'file-drop': 3.6,
   'icon-strike': 3.6,
   'jiggle-delete': 4.8,
+  'storyboard-deck': 4,
+  'gravity-drop': 3.4,
+  'grade-slider': 4,
+  'eyedropper-grade': 4,
 };
 
 /** effects that draw behind her (they need the person matte) */
@@ -245,6 +249,14 @@ const rawCues = (f: Fx): Cue[] => {
       const da = f.props.deleteAt ?? f.at + 1.8;
       return [main('swish', f.at, 0.5, 2), ...f.props.icons.filter((i) => !i.keep).map((_, k) => d('pop', da + k * 0.2, 0.5))];
     }
+    case 'storyboard-deck':
+      return [main('swish', f.at, 0.6), d('pop', f.at + 0.35, 0.4), d('pop', f.at + 0.55, 0.4)];
+    case 'gravity-drop':
+      return [main('thud', (f.props.dropAt ?? f.at + 0.2) + 0.55, 0.7)];
+    case 'grade-slider':
+      return [main('riser', f.props.moveAt ?? f.at + 0.6, 0.35, 2)];
+    case 'eyedropper-grade':
+      return [main('pop', f.props.pickAt ?? f.at + 1.1, 0.7)];
     default:
       return [];
   }
