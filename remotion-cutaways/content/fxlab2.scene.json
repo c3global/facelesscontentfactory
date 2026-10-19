@@ -1,0 +1,79 @@
+{
+ "slug": "fxlab2",
+ "video": "raw/clean-report.mp4",
+ "durationSec": 16,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "spotless",
+  "opposite",
+  "safe"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "status",
+  "spotless",
+  "Edmondson",
+  "hospital",
+  "medication",
+  "opposite",
+  "reported",
+  "program",
+  "safe",
+  "week",
+  "upset",
+  "answer",
+  "truth",
+  "report"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 16,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "file-drop",
+   "at": 1.0,
+   "until": 4.6,
+   "props": {}
+  },
+  {
+   "type": "icon-strike",
+   "at": 5.0,
+   "until": 8.6,
+   "props": {}
+  },
+  {
+   "type": "jiggle-delete",
+   "at": 9.0,
+   "until": 13.8,
+   "props": {}
+  }
+ ]
+}

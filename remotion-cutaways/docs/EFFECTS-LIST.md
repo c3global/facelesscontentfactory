@@ -84,6 +84,18 @@ Over her: `the-stack`, `sticky-text`, `freeze-label`, `phone-mockup`, `checklist
 | `cover-story` | Behind her: a magazine cover. Masthead, issue line and cover lines, her head in front of the masthead, a big headline and barcode in front. Needs the matte |
 | `glass-type` | Over her: frosted-glass lettering that blurs the room under it, one word at a time (`words` with `at`, `y` as a fraction of the frame, default low on the desk) |
 
+## Fourth batch (C3 skin), in the `fx` list
+Built Oct 2026 from the effect list Dr. CK collected. They read colors, icons and cards from `src/fx/theme.tsx` (copper first, gold secondary, crimson action color, her orbital globe at `public/brand/orbital-globe.png`). Pills sit low, stay brief, and never cover her face. Each takes an optional `y` to move it.
+
+| Name | What it does |
+|---|---|
+| `prompt-bar` | A white bar types a line, the crimson send button presses, then it flips to a "Done" state with a copper check |
+| `comment-drop` | A comment field types the keyword, Post, the comment lands with a heart, a dark reply card arrives (optional link chip) |
+| `comment-cta` | The same field with an instruction line above it |
+| `file-drop` | A file card drops into a dashed drop zone and settles with a check |
+| `icon-strike` | A generic app tile gets a crimson strike, then the C3 mark pops in beside it |
+| `jiggle-delete` | An "Edit mode" tray of wiggling app tiles where the unwanted ones are deleted and the kept one centers |
+
 Notes: `vertigo` hides her enlarged copy with a soft hole around her, so the edges of the room stretch while she stays sharp. It reads best on a clean room. `glass-type` sits low by default because her face and body cover the middle of the frame.
 
 New modes on earlier effects: `before-after` has `"mode": "cut"` (a hard A/B cut at `cutAt`, no wipe). `timeline-burn` has `"style": "line"` (one crimson timeline with a flame burning along it).

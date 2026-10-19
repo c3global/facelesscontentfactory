@@ -51,6 +51,9 @@ const LEN: Record<FxType, number> = {
   'prompt-bar': 3.6,
   'comment-drop': 5,
   'comment-cta': 5,
+  'file-drop': 3.6,
+  'icon-strike': 3.6,
+  'jiggle-delete': 4.8,
 };
 
 /** effects that draw behind her (they need the person matte) */
@@ -231,6 +234,16 @@ const rawCues = (f: Fx): Cue[] => {
       const cues = [d('type', f.props.postAt - Math.max(0.7, f.props.keyword.length * 0.14), 0.45), main('ding', f.props.postAt, 0.6)];
       if (f.props.replyAt !== undefined && f.props.reply) cues.push(d('pop', f.props.replyAt, 0.6));
       return cues;
+    }
+    case 'file-drop':
+      return [main('thud', (f.props.dropAt ?? f.at + 0.5) + 0.4, 0.6)];
+    case 'icon-strike': {
+      const sa = f.props.strikeAt ?? f.at + 0.9;
+      return [main('snap', sa, 0.7), d('pop', sa + 0.4, 0.6)];
+    }
+    case 'jiggle-delete': {
+      const da = f.props.deleteAt ?? f.at + 1.8;
+      return [main('swish', f.at, 0.5, 2), ...f.props.icons.filter((i) => !i.keep).map((_, k) => d('pop', da + k * 0.2, 0.5))];
     }
     default:
       return [];

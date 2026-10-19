@@ -1,8 +1,8 @@
 import React from 'react';
 import {metalFill} from '../metal';
 import type {Fx} from './schema';
-import {BrandAvatar, C3, CheckMark, HeartIcon, SendArrow} from './theme';
-import {fxRange, pop, tw, useFxTime} from './util';
+import {AppIcon, BrandAvatar, C3, CheckMark, HeartIcon, SendArrow} from './theme';
+import {easeInC, fxRange, pop, tw, useFxTime} from './util';
 
 /**
  * Fourth FX batch, in the C3 skin (src/fx/theme.tsx): UI-style effects taken from the effect list Dr. CK collected.
@@ -125,6 +125,117 @@ const CommentLayer: React.FC<{fx: Of<'comment-drop'> | Of<'comment-cta'>}> = ({f
 export const CommentDrop: React.FC<{fx: Of<'comment-drop'>}> = ({fx}) => <CommentLayer fx={fx} />;
 export const CommentCta: React.FC<{fx: Of<'comment-cta'>}> = ({fx}) => <CommentLayer fx={fx} />;
 
+// ================================================================ file drop
+export const FileDrop: React.FC<{fx: Of<'file-drop'>}> = ({fx}) => {
+  const {abs, inK, outK} = useSpan(fx);
+  const dropAt = fx.props.dropAt ?? fx.at + 0.5;
+  const y = fx.props.y;
+  const fall = tw(abs, dropAt, dropAt + 0.42, 0, 1, easeInC);
+  const landed = abs >= dropAt + 0.42;
+  const settle = tw(abs, dropAt + 0.42, dropAt + 0.8, 0, 1);
+  const squash = landed ? 1 + 0.07 * Math.sin(settle * Math.PI) * (1 - settle) * 4 : 1;
+  const cardY = y + 20 - (1 - fall) * 360;
+  const checkK = tw(abs, dropAt + 0.55, dropAt + 0.85, 0, 1, pop);
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      <div style={{position: 'absolute', left: 90, top: y, width: 900, height: 200, borderRadius: 44, background: C3.glass, border: `3px ${landed ? 'solid' : 'dashed'} ${C3.copper}`, boxSizing: 'border-box', opacity: inK, transform: `scale(${0.95 + 0.05 * inK + (landed ? 0.012 : 0)})`, boxShadow: C3.cardShadow}}>
+        {!landed && <div style={{position: 'absolute', left: 0, right: 0, bottom: 18, textAlign: 'center', fontFamily: C3.sans, fontWeight: 700, fontSize: 26, letterSpacing: 4, textTransform: 'uppercase', color: 'rgba(255,255,255,0.6)'}}>{fx.props.zoneLabel}</div>}
+        {landed && <div style={{position: 'absolute', right: 34, top: 20, fontFamily: C3.sans, fontWeight: 700, fontSize: 24, letterSpacing: 4, textTransform: 'uppercase', color: C3.copper}}>{fx.props.doneLabel}</div>}
+      </div>
+      <div style={{position: 'absolute', left: 270, top: cardY, width: 540, height: 160, borderRadius: 30, background: C3.card, border: C3.hair, boxSizing: 'border-box', display: 'flex', alignItems: 'center', gap: 22, padding: '0 28px 0 24px', opacity: tw(abs, fx.at, fx.at + 0.15), transform: `scale(${squash}, ${2 - squash})`, boxShadow: '0 22px 50px rgba(0,0,0,0.55)'}}>
+        <AppIcon size={96} glyph="film" tone="crimson" />
+        <div style={{flex: 1, minWidth: 0}}>
+          <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 36, color: C3.cardText, whiteSpace: 'nowrap', overflow: 'hidden'}}>{fx.props.name}</div>
+          <div style={{fontFamily: C3.sans, fontWeight: 500, fontSize: 27, color: C3.cardMuted}}>{fx.props.meta}</div>
+        </div>
+        <div style={{flex: 'none', width: 58, height: 58, borderRadius: 29, background: C3.copperGrad, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${checkK})`}}>
+          <CheckMark size={34} color="#2a1206" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ================================================================ icon strike
+export const IconStrike: React.FC<{fx: Of<'icon-strike'>}> = ({fx}) => {
+  const {abs, inK, outK} = useSpan(fx);
+  const strikeAt = fx.props.strikeAt ?? fx.at + 0.9;
+  const size = 200;
+  const cy = fx.props.y;
+  const strike = tw(abs, strikeAt, strikeAt + 0.22, 0, 1, (x) => x);
+  const dead = tw(abs, strikeAt + 0.1, strikeAt + 0.4);
+  const winK = tw(abs, strikeAt + 0.42, strikeAt + 0.78, 0, 1, pop);
+  const L = 340;
+  const R = 740;
+  const label = (text: string, color: string) => <div style={{marginTop: 14, textAlign: 'center', fontFamily: C3.sans, fontWeight: 700, fontSize: 30, letterSpacing: 1, color, textShadow: '0 2px 14px rgba(0,0,0,0.9)'}}>{text}</div>;
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      <div style={{position: 'absolute', left: L - size / 2, top: cy - size / 2, width: size, opacity: inK, transform: `scale(${(0.7 + 0.3 * inK) * (1 - 0.1 * dead)})`, filter: `grayscale(${dead}) brightness(${1 - 0.3 * dead})`}}>
+        <AppIcon size={size} glyph={fx.props.glyph} tone="charcoal" />
+        {label(fx.props.label, 'rgba(255,255,255,0.85)')}
+      </div>
+      <svg width={1080} height={1920} style={{position: 'absolute', left: 0, top: 0, overflow: 'visible', display: strike > 0.01 ? 'block' : 'none'}}>
+        <line x1={L - size * 0.62} y1={cy - size * 0.62} x2={L + size * 0.62} y2={cy + size * 0.62} stroke="#fff" strokeWidth={22} strokeLinecap="round" opacity={0.9} strokeDasharray={size * 1.75} strokeDashoffset={size * 1.75 * (1 - strike)} />
+        <line x1={L - size * 0.62} y1={cy - size * 0.62} x2={L + size * 0.62} y2={cy + size * 0.62} stroke={C3.accent} strokeWidth={14} strokeLinecap="round" strokeDasharray={size * 1.75} strokeDashoffset={size * 1.75 * (1 - strike)} />
+      </svg>
+      <svg width={1080} height={1920} style={{position: 'absolute', left: 0, top: 0, overflow: 'visible', opacity: tw(abs, strikeAt + 0.3, strikeAt + 0.5)}}>
+        <path d={`M${L + 140} ${cy} L${R - 150} ${cy} M${R - 175} ${cy - 22} L${R - 150} ${cy} L${R - 175} ${cy + 22}`} stroke={C3.copper} strokeWidth={9} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      </svg>
+      <div style={{position: 'absolute', left: R - size / 2, top: cy - size / 2, width: size, opacity: winK, transform: `scale(${0.6 + 0.4 * winK})`}}>
+        <div style={{borderRadius: size * 0.23, boxShadow: `0 0 ${50 * winK}px rgba(224,138,87,0.65)`}}>
+          <AppIcon size={size} glyph={fx.props.winnerGlyph} tone="copper" src={fx.props.winnerSrc} />
+        </div>
+        {label(fx.props.winnerLabel, '#fff')}
+      </div>
+    </div>
+  );
+};
+
+// ================================================================ jiggle delete
+export const JiggleDelete: React.FC<{fx: Of<'jiggle-delete'>}> = ({fx}) => {
+  const {abs, frame, inK, outK} = useSpan(fx);
+  const icons = fx.props.icons;
+  const deleteAt = fx.props.deleteAt ?? fx.at + 1.8;
+  const y = fx.props.y;
+  const n = icons.length;
+  const keepIdx = icons.map((ic, i) => (ic.keep ? i : -1)).filter((i) => i >= 0);
+  const gap = 190;
+  const slot = (count: number, idx: number) => 540 + (idx - (count - 1) / 2) * gap;
+  const dels = icons.map((ic, i) => (ic.keep ? -1 : i)).filter((i) => i >= 0);
+  const lastDel = deleteAt + Math.max(0, dels.length - 1) * 0.2 + 0.32;
+  const reflow = tw(abs, lastDel, lastDel + 0.5);
+  const calm = 1 - tw(abs, lastDel, lastDel + 0.4);
+  const left = n - dels.filter((i) => abs >= deleteAt + dels.indexOf(i) * 0.2 + 0.3).length;
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      <div style={{position: 'absolute', left: 80, top: y, width: 920, height: 290, borderRadius: 46, background: C3.card, border: C3.hair, boxSizing: 'border-box', opacity: inK, transform: `translateY(${(1 - inK) * 40}px)`, boxShadow: C3.cardShadow}}>
+        <div style={{position: 'absolute', left: 36, top: 22, fontFamily: C3.sans, fontWeight: 700, fontSize: 22, letterSpacing: 5, textTransform: 'uppercase', color: '#A5551F'}}>Edit mode</div>
+        <div style={{position: 'absolute', right: 36, top: 22, fontFamily: C3.sans, fontWeight: 500, fontSize: 22, color: C3.cardMuted}}>{left} {left === 1 ? 'app' : 'apps'}</div>
+      </div>
+      {icons.map((ic, i) => {
+        const di = dels.indexOf(i);
+        const startX = slot(n, i);
+        const endX = ic.keep ? slot(keepIdx.length, keepIdx.indexOf(i)) : startX;
+        const x = startX + (endX - startX) * reflow;
+        const dk = di >= 0 ? tw(abs, deleteAt + di * 0.2, deleteAt + di * 0.2 + 0.3, 0, 1, easeInC) : 0;
+        const rot = Math.sin(frame * 1.15 + i * 2.1) * 2.8 * (ic.keep ? 0.6 : 1) * calm;
+        const sc = (1 - dk) * inK * (ic.keep ? 1 + 0.08 * reflow : 1);
+        return (
+          <div key={i} style={{position: 'absolute', left: x - 70, top: y + 70, width: 140, opacity: 1 - dk * 0.6, transform: `rotate(${rot}deg) scale(${sc})`}}>
+            <AppIcon size={140} glyph={ic.glyph} tone={ic.tone} />
+            {!ic.keep && dk < 0.05 && (
+              <div style={{position: 'absolute', left: -14, top: -14, width: 42, height: 42, borderRadius: 21, background: '#2b2f32', border: '3px solid #fff', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <div style={{width: 20, height: 4, borderRadius: 2, background: '#fff'}} />
+              </div>
+            )}
+            <div style={{marginTop: 10, textAlign: 'center', fontFamily: C3.sans, fontWeight: 700, fontSize: 24, color: C3.cardText}}>{ic.label}</div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 export const fourthOver = (fx: Fx): React.ReactNode => {
   switch (fx.type) {
     case 'prompt-bar':
@@ -133,6 +244,12 @@ export const fourthOver = (fx: Fx): React.ReactNode => {
       return <CommentDrop fx={fx} />;
     case 'comment-cta':
       return <CommentCta fx={fx} />;
+    case 'file-drop':
+      return <FileDrop fx={fx} />;
+    case 'icon-strike':
+      return <IconStrike fx={fx} />;
+    case 'jiggle-delete':
+      return <JiggleDelete fx={fx} />;
     default:
       return null;
   }
