@@ -96,6 +96,7 @@ const LEN: Record<FxType, number> = {
   'pen-circle': 3.2,
   'caption-stack': 3.4,
   'script-panel': 7,
+  'card-carousel': 4.4,
 };
 
 /** effects that draw behind her (they need the person matte) */
@@ -335,6 +336,8 @@ const rawCues = (f: Fx): Cue[] => {
       return [d('type', f.at + 0.5, 0.4)];
     case 'defocus':
       return [main('whoosh', f.at, 0.5, 2)];
+    case 'card-carousel':
+      return [main('whoosh', f.at, 0.6)];
     case 'script-panel':
       return [main('whoosh', f.at, 0.5, 2), d('pop', f.props.steps[0]?.at ?? f.at + 1, 0.45)];
     case 'receipt-ticket':

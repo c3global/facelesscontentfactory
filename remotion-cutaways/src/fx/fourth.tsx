@@ -277,24 +277,36 @@ export const flyPose = (fly: Fly, t: number, i: number, n: number, rest: Rest, c
   };
 };
 
+/** True 3D tilt for cards and pages (parent needs `perspective`). in: swings flat from rotated back in space. float: in, then a slow drift. */
+export type Tilt = 'off' | 'in' | 'float';
+export const tiltXform = (mode: Tilt, t: number, i = 0, delay = 0) => {
+  if (mode === 'off') return '';
+  const p = tw(t, delay, delay + 0.8, 0, 1, easeOutC);
+  const fl = mode === 'float' ? 1 : 0;
+  const rx = (1 - p) * 62 + fl * Math.cos(t * 1.4 + i) * 4 * p;
+  const ry = (1 - p) * (i % 2 ? 38 : -38) + fl * Math.sin(t * 1.1 + i * 1.7) * 7 * p;
+  return ` rotateX(${rx}deg) rotateY(${ry}deg)`;
+};
+export const PERSPECTIVE = 1700;
+
 // ================================================================ storyboard deck
 export const StoryboardDeck: React.FC<{fx: Of<'storyboard-deck'>}> = ({fx}) => {
   const {t, outK} = useSpan(fx);
   const {video} = useFxEnv();
   const {fps} = useVideoConfig();
-  const {stills, labels, lines, y, fly} = fx.props;
+  const {stills, labels, lines, y, fly, tilt} = fx.props;
   const cards = [0, 1, 2];
   const rot = [-9, 0, 9];
   const cx = [300, 540, 780];
   return (
-    <div style={{...FILL, opacity: outK}}>
+    <div style={{...FILL, opacity: outK, perspective: PERSPECTIVE}}>
       {cards.map((c) => {
         const k = tw(t, 0.12 + c * 0.18, 0.5 + c * 0.18, 0, 1, pop);
         const top = y + (c === 1 ? -14 : 8);
         const pose = fly === 'off' ? null : flyPose(fly, t, c, 3, {x: cx[c], y: top + 180, rot: rot[c]}, y + 180);
         const box: React.CSSProperties = pose
-          ? {left: pose.x - 135, top: pose.y - 180, opacity: pose.op, transform: `rotate(${pose.rot}deg) scale(${pose.sc})`, zIndex: pose.z}
-          : {left: cx[c] - 135, top, opacity: k, transform: `translateY(${(1 - k) * 90}px) rotate(${rot[c] * k}deg) scale(${0.85 + 0.15 * k})`};
+          ? {left: pose.x - 135, top: pose.y - 180, opacity: pose.op, transform: `rotate(${pose.rot}deg) scale(${pose.sc})${tiltXform(tilt, t, c, 0.1 + c * 0.12)}`, zIndex: pose.z}
+          : {left: cx[c] - 135, top, opacity: k, transform: `translateY(${(1 - k) * 90}px) rotate(${rot[c] * k}deg) scale(${0.85 + 0.15 * k})${tiltXform(tilt, t, c, 0.1 + c * 0.12)}`};
         return (
           <div key={c} style={{position: 'absolute', width: 270, height: 360, borderRadius: 26, background: C3.card, border: C3.hair, boxSizing: 'border-box', overflow: 'hidden', boxShadow: '0 22px 50px rgba(0,0,0,0.55)', ...box}}>
             {c === 0 ? (
@@ -483,21 +495,22 @@ export const ClipTile: React.FC<{w: number; h: number; startSec: number; zoom?: 
 export const PlayingGrid: React.FC<{fx: Of<'playing-grid'>}> = ({fx}) => {
   const {t, outK} = useSpan(fx);
   const offs = fx.props.offsets;
+  const tilt = fx.props.tilt;
   const w = offs.length === 3 ? 300 : 230;
   const h = Math.round((w * 16) / 9);
   const gap = 16;
   const total = offs.length * w + (offs.length - 1) * gap;
   return (
-    <div style={{...FILL, opacity: outK}}>
+    <div style={{...FILL, opacity: outK, perspective: PERSPECTIVE}}>
       {offs.map((o, i) => {
         const k = tw(t, 0.08 + i * 0.12, 0.48 + i * 0.12, 0, 1, pop);
-        const tilt = (i - (offs.length - 1) / 2) * 2.2;
+        const tiltDeg = (i - (offs.length - 1) / 2) * 2.2;
         const left = 540 - total / 2 + i * (w + gap);
         const top = fx.props.y + (i % 2) * 18;
-        const pose = fx.props.fly === 'off' ? null : flyPose(fx.props.fly, t, i, offs.length, {x: left + w / 2, y: top + h / 2, rot: tilt}, top + h / 2);
+        const pose = fx.props.fly === 'off' ? null : flyPose(fx.props.fly, t, i, offs.length, {x: left + w / 2, y: top + h / 2, rot: tiltDeg}, top + h / 2);
         const box: React.CSSProperties = pose
-          ? {left: pose.x - w / 2, top: pose.y - h / 2, opacity: pose.op, transform: `rotate(${pose.rot}deg) scale(${pose.sc})`, zIndex: pose.z}
-          : {left, top, opacity: k, transform: `translateY(${(1 - k) * 120}px) rotate(${tilt}deg) scale(${0.85 + 0.15 * k})`};
+          ? {left: pose.x - w / 2, top: pose.y - h / 2, opacity: pose.op, transform: `rotate(${pose.rot}deg) scale(${pose.sc})${tiltXform(tilt, t, i, i * 0.1)}`, zIndex: pose.z}
+          : {left, top, opacity: k, transform: `translateY(${(1 - k) * 120}px) rotate(${tiltDeg}deg) scale(${0.85 + 0.15 * k})${tiltXform(tilt, t, i, i * 0.1)}`};
         return (
           <div key={i} style={{position: 'absolute', width: w, height: h, borderRadius: 26, overflow: 'hidden', border: C3.hair, boxSizing: 'border-box', boxShadow: '0 20px 46px rgba(0,0,0,0.55)', ...box}}>
             <ClipTile w={w} h={h} startSec={o} zoom={1.25} />
@@ -516,8 +529,8 @@ export const VideoCard: React.FC<{fx: Of<'video-card'>}> = ({fx}) => {
   const vh = 405;
   const bar = tw(abs, fx.at + 0.5, fxRange(fx)[1] - 0.4, 0.08, 0.92, (x) => x);
   return (
-    <div style={{...FILL, opacity: outK}}>
-      <div style={{position: 'absolute', left: 180, top: fx.props.y, width: w, borderRadius: 34, background: C3.card, border: C3.hair, boxSizing: 'border-box', overflow: 'hidden', opacity: inK, transform: `translateY(${(1 - inK) * 70}px) scale(${0.94 + 0.06 * inK})`, boxShadow: C3.cardShadow}}>
+    <div style={{...FILL, opacity: outK, perspective: PERSPECTIVE}}>
+      <div style={{position: 'absolute', left: 180, top: fx.props.y, width: w, borderRadius: 34, background: C3.card, border: C3.hair, boxSizing: 'border-box', overflow: 'hidden', opacity: inK, transform: `translateY(${(1 - inK) * 70}px) scale(${0.94 + 0.06 * inK})${tiltXform(fx.props.tilt, t)}`, boxShadow: C3.cardShadow}}>
         <div style={{position: 'relative'}}>
           <ClipTile w={w} h={vh} startSec={from} zoom={1.25} focusY="7%" />
           <div style={{position: 'absolute', left: 0, bottom: 0, width: w, height: 8, background: 'rgba(255,255,255,0.35)'}}>

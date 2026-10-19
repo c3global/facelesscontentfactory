@@ -1,7 +1,7 @@
 import React from 'react';
 import {brand} from '../brand';
 import {handFamily, heavyFamily, serifFamily} from '../fonts';
-import {Caret, ClipTile, flyPose, typedSlice, useSpan} from './fourth';
+import {Caret, ClipTile, PERSPECTIVE, flyPose, tiltXform, typedSlice, useSpan} from './fourth';
 import type {Fx} from './schema';
 import {C3, GlobeIcon} from './theme';
 import {anchorPx, fxRange, pop, tw, useFxEnv} from './util';
@@ -85,13 +85,13 @@ const Barcode: React.FC = () => (
 );
 export const CoverFrame: React.FC<{fx: Of<'cover-frame'>}> = ({fx}) => {
   const {t, outK} = useSpan(fx);
-  const {masthead, issue, headline, from} = fx.props;
+  const {masthead, issue, headline, from, tilt} = fx.props;
   const k = tw(t, 0, 0.45, 0, 1, pop);
   const hk = tw(t, 0.7, 1.1);
   return (
-    <div style={{...FILL, opacity: outK}}>
+    <div style={{...FILL, opacity: outK, perspective: PERSPECTIVE}}>
       <div style={{...FILL, background: PANEL, opacity: tw(t, 0, 0.2)}} />
-      <div style={{position: 'absolute', left: 90, top: 330, width: 900, height: 1240, background: '#fff', border: C3.hair, boxSizing: 'border-box', borderRadius: 6, opacity: k, transform: `translateY(${(1 - k) * 80}px) scale(${0.94 + 0.06 * k})`, boxShadow: '0 40px 90px rgba(0,0,0,0.6)', overflow: 'hidden'}}>
+      <div style={{position: 'absolute', left: 90, top: 330, width: 900, height: 1240, background: '#fff', border: C3.hair, boxSizing: 'border-box', borderRadius: 6, opacity: k, transform: `translateY(${(1 - k) * 80}px) scale(${0.94 + 0.06 * k})${tiltXform(tilt, t)}`, boxShadow: '0 40px 90px rgba(0,0,0,0.6)', overflow: 'hidden'}}>
         <div style={{display: 'flex', justifyContent: 'space-between', padding: '26px 40px 0', ...cap({fontSize: 18, color: C3.cardMuted})}}><span>{issue ? issue.split('|')[0] : ''}</span><span>{issue ? issue.split('|')[1] ?? '' : ''}</span></div>
         <div style={{padding: '0 36px', fontFamily: serifFamily, fontWeight: 900, fontSize: Math.min(250, Math.floor(800 / (Math.max(3, masthead.length) * 0.66))), lineHeight: 1.0, letterSpacing: -4, color: brand.charcoal, textTransform: 'uppercase', whiteSpace: 'nowrap', textAlign: 'center', backgroundImage: C3.copperGrad, WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 2px 0 rgba(0,0,0,0.25))'}}>{masthead}</div>
         <div style={{position: 'relative', margin: '10px 36px 0', height: 620, overflow: 'hidden', border: C3.hair}}>
@@ -186,15 +186,15 @@ export const FilmStrip: React.FC<{fx: Of<'film-strip'>}> = ({fx}) => {
 // ---------------------------------------------------------------- phone frame (her clip inside a bezel on a solid field)
 export const PhoneFrame: React.FC<{fx: Of<'phone-frame'>}> = ({fx}) => {
   const {t, outK} = useSpan(fx);
-  const {from} = fx.props;
+  const {from, tilt} = fx.props;
   const k = tw(t, 0, 0.7, 0, 1, (x) => 1 - (1 - x) ** 3);
   const s = 1.55 - 0.55 * k;
   const pw = 640;
   const ph = 1140;
   return (
-    <div style={{...FILL, opacity: outK}}>
+    <div style={{...FILL, opacity: outK, perspective: PERSPECTIVE}}>
       <div style={{...FILL, background: PANEL, opacity: tw(t, 0, 0.2)}} />
-      <div style={{position: 'absolute', left: 540 - pw / 2, top: 960 - ph / 2, width: pw, height: ph, transform: `scale(${s})`, borderRadius: 64, background: 'linear-gradient(145deg,#fff,#cfd3d5)', padding: 14, boxSizing: 'border-box', boxShadow: `0 40px 90px rgba(0,0,0,0.6), inset 0 0 0 3px ${C3.copper}`}}>
+      <div style={{position: 'absolute', left: 540 - pw / 2, top: 960 - ph / 2, width: pw, height: ph, transform: `scale(${s})${tiltXform(tilt, t)}`, borderRadius: 64, background: 'linear-gradient(145deg,#fff,#cfd3d5)', padding: 14, boxSizing: 'border-box', boxShadow: `0 40px 90px rgba(0,0,0,0.6), inset 0 0 0 3px ${C3.copper}`}}>
         <div style={{width: pw - 28, height: ph - 28, borderRadius: 50, overflow: 'hidden', position: 'relative', background: '#000'}}>
           <ClipTile w={pw - 28} h={ph - 28} startSec={from} zoom={1} focusY="0%" />
           <div style={{position: 'absolute', left: (pw - 28) / 2 - 56, top: 14, width: 112, height: 30, borderRadius: 15, background: '#0b0c0d'}} />
@@ -321,6 +321,27 @@ export const CaptionStack: React.FC<{fx: Of<'caption-stack'>}> = ({fx}) => {
   );
 };
 
+// ---------------------------------------------------------------- card carousel (true 3D ring of her own clip cards)
+export const CardCarousel: React.FC<{fx: Of<'card-carousel'>}> = ({fx}) => {
+  const {t, outK} = useSpan(fx);
+  const {tiles, cy, radius, width, spinSec, tiltX} = fx.props;
+  const n = tiles.length;
+  const h = Math.round((width * 16) / 9);
+  const e = tw(t, 0, 1.1, 0, 1, (x) => 1 - (1 - x) ** 3);
+  const spin = (t / spinSec) * 360 + (1 - e) * 200;
+  return (
+    <div style={{...FILL, opacity: outK * tw(t, 0, 0.25), perspective: 1700, perspectiveOrigin: `50% ${cy}px`}}>
+      <div style={{position: 'absolute', left: 540, top: cy, width: 0, height: 0, transformStyle: 'preserve-3d', transform: `translateZ(${-(1 - e) * 500}px) rotateX(${tiltX}deg) rotateY(${spin}deg)`}}>
+        {tiles.map((o, i) => (
+          <div key={i} style={{position: 'absolute', left: -width / 2, top: -h / 2, width, height: h, borderRadius: 24, overflow: 'hidden', border: C3.hair, boxSizing: 'border-box', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: `rotateY(${(i / n) * 360}deg) translateZ(${radius}px)`, boxShadow: '0 18px 44px rgba(0,0,0,0.55)'}}>
+            <ClipTile w={width} h={h} startSec={o} zoom={1.25} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 // ---------------------------------------------------------------- script panel (behind her: a scrolling script doc fills the screen, she stands in front at the bottom left)
 export const scriptPanelCutout = (fx: Of<'script-panel'>, abs: number): React.CSSProperties => {
   const [a, b] = fxRange(fx);
@@ -371,6 +392,7 @@ export const sixthPlate = (fx: Fx): React.ReactNode => (fx.type === 'script-pane
 
 export const sixthOver = (fx: Fx): React.ReactNode => {
   switch (fx.type) {
+    case 'card-carousel': return <CardCarousel fx={fx} />;
     case 'receipt-ticket': return <ReceiptTicket fx={fx} />;
     case 'frame-calendar': return <FrameCalendar fx={fx} />;
     case 'cover-frame': return <CoverFrame fx={fx} />;
