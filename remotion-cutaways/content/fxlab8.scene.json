@@ -1,0 +1,114 @@
+{
+ "slug": "fxlab8",
+ "video": "raw/clean-report.mp4",
+ "durationSec": 24,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "spotless",
+  "opposite",
+  "safe"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "status",
+  "spotless",
+  "Edmondson",
+  "hospital",
+  "medication",
+  "opposite",
+  "reported",
+  "program",
+  "safe",
+  "week",
+  "upset",
+  "answer",
+  "truth",
+  "report"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 24,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "pencil-strike",
+   "at": 0.5,
+   "until": 4.5,
+   "props": {
+    "title": "Requirements",
+    "lines": [
+     "Video editing experience",
+     "AI experience"
+    ],
+    "strike": 0
+   }
+  },
+  {
+   "type": "stamp",
+   "at": 5.0,
+   "until": 7.6,
+   "props": {
+    "text": "Next week"
+   }
+  },
+  {
+   "type": "waitlist-card",
+   "at": 8.0,
+   "until": 12.4,
+   "props": {}
+  },
+  {
+   "type": "envelope-open",
+   "at": 13.0,
+   "until": 17.6,
+   "props": {
+    "label": "Brand guide walkthrough"
+   }
+  },
+  {
+   "type": "testimonial-stack",
+   "at": 18.0,
+   "until": 23.0,
+   "props": {
+    "comments": [
+     {
+      "name": "Sample",
+      "text": "Your comment appears here."
+     },
+     {
+      "name": "Sample",
+      "text": "A second comment appears here."
+     }
+    ]
+   }
+  }
+ ]
+}

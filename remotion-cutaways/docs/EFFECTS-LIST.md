@@ -1,6 +1,6 @@
 # The full list: everything in the talking-head template (Oct 2026)
 
-**77 effects in all: 17 original graphics and end cards, 26 from the first FX batch, 13 from the second batch, 5 from the third, and 16 in the C3-skin fourth batch.** Effects stack: any number can overlap in time, and later ones in the list draw on top. Plus the speed ramp tool, 2 extra modes, and the look dial. Also: 6 layouts, 3 caption styles, 14 sounds, 6 style presets. Names below are what goes in a video plan (`type`). Say any name in chat and Claude can use it.
+**97 effects in all: 17 original graphics and end cards, 26 from the first FX batch, 13 from the second batch, 5 from the third, 16 in the C3-skin fourth batch, and 20 in the fifth.** Effects stack: any number can overlap in time, and later ones in the list draw on top. Plus the speed ramp tool, 2 extra modes, and the look dial. Also: 6 layouts, 3 caption styles, 14 sounds, 6 style presets. Names below are what goes in a video plan (`type`). Say any name in chat and Claude can use it.
 
 ## Original graphics and end cards (17), in the `graphics` list of a scene segment
 | Name | What it does |
@@ -105,6 +105,34 @@ Built Oct 2026 from the effect list Dr. CK collected. They read colors, icons an
 | `reel-feed` | A scroll-blur takeover into a reel-style screen: her clip playing, handle and brand mark, and the like, comment, share and save rail (captions off) |
 | `card-orbit` | Three to six video cards of her own clip circle the screen with depth, tilt and a stagger. Stack it with `reel-feed` for a feed with cards flying around it |
 | `eyedropper-grade` | An eyedropper picks a brand swatch (`pick` index) and the frame grades toward it |
+
+## Fifth batch (C3 skin), in the `fx` list
+More UI and desk-object moments from the reference reels. Same rules as the fourth batch: copper first, low placement, short holds, an optional `y`. Text on cards is whatever you pass in; nothing is invented (the testimonial stack needs real comments).
+
+| Name | What it does |
+|---|---|
+| `name-tag` | A "HELLO my name is" tag with a handwritten name |
+| `planner-grid` | A weekly planner fills with colored blocks, then clears to a copper italic word ("free") |
+| `dropdown-select` | A field opens a list, the pointer picks an option, a copper check lands |
+| `effort-dial` | A dark knob turns from low to max with labeled ticks |
+| `specimen-card` | A typeface card: big "Aa", the font name and a role line |
+| `pencil-strike` | A card of lines where a pencil strikes one out in crimson |
+| `stamp` | A rubber stamp slams down at an angle ("NEXT WEEK") |
+| `waitlist-card` | A numbered list where your row highlights, writes "you" and checks |
+| `envelope-open` | An envelope with a copper wax seal opens and a document card rises out |
+| `testimonial-stack` | Up to three comment cards slide in one after another (real comments only) |
+| `render-progress` | A rendering card with a progress bar and thumbnails of her clip filling in |
+| `feedback-note` | A note card from the brand mark that types a feedback line |
+| `leaderboard` | A ranked list where the first row glows copper with a trophy |
+| `countdown-timer` | A ring timer that counts up or down with a unit and label |
+| `terminal-type` | A dark terminal window typing command lines |
+| `toggle-switch` | A tile row with a switch that flips on to "Connected" |
+| `generating-tiles` | Shimmering "Generating" tiles resolve into your lab objects |
+| `follow-card` | A profile pill where Follow flips to Following |
+| `defocus` | The whole frame blurs and refocuses, a soft transition between beats |
+| `reel-stack` | Reel cards of her clip in perspective, each with a "Link copied" chip |
+
+Also covered without new code: giant numerals behind her are `type-wall` with numbers as the words, and glow hero words are the hero-word caption styles.
 
 Notes: `vertigo` hides her enlarged copy with a soft hole around her, so the edges of the room stretch while she stays sharp. It reads best on a clean room. `glass-type` sits low by default because her face and body cover the middle of the frame.
 

@@ -1,0 +1,115 @@
+{
+ "slug": "fxlab9",
+ "video": "raw/clean-report.mp4",
+ "durationSec": 24,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "spotless",
+  "opposite",
+  "safe"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "status",
+  "spotless",
+  "Edmondson",
+  "hospital",
+  "medication",
+  "opposite",
+  "reported",
+  "program",
+  "safe",
+  "week",
+  "upset",
+  "answer",
+  "truth",
+  "report"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 24,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "render-progress",
+   "at": 0.5,
+   "until": 5.0,
+   "props": {}
+  },
+  {
+   "type": "feedback-note",
+   "at": 5.5,
+   "until": 9.7,
+   "props": {
+    "text": "Make the first shot full height."
+   }
+  },
+  {
+   "type": "leaderboard",
+   "at": 10.0,
+   "until": 14.6,
+   "props": {
+    "title": "Ranked",
+    "items": [
+     "First place",
+     "Second place",
+     "Third place"
+    ]
+   }
+  },
+  {
+   "type": "countdown-timer",
+   "at": 15.0,
+   "until": 18.8,
+   "props": {
+    "from": 0,
+    "to": 54,
+    "unit": "seconds",
+    "label": "This reel"
+   }
+  },
+  {
+   "type": "terminal-type",
+   "at": 19.0,
+   "until": 23.6,
+   "props": {
+    "lines": [
+     {
+      "text": "open the project"
+     },
+     {
+      "text": "edit this video"
+     }
+    ]
+   }
+  }
+ ]
+}

@@ -13,15 +13,15 @@ import {easeInC, fxRange, pop, tw, useFxEnv, useFxTime} from './util';
 type Of<T extends Fx['type']> = Extract<Fx, {type: T}>;
 const FILL: React.CSSProperties = {position: 'absolute', left: 0, top: 0, width: 1080, height: 1920};
 
-const useSpan = (fx: Fx) => {
+export const useSpan = (fx: Fx) => {
   const [a, b] = fxRange(fx);
   const {t, abs, frame, fps} = useFxTime(a);
   const len = b - a;
   return {a, b, len, t, abs, frame, fps, inK: tw(t, 0, 0.32, 0, 1, pop), outK: 1 - tw(t, len - 0.28, len)};
 };
 
-const typedSlice = (text: string, abs: number, from: number, to: number) => text.slice(0, Math.floor(tw(abs, from, to, 0, text.length, (x) => x)));
-const Caret: React.FC<{frame: number; color?: string; h: number}> = ({frame, color = C3.accent, h}) => (
+export const typedSlice = (text: string, abs: number, from: number, to: number) => text.slice(0, Math.floor(tw(abs, from, to, 0, text.length, (x) => x)));
+export const Caret: React.FC<{frame: number; color?: string; h: number}> = ({frame, color = C3.accent, h}) => (
   <span style={{display: 'inline-block', width: 4, height: h, marginLeft: 4, verticalAlign: 'middle', background: color, opacity: Math.floor(frame / 8) % 2 ? 0.15 : 1}} />
 );
 
@@ -426,7 +426,7 @@ export const GiantCaption: React.FC<{fx: Of<'giant-caption'>}> = ({fx}) => {
 };
 
 // ================================================================ playing grid, video card, reel feed (her own clip plays inside them)
-const ClipTile: React.FC<{w: number; h: number; startSec: number; zoom?: number; focusY?: string}> = ({w, h, startSec, zoom = 1, focusY = '12%'}) => {
+export const ClipTile: React.FC<{w: number; h: number; startSec: number; zoom?: number; focusY?: string}> = ({w, h, startSec, zoom = 1, focusY = '12%'}) => {
   const {video} = useFxEnv();
   const {fps} = useVideoConfig();
   return (

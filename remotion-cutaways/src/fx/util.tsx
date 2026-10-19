@@ -64,6 +64,26 @@ const LEN: Record<FxType, number> = {
   'video-card': 3.8,
   'reel-feed': 3.4,
   'card-orbit': 5,
+  'name-tag': 3.6,
+  'planner-grid': 5.4,
+  'dropdown-select': 4.2,
+  'effort-dial': 4,
+  'specimen-card': 3.6,
+  'pencil-strike': 4,
+  'stamp': 2.6,
+  'waitlist-card': 4.4,
+  'envelope-open': 4.6,
+  'testimonial-stack': 5,
+  'render-progress': 4.4,
+  'feedback-note': 4.2,
+  'leaderboard': 4.6,
+  'countdown-timer': 3.8,
+  'terminal-type': 4.6,
+  'toggle-switch': 3.4,
+  'generating-tiles': 4.4,
+  'follow-card': 3.4,
+  'defocus': 1.2,
+  'reel-stack': 3.6,
 };
 
 /** effects that draw behind her (they need the person matte) */
@@ -275,6 +295,34 @@ const rawCues = (f: Fx): Cue[] => {
       return [main('whoosh', f.at, 0.7)];
     case 'card-orbit':
       return [main('whoosh', f.at, 0.6)];
+    case 'name-tag':
+    case 'specimen-card':
+    case 'follow-card':
+    case 'toggle-switch':
+      return [main('pop', f.at + 0.1, 0.6)];
+    case 'planner-grid':
+    case 'generating-tiles':
+    case 'leaderboard':
+    case 'testimonial-stack':
+    case 'reel-stack':
+      return [main('swish', f.at, 0.5, 2)];
+    case 'dropdown-select':
+    case 'waitlist-card':
+    case 'pencil-strike':
+      return [main('tick', f.at + 0.2, 0.5)];
+    case 'stamp':
+      return [main('thud', f.at + 0.25, 0.9)];
+    case 'effort-dial':
+    case 'countdown-timer':
+    case 'render-progress':
+      return [main('riser', f.at + 0.3, 0.35, 2)];
+    case 'envelope-open':
+      return [main('whoosh', f.at, 0.5, 2), d('pop', f.props.openAt ?? f.at + 1.4, 0.6)];
+    case 'feedback-note':
+    case 'terminal-type':
+      return [d('type', f.at + 0.5, 0.4)];
+    case 'defocus':
+      return [main('whoosh', f.at, 0.5, 2)];
     default:
       return [];
   }

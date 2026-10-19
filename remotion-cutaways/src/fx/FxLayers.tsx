@@ -1,4 +1,5 @@
 import React from 'react';
+import {fifthOver} from './fifth';
 import {fourthOver} from './fourth';
 import {thirdOver} from './third';
 import {Audio, Sequence, staticFile, useVideoConfig} from 'remotion';
@@ -111,7 +112,7 @@ export const FxOver: React.FC<{fx: Fx[]}> = ({fx}) => {
   return (
     <>
       {fx.map((f, i) => {
-        const node = overItem(f) ?? extraOver(f) ?? thirdOver(f) ?? fourthOver(f);
+        const node = overItem(f) ?? extraOver(f) ?? thirdOver(f) ?? fourthOver(f) ?? fifthOver(f);
         if (!node) return null;
         const [a, b] = fxRange(f);
         return (
