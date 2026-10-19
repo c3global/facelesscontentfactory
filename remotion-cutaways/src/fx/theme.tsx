@@ -1,4 +1,5 @@
 import React from 'react';
+import {staticFile} from 'remotion';
 import {brand} from '../brand';
 import {sansFamily} from '../fonts';
 
@@ -18,7 +19,9 @@ export const C3 = {
   /** dark glass card (replies, panels) */
   glass: 'rgba(12,13,15,0.86)',
   glassText: brand.white,
-  hairGold: '1.5px solid rgba(213,170,74,0.8)',
+  /** copper first: rose gold and copper carry the brand, gold is the secondary accent */
+  hair: '1.5px solid rgba(224,138,87,0.85)',
+  copperGrad: 'linear-gradient(135deg,#B5622C,#F4B08A 50%,#B5622C)',
   accent: brand.crimson,
   accentDeep: brand.crimsonDeep,
   gold: '#E3BF63',
@@ -26,10 +29,10 @@ export const C3 = {
   copper: '#E08A57',
 } as const;
 
-/** The brand globe: Dr. CK's globe mark, drawn as a line icon. `src` swaps in her own icon file from public/. */
-export const GlobeIcon: React.FC<{size: number; color?: string; bg?: string; src?: string}> = ({size, color = C3.gold, bg = 'transparent', src}) =>
-  src ? (
-    <img src={src} width={size} height={size} style={{objectFit: 'contain', borderRadius: size / 2}} />
+/** Dr. CK's orbital globe (public/brand/orbital-globe.png). `src` swaps in another icon file under public/; `src="drawn"` draws a plain line globe instead. */
+export const GlobeIcon: React.FC<{size: number; color?: string; bg?: string; src?: string}> = ({size, color = C3.gold, bg = 'transparent', src = 'brand/orbital-globe.png'}) =>
+  src !== 'drawn' ? (
+    <img src={staticFile(src)} width={size} height={size} style={{display: 'block', objectFit: 'contain'}} />
   ) : (
     <svg width={size} height={size} viewBox="0 0 48 48" style={{display: 'block'}}>
       <circle cx="24" cy="24" r="22" fill={bg} />
@@ -40,6 +43,13 @@ export const GlobeIcon: React.FC<{size: number; color?: string; bg?: string; src
       </g>
     </svg>
   );
+
+/** a white avatar disc with a copper rim, for the brand mark on a dark card */
+export const BrandAvatar: React.FC<{size: number; src?: string}> = ({size, src}) => (
+  <div style={{flex: 'none', width: size, height: size, borderRadius: size / 2, background: '#fff', border: '2px solid #E08A57', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+    <GlobeIcon size={Math.round(size * 0.78)} src={src} />
+  </div>
+);
 
 /** the up-arrow inside a send button */
 export const SendArrow: React.FC<{size: number; color?: string}> = ({size, color = '#fff'}) => (
