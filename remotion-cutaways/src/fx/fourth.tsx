@@ -4,7 +4,7 @@ import {heavyFamily, serifFamily} from '../fonts';
 import {metalFill, metalTextStyle} from '../metal';
 import type {Fx} from './schema';
 import {AppIcon, BrandAvatar, C3, CheckMark, HeartIcon, SendArrow} from './theme';
-import {easeInC, fxRange, pop, tw, useFxEnv, useFxTime} from './util';
+import {easeInC, easeOutC, fxRange, pop, tw, useFxEnv, useFxTime} from './util';
 
 /**
  * Fourth FX batch, in the C3 skin (src/fx/theme.tsx): UI-style effects taken from the effect list Dr. CK collected.
@@ -238,12 +238,51 @@ export const JiggleDelete: React.FC<{fx: Of<'jiggle-delete'>}> = ({fx}) => {
   );
 };
 
+
+// ================================================================ flying motion (shared by the card effects)
+/** off: cards pop in place. swoop: each card arcs in from off-screen and settles, then floats. orbit: cards loop around the screen, then land in their spot. */
+export type Fly = 'off' | 'swoop' | 'orbit';
+type Rest = {x: number; y: number; rot: number};
+export const flyPose = (fly: Fly, t: number, i: number, n: number, rest: Rest, cy = 960) => {
+  if (fly === 'orbit') {
+    const d = 0.05 + i * 0.1;
+    const e = tw(t, d, d + 1.7, 0, 1, (x) => x * x * (3 - 2 * x));
+    const land = e * e;
+    const ang = (i / n) * Math.PI * 2 - Math.PI / 2 - (1 - e) * Math.PI * 2 * 1.25;
+    const depth = (Math.sin(ang) + 1) / 2;
+    const ox = 540 + 470 * Math.cos(ang);
+    const oy = cy + 640 * Math.sin(ang) * 0.55;
+    const bob = Math.sin(t * 2.2 + i * 1.3) * 5 * land;
+    return {
+      x: ox + (rest.x - ox) * land,
+      y: oy + (rest.y - oy) * land + bob,
+      rot: Math.cos(ang) * 9 * (1 - land) + rest.rot * land + Math.sin(t * 1.7 + i) * 0.7 * land,
+      sc: (0.72 + 0.38 * depth) * (1 - land) + land,
+      op: tw(t, d, d + 0.25),
+      z: land < 0.9 ? Math.round(depth * 10) : 11 + i,
+    };
+  }
+  // swoop: arc in from alternating sides, overshoot a touch, settle, float
+  const d = 0.08 + i * 0.14;
+  const p = tw(t, d, d + 0.8, 0, 1, easeOutC);
+  const side = i % 2 ? 1 : -1;
+  const bob = Math.sin(t * 2.2 + i * 1.3) * 5 * p;
+  return {
+    x: rest.x + side * 760 * (1 - p),
+    y: rest.y - (1 - p) * 620 - Math.sin(p * Math.PI) * 140 + bob,
+    rot: rest.rot + side * (1 - p) * 38 + Math.sin(t * 1.7 + i) * 0.7 * p,
+    sc: 0.7 + 0.3 * p,
+    op: tw(t, d, d + 0.2),
+    z: 11 + i,
+  };
+};
+
 // ================================================================ storyboard deck
 export const StoryboardDeck: React.FC<{fx: Of<'storyboard-deck'>}> = ({fx}) => {
   const {t, outK} = useSpan(fx);
   const {video} = useFxEnv();
   const {fps} = useVideoConfig();
-  const {stills, labels, lines, y} = fx.props;
+  const {stills, labels, lines, y, fly} = fx.props;
   const cards = [0, 1, 2];
   const rot = [-9, 0, 9];
   const cx = [300, 540, 780];
@@ -251,8 +290,13 @@ export const StoryboardDeck: React.FC<{fx: Of<'storyboard-deck'>}> = ({fx}) => {
     <div style={{...FILL, opacity: outK}}>
       {cards.map((c) => {
         const k = tw(t, 0.12 + c * 0.18, 0.5 + c * 0.18, 0, 1, pop);
+        const top = y + (c === 1 ? -14 : 8);
+        const pose = fly === 'off' ? null : flyPose(fly, t, c, 3, {x: cx[c], y: top + 180, rot: rot[c]}, y + 180);
+        const box: React.CSSProperties = pose
+          ? {left: pose.x - 135, top: pose.y - 180, opacity: pose.op, transform: `rotate(${pose.rot}deg) scale(${pose.sc})`, zIndex: pose.z}
+          : {left: cx[c] - 135, top, opacity: k, transform: `translateY(${(1 - k) * 90}px) rotate(${rot[c] * k}deg) scale(${0.85 + 0.15 * k})`};
         return (
-          <div key={c} style={{position: 'absolute', left: cx[c] - 135, top: y + (c === 1 ? -14 : 8), width: 270, height: 360, borderRadius: 26, background: C3.card, border: C3.hair, boxSizing: 'border-box', overflow: 'hidden', opacity: k, transform: `translateY(${(1 - k) * 90}px) rotate(${rot[c] * k}deg) scale(${0.85 + 0.15 * k})`, boxShadow: '0 22px 50px rgba(0,0,0,0.55)'}}>
+          <div key={c} style={{position: 'absolute', width: 270, height: 360, borderRadius: 26, background: C3.card, border: C3.hair, boxSizing: 'border-box', overflow: 'hidden', boxShadow: '0 22px 50px rgba(0,0,0,0.55)', ...box}}>
             {c === 0 ? (
               <div style={{padding: '22px 20px'}}>
                 <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 18, letterSpacing: 4, textTransform: 'uppercase', color: '#A5551F', marginBottom: 14}}>Storyboard</div>
@@ -448,8 +492,14 @@ export const PlayingGrid: React.FC<{fx: Of<'playing-grid'>}> = ({fx}) => {
       {offs.map((o, i) => {
         const k = tw(t, 0.08 + i * 0.12, 0.48 + i * 0.12, 0, 1, pop);
         const tilt = (i - (offs.length - 1) / 2) * 2.2;
+        const left = 540 - total / 2 + i * (w + gap);
+        const top = fx.props.y + (i % 2) * 18;
+        const pose = fx.props.fly === 'off' ? null : flyPose(fx.props.fly, t, i, offs.length, {x: left + w / 2, y: top + h / 2, rot: tilt}, top + h / 2);
+        const box: React.CSSProperties = pose
+          ? {left: pose.x - w / 2, top: pose.y - h / 2, opacity: pose.op, transform: `rotate(${pose.rot}deg) scale(${pose.sc})`, zIndex: pose.z}
+          : {left, top, opacity: k, transform: `translateY(${(1 - k) * 120}px) rotate(${tilt}deg) scale(${0.85 + 0.15 * k})`};
         return (
-          <div key={i} style={{position: 'absolute', left: 540 - total / 2 + i * (w + gap), top: fx.props.y + (i % 2) * 18, width: w, height: h, borderRadius: 26, overflow: 'hidden', border: C3.hair, boxSizing: 'border-box', opacity: k, transform: `translateY(${(1 - k) * 120}px) rotate(${tilt}deg) scale(${0.85 + 0.15 * k})`, boxShadow: '0 20px 46px rgba(0,0,0,0.55)'}}>
+          <div key={i} style={{position: 'absolute', width: w, height: h, borderRadius: 26, overflow: 'hidden', border: C3.hair, boxSizing: 'border-box', boxShadow: '0 20px 46px rgba(0,0,0,0.55)', ...box}}>
             <ClipTile w={w} h={h} startSec={o} zoom={1.25} />
             <div style={{position: 'absolute', left: 12, bottom: 12, width: 0, height: 0, borderTop: '11px solid transparent', borderBottom: '11px solid transparent', borderLeft: '18px solid rgba(255,255,255,0.92)'}} />
           </div>

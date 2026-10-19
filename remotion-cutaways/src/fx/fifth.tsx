@@ -2,7 +2,7 @@ import React from 'react';
 import {brand} from '../brand';
 import {handFamily, heavyFamily, serifFamily} from '../fonts';
 import {metalTextStyle} from '../metal';
-import {Caret, ClipTile, typedSlice, useSpan} from './fourth';
+import {Caret, ClipTile, flyPose, typedSlice, useSpan} from './fourth';
 import type {Fx} from './schema';
 import {AppIcon, BrandAvatar, C3, CheckMark, GlobeIcon} from './theme';
 import {easeInC, pop, tw} from './util';
@@ -237,8 +237,12 @@ export const TestimonialStack: React.FC<{fx: Of<'testimonial-stack'>}> = ({fx}) 
     <div style={{...FILL, opacity: outK}}>
       {fx.props.comments.map((c, i) => {
         const k = tw(t, 0.15 + i * 0.55, 0.5 + i * 0.55, 0, 1, pop);
+        const pose = fx.props.fly === 'off' ? null : flyPose('swoop', Math.max(0, t - i * 0.4), i, 3, {x: 540, y: fx.props.y + i * 190 + 84, rot: 0});
+        const box: React.CSSProperties = pose
+          ? {left: 90 + (pose.x - 540), top: pose.y - 84, opacity: pose.op, transform: `rotate(${pose.rot * 0.35}deg) scale(${pose.sc})`}
+          : {left: 90, top: fx.props.y + i * 190, opacity: k, transform: `translateX(${(1 - k) * 500}px)`};
         return (
-          <div key={i} style={{position: 'absolute', left: 90, top: fx.props.y + i * 190, width: 900, minHeight: 168, borderRadius: 32, background: '#fff', border: C3.hair, boxSizing: 'border-box', padding: '20px 28px', display: 'flex', gap: 20, opacity: k, transform: `translateX(${(1 - k) * 500}px)`, boxShadow: C3.cardShadow}}>
+          <div key={i} style={{position: 'absolute', width: 900, minHeight: 168, borderRadius: 32, background: '#fff', border: C3.hair, boxSizing: 'border-box', padding: '20px 28px', display: 'flex', gap: 20, boxShadow: C3.cardShadow, ...box}}>
             <div style={{flex: 'none', width: 72, height: 72, borderRadius: 36, background: C3.copperGrad, color: '#2a1206', fontFamily: C3.sans, fontWeight: 700, fontSize: 34, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{c.name.slice(0, 1)}</div>
             <div><div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 28, color: C3.cardText}}>{c.name}</div><div style={{fontFamily: C3.sans, fontWeight: 500, fontSize: 32, lineHeight: 1.25, color: C3.cardText}}>{c.text}</div></div>
           </div>
@@ -389,8 +393,12 @@ export const GeneratingTiles: React.FC<{fx: Of<'generating-tiles'>}> = ({fx}) =>
         const resolveAt = fx.at + 1.0 + i * 0.4;
         const res = tw(abs, resolveAt, resolveAt + 0.35, 0, 1, pop);
         const shimmer = (Math.sin(t * 6 + i) + 1) / 2;
+        const pose = fx.props.fly === 'off' ? null : flyPose('swoop', t, i, g.length, {x: x + S / 2, y: y + S / 2, rot: 0});
+        const box: React.CSSProperties = pose
+          ? {left: pose.x - S / 2, top: pose.y - S / 2, opacity: pose.op, transform: `rotate(${pose.rot}deg) scale(${pose.sc})`}
+          : {left: x, top: y, opacity: inK, transform: `scale(${0.85 + 0.15 * inK})`};
         return (
-          <div key={i} style={{position: 'absolute', left: x, top: y, width: S, height: S, borderRadius: 28, overflow: 'hidden', border: C3.hair, boxSizing: 'border-box', opacity: inK, transform: `scale(${0.85 + 0.15 * inK})`, background: `linear-gradient(135deg,rgba(255,255,255,${0.14 + 0.1 * shimmer}),rgba(255,255,255,0.05))`, boxShadow: C3.cardShadow}}>
+          <div key={i} style={{position: 'absolute', width: S, height: S, borderRadius: 28, overflow: 'hidden', border: C3.hair, boxSizing: 'border-box', background: `linear-gradient(135deg,rgba(255,255,255,${0.14 + 0.1 * shimmer}),rgba(255,255,255,0.05))`, boxShadow: C3.cardShadow, ...box}}>
             {res < 0.05 && <div style={{position: 'absolute', left: 0, right: 0, bottom: 20, textAlign: 'center', ...cap({fontSize: 18, color: 'rgba(255,255,255,0.7)'})}}>{fx.props.label}</div>}
             <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fff', opacity: res}}><AppIcon size={S * 0.82} glyph={gl} tone="white" /></div>
           </div>
@@ -437,8 +445,14 @@ export const ReelStack: React.FC<{fx: Of<'reel-stack'>}> = ({fx}) => {
         const k = tw(t, 0.1 + i * 0.18, 0.55 + i * 0.18, 0, 1, pop);
         const n = offs.length;
         const x = 540 + (i - (n - 1) / 2) * 250 - 150;
+        const top = fx.props.y + Math.abs(i - (n - 1) / 2) * 24;
+        const pose = fx.props.fly === 'off' ? null : flyPose('swoop', t, i, n, {x: x + 150, y: top + 260, rot: 0});
+        const tilt = (i - (n - 1) / 2) * -24;
+        const box: React.CSSProperties = pose
+          ? {left: pose.x - 150, top: pose.y - 260, opacity: pose.op, transform: `rotateY(${tilt}deg) rotate(${pose.rot}deg) scale(${pose.sc})`}
+          : {left: x, top, opacity: k, transform: `rotateY(${tilt}deg) translateY(${(1 - k) * 160}px)`};
         return (
-          <div key={i} style={{position: 'absolute', left: x, top: fx.props.y + Math.abs(i - (n - 1) / 2) * 24, width: 300, height: 520, borderRadius: 26, overflow: 'hidden', border: C3.hair, boxSizing: 'border-box', opacity: k, transform: `rotateY(${(i - (n - 1) / 2) * -24}deg) translateY(${(1 - k) * 160}px)`, boxShadow: '0 24px 50px rgba(0,0,0,0.6)', zIndex: 10 - Math.abs(i - (n - 1) / 2)}}>
+          <div key={i} style={{position: 'absolute', width: 300, height: 520, borderRadius: 26, overflow: 'hidden', border: C3.hair, boxSizing: 'border-box', boxShadow: '0 24px 50px rgba(0,0,0,0.6)', zIndex: 10 - Math.abs(i - (n - 1) / 2), ...box}}>
             <ClipTile w={300} h={520} startSec={o} zoom={1.4} />
             <div style={{position: 'absolute', left: 16, bottom: 16, padding: '6px 16px', borderRadius: 18, background: 'rgba(12,13,15,0.85)', color: '#fff', fontFamily: C3.sans, fontWeight: 700, fontSize: 20, opacity: tw(t, 0.9 + i * 0.2, 1.1 + i * 0.2)}}>{fx.props.label}</div>
           </div>

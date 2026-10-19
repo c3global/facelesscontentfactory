@@ -95,12 +95,12 @@ Built Oct 2026 from the effect list Dr. CK collected. They read colors, icons an
 | `file-drop` | A file card drops into a dashed drop zone and settles with a check |
 | `icon-strike` | A generic app tile gets a crimson strike, then the C3 mark pops in beside it |
 | `jiggle-delete` | An "Edit mode" tray of wiggling app tiles where the unwanted ones are deleted and the kept one centers |
-| `storyboard-deck` | A fan of three cards: a script page with numbered lines and two real freeze frames from her clip (`stills` seconds) |
+| `storyboard-deck` | A fan of three cards: a script page with numbered lines and two real freeze frames from her clip (`stills` seconds). The cards fly: `fly` is `orbit` (default, loop around the screen then land in the fan), `swoop` or `off` |
 | `gravity-drop` | A big copper serif word whose letters fall and bounce into place, with an optional italic `kicker` (turn captions off for that moment, the kicker sits in the caption band) |
 | `grade-slider` | A slider card whose knob moves while a warm, cool or golden grade fades in over the frame |
 | `kinetic-hook` | A stack of up to four lines that rise through a mask one after another, mixing serif, bold sans and copper italic (set `captions: "off"` on that segment) |
 | `giant-caption` | One huge word on a dark block with a copper italic accent line under it (captions off for that moment) |
-| `playing-grid` | A row of three or four small portrait tiles that each play a different moment of her own clip (`offsets`) and pop in with a tilt |
+| `playing-grid` | A row of three or four small portrait tiles that each play a different moment of her own clip (`offsets`) and pop in with a tilt. `fly`: `swoop` or `orbit` (default `off`) |
 | `video-card` | A white card with a copper rim: her clip playing, a progress bar, a serif title and a small sub line |
 | `reel-feed` | A scroll-blur takeover into a reel-style screen: her clip playing, handle and brand mark, and the like, comment, share and save rail (captions off) |
 | `card-orbit` | Three to six video cards of her own clip circle the screen with depth, tilt and a stagger. Stack it with `reel-feed` for a feed with cards flying around it |
@@ -120,17 +120,17 @@ More UI and desk-object moments from the reference reels. Same rules as the four
 | `stamp` | A rubber stamp slams down at an angle ("NEXT WEEK") |
 | `waitlist-card` | A numbered list where your row highlights, writes "you" and checks |
 | `envelope-open` | An envelope with a copper wax seal opens and a document card rises out |
-| `testimonial-stack` | Up to three comment cards slide in one after another (real comments only) |
+| `testimonial-stack` | Up to three comment cards slide in one after another (real comments only). `fly: swoop` arcs them in (default `off`) |
 | `render-progress` | A rendering card with a progress bar and thumbnails of her clip filling in |
 | `feedback-note` | A note card from the brand mark that types a feedback line |
 | `leaderboard` | A ranked list where the first row glows copper with a trophy |
 | `countdown-timer` | A ring timer that counts up or down with a unit and label |
 | `terminal-type` | A dark terminal window typing command lines |
 | `toggle-switch` | A tile row with a switch that flips on to "Connected" |
-| `generating-tiles` | Shimmering "Generating" tiles resolve into your lab objects |
+| `generating-tiles` | Shimmering "Generating" tiles resolve into your lab objects. `fly: swoop` arcs the tiles in (default `off`) |
 | `follow-card` | A profile pill where Follow flips to Following |
 | `defocus` | The whole frame blurs and refocuses, a soft transition between beats |
-| `reel-stack` | Reel cards of her clip in perspective, each with a "Link copied" chip |
+| `reel-stack` | Reel cards of her clip in perspective, each with a "Link copied" chip. `fly: swoop` arcs the cards in (default `off`) |
 
 Also covered without new code: giant numerals behind her are `type-wall` with numbers as the words, and glow hero words are the hero-word caption styles.
 
@@ -156,3 +156,5 @@ Signature, Quiet Authority, Spotlight, Show and Tell, Hype Reel, Raw Tape, plus 
 
 ## Separate pipeline
 Stick-figure explainers (Dr. CiCi with a modern gray cast) have their own playbook, `docs/STICK_PLAYBOOK.md`; they are not part of the talking-head count above.
+
+**Flying motion** (`fly` prop): `orbit` loops the cards around the screen and lands them in place, `swoop` arcs each card in from the side and lets it float. Both stay below her face and ease out, so they sit in the same lane as the other card effects. Lab plan: `content/fxlab11.scene.json`.
