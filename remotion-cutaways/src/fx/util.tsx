@@ -84,6 +84,17 @@ const LEN: Record<FxType, number> = {
   'follow-card': 3.4,
   'defocus': 1.2,
   'reel-stack': 3.6,
+  'receipt-ticket': 4.4,
+  'frame-calendar': 3.6,
+  'cover-frame': 3.6,
+  'keycap-drop': 3.2,
+  'film-strip': 4.4,
+  'phone-frame': 3.6,
+  'clip-type': 2.4,
+  'storyboard-wall': 3.6,
+  'step-chips': 6,
+  'pen-circle': 3.2,
+  'caption-stack': 3.4,
 };
 
 /** effects that draw behind her (they need the person matte) */
@@ -323,6 +334,24 @@ const rawCues = (f: Fx): Cue[] => {
       return [d('type', f.at + 0.5, 0.4)];
     case 'defocus':
       return [main('whoosh', f.at, 0.5, 2)];
+    case 'receipt-ticket':
+      return [main('swish', f.at + 0.1, 0.5), d('type', f.at + 0.8, 0.4), d('thud', f.at + 2.4, 0.7)];
+    case 'frame-calendar':
+    case 'film-strip':
+      return [main('swish', f.at, 0.5, 2)];
+    case 'cover-frame':
+    case 'phone-frame':
+    case 'clip-type':
+      return [main('whoosh', f.at, 0.5, 2)];
+    case 'keycap-drop':
+      return [main('tick', f.at + 0.4, 0.6), d('tick', f.at + 0.7, 0.4), d('tick', f.at + 1.0, 0.4)];
+    case 'storyboard-wall':
+    case 'caption-stack':
+      return [main('pop', f.at + 0.15, 0.5)];
+    case 'step-chips':
+      return f.props.steps.map((s, i) => (i === 0 ? main('pop', s.at, 0.5) : d('pop', s.at, 0.45)));
+    case 'pen-circle':
+      return [main('swish', f.at + 0.2, 0.5)];
     default:
       return [];
   }

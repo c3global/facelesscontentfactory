@@ -158,3 +158,21 @@ Signature, Quiet Authority, Spotlight, Show and Tell, Hype Reel, Raw Tape, plus 
 Stick-figure explainers (Dr. CiCi with a modern gray cast) have their own playbook, `docs/STICK_PLAYBOOK.md`; they are not part of the talking-head count above.
 
 **Flying motion** (`fly` prop): `orbit` loops the cards around the screen and lands them in place, `swoop` arcs each card in from the side and lets it float. Both stay below her face and ease out, so they sit in the same lane as the other card effects. Lab plan: `content/fxlab11.scene.json`.
+
+## Sixth batch: editing-desk moments (from the Claude edit reel)
+
+| Effect | What it does |
+|---|---|
+| `receipt-ticket` | A torn-edge slip prints from a slot under the captions, types your `text`, then shows `TOTAL, 1 SENTENCE`. The timecode line is the real time in the video |
+| `frame-calendar` | Full cutaway: a 30-day grid fills with copper tiles and a few real frames of her clip (`thumbs`) |
+| `cover-frame` | A white magazine page: copper masthead, her clip as the cover photo, a barcode and a headline. `issue` is `left|right` (for example `No. 01|Oct 2026`). Different from `cover-story`, which puts her head in front of the masthead and needs the matte |
+| `keycap-drop` | Editing-shortcut keys fall, bounce and pile up low on the screen |
+| `film-strip` | Two strips of her own frames on a white card. `marks` circles or crosses out frames with a pen stroke, with an optional handwritten `label` |
+| `phone-frame` | Her clip shrinks into a phone bezel on a solid field. Different from `phone-mockup`, which sits at the side |
+| `clip-type` | Giant letters (`word`, use `/` for line breaks) with her clip playing inside them. `field` is `white` or `black` |
+| `storyboard-wall` | A row (or two) of small numbered cards of her clip fly in and pin low on the screen |
+| `step-chips` | One numbered chip at a time ("01 The raw take"), each timed by `steps[].at` |
+| `pen-circle` | A hand-drawn crimson ring around her head (follows the matte anchors), an arrow and a handwritten `note`, with a black-and-white grade |
+| `caption-stack` | Each line steps up in size ("and the / captions / come / in"), the last in copper |
+
+Lab plans: `content/fxlab12`, `fxlab13` and `fxlab14`. The reference reel also has her cutout standing in front of a scrolling script panel; that one is not built (it needs the matte and a panel plate).

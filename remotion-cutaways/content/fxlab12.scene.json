@@ -1,0 +1,98 @@
+{
+ "slug": "fxlab12",
+ "video": "raw/clean-report.mp4",
+ "durationSec": 20,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "spotless",
+  "opposite",
+  "safe"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "status",
+  "spotless",
+  "Edmondson",
+  "hospital",
+  "medication",
+  "opposite",
+  "reported",
+  "program",
+  "safe",
+  "week",
+  "upset",
+  "answer",
+  "truth",
+  "report"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 20,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "receipt-ticket",
+   "at": 0.5,
+   "until": 4.9,
+   "props": {
+    "text": "Take a pass at editing this."
+   }
+  },
+  {
+   "type": "frame-calendar",
+   "at": 5.2,
+   "until": 8.8,
+   "props": {}
+  },
+  {
+   "type": "cover-frame",
+   "at": 9.2,
+   "until": 12.8,
+   "props": {
+    "masthead": "EDITED",
+    "headline": "The titles look like a magazine cover",
+    "issue": "No. 01|Oct 2026"
+   }
+  },
+  {
+   "type": "keycap-drop",
+   "at": 13.2,
+   "until": 16.4,
+   "props": {}
+  },
+  {
+   "type": "film-strip",
+   "at": 16.8,
+   "until": 20.0,
+   "props": {}
+  }
+ ]
+}

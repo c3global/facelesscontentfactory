@@ -106,6 +106,18 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('follow-card'), props: z.object({handle: z.string(), sub: z.string().optional(), followAt: sec.optional(), y: z.number().default(1420)})}),
   z.object({...base, type: z.literal('defocus'), props: z.object({peak: z.number().default(16)}).prefault({})}),
   z.object({...base, type: z.literal('reel-stack'), props: z.object({offsets: z.array(sec).min(2).max(3).default([3, 9, 15]), label: z.string().default('Link copied'), y: z.number().default(1180), fly: z.enum(['off', 'swoop']).default('off')}).prefault({})}),
+  // ---- sixth batch: editing-desk moments (receipt, frame calendar, cover frame, keycaps, film strip, phone frame, clip type, storyboard wall, step chips, pen circle, caption stack)
+  z.object({...base, type: z.literal('receipt-ticket'), props: z.object({text: z.string(), label: z.string().default('Instruction'), no: z.string().default('01'), to: z.string().default('To C3'), total: z.string().default('1 SENTENCE'), y: z.number().default(1440)})}),
+  z.object({...base, type: z.literal('frame-calendar'), props: z.object({days: z.number().int().min(12).max(30).default(30), label: z.string().default('Every frame'), thumbs: z.array(sec).min(1).max(5).default([1, 6, 11, 16])}).prefault({})}),
+  z.object({...base, type: z.literal('cover-frame'), props: z.object({masthead: z.string(), headline: z.string(), issue: z.string().optional(), from: sec.optional()}).transform((p) => ({...p, from: p.from ?? 0}))}),
+  z.object({...base, type: z.literal('keycap-drop'), props: z.object({keys: z.array(z.object({key: z.string(), sub: z.string().optional()})).min(4).max(10).default([{key: '⌘K'}, {key: '⌘Z'}, {key: 'B'}, {key: 'J'}, {key: 'K'}, {key: 'space', sub: 'play'}, {key: 'C'}, {key: '⌘B'}, {key: 'Q'}, {key: '⌥', sub: 'option'}]), y: z.number().default(1430)}).prefault({})}),
+  z.object({...base, type: z.literal('film-strip'), props: z.object({label: z.string().default('Raw footage'), offsets: z.array(sec).min(6).max(12).default([1, 3, 5, 7, 9, 11, 13, 15, 17, 19]), marks: z.array(z.object({cell: z.number().int().min(0), kind: z.enum(['circle', 'cross']), label: z.string().optional(), at: sec.optional()})).default([{cell: 2, kind: 'circle'}, {cell: 3, kind: 'cross'}, {cell: 6, kind: 'cross'}, {cell: 9, kind: 'circle'}]), y: z.number().default(1400)}).prefault({})}),
+  z.object({...base, type: z.literal('phone-frame'), props: z.object({from: sec.optional(), len: z.number().default(4)}).transform((p) => ({...p, from: p.from ?? 0})).prefault({})}),
+  z.object({...base, type: z.literal('clip-type'), props: z.object({word: z.string(), field: z.enum(['black', 'white']).default('white'), from: sec.optional()}).transform((p) => ({...p, from: p.from ?? 0}))}),
+  z.object({...base, type: z.literal('storyboard-wall'), props: z.object({offsets: z.array(sec).min(4).max(12).default([1, 3, 5, 7, 9, 11]), rows: z.number().int().min(1).max(2).default(1), y: z.number().default(1450)}).prefault({})}),
+  z.object({...base, type: z.literal('step-chips'), props: z.object({steps: z.array(z.object({label: z.string(), at: sec})).min(2).max(5), y: z.number().default(1470)})}),
+  z.object({...base, type: z.literal('pen-circle'), props: z.object({note: z.string().optional(), target: target.default('head'), bw: z.boolean().default(true)}).prefault({})}),
+  z.object({...base, type: z.literal('caption-stack'), props: z.object({words: z.array(z.string()).min(2).max(5), y: z.number().default(1420)})}),
 ]);
 
 

@@ -475,7 +475,7 @@ export const ClipTile: React.FC<{w: number; h: number; startSec: number; zoom?: 
   const {fps} = useVideoConfig();
   return (
     <div style={{width: w, height: h, overflow: 'hidden', position: 'relative', background: '#111'}}>
-      <OffthreadVideo src={staticFile(video)} muted startFrom={Math.round(startSec * fps)} style={{display: 'block', width: w * zoom, height: (w * zoom * 16) / 9, objectFit: 'cover', marginLeft: -(w * (zoom - 1)) / 2, marginTop: -Math.max(0, (w * zoom * 16) / 9 - h) * (parseFloat(focusY) / 100)}} />
+      <OffthreadVideo src={staticFile(video)} muted delayRenderTimeoutInMilliseconds={180000} startFrom={Math.round(startSec * fps)} style={{display: 'block', width: w * zoom, height: (w * zoom * 16) / 9, objectFit: 'cover', marginLeft: -(w * (zoom - 1)) / 2, marginTop: -Math.max(0, (w * zoom * 16) / 9 - h) * (parseFloat(focusY) / 100)}} />
     </div>
   );
 };
