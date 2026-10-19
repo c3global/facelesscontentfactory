@@ -81,6 +81,9 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('eyedropper-grade'), props: z.object({swatches: z.array(z.string()).min(3).max(6).default(['#C91B19', '#E08A57', '#B76E79', '#E3BF63', '#3A3F42']), pick: z.number().int().min(0).default(1), label: z.string().default('Grade'), pickAt: sec.optional(), y: z.number().default(1450)}).prefault({})}),
   z.object({...base, type: z.literal('kinetic-hook'), props: z.object({lines: z.array(z.object({text: z.string(), face: z.enum(['serif', 'sans', 'italic']).default('sans'), at: sec.optional()})).min(1).max(4), /** center of the stack in the 1080x1920 frame */ y: z.number().default(1120)})}),
   z.object({...base, type: z.literal('giant-caption'), props: z.object({text: z.string(), accent: z.string().optional(), y: z.number().default(1120)})}),
+  z.object({...base, type: z.literal('playing-grid'), props: z.object({/** source seconds each tile plays from, so the tiles show different moments of the clip */ offsets: z.array(sec).min(3).max(4).default([0, 6, 12, 18]), y: z.number().default(1290)}).prefault({})}),
+  z.object({...base, type: z.literal('video-card'), props: z.object({title: z.string(), sub: z.string().optional(), from: sec.optional(), y: z.number().default(1170)})}),
+  z.object({...base, type: z.literal('reel-feed'), props: z.object({handle: z.string().default('c3global'), from: sec.optional(), caption: z.string().optional()}).prefault({})}),
 ]);
 
 

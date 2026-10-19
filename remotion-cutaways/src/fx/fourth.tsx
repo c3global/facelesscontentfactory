@@ -425,6 +425,106 @@ export const GiantCaption: React.FC<{fx: Of<'giant-caption'>}> = ({fx}) => {
   );
 };
 
+// ================================================================ playing grid, video card, reel feed (her own clip plays inside them)
+const ClipTile: React.FC<{w: number; h: number; startSec: number; zoom?: number; focusY?: string}> = ({w, h, startSec, zoom = 1, focusY = '12%'}) => {
+  const {video} = useFxEnv();
+  const {fps} = useVideoConfig();
+  return (
+    <div style={{width: w, height: h, overflow: 'hidden', position: 'relative', background: '#111'}}>
+      <OffthreadVideo src={staticFile(video)} muted startFrom={Math.round(startSec * fps)} style={{display: 'block', width: w * zoom, height: (w * zoom * 16) / 9, objectFit: 'cover', marginLeft: -(w * (zoom - 1)) / 2, marginTop: -Math.max(0, (w * zoom * 16) / 9 - h) * (parseFloat(focusY) / 100)}} />
+    </div>
+  );
+};
+
+export const PlayingGrid: React.FC<{fx: Of<'playing-grid'>}> = ({fx}) => {
+  const {t, outK} = useSpan(fx);
+  const offs = fx.props.offsets;
+  const w = offs.length === 3 ? 300 : 230;
+  const h = Math.round((w * 16) / 9);
+  const gap = 16;
+  const total = offs.length * w + (offs.length - 1) * gap;
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      {offs.map((o, i) => {
+        const k = tw(t, 0.08 + i * 0.12, 0.48 + i * 0.12, 0, 1, pop);
+        const tilt = (i - (offs.length - 1) / 2) * 2.2;
+        return (
+          <div key={i} style={{position: 'absolute', left: 540 - total / 2 + i * (w + gap), top: fx.props.y + (i % 2) * 18, width: w, height: h, borderRadius: 26, overflow: 'hidden', border: C3.hair, boxSizing: 'border-box', opacity: k, transform: `translateY(${(1 - k) * 120}px) rotate(${tilt}deg) scale(${0.85 + 0.15 * k})`, boxShadow: '0 20px 46px rgba(0,0,0,0.55)'}}>
+            <ClipTile w={w} h={h} startSec={o} zoom={1.25} />
+            <div style={{position: 'absolute', left: 12, bottom: 12, width: 0, height: 0, borderTop: '11px solid transparent', borderBottom: '11px solid transparent', borderLeft: '18px solid rgba(255,255,255,0.92)'}} />
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export const VideoCard: React.FC<{fx: Of<'video-card'>}> = ({fx}) => {
+  const {abs, t, inK, outK} = useSpan(fx);
+  const from = fx.props.from ?? fx.at;
+  const w = 720;
+  const vh = 405;
+  const bar = tw(abs, fx.at + 0.5, fxRange(fx)[1] - 0.4, 0.08, 0.92, (x) => x);
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      <div style={{position: 'absolute', left: 180, top: fx.props.y, width: w, borderRadius: 34, background: C3.card, border: C3.hair, boxSizing: 'border-box', overflow: 'hidden', opacity: inK, transform: `translateY(${(1 - inK) * 70}px) scale(${0.94 + 0.06 * inK})`, boxShadow: C3.cardShadow}}>
+        <div style={{position: 'relative'}}>
+          <ClipTile w={w} h={vh} startSec={from} zoom={1.25} focusY="7%" />
+          <div style={{position: 'absolute', left: 0, bottom: 0, width: w, height: 8, background: 'rgba(255,255,255,0.35)'}}>
+            <div style={{width: w * bar, height: 8, background: C3.copperGrad}} />
+          </div>
+          {t < 0.5 && <div style={{position: 'absolute', left: w / 2 - 44, top: vh / 2 - 44, width: 88, height: 88, borderRadius: 44, background: 'rgba(255,255,255,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}><div style={{marginLeft: 8, width: 0, height: 0, borderTop: '18px solid transparent', borderBottom: '18px solid transparent', borderLeft: '28px solid #3A3F42'}} /></div>}
+        </div>
+        <div style={{padding: '16px 26px 20px'}}>
+          <div style={{fontFamily: serifFamily, fontWeight: 600, fontSize: 44, lineHeight: 1.1, color: C3.cardText}}>{fx.props.title}</div>
+          {fx.props.sub && <div style={{marginTop: 6, fontFamily: C3.sans, fontWeight: 700, fontSize: 21, letterSpacing: 4, textTransform: 'uppercase', color: '#A5551F'}}>{fx.props.sub}</div>}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const RailIcon: React.FC<{kind: 'heart' | 'comment' | 'share' | 'save'}> = ({kind}) => (
+  <svg width={64} height={64} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" style={{filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.6))'}}>
+    {kind === 'heart' && <path d="M12 20.5s-7.5-4.6-9.2-9.4C1.7 7.8 3.6 4.5 7 4.5c2 0 3.4 1.1 5 3 1.6-1.9 3-3 5-3 3.4 0 5.3 3.3 4.2 6.6-1.7 4.8-9.2 9.4-9.2 9.4z" />}
+    {kind === 'comment' && <path d="M4 5h16v11H9l-5 4z" />}
+    {kind === 'share' && <path d="M21 4L10 14M21 4l-6 17-4-8-8-4z" />}
+    {kind === 'save' && <path d="M6 3h12v18l-6-4-6 4z" />}
+  </svg>
+);
+
+export const ReelFeed: React.FC<{fx: Of<'reel-feed'>}> = ({fx}) => {
+  const {t, outK} = useSpan(fx);
+  const from = fx.props.from ?? fx.at;
+  const scroll = tw(t, 0, 0.55, 0, 1, (x) => 1 - (1 - x) ** 4);
+  const w = 780;
+  const h = 1387;
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      <div style={{...FILL, background: 'rgba(0,0,0,0.78)', opacity: tw(t, 0, 0.25)}} />
+      <div style={{position: 'absolute', left: 150, top: 250, width: w, height: h, transform: `translateY(${(1 - scroll) * 1500}px)`, filter: `blur(${(1 - scroll) * 14}px)`}}>
+        <div style={{width: w, height: h, borderRadius: 44, overflow: 'hidden', border: C3.hair, boxSizing: 'border-box', boxShadow: '0 30px 80px rgba(0,0,0,0.7)', position: 'relative'}}>
+          <ClipTile w={w} h={h} startSec={from} zoom={1.0} focusY="0%" />
+          <div style={{position: 'absolute', left: 0, bottom: 0, width: w, height: 340, background: 'linear-gradient(0deg,rgba(0,0,0,0.75),rgba(0,0,0,0))'}} />
+          <div style={{position: 'absolute', left: 30, bottom: 34, display: 'flex', alignItems: 'center', gap: 16}}>
+            <BrandAvatar size={72} />
+            <div>
+              <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 34, color: '#fff'}}>{fx.props.handle}</div>
+              {fx.props.caption && <div style={{fontFamily: C3.sans, fontWeight: 500, fontSize: 26, color: 'rgba(255,255,255,0.85)'}}>{fx.props.caption}</div>}
+            </div>
+          </div>
+          <div style={{position: 'absolute', right: 22, bottom: 150, display: 'flex', flexDirection: 'column', gap: 30, alignItems: 'center'}}>
+            <RailIcon kind="heart" />
+            <RailIcon kind="comment" />
+            <RailIcon kind="share" />
+            <RailIcon kind="save" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const fourthOver = (fx: Fx): React.ReactNode => {
   switch (fx.type) {
     case 'prompt-bar':
@@ -451,6 +551,12 @@ export const fourthOver = (fx: Fx): React.ReactNode => {
       return <KineticHook fx={fx} />;
     case 'giant-caption':
       return <GiantCaption fx={fx} />;
+    case 'playing-grid':
+      return <PlayingGrid fx={fx} />;
+    case 'video-card':
+      return <VideoCard fx={fx} />;
+    case 'reel-feed':
+      return <ReelFeed fx={fx} />;
     default:
       return null;
   }

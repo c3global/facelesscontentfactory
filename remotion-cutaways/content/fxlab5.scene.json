@@ -1,0 +1,94 @@
+{
+ "slug": "fxlab5",
+ "video": "raw/clean-report.mp4",
+ "durationSec": 14,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "spotless",
+  "opposite",
+  "safe"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "status",
+  "spotless",
+  "Edmondson",
+  "hospital",
+  "medication",
+  "opposite",
+  "reported",
+  "program",
+  "safe",
+  "week",
+  "upset",
+  "answer",
+  "truth",
+  "report"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 14,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "playing-grid",
+   "at": 1.0,
+   "until": 4.6,
+   "props": {
+    "offsets": [
+     2,
+     7,
+     12,
+     17
+    ]
+   }
+  },
+  {
+   "type": "video-card",
+   "at": 5.0,
+   "until": 8.8,
+   "props": {
+    "title": "How I check a status report",
+    "sub": "Walkthrough \u00b7 2 chapters",
+    "from": 20
+   }
+  },
+  {
+   "type": "reel-feed",
+   "at": 9.5,
+   "until": 12.9,
+   "props": {
+    "handle": "c3global",
+    "from": 25
+   }
+  }
+ ]
+}

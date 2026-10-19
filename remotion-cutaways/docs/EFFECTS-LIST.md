@@ -100,6 +100,9 @@ Built Oct 2026 from the effect list Dr. CK collected. They read colors, icons an
 | `grade-slider` | A slider card whose knob moves while a warm, cool or golden grade fades in over the frame |
 | `kinetic-hook` | A stack of up to four lines that rise through a mask one after another, mixing serif, bold sans and copper italic (set `captions: "off"` on that segment) |
 | `giant-caption` | One huge word on a dark block with a copper italic accent line under it (captions off for that moment) |
+| `playing-grid` | A row of three or four small portrait tiles that each play a different moment of her own clip (`offsets`) and pop in with a tilt |
+| `video-card` | A white card with a copper rim: her clip playing, a progress bar, a serif title and a small sub line |
+| `reel-feed` | A scroll-blur takeover into a reel-style screen: her clip playing, handle and brand mark, and the like, comment, share and save rail (captions off) |
 | `eyedropper-grade` | An eyedropper picks a brand swatch (`pick` index) and the frame grades toward it |
 
 Notes: `vertigo` hides her enlarged copy with a soft hole around her, so the edges of the room stretch while she stays sharp. It reads best on a clean room. `glass-type` sits low by default because her face and body cover the middle of the frame.

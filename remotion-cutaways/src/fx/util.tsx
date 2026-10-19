@@ -60,6 +60,9 @@ const LEN: Record<FxType, number> = {
   'eyedropper-grade': 4,
   'kinetic-hook': 3,
   'giant-caption': 2.6,
+  'playing-grid': 3.6,
+  'video-card': 3.8,
+  'reel-feed': 3.4,
 };
 
 /** effects that draw behind her (they need the person matte) */
@@ -263,6 +266,12 @@ const rawCues = (f: Fx): Cue[] => {
       return [main('whoosh', f.at, 0.6), ...f.props.lines.slice(1).map((l, i) => d('pop', l.at ?? f.at + 0.6 * (i + 1), 0.45))];
     case 'giant-caption':
       return [main('thud', f.at + 0.05, 0.6)];
+    case 'playing-grid':
+      return [main('swish', f.at, 0.5, 2)];
+    case 'video-card':
+      return [main('pop', f.at + 0.1, 0.6)];
+    case 'reel-feed':
+      return [main('whoosh', f.at, 0.7)];
     default:
       return [];
   }
