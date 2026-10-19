@@ -103,6 +103,7 @@ Run this only after Dr. CK approves the finished video. The approval can be a pl
 - The handheld mic in her avatar image is intentional. Do not suggest removing it.
 - Never use em dashes in anything written for her, and address her as Dr. CK.
 - Drive sharing for source clips goes back to Restricted when she says so; do not change sharing on your own.
+- Pills (labels, tags, caption pills, comment and follow pills): each one goes in the correct area for what it labels (never over her face, never colliding with captions or another graphic) and stays on screen only briefly, just long enough to read. No pill that lingers for a whole scene. Applies to new effects too (prompt bar, comment drop, follow card).
 - Open questions to ask her once, not every time: the voice profile accent line (A or B) and whether the recordings are her live voice or a clone; the exact sources for the Edward Hall and Coch and French cards.
 
 ## 10. FX Pack: 26 effects on her clip, plus the sound kit (added Oct 2026)
