@@ -342,6 +342,40 @@ export const CardCarousel: React.FC<{fx: Of<'card-carousel'>}> = ({fx}) => {
   );
 };
 
+// ---------------------------------------------------------------- card flip (a card turns over in 3D: your words on the front, her own clip frame on the back)
+export const CardFlip: React.FC<{fx: Of<'card-flip'>}> = ({fx}) => {
+  const {t, outK} = useSpan(fx);
+  const {cards, y, flipAt} = fx.props;
+  const n = cards.length;
+  const w = n === 1 ? 400 : n === 2 ? 330 : 290;
+  const h = n === 1 ? 560 : n === 2 ? 470 : 410;
+  const gap = 24;
+  const total = n * w + (n - 1) * gap;
+  return (
+    <div style={{...FILL, opacity: outK, perspective: 1500}}>
+      {cards.map((c, i) => {
+        const inK = tw(t, 0.08 + i * 0.12, 0.5 + i * 0.12, 0, 1, pop);
+        const d = flipAt + i * 0.22;
+        const p = tw(t, d, d + 0.75, 0, 1, (x) => x * x * (3 - 2 * x));
+        const lift = Math.sin(p * Math.PI);
+        return (
+          <div key={i} style={{position: 'absolute', left: 540 - total / 2 + i * (w + gap), top: y, width: w, height: h, opacity: inK, transform: `translateY(${(1 - inK) * 90}px) translateZ(${lift * 140}px) rotateY(${p * 180}deg) scale(${0.9 + 0.1 * inK})`, transformStyle: 'preserve-3d'}}>
+            <div style={{position: 'absolute', inset: 0, borderRadius: 26, background: C3.card, border: C3.hair, boxSizing: 'border-box', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', padding: '24px 24px', boxShadow: '0 22px 50px rgba(0,0,0,0.55)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+              <div style={{...cap({fontSize: 18})}}>{String(i + 1).padStart(2, '0')}</div>
+              <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 600, fontSize: n === 1 ? 62 : 44, lineHeight: 1.1, color: C3.cardText}}>{c.front}</div>
+              <div style={{height: 6, width: 90, borderRadius: 3, background: C3.copperGrad}} />
+            </div>
+            <div style={{position: 'absolute', inset: 0, borderRadius: 26, overflow: 'hidden', border: C3.hair, boxSizing: 'border-box', backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)', boxShadow: '0 22px 50px rgba(0,0,0,0.55)'}}>
+              <ClipTile w={w} h={h} startSec={c.from} zoom={1.25} />
+              {c.back && <div style={{position: 'absolute', left: 14, bottom: 14, padding: '6px 16px', borderRadius: 18, background: C3.glass, color: '#fff', fontFamily: C3.sans, fontWeight: 700, fontSize: 20, opacity: tw(t, d + 0.6, d + 0.8)}}>{c.back}</div>}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 // ---------------------------------------------------------------- script panel (behind her: a scrolling script doc fills the screen, she stands in front at the bottom left)
 export const scriptPanelCutout = (fx: Of<'script-panel'>, abs: number): React.CSSProperties => {
   const [a, b] = fxRange(fx);
@@ -392,6 +426,7 @@ export const sixthPlate = (fx: Fx): React.ReactNode => (fx.type === 'script-pane
 
 export const sixthOver = (fx: Fx): React.ReactNode => {
   switch (fx.type) {
+    case 'card-flip': return <CardFlip fx={fx} />;
     case 'card-carousel': return <CardCarousel fx={fx} />;
     case 'receipt-ticket': return <ReceiptTicket fx={fx} />;
     case 'frame-calendar': return <FrameCalendar fx={fx} />;

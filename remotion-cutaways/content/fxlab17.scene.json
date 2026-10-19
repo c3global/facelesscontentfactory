@@ -1,0 +1,100 @@
+{
+ "slug": "fxlab17",
+ "video": "raw/clean-report.mp4",
+ "durationSec": 20,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "spotless",
+  "opposite",
+  "safe"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "status",
+  "spotless",
+  "Edmondson",
+  "hospital",
+  "medication",
+  "opposite",
+  "reported",
+  "program",
+  "safe",
+  "week",
+  "upset",
+  "answer",
+  "truth",
+  "report"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 20,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "card-flip",
+   "at": 0.5,
+   "until": 4.5,
+   "props": {
+    "cards": [
+     {
+      "front": "Demo front line",
+      "from": 3,
+      "back": "Hook"
+     }
+    ]
+   }
+  },
+  {
+   "type": "card-flip",
+   "at": 5.0,
+   "until": 9.0,
+   "props": {
+    "cards": [
+     {
+      "front": "Hook",
+      "from": 2,
+      "back": "01"
+     },
+     {
+      "front": "Proof",
+      "from": 8,
+      "back": "02"
+     },
+     {
+      "front": "Close",
+      "from": 14,
+      "back": "03"
+     }
+    ]
+   }
+  }
+ ]
+}

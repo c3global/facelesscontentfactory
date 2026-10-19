@@ -174,6 +174,7 @@ Stick-figure explainers (Dr. CiCi with a modern gray cast) have their own playbo
 | `step-chips` | One numbered chip at a time ("01 The raw take"), each timed by `steps[].at` |
 | `pen-circle` | A hand-drawn crimson ring around her head (follows the matte anchors), an arrow and a handwritten `note`, with a black-and-white grade |
 | `card-carousel` | A true 3D ring of her own clip cards that turns in perspective: the front card faces you and the side cards foreshorten as they pass. Props `tiles`, `cy`, `radius`, `width`, `spinSec`, `tiltX` |
+| `card-flip` | One to three cards turn over in 3D. The front shows your own words (`front`), the back shows her clip at the second you set (`from`) with an optional small `back` label. `flipAt` sets when the first one turns; the others follow a beat later. Lab plan: `content/fxlab17.scene.json` |
 | `script-panel` | Behind her (needs the matte): a dark script document scrolls across the screen while she steps to the lower left. `beats` hold your real lines (`quote`, optional `time`, `label`, `notes`) and `steps` show numbered chips on her words. Lab plan: `content/fxlab15.scene.json`, which borrows the clean-report matte |
 | `caption-stack` | Each line steps up in size ("and the / captions / come / in"), the last in copper |
 
