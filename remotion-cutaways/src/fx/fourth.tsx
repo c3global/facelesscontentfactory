@@ -1,6 +1,6 @@
 import React from 'react';
 import {Freeze, OffthreadVideo, staticFile, useVideoConfig} from 'remotion';
-import {serifFamily} from '../fonts';
+import {heavyFamily, serifFamily} from '../fonts';
 import {metalFill, metalTextStyle} from '../metal';
 import type {Fx} from './schema';
 import {AppIcon, BrandAvatar, C3, CheckMark, HeartIcon, SendArrow} from './theme';
@@ -381,6 +381,50 @@ export const EyedropperGrade: React.FC<{fx: Of<'eyedropper-grade'>}> = ({fx}) =>
   );
 };
 
+// ================================================================ kinetic hook + giant caption
+/** Both are caption-replacing hero moments: turn the captions off for their scene so the type and the captions do not fight. */
+export const KineticHook: React.FC<{fx: Of<'kinetic-hook'>}> = ({fx}) => {
+  const {abs, outK} = useSpan(fx);
+  const lines = fx.props.lines;
+  const sizes = {serif: 150, sans: 132, italic: 118} as const;
+  const heights = lines.map((l) => sizes[l.face] * 1.02);
+  const total = heights.reduce((a, b) => a + b, 0);
+  let acc = 0;
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      {lines.map((l, i) => {
+        const at = l.at ?? fx.at + i * 0.6;
+        const k = tw(abs, at, at + 0.55, 0, 1, (x) => 1 - (1 - x) ** 4);
+        const top = fx.props.y - total / 2 + acc;
+        acc += heights[i];
+        const last = i === lines.length - 1 && lines.length > 1;
+        const base: React.CSSProperties = l.face === 'sans' ? {fontFamily: heavyFamily, textTransform: 'uppercase', letterSpacing: 2 + (1 - k) * 18, fontSize: sizes.sans} : l.face === 'serif' ? {fontFamily: serifFamily, fontWeight: 700, fontSize: sizes.serif, letterSpacing: -2 + (1 - k) * 14} : {fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 600, fontSize: sizes.italic};
+        return (
+          <div key={i} style={{position: 'absolute', left: 0, width: 1080, top, height: heights[i], overflow: 'hidden', textAlign: 'center'}}>
+            <div style={{lineHeight: 1.02, transform: `translateY(${(1 - k) * 105}%)`, opacity: Math.min(1, k * 2), filter: `blur(${(1 - k) * 8}px) drop-shadow(0 6px 22px rgba(0,0,0,0.75))`, ...base, ...(last || l.face === 'italic' ? metalTextStyle({kind: 'copper', variant: 'bright', frame: 0, shimmer: false}) : {color: '#fff'})}}>{l.text}</div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export const GiantCaption: React.FC<{fx: Of<'giant-caption'>}> = ({fx}) => {
+  const {abs, inK, outK} = useSpan(fx);
+  const k = tw(abs, fx.at, fx.at + 0.3, 0, 1, pop);
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      <div style={{position: 'absolute', left: 0, width: 1080, top: fx.props.y - 170, display: 'flex', justifyContent: 'center', transform: `scale(${0.82 + 0.18 * k}) rotate(${(1 - k) * -3}deg)`, opacity: k}}>
+        <div style={{padding: '18px 54px 22px', borderRadius: 26, background: 'rgba(12,13,15,0.92)', border: C3.hair, boxShadow: '0 18px 50px rgba(0,0,0,0.6)', textAlign: 'center'}}>
+          <div style={{fontFamily: heavyFamily, textTransform: 'uppercase', fontSize: 190, lineHeight: 1, color: '#fff', letterSpacing: 2}}>{fx.props.text}</div>
+          {fx.props.accent && <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 600, fontSize: 104, lineHeight: 1.05, marginTop: 2, ...metalTextStyle({kind: 'copper', variant: 'bright', frame: 0, shimmer: false})}}>{fx.props.accent}</div>}
+        </div>
+      </div>
+      <div style={{display: 'none'}}>{inK}</div>
+    </div>
+  );
+};
+
 export const fourthOver = (fx: Fx): React.ReactNode => {
   switch (fx.type) {
     case 'prompt-bar':
@@ -403,6 +447,10 @@ export const fourthOver = (fx: Fx): React.ReactNode => {
       return <GradeSlider fx={fx} />;
     case 'eyedropper-grade':
       return <EyedropperGrade fx={fx} />;
+    case 'kinetic-hook':
+      return <KineticHook fx={fx} />;
+    case 'giant-caption':
+      return <GiantCaption fx={fx} />;
     default:
       return null;
   }

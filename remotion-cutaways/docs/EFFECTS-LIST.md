@@ -98,6 +98,8 @@ Built Oct 2026 from the effect list Dr. CK collected. They read colors, icons an
 | `storyboard-deck` | A fan of three cards: a script page with numbered lines and two real freeze frames from her clip (`stills` seconds) |
 | `gravity-drop` | A big copper serif word whose letters fall and bounce into place, with an optional italic `kicker` (turn captions off for that moment, the kicker sits in the caption band) |
 | `grade-slider` | A slider card whose knob moves while a warm, cool or golden grade fades in over the frame |
+| `kinetic-hook` | A stack of up to four lines that rise through a mask one after another, mixing serif, bold sans and copper italic (set `captions: "off"` on that segment) |
+| `giant-caption` | One huge word on a dark block with a copper italic accent line under it (captions off for that moment) |
 | `eyedropper-grade` | An eyedropper picks a brand swatch (`pick` index) and the frame grades toward it |
 
 Notes: `vertigo` hides her enlarged copy with a soft hole around her, so the edges of the room stretch while she stays sharp. It reads best on a clean room. `glass-type` sits low by default because her face and body cover the middle of the frame.

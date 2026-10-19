@@ -79,6 +79,8 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('gravity-drop'), props: z.object({word: z.string(), kicker: z.string().optional(), /** center line of the word; the default sits just under the caption band */ y: z.number().default(1580), dropAt: sec.optional()})}),
   z.object({...base, type: z.literal('grade-slider'), props: z.object({look: z.enum(['warm', 'cool', 'golden']).default('warm'), label: z.string().default('Grade'), to: z.number().min(0.1).max(1).default(0.85), moveAt: sec.optional(), y: z.number().default(1450)}).prefault({})}),
   z.object({...base, type: z.literal('eyedropper-grade'), props: z.object({swatches: z.array(z.string()).min(3).max(6).default(['#C91B19', '#E08A57', '#B76E79', '#E3BF63', '#3A3F42']), pick: z.number().int().min(0).default(1), label: z.string().default('Grade'), pickAt: sec.optional(), y: z.number().default(1450)}).prefault({})}),
+  z.object({...base, type: z.literal('kinetic-hook'), props: z.object({lines: z.array(z.object({text: z.string(), face: z.enum(['serif', 'sans', 'italic']).default('sans'), at: sec.optional()})).min(1).max(4), /** center of the stack in the 1080x1920 frame */ y: z.number().default(1120)})}),
+  z.object({...base, type: z.literal('giant-caption'), props: z.object({text: z.string(), accent: z.string().optional(), y: z.number().default(1120)})}),
 ]);
 
 

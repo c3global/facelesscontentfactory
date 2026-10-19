@@ -58,6 +58,8 @@ const LEN: Record<FxType, number> = {
   'gravity-drop': 3.4,
   'grade-slider': 4,
   'eyedropper-grade': 4,
+  'kinetic-hook': 3,
+  'giant-caption': 2.6,
 };
 
 /** effects that draw behind her (they need the person matte) */
@@ -257,6 +259,10 @@ const rawCues = (f: Fx): Cue[] => {
       return [main('riser', f.props.moveAt ?? f.at + 0.6, 0.35, 2)];
     case 'eyedropper-grade':
       return [main('pop', f.props.pickAt ?? f.at + 1.1, 0.7)];
+    case 'kinetic-hook':
+      return [main('whoosh', f.at, 0.6), ...f.props.lines.slice(1).map((l, i) => d('pop', l.at ?? f.at + 0.6 * (i + 1), 0.45))];
+    case 'giant-caption':
+      return [main('thud', f.at + 0.05, 0.6)];
     default:
       return [];
   }
