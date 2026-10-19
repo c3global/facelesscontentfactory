@@ -48,6 +48,9 @@ const LEN: Record<FxType, number> = {
   vertigo: 3,
   'cover-story': 4,
   'glass-type': 4,
+  'prompt-bar': 3.6,
+  'comment-drop': 5,
+  'comment-cta': 5,
 };
 
 /** effects that draw behind her (they need the person matte) */
@@ -218,6 +221,17 @@ const rawCues = (f: Fx): Cue[] => {
       return [main('shutter', f.at, 0.7)];
     case 'glass-type':
       return f.props.words.map((w, i) => (i === 0 ? main('blip', w.at, 0.5, 2) : d('pop', w.at, 0.4)));
+    case 'prompt-bar': {
+      const typeAt = f.props.typeAt ?? f.at + 0.4;
+      const sendAt = f.props.sendAt ?? typeAt + Math.max(0.9, f.props.text.length * 0.042) + 0.4;
+      return [d('type', typeAt, 0.4), main('ding', sendAt, 0.5)];
+    }
+    case 'comment-drop':
+    case 'comment-cta': {
+      const cues = [d('type', f.props.postAt - Math.max(0.7, f.props.keyword.length * 0.14), 0.45), main('ding', f.props.postAt, 0.6)];
+      if (f.props.replyAt !== undefined && f.props.reply) cues.push(d('pop', f.props.replyAt, 0.6));
+      return cues;
+    }
     default:
       return [];
   }

@@ -1,0 +1,93 @@
+{
+ "slug": "fxlab",
+ "video": "raw/clean-report.mp4",
+ "durationSec": 16,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "spotless",
+  "opposite",
+  "safe"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "status",
+  "spotless",
+  "Edmondson",
+  "hospital",
+  "medication",
+  "opposite",
+  "reported",
+  "program",
+  "safe",
+  "week",
+  "upset",
+  "answer",
+  "truth",
+  "report"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 16,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "prompt-bar",
+   "at": 1.0,
+   "until": 4.6,
+   "props": {
+    "text": "Edit this video in my style.",
+    "doneText": "Edited in your style."
+   }
+  },
+  {
+   "type": "comment-drop",
+   "at": 6.0,
+   "until": 11.0,
+   "props": {
+    "keyword": "STUDIO",
+    "postAt": 7.2,
+    "reply": "Sent. Check your DMs.",
+    "replyAt": 8.4
+   }
+  },
+  {
+   "type": "comment-cta",
+   "at": 12.0,
+   "until": 16.0,
+   "props": {
+    "keyword": "GLOBE",
+    "line": "Comment GLOBE and I will send it over",
+    "postAt": 14.2,
+    "reply": "Sent. Check your DMs.",
+    "replyAt": 15.0
+   }
+  }
+ ]
+}

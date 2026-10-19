@@ -68,6 +68,10 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('vertigo'), props: z.object({to: z.number().min(1.1).max(2).default(1.5), direction: z.enum(['in', 'out']).default('in')}).prefault({})}),
   z.object({...base, type: z.literal('cover-story'), props: z.object({masthead: z.string().default('C3 GLOBAL'), headline: z.string(), lines: z.array(z.string()).max(3).default([]), issue: z.string().optional(), kicker: z.string().optional()})}),
   z.object({...base, type: z.literal('glass-type'), props: z.object({words: z.array(z.object({text: z.string(), at: sec})).min(1), /** vertical position, 0 to 1 of the frame height */ y: z.number().min(0.1).max(0.95).default(0.82)})}),
+  // ---- fourth batch, in the C3 skin (src/fx/theme.tsx)
+  z.object({...base, type: z.literal('prompt-bar'), props: z.object({text: z.string(), label: z.string().default('To C3'), typeAt: sec.optional(), sendAt: sec.optional(), doneLabel: z.string().default('Done'), doneText: z.string().optional(), /** top of the bar in the 1080x1920 frame; sits under the caption band, over the platform UI line */ y: z.number().default(1450), /** path under public/ to Dr. CK's own brand icon instead of the drawn globe */ iconSrc: z.string().optional()})}),
+  z.object({...base, type: z.literal('comment-drop'), props: z.object({keyword: z.string(), postAt: sec, reply: z.string(), replyAt: sec, replyName: z.string().default('C3 Global'), linkLabel: z.string().optional(), y: z.number().default(1450), iconSrc: z.string().optional()})}),
+  z.object({...base, type: z.literal('comment-cta'), props: z.object({keyword: z.string(), line: z.string(), postAt: sec, reply: z.string().optional(), replyAt: sec.optional(), replyName: z.string().default('C3 Global'), linkLabel: z.string().optional(), y: z.number().default(1450), iconSrc: z.string().optional()})}),
 ]);
 
 
