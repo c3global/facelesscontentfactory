@@ -98,3 +98,4 @@ Synthesized sounds were tried (stamp thud, whoosh, pencil) and missed twice. Use
 - M10: render `LSLeaks` as a JPEG sequence (opaque on black), then `ls_finish.py --leaks SEQ`. Screen blending is done in RGB; in YUV it turns the picture magenta.
 - M14: `LSDust` (`src/LSAtmosphere.tsx`) as a transparent PNG sequence, passed as `--overlay`.
 - M02 strength: the 1.10x sample read too subtle. Use `to` 1.20 to 1.25 on 1080p or 4K sources (Flow and Seedance exports), and keep 1.10 only for 720p. Add a 2 to 3 frame overshoot if it still feels soft.
+- Voiceover longer than the clip (The Weeks After, approved 2026-10-19): `LSClip` prop `holdFromSec` plays the clip at normal speed, then holds the last frame while a slow zoom keeps going. Finish with `ls_finish.py --plain --audio-from VO.wav`. Never slow the clip down to fit.
