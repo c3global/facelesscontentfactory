@@ -71,6 +71,8 @@ Marble photo backgrounds: waiting on Dr. CK's source files (see "Open items"). T
 - Larger idea: `captionStyle: "heavy"` exists but she prefers Editorial.
 
 ## 9. Life Scenes (cinematic clips from Flow, Seedance and similar)
+
+> Full end-to-end process, including Notion and Marky, is in `LIFE_SCENES_WORKFLOW.md`. Start there.
 Dr. CK generates the footage elsewhere (clips of 10 seconds or less in Flow, longer in Seedance). Claude only finishes it. Rules she set on 2026-10-12:
 - **No talking heads.** Life Scenes are reenactments, voiceover over action, or music over image. Talking heads stay in section 1 to 8.
 - **No tags, badges or end cards.** The finish should read as cinematic: light grain, light vignette, slight contrast and color lift.
