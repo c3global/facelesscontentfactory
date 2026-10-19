@@ -525,6 +525,35 @@ export const ReelFeed: React.FC<{fx: Of<'reel-feed'>}> = ({fx}) => {
   );
 };
 
+// ================================================================ card orbit: video cards fly around the screen (stack it with reel-feed, storyboard-deck and the rest)
+export const CardOrbit: React.FC<{fx: Of<'card-orbit'>}> = ({fx}) => {
+  const {t, outK} = useSpan(fx);
+  const {tiles, cy, radiusX, radiusY, spinSec, width} = fx.props;
+  const h = Math.round((width * 16) / 9);
+  const n = tiles.length;
+  const items = tiles.map((o, i) => {
+    const ang = (i / n) * Math.PI * 2 + (t / spinSec) * Math.PI * 2 - Math.PI / 2;
+    const depth = (Math.sin(ang) + 1) / 2;
+    return {o, i, ang, depth};
+  });
+  items.sort((a, b) => a.depth - b.depth);
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      {items.map(({o, i, ang, depth}) => {
+        const k = tw(t, 0.1 + i * 0.1, 0.5 + i * 0.1, 0, 1, pop);
+        const sc = (0.72 + 0.38 * depth) * k;
+        const x = 540 + radiusX * Math.cos(ang);
+        const y = cy + radiusY * Math.sin(ang) * 0.55;
+        return (
+          <div key={i} style={{position: 'absolute', left: x - width / 2, top: y - h / 2, width, height: h, borderRadius: 24, overflow: 'hidden', border: C3.hair, boxSizing: 'border-box', transform: `rotate(${Math.cos(ang) * 9}deg) scale(${sc})`, opacity: (0.55 + 0.45 * depth) * k, boxShadow: '0 18px 44px rgba(0,0,0,0.55)'}}>
+            <ClipTile w={width} h={h} startSec={o} zoom={1.25} />
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 export const fourthOver = (fx: Fx): React.ReactNode => {
   switch (fx.type) {
     case 'prompt-bar':
@@ -557,6 +586,8 @@ export const fourthOver = (fx: Fx): React.ReactNode => {
       return <VideoCard fx={fx} />;
     case 'reel-feed':
       return <ReelFeed fx={fx} />;
+    case 'card-orbit':
+      return <CardOrbit fx={fx} />;
     default:
       return null;
   }

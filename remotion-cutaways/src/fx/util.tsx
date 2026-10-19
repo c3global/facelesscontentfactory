@@ -63,6 +63,7 @@ const LEN: Record<FxType, number> = {
   'playing-grid': 3.6,
   'video-card': 3.8,
   'reel-feed': 3.4,
+  'card-orbit': 5,
 };
 
 /** effects that draw behind her (they need the person matte) */
@@ -272,6 +273,8 @@ const rawCues = (f: Fx): Cue[] => {
       return [main('pop', f.at + 0.1, 0.6)];
     case 'reel-feed':
       return [main('whoosh', f.at, 0.7)];
+    case 'card-orbit':
+      return [main('whoosh', f.at, 0.6)];
     default:
       return [];
   }

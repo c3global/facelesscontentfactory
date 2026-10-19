@@ -1,6 +1,6 @@
 # The full list: everything in the talking-head template (Oct 2026)
 
-**61 effects in all: 17 original graphics and end cards, 26 from the first FX batch, 13 from the second batch, and 5 from the third.** Plus the speed ramp tool, 2 extra modes, and the look dial. Also: 6 layouts, 3 caption styles, 14 sounds, 6 style presets. Names below are what goes in a video plan (`type`). Say any name in chat and Claude can use it.
+**77 effects in all: 17 original graphics and end cards, 26 from the first FX batch, 13 from the second batch, 5 from the third, and 16 in the C3-skin fourth batch.** Effects stack: any number can overlap in time, and later ones in the list draw on top. Plus the speed ramp tool, 2 extra modes, and the look dial. Also: 6 layouts, 3 caption styles, 14 sounds, 6 style presets. Names below are what goes in a video plan (`type`). Say any name in chat and Claude can use it.
 
 ## Original graphics and end cards (17), in the `graphics` list of a scene segment
 | Name | What it does |
@@ -103,6 +103,7 @@ Built Oct 2026 from the effect list Dr. CK collected. They read colors, icons an
 | `playing-grid` | A row of three or four small portrait tiles that each play a different moment of her own clip (`offsets`) and pop in with a tilt |
 | `video-card` | A white card with a copper rim: her clip playing, a progress bar, a serif title and a small sub line |
 | `reel-feed` | A scroll-blur takeover into a reel-style screen: her clip playing, handle and brand mark, and the like, comment, share and save rail (captions off) |
+| `card-orbit` | Three to six video cards of her own clip circle the screen with depth, tilt and a stagger. Stack it with `reel-feed` for a feed with cards flying around it |
 | `eyedropper-grade` | An eyedropper picks a brand swatch (`pick` index) and the frame grades toward it |
 
 Notes: `vertigo` hides her enlarged copy with a soft hole around her, so the edges of the room stretch while she stays sharp. It reads best on a clean room. `glass-type` sits low by default because her face and body cover the middle of the frame.

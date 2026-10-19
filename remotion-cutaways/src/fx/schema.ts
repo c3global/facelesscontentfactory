@@ -84,6 +84,7 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('playing-grid'), props: z.object({/** source seconds each tile plays from, so the tiles show different moments of the clip */ offsets: z.array(sec).min(3).max(4).default([0, 6, 12, 18]), y: z.number().default(1290)}).prefault({})}),
   z.object({...base, type: z.literal('video-card'), props: z.object({title: z.string(), sub: z.string().optional(), from: sec.optional(), y: z.number().default(1170)})}),
   z.object({...base, type: z.literal('reel-feed'), props: z.object({handle: z.string().default('c3global'), from: sec.optional(), caption: z.string().optional()}).prefault({})}),
+  z.object({...base, type: z.literal('card-orbit'), props: z.object({/** source seconds each flying video card plays from */ tiles: z.array(sec).min(3).max(6).default([2, 7, 12, 17, 22]), cy: z.number().default(960), radiusX: z.number().default(470), radiusY: z.number().default(640), spinSec: z.number().default(7), width: z.number().default(210)}).prefault({})}),
 ]);
 
 
