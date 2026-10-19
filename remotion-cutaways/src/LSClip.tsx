@@ -21,6 +21,8 @@ export const lsClipSchema = z.object({
   atSec: z.number().optional(),
   /** M09 handheld drift: strength 1 is a gentle sway */
   drift: z.number().optional(),
+  /** hold the last frame of the source from this second on (for a voiceover longer than the clip), whatever the camera effect */
+  holdFromSec: z.number().optional(),
 });
 export type LSClipProps = z.infer<typeof lsClipSchema>;
 
@@ -28,7 +30,7 @@ export type LSClipProps = z.infer<typeof lsClipSchema>;
  * Picture only. Render as a PNG sequence, then finish with scripts/ls_finish.py (grain, overlay, audio).
  * Scaling here is a CSS transform, so the move is sub-pixel smooth.
  */
-export const LSClip: React.FC<LSClipProps> = ({src, effect, from, to, moveSec, px, py, atSec = 0, drift = 1}) => {
+export const LSClip: React.FC<LSClipProps> = ({src, effect, from, to, moveSec, px, py, atSec = 0, drift = 1, holdFromSec}) => {
   const f = useCurrentFrame();
   const n = Math.round(moveSec * FPS);
   let scale = 1;
@@ -64,7 +66,13 @@ export const LSClip: React.FC<LSClipProps> = ({src, effect, from, to, moveSec, p
           transformOrigin: `${px * 100}% ${py * 100}%`,
         }}
       >
-        {effect === 'freeze' && f >= freezeAt ? <Freeze frame={freezeAt}>{video}</Freeze> : video}
+        {effect === 'freeze' && f >= freezeAt ? (
+          <Freeze frame={freezeAt}>{video}</Freeze>
+        ) : holdFromSec !== undefined && f >= Math.round(holdFromSec * FPS) ? (
+          <Freeze frame={Math.round(holdFromSec * FPS)}>{video}</Freeze>
+        ) : (
+          video
+        )}
       </AbsoluteFill>
     </AbsoluteFill>
   );
