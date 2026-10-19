@@ -343,15 +343,9 @@ export const GradeSlider: React.FC<{fx: Of<'grade-slider'>}> = ({fx}) => {
   );
 };
 
-const Dropper: React.FC<{size: number}> = ({size}) => (
-  <svg width={size} height={size} viewBox="0 0 48 48" style={{display: 'block', filter: 'drop-shadow(0 6px 10px rgba(0,0,0,0.5))'}}>
-    <g fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M33 6l9 9-5 5-9-9z" fill="#3A3F42" />
-      <path d="M28 11L9 30c-1.5 1.5-2 3.5-2 5.5L6 42l6.5-1c2 0 4-.6 5.5-2L37 20" fill="#B5622C" />
-      <path d="M11 38L6 43" />
-    </g>
-  </svg>
-);
+/** Dr. CK's own dropper (public/brand/lab/dropper.png); the glass tip sits at about 94 percent across and 84 percent down */
+const DROPPER = {w: 150, h: 185, tipX: 0.94, tipY: 0.84};
+const Dropper: React.FC = () => <img src={staticFile('brand/lab/dropper.png')} width={DROPPER.w} height={DROPPER.h} style={{display: 'block', filter: 'drop-shadow(0 8px 14px rgba(0,0,0,0.5))'}} />;
 
 export const EyedropperGrade: React.FC<{fx: Of<'eyedropper-grade'>}> = ({fx}) => {
   const {abs, inK, outK} = useSpan(fx);
@@ -363,7 +357,7 @@ export const EyedropperGrade: React.FC<{fx: Of<'eyedropper-grade'>}> = ({fx}) =>
   const sx = (i: number) => 540 + (i - (swatches.length - 1) / 2) * gap;
   const fly = tw(abs, fx.at + 0.35, pickAt, 0, 1, (x) => 1 - (1 - x) ** 3);
   const dx = 960 + (sx(idx) - 960) * fly;
-  const dy = y - 190 + (190 + 74) * fly * fly;
+  const dy = y - 190 + (190 + 60) * fly * fly;
   const tap = tw(abs, pickAt, pickAt + 0.12) * (1 - tw(abs, pickAt + 0.12, pickAt + 0.3));
   const grade = tw(abs, pickAt, pickAt + 0.9);
   const hex = swatches[idx];
@@ -380,8 +374,8 @@ export const EyedropperGrade: React.FC<{fx: Of<'eyedropper-grade'>}> = ({fx}) =>
           <div key={i} style={{position: 'absolute', left: sx(i) - 42, top: y + 48, width: 84, height: 84, borderRadius: 42, background: c, border: hit ? `5px solid ${C3.copper}` : '4px solid #fff', boxSizing: 'border-box', outline: hit ? '3px solid #fff' : 'none', opacity: inK, transform: `scale(${(hit ? 1.16 : 1) * (0.7 + 0.3 * inK)})`, boxShadow: '0 4px 12px rgba(0,0,0,0.3)'}} />
         );
       })}
-      <div style={{position: 'absolute', left: dx - 10, top: dy - 73, opacity: tw(abs, fx.at + 0.2, fx.at + 0.45) * inK, transform: `scale(${1 - 0.1 * tap})`, transformOrigin: '10px 73px'}}>
-        <Dropper size={82} />
+      <div style={{position: 'absolute', left: dx - DROPPER.w * DROPPER.tipX, top: dy - DROPPER.h * DROPPER.tipY, opacity: tw(abs, fx.at + 0.2, fx.at + 0.45) * inK, transform: `scale(${1 - 0.08 * tap})`, transformOrigin: `${DROPPER.w * DROPPER.tipX}px ${DROPPER.h * DROPPER.tipY}px`}}>
+        <Dropper />
       </div>
     </div>
   );

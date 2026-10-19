@@ -67,13 +67,49 @@
    "type": "icon-strike",
    "at": 5.0,
    "until": 8.6,
-   "props": {}
+   "props": {
+    "winnerGlyph": "microscope",
+    "winnerLabel": "C3 Lab"
+   }
   },
   {
    "type": "jiggle-delete",
    "at": 9.0,
    "until": 13.8,
-   "props": {}
+   "props": {
+    "icons": [
+     {
+      "label": "Cut",
+      "glyph": "cut",
+      "tone": "charcoal",
+      "keep": false
+     },
+     {
+      "label": "Reel",
+      "glyph": "film",
+      "tone": "crimson",
+      "keep": false
+     },
+     {
+      "label": "Audio",
+      "glyph": "wave",
+      "tone": "copper",
+      "keep": false
+     },
+     {
+      "label": "Lab",
+      "glyph": "beaker",
+      "tone": "white",
+      "keep": true
+     },
+     {
+      "label": "C3",
+      "glyph": "globe",
+      "tone": "white",
+      "keep": true
+     }
+    ]
+   }
   }
  ]
 }

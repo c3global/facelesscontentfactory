@@ -85,7 +85,7 @@ Over her: `the-stack`, `sticky-text`, `freeze-label`, `phone-mockup`, `checklist
 | `glass-type` | Over her: frosted-glass lettering that blurs the room under it, one word at a time (`words` with `at`, `y` as a fraction of the frame, default low on the desk) |
 
 ## Fourth batch (C3 skin), in the `fx` list
-Built Oct 2026 from the effect list Dr. CK collected. They read colors, icons and cards from `src/fx/theme.tsx` (copper first, gold secondary, crimson action color, her orbital globe at `public/brand/orbital-globe.png`). Pills sit low, stay brief, and never cover her face. Each takes an optional `y` to move it.
+Built Oct 2026 from the effect list Dr. CK collected. They read colors, icons and cards from `src/fx/theme.tsx` (copper first, gold secondary, crimson action color, her orbital globe at `public/brand/orbital-globe.png`). Pills sit low, stay brief, and never cover her face. Each takes an optional `y` to move it. Her lab objects (`molecule`, `dropper`, `microscope`, `beaker`, `stylus`, in `public/brand/lab/`) work as `glyph` values on `icon-strike` and `jiggle-delete`, and the dropper is the pointer in `eyedropper-grade`.
 
 | Name | What it does |
 |---|---|

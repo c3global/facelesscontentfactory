@@ -70,7 +70,13 @@ export const HeartIcon: React.FC<{size: number; fill?: string; stroke?: string}>
   </svg>
 );
 
-export type Glyph = 'cut' | 'wave' | 'film' | 'text' | 'play' | 'globe';
+/** Dr. CK's lab objects (public/brand/lab/*.png), shown on a white tile as app icons */
+export const LAB_ICONS = ['molecule', 'dropper', 'microscope', 'beaker', 'stylus'] as const;
+export type LabIcon = (typeof LAB_ICONS)[number];
+export const isLabIcon = (g: string): g is LabIcon => (LAB_ICONS as readonly string[]).includes(g);
+export const labSrc = (name: LabIcon) => `brand/lab/${name}.png`;
+
+export type Glyph = 'cut' | 'wave' | 'film' | 'text' | 'play' | 'globe' | LabIcon;
 const TONES = {
   charcoal: {bg: 'linear-gradient(145deg,#4a5054,#24282b)', fg: '#fff'},
   copper: {bg: 'linear-gradient(145deg,#F4B08A,#B5622C)', fg: '#2a1206'},
@@ -81,11 +87,13 @@ export type Tone = keyof typeof TONES;
 
 /** A generic app tile (no third-party logos). `glyph: 'globe'` shows Dr. CK's mark on a white tile. */
 export const AppIcon: React.FC<{size: number; glyph: Glyph; tone?: Tone; src?: string}> = ({size, glyph, tone = 'charcoal', src}) => {
-  const t = TONES[glyph === 'globe' ? 'white' : tone];
+  const t = TONES[glyph === 'globe' || isLabIcon(glyph) ? 'white' : tone];
   const sw = 3.2;
   return (
     <div style={{width: size, height: size, borderRadius: size * 0.23, background: t.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 22px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.35)'}}>
-      {glyph === 'globe' ? (
+      {isLabIcon(glyph) ? (
+        <img src={staticFile(labSrc(glyph))} style={{width: size * 0.82, height: size * 0.82, objectFit: 'contain', display: 'block'}} />
+      ) : glyph === 'globe' ? (
         <GlobeIcon size={size * 0.8} src={src} />
       ) : (
         <svg width={size * 0.62} height={size * 0.62} viewBox="0 0 48 48" fill="none" stroke={t.fg} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round">
