@@ -77,14 +77,6 @@
    }
   },
   {
-   "type": "keycap-drop",
-   "at": 10.9,
-   "until": 14.1,
-   "props": {
-    "y": 1430
-   }
-  },
-  {
    "type": "digital-zoom",
    "at": 14.6,
    "until": 17.2,
