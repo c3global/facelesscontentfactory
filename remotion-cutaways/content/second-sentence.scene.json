@@ -1,0 +1,458 @@
+{
+  "slug": "second-sentence",
+  "video": "raw/second-sentence.mp4",
+  "durationSec": 57.97,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [
+    "second",
+    "meant",
+    "practiced"
+  ],
+  "captionStyle": "editorial",
+  "captionBand": {
+    "top": 1056,
+    "bottom": 1382
+  },
+  "captionBandTop": {
+    "top": 250,
+    "bottom": 560
+  },
+  "hero": [
+    "listen",
+    "second",
+    "sentence",
+    "practiced",
+    "tidy",
+    "meant",
+    "Schön",
+    "knowing",
+    "practitioner",
+    "shift",
+    "exercise",
+    "direction",
+    "hear",
+    "book"
+  ],
+  "boxed": [],
+  "finish": {
+    "grain": 0.35,
+    "lightLeaks": 0.5
+  },
+  "endCard": {
+    "variant": "link-pill",
+    "startAt": 55.35,
+    "label": "FOLLOW AND SUBSCRIBE",
+    "url": "bio.c3global.co"
+  },
+  "music": {
+    "src": "music/leveled/calm-jle-hayride-60s.mp3",
+    "volume": 0.35,
+    "duckTo": 0.16,
+    "fadeInSec": 1.5,
+    "fadeOutSec": 2.5,
+    "startFromSec": 0
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 3.21,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "first",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 3.21,
+          "end": 8.58,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 3.21,
+              "until": 8.58,
+              "props": {
+                "label": "THE FIRST THING",
+                "line": "The version they've practiced.",
+                "emphasis": [
+                  "practiced"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "tidy",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 8.58,
+          "end": 12.65,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 8.58,
+              "until": 12.65,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
+              "props": {
+                "text": "It's tidy and it's what they think you want to hear.",
+                "emphasis": [
+                  "tidy"
+                ],
+                "wordTimes": [
+                  8.58,
+                  8.76,
+                  9.13,
+                  9.4,
+                  9.97,
+                  10.13,
+                  10.59,
+                  10.96,
+                  11.23,
+                  11.61,
+                  11.78
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "meant",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 12.65,
+          "end": 17.03,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "schon",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 17.03,
+          "end": 21.82,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "citation-card",
+              "at": 17.03,
+              "until": 21.82,
+              "props": {
+                "label": "SOURCE",
+                "authors": "Donald A. Schön",
+                "year": "1983",
+                "title": "The Reflective Practitioner",
+                "source": "Basic Books"
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "expertise",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 21.82,
+          "end": 24.8,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "describe",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 24.8,
+          "end": 28.14,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 24.8,
+              "until": 28.14,
+              "props": {
+                "label": "EVEN WHEN",
+                "line": "She can't describe it.",
+                "emphasis": [
+                  "describe"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "shift",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 28.14,
+          "end": 33.43,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 28.14,
+              "until": 33.43,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
+              "props": {
+                "text": "A good practitioner hears the shift and responds to it before she could name it.",
+                "emphasis": [
+                  "shift"
+                ],
+                "wordTimes": [
+                  28.14,
+                  28.14,
+                  28.4,
+                  29.41,
+                  29.76,
+                  30.01,
+                  30.41,
+                  30.7,
+                  31.3,
+                  31.8,
+                  31.8,
+                  32.09,
+                  32.29,
+                  32.63,
+                  32.88
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "exercise",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 33.43,
+          "end": 34.48,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        },
+        {
+          "start": 34.48,
+          "end": 36.43,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": [],
+          "captions": "off"
+        }
+      ]
+    },
+    {
+      "id": "notes",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 36.43,
+          "end": 46.32,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [],
+          "captions": "off"
+        }
+      ]
+    },
+    {
+      "id": "rule",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 46.32,
+          "end": 50.58,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 46.32,
+              "until": 50.58,
+              "props": {
+                "label": "A RULE",
+                "line": "Your method follows it, and it isn't in any book yet.",
+                "emphasis": [
+                  "rule"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "what",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 50.58,
+          "end": 52.02,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "follow",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 52.02,
+          "end": 55.35,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 52.02,
+              "until": 55.35,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
+              "props": {
+                "text": "Follow and subscribe for more tips on hearing the second sentence.",
+                "emphasis": [
+                  "second"
+                ],
+                "wordTimes": [
+                  52.02,
+                  52.19,
+                  52.35,
+                  52.99,
+                  53.06,
+                  53.29,
+                  53.52,
+                  53.63,
+                  54.05,
+                  54.21,
+                  54.61
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "end",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 55.35,
+          "end": 57.97,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "fx": [
+    {
+      "type": "digital-zoom",
+      "at": 12.65,
+      "until": 17.0,
+      "props": {
+        "creepTo": 1.14
+      }
+    },
+    {
+      "type": "notes-page",
+      "at": 34.48,
+      "until": 46.4,
+      "props": {
+        "title": "The exercise",
+        "lines": [
+          {
+            "text": "Think back to your last three client conversations",
+            "at": 34.48
+          },
+          {
+            "text": "and find the moment you changed direction.",
+            "at": 39.2
+          },
+          {
+            "text": "What did you hear right before you did?",
+            "at": 41.6
+          },
+          {
+            "text": "Write it down.",
+            "at": 45.04
+          }
+        ]
+      }
+    }
+  ]
+}

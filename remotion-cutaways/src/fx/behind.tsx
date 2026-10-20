@@ -4,6 +4,7 @@ import {brand, metalGradient} from '../brand';
 import {heavyFamily, sansFamily, serifFamily} from '../fonts';
 import {metalFill} from '../metal';
 import type {Fx} from './schema';
+import {scriptPanelCutout, sixthPlate} from './sixth';
 import {thirdFront, thirdPlate} from './third';
 import {fxRange, pop, tw, useFxEnv, useFxTime} from './util';
 
@@ -43,6 +44,7 @@ export const cutoutStyle = (fx: Fx, abs: number): React.CSSProperties => {
     const k = tw(abs, a, a + 0.5) * (1 - tw(abs, b - 0.4, b));
     return {transform: `scale(${1 - 0.5 * k})`, transformOrigin: '50% 100%'};
   }
+  if (fx.type === 'script-panel') return scriptPanelCutout(fx, abs);
   if (fx.type === 'ui-world') {
     // she steps back so more of the screen shows above her
     const k = tw(abs, a, a + 0.5) * (1 - tw(abs, b - 0.3, b));
@@ -368,7 +370,7 @@ export const behindPlate = (fx: Fx): React.ReactNode => {
     case 'green-screen':
       return <GreenScreenPlate fx={fx} />;
     default:
-      return thirdPlate(fx);
+      return thirdPlate(fx) ?? sixthPlate(fx);
   }
 };
 

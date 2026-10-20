@@ -1,0 +1,104 @@
+{
+ "slug": "fxlab7",
+ "video": "raw/clean-report.mp4",
+ "durationSec": 24,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "spotless",
+  "opposite",
+  "safe"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "status",
+  "spotless",
+  "Edmondson",
+  "hospital",
+  "medication",
+  "opposite",
+  "reported",
+  "program",
+  "safe",
+  "week",
+  "upset",
+  "answer",
+  "truth",
+  "report"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 24,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "name-tag",
+   "at": 0.5,
+   "until": 4.0,
+   "props": {
+    "name": "Dr. CK"
+   }
+  },
+  {
+   "type": "planner-grid",
+   "at": 4.5,
+   "until": 10.0,
+   "props": {}
+  },
+  {
+   "type": "dropdown-select",
+   "at": 10.5,
+   "until": 14.7,
+   "props": {
+    "options": [
+     "Draft",
+     "Review",
+     "Final"
+    ],
+    "pick": 2
+   }
+  },
+  {
+   "type": "effort-dial",
+   "at": 15.0,
+   "until": 19.0,
+   "props": {}
+  },
+  {
+   "type": "specimen-card",
+   "at": 19.5,
+   "until": 23.0,
+   "props": {
+    "name": "Playfair Display",
+    "role": "Headline serif"
+   }
+  }
+ ]
+}

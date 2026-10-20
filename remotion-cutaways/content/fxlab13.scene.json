@@ -1,0 +1,111 @@
+{
+ "slug": "fxlab13",
+ "video": "raw/clean-report.mp4",
+ "durationSec": 20,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "spotless",
+  "opposite",
+  "safe"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "status",
+  "spotless",
+  "Edmondson",
+  "hospital",
+  "medication",
+  "opposite",
+  "reported",
+  "program",
+  "safe",
+  "week",
+  "upset",
+  "answer",
+  "truth",
+  "report"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 20,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "phone-frame",
+   "at": 0.5,
+   "until": 4.1,
+   "props": {}
+  },
+  {
+   "type": "clip-type",
+   "at": 4.5,
+   "until": 7.4,
+   "props": {
+    "word": "HU/GE"
+   }
+  },
+  {
+   "type": "storyboard-wall",
+   "at": 7.8,
+   "until": 11.4,
+   "props": {}
+  },
+  {
+   "type": "step-chips",
+   "at": 11.8,
+   "until": 16.0,
+   "props": {
+    "steps": [
+     {
+      "label": "The raw take",
+      "at": 11.9
+     },
+     {
+      "label": "The storyboard",
+      "at": 13.0
+     },
+     {
+      "label": "The finished reel",
+      "at": 14.2
+     }
+    ]
+   }
+  },
+  {
+   "type": "pen-circle",
+   "at": 16.4,
+   "until": 19.6,
+   "props": {
+    "note": "me"
+   }
+  }
+ ]
+}

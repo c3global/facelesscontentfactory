@@ -21,6 +21,7 @@ Red velvet background: `public/backdrops/red-velvet.jpg` (crimson velvet from Ka
 - Fonts offline: `export REMOTION_LOCAL_FONTS=1`
 - Browser: `export REMOTION_BROWSER_EXECUTABLE=/opt/pw-browsers/chromium-1194/chrome-linux/chrome`
 - Whisper model (git-ignored) downloads on first use: `WHISPER_MODEL=small.en`.
+- Disk hygiene: the session disk allowance is small. Each stills or render run copies `public/` (about 400 MB with mattes) into `/tmp/remotion-webpack-bundle-*`, and stills pile up in `out/stills`. After every review round delete `out/stills`, `out/prev` and the `/tmp/remotion-webpack-bundle-*` folders (all regenerable). A full disk shows up as ENOSPC. Keep masters, `public/raw` and `public/matte` for any video Dr. CK has not downloaded yet; delete a master only when she says she has it.
 - Upload limit here is about 30 MB per file: send a review copy (`-b:v 3000k`) and keep the master in `out/`.
 - Files are pulled from Dr. CK's Drive folder "Talking Head Videos" through the Drive connector. Downloading needs the file shared by link: `node scripts/fetch-drive.mjs <fileId> <out>`. Ask her to switch sharing back to Restricted afterwards.
 
@@ -103,6 +104,8 @@ Run this only after Dr. CK approves the finished video. The approval can be a pl
 - The handheld mic in her avatar image is intentional. Do not suggest removing it.
 - Never use em dashes in anything written for her, and address her as Dr. CK.
 - Drive sharing for source clips goes back to Restricted when she says so; do not change sharing on your own.
+- Pills (labels, tags, caption pills, comment and follow pills): each one goes in the correct area for what it labels (never over her face, never colliding with captions or another graphic) and stays on screen only briefly, just long enough to read. No pill that lingers for a whole scene. Applies to new effects too (prompt bar, comment drop, follow card).
+- Palette: crimson, white, black, charcoal, with metallic rose gold and metallic copper used MORE and gold as the secondary accent. No cream. Never write caption or card copy: use what is in Notion, Marky or her script and flag gaps. Demo text in lab plans is placeholder only and must never reach a real video.
 - Open questions to ask her once, not every time: the voice profile accent line (A or B) and whether the recordings are her live voice or a clone; the exact sources for the Edward Hall and Coch and French cards.
 
 ## 10. FX Pack: 26 effects on her clip, plus the sound kit (added Oct 2026)
@@ -159,7 +162,7 @@ She drops raw clips (and scripts or captions text) and says **"do ya thing"**. I
 1. Read this playbook, `docs/STYLES.md` and `docs/EFFECTS-LIST.md`. Check the environment (section 1).
 2. Transcribe, build word timings and captions (section 2). Pad the end card.
 3. If the plan will use behind-her effects, a sticker, or pointers: `npm run matte -- <slug>` (and `npm run outline` if the style has one).
-4. Pick the style (default Signature; she may say "use Spotlight" or "mix: ..." in the same message). Plan scenes, graphics and effects. Place effects on her words with `npm run word`. Effects are placed by Claude, not automatic: if the script has no obvious moments, propose three to five and let her pick.
+4. Pick the style (default Signature; effects come from `docs/EFFECTS-LIST.md`, 111 in all, see section 14; she may say "use Spotlight" or "mix: ..." in the same message). Plan scenes, graphics and effects. Place effects on her words with `npm run word`. Effects are placed by Claude, not automatic: if the script has no obvious moments, propose three to five and let her pick.
 5. **Stop and show stills** of every new look and effect moment (standing rule). Wait for her approval.
 6. Render master and share cut. Flash scan. Report what you did and did not check (Claude cannot hear audio).
 7. **Stop.** Do not schedule or merge anything until she asks (section 8 covers scheduling). Her approval of the video plus a request to schedule starts section 8.
@@ -178,3 +181,15 @@ Five more effects in `src/fx/third.tsx` (61 effects in all); descriptions in `do
 - `cover-story` (needs matte): `props.masthead`, `props.headline`, up to 3 `props.lines`, optional `issue` and `kicker`. Her head should overlap the masthead. The headline sits low, over her torso, on a dark gradient.
 - `glass-type` (no matte): `props.words` each with `at`, `props.y` default 0.82 (low on the desk; the middle of the frame is her face and body). Frosted fill is a blurred copy of the room.
 Sounds: paper cut, doodle marks and glass type use detail cues (heard in `full` mode only); vertigo (whoosh) and cover story (shutter) are main cues. Check new looks with stills before a full render.
+
+## 14. Fourth to sixth FX batches, flight, 3D tilt (added Oct 2026)
+Dr. CK sent a screenshot list and then reference reels (the Claude edit reel among them) and asked for every effect she did not have. All of them are in the C3 skin (`src/fx/theme.tsx`: copper first, gold second, her orbital globe and lab objects as icons) and are listed with props in `docs/EFFECTS-LIST.md`, which is the source of truth for names and counts (111 effects and graphics now).
+- Files: `src/fx/fourth.tsx` (UI moments, storyboard deck, card orbit, shared flight and tilt helpers), `fifth.tsx` (20 desk-object and UI moments), `sixth.tsx` (receipt ticket, frame calendar, cover frame, keycap drop, film strip, phone frame, clip type, storyboard wall, step chips, pen circle, caption stack, card carousel, card flip, script panel).
+- **Flight** (`fly`: `off`, `swoop`, `orbit`): cards arc in from the sides or loop around the screen, then land. The storyboard deck flies by default; the playing grid, reel stack, testimonial stack and generating tiles take `fly` and default to `off`.
+- **3D tilt** (`tilt`: `off`, `in`, `float`) on the storyboard deck, playing grid, video card, cover frame and phone frame. `card-carousel` is a true 3D ring and `card-flip` turns a card from her words to her own clip frame. Both use CSS perspective, so they need no matte.
+- **Script panel** is a behind-her effect (needs the matte). The lab plan `content/fxlab15.scene.json` borrows the clean-report matte by setting `slug` to `clean-report`; its demo script lines are placeholders. Her cutout is edge-faded because the matte includes the sofa.
+- Combining: effects stack by overlapping times and later effects draw on top. Do not put two on the lower third at once unless it is a deliberate combination.
+- Pills and labels follow the section 9 pill rule. Cards sit low (under the caption band) or are full cutaway panels held only briefly.
+- Real thumbnails: every `ClipTile` is a live `OffthreadVideo`. More than about 12 on screen at once is slow; the render timeout is raised to 180 s in `ClipTile`, but keep tile counts modest.
+- Lab plans `content/fxlab*.scene.json` (and `fxdemo-*`) are for stills only. Review with `npm run stills -- <slug> <sec> ...` after exporting `REMOTION_LOCAL_FONTS=1` and `REMOTION_BROWSER_EXECUTABLE`, then clear `out/stills` (section 1).
+- Placing effects on a real video: `npm run word -- <slug> "phrase"` for the time, then add the effect to the plan's `fx` array with real text from her script. Never reuse lab text.

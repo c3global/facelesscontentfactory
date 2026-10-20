@@ -48,10 +48,60 @@ const LEN: Record<FxType, number> = {
   vertigo: 3,
   'cover-story': 4,
   'glass-type': 4,
+  'prompt-bar': 3.6,
+  'comment-drop': 5,
+  'comment-cta': 5,
+  'file-drop': 3.6,
+  'icon-strike': 3.6,
+  'jiggle-delete': 4.8,
+  'storyboard-deck': 4,
+  'gravity-drop': 3.4,
+  'grade-slider': 4,
+  'eyedropper-grade': 4,
+  'kinetic-hook': 3,
+  'giant-caption': 2.6,
+  'playing-grid': 3.6,
+  'video-card': 3.8,
+  'reel-feed': 3.4,
+  'card-orbit': 5,
+  'name-tag': 3.6,
+  'planner-grid': 5.4,
+  'dropdown-select': 4.2,
+  'effort-dial': 4,
+  'specimen-card': 3.6,
+  'pencil-strike': 4,
+  'stamp': 2.6,
+  'waitlist-card': 4.4,
+  'envelope-open': 4.6,
+  'testimonial-stack': 5,
+  'render-progress': 4.4,
+  'feedback-note': 4.2,
+  'leaderboard': 4.6,
+  'countdown-timer': 3.8,
+  'terminal-type': 4.6,
+  'toggle-switch': 3.4,
+  'generating-tiles': 4.4,
+  'follow-card': 3.4,
+  'defocus': 1.2,
+  'reel-stack': 3.6,
+  'receipt-ticket': 4.4,
+  'frame-calendar': 3.6,
+  'cover-frame': 3.6,
+  'keycap-drop': 3.2,
+  'film-strip': 4.4,
+  'phone-frame': 3.6,
+  'clip-type': 2.4,
+  'storyboard-wall': 3.6,
+  'step-chips': 6,
+  'pen-circle': 3.2,
+  'caption-stack': 3.4,
+  'script-panel': 7,
+  'card-carousel': 4.4,
+  'card-flip': 4,
 };
 
 /** effects that draw behind her (they need the person matte) */
-export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story'];
+export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story', 'script-panel'];
 export const NEEDS_MATTE: FxType[] = [...BEHIND, 'freeze-sticker'];
 
 export const fxRange = (f: Fx): [number, number] => {
@@ -218,6 +268,99 @@ const rawCues = (f: Fx): Cue[] => {
       return [main('shutter', f.at, 0.7)];
     case 'glass-type':
       return f.props.words.map((w, i) => (i === 0 ? main('blip', w.at, 0.5, 2) : d('pop', w.at, 0.4)));
+    case 'prompt-bar': {
+      const typeAt = f.props.typeAt ?? f.at + 0.4;
+      const sendAt = f.props.sendAt ?? typeAt + Math.max(0.9, f.props.text.length * 0.042) + 0.4;
+      return [d('type', typeAt, 0.4), main('ding', sendAt, 0.5)];
+    }
+    case 'comment-drop':
+    case 'comment-cta': {
+      const cues = [d('type', f.props.postAt - Math.max(0.7, f.props.keyword.length * 0.14), 0.45), main('ding', f.props.postAt, 0.6)];
+      if (f.props.replyAt !== undefined && f.props.reply) cues.push(d('pop', f.props.replyAt, 0.6));
+      return cues;
+    }
+    case 'file-drop':
+      return [main('thud', (f.props.dropAt ?? f.at + 0.5) + 0.4, 0.6)];
+    case 'icon-strike': {
+      const sa = f.props.strikeAt ?? f.at + 0.9;
+      return [main('snap', sa, 0.7), d('pop', sa + 0.4, 0.6)];
+    }
+    case 'jiggle-delete': {
+      const da = f.props.deleteAt ?? f.at + 1.8;
+      return [main('swish', f.at, 0.5, 2), ...f.props.icons.filter((i) => !i.keep).map((_, k) => d('pop', da + k * 0.2, 0.5))];
+    }
+    case 'storyboard-deck':
+      return [main('swish', f.at, 0.6), d('pop', f.at + 0.35, 0.4), d('pop', f.at + 0.55, 0.4)];
+    case 'gravity-drop':
+      return [main('thud', (f.props.dropAt ?? f.at + 0.2) + 0.55, 0.7)];
+    case 'grade-slider':
+      return [main('riser', f.props.moveAt ?? f.at + 0.6, 0.35, 2)];
+    case 'eyedropper-grade':
+      return [main('pop', f.props.pickAt ?? f.at + 1.1, 0.7)];
+    case 'kinetic-hook':
+      return [main('whoosh', f.at, 0.6), ...f.props.lines.slice(1).map((l, i) => d('pop', l.at ?? f.at + 0.6 * (i + 1), 0.45))];
+    case 'giant-caption':
+      return [main('thud', f.at + 0.05, 0.6)];
+    case 'playing-grid':
+      return [main('swish', f.at, 0.5, 2)];
+    case 'video-card':
+      return [main('pop', f.at + 0.1, 0.6)];
+    case 'reel-feed':
+      return [main('whoosh', f.at, 0.7)];
+    case 'card-orbit':
+      return [main('whoosh', f.at, 0.6)];
+    case 'name-tag':
+    case 'specimen-card':
+    case 'follow-card':
+    case 'toggle-switch':
+      return [main('pop', f.at + 0.1, 0.6)];
+    case 'planner-grid':
+    case 'generating-tiles':
+    case 'leaderboard':
+    case 'testimonial-stack':
+    case 'reel-stack':
+      return [main('swish', f.at, 0.5, 2)];
+    case 'dropdown-select':
+    case 'waitlist-card':
+    case 'pencil-strike':
+      return [main('tick', f.at + 0.2, 0.5)];
+    case 'stamp':
+      return [main('thud', f.at + 0.25, 0.9)];
+    case 'effort-dial':
+    case 'countdown-timer':
+    case 'render-progress':
+      return [main('riser', f.at + 0.3, 0.35, 2)];
+    case 'envelope-open':
+      return [main('whoosh', f.at, 0.5, 2), d('pop', f.props.openAt ?? f.at + 1.4, 0.6)];
+    case 'feedback-note':
+    case 'terminal-type':
+      return [d('type', f.at + 0.5, 0.4)];
+    case 'defocus':
+      return [main('whoosh', f.at, 0.5, 2)];
+    case 'card-flip':
+      return [main('swish', f.at, 0.5), d('pop', f.at + f.props.flipAt + 0.4, 0.5)];
+    case 'card-carousel':
+      return [main('whoosh', f.at, 0.6)];
+    case 'script-panel':
+      return [main('whoosh', f.at, 0.5, 2), d('pop', f.props.steps[0]?.at ?? f.at + 1, 0.45)];
+    case 'receipt-ticket':
+      return [main('swish', f.at + 0.1, 0.5), d('type', f.at + 0.8, 0.4), d('thud', f.at + 2.4, 0.7)];
+    case 'frame-calendar':
+    case 'film-strip':
+      return [main('swish', f.at, 0.5, 2)];
+    case 'cover-frame':
+    case 'phone-frame':
+    case 'clip-type':
+      return [main('whoosh', f.at, 0.5, 2)];
+    case 'keycap-drop':
+      return [main('tick', f.at + 0.4, 0.6), d('tick', f.at + 0.7, 0.4), d('tick', f.at + 1.0, 0.4)];
+    case 'storyboard-wall':
+    case 'caption-stack':
+      return [main('pop', f.at + 0.15, 0.5)];
+    case 'step-chips':
+      return f.props.steps.map((s, i) => (i === 0 ? main('pop', s.at, 0.5) : d('pop', s.at, 0.45)));
+    case 'pen-circle':
+      return [main('swish', f.at + 0.2, 0.5)];
     default:
       return [];
   }

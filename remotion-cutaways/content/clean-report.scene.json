@@ -1,0 +1,461 @@
+{
+  "slug": "clean-report",
+  "video": "raw/clean-report.mp4",
+  "durationSec": 45.93,
+  "theme": {
+    "field": "black",
+    "sans": "DM Sans"
+  },
+  "emphasis": [
+    "spotless",
+    "opposite",
+    "safe"
+  ],
+  "captionStyle": "editorial",
+  "captionBand": {
+    "top": 1056,
+    "bottom": 1382
+  },
+  "captionBandTop": {
+    "top": 250,
+    "bottom": 560
+  },
+  "hero": [
+    "status",
+    "spotless",
+    "Edmondson",
+    "hospital",
+    "medication",
+    "opposite",
+    "reported",
+    "program",
+    "safe",
+    "week",
+    "upset",
+    "answer",
+    "truth",
+    "report"
+  ],
+  "boxed": [],
+  "finish": {
+    "grain": 0.35,
+    "lightLeaks": 0.5
+  },
+  "endCard": {
+    "variant": "link-pill",
+    "startAt": 43.3,
+    "label": "FOLLOW AND SUBSCRIBE",
+    "url": "bio.c3global.co"
+  },
+  "music": {
+    "src": "music/leveled/warm-marscott-warm-sunlight.mp3",
+    "volume": 0.35,
+    "duckTo": 0.16,
+    "fadeInSec": 1.5,
+    "fadeOutSec": 2.5,
+    "startFromSec": 0
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 0,
+          "end": 1.6,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "status",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 1.6,
+          "end": 3.42,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 1.6,
+              "until": 3.42,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
+              "props": {
+                "text": "about a status report.",
+                "emphasis": [
+                  "status"
+                ],
+                "wordTimes": [
+                  1.6,
+                  1.92,
+                  2.18,
+                  2.42
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "edmondson",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 3.42,
+          "end": 7.26,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "source",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 7.26,
+          "end": 12.64,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "citation-card",
+              "at": 7.26,
+              "until": 12.64,
+              "props": {
+                "label": "SOURCE",
+                "authors": "Amy C. Edmondson",
+                "year": "1996",
+                "title": "Learning from Mistakes Is Easier Said Than Done",
+                "source": "Journal of Applied Behavioral Science"
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "opposite",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 12.64,
+          "end": 15.03,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 12.64,
+              "until": 15.03,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
+              "props": {
+                "text": "She found the opposite.",
+                "emphasis": [
+                  "opposite"
+                ],
+                "wordTimes": [
+                  12.64,
+                  13.36,
+                  13.6,
+                  13.91
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "reported",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 15.03,
+          "end": 18.58,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 15.03,
+              "until": 18.58,
+              "props": {
+                "label": "THE FINDING",
+                "line": "They reported more.",
+                "emphasis": [
+                  "more"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "program",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 18.58,
+          "end": 22.42,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "safe",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 22.42,
+          "end": 26.48,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 22.42,
+              "until": 26.48,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
+              "props": {
+                "text": "I read it as a question about whether it feels safe to bring one.",
+                "emphasis": [
+                  "safe"
+                ],
+                "wordTimes": [
+                  22.42,
+                  22.44,
+                  22.61,
+                  22.76,
+                  22.92,
+                  22.98,
+                  23.58,
+                  23.95,
+                  24.47,
+                  24.62,
+                  25.15,
+                  25.29,
+                  25.44,
+                  25.79
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ]
+    },
+    {
+      "id": "try",
+      "mood": "light",
+      "segments": [
+        {
+          "start": 26.48,
+          "end": 28.64,
+          "layout": "S",
+          "captionPos": "top",
+          "graphics": [
+            {
+              "type": "headline-card",
+              "at": 26.48,
+              "until": 28.64,
+              "props": {
+                "label": "TRY IT",
+                "line": "This week's version.",
+                "emphasis": [
+                  "version"
+                ]
+              }
+            }
+          ],
+          "focus": {
+            "y": 8,
+            "zoom": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ask",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 28.64,
+          "end": 33.59,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 28.64,
+              "until": 33.59,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
+              "props": {
+                "text": "What would you have told me if you knew I wouldn't be upset?",
+                "emphasis": [
+                  "upset"
+                ],
+                "wordTimes": [
+                  29.86,
+                  30.1,
+                  30.29,
+                  30.4,
+                  30.7,
+                  31.04,
+                  31.36,
+                  31.52,
+                  31.76,
+                  32.0,
+                  32.08,
+                  32.32,
+                  32.56
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "notice",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 33.59,
+          "end": 37.99,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    },
+    {
+      "id": "follow",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 37.99,
+          "end": 43.3,
+          "layout": "E",
+          "captionPos": "bottom",
+          "graphics": [
+            {
+              "type": "statement-card",
+              "at": 37.99,
+              "until": 43.3,
+              "box": {
+                "y": 360,
+                "h": 1200,
+                "center": true
+              },
+              "props": {
+                "text": "Follow and subscribe for more ideas for hearing the truth before it ever reaches the report.",
+                "emphasis": [
+                  "truth"
+                ],
+                "wordTimes": [
+                  37.99,
+                  38.35,
+                  38.54,
+                  39.26,
+                  39.5,
+                  39.82,
+                  40.23,
+                  40.41,
+                  40.8,
+                  40.96,
+                  41.31,
+                  41.73,
+                  41.87,
+                  42.15,
+                  42.64,
+                  42.85
+                ]
+              }
+            }
+          ],
+          "avatar": "hidden",
+          "captions": "off"
+        }
+      ],
+      "bg": "backdrops/red-velvet.jpg"
+    },
+    {
+      "id": "end",
+      "mood": "dark",
+      "segments": [
+        {
+          "start": 43.3,
+          "end": 45.93,
+          "layout": "A",
+          "captionPos": "bottom",
+          "graphics": []
+        }
+      ]
+    }
+  ],
+  "matte": "clean-report",
+  "fx": [
+    {
+      "type": "spotlight",
+      "at": 3.42,
+      "until": 5.6,
+      "props": {
+        "dim": 0.86,
+        "words": []
+      }
+    },
+    {
+      "type": "sticky-text",
+      "at": 6.07,
+      "until": 7.2,
+      "props": {
+        "text": "Edmondson, 1996",
+        "anchor": "chest"
+      }
+    }
+  ]
+}
