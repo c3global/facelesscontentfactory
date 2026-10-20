@@ -153,5 +153,13 @@
     "creepTo": 1.1
    }
   }
- ]
+ ],
+ "music": {
+  "src": "music/leveled/warm-marscott-warm-sunlight.mp3",
+  "volume": 0.35,
+  "duckTo": 0.16,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
 }
