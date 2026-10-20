@@ -1,0 +1,133 @@
+{
+ "slug": "stop-blaming-tech",
+ "video": "raw/stop-blaming-tech.mp4",
+ "durationSec": 31.4,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "technology",
+  "people",
+  "tool",
+  "software",
+  "felt"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "technology",
+  "people",
+  "meeting",
+  "tool",
+  "software",
+  "felt",
+  "answer"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 28.9,
+  "label": "FOLLOW FOR MORE",
+  "url": "bio.c3global.co"
+ },
+ "style": "signature",
+ "scenes": [
+  {
+   "id": "yap",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 28.9,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "digital-zoom",
+   "at": 1.5,
+   "until": 3.5,
+   "props": {
+    "creepTo": 1.12
+   }
+  },
+  {
+   "type": "digital-zoom",
+   "at": 4.3,
+   "until": 6.5,
+   "props": {
+    "creepTo": 1.1,
+    "snapAt": 5.4
+   }
+  },
+  {
+   "type": "keycap-drop",
+   "at": 10.9,
+   "until": 14.1,
+   "props": {
+    "y": 1430
+   }
+  },
+  {
+   "type": "digital-zoom",
+   "at": 14.6,
+   "until": 17.2,
+   "props": {
+    "creepTo": 1.12
+   }
+  },
+  {
+   "type": "digital-zoom",
+   "at": 18.0,
+   "until": 20.4,
+   "props": {
+    "creepTo": 1.12
+   }
+  },
+  {
+   "type": "card-flip",
+   "at": 22.6,
+   "until": 26.6,
+   "props": {
+    "cards": [
+     {
+      "front": "the software",
+      "from": 3,
+      "back": ""
+     },
+     {
+      "front": "the people",
+      "from": 24,
+      "back": ""
+     }
+    ],
+    "flipAt": 1.1,
+    "y": 1390
+   }
+  },
+  {
+   "type": "digital-zoom",
+   "at": 26.8,
+   "until": 28.8,
+   "props": {
+    "creepTo": 1.1
+   }
+  }
+ ]
+}

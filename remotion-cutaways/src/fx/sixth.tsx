@@ -121,7 +121,7 @@ export const KeycapDrop: React.FC<{fx: Of<'keycap-drop'>}> = ({fx}) => {
         const ry = y + row * 128 + ((i * 53) % 26);
         const d = 0.05 + i * 0.1;
         const p = tw(t, d, d + 0.7, 0, 1, (x) => x);
-        const dy = (1 - fall(p)) * -(ry + 200);
+        const dy = (1 - fall(p)) * -200;
         const rot = (((i * 47) % 30) - 15) * (0.4 + 0.6 * tw(t, d, d + 0.7));
         return (
           <div key={i} style={{position: 'absolute', left: rx - w / 2, top: ry, width: w, height: 104, borderRadius: 20, background: i === n - 1 ? 'linear-gradient(145deg,#E03A37,#8d1214)' : 'linear-gradient(180deg,#fff,#dfe2e4)', border: C3.hair, boxSizing: 'border-box', transform: `translateY(${dy}px) rotate(${rot}deg)`, opacity: p > 0 ? 1 : 0, boxShadow: '0 10px 0 rgba(0,0,0,0.35), 0 18px 30px rgba(0,0,0,0.5)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>

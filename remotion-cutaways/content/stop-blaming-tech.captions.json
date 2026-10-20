@@ -1,6 +1,6 @@
 [
   {
-    "text": "\"Can",
+    "text": "Can",
     "startMs": 30,
     "endMs": 400,
     "timestampMs": 215,
@@ -154,7 +154,7 @@
     "confidence": null
   },
   {
-    "text": " mean.\"",
+    "text": " mean.",
     "startMs": 9490,
     "endMs": 9980,
     "timestampMs": 9735,
@@ -501,13 +501,6 @@
     "startMs": 27980,
     "endMs": 28360,
     "timestampMs": 28170,
-    "confidence": null
-  },
-  {
-    "text": " [BLANK_AUDIO]",
-    "startMs": 28580,
-    "endMs": 29950,
-    "timestampMs": 29265,
     "confidence": null
   }
 ]
