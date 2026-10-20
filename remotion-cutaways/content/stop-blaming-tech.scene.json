@@ -45,11 +45,51 @@
  "style": "signature",
  "scenes": [
   {
-   "id": "yap",
+   "id": "yap-open",
    "mood": "dark",
    "segments": [
     {
      "start": 0,
+     "end": 10.2,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  },
+  {
+   "id": "the-meeting",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 10.2,
+     "end": 13.4,
+     "layout": "C",
+     "captionPos": "bottom",
+     "avatar": "hidden",
+     "graphics": [
+      {
+       "type": "meeting-tile",
+       "at": 10.2,
+       "until": 13.4,
+       "props": {
+        "title": "The meeting",
+        "status": "The tool isn't working",
+        "participants": 4,
+        "mutedAt": 12.3,
+        "zoom": 1.3
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "yap-close",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 13.4,
      "end": 28.9,
      "layout": "A",
      "captionPos": "bottom",
@@ -80,14 +120,6 @@
    "type": "digital-zoom",
    "at": 14.6,
    "until": 17.2,
-   "props": {
-    "creepTo": 1.12
-   }
-  },
-  {
-   "type": "digital-zoom",
-   "at": 18.0,
-   "until": 20.4,
    "props": {
     "creepTo": 1.12
    }
