@@ -80,3 +80,15 @@ From the creator's merged yap workflow (PR 16 and PR 13 on the main repo), porte
 - Tested end to end on a real 33 s clip: 9 pauses shortened (1.8 s), validated, rendered with captions, music bed and two slow zooms, no whole-frame flicker.
 - Not ported: the creator's lo-fi track choice (members bring their own licensed track), Notion and Marky steps, ElevenLabs notes, trial-reel notes.
 - Open: listen test of the music and cut points by the creator; `captionLeadSec` showed no visible benefit in the creator's own test.
+
+## Demo review round 2 — 2026-10-21
+
+The creator reviewed the first funnel demo and found captions overlapping graphics, captions repeating on-screen text, and effects not landing on their words. Causes and fixes:
+- No check existed for any of the three. Added `npm run f48 -- lint <plan>` (collisions, echoes, timing), printed on validate, preview and render, with 3 automated tests (15 total pass on a clean install).
+- A caption group that began just before a "captions off" stretch kept its trailing words on screen over the graphic. Words spoken inside a captions-off stretch are now never captioned.
+- Strike-through cards drew a stray dot at the start of each line before the strike began (zero-width bar was 8 px wide). Fixed here and in the creator's repo.
+- The demo was rewritten so graphics add to the captions instead of echoing them: orbit cards became clones, list cards became short labels, the headline card became a word-by-word statement card, the type wall carries the spoken words.
+- The high-quality cutout (`matte-hq.py`) now also lives in the creator's own repo (`npm run matte:hq`, PLAYBOOK section 16) so her videos get the same cutout. Needs a one-time 220 MB model download with her OK.
+- Disk: each render copies the whole public folder into /tmp/remotion-webpack-bundle-*; a long session filled the disk mid-render. Delete those folders between renders.
+
+Not done: the explainer demo was not part of this review round; it is unchanged.
