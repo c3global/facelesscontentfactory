@@ -84,5 +84,6 @@
    }
   }
  ],
- "scrim": 0.7
+ "scrim": 0.7,
+ "captionLeadSec": 0.15
 }

@@ -224,6 +224,8 @@ export const planSchema = z.object({
   durationSec: z.number().positive(),
   /** strength of the dark gradient under the hook caption, 0 to 1 (default 1). Yaps use a lighter one so the room shows. */
   scrim: z.number().min(0).max(1).optional(),
+  /** shows every caption this many seconds earlier, to match an avatar whose mouth moves slightly before its sound */
+  captionLeadSec: z.number().min(0).max(0.5).optional(),
   theme: z
     .object({
       field: z.enum(['black', 'crimson', 'charcoal', 'rosegold', 'marble-black', 'marble-white', 'marble-red']).default('black'),
