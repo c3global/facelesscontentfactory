@@ -57,3 +57,26 @@ Still open:
 - Life Scenes ported from the creator's workflow as one `kind: "life-scene"` plan rendered in a single pass (shots with hard cuts and camera moves, text cards, seven overlays, dust, voiceover). Text cards and overlays follow brand.json colors and metal. Preview stills verified in a test brand. Full motion render and long voiceover hold not yet reviewed by eye.
 - Not ported: color grades, light leaks, letterbox and blackout/flash finishing flags (the creator's rule is no color changes; add on request), the zoom-through transition and the creator's Notion and Marky steps.
 - Stock footage: `npm run f48 -- stock keys|search|pick|credits` with the member's own Pexels and Pixabay keys (stock-keys.json, git-ignored, or environment). 24-hour search cache, previews as thumbnails only, one person-picked download at a time, credits saved to content/stock-credits.json. 3 new automated tests (10 total) pass with simulated provider responses. Live API calls not yet tested: this cloud session cannot reach pexels.com or pixabay.com.
+
+## Funnel demo build notes — 2026-10-21 (creator review round 1)
+
+Findings from the first demo draft, and what changed:
+- Hook gradient covered the torso: it now starts at 56 percent of the frame height and is lighter.
+- Style label and top captions overlapped (Show and Tell) and a label crowded the portrait window (closing section): fixed in the demo plans, rule added to docs/EDITING-RULES.md.
+- No music: added `npm run f48 -- mix-music` (licensed track, loop, duck under speech, fade). Explainers use the plan's `music` block.
+- Explainer looked static: rebuilt as a bespoke stick-figure stage (src/stick/F48Stage.tsx) with timed action on every spoken cue, a `kind: "stick"` plan type for `npm run f48`, and an optional holographic backdrop (`backdrop: "holo"`).
+- Cutout quality: the default cutout (MediaPipe) leaked into the sofa and wobbled at edges on dark-on-dark footage. An outline does not hide this (it follows the bad mask). Added `scripts/matte-hq.py` (BiRefNet, MIT license, one-time 220 MB model download with the member's OK). One-frame test gave a clean silhouette. About 18 s per frame on a CPU and about 12 GB of RAM, so cut only the seconds an effect uses and do not run a render at the same time.
+- Also fixed: a wrong time range in one demo cutout (human error while slicing), a metal-finish setting reverted at the creator's request (copper stays main, gold stays the secondary accent).
+
+Still open:
+- The talking-head demo is 7 renders joined with ffmpeg because one plan supports one style. Per-section style in a single plan would remove that step.
+- Sound mix and effect sounds need a listen by the creator.
+
+## Yap workflow ported — 2026-10-21
+
+From the creator's merged yap workflow (PR 16 and PR 13 on the main repo), ported to the member package:
+- `yap` style preset and `scrim` dial; `scrim` and `captionLeadSec` plan fields; digital-zoom no longer switches off the hook gradient (the brightness-flicker fix); `skills/yap` ("edit my yap") and `docs/YAPS.md`; routing in CLAUDE.md and AGENTS.md; "make my video" on a clear yap asks once which is meant.
+- `scripts/tighten-pauses.py` rewritten for the member plan format. It finds silences in the audio (transcription word times run end to end and hide pauses), cuts them to 0.3 s, and remaps the plan, captions, effects and end card. Never overwrites. Two new automated tests (12 total) pass.
+- Tested end to end on a real 33 s clip: 9 pauses shortened (1.8 s), validated, rendered with captions, music bed and two slow zooms, no whole-frame flicker.
+- Not ported: the creator's lo-fi track choice (members bring their own licensed track), Notion and Marky steps, ElevenLabs notes, trial-reel notes.
+- Open: listen test of the music and cut points by the creator; `captionLeadSec` showed no visible benefit in the creator's own test.
