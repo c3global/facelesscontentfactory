@@ -1,0 +1,84 @@
+{
+ "slug": "stop-blaming-tech",
+ "video": "raw/stop-blaming-tech.mp4",
+ "durationSec": 31.4,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "technology",
+  "people",
+  "tool",
+  "software",
+  "felt"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "technology",
+  "people",
+  "meeting",
+  "tool",
+  "software",
+  "felt",
+  "answer"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "style": "signature",
+ "scenes": [
+  {
+   "id": "yap",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 28.9,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "digital-zoom",
+   "at": 10.1,
+   "until": 20.1,
+   "props": {
+    "creepTo": 1.08,
+    "snapTo": 1.08
+   }
+  },
+  {
+   "type": "digital-zoom",
+   "at": 20.4,
+   "until": 28.4,
+   "props": {
+    "creepTo": 1.1,
+    "snapTo": 1.1
+   }
+  }
+ ],
+ "music": {
+  "src": "music/leveled/warm-marscott-warm-sunlight.mp3",
+  "volume": 0.35,
+  "duckTo": 0.16,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ },
+ "scrim": 0.7
+}

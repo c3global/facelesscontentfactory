@@ -75,7 +75,10 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const flat = useMemo(() => flatten(plan, fps), [plan, fps]);
-  const pages = useMemo(() => buildPages(captions, plan.captionPageMs), [captions, plan.captionPageMs]);
+  // the avatar's mouth moves a little before its sound, so a clip can ask for its captions to arrive early (captionLeadSec)
+  const lead = (plan.captionLeadSec ?? 0) * 1000;
+  const shown = useMemo(() => (lead ? captions.map((c) => ({...c, startMs: Math.max(0, c.startMs - lead), endMs: Math.max(0, c.endMs - lead)})) : captions), [captions, lead]);
+  const pages = useMemo(() => buildPages(shown, plan.captionPageMs), [shown, plan.captionPageMs]);
   const {field, sans} = plan.theme;
   const anchors = useLoadedAnchors(plan.matte);
   // seconds she is speaking (gaps under 0.45 s bridged), used by the voice-memo waveform
@@ -124,8 +127,8 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   }, [plan.music, plan.durationSec, captions, fps]);
   // the end card says the closing line itself, so captions stop where it begins
   const kineticCaptions = useMemo(
-    () => (plan.endCard ? captions.filter((c) => c.startMs < plan.endCard!.startAt * 1000 - 40) : captions),
-    [captions, plan.endCard],
+    () => (plan.endCard ? shown.filter((c) => c.startMs < plan.endCard!.startAt * 1000 - 40) : shown),
+    [shown, plan.endCard],
   );
 
   const blend = layoutBlend(flat, frame);
@@ -137,11 +140,11 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   // the hook scrim darkens the lower half for the full-frame caption; effects bring their own plates, so it steps aside while one runs
   const tNow = frame / fps;
   const fxOn = plan.fx.some((f) => {
-    if (['grade', 'glow', 'dust', 'letterbox', 'date-stamp', 'flash-frame', 'pull-back'].includes(f.type)) return false; // looks and marks do not replace the scrim
+    if (['grade', 'glow', 'dust', 'letterbox', 'date-stamp', 'flash-frame', 'pull-back', 'digital-zoom'].includes(f.type)) return false; // looks and marks do not replace the scrim
     const [fa, fb] = fxRange(f);
     return tNow >= fa && tNow <= fb;
   });
-  const scrim = (1 - av.frame) * (fxOn ? 0 : 1);
+  const scrim = (1 - av.frame) * (fxOn ? 0 : 1) * (plan.scrim ?? 1);
   const sceneIdx = (s: Scene) => plan.scenes.indexOf(s);
   const curMood = blend.cur.scene.mood;
   const metalVariant = curMood === 'dark' && field !== 'rosegold' ? 'bright' : 'deep';
