@@ -158,6 +158,7 @@ Dr. CK asked for "all of them" after seeing a paid bundle's effect list. These a
 Six named presets (Signature, Quiet Authority, Spotlight, Show and Tell, Hype Reel, Raw Tape) plus freestyle dials for captions, backdrop, finish, music, effect sounds, outline and an effects pack. Signature is the look Dr. CK approved and reproduces it exactly; plans without `style` or `mix` are untouched. Full table, rules and commands are in `docs/STYLES.md`. Use `npm run style -- list`, `set` and `show`. When she says "make it Spotlight but keep the Signature captions", set `"style": "spotlight"` and `"mix": {"captions": "editorial"}`. Show stills before a full render of a new combination (standing rule).
 
 ## 12. "Do ya thing" (Dr. CK's one-line command)
+This command is for regular talking-head videos. Casual in-car and at-home videos are yaps and use "edit my yap" (section 15). If she says "do ya thing" on a clip that is clearly a yap, ask her once which she means.
 She drops raw clips (and scripts or captions text) and says **"do ya thing"**. It means: run the whole workflow below with the Signature style unless she names another, and stop where marked. She chose the phrase herself; do not call it "edit it".
 1. Read this playbook, `docs/STYLES.md` and `docs/EFFECTS-LIST.md`. Check the environment (section 1).
 2. Transcribe, build word timings and captions (section 2). Pad the end card.
@@ -195,6 +196,11 @@ Dr. CK sent a screenshot list and then reference reels (the Claude edit reel amo
 - Placing effects on a real video: `npm run word -- <slug> "phrase"` for the time, then add the effect to the plan's `fx` array with real text from her script. Never reuse lab text.
 
 ## 15. Yaps (casual in-car and at-home talking videos, added Oct 2026)
+Her command is **"edit my yap"**. It means: run the steps below with no further questions, except confirming the transcript. ("Do ya thing" is the regular talking-head command in section 12.)
+1. Conform the clip (join parts in order if there are several) and transcribe it. Send her the transcript to confirm.
+2. Tighten the pauses (`python3 scripts/tighten-pauses.py <slug> 0.3`) and build the plan from the recipe below.
+3. Render the `-tight` slug, scan it for brightness jumps, and send a review copy. A yap uses the approved look, so stills are not needed first.
+4. When she approves, send the final at about 6000 kbps under 28 MB. Do not schedule or merge anything until she asks.
 A yap is a relaxed, lifestyle talking video. Dr. CK's rule: it must not drift toward the regular talking-head style, so it gets captions and a light edit, nothing more. The first two yaps were `stop-blaming-tech` (in a car) and `quiet-in-a-room` (three parts, `pt1` to `pt3`, joined in order).
 - **The recipe:** word-by-word editorial captions with a few hero words; the pauses tightened (below); a lo-fi music bed at the standard levels (`music/leveled/warm-marscott-warm-sunlight.mp3`, the library's "lo-fi bed"); two or three slow zooms (`digital-zoom` with `snapTo` equal to `creepTo`, so there is no snap); no end card; end right after her last line, before her hand reaches for the camera. Set `"scrim": 0.7` so the room shows and white captions still read on light clothing.
 - **No effects unless one matches what she says and shows something the captions do not.** The first car edit used a receipt, keycaps, a caption stack and a "meeting" tag; she rejected all of them as off-topic and as repeating the captions. She kept the card flip (software turns into the people) and agreed one cutaway at most.
