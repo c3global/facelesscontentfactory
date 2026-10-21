@@ -1,0 +1,87 @@
+{
+ "slug": "quiet-in-a-room",
+ "video": "raw/quiet-in-a-room.mp4",
+ "durationSec": 38.6,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "quiet",
+  "listening",
+  "safe",
+  "waiting",
+  "speak",
+  "smaller"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "quiet",
+  "listening",
+  "safe",
+  "real",
+  "caring",
+  "waiting",
+  "speak",
+  "smaller",
+  "question",
+  "surprised"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "style": "signature",
+ "music": {
+  "src": "music/leveled/warm-yellen-closer-than-before.mp3",
+  "volume": 0.35,
+  "duckTo": 0.16,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ },
+ "scenes": [
+  {
+   "id": "yap",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 38.6,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "digital-zoom",
+   "at": 12.0,
+   "until": 20.0,
+   "props": {
+    "creepTo": 1.08,
+    "snapTo": 1.08
+   }
+  },
+  {
+   "type": "digital-zoom",
+   "at": 24.86,
+   "until": 34.8,
+   "props": {
+    "creepTo": 1.1,
+    "snapTo": 1.1
+   }
+  }
+ ]
+}
