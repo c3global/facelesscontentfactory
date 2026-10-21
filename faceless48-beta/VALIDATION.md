@@ -51,3 +51,9 @@ Still open:
 - Style presets can override the saved caption style (Quiet Authority switches to pill).
 - Pill captions always sit at the bottom; in split-screen layout S they land on the face. Use layout C/E or editorial captions there.
 - Native plugin install in Claude Code and Codex still untested.
+
+## Life Scenes and stock footage — 2026-10-21
+
+- Life Scenes ported from the creator's workflow as one `kind: "life-scene"` plan rendered in a single pass (shots with hard cuts and camera moves, text cards, seven overlays, dust, voiceover). Text cards and overlays follow brand.json colors and metal. Preview stills verified in a test brand. Full motion render and long voiceover hold not yet reviewed by eye.
+- Not ported: color grades, light leaks, letterbox and blackout/flash finishing flags (the creator's rule is no color changes; add on request), the zoom-through transition and the creator's Notion and Marky steps.
+- Stock footage: `npm run f48 -- stock keys|search|pick|credits` with the member's own Pexels and Pixabay keys (stock-keys.json, git-ignored, or environment). 24-hour search cache, previews as thumbnails only, one person-picked download at a time, credits saved to content/stock-credits.json. 3 new automated tests (10 total) pass with simulated provider responses. Live API calls not yet tested: this cloud session cannot reach pexels.com or pixabay.com.
