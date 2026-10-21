@@ -10,6 +10,26 @@ This private beta is for a computer with Claude Code or Codex and local file acc
 
 Set aside 30 to 60 minutes for this first session. The assistant asks about your name, logo, colors, metallic finish, fonts, who appears in your videos (you, an AI avatar, a 2D or 3D character, or the stick figure) and your caption style, and shows you previews. Everything is saved, so you only do this once.
 
+## What you can say once you are set up
+
+| Say this | What happens |
+| --- | --- |
+| **Get me set up** | The one-time brand onboarding (30 to 60 minutes). Never needed again. |
+| **Make my video** | Talking-head edit of your clip: captions, cutaways, effects, your style. Shows stills first, then renders. |
+| **Edit my yap** | Casual in-car or at-home video: captions, tightened pauses, a music bed, slow zooms, nothing more. Confirms the transcript with you first. |
+| **Make a life scene** | Cinematic clips (Google Flow, Veo, Seedance, stock or your own) with a camera move and your on-screen text. |
+| **Turn my voiceover into an explainer** | Animated explainer in portrait or landscape. |
+| **Find stock footage for this** | Optional Pexels and Pixabay search with your own free keys. |
+| **Add my music** | Puts your licensed track under a finished video and ducks it under the voice. |
+
+## Using it with GPT (Codex) instead of Claude
+
+The same package works in Codex because the instructions are plain files. Use Codex on your own computer (the desktop app or the terminal), not the browser chat.
+1. Unzip the package and open that folder in Codex.
+2. Paste the same first message as above. Codex reads `AGENTS.md` in this folder, which points it to the skills.
+3. Everything else is identical: the commands in the table work as written.
+Both Claude Code and Codex need Node 20 or newer, ffmpeg, and a browser. The package has been tested end to end with Claude Code. Codex has not been run against it yet: if anything behaves differently, send the exact message and error text.
+
 ## Getting your footage to the assistant
 
 Chat attachments have size limits, and most talking-head clips are bigger than that. Use one of these instead.
