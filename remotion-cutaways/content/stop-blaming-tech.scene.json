@@ -36,60 +36,14 @@
   "grain": 0.35,
   "lightLeaks": 0.5
  },
- "endCard": {
-  "variant": "link-pill",
-  "startAt": 28.9,
-  "label": "FOLLOW FOR MORE",
-  "url": "bio.c3global.co"
- },
  "style": "signature",
  "scenes": [
   {
-   "id": "yap-open",
+   "id": "yap",
    "mood": "dark",
    "segments": [
     {
      "start": 0,
-     "end": 10.2,
-     "layout": "A",
-     "captionPos": "bottom",
-     "graphics": []
-    }
-   ]
-  },
-  {
-   "id": "the-meeting",
-   "mood": "dark",
-   "segments": [
-    {
-     "start": 10.2,
-     "end": 13.4,
-     "layout": "C",
-     "captionPos": "bottom",
-     "avatar": "hidden",
-     "graphics": [
-      {
-       "type": "meeting-tile",
-       "at": 10.2,
-       "until": 13.4,
-       "props": {
-        "title": "The meeting",
-        "status": "The tool isn't working",
-        "participants": 4,
-        "mutedAt": 12.3,
-        "zoom": 1.3
-       }
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "yap-close",
-   "mood": "dark",
-   "segments": [
-    {
-     "start": 13.4,
      "end": 28.9,
      "layout": "A",
      "captionPos": "bottom",
@@ -101,56 +55,20 @@
  "fx": [
   {
    "type": "digital-zoom",
-   "at": 1.5,
-   "until": 3.5,
+   "at": 10.1,
+   "until": 20.1,
    "props": {
-    "creepTo": 1.12
+    "creepTo": 1.08,
+    "snapTo": 1.08
    }
   },
   {
    "type": "digital-zoom",
-   "at": 4.3,
-   "until": 6.5,
+   "at": 20.4,
+   "until": 28.4,
    "props": {
     "creepTo": 1.1,
-    "snapAt": 5.4
-   }
-  },
-  {
-   "type": "digital-zoom",
-   "at": 14.6,
-   "until": 17.2,
-   "props": {
-    "creepTo": 1.12
-   }
-  },
-  {
-   "type": "card-flip",
-   "at": 22.6,
-   "until": 26.6,
-   "props": {
-    "cards": [
-     {
-      "front": "the software",
-      "from": 3,
-      "back": ""
-     },
-     {
-      "front": "the people",
-      "from": 24,
-      "back": ""
-     }
-    ],
-    "flipAt": 1.1,
-    "y": 1390
-   }
-  },
-  {
-   "type": "digital-zoom",
-   "at": 26.8,
-   "until": 28.8,
-   "props": {
-    "creepTo": 1.1
+    "snapTo": 1.1
    }
   }
  ],
@@ -161,5 +79,6 @@
   "fadeInSec": 1.5,
   "fadeOutSec": 2.5,
   "startFromSec": 0
- }
+ },
+ "scrim": 0.7
 }
