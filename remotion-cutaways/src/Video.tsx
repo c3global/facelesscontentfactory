@@ -137,11 +137,11 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   // the hook scrim darkens the lower half for the full-frame caption; effects bring their own plates, so it steps aside while one runs
   const tNow = frame / fps;
   const fxOn = plan.fx.some((f) => {
-    if (['grade', 'glow', 'dust', 'letterbox', 'date-stamp', 'flash-frame', 'pull-back'].includes(f.type)) return false; // looks and marks do not replace the scrim
+    if (['grade', 'glow', 'dust', 'letterbox', 'date-stamp', 'flash-frame', 'pull-back', 'digital-zoom'].includes(f.type)) return false; // looks and marks do not replace the scrim
     const [fa, fb] = fxRange(f);
     return tNow >= fa && tNow <= fb;
   });
-  const scrim = (1 - av.frame) * (fxOn ? 0 : 1);
+  const scrim = (1 - av.frame) * (fxOn ? 0 : 1) * (plan.scrim ?? 1);
   const sceneIdx = (s: Scene) => plan.scenes.indexOf(s);
   const curMood = blend.cur.scene.mood;
   const metalVariant = curMood === 'dark' && field !== 'rosegold' ? 'bright' : 'deep';
