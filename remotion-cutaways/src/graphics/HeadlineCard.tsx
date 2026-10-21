@@ -39,7 +39,7 @@ export const StruckLine: React.FC<{
                 left: -4,
                 top: '54%',
                 height: Math.max(4, size * 0.06),
-                width: `calc(${p} * (100% + ${i < words.length - 1 ? '0.28em' : '0px'}) + 8px)`,
+                width: p <= 0 ? 0 : `calc(${p} * (100% + ${i < words.length - 1 ? '0.28em' : '0px'}) + 8px)`,
                 background: brand.crimson,
                 borderRadius: 4,
               }}

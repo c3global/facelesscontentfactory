@@ -77,7 +77,12 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   const flat = useMemo(() => flatten(plan, fps), [plan, fps]);
   // the avatar's mouth moves a little before its sound, so a clip can ask for its captions to arrive early (captionLeadSec)
   const lead = (plan.captionLeadSec ?? 0) * 1000;
-  const shown = useMemo(() => (lead ? captions.map((c) => ({...c, startMs: Math.max(0, c.startMs - lead), endMs: Math.max(0, c.endMs - lead)})) : captions), [captions, lead]);
+  // words spoken inside a "captions: off" stretch are carried by that scene's graphic, so they are never captioned
+  const offStretches = useMemo(() => plan.scenes.flatMap((sc) => sc.segments).filter((sg) => sg.captions === 'off'), [plan.scenes]);
+  const shown = useMemo(() => {
+    const kept = offStretches.length ? captions.filter((c) => !offStretches.some((sg) => c.startMs / 1000 >= sg.start - 0.001 && c.startMs / 1000 < sg.end - 0.001)) : captions;
+    return lead ? kept.map((c) => ({...c, startMs: Math.max(0, c.startMs - lead), endMs: Math.max(0, c.endMs - lead)})) : kept;
+  }, [captions, lead, offStretches]);
   const pages = useMemo(() => buildPages(shown, plan.captionPageMs), [shown, plan.captionPageMs]);
   const {field, sans} = plan.theme;
   const anchors = useLoadedAnchors(plan.matte);
