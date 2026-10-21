@@ -42,7 +42,7 @@
  },
  "style": "signature",
  "music": {
-  "src": "music/leveled/warm-yellen-closer-than-before.mp3",
+  "src": "music/leveled/warm-marscott-warm-sunlight.mp3",
   "volume": 0.35,
   "duckTo": 0.16,
   "fadeInSec": 1.5,
@@ -84,6 +84,5 @@
    }
   }
  ],
- "scrim": 0.7,
- "captionLeadSec": 0.15
+ "scrim": 0.7
 }
