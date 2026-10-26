@@ -302,19 +302,19 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
       </FxEnvProvider>
       {plan.fx.length > 0 && <FxSound fx={plan.fx} volume={plan.fxVolume} mode={plan.fxSound} labels={plan.soundLabels} />}
 
-      {plan.endCard && (
-        <ThemeProvider mood={plan.scenes[plan.scenes.length - 1].mood} field={field} sans={sans}>
-          <Sequence
-            from={Math.round(plan.endCard.startAt * fps)}
-            durationInFrames={Math.max(1, Math.round(plan.durationSec * fps) - Math.round(plan.endCard.startAt * fps))}
-            premountFor={fps}
-          >
-            <GraphicTimeProvider atSec={plan.endCard.startAt}>
-              <EndCard card={plan.endCard} />
-            </GraphicTimeProvider>
-          </Sequence>
-        </ThemeProvider>
-      )}
+      {plan.endCard &&
+        [plan.endCard, ...plan.moreEndCards].map((card, i, all) => {
+          const to = i + 1 < all.length ? all[i + 1].startAt : plan.durationSec;
+          return (
+            <ThemeProvider key={`end${i}`} mood={plan.scenes[plan.scenes.length - 1].mood} field={field} sans={sans}>
+              <Sequence from={Math.round(card.startAt * fps)} durationInFrames={Math.max(1, Math.round(to * fps) - Math.round(card.startAt * fps))} premountFor={fps}>
+                <GraphicTimeProvider atSec={card.startAt}>
+                  <EndCard card={card} />
+                </GraphicTimeProvider>
+              </Sequence>
+            </ThemeProvider>
+          );
+        })}
 
       <ThemeProvider mood={curMood} field={field} sans={sans}>
         {plan.captionStyle === 'pill' ? (
