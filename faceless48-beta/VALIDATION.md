@@ -92,3 +92,11 @@ The creator reviewed the first funnel demo and found captions overlapping graphi
 - Disk: each render copies the whole public folder into /tmp/remotion-webpack-bundle-*; a long session filled the disk mid-render. Delete those folders between renders.
 
 Not done: the explainer demo was not part of this review round; it is unchanged.
+
+## Storyboard added (beta.3) — 2026-10-26
+
+The creator asked for a way to see and approve the whole video before it renders.
+- New command `npm run f48 -- storyboard <plan.json>` for talking-head, yap, life scene, explainer and stick plans. It renders one still per scene, effect and graphic (plus a frame wherever a stretch of more than 3.5 s has nothing new, up to 20 frames), and saves `sheet.png` (numbered contact sheet), `index.html` (open in a browser) and `storyboard.md` (time, what is on screen, the words being said, file). It never overwrites an earlier storyboard (`-v2`, `-v3`).
+- The video-production skill, `AGENTS.md`, the project rules and START-HERE now require it before the first render and wait for approval or frame numbers to change.
+- Tested on three of the funnel demo plans (spotlight: 4 frames, hype reel: 4 frames, explainer: 14 frames) and with 6 automated tests (the pure frame-picking logic). Typecheck clean.
+- Limits: the stills are single frames, so motion is not shown (use `preview` for a closer look at one second). Sheet numbers need ffmpeg to find a system font; if it cannot, the sheet is made without numbers and `index.html` still has them. Not yet tried on Windows or on a life scene render (life scene logic is covered by tests only).

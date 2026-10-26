@@ -51,13 +51,13 @@ So we put the editor inside the AI you already talk to.
 
 **7. Captions timed to your words.** Choose your caption style during setup and change it any time.
 
-**8. A built-in checker.** It flags captions that cover a graphic, captions that repeat what is already on screen, and effects that land on the wrong word, before you render.
+**8. A storyboard and a built-in checker.** See your whole video as numbered frames, in order, with the words under each one, and approve it before anything renders. The checker flags captions that cover a graphic, captions that repeat what is already on screen, and effects that land on the wrong word.
 
 **9. Music mixing.** Your music sits under your voice and fades out cleanly at the end.
 
 Plus batch rendering, to make several videos in one go.
 
-**[IMAGE]** `stills/tiles.jpg`: the nine-tile grid.
+**[IMAGE]** `stills/tiles.jpg`: the nine-tile grid. Tile 4 (Life Scenes) is a stand-in until you send a real Life Scene frame.
 
 **[BUTTON]** YES, ADD THE BETA TO MY ORDER FOR $97
 
@@ -113,7 +113,7 @@ Animated text and cards. Zooms. Spotlights. Orbiting elements. Clones. Phone and
 ✗ No timeline to drag around
 ✗ No hunting through effects. Your AI picks and places them
 ✗ No caption cleanup
-✗ No guessing before you render. You see previews first, then ask for changes in chat
+✗ No guessing before you render. You see the whole video as a storyboard first, then ask for changes in chat
 
 ---
 
@@ -126,9 +126,9 @@ Install the plug-in and ask it to check your computer. It tells you in plain Eng
 Your own footage and script for a talking-head video. A voiceover and an idea for an explainer. Your own licensed music, if you want it.
 
 **3. Say what you want.**
-Describe the video in chat. The plug-in builds the plan, checks it, shows a preview, and renders when you approve.
+Describe the video in chat. The plug-in builds the plan, checks it, and shows you a storyboard of the whole video. Approve it or name the frames to change. It renders only after you approve.
 
-**[IMAGE]** Three simple screens in order: the setup questions, a chat message with a preview still, the finished video. Kai can mock these as clean chat screenshots.
+**[IMAGE]** `stills/storyboard-sheet-talking-head.jpg` and `stills/storyboard-sheet-explainer.jpg`: real storyboard sheets from the demos. Add one screenshot of the setup questions from a real run.
 
 ---
 
@@ -187,7 +187,7 @@ You have a full week with it in your hands and nine walkthrough videos to help. 
 - The plug-in, with talking-head edits, explainers, yaps, and Life Scenes
 - 7 talking-head styles, 3 explainer styles, 3 caption styles, and 111 effects
 - Your brand set once
-- Built-in checker, music mixing, and batch rendering
+- Storyboard approval before every render, built-in checker, music mixing, and batch rendering
 - 9 walkthrough videos in the members hub
 - 7-day money-back guarantee
 
@@ -279,10 +279,11 @@ All files are in `faceless48-beta/sales-page-assets/`. Every frame comes from yo
 | Formats | `stills/formats.jpg` |
 | Explainer frames | `stills/explainer-widescreen-a/b/c.jpg` |
 | Effect loops | `clips/effect-type-wall.mp4`, `effect-checklist.mp4`, `effect-clones.mp4`, `effect-statement-card.mp4` |
+| Storyboard sheets | `stills/storyboard-sheet-talking-head.jpg`, `stills/storyboard-sheet-explainer.jpg` |
 | Guarantee seal | `stills/guarantee-seal.png` |
 | Both demo videos | Your downloaded files (not copied here, they are large) |
 
-Still to add by hand: a screenshot of the setup questions and one of the chat with a preview, for "How it works." Those need a real run on a computer, so they are not mocked.
+Still to add by hand: a screenshot of the setup questions, for "How it works." It needs a real run on a computer, so it is not mocked.
 
 ## LEFT OUT ON PURPOSE
 
