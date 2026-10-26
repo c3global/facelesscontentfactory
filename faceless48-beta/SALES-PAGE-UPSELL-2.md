@@ -57,7 +57,7 @@ So we put the editor inside the AI you already talk to.
 
 Plus batch rendering, to make several videos in one go.
 
-**[IMAGE]** `stills/tiles.jpg`: the nine-tile grid. Tile 4 (Life Scenes) is a stand-in until you send a real Life Scene frame.
+**[IMAGE]** `stills/tiles.jpg`: the nine-tile grid. Tiles now mix demo frames and your own frames (tiles 1, 2, 3, 4, 5, 7, 8 use your videos).
 
 **[BUTTON]** YES, ADD THE BETA TO MY ORDER FOR $97
 
@@ -281,6 +281,9 @@ All files are in `faceless48-beta/sales-page-assets/`. Every frame comes from yo
 | Formats | `stills/formats.jpg` |
 | Explainer frames | `stills/explainer-widescreen-a/b/c.jpg` |
 | Effect loops | `clips/effect-type-wall.mp4`, `effect-checklist.mp4`, `effect-clones.mp4`, `effect-statement-card.mp4` |
+| Own explainers | `stills/own-explainers-board.jpg` (seven frames), singles `stills/own/stick-1.png` to `stick-7.png` |
+| Own Life Scenes | `stills/own/life-scene-*.jpg` (the eight-frame sequence is `life-scene-seq-1` to `-8`) |
+| Own talking heads | `stills/own/talking-head-*.jpg`, `fx-*.jpg`, `card-flip.jpg`, `yap-in-car.jpg` |
 | From my own videos | `stills/own-videos-board.jpg` (single frames in `stills/own/`, including the in-car yap and the card flip), `stills/own/explainer-strip-own-character.png` |
 | Storyboard sheets | `stills/storyboard-sheet-talking-head.jpg`, `stills/storyboard-sheet-explainer.jpg` |
 | Guarantee seal | `stills/guarantee-seal.png` |
