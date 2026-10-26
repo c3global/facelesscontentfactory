@@ -21,7 +21,7 @@ The Faceless48 video production plug-in works inside Claude Code or Codex. Give 
 
 One-time beta price. Replace your video editor in 7 days or your money back.
 
-**[VIDEO]** Hero: the 63-second talking-head demo, vertical, autoplay muted with a play button for sound. Put it in a phone frame on the right of the headline.
+**[VIDEO]** Hero: the 63-second talking-head demo, vertical, autoplay muted with a play button for sound. Put it in a phone frame on the right of the headline. Poster image: `stills/hero-poster.jpg`.
 
 ---
 
@@ -57,7 +57,7 @@ So we put the editor inside the AI you already talk to.
 
 Plus batch rendering, to make several videos in one go.
 
-**[IMAGE]** A clean grid of nine tiles, one per item, each with a still from a real render (see the image list at the bottom).
+**[IMAGE]** `stills/tiles.jpg`: the nine-tile grid.
 
 **[BUTTON]** YES, ADD THE BETA TO MY ORDER FOR $97
 
@@ -93,7 +93,7 @@ Three caption styles, and 111 effects to place on any of them.
 
 Then tell Claude what to change until it feels like you. Make the captions bigger. Move them to the top. Try a different style.
 
-**[IMAGE]** One side-by-side: the same clip in three styles (Signature, Spotlight, Hype Reel), labeled.
+**[IMAGE]** `stills/styles-compare.jpg`: the same speaker and setup in Signature, Spotlight, and Hype Reel.
 
 ---
 
@@ -103,7 +103,7 @@ Then tell Claude what to change until it feels like you. Make the captions bigge
 
 Animated text and cards. Zooms. Spotlights. Orbiting elements. Clones. Phone and checklist graphics. Charts. Transitions. End cards.
 
-**[IMAGE or VIDEO]** Four short looping clips side by side: a spotlight, a checklist ticking, a type wall, a card flip. Label each. Use frames from your own demo renders.
+**[VIDEO]** Four short looping clips side by side, labeled: Type wall, Checklist, Clones, Statement card (`clips/effect-*.mp4`).
 
 ---
 
@@ -136,7 +136,7 @@ Describe the video in chat. The plug-in builds the plan, checks it, shows a prev
 
 Reels, Shorts, TikTok, and YouTube. Shooting vertical or horizontal, it works.
 
-**[IMAGE]** One vertical phone frame and one widescreen frame, side by side, each showing an edit.
+**[IMAGE]** `stills/formats.jpg`: one vertical frame and one widescreen frame.
 
 ---
 
@@ -146,7 +146,7 @@ Your colors. Your logo. Your fonts. Your finish: gold, rose gold, silver, or cop
 
 You answer the setup questions one time, and every video after that looks like you.
 
-**[IMAGE]** Two swatch cards showing the same video in two different brand setups, for example a gold finish and a silver finish.
+**[IMAGE]** `stills/brand-compare.jpg`: the same video in two brand setups.
 
 ---
 
@@ -175,7 +175,7 @@ If this plug-in doesn't replace your video editor within 7 days of your purchase
 
 You have a full week with it in your hands and nine walkthrough videos to help. If it isn't doing the job, you get your money back.
 
-**[IMAGE]** A simple seal: "7-Day Money-Back Guarantee."
+**[IMAGE]** `stills/guarantee-seal.png` (transparent background).
 
 ---
 
@@ -265,21 +265,24 @@ Try it for 7 days. If it doesn't replace your editor, you get your money back.
 
 ---
 
-## IMAGE AND VIDEO LIST (for Kai, or for me to render from your demos)
+## IMAGE AND VIDEO FILES
 
-| # | Where | What | Source |
-|---|-------|------|--------|
-| 1 | Hero | 63-second talking-head demo in a phone frame | Your downloaded demo file |
-| 2 | Whole studio | Nine tiles, one still per feature | Frames from the two demos, plus one yap and one Life Scene |
-| 3 | See what it makes | Both demos embedded as videos | Your downloaded demo files |
-| 4 | You pick | Same clip in Signature, Spotlight, and Hype Reel, side by side | Render from the demo footage |
-| 5 | Effects | Four looping clips: spotlight, checklist, type wall, card flip | Cut from the demo renders |
-| 6 | How it works | Setup questions, a chat with a preview, the finished video | Screenshots from a real run |
-| 7 | Not just reels | One vertical phone, one widescreen frame | Frames from the two demos |
-| 8 | Brand set once | Same video in a gold finish and a silver finish | Render from the demo footage |
-| 9 | Guarantee | 7-day seal | Kai or Canva |
+All files are in `faceless48-beta/sales-page-assets/`. Every frame comes from your own demo renders, so each one shows what the plug-in really makes.
 
-Real frames beat mock-ups here. They are proof, and mock-ups are not. Do not use stock phone mock-ups to fake product screens.
+| Where | File |
+|-------|------|
+| Hero poster | `stills/hero-poster.jpg` |
+| Nine-tile grid | `stills/tiles.jpg` |
+| Styles side by side | `stills/styles-compare.jpg` (singles: `style-signature`, `style-spotlight`, `style-hype-reel`, `style-quiet-authority`, `style-show-and-tell`) |
+| Yap look | `stills/yap-style.jpg` |
+| Brand compare | `stills/brand-compare.jpg` (singles: `brand-purple-copper`, `brand-teal-silver`) |
+| Formats | `stills/formats.jpg` |
+| Explainer frames | `stills/explainer-widescreen-a/b/c.jpg` |
+| Effect loops | `clips/effect-type-wall.mp4`, `effect-checklist.mp4`, `effect-clones.mp4`, `effect-statement-card.mp4` |
+| Guarantee seal | `stills/guarantee-seal.png` |
+| Both demo videos | Your downloaded files (not copied here, they are large) |
+
+Still to add by hand: a screenshot of the setup questions and one of the chat with a preview, for "How it works." Those need a real run on a computer, so they are not mocked.
 
 ## LEFT OUT ON PURPOSE
 
