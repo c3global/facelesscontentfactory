@@ -65,6 +65,8 @@ Plus batch rendering, to make several videos in one go.
 
 ## 5. SEE WHAT IT MAKES
 
+**[IMAGE]** After the two demos, add `stills/own-videos-board.jpg` under the line "From my own videos." These frames come from Dr. CK's own channel and the editing system this plug-in grew from, so the caption says "edited with this editing system," not "made with the beta plug-in." Keep that wording.
+
 Both of these videos were produced with this plug-in.
 
 **[VIDEO]** Talking head, vertical, 63 seconds. Caption: *Kinetic captions, graphics timed to the spoken words, cutaways, and the speaker placed in front of the graphics.*
@@ -279,6 +281,7 @@ All files are in `faceless48-beta/sales-page-assets/`. Every frame comes from yo
 | Formats | `stills/formats.jpg` |
 | Explainer frames | `stills/explainer-widescreen-a/b/c.jpg` |
 | Effect loops | `clips/effect-type-wall.mp4`, `effect-checklist.mp4`, `effect-clones.mp4`, `effect-statement-card.mp4` |
+| From my own videos | `stills/own-videos-board.jpg` (single frames in `stills/own/`, including the in-car yap and the card flip), `stills/own/explainer-strip-own-character.png` |
 | Storyboard sheets | `stills/storyboard-sheet-talking-head.jpg`, `stills/storyboard-sheet-explainer.jpg` |
 | Guarantee seal | `stills/guarantee-seal.png` |
 | Both demo videos | Your downloaded files (not copied here, they are large) |
