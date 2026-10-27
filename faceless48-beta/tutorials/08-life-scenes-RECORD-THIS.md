@@ -19,7 +19,7 @@ Three finished Life Scenes (a text-message overlay, a note, a notification stack
 
 ## Read this
 
-Hi, it's Dr. CK. A Life Scene is a short cinematic clip with a message on it. It has no talking head. The words on the screen are the point. They turn a pretty clip into something people remember.
+Welcome to lesson eight. This one is called a Life Scene, and I made that name up, so let me tell you exactly what it is. A Life Scene is a few seconds of your life, animated: a still image that moves just enough to show a moment, with a few words of text on it.
 
 Where do the clips come from? Google Flow, Veo, Seedance or Kling, stock footage, or your own camera. If a clip has its own music or speech baked in, listen to it first.
 
