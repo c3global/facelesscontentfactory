@@ -1,7 +1,7 @@
 # Tutorial 7: Animated explainers. Your recording
 
 **What to record:** your voice only, reading the text below. No screen, no camera.
-**Length:** about 363 words, roughly 6 to 7 minutes at a relaxed pace.
+**Length:** about 363 words, roughly 3 minutes at a relaxed pace.
 
 ## How to record
 - A quiet room, your normal speaking pace, one take you like. Mistakes are fine: say the line again and keep going. I cut the repeats.
