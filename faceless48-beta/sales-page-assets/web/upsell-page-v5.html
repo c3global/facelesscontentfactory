@@ -406,7 +406,7 @@
     .wall { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
     @media (min-width:640px){ .wall{ grid-template-columns:repeat(4,1fr);} }
     @media (min-width:1024px){ .wall{ grid-template-columns:repeat(5,1fr);} }
-    .wt { position:relative; aspect-ratio:9/16; border-radius:16px; overflow:hidden; cursor:pointer; border:1px solid var(--color-card-border); background-color:#120D24; background-size:500% 300%; transition:transform .2s, border-color .2s; padding:0; }
+    .wt { position:relative; aspect-ratio:9/16; border-radius:16px; overflow:hidden; cursor:pointer; border:1px solid var(--color-card-border); background-color:#120D24; background-size:400% 400%; transition:transform .2s, border-color .2s; padding:0; }
     .wt:hover { transform:translateY(-3px); border-color:var(--color-accent); }
     .wt::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(18,13,36,0) 55%, rgba(18,13,36,.85) 100%); }
     .wt .pl { position:absolute; z-index:2; top:50%; left:50%; width:54px; height:54px; margin:-27px 0 0 -27px; border-radius:50%; background:rgba(18,13,36,.65); border:1.5px solid var(--color-accent-light); display:flex; align-items:center; justify-content:center; }
@@ -415,7 +415,7 @@
     .fxgrid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
     @media (min-width:640px){ .fxgrid{ grid-template-columns:repeat(4,1fr);} }
     @media (min-width:1024px){ .fxgrid{ grid-template-columns:repeat(6,1fr);} }
-    .fx { position:relative; aspect-ratio:9/16; border-radius:14px; overflow:hidden; border:1px solid var(--color-card-border); background-color:#120D24; background-size:1100% 700%; }
+    .fx { position:relative; aspect-ratio:9/16; border-radius:14px; overflow:hidden; border:1px solid var(--color-card-border); background-color:#120D24; }
     .fx .nm { position:absolute; z-index:3; left:8px; right:8px; bottom:8px; font-family:var(--font-mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:700; color:#F2D7BD; background:rgba(18,13,36,.88); padding:6px 8px; border-radius:7px; }
     .lz { background-color:#120D24; background-size:cover; }
     .lz video, .fx video { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .3s; z-index:1; }
@@ -465,7 +465,7 @@
         <span class="mono-label text-accent hidden sm:inline">Beta</span>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start lg:items-center">
 
         <!-- Left: headline, pitch, CTA -->
         <div class="lg:col-span-7">
@@ -579,7 +579,7 @@
           <div class="sheet-item lg:border-l lg:first:border-l-0 flex-col" style="border-color: rgba(15,10,30,0.1);">
             <div class="w-full">
               <span class="sheet-n block mb-2" aria-hidden="true">01</span>
-              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4GY1SVV020HWW7FAJYE11.webp) 0% 0%/300% 300% no-repeat;border-radius:8px"></div>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB47XG56C15V6ZENEHN6TT.webp) 0 0%/100% 300% no-repeat;border-radius:8px"></div>
               <h3>Talking-head edits</h3>
               <p>Vertical or horizontal clips made from <b>your own footage</b>, with captions, timed graphics, and cutaways.</p>
             </div>
@@ -587,7 +587,7 @@
           <div class="sheet-item flex-col" style="border-color: rgba(15,10,30,0.1);">
             <div class="w-full">
               <span class="sheet-n block mb-2" aria-hidden="true">02</span>
-              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4GY1SVV020HWW7FAJYE11.webp) 50% 0%/300% 300% no-repeat;border-radius:8px"></div>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB4943E2WTFKYB5ATJST0J.webp) 0 0%/100% 300% no-repeat;border-radius:8px"></div>
               <h3>Animated explainers</h3>
               <p>A stick-figure character drawn for you, or bring your own art. <b>Five layouts:</b> Compare, Numbered List, Layers, Load versus Capacity, and Process or Loop.</p>
             </div>
@@ -595,7 +595,7 @@
           <div class="sheet-item flex-col" style="border-color: rgba(15,10,30,0.1);">
             <div class="w-full">
               <span class="sheet-n block mb-2" aria-hidden="true">03</span>
-              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4GY1SVV020HWW7FAJYE11.webp) 100% 0%/300% 300% no-repeat;border-radius:8px"></div>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB4AB6KGN7KEZE7ZFT0HCR.webp) 0 0%/100% 300% no-repeat;border-radius:8px"></div>
               <h3>Yaps</h3>
               <p>A lighter edit for casual videos. It <b>trims the long pauses</b> and adds clean captions and a music bed.</p>
             </div>
@@ -603,7 +603,7 @@
           <div class="sheet-item flex-col lg:border-l" style="border-color: rgba(15,10,30,0.1);">
             <div class="w-full">
               <span class="sheet-n block mb-2" aria-hidden="true">04</span>
-              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4GY1SVV020HWW7FAJYE11.webp) 0% 50%/300% 300% no-repeat;border-radius:8px"></div>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB47XG56C15V6ZENEHN6TT.webp) 0 50%/100% 300% no-repeat;border-radius:8px"></div>
               <h3>Life Scenes</h3>
               <p>Short scenes built to <b>sit between your talking points.</b></p>
             </div>
@@ -611,7 +611,7 @@
           <div class="sheet-item flex-col" style="border-color: rgba(15,10,30,0.1);">
             <div class="w-full">
               <span class="sheet-n block mb-2" aria-hidden="true">05</span>
-              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4GY1SVV020HWW7FAJYE11.webp) 50% 50%/300% 300% no-repeat;border-radius:8px"></div>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB4943E2WTFKYB5ATJST0J.webp) 0 50%/100% 300% no-repeat;border-radius:8px"></div>
               <h3>111 effects</h3>
               <p>Animated text and cards, zooms, spotlights, orbiting elements, clones, phone and checklist graphics, charts, transitions, and end cards.</p>
             </div>
@@ -619,7 +619,7 @@
           <div class="sheet-item flex-col" style="border-color: rgba(15,10,30,0.1);">
             <div class="w-full">
               <span class="sheet-n block mb-2" aria-hidden="true">06</span>
-              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4GY1SVV020HWW7FAJYE11.webp) 100% 50%/300% 300% no-repeat;border-radius:8px"></div>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB4AB6KGN7KEZE7ZFT0HCR.webp) 0 50%/100% 300% no-repeat;border-radius:8px"></div>
               <h3>Your brand, set once</h3>
               <p>Colors, fonts, logo, and a <b>gold, rose gold, silver, or copper finish.</b></p>
             </div>
@@ -627,7 +627,7 @@
           <div class="sheet-item flex-col lg:border-l" style="border-color: rgba(15,10,30,0.1);">
             <div class="w-full">
               <span class="sheet-n block mb-2" aria-hidden="true">07</span>
-              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4GY1SVV020HWW7FAJYE11.webp) 0% 100%/300% 300% no-repeat;border-radius:8px"></div>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB47XG56C15V6ZENEHN6TT.webp) 0 100%/100% 300% no-repeat;border-radius:8px"></div>
               <h3>Captions timed to your words</h3>
               <p>Choose your caption style during setup and <b>change it any time.</b></p>
             </div>
@@ -635,7 +635,7 @@
           <div class="sheet-item flex-col" style="border-color: rgba(15,10,30,0.1);">
             <div class="w-full">
               <span class="sheet-n block mb-2" aria-hidden="true">08</span>
-              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4GY1SVV020HWW7FAJYE11.webp) 50% 100%/300% 300% no-repeat;border-radius:8px"></div>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB4943E2WTFKYB5ATJST0J.webp) 0 100%/100% 300% no-repeat;border-radius:8px"></div>
               <h3>A storyboard and a built-in checker</h3>
               <p>See your whole video as numbered frames, in order, and <b>approve it before it renders.</b> The checker flags captions that cover a graphic, captions that repeat what is on screen, and effects that land on the wrong word.</p>
             </div>
@@ -643,7 +643,7 @@
           <div class="sheet-item flex-col" style="border-color: rgba(15,10,30,0.1);">
             <div class="w-full">
               <span class="sheet-n block mb-2" aria-hidden="true">09</span>
-              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4GY1SVV020HWW7FAJYE11.webp) 100% 100%/300% 300% no-repeat;border-radius:8px"></div>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:16/10;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB4AB6KGN7KEZE7ZFT0HCR.webp) 0 100%/100% 300% no-repeat;border-radius:8px"></div>
               <h3>Music mixing</h3>
               <p>Your music sits under your voice and <b>fades out cleanly at the end.</b></p>
             </div>
@@ -820,22 +820,18 @@
         <span class="slate-line" aria-hidden="true"></span>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-        <div>
-          <h2 class="font-display uppercase text-white leading-[0.9] text-[44px] sm:text-[56px]" id="formath">
-            Not just for reels.
-          </h2>
-          <p class="text-[16px] leading-[1.8] mt-6 max-w-md" style="color: #E8E4FF;">
-            Reels, Shorts, TikTok, and YouTube. <b class="text-white">Shooting vertical or horizontal, it works.</b>
-          </p>
+      <h2 class="font-display uppercase text-white leading-[0.9] text-[44px] sm:text-[56px]" id="formath">
+        Not just for reels.
+      </h2>
+      <p class="text-[16px] leading-[1.8] mt-6 max-w-xl" style="color: #E8E4FF;">
+        Reels, Shorts, TikTok, and YouTube. <b class="text-white">Shooting vertical or horizontal, it works.</b>
+      </p>
+      <div class="grid grid-cols-12 gap-4 sm:gap-6 items-center mt-10">
+        <div class="screen-frame col-span-8">
+          <div class="relative rounded-xl overflow-hidden lz" data-v="ex-three-things-l" data-s="3" style="aspect-ratio: 16/9;"></div>
         </div>
-        <div class="grid grid-cols-2 gap-4 items-center">
-          <div class="phone-frame">
-            <div class="relative rounded-[20px] overflow-hidden lz" data-v="th-reverse-joined" data-s="3" style="aspect-ratio: 9/16;"></div>
-          </div>
-          <div class="screen-frame">
-            <div class="relative rounded-xl overflow-hidden lz" data-v="ex-three-things-l" data-s="3" style="aspect-ratio: 16/9;"></div>
-          </div>
+        <div class="phone-frame col-span-4">
+          <div class="relative rounded-[20px] overflow-hidden lz" data-v="th-reverse-joined" data-s="3" style="aspect-ratio: 9/16;"></div>
         </div>
       </div>
     </div>
@@ -861,8 +857,8 @@
         You answer the setup questions one time, and every video after that looks like you.
       </p>
 
-      <img src="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4D03SHMTX9MC1MFDFYZ2A.webp" alt="The same card in gold, rose gold, silver and copper finishes" style="width:100%;max-width:880px;margin:2.5rem auto 0;display:block;border-radius:16px">
-      <p class="mono-label mt-4 text-center" style="color: var(--color-inverted-muted); font-size: 10px;">Same video, four finishes: gold, rose gold, silver, copper</p>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:880px;margin:2.5rem auto 0"><figure style="margin:0;background:#120D24;border-radius:14px;overflow:hidden"><img src="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB4BEZ0KN0YTRDQZWHBHSQ.webp" alt="Gold finish" loading="lazy" style="width:100%;display:block"><figcaption class="mono-label" style="color:#F2D7BD;font-size:10px;text-align:center;padding:10px 0">GOLD</figcaption></figure><figure style="margin:0;background:#120D24;border-radius:14px;overflow:hidden"><img src="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB4CKRPDPGT65W74EWZ5VQ.webp" alt="Rose Gold finish" loading="lazy" style="width:100%;display:block"><figcaption class="mono-label" style="color:#F2D7BD;font-size:10px;text-align:center;padding:10px 0">ROSE GOLD</figcaption></figure><figure style="margin:0;background:#120D24;border-radius:14px;overflow:hidden"><img src="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB4DQNNE5W7RB1KENH3CP3.webp" alt="Silver finish" loading="lazy" style="width:100%;display:block"><figcaption class="mono-label" style="color:#F2D7BD;font-size:10px;text-align:center;padding:10px 0">SILVER</figcaption></figure><figure style="margin:0;background:#120D24;border-radius:14px;overflow:hidden"><img src="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB4ETTA25A9ZW85TBDERTE.webp" alt="Copper finish" loading="lazy" style="width:100%;display:block"><figcaption class="mono-label" style="color:#F2D7BD;font-size:10px;text-align:center;padding:10px 0">COPPER</figcaption></figure></div>
+      <p class="mono-label mt-4 text-center" style="color: var(--color-inverted-muted); font-size: 10px;">Same card, four finishes: gold, rose gold, silver, copper</p>
     </div>
   </section>
 
@@ -975,6 +971,14 @@
           One-time payment of <span data-funnel-price="offer:primary">$97</span>
         </p>
       </div>
+
+      <div class="grid grid-cols-4 gap-2 sm:gap-3 max-w-xl mx-auto mb-8">
+        <div class="relative rounded-xl overflow-hidden lz" data-v="th-test" data-s="3" style="aspect-ratio: 9/16;"></div>
+        <div class="relative rounded-xl overflow-hidden lz" data-v="ls-text-message" data-s="3" style="aspect-ratio: 9/16;"></div>
+        <div class="relative rounded-xl overflow-hidden lz" data-v="yap-quiet-room" data-s="3" style="aspect-ratio: 9/16;"></div>
+        <div class="relative rounded-xl overflow-hidden lz" data-v="ex-quick-or-quiet-p" data-s="3" style="aspect-ratio: 9/16;"></div>
+      </div>
+      <p class="mono-label text-accent text-center mb-10">A talking head, a Life Scene, a yap, and an explainer. All made with this plug-in.</p>
 
       <div class="sheet p-6 sm:p-10">
         <div class="flex items-center justify-between pb-4" style="border-bottom: 1px solid rgba(15,10,30,0.12);">
@@ -1199,8 +1203,8 @@
   <div class="lbox" id="lbox" role="dialog" aria-modal="true" aria-label="Video player"><button id="lbclose" aria-label="Close">&times;</button></div>
   <script>
   (function(){
-    var WU={"th-four-places": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4DS1EVDHW8W1BK2SAYCPR.mp4", "th-reverse-joined": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4DVKJWAM8PJXW2D7YTZPN.mp4", "th-test": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4DXTW3Y9SBQKWEZPV69SQ.mp4", "yap-car": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4E01AX39T57BWC0RDA91H.mp4", "yap-quiet-room": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4E2BYHRZGXA6T71DTMJTH.mp4", "ls-text-message": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4E403ZCRVBH62TCKJT363.mp4", "ls-handwritten-note": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4E5RXDFJ7GD5ZDR4N0PP4.mp4", "ls-voice-memo": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4EW18YCMSP331E7VVBTZR.mp4", "ex-three-things-p": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4F8CEPT8XYK9EE22R516Z.mp4", "ex-quick-or-quiet-p": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4F10FNQH6S6T3YCW9CAMX.mp4", "ex-trust-a-green-p": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4FDARYBDP7X1S1A6MHYT8.mp4", "ex-equity-theory-p": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4EY7XGQ97QPR048VJ2MP6.mp4", "ex-small-business-p": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4F3HSNMK7AG2P3ZNR3D3S.mp4", "ex-three-things-l": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4F5Y8PPK4T1WCZ57BJ85G.mp4", "ex-trust-a-green-l": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4FAYPMCR4R6QVVQ7M6FQ7.mp4"},FX={"a": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CMXT3PYRBZHPP97KWHS6.mp4", "b": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CQ93EQ3TY6NJTYDM4EXG.mp4", "c": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CSA26FRV9G1NVG4B4G21.mp4", "d": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CV256K3AVBQBSHDJHCX3.mp4", "e": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CX14VF51VASFD9G00W3F.mp4", "f": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CZ3PGE70E4YPYPGVQHVN.mp4"}, WALL=["th-four-places", "th-reverse-joined", "th-test", "yap-car", "yap-quiet-room", "ls-text-message", "ls-handwritten-note", "ls-voice-memo", "ex-three-things-p", "ex-quick-or-quiet-p", "ex-trust-a-green-p", "ex-equity-theory-p", "ex-small-business-p", "ex-three-things-l", "ex-trust-a-green-l"], WT=["Talking head", "Talking head", "Talking head", "Yap", "Yap", "Life Scene", "Life Scene", "Life Scene", "Explainer", "Explainer", "Explainer", "Explainer", "Explainer", "Explainer", "Explainer"], WO=["p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "l", "l"], WP="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4MJ2MY4GJ3Y6H85KAEREF.webp", FP="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CJPZ41NB7B91DQF8W9JV.webp";
-    var FXD=[["a","Tag",0,4.35,"text"],["a","Floating chips",0,4.35,"text"],["a","Chapter card",3.85,8.35,"text"],["a","Notification stack",7.85,12.25,"ui"],["a","Hub diagram",11.85,16.25,"text"],["a","Headline card",15.85,20.25,"text"],["a","Meeting tile",19.85,24.25,"ui"],["a","Chat UI",23.85,28.25,"ui"],["a","Rewrite card",27.85,32.25,"text"],["a","Statement card",31.85,36.35,"text"],["a","Citation card",35.85,40.35,"text"],["a","Notes card",39.85,44.35,"text"],["a","Screenshot card",43.85,48.35,"text"],["a","Quiet feed",47.85,52.35,"text"],["a","Congruence map",51.85,56.35,"text"],["a","Comment-keyword end card",55.75,59.55,"ui"],["a","Link-pill end card",58.95,62.85,"ui"],["b","Freeze sticker",0.05,4.35,"text"],["b","Sticky text",6.65,9.65,"text"],["b","Odometer",9.15,13.35,"ui"],["b","Freeze label",12.95,16.85,"text"],["b","The stack",17.95,22.95,"ui"],["b","Pointer callout",24.35,28.75,"text"],["b","Before and after",28.15,32.15,"camera"],["b","Phone mockup",31.75,36.35,"ui"],["b","Chart grow",35.95,39.95,"ui"],["b","Checklist",39.45,44.45,"ui"],["b","Pull-back reveal",46.05,50.25,"camera"],["b","Comment bubble",49.75,54.75,"ui"],["b","Timeline burn",54.75,58.25,"ui"],["c","Date stamp",0.05,3.55,"text"],["c","Flash frame",1.75,3.55,"camera"],["c","Pull-back (camera)",3.15,5.95,"camera"],["c","Color grade",5.65,10.55,"color"],["c","Before and after",10.15,12.75,"camera"],["c","Freeze and hold",12.25,14.65,"camera"],["c","Glow",14.95,19.95,"color"],["c","Dust",19.75,24.75,"color"],["c","Timeline burn",19.75,24.75,"ui"],["c","Letterbox",24.25,29.25,"camera"],["c","Color grade",29.95,33.35,"color"],["c","Voice memo",32.75,37.75,"ui"],["c","Notes page",40.95,45.95,"ui"],["c","Lock-screen notification",50.55,54.35,"ui"],["c","Polaroid drop",53.95,57.95,"ui"],["c","Email compose",57.75,62.65,"ui"],["d","Paper cut",2.75,7.35,"text"],["d","Doodle boil",8.75,13.75,"text"],["d","Vertigo",19.75,23.85,"camera"],["d","Glass type",35.75,40.75,"text"],["e","Digital zoom",1.25,4.35,"camera"],["e","Zoom-through cut",5.25,7.05,"camera"],["e","Blackout",8.75,10.55,"camera"],["e","Spotlight",11.75,15.35,"behind"],["e","Headline wall",15.75,19.35,"behind"],["e","The stack",19.75,24.35,"ui"],["e","Sticky text",24.75,28.35,"text"],["e","Odometer",28.75,32.95,"ui"],["e","UI world",33.75,38.75,"ui"],["e","Comment bubble",39.75,44.75,"ui"],["e","Freeze sticker",45.75,49.55,"text"],["e","Timeline burn",49.75,54.75,"ui"],["e","Flash frame",55.75,57.55,"camera"],["e","Lock-screen notification",57.25,61.25,"ui"],["f","Digital zoom",0.05,3.35,"camera"],["f","Zoom-through cut",5.25,7.05,"camera"],["f","Blackout",7.25,9.05,"camera"],["f","Headline wall",12.25,15.45,"behind"],["f","Spotlight",17.35,22.35,"behind"],["f","Orbit",22.15,24.75,"behind"],["f","Couch wall",24.35,29.35,"behind"],["f","Clone",30.05,33.35,"behind"],["f","Type wall",34.45,38.35,"behind"],["f","UI world",41.65,46.65,"ui"],["f","Knockout tiles",46.75,50.85,"behind"],["f","Green screen",50.55,53.75,"behind"],["f","Frame break",53.25,56.65,"behind"]], CATS={"text": "Text & cards", "camera": "Camera moves", "behind": "Behind you", "ui": "Phone & UI", "color": "Color & mood"};
+    var WU={"th-four-places": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4DS1EVDHW8W1BK2SAYCPR.mp4", "th-reverse-joined": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4DVKJWAM8PJXW2D7YTZPN.mp4", "th-test": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4DXTW3Y9SBQKWEZPV69SQ.mp4", "yap-car": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4E01AX39T57BWC0RDA91H.mp4", "yap-quiet-room": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4E2BYHRZGXA6T71DTMJTH.mp4", "ls-text-message": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4E403ZCRVBH62TCKJT363.mp4", "ls-handwritten-note": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4E5RXDFJ7GD5ZDR4N0PP4.mp4", "ls-voice-memo": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4EW18YCMSP331E7VVBTZR.mp4", "ex-three-things-p": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4F8CEPT8XYK9EE22R516Z.mp4", "ex-quick-or-quiet-p": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4F10FNQH6S6T3YCW9CAMX.mp4", "ex-trust-a-green-p": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4FDARYBDP7X1S1A6MHYT8.mp4", "ex-equity-theory-p": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4EY7XGQ97QPR048VJ2MP6.mp4", "ex-small-business-p": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4F3HSNMK7AG2P3ZNR3D3S.mp4", "ex-three-things-l": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4F5Y8PPK4T1WCZ57BJ85G.mp4", "ex-trust-a-green-l": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4FAYPMCR4R6QVVQ7M6FQ7.mp4"},FX={"a": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CMXT3PYRBZHPP97KWHS6.mp4", "b": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CQ93EQ3TY6NJTYDM4EXG.mp4", "c": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CSA26FRV9G1NVG4B4G21.mp4", "d": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CV256K3AVBQBSHDJHCX3.mp4", "e": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CX14VF51VASFD9G00W3F.mp4", "f": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CZ3PGE70E4YPYPGVQHVN.mp4"}, WALL=["th-four-places", "th-reverse-joined", "th-test", "yap-car", "yap-quiet-room", "ls-text-message", "ls-handwritten-note", "ls-voice-memo", "ex-three-things-p", "ex-quick-or-quiet-p", "ex-trust-a-green-p", "ex-equity-theory-p", "ex-small-business-p", "ex-three-things-l", "ex-trust-a-green-l"], WT=["Talking head", "Talking head", "Talking head", "Yap", "Yap", "Life Scene", "Life Scene", "Life Scene", "Explainer", "Explainer", "Explainer", "Explainer", "Explainer", "Explainer", "Explainer"], WO=["p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "l", "l"], WP="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB46NY1QM8TT7CEDV9GDJB.webp", FP=["https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB42R6J0R9A8MQYBKVNVGN.webp","https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB452M5R1H5RK7DDFX27CY.webp"];
+    var FXD=[["a","Tag",0,4.35,"text"],["a","Floating chips",0,4.35,"text"],["a","Chapter card",3.85,8.35,"text"],["a","Notification stack",7.85,12.25,"ui"],["a","Hub diagram",11.85,16.25,"text"],["a","Headline card",15.85,20.25,"text"],["a","Meeting tile",19.85,24.25,"ui"],["a","Chat UI",23.85,28.25,"ui"],["a","Rewrite card",27.85,32.25,"text"],["a","Statement card",31.85,36.35,"text"],["a","Citation card",35.85,40.35,"text"],["a","Notes card",39.85,44.35,"text"],["a","Screenshot card",43.85,48.35,"text"],["a","Quiet feed",47.85,52.35,"text"],["a","Congruence map",51.85,56.35,"text"],["a","Comment-keyword end card",55.75,59.55,"ui"],["a","Link-pill end card",58.95,62.85,"ui"],["b","Freeze sticker",0.05,4.35,"text"],["b","Sticky text",6.65,9.65,"text"],["b","Odometer",9.15,13.35,"ui"],["b","Freeze label",12.95,16.85,"text"],["b","The stack",17.95,22.95,"ui"],["b","Pointer callout",24.35,28.75,"text"],["b","Before and after",28.15,32.15,"camera"],["b","Phone mockup",31.75,36.35,"ui"],["b","Chart grow",35.95,39.95,"ui"],["b","Checklist",39.45,44.45,"ui"],["b","Pull-back reveal",46.05,50.25,"camera"],["b","Comment bubble",49.75,54.75,"ui"],["b","Timeline burn",54.75,58.25,"ui"],["c","Date stamp",0.05,3.55,"text"],["c","Flash frame",1.75,3.55,"camera"],["c","Pull-back (camera)",3.15,5.95,"camera"],["c","Color grade",5.65,10.55,"color"],["c","Freeze and hold",12.25,14.65,"camera"],["c","Glow",14.95,19.95,"color"],["c","Dust",19.75,24.75,"color"],["c","Letterbox",24.25,29.25,"camera"],["c","Voice memo",32.75,37.75,"ui"],["c","Notes page",40.95,45.95,"ui"],["c","Lock-screen notification",50.55,54.35,"ui"],["c","Polaroid drop",53.95,57.95,"ui"],["c","Email compose",57.75,62.65,"ui"],["d","Paper cut",2.75,7.35,"text"],["d","Doodle boil",8.75,13.75,"text"],["d","Vertigo",19.75,23.85,"camera"],["d","Glass type",35.75,40.75,"text"],["e","Digital zoom",1.25,4.35,"camera"],["e","Zoom-through cut",5.25,7.05,"camera"],["e","Blackout",8.75,10.55,"camera"],["e","Spotlight",11.75,15.35,"behind"],["e","Headline wall",15.75,19.35,"behind"],["e","UI world",33.75,38.75,"ui"],["f","Orbit",22.15,24.75,"behind"],["f","Couch wall",24.35,29.35,"behind"],["f","Clone",30.05,33.35,"behind"],["f","Type wall",34.45,38.35,"behind"],["f","Knockout tiles",46.75,50.85,"behind"],["f","Green screen",50.55,53.75,"behind"],["f","Frame break",53.25,56.65,"behind"]], CATS={"text": "Text & cards", "camera": "Camera moves", "behind": "Behind you", "ui": "Phone & UI", "color": "Color & mood"};
     var $=function(s){return document.querySelector(s)};
     function mk(t,c,h){var e=document.createElement(t); if(c)e.className=c; if(h)e.innerHTML=h; return e;}
     /* lazy playback: one shared video file per demo, each tile plays only its own window */
@@ -1216,18 +1220,18 @@
         el.insertBefore(v,el.firstChild); el._v=v; }
       var p=el._v.play(); if(p&&p.catch)p.catch(function(){});
       active=active.filter(function(a){return a!==el}); active.push(el);
-      while(active.length>6){var old=active.shift(); drop(old)}
+      while(active.length>12){var old=active.shift(); drop(old)}
     }
     function stop(el){ if(el._v) el._v.pause(); }
     function drop(el){ if(el._v){el._v.pause(); el._v.removeAttribute('src'); el._v.load(); el._v.remove(); el._v=null;} }
     function lazy(el,src){ el._src=src; if(io){io.observe(el)} }
-    function mix(n,key){var g={},ks=[],out=[]; for(var i=0;i<n;i++){var k=key(i); if(!g[k]){g[k]=[];ks.push(k)} g[k].push(i)} var more=true; while(more){more=false; ks.forEach(function(k){if(g[k].length){out.push(g[k].shift()); more=true}})} return out;}
+    function mix(n,key){var g={},items=[]; for(var i=0;i<n;i++){var k=key(i); (g[k]=g[k]||[]).push(i)} Object.keys(g).forEach(function(k){var a=g[k]; a.forEach(function(v,r){items.push([(r+0.5)/a.length,k,v])})}); items.sort(function(a,b){return a[0]-b[0]||(a[1]<b[1]?-1:1)}); return items.map(function(x){return x[2]})}
     /* video wall */
     var wall=$('#wall'), chips=$('#wallchips');
     var types=['All','Talking head','Yap','Life Scene','Explainer'];
     mix(WALL.length,function(i){return WT[i]}).forEach(function(i){
       var k=WALL[i]; var b=mk('button','wt'); b.type='button'; b.dataset.t=WT[i]; b.setAttribute('aria-label','Play '+WT[i]+' video');
-      b.style.backgroundImage='url('+WP+')'; b.style.backgroundPosition=((i%5)*25)+'% '+(Math.floor(i/5)*50)+'%';
+      b.style.backgroundImage='url('+WP+')'; b.style.backgroundPosition=((i%4)*(100/3))+'% '+(Math.floor(i/4)*(100/3))+'%';
       b.innerHTML='<span class="pl"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="lb">'+WT[i]+(WO[i]==='l'?' · widescreen':'')+'</span>';
       b.addEventListener('click',function(){openBox(k)}); wall.appendChild(b);
     });
@@ -1242,8 +1246,8 @@
     /* effects gallery */
     var grid=$('#fxgrid'), fc=$('#fxchips');
     mix(FXD.length,function(i){return FXD[i][4]}).forEach(function(i){
-      var d=FXD[i]; var el=mk('div','fx'); el.dataset.c=d[4]; el.dataset.s=d[2]; el.dataset.e=d[3]; el.style.backgroundImage='url('+FP+')';
-      el.style.backgroundPosition=((i%11)*10)+'% '+(Math.floor(i/11)*(100/6))+'%';
+      var d=FXD[i]; var el=mk('div','fx'); el.dataset.c=d[4]; el.dataset.s=d[2]; el.dataset.e=d[3]; var s=i<32?0:1, j=i<32?i:i-32, rows=s?7:8; el.style.backgroundImage='url('+FP[s]+')'; el.style.backgroundSize='400% '+(rows*100)+'%';
+      el.style.backgroundPosition=((j%4)*(100/3))+'% '+(Math.floor(j/4)*(100/(rows-1)))+'%';
       el.appendChild(mk('span','nm',d[1])); grid.appendChild(el); lazy(el,FX[d[0]]);
     });
     var keys=['all'].concat(Object.keys(CATS));
@@ -1251,7 +1255,7 @@
       c.addEventListener('click',function(){[].forEach.call(fc.children,function(x){x.setAttribute('aria-selected','false')}); c.setAttribute('aria-selected','true');
         [].forEach.call(grid.children,function(g){var on=(k==='all'||g.dataset.c===k); g.style.display=on?'':'none'; if(!on)stop(g)})}); fc.appendChild(c)});
     /* formats videos */
-    [].forEach.call(document.querySelectorAll('.lz'),function(el){ el.style.backgroundImage='url('+WP+')'; el.style.backgroundSize='500% 300%'; var i=WALL.indexOf(el.dataset.v); el.style.backgroundPosition=((i%5)*25)+'% '+(Math.floor(i/5)*50)+'%'; lazy(el,WU[el.dataset.v]); });
+    [].forEach.call(document.querySelectorAll('.lz'),function(el){ el.style.backgroundImage='url('+WP+')'; el.style.backgroundSize='400% 400%'; var i=WALL.indexOf(el.dataset.v); el.style.backgroundPosition=((i%4)*(100/3))+'% '+(Math.floor(i/4)*(100/3))+'%'; lazy(el,WU[el.dataset.v]); });
   })();
   </script>
 </body>
