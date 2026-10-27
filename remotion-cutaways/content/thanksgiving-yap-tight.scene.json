@@ -1,7 +1,7 @@
 {
  "slug": "thanksgiving-yap-tight",
  "video": "raw/thanksgiving-yap-tight.mp4",
- "durationSec": 24.7,
+ "durationSec": 24.5,
  "theme": {
   "field": "black",
   "sans": "DM Sans"
@@ -49,7 +49,7 @@
    "segments": [
     {
      "start": 0,
-     "end": 24.62,
+     "end": 24.42,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -75,7 +75,7 @@
   {
    "type": "digital-zoom",
    "at": 6.16,
-   "until": 9.55,
+   "until": 9.41,
    "props": {
     "creepTo": 1.06,
     "snapTo": 1.06
@@ -83,18 +83,18 @@
   },
   {
    "type": "digital-zoom",
-   "at": 9.7,
-   "until": 13.05,
+   "at": 9.61,
+   "until": 12.88,
    "props": {
     "creepTo": 1.0,
-    "snapAt": 10.35,
+    "snapAt": 10.28,
     "snapTo": 1.28
    }
   },
   {
    "type": "digital-zoom",
-   "at": 13.11,
-   "until": 18.25,
+   "at": 12.91,
+   "until": 18.03,
    "props": {
     "creepTo": 1.07,
     "snapTo": 1.07
@@ -102,8 +102,8 @@
   },
   {
    "type": "digital-zoom",
-   "at": 18.52,
-   "until": 21.07,
+   "at": 18.32,
+   "until": 20.87,
    "props": {
     "creepTo": 1.06,
     "snapTo": 1.06
@@ -111,11 +111,11 @@
   },
   {
    "type": "digital-zoom",
-   "at": 21.27,
-   "until": 24.62,
+   "at": 21.07,
+   "until": 24.42,
    "props": {
     "creepTo": 1.0,
-    "snapAt": 24.3,
+    "snapAt": 24.12,
     "snapTo": 1.28
    }
   }
