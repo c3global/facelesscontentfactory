@@ -15,7 +15,8 @@ Set aside 30 to 60 minutes for this first session. The assistant asks about your
 | Say this | What happens |
 | --- | --- |
 | **Get me set up** | The one-time brand onboarding (30 to 60 minutes). Never needed again. |
-| **Make my video** | Talking-head edit of your clip: captions, cutaways, effects, your style. Shows stills first, then renders. |
+| **Make my video** | Talking-head edit of your clip: captions, cutaways, effects, your style. Vertical by default. Say "make it horizontal for YouTube" for a 1920 x 1080 version. Shows stills first, then renders. |
+| **Show me the storyboard** | The whole video as numbered frames, in order, with the words under each one. You approve it or name the frames to change before anything renders. Asked for automatically before every first render. |
 | **Edit my yap** | Casual in-car or at-home video: captions, tightened pauses, a music bed, slow zooms, nothing more. Confirms the transcript with you first. |
 | **Make a life scene** | Cinematic clips (Google Flow, Veo, Seedance, stock or your own) with a camera move and your on-screen text. |
 | **Turn my voiceover into an explainer** | Animated explainer in portrait or landscape. |
