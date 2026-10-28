@@ -20,7 +20,8 @@ Set aside 30 to 60 minutes for this first session. The assistant asks about your
 | **Edit my yap** | Casual in-car or at-home video: captions, tightened pauses, a music bed, slow zooms, nothing more. Confirms the transcript with you first. |
 | **Make a life scene** | A few seconds of animated life, like your character sipping coffee or flipping a page, with a camera move and your on-screen text. Clips from Google Flow, Veo, Seedance, stock or your own. |
 | **Turn my voiceover into an explainer** | Animated explainer in portrait or landscape. |
-| **Find stock footage for this** | Optional Pexels and Pixabay search with your own free keys. |
+| **Find stock footage for this** | Searches Pexels and Pixabay with your own free keys and shows you options. You pick the ones you like, and they fade in as cutaways over your talking-head video, then fade back to you. |
+| **Import my handoff** | Starts a video from a package you exported from the Script, Shorts or Thumbnail engine. It tells you what to bring next (a voiceover for faceless and explainer videos, your raw clip for talking-head and yap) and shows you stock options for each section. |
 | **Add my music** | Puts your licensed track under a finished video and ducks it under the voice. |
 
 ## Using it with GPT (Codex) instead of Claude
@@ -46,7 +47,7 @@ Chat attachments have size limits, and most talking-head clips are bigger than t
 
 If the assistant has a Google Drive connector, it can find the file by name, but it can usually download large videos only when they are shared by link.
 
-Cloud sessions also need permission to reach the file host. If the download is blocked, add these to the environment's allowed network domains: `drive.google.com` and `drive.usercontent.google.com` (Google Drive), `dropbox.com` and `dl.dropboxusercontent.com` (Dropbox). Voice transcription downloads its model once from `huggingface.co`, so allow that too.
+Cloud sessions also need permission to reach the file host. If the download is blocked, add these to the environment's allowed network domains: `drive.google.com` and `drive.usercontent.google.com` (Google Drive), `dropbox.com` and `dl.dropboxusercontent.com` (Dropbox). Voice transcription downloads its model once from `huggingface.co`, so allow that too. For stock footage, also allow `api.pexels.com`, `videos.pexels.com`, `images.pexels.com`, `pixabay.com` and `cdn.pixabay.com`.
 
 Keep clips under about 2 minutes for the first tests. A 30 to 60 second clip is ideal.
 
