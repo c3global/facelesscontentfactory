@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faceless48 Video Production Plug-in — Beta</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.bunny.net">
+  <link rel="preload" as="style" href="https://fonts.bunny.net/css?family=league-gothic:400|libre-franklin:400,600,700,800|martian-mono:400,700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.bunny.net/css?family=league-gothic:400|libre-franklin:400,600,700,800|martian-mono:400,700&display=swap"></noscript>
+  <style type="text/tailwindcss">
+    @theme {
+      /* Studio canonical palette */
+      --color-cta: #C41A18;
+      --color-cta-hover: #9A1513;
+      --color-cta-glow: rgba(196, 26, 24, 0.4);
+      --color-accent: #C9956C;
+      --color-accent-light: #D4B896;
+      --color-page-bg: #0F0A1E;
+      --color-section-bg: #1C1533;
+      --color-card-bg: #1C1533;
+      --color-card-border: #3D3570;
+      --color-mint: #1D9E75;
+      --color-mint-soft: rgba(29, 158, 117, 0.12);
+      --color-mint-glow: rgba(29, 158, 117, 0.25);
+      --color-primary: #7F77DD;
+      --color-primary-soft: rgba(127, 119, 221, 0.12);
+      --color-body-text: #E8E4FF;
+      --color-body-muted: #8B85B8;
+      --color-amber: #C9956C;
+      --color-amber-soft: rgba(201, 149, 108, 0.12);
+      --color-cream: #F6F4FB;
+      --color-warm-white: #FFFFFF;
+      --color-surface: #1C1533;
+      --color-border-soft: rgba(61, 53, 112, 0.55);
+      --color-letterbox: #070413;
+      --color-inverted-heading: #0F0A1E;
+      --color-inverted-text: #1A1530;
+      --color-inverted-muted: #5B5680;
+      --font-sans: 'Libre Franklin', sans-serif;
+      --font-display: 'League Gothic', sans-serif;
+      --font-mono: 'Martian Mono', monospace;
+    }
+
+    /* ---------- Shared custom classes ---------- */
+    .mono-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .slate {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .slate-marks {
+      color: var(--color-accent);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+    }
+    .slate .mono-label { color: var(--color-body-muted); }
+    .slate .mono-label b { color: var(--color-cta); margin: 0 4px; }
+    .slate-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--color-card-border), transparent);
+    }
+    .slate--cream .mono-label { color: var(--color-inverted-muted); }
+    .slate--cream .slate-line { background: linear-gradient(90deg, rgba(15, 10, 30, 0.2), transparent); }
+
+    /* Accent metallic text (brand treatment) */
+    .accent-text {
+      background: linear-gradient(110deg, #B07A4F 0%, #C9956C 15%, #E8C4A0 30%, #F5D5B8 40%, #E8C4A0 50%, #C9956C 65%, #B07A4F 80%, #C9956C 100%);
+      background-size: 250% 250%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation: metallic-shimmer 4s ease-in-out infinite;
+      font-weight: 700;
+    }
+    @keyframes metallic-shimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .shimmer-divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, #B07A4F 15%, #C9956C 30%, #E8C4A0 45%, #F5D5B8 50%, #E8C4A0 55%, #C9956C 70%, #B07A4F 85%, transparent 100%);
+      background-size: 200% 100%;
+      animation: divider-shimmer 3s linear infinite;
+    }
+    @keyframes divider-shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ---------- Hero ---------- */
+    .hero-glow {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(127, 119, 221, 0.2) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 85% 20%, rgba(29, 158, 117, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 40% at 15% 30%, rgba(201, 149, 108, 0.07) 0%, transparent 50%);
+    }
+    .gate {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 14px;
+      background: var(--color-letterbox);
+      z-index: 20;
+    }
+    .gate-t { top: 0; }
+    .gate-b { bottom: 0; }
+
+    .screen-frame {
+      background: linear-gradient(180deg, #161030 0%, #0B0722 100%);
+      border: 1px solid var(--color-card-border);
+      border-radius: 20px;
+      padding: 10px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(127, 119, 221, 0.08);
+    }
+
+    .phone-frame {
+      background: linear-gradient(180deg, #161030 0%, #0B0722 100%);
+      border: 1px solid var(--color-card-border);
+      border-radius: 28px;
+      padding: 10px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(127, 119, 221, 0.08);
+    }
+
+    .tcbar {
+      border-top: 1px solid var(--color-card-border);
+      border-bottom: 1px solid var(--color-card-border);
+      background: rgba(11, 7, 34, 0.85);
+    }
+
+    /* ---------- Media placeholders (awaiting real demo renders) ---------- */
+    .ph {
+      border: 1.5px dashed var(--color-card-border);
+      background: var(--color-letterbox);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-align: center;
+      padding: 20px;
+    }
+    .ph .mono-label { color: var(--color-body-muted); max-width: 34ch; line-height: 1.9; }
+    .ph-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 9999px;
+      border: 1px solid var(--color-card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-accent);
+      flex-shrink: 0;
+    }
+    .ph--cream {
+      border-color: rgba(15, 10, 30, 0.25);
+      background: #FFFFFF;
+    }
+    .ph--cream .mono-label { color: var(--color-inverted-muted); }
+    .ph--cream .ph-icon { border-color: rgba(15, 10, 30, 0.2); color: #B07A4F; }
+
+    /* ---------- Cream call sheet ---------- */
+    .sheet {
+      background: var(--color-cream);
+      color: var(--color-inverted-text);
+      border-radius: 20px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+    }
+    .sheet-item {
+      padding: 22px 24px;
+      border-top: 1px solid rgba(15, 10, 30, 0.1);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: background 0.2s ease;
+    }
+    .sheet-item:hover { background: rgba(201, 149, 108, 0.08); }
+    .sheet-n {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-cta);
+      padding-top: 5px;
+      flex-shrink: 0;
+    }
+    .sheet-item h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--color-inverted-heading);
+      line-height: 1.05;
+      margin-bottom: 6px;
+    }
+    .sheet-item p {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: var(--color-inverted-muted);
+    }
+    .sheet-item p b { color: var(--color-inverted-text); }
+
+    /* ---------- Cream notes on dark ---------- */
+    .note {
+      background: var(--color-cream);
+      color: var(--color-inverted-text);
+      border-radius: 14px;
+      padding: 22px 24px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+    }
+    .note-k {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-cta);
+      margin-bottom: 8px;
+    }
+    .note p { font-size: 14.5px; line-height: 1.65; color: var(--color-inverted-muted); }
+    .note p b, .note strong { color: var(--color-inverted-text); }
+    .note .note-h {
+      font-family: var(--font-display);
+      font-size: 26px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: var(--color-inverted-heading);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    /* ---------- Style chips ---------- */
+    .style-row { display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin-top:24px; }
+    .style-row .style-chip { flex:0 1 calc((100% - 32px)/3); min-width:240px; }
+    .style-chip {
+      background: #FFFFFF;
+      border: 1px solid rgba(15, 10, 30, 0.15);
+      border-radius: 14px;
+      padding: 18px 20px;
+    }
+    .style-chip h3 {
+      font-family: var(--font-display);
+      font-size: 21px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--color-inverted-heading);
+      line-height: 1.05;
+    }
+    .style-chip p { font-size: 13.5px; line-height: 1.6; color: var(--color-inverted-muted); margin-top: 4px; }
+
+    /* ---------- Value table (on cream) ---------- */
+    .value-table-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(15, 10, 30, 0.1);
+    }
+    .value-table-row:last-child { border-bottom: none; }
+
+    /* ---------- CTA treatments ---------- */
+    .cta-shimmer { position: relative; overflow: hidden; }
+    .cta-shimmer::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        110deg,
+        transparent 20%,
+        rgba(245, 213, 184, 0) 30%,
+        rgba(245, 213, 184, 0.15) 38%,
+        rgba(245, 213, 184, 0.4) 42%,
+        rgba(245, 213, 184, 0.6) 44%,
+        rgba(245, 213, 184, 0.4) 46%,
+        rgba(245, 213, 184, 0.15) 50%,
+        rgba(245, 213, 184, 0) 58%,
+        transparent 70%
+      );
+      background-size: 250% 250%;
+      animation: cta-shimmer-slide 3.5s ease-in-out infinite;
+      pointer-events: none;
+      border-radius: inherit;
+    }
+    @keyframes cta-shimmer-slide {
+      0% { transform: translateX(-100%) rotate(12deg); }
+      100% { transform: translateX(100%) rotate(12deg); }
+    }
+    .cta-shimmer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 40%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .btn-buy {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: 26px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      background: linear-gradient(135deg, var(--color-cta) 0%, var(--color-cta-hover) 100%);
+      padding: 18px 44px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .btn-buy:hover { transform: translateY(-2px); }
+    .btn-buy:focus-visible { outline: 3px solid var(--color-accent-light); outline-offset: 3px; }
+
+    /* ---------- Guarantee seal ---------- */
+    .seal {
+      width: 128px;
+      height: 128px;
+      border-radius: 9999px;
+      border: 2px solid rgba(29, 158, 117, 0.45);
+      box-shadow: 0 0 30px rgba(29, 158, 117, 0.18), inset 0 0 24px rgba(29, 158, 117, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      margin: 0 auto;
+      background: rgba(29, 158, 117, 0.06);
+    }
+
+    /* ---------- FAQ (native details, animated) ---------- */
+    .faq {
+      border: 1px solid var(--color-card-border);
+      border-radius: 14px;
+      background: linear-gradient(180deg, var(--color-section-bg) 0%, #161030 100%);
+      transition: border-color 0.2s ease;
+    }
+    .faq:hover { border-color: rgba(127, 119, 221, 0.35); }
+    .faq summary {
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 22px;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+    .faq-x {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      position: relative;
+      color: var(--color-body-muted);
+    }
+    .faq-x::before, .faq-x::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 14px;
+      height: 2px;
+      background: currentColor;
+      transform: translate(-50%, -50%);
+      transition: transform 0.25s ease;
+    }
+    .faq-x::after { transform: translate(-50%, -50%) rotate(90deg); }
+    .faq[open] .faq-x::after { transform: translate(-50%, -50%) rotate(0deg); }
+    .faq-a {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s ease;
+    }
+    .faq[open] .faq-a { grid-template-rows: 1fr; }
+    .faq-a-in { overflow: hidden; min-height: 0; }
+    .faq-a-in > div { padding: 0 22px 20px 22px; }
+
+
+    /* ---------- Video wall, effects gallery, lightbox ---------- */
+    .chips { display:flex; flex-wrap:wrap; gap:10px; margin:28px 0 22px; }
+    .chip { font-family:var(--font-mono); font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; padding:10px 16px; border-radius:9999px; border:1px solid var(--color-card-border); color:var(--color-body-muted); background:transparent; cursor:pointer; transition:all .2s; }
+    .chip:hover { color:#fff; border-color:var(--color-accent); }
+    .chip[aria-selected="true"] { background:var(--color-accent); color:#1C1533; border-color:var(--color-accent); }
+    .wall { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+    @media (min-width:640px){ .wall{ grid-template-columns:repeat(4,1fr);} }
+    @media (min-width:1024px){ .wall{ grid-template-columns:repeat(5,1fr);} }
+    .wt { position:relative; aspect-ratio:9/16; border-radius:16px; overflow:hidden; cursor:pointer; border:1px solid var(--color-card-border); background-color:#120D24; background-size:400% 400%; transition:transform .2s, border-color .2s; padding:0; }
+    .wt:hover { transform:translateY(-3px); border-color:var(--color-accent); }
+    .wt::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(18,13,36,0) 55%, rgba(18,13,36,.85) 100%); }
+    .wt .pl { position:absolute; z-index:2; top:50%; left:50%; width:54px; height:54px; margin:-27px 0 0 -27px; border-radius:50%; background:rgba(18,13,36,.65); border:1.5px solid var(--color-accent-light); display:flex; align-items:center; justify-content:center; }
+    .wt .pl svg { width:20px; height:20px; margin-left:3px; fill:#F2D7BD; }
+    .wt .lb { position:absolute; z-index:2; left:12px; right:12px; bottom:12px; text-align:left; font-family:var(--font-mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:#F2D7BD; font-weight:700; }
+    .fxgrid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+    @media (min-width:640px){ .fxgrid{ grid-template-columns:repeat(4,1fr);} }
+    @media (min-width:1024px){ .fxgrid{ grid-template-columns:repeat(6,1fr);} }
+    .fx { position:relative; aspect-ratio:9/16; border-radius:14px; overflow:hidden; border:1px solid var(--color-card-border); background-color:#120D24; }
+    .fx .nm { position:absolute; z-index:3; left:8px; right:8px; bottom:8px; font-family:var(--font-mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:700; color:#F2D7BD; background:rgba(18,13,36,.88); padding:6px 8px; border-radius:7px; }
+    .lz { background-color:#120D24; background-size:cover; }
+    .lz video, .fx video { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .3s; z-index:1; }
+    .lz video.on, .fx video.on { opacity:1; }
+    .lbox { position:fixed; inset:0; z-index:100; background:rgba(7,4,19,.92); display:none; align-items:center; justify-content:center; padding:20px; }
+    .lbox.open { display:flex; }
+    .lbox video { max-width:92vw; max-height:86vh; border-radius:14px; background:#000; box-shadow:0 30px 80px rgba(0,0,0,.6); }
+    .lbox button { position:absolute; top:16px; right:18px; width:44px; height:44px; border-radius:50%; border:1px solid var(--color-card-border); background:rgba(28,21,51,.9); color:#fff; font-size:22px; cursor:pointer; }
+
+    /* ---------- Dock ---------- */
+    .dock {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      background: rgba(11, 7, 34, 0.97);
+      border-top: 1px solid var(--color-card-border);
+      backdrop-filter: blur(8px);
+    }
+    body { padding-bottom: 84px; }
+    @media (min-width: 768px) {
+      body { padding-bottom: 0; }
+      .dock-mobile-only { display: none; }
+    }
+  </style>
+</head>
+<body class="bg-page-bg text-body-text font-sans antialiased">
+
+  <!-- ============ TOP BAR — sticky ============ -->
+  <div class="sticky top-0 z-50 py-3 px-5 shadow-lg" style="background: linear-gradient(90deg, #C41A18, #9A1513);">
+    <div class="max-w-5xl mx-auto text-center flex items-center justify-center gap-3 flex-wrap">
+      <span class="mono-label text-white/90">⚠ Your order is not complete yet</span>
+      <span class="text-sm font-bold tracking-wide text-white hidden sm:inline">One more thing, then you're done.</span>
+    </div>
+  </div>
+
+  <!-- ============ SCENE 01 — HERO ============ -->
+  <header class="relative overflow-hidden" id="top">
+    <div class="absolute inset-0 hero-glow" aria-hidden="true"></div>
+    <div class="gate gate-t" aria-hidden="true"></div>
+    <div class="gate gate-b" aria-hidden="true"></div>
+
+    <div class="relative max-w-6xl mx-auto px-5 pt-12 pb-10 md:pt-16 md:pb-14">
+      <div class="flex items-center justify-between mb-10 md:mb-14">
+        <span class="mono-label text-body-text">Faceless48 Video Production Plug-in</span>
+        <span class="mono-label text-accent hidden sm:inline">Beta</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start lg:items-center">
+
+        <!-- Left: headline, pitch, CTA -->
+        <div class="lg:col-span-7">
+          <h1 class="font-display uppercase text-white leading-[0.88] tracking-tight text-[60px] sm:text-[88px] lg:text-[100px]">
+            You wrote it.<br>
+            Now <span class="accent-text">your AI edits it.</span>
+          </h1>
+
+          <p class="text-lg leading-[1.7] mt-6 max-w-xl" style="color: #E8E4FF;">
+            The Faceless48 video production plug-in works <b class="text-white">inside Claude Code or Codex.</b>
+            Give it your footage or voiceover and your script. Pick a style. It plans the video, shows you a storyboard,
+            makes your changes, and exports it in your brand colors. <b class="text-white">No timeline.</b>
+          </p>
+
+          <div class="mt-8">
+            <button data-funnel-upsell="accept" class="btn-buy cta-shimmer w-full sm:w-auto">
+              Yes, add the beta to my order for <span data-funnel-price="offer:primary">$97</span>
+            </button>
+            <p class="mono-label text-body-muted mt-4">One-time beta price. Replace your video editor in 7 days or your money back.</p>
+          </div>
+        </div>
+
+        <!-- Right: the demo in a phone frame -->
+        <div class="lg:col-span-5">
+          <div class="flex items-center gap-2 mb-3 lg:justify-end">
+            <span class="w-2 h-2 rounded-full bg-cta inline-block" aria-hidden="true"></span>
+            <span class="mono-label text-body-muted">Talking-head demo · 63 sec</span>
+          </div>
+          <div class="phone-frame max-w-[300px] mx-auto lg:max-w-none">
+            <div class="relative rounded-[20px] overflow-hidden" style="aspect-ratio: 9/16;">
+              <video style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block" src="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5WS4SKFT8VC132SAE57XTKC.mp4" poster="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5WSEW3M20MF8RX5N766S067.webp" playsinline loop controls autoplay muted preload="metadata"></video>
+            </div>
+            <div class="flex items-center justify-between px-2 pt-3 pb-1">
+              <span class="mono-label text-body-muted" style="font-size: 10px;">Autoplay muted · tap for sound</span>
+              <span class="mono-label text-accent" style="font-size: 10px;">SC 01 / TK 1</span>
+            </div>
+          </div>
+          <p class="mono-label text-body-muted mt-4 lg:text-right" style="font-size: 10px; text-wrap: balance;">No timeline. No editor to learn. It runs in chat.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timecode bar -->
+    <div class="tcbar relative z-10">
+      <div class="max-w-6xl mx-auto px-5 py-2.5 flex flex-wrap items-center justify-between gap-x-6 gap-y-1">
+        <span class="mono-label text-body-muted" style="font-size: 10px;">Beta <b class="text-accent">/</b> One-time payment</span>
+        <span class="mono-label text-body-muted hidden md:inline" style="font-size: 10px;">Scene 01 <span aria-hidden="true">/</span> Inside Claude Code <span aria-hidden="true">/</span> Codex</span>
+        <span class="mono-label text-body-muted" style="font-size: 10px;">7-day guarantee <b class="text-accent">/</b> full refund</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+  <!-- ============ SCENE 02 — THE BRIDGE (cream) ============ -->
+  <section class="py-16 px-5 bg-cream" id="bridge" aria-labelledby="bridgeh">
+    <div class="max-w-4xl mx-auto">
+      <div class="slate slate--cream">
+        <span class="slate-marks" aria-hidden="true">◀◀◀</span>
+        <p class="mono-label">Scene 02 <b>/</b> The bridge</p>
+        <span class="slate-line" aria-hidden="true"></span>
+      </div>
+
+      <h2 class="font-display uppercase leading-[0.9] text-[42px] sm:text-[56px] text-inverted-heading max-w-3xl" id="bridgeh">
+        Then the video sits in your camera roll for three days.
+      </h2>
+
+      <div class="mt-8 max-w-2xl space-y-5">
+        <p class="text-[17px] leading-[1.8]" style="color: var(--color-inverted-muted);">
+          You have the script. You have the thumbnail. Then the video sits in your camera roll for three days.
+        </p>
+        <p class="text-[17px] leading-[1.8]" style="color: var(--color-inverted-muted);">
+          <strong class="text-inverted-heading">Editing is where most creators stall.</strong>
+          The ideas are fine. The hour of dragging captions around, nudging a graphic that keeps landing on top of
+          your words, and doing it all again tomorrow is what wears you out.
+        </p>
+      </div>
+
+      <p class="font-display uppercase text-[38px] sm:text-[52px] leading-[0.95] text-inverted-heading mt-10 max-w-3xl">
+        So we put the editor <span style="color: var(--color-cta);">inside the AI you already talk to.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 03 — THE WHOLE STUDIO (call sheet) ============ -->
+  <section class="py-16 px-5 relative" id="whole-studio" aria-labelledby="studioh">
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(127, 119, 221, 0.07) 0%, transparent 70%);" aria-hidden="true"></div>
+    <div class="max-w-5xl mx-auto relative z-10">
+      <div class="slate">
+        <span class="slate-marks" aria-hidden="true">◀◀◀</span>
+        <p class="mono-label">Scene 03 <b>/</b> What you get</p>
+        <span class="slate-line" aria-hidden="true"></span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end mb-10">
+        <h2 class="font-display uppercase text-white leading-[0.9] text-[46px] sm:text-[64px] lg:col-span-7" id="studioh">
+          What's inside <span class="text-body-muted">the plug-in.</span>
+        </h2>
+        <p class="text-[16px] leading-[1.7] text-body-text lg:col-span-5">
+          One plug-in, installed once. <b class="text-white">Everything below runs from the same chat.</b>
+        </p>
+      </div>
+
+      <!-- Cream call sheet: nine tiles -->
+      <div class="sheet">
+        <div class="flex items-center justify-between px-6 py-4" style="border-bottom: 1px solid rgba(15, 10, 30, 0.12);">
+          <span class="mono-label" style="color: var(--color-inverted-heading);">Plug-in sheet</span>
+          <span class="mono-label" style="color: var(--color-inverted-muted);">Faceless48 Beta</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div class="sheet-item lg:border-l lg:first:border-l-0 flex-col" style="border-color: rgba(15,10,30,0.1);">
+            <div class="w-full">
+              <span class="sheet-n block mb-2" aria-hidden="true">01</span>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:540/520;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XE2YTCMMGBZPBSWVH6XYBK.webp) 0 0%/100% 300% no-repeat;border-radius:8px"></div>
+              <h3>Talking-head edits</h3>
+              <p>Vertical or horizontal clips made from <b>your own footage</b>, with captions, timed graphics, and cutaways.</p>
+            </div>
+          </div>
+          <div class="sheet-item flex-col" style="border-color: rgba(15,10,30,0.1);">
+            <div class="w-full">
+              <span class="sheet-n block mb-2" aria-hidden="true">02</span>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:540/520;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XE2ZV7DKQ6VXZ54DKJW40W.webp) 0 0%/100% 300% no-repeat;border-radius:8px"></div>
+              <h3>Animated explainers</h3>
+              <p>A stick-figure character drawn for you, or bring your own art. <b>Five layouts:</b> Compare, Numbered List, Layers, Load versus Capacity, and Process or Loop.</p>
+            </div>
+          </div>
+          <div class="sheet-item flex-col" style="border-color: rgba(15,10,30,0.1);">
+            <div class="w-full">
+              <span class="sheet-n block mb-2" aria-hidden="true">03</span>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:540/520;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XE30VB0QQ2MD5NHSWE48N6.webp) 0 0%/100% 300% no-repeat;border-radius:8px"></div>
+              <h3>Yaps</h3>
+              <p>A lighter edit for casual videos. It <b>trims the long pauses</b> and adds clean captions and a music bed.</p>
+            </div>
+          </div>
+          <div class="sheet-item flex-col lg:border-l" style="border-color: rgba(15,10,30,0.1);">
+            <div class="w-full">
+              <span class="sheet-n block mb-2" aria-hidden="true">04</span>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:540/520;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XE2YTCMMGBZPBSWVH6XYBK.webp) 0 50%/100% 300% no-repeat;border-radius:8px"></div>
+              <h3>Life Scenes</h3>
+              <p>Short scenes built to <b>sit between your talking points.</b></p>
+            </div>
+          </div>
+          <div class="sheet-item flex-col" style="border-color: rgba(15,10,30,0.1);">
+            <div class="w-full">
+              <span class="sheet-n block mb-2" aria-hidden="true">05</span>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:540/520;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XE2ZV7DKQ6VXZ54DKJW40W.webp) 0 50%/100% 300% no-repeat;border-radius:8px"></div>
+              <h3>100+ effects</h3>
+              <p>Animated text and cards, zooms, spotlights, orbiting elements, clones, phone and checklist graphics, charts, transitions, and end cards.</p>
+            </div>
+          </div>
+          <div class="sheet-item flex-col" style="border-color: rgba(15,10,30,0.1);">
+            <div class="w-full">
+              <span class="sheet-n block mb-2" aria-hidden="true">06</span>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:540/520;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XE30VB0QQ2MD5NHSWE48N6.webp) 0 50%/100% 300% no-repeat;border-radius:8px"></div>
+              <h3>Your brand, set once</h3>
+              <p>Colors, fonts, logo, and a <b>gold, rose gold, silver, or copper finish.</b></p>
+            </div>
+          </div>
+          <div class="sheet-item flex-col lg:border-l" style="border-color: rgba(15,10,30,0.1);">
+            <div class="w-full">
+              <span class="sheet-n block mb-2" aria-hidden="true">07</span>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:540/520;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XE2YTCMMGBZPBSWVH6XYBK.webp) 0 100%/100% 300% no-repeat;border-radius:8px"></div>
+              <h3>Captions timed to your words</h3>
+              <p>Choose your caption style during setup and <b>change it any time.</b></p>
+            </div>
+          </div>
+          <div class="sheet-item flex-col" style="border-color: rgba(15,10,30,0.1);">
+            <div class="w-full">
+              <span class="sheet-n block mb-2" aria-hidden="true">08</span>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:540/520;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XE2ZV7DKQ6VXZ54DKJW40W.webp) 0 100%/100% 300% no-repeat;border-radius:8px"></div>
+              <h3>A storyboard and a built-in checker</h3>
+              <p>See your whole video as numbered frames, in order, and <b>approve it before it renders.</b> The checker flags captions that cover a graphic, captions that repeat what is on screen, and effects that land on the wrong word.</p>
+            </div>
+          </div>
+          <div class="sheet-item flex-col" style="border-color: rgba(15,10,30,0.1);">
+            <div class="w-full">
+              <span class="sheet-n block mb-2" aria-hidden="true">09</span>
+              <div class="rounded-lg mb-4" role="img" aria-label="Frame from the plug-in" style="aspect-ratio:540/520;background:url(https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XE30VB0QQ2MD5NHSWE48N6.webp) 0 100%/100% 300% no-repeat;border-radius:8px"></div>
+              <h3>Music mixing</h3>
+              <p>Your music sits under your voice and <b>fades out cleanly at the end.</b></p>
+            </div>
+          </div>
+        </div>
+        <div class="px-6 py-5" style="background: rgba(201, 149, 108, 0.12); border-top: 1px solid rgba(15, 10, 30, 0.1);">
+          <p class="font-display uppercase text-[22px] leading-tight" style="color: var(--color-inverted-heading);">
+            Plus batch rendering. <span style="color: var(--color-inverted-muted);">Make several videos in one go.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-10 text-center">
+        <button data-funnel-upsell="accept" class="btn-buy cta-shimmer w-full sm:w-auto">Yes, add the beta to my order for $97</button>
+        <p class="mono-label text-body-muted mt-4">One-time beta price. 7-day money-back guarantee.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 04 — MADE WITH THIS SYSTEM ============ -->
+  <section class="py-16 px-5" id="demos" aria-labelledby="demoh">
+    <div class="max-w-5xl mx-auto">
+      <div class="slate">
+        <span class="slate-marks" aria-hidden="true">◀◀◀</span>
+        <p class="mono-label">Scene 04 <b>/</b> From my channel</p>
+        <span class="slate-line" aria-hidden="true"></span>
+      </div>
+      <h2 class="font-display uppercase text-white leading-[0.9] text-[44px] sm:text-[58px] max-w-3xl" id="demoh">Made with this system.</h2>
+      <p class="text-[16px] leading-[1.7] text-body-text mt-4 max-w-2xl">These are real videos from my own channel: talking heads, yaps, Life Scenes, and animated explainers. They were edited with the same editing system this plug-in came from. <b class="text-white">Tap any one to watch.</b></p>
+      <div class="chips" id="wallchips" role="tablist" aria-label="Filter videos"></div>
+      <div class="wall" id="wall"></div>
+      <p class="mono-label text-accent text-center mt-12">The video at the top of this page was made with the plug-in itself.</p>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 05 — YOU PICK, YOUR AI EDITS (cream) ============ -->
+  <section class="py-16 px-5 bg-cream" id="styles" aria-labelledby="styleh">
+    <div class="max-w-5xl mx-auto">
+      <div class="slate slate--cream">
+        <span class="slate-marks" aria-hidden="true">◀◀◀</span>
+        <p class="mono-label">Scene 05 <b>/</b> The styles</p>
+        <span class="slate-line" aria-hidden="true"></span>
+      </div>
+
+      <h2 class="font-display uppercase leading-[0.9] text-[44px] sm:text-[58px] text-inverted-heading max-w-3xl" id="styleh">
+        Choose a look. Tell it what to change.
+      </h2>
+      <p class="text-[16px] leading-[1.7] mt-4" style="color: var(--color-inverted-muted);">
+        Seven talking-head styles, ready to use:
+      </p>
+
+      <div class="style-row">
+        <div class="style-chip"><h3>Signature</h3><p>Your everyday look</p></div>
+        <div class="style-chip"><h3>Quiet Authority</h3><p>Calm, premium, and clean</p></div>
+        <div class="style-chip"><h3>Spotlight</h3><p>You in focus, the world dimmed</p></div>
+        <div class="style-chip"><h3>Show and Tell</h3><p>Your points appear as you say them</p></div>
+        <div class="style-chip"><h3>Hype Reel</h3><p>Fast and loud</p></div>
+        <div class="style-chip"><h3>Raw Tape</h3><p>Unpolished and real</p></div>
+        <div class="style-chip"><h3>Yap</h3><p>Casual, with pauses trimmed</p></div>
+      </div>
+
+      <p class="text-[16px] leading-[1.8] mt-8 max-w-3xl" style="color: var(--color-inverted-muted);">
+        Explainers come in <strong class="text-inverted-heading">Whiteboard, Editorial, and Dark.</strong>
+        Captions come in three styles, and 100+ effects can land on any of them. New styles and effects keep getting added.
+      </p>
+
+      <p class="text-[18px] leading-[1.6] font-semibold text-inverted-heading mt-6 max-w-3xl">
+        Then tell your AI what to change until it feels like you. Make the captions bigger. Move them to the top. Try a different style.
+      </p>
+
+      <div class="mt-10 max-w-3xl mx-auto">
+        <img src="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5WSEPW7XAHH8BGSEGTZTVM9.webp" alt="The same speaker in Signature, Spotlight and Hype Reel" style="width:100%;aspect-ratio:16/7;object-fit:cover;border-radius:16px;display:block">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 06 — THE EFFECT LIBRARY ============ -->
+  <section class="py-16 px-5 relative" id="effects" aria-labelledby="effecth">
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 50% at 50% 100%, rgba(127, 119, 221, 0.07) 0%, transparent 70%);" aria-hidden="true"></div>
+    <div class="max-w-5xl mx-auto relative z-10">
+      <div class="slate">
+        <span class="slate-marks" aria-hidden="true">◀◀◀</span>
+        <p class="mono-label">Scene 06 <b>/</b> Effects</p>
+        <span class="slate-line" aria-hidden="true"></span>
+      </div>
+      <h2 class="font-display uppercase text-white leading-[0.9] text-[44px] sm:text-[58px] max-w-3xl" id="effecth">The effect library, <span class="text-body-muted">in motion.</span></h2>
+      <p class="mono-label text-accent mt-4">100+ effects, ready to use.</p>
+      <p class="text-[16px] leading-[1.7] text-body-text mt-4 max-w-2xl">Preview 60 of the 100+ effects in action, cut straight from my own test videos. Filter by what you want to see. These were made with the standard cutout. The high-quality cutout is cleaner around hair and edges, and the plug-in can use it for any effect that places you in front of graphics.</p>
+      <div class="chips" id="fxchips" role="tablist" aria-label="Filter effects"></div>
+      <div class="fxgrid" id="fxgrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 07 — WHAT YOU WON'T NEED (cream) ============ -->
+  <section class="py-16 px-5 bg-cream" id="wont-need" aria-labelledby="wonth">
+    <div class="max-w-4xl mx-auto">
+      <div class="slate slate--cream">
+        <span class="slate-marks" aria-hidden="true">◀◀◀</span>
+        <p class="mono-label">Scene 07 <b>/</b> What you won't need</p>
+        <span class="slate-line" aria-hidden="true"></span>
+      </div>
+
+      <h2 class="font-display uppercase leading-[0.9] text-[44px] sm:text-[56px] text-inverted-heading max-w-2xl" id="wonth">
+        What you won't need.
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
+        <div class="bg-white rounded-xl p-5 border flex items-start gap-4" style="border-color: rgba(15,10,30,0.15);">
+          <span class="text-xl flex-shrink-0" style="color: var(--color-cta);" aria-hidden="true">✗</span>
+          <p class="text-[15px] leading-[1.65]" style="color: var(--color-inverted-muted);"><strong class="text-inverted-heading">No editing software to learn.</strong></p>
+        </div>
+        <div class="bg-white rounded-xl p-5 border flex items-start gap-4" style="border-color: rgba(15,10,30,0.15);">
+          <span class="text-xl flex-shrink-0" style="color: var(--color-cta);" aria-hidden="true">✗</span>
+          <p class="text-[15px] leading-[1.65]" style="color: var(--color-inverted-muted);"><strong class="text-inverted-heading">No timeline to drag around.</strong></p>
+        </div>
+        <div class="bg-white rounded-xl p-5 border flex items-start gap-4" style="border-color: rgba(15,10,30,0.15);">
+          <span class="text-xl flex-shrink-0" style="color: var(--color-cta);" aria-hidden="true">✗</span>
+          <p class="text-[15px] leading-[1.65]" style="color: var(--color-inverted-muted);"><strong class="text-inverted-heading">No hunting through effects.</strong> Your AI picks and places them.</p>
+        </div>
+        <div class="bg-white rounded-xl p-5 border flex items-start gap-4" style="border-color: rgba(15,10,30,0.15);">
+          <span class="text-xl flex-shrink-0" style="color: var(--color-cta);" aria-hidden="true">✗</span>
+          <p class="text-[15px] leading-[1.65]" style="color: var(--color-inverted-muted);"><strong class="text-inverted-heading">No caption cleanup.</strong></p>
+        </div>
+        <div class="bg-white rounded-xl p-5 border flex items-start gap-4 md:col-span-2" style="border-color: rgba(15,10,30,0.15);">
+          <span class="text-xl flex-shrink-0" style="color: var(--color-cta);" aria-hidden="true">✗</span>
+          <p class="text-[15px] leading-[1.65]" style="color: var(--color-inverted-muted);"><strong class="text-inverted-heading">No guessing before you render.</strong> You see the whole video as a storyboard first, then ask for changes in chat.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 08 — HOW IT WORKS ============ -->
+  <section class="py-16 px-5" id="how" aria-labelledby="howh">
+    <div class="max-w-6xl mx-auto">
+      <div class="slate">
+        <span class="slate-marks" aria-hidden="true">◀◀◀</span>
+        <p class="mono-label">Scene 08 <b>/</b> How it works</p>
+        <span class="slate-line" aria-hidden="true"></span>
+      </div>
+
+      <h2 class="font-display uppercase text-white leading-[0.9] text-[44px] sm:text-[58px] max-w-3xl" id="howh">
+        How it works.
+      </h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-10">
+        <div class="note flex flex-col">
+          <span class="note-k">Step 01</span>
+          <p class="note-h">Set it up once.</p>
+          <p class="mb-4">Install the plug-in and ask it to check your computer. It tells you in plain English if anything is missing. Then answer a few questions: <b>business name, logo, brand colors, finish, and caption style.</b></p>
+          <img src="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XD23N86TSS857ZVZQ8ZC69.webp" alt="Terminal check showing node, ffmpeg, python3 and video browser all found" loading="lazy" class="mt-auto" style="width:100%;border-radius:8px;display:block">
+        </div>
+        <div class="note flex flex-col">
+          <span class="note-k">Step 02</span>
+          <p class="note-h">Bring your material.</p>
+          <p class="mb-4">Your own footage and script for a talking-head video. A voiceover and an idea for an explainer. <b>Your own licensed music, if you want it.</b></p>
+          <img src="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XD24M9DTC3EWMK11NQE71Y.webp" alt="Your clip, voiceover, music and brand files" loading="lazy" class="mt-auto" style="width:100%;border-radius:8px;display:block">
+        </div>
+        <div class="note flex flex-col">
+          <span class="note-k">Step 03</span>
+          <p class="note-h">Say what you want.</p>
+          <p class="mb-4">Describe the video in chat. The plug-in <b>builds the plan, checks it, and shows you a storyboard of the whole video.</b> Approve it or name the frames to change. It renders only after you approve.</p>
+          <img src="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XD25HZN1HVBNNXQY4PB7SC.webp" alt="Storyboard of a whole video before it renders" loading="lazy" class="mt-auto" style="width:100%;border-radius:8px;display:block">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 09 — NOT JUST FOR REELS ============ -->
+  <section class="py-16 px-5" id="formats" aria-labelledby="formath">
+    <div class="max-w-5xl mx-auto">
+      <div class="slate">
+        <span class="slate-marks" aria-hidden="true">◀◀◀</span>
+        <p class="mono-label">Scene 09 <b>/</b> Formats</p>
+        <span class="slate-line" aria-hidden="true"></span>
+      </div>
+
+      <h2 class="font-display uppercase text-white leading-[0.9] text-[44px] sm:text-[56px]" id="formath">
+        Not just for reels.
+      </h2>
+      <p class="text-[16px] leading-[1.8] mt-6 max-w-xl" style="color: #E8E4FF;">
+        Reels, Shorts, TikTok, and YouTube. <b class="text-white">Shooting vertical or horizontal, it works.</b>
+      </p>
+      <div class="grid grid-cols-12 gap-4 sm:gap-6 items-center mt-10">
+        <div class="screen-frame col-span-8">
+          <div class="relative rounded-xl overflow-hidden lz" data-v="ex-three-things-l" data-s="3" style="aspect-ratio: 16/9;"></div>
+        </div>
+        <div class="phone-frame col-span-4">
+          <div class="relative rounded-[20px] overflow-hidden lz" data-v="th-reverse-joined" data-s="3" style="aspect-ratio: 9/16;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 10 — YOUR BRAND, SET ONCE (cream) ============ -->
+  <section class="py-16 px-5 bg-cream" id="brand" aria-labelledby="brandh">
+    <div class="max-w-4xl mx-auto">
+      <div class="slate slate--cream">
+        <span class="slate-marks" aria-hidden="true">◀◀◀</span>
+        <p class="mono-label">Scene 10 <b>/</b> Brand setup</p>
+        <span class="slate-line" aria-hidden="true"></span>
+      </div>
+
+      <h2 class="font-display uppercase leading-[0.9] text-[44px] sm:text-[56px] text-inverted-heading max-w-2xl" id="brandh">
+        Your brand, set once.
+      </h2>
+
+      <p class="text-[17px] leading-[1.8] mt-6 max-w-2xl" style="color: var(--color-inverted-muted);">
+        Your colors. Your logo. Your fonts. Your finish: <strong class="text-inverted-heading">gold, rose gold, silver, or copper.</strong>
+      </p>
+      <p class="text-[18px] leading-[1.6] font-semibold text-inverted-heading mt-4 max-w-2xl">
+        You answer the setup questions one time, and every video after that looks like you.
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:880px;margin:2.5rem auto 0"><figure style="margin:0;background:#120D24;border-radius:14px;overflow:hidden"><img src="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XCHCHVSCNCR5YVEE90JWQ9.webp" alt="Gold finish" loading="lazy" style="width:100%;display:block"><figcaption class="mono-label" style="color:#F2D7BD;font-size:10px;text-align:center;padding:10px 0">GOLD</figcaption></figure><figure style="margin:0;background:#120D24;border-radius:14px;overflow:hidden"><img src="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XCHDVR7MVNAECNT52YCX5M.webp" alt="Rose Gold finish" loading="lazy" style="width:100%;display:block"><figcaption class="mono-label" style="color:#F2D7BD;font-size:10px;text-align:center;padding:10px 0">ROSE GOLD</figcaption></figure><figure style="margin:0;background:#120D24;border-radius:14px;overflow:hidden"><img src="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XCHF0JPVN15KBQP6VG9VHM.webp" alt="Silver finish" loading="lazy" style="width:100%;display:block"><figcaption class="mono-label" style="color:#F2D7BD;font-size:10px;text-align:center;padding:10px 0">SILVER</figcaption></figure><figure style="margin:0;background:#120D24;border-radius:14px;overflow:hidden"><img src="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XCHG367Z3ZYY24KCKVQ26N.webp" alt="Copper finish" loading="lazy" style="width:100%;display:block"><figcaption class="mono-label" style="color:#F2D7BD;font-size:10px;text-align:center;padding:10px 0">COPPER</figcaption></figure></div>
+      <p class="mono-label mt-4 text-center" style="color: var(--color-inverted-muted); font-size: 10px;">Same card, four finishes: gold, rose gold, silver, copper</p>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 11 — STRAIGHT TALK ABOUT THE BETA ============ -->
+  <section class="py-16 px-5" id="straight-talk" aria-labelledby="talkh">
+    <div class="max-w-4xl mx-auto">
+      <div class="slate">
+        <span class="slate-marks" aria-hidden="true">◀◀◀</span>
+        <p class="mono-label">Scene 11 <b>/</b> The honest part</p>
+        <span class="slate-line" aria-hidden="true"></span>
+      </div>
+
+      <h2 class="font-display uppercase text-white leading-[0.9] text-[44px] sm:text-[56px] max-w-3xl" id="talkh">
+        Straight talk about the beta.
+      </h2>
+      <p class="text-[16px] leading-[1.8] mt-5 max-w-2xl" style="color: #E8E4FF;">
+        This is a real tool you run on your own computer. <b class="text-white">It is not a browser app.</b>
+      </p>
+
+      <div class="mt-8 rounded-2xl border border-card-border p-7 sm:p-9" style="background: linear-gradient(180deg, var(--color-section-bg) 0%, #161030 100%);">
+        <ul class="space-y-5">
+          <li class="flex items-start gap-4">
+            <span class="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" aria-hidden="true"></span>
+            <p class="text-[15px] leading-[1.7]" style="color: #E8E4FF;">It needs Claude Code or Codex, with access to your project folders.</p>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" aria-hidden="true"></span>
+            <p class="text-[15px] leading-[1.7]" style="color: #E8E4FF;">It needs a short one-time setup. The built-in check tells you what to install.</p>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" aria-hidden="true"></span>
+            <p class="text-[15px] leading-[1.7]" style="color: #E8E4FF;">Rendering happens on your computer, so speed depends on your machine.</p>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" aria-hidden="true"></span>
+            <p class="text-[15px] leading-[1.7]" style="color: #E8E4FF;">Automatic captions use an extra tool that you install. The cutout that places you in front of graphics needs another tool and a large one-time download, and it takes a while on an ordinary computer.</p>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" aria-hidden="true"></span>
+            <p class="text-[15px] leading-[1.7]" style="color: #E8E4FF;">It does not include hosted rendering, automatic social posting, or AI video generation.</p>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" aria-hidden="true"></span>
+            <p class="text-[15px] leading-[1.7]" style="color: #E8E4FF;">Horizontal talking-head videos get captions, graphics, end cards, camera moves, and color looks. The rest of the effect library is vertical-only for now.</p>
+          </li>
+          <li class="flex items-start gap-4">
+            <span class="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" aria-hidden="true"></span>
+            <p class="text-[15px] leading-[1.7]" style="color: #E8E4FF;">Not every effect combination will look right the first time. <b class="text-white">That's why you preview and ask for changes.</b></p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8">
+        <div class="note">
+          <span class="note-k">Your input shapes the roadmap</span>
+          <p class="note-h">Beta members build it with us.</p>
+          <p>Beta members shape what gets fixed and built next. Our next builds are <b>more caption styles</b> and a way to hand your AI a reel you love so it builds your look from it.</p>
+        </div>
+        <div class="note">
+          <span class="note-k">The price, plainly</span>
+          <p class="note-h">One-time $97.</p>
+          <p>The beta price is a <b>one-time $97.</b> Pricing after the beta isn't decided yet, and we won't promise what isn't.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 12 — GUARANTEE ============ -->
+  <section class="py-16 px-5" id="guarantee" aria-labelledby="guarh">
+    <div class="max-w-3xl mx-auto">
+      <div class="slate">
+        <span class="slate-marks" aria-hidden="true">◀◀◀</span>
+        <p class="mono-label">Scene 12 <b>/</b> The guarantee</p>
+        <span class="slate-line" aria-hidden="true"></span>
+      </div>
+      <div class="rounded-3xl p-8 sm:p-12 text-center border border-mint/20" style="background: linear-gradient(180deg, rgba(29, 158, 117, 0.06) 0%, rgba(29, 158, 117, 0.02) 100%);">
+        <div class="seal mb-8" role="img" aria-label="7-Day Money-Back Guarantee seal">
+          <span class="mono-label text-mint" style="font-size: 12px;">7-Day</span>
+          <span class="font-display uppercase text-white text-[22px] leading-none mt-1">Money back</span>
+          <span class="mono-label text-mint" style="font-size: 8px; margin-top: 4px;">Guarantee</span>
+        </div>
+        <h2 class="font-display uppercase text-white leading-[0.95] text-[34px] sm:text-[44px] mb-4" id="guarh">
+          Replace your video editor in 7 days or your money back.
+        </h2>
+        <p class="text-[17px] leading-[1.7] max-w-2xl mx-auto mb-4" style="color: #E8E4FF;">
+          Install it. Set up your brand. Make your videos.
+        </p>
+        <p class="text-[15px] leading-[1.7] max-w-2xl mx-auto" style="color: #E8E4FF;">
+          If this plug-in doesn't replace your video editor within 7 days of your purchase, email
+          <a href="mailto:support@c3global.co" class="underline font-semibold text-white">support@c3global.co</a>
+          and we will refund your $97. <b class="text-white">That includes the case where it won't run on your computer.</b>
+        </p>
+        <p class="text-[15px] leading-[1.7] max-w-2xl mx-auto mt-4 font-semibold text-white">
+          You have a full week with it in your hands and nine walkthrough videos to help. If it isn't doing the job, you get your money back.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 13 — PRICE ============ -->
+  <section class="py-16 px-5" id="offer" aria-labelledby="offerh">
+    <div class="max-w-3xl mx-auto relative z-10">
+      <div class="slate">
+        <span class="slate-marks" aria-hidden="true">◀◀◀</span>
+        <p class="mono-label">Scene 13 <b>/</b> The price</p>
+        <span class="slate-line" aria-hidden="true"></span>
+      </div>
+
+      <div class="text-center mb-10">
+        <h2 class="font-display uppercase text-white leading-[0.9] text-[40px] sm:text-[52px]" id="offerh">
+          Faceless48 Video Production Plug-in: Beta
+        </h2>
+        <p class="font-display uppercase text-cta text-[52px] sm:text-[64px] leading-none mt-4">
+          One-time payment of <span data-funnel-price="offer:primary">$97</span>
+        </p>
+      </div>
+
+      <div class="relative z-10 grid grid-cols-4 gap-2 sm:gap-3 max-w-xl mx-auto -mb-24 sm:-mb-28">
+        <div class="relative rounded-xl overflow-hidden lz" data-v="th-four-places" data-s="3" style="box-shadow:0 22px 40px rgba(0,0,0,.45);aspect-ratio: 9/16;"></div>
+        <div class="relative rounded-xl overflow-hidden lz" data-v="ls-text-message" data-s="3" style="box-shadow:0 22px 40px rgba(0,0,0,.45);aspect-ratio: 9/16;"></div>
+        <div class="relative rounded-xl overflow-hidden lz" data-v="yap-quiet-room" data-s="3" style="box-shadow:0 22px 40px rgba(0,0,0,.45);aspect-ratio: 9/16;"></div>
+        <div class="relative rounded-xl overflow-hidden lz" data-v="ex-quick-or-quiet-p" data-s="3" style="box-shadow:0 22px 40px rgba(0,0,0,.45);aspect-ratio: 9/16;"></div>
+      </div>
+
+      <div class="sheet p-6 sm:p-10 pt-32 sm:pt-36">
+        <p class="mono-label text-center mb-8" style="color: var(--color-inverted-muted);">A talking head, a Life Scene, a yap, and an explainer. All made with this plug-in.</p>
+        <div class="flex items-center justify-between pb-4" style="border-bottom: 1px solid rgba(15,10,30,0.12);">
+          <span class="mono-label" style="color: var(--color-inverted-heading);">What's included</span>
+          <span class="mono-label" style="color: var(--color-inverted-muted);">Beta</span>
+        </div>
+
+        <div class="mt-4 space-y-4">
+          <div class="flex items-start gap-3">
+            <span class="text-mint text-lg mt-0.5 flex-shrink-0" aria-hidden="true">✓</span>
+            <p class="text-[15px] leading-[1.7]" style="color: var(--color-inverted-muted);">The plug-in, with <strong class="text-inverted-heading">talking-head edits, explainers, yaps, and Life Scenes</strong></p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-mint text-lg mt-0.5 flex-shrink-0" aria-hidden="true">✓</span>
+            <p class="text-[15px] leading-[1.7]" style="color: var(--color-inverted-muted);"><strong class="text-inverted-heading">7 talking-head styles, explainer and caption styles, and 100+ effects, with more added as the beta grows</strong></p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-mint text-lg mt-0.5 flex-shrink-0" aria-hidden="true">✓</span>
+            <p class="text-[15px] leading-[1.7]" style="color: var(--color-inverted-muted);"><strong class="text-inverted-heading">Your brand set once</strong></p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-mint text-lg mt-0.5 flex-shrink-0" aria-hidden="true">✓</span>
+            <p class="text-[15px] leading-[1.7]" style="color: var(--color-inverted-muted);"><strong class="text-inverted-heading">Storyboard approval before every render, built-in checker, music mixing, and batch rendering</strong></p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-mint text-lg mt-0.5 flex-shrink-0" aria-hidden="true">✓</span>
+            <p class="text-[15px] leading-[1.7]" style="color: var(--color-inverted-muted);"><strong class="text-inverted-heading">9 walkthrough videos</strong> and access to the <strong class="text-inverted-heading">Faceless Content Collective community</strong></p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-mint text-lg mt-0.5 flex-shrink-0" aria-hidden="true">✓</span>
+            <p class="text-[15px] leading-[1.7]" style="color: var(--color-inverted-muted);"><strong class="text-inverted-heading">7-day money-back guarantee</strong></p>
+          </div>
+        </div>
+
+        <!-- Live order summary -->
+        <div class="mt-8 rounded-xl p-5 sm:p-6" style="background: #161030;">
+          <p class="mono-label text-accent mb-4">Order summary</p>
+          <div class="flex items-center justify-between py-2">
+            <span class="text-[15px]" style="color: #E8E4FF;">Faceless48 Video Production Plug-in: Beta</span>
+            <span class="text-[15px] font-bold text-white" data-funnel-price="offer:primary">$97.00</span>
+          </div>
+          <div class="flex items-center justify-between py-2" style="border-top: 1px dashed rgba(61,53,112,0.7);">
+            <span class="text-[15px]" style="color: #E8E4FF;">Subtotal</span>
+            <span class="text-[15px] text-white" data-funnel-total="subtotal"></span>
+          </div>
+          <div class="flex items-center justify-between py-2" data-funnel-when-tax style="border-top: 1px dashed rgba(61,53,112,0.7);">
+            <span class="text-[15px]" style="color: #E8E4FF;" data-funnel-total="tax-label">Tax</span>
+            <span class="text-[15px] text-white" data-funnel-total="tax"></span>
+          </div>
+          <div class="flex items-center justify-between pt-3 mt-1" style="border-top: 1px solid rgba(61,53,112,0.9);">
+            <span class="font-display uppercase text-[22px] text-white">Total due today</span>
+            <span class="font-display uppercase text-[26px] text-cta" data-funnel-total></span>
+          </div>
+        </div>
+
+        <div class="shimmer-divider max-w-xs mx-auto my-7" aria-hidden="true"></div>
+
+        <div class="flex flex-col items-center justify-center gap-3">
+          <button data-funnel-upsell="accept" class="btn-buy cta-shimmer w-full sm:w-auto">Yes, add the beta to my order for $97</button>
+          <p class="mono-label text-center" style="color: var(--color-inverted-muted); font-size: 10px;">Covered by the 7-day guarantee.</p>
+        </div>
+        <a href="#" data-funnel-upsell="decline" class="block text-center text-sm mt-4 transition underline" style="color: var(--color-inverted-muted);">No thanks, I'll edit my videos another way.</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 14 — FAQ ============ -->
+  <section class="py-16 px-5 bg-section-bg" id="faqs" aria-labelledby="faqh">
+    <div class="max-w-3xl mx-auto">
+      <div class="slate">
+        <span class="slate-marks" aria-hidden="true">◀◀◀</span>
+        <p class="mono-label">Scene 14 <b>/</b> Questions</p>
+        <span class="slate-line" aria-hidden="true"></span>
+      </div>
+
+      <h2 class="font-display uppercase text-white leading-[0.9] text-[44px] sm:text-[56px] mb-10" id="faqh">
+        Straight answers before you buy.
+      </h2>
+
+      <div class="space-y-3">
+        <details class="faq">
+          <summary><h3>I'm not techy. Can I actually set this up?</h3><span class="faq-x" aria-hidden="true"></span></summary>
+          <div class="faq-a"><div class="faq-a-in"><div>
+            <p class="text-[15px] leading-[1.75]" style="color: #E8E4FF;">Yes. You talk to your AI the way you already chat with it, and nobody writes code. Nine walkthrough videos in the community show every step, and the plug-in checks your computer and tells you in plain English if anything is missing. Still stuck? Email <a href="mailto:support@c3global.co" class="underline font-semibold text-white">support@c3global.co</a> and we'll get you unstuck.</p>
+          </div></div></div>
+        </details>
+
+        <details class="faq">
+          <summary><h3>Do I get access to the community?</h3><span class="faq-x" aria-hidden="true"></span></summary>
+          <div class="faq-a"><div class="faq-a-in"><div>
+            <p class="text-[15px] leading-[1.75]" style="color: #E8E4FF;">Yes. Your purchase includes the Faceless Content Collective, which opens November 1. Until then you're on the waitlist. The 9 walkthrough videos live there, along with a place to ask questions and see what other members make.</p>
+          </div></div></div>
+        </details>
+
+        <details class="faq">
+          <summary><h3>Does it work on my computer?</h3><span class="faq-x" aria-hidden="true"></span></summary>
+          <div class="faq-a"><div class="faq-a-in"><div>
+            <p class="text-[15px] leading-[1.75]" style="color: #E8E4FF;">Mac or Windows. You also need a paid plan with Claude or ChatGPT, since the plug-in runs inside Claude Code or Codex. <strong class="text-white">With Claude, the basic Pro plan is enough.</strong></p>
+          </div></div></div>
+        </details>
+
+        <details class="faq">
+          <summary><h3>How long does an edit take?</h3><span class="faq-x" aria-hidden="true"></span></summary>
+          <div class="faq-a"><div class="faq-a-in"><div>
+            <p class="text-[15px] leading-[1.75]" style="color: #E8E4FF;">Usually 30 minutes to an hour, longer for longer videos. <strong class="text-white">It runs in the background</strong> while you film the next one, answer emails, or take a walk.</p>
+          </div></div></div>
+        </details>
+
+        <details class="faq">
+          <summary><h3>Is it just for reels?</h3><span class="faq-x" aria-hidden="true"></span></summary>
+          <div class="faq-a"><div class="faq-a-in"><div>
+            <p class="text-[15px] leading-[1.75]" style="color: #E8E4FF;">No. It makes YouTube videos too, and horizontal works for talking-head videos and explainers.</p>
+          </div></div></div>
+        </details>
+
+        <details class="faq">
+          <summary><h3>Will my videos look like everyone else's?</h3><span class="faq-x" aria-hidden="true"></span></summary>
+          <div class="faq-a"><div class="faq-a-in"><div>
+            <p class="text-[15px] leading-[1.75]" style="color: #E8E4FF;">Only if you want them to. Mix 7 talking-head looks with explainer styles, caption styles, and 100+ effects, then set your colors, logo, fonts, and a gold, rose gold, silver, or copper finish once. It carries through every video, and you can keep asking your AI for changes until it feels like you. New styles and effects get added as the beta grows.</p>
+          </div></div></div>
+        </details>
+
+        <details class="faq">
+          <summary><h3>Can I use my own face?</h3><span class="faq-x" aria-hidden="true"></span></summary>
+          <div class="faq-a"><div class="faq-a-in"><div>
+            <p class="text-[15px] leading-[1.75]" style="color: #E8E4FF;">Yes. Use your own recorded clip, or build an explainer around a stick figure or your own character art.</p>
+          </div></div></div>
+        </details>
+
+        <details class="faq">
+          <summary><h3>Is there a license I should know about?</h3><span class="faq-x" aria-hidden="true"></span></summary>
+          <div class="faq-a"><div class="faq-a-in"><div>
+            <p class="text-[15px] leading-[1.75]" style="color: #E8E4FF;">The video software under the hood is free for individuals and very small companies. Larger companies need a license from its maker. The details are in the notices file inside the plug-in.</p>
+          </div></div></div>
+        </details>
+
+        <details class="faq">
+          <summary><h3>Will the price change?</h3><span class="faq-x" aria-hidden="true"></span></summary>
+          <div class="faq-a"><div class="faq-a-in"><div>
+            <p class="text-[15px] leading-[1.75]" style="color: #E8E4FF;">The beta price is a one-time $97. Pricing after the beta hasn't been decided.</p>
+          </div></div></div>
+        </details>
+
+        <details class="faq">
+          <summary><h3>What if it doesn't work for me?</h3><span class="faq-x" aria-hidden="true"></span></summary>
+          <div class="faq-a"><div class="faq-a-in"><div>
+            <p class="text-[15px] leading-[1.75]" style="color: #E8E4FF;">You have 7 days from purchase to ask for a refund. Email <a href="mailto:support@c3global.co" class="underline font-semibold text-white">support@c3global.co</a> and we'll refund the full $97.</p>
+          </div></div></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 15 — FINAL CTA ============ -->
+  <section class="py-20 px-5 border-t border-card-border" id="close" aria-labelledby="closeh">
+    <div class="max-w-3xl mx-auto text-center relative z-10">
+      <div class="slate justify-center">
+        <span class="slate-marks" aria-hidden="true">◀◀◀</span>
+        <p class="mono-label">Scene 15 <b>/</b> Last shot</p>
+      </div>
+
+      <h2 class="font-display uppercase text-white leading-[0.9] text-[46px] sm:text-[64px]" id="closeh">
+        Add the producer.<br>
+        <span class="accent-text">The video stops being the part that stalls.</span>
+      </h2>
+
+      <p class="text-[17px] leading-[1.8] max-w-xl mx-auto mt-8" style="color: #E8E4FF;">
+        You already have the script and the thumbnail. Add the producer, and the video stops being the part that stalls.
+      </p>
+      <p class="text-[17px] leading-[1.8] max-w-xl mx-auto mt-4 font-semibold text-white">
+        Try it for 7 days. If it doesn't replace your editor, you get your money back.
+      </p>
+
+      <div class="flex flex-col items-center justify-center gap-3 mt-10">
+        <button data-funnel-upsell="accept" class="btn-buy cta-shimmer w-full sm:w-auto">Yes, add the beta to my order for $97</button>
+        <a href="#" data-funnel-upsell="decline" class="text-sm text-body-muted hover:text-white underline transition mt-2">No thanks, I'll edit my videos another way.</a>
+      </div>
+
+      <p class="mono-label text-body-muted mt-12 leading-[2]" style="font-size: 10px;">
+        Script by <b class="text-accent">you</b> · Plan by <b class="text-accent">your AI</b> · Edit by <b class="text-accent">the plug-in</b> · Rendered on <b class="text-accent">your computer</b> · Owned by <b class="text-accent">you</b>
+      </p>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-card-border py-10 px-5">
+    <div class="max-w-5xl mx-auto text-center">
+      <p class="mb-2 flex items-center justify-center gap-2">
+        <img src="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01KSH31FVN3YRKYX5MEK6BV5DZ.webp" alt="C3 Global" class="h-32 w-auto" loading="lazy" decoding="async">
+      </p>
+      <p class="text-sm text-body-muted">© 2026. All rights reserved.</p>
+      <p class="text-sm text-body-muted mt-2"><strong class="text-white">Questions?</strong> Drop us a line: support@c3global.co</p>
+      <p class="text-sm text-body-muted mt-3">
+        <a href="#" class="hover:text-white transition underline">Privacy Policy</a>
+        <span class="mx-2" aria-hidden="true">|</span>
+        <a href="#" class="hover:text-white transition underline">Terms of Service</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Mobile dock CTA -->
+  <div class="dock dock-mobile-only">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <div class="flex items-baseline gap-2 flex-shrink-0">
+        <span class="font-display uppercase text-cta text-[30px] leading-none" data-funnel-price="offer:primary">$97</span>
+        <span class="mono-label text-body-muted" style="font-size: 9px;">One-time</span>
+      </div>
+      <button data-funnel-upsell="accept" class="btn-buy flex-1 text-center" style="font-size: 20px; padding: 12px 18px;">Add the beta</button>
+    </div>
+  </div>
+
+
+  <div class="lbox" id="lbox" role="dialog" aria-modal="true" aria-label="Video player"><button id="lbclose" aria-label="Close">&times;</button></div>
+  <script>
+  (function(){
+    var WU={"th-four-places": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4DS1EVDHW8W1BK2SAYCPR.mp4", "th-reverse-joined": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4DVKJWAM8PJXW2D7YTZPN.mp4", "th-test": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4DXTW3Y9SBQKWEZPV69SQ.mp4", "yap-car": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4E01AX39T57BWC0RDA91H.mp4", "yap-quiet-room": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4E2BYHRZGXA6T71DTMJTH.mp4", "ls-text-message": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4E403ZCRVBH62TCKJT363.mp4", "ls-handwritten-note": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4E5RXDFJ7GD5ZDR4N0PP4.mp4", "ls-voice-memo": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4EW18YCMSP331E7VVBTZR.mp4", "ex-three-things-p": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4F8CEPT8XYK9EE22R516Z.mp4", "ex-quick-or-quiet-p": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4F10FNQH6S6T3YCW9CAMX.mp4", "ex-trust-a-green-p": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4FDARYBDP7X1S1A6MHYT8.mp4", "ex-equity-theory-p": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4EY7XGQ97QPR048VJ2MP6.mp4", "ex-small-business-p": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4F3HSNMK7AG2P3ZNR3D3S.mp4", "ex-three-things-l": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4F5Y8PPK4T1WCZ57BJ85G.mp4", "ex-trust-a-green-l": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4FAYPMCR4R6QVVQ7M6FQ7.mp4", "th-effects": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XE2W4DQP1EEMM7APZGKKAC.mp4"},FX={"a": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CMXT3PYRBZHPP97KWHS6.mp4", "b": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CQ93EQ3TY6NJTYDM4EXG.mp4", "c": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CSA26FRV9G1NVG4B4G21.mp4", "d": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CV256K3AVBQBSHDJHCX3.mp4", "e": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CX14VF51VASFD9G00W3F.mp4", "f": "https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5X4CZ3PGE70E4YPYPGVQHVN.mp4"}, WALL=["th-four-places", "th-reverse-joined", "th-test", "yap-car", "yap-quiet-room", "ls-text-message", "ls-handwritten-note", "ls-voice-memo", "ex-three-things-p", "ex-quick-or-quiet-p", "ex-trust-a-green-p", "ex-equity-theory-p", "ex-small-business-p", "ex-three-things-l", "ex-trust-a-green-l", "th-effects"], WT=["Talking head", "Talking head", "Talking head", "Yap", "Yap", "Life Scene", "Life Scene", "Life Scene", "Explainer", "Explainer", "Explainer", "Explainer", "Explainer", "Explainer", "Explainer", "Talking head"], WO=["p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "p", "l", "l", "p"], WP="https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XFNVKD4BG9CYK1XQ154MJP.webp", FP=["https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB42R6J0R9A8MQYBKVNVGN.webp","https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XB452M5R1H5RK7DDFX27CY.webp"], FM=["https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XD1VV0ADZ39STM36SNC2MN.mp4","https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XD1XFQ3SV7HYN9FN3E37CJ.mp4","https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XD1YTTMKTFHVKP6ZYP8K2T.mp4","https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XD20565DQQCRMGJZBK5SE4.mp4","https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XD21DC18H1QYYHMYJ2J2JC.mp4","https://media.pinball.dev/media/01krw3d4958ywwh48vgz6qyxcz/01M5XD22S5WJWQ7CXS9W6MRNGY.mp4"];
+    var FXD=[["a","Tag",0,4.35,"text"],["a","Floating chips",0,4.35,"text"],["a","Chapter card",3.85,8.35,"text"],["a","Notification stack",7.85,12.25,"ui"],["a","Hub diagram",11.85,16.25,"text"],["a","Headline card",15.85,20.25,"text"],["a","Meeting tile",19.85,24.25,"ui"],["a","Chat UI",23.85,28.25,"ui"],["a","Rewrite card",27.85,32.25,"text"],["a","Statement card",31.85,36.35,"text"],["a","Citation card",35.85,40.35,"text"],["a","Notes card",39.85,44.35,"text"],["a","Screenshot card",43.85,48.35,"text"],["a","Quiet feed",47.85,52.35,"text"],["a","Congruence map",51.85,56.35,"text"],["a","Comment-keyword end card",55.75,59.55,"ui"],["a","Link-pill end card",58.95,62.85,"ui"],["b","Freeze sticker",0.05,4.35,"text"],["b","Sticky text",6.65,9.65,"text"],["b","Odometer",9.15,13.35,"ui"],["b","Freeze label",12.95,16.85,"text"],["b","The stack",17.95,22.95,"ui"],["b","Pointer callout",24.35,28.75,"text"],["b","Before and after",28.15,32.15,"camera"],["b","Phone mockup",31.75,36.35,"ui"],["b","Chart grow",35.95,39.95,"ui"],["b","Checklist",39.45,44.45,"ui"],["b","Pull-back reveal",46.05,50.25,"camera"],["b","Comment bubble",49.75,54.75,"ui"],["b","Timeline burn",54.75,58.25,"ui"],["c","Date stamp",0.05,3.55,"text"],["c","Flash frame",1.75,3.55,"camera"],["c","Pull-back (camera)",3.15,5.95,"camera"],["c","Color grade",5.65,10.55,"color"],["c","Freeze and hold",12.25,14.65,"camera"],["c","Glow",14.95,19.95,"color"],["c","Dust",19.75,24.75,"color"],["c","Letterbox",24.25,29.25,"camera"],["c","Voice memo",32.75,37.75,"ui"],["c","Notes page",40.95,45.95,"ui"],["c","Lock-screen notification",50.55,54.35,"ui"],["c","Polaroid drop",53.95,57.95,"ui"],["c","Email compose",57.75,62.65,"ui"],["d","Paper cut",2.75,7.35,"text"],["d","Doodle boil",8.75,13.75,"text"],["d","Vertigo",19.75,23.85,"camera"],["d","Glass type",35.75,40.75,"text"],["e","Digital zoom",1.25,4.35,"camera"],["e","Zoom-through cut",5.25,7.05,"camera"],["e","Blackout",8.75,10.55,"camera"],["e","Spotlight",11.75,15.35,"behind"],["e","Headline wall",15.75,19.35,"behind"],["e","UI world",33.75,38.75,"ui"],["f","Orbit",22.15,24.75,"behind"],["f","Couch wall",24.35,29.35,"behind"],["f","Clone",30.05,33.35,"behind"],["f","Type wall",34.45,38.35,"behind"],["f","Knockout tiles",46.75,50.85,"behind"],["f","Green screen",50.55,53.75,"behind"],["f","Frame break",53.25,56.65,"behind"]], CATS={"text": "Text & cards", "camera": "Camera moves", "behind": "Behind you", "ui": "Phone & UI", "color": "Color & mood"};
+    var $=function(s){return document.querySelector(s)};
+    function mk(t,c,h){var e=document.createElement(t); if(c)e.className=c; if(h)e.innerHTML=h; return e;}
+    /* lazy playback: one shared video file per demo, each tile plays only its own window */
+    var active=[];
+    var io='IntersectionObserver' in window ? new IntersectionObserver(function(es){es.forEach(function(en){var el=en.target; if(en.isIntersecting){start(el)}else{stop(el)}})},{threshold:0.5}) : null;
+    function start(el){
+      if(!el._v){var v=document.createElement('video'); v.muted=true; v.defaultMuted=true; v.playsInline=true; v.preload='auto'; v.setAttribute('playsinline',''); v.setAttribute('muted','');
+        var s=parseFloat(el.dataset.s||0), e=el.dataset.e?parseFloat(el.dataset.e):null;
+        v.src=el._src; v.addEventListener('loadedmetadata',function(){try{v.currentTime=s}catch(x){}});
+        v.addEventListener('playing',function(){v.classList.add('on')});
+        v.addEventListener('timeupdate',function(){ if(e!==null && v.currentTime>=e){v.currentTime=s} });
+        v.addEventListener('ended',function(){v.currentTime=s; v.play()});
+        el.insertBefore(v,el.firstChild); el._v=v; }
+      var p=el._v.play(); if(p&&p.catch)p.catch(function(){});
+      active=active.filter(function(a){return a!==el}); active.push(el);
+      while(active.length>6){var old=active.shift(); drop(old)}
+    }
+    function stop(el){ if(el._v) el._v.pause(); }
+    function drop(el){ if(el._v){el._v.pause(); el._v.removeAttribute('src'); el._v.load(); el._v.remove(); el._v=null;} }
+    function lazy(el,src){ el._src=src; if(io){io.observe(el)} }
+    function mix(n,key){var g={},items=[]; for(var i=0;i<n;i++){var k=key(i); (g[k]=g[k]||[]).push(i)} Object.keys(g).forEach(function(k){var a=g[k]; a.forEach(function(v,r){items.push([(r+0.5)/a.length,k,v])})}); items.sort(function(a,b){return a[0]-b[0]||(a[1]<b[1]?-1:1)}); return items.map(function(x){return x[2]})}
+    /* video wall */
+    var wall=$('#wall'), chips=$('#wallchips');
+    var types=['All','Talking head','Yap','Life Scene','Explainer'];
+    var ex=[], rest=[]; WALL.forEach(function(k,i){ if(k==='th-test')return; (WT[i]==='Explainer'?ex:rest).push(i)});
+    var rmix=mix(rest.length,function(j){return WT[rest[j]]}).map(function(j){return rest[j]}), order=[];
+    for(var q=0;q<Math.max(ex.length,rmix.length);q++){ if(q<rmix.length)order.push(rmix[q]); if(q<ex.length)order.push(ex[q]); }
+    order.forEach(function(i){
+      var k=WALL[i]; var b=mk('button','wt'); b.type='button'; b.dataset.t=WT[i]; b.setAttribute('aria-label','Play '+WT[i]+' video');
+      b.style.backgroundImage='url('+WP+')'; b.style.backgroundPosition=((i%4)*(100/3))+'% '+(Math.floor(i/4)*(100/3))+'%';
+      b.innerHTML='<span class="pl"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span><span class="lb">'+WT[i]+(WO[i]==='l'?' · widescreen':'')+'</span>';
+      b.addEventListener('click',function(){openBox(k)}); wall.appendChild(b);
+    });
+    types.forEach(function(t,i){var c=mk('button','chip',t+(t==='All'?'':'s')); c.type='button'; c.setAttribute('role','tab'); c.setAttribute('aria-selected',i===0?'true':'false');
+      c.addEventListener('click',function(){[].forEach.call(chips.children,function(x){x.setAttribute('aria-selected','false')}); c.setAttribute('aria-selected','true');
+        [].forEach.call(wall.children,function(w){w.style.display=(t==='All'||w.dataset.t===t)?'':'none'})}); chips.appendChild(c)});
+    var lb=$('#lbox'), cur=null;
+    function openBox(k){ closeBox(); cur=mk('video'); cur.src=WALL_URL(k); cur.controls=true; cur.autoplay=true; cur.playsInline=true; lb.appendChild(cur); lb.classList.add('open'); var p=cur.play(); if(p&&p.catch)p.catch(function(){}); }
+    function WALL_URL(k){return WU[k]}
+    function closeBox(){ if(cur){cur.pause(); cur.remove(); cur=null} lb.classList.remove('open'); }
+    $('#lbclose').addEventListener('click',closeBox); lb.addEventListener('click',function(e){if(e.target===lb)closeBox()}); document.addEventListener('keydown',function(e){if(e.key==='Escape')closeBox()});
+    /* effects gallery: six short mosaic videos, each tile is a canvas window onto one of them */
+    var grid=$('#fxgrid'), fc=$('#fxchips');
+    var mos=FM.map(function(u){return {url:u,v:null,vis:[]}});
+    var rafOn=false;
+    function frame(){
+      var any=false;
+      mos.forEach(function(m){ if(!m.v||!m.vis.length)return; any=true;
+        if(m.v.readyState>=2){ m.vis.forEach(function(t){ t.x.drawImage(m.v,t.sx,t.sy,270,480,0,0,270,480); t.c.style.opacity=1; }); } });
+      if(any){requestAnimationFrame(frame)}else{rafOn=false}
+    }
+    function kick(){ if(!rafOn){rafOn=true; requestAnimationFrame(frame)} }
+    function show(t,on){
+      var m=mos[t.m], i=m.vis.indexOf(t);
+      if(on&&i<0){ m.vis.push(t);
+        if(!m.v){var v=document.createElement('video'); v.muted=true; v.defaultMuted=true; v.loop=true; v.playsInline=true; v.preload='auto'; v.setAttribute('playsinline',''); v.setAttribute('muted',''); v.src=m.url; m.v=v;}
+        var p=m.v.play(); if(p&&p.catch)p.catch(function(){}); kick();
+      } else if(!on&&i>=0){ m.vis.splice(i,1);
+        if(!m.vis.length&&m.v){ m.v.pause(); m.v.removeAttribute('src'); m.v.load(); m.v=null; }
+      }
+    }
+    var fio='IntersectionObserver' in window ? new IntersectionObserver(function(es){es.forEach(function(en){show(en.target._t,en.isIntersecting)})},{threshold:0.15}) : null;
+    mix(FXD.length,function(i){return FXD[i][4]}).forEach(function(i){
+      var d=FXD[i]; var el=mk('div','fx'); el.dataset.c=d[4]; var s=i<32?0:1, j=i<32?i:i-32, rows=s?7:8; el.style.backgroundImage='url('+FP[s]+')'; el.style.backgroundSize='400% '+(rows*100)+'%';
+      el.style.backgroundPosition=((j%4)*(100/3))+'% '+(Math.floor(j/4)*(100/(rows-1)))+'%';
+      var c=document.createElement('canvas'); c.width=270; c.height=480; c.style.cssText='position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .3s;z-index:1';
+      el.appendChild(c); el.appendChild(mk('span','nm',d[1]));
+      var p=i%10; el._t={m:Math.floor(i/10),sx:(p%5)*270,sy:Math.floor(p/5)*480,c:c,x:c.getContext('2d')};
+      grid.appendChild(el); if(fio)fio.observe(el);
+    });
+    var keys=['all'].concat(Object.keys(CATS));
+    keys.forEach(function(k,i){var c=mk('button','chip',k==='all'?'All':CATS[k]); c.type='button'; c.setAttribute('role','tab'); c.setAttribute('aria-selected',i===0?'true':'false');
+      c.addEventListener('click',function(){[].forEach.call(fc.children,function(x){x.setAttribute('aria-selected','false')}); c.setAttribute('aria-selected','true');
+        [].forEach.call(grid.children,function(g){var on=(k==='all'||g.dataset.c===k); g.style.display=on?'':'none'})}); fc.appendChild(c)});
+    /* formats videos */
+    [].forEach.call(document.querySelectorAll('.lz'),function(el){ el.style.backgroundImage='url('+WP+')'; el.style.backgroundSize='400% 400%'; var i=WALL.indexOf(el.dataset.v); el.style.backgroundPosition=((i%4)*(100/3))+'% '+(Math.floor(i/4)*(100/3))+'%'; lazy(el,WU[el.dataset.v]); });
+  })();
+  </script>
+</body>
+</html>

@@ -24,7 +24,7 @@ Status: owner-review build with passing local render checks. Native Claude Code 
 
 ## Known boundaries
 
-Only local coding environments are supported. Browser-only ChatGPT is not a local renderer. No hosted Faceless48 MCP, paid image/video generation, membership authentication, billing, or update service is implemented here. Talking-head composition is portrait; explainer supports both formats. The generic host is intentionally neutral and optional supplied character art uses scene pose changes. Historical custom episode source remains reference code and needs registration/assets to render.
+Only local coding environments are supported. Browser-only ChatGPT is not a local renderer. No hosted Faceless48 MCP, paid image/video generation, membership authentication, billing, or update service is implemented here. Talking-head edits render portrait or landscape (landscape supports captions, graphics, end cards, camera moves and looks; the rest of the effect library and cutouts are portrait-only for now). Explainers support both formats. The generic host is intentionally neutral and optional supplied character art uses scene pose changes. Historical custom episode source remains reference code and needs registration/assets to render.
 
 Use a folder outside iCloud/OneDrive/Dropbox. Cloud-offloaded fonts and native binaries caused stalled tests here; a normal local folder resolved them. Sample MP4 proofs are stored beside the package in ../proof/ rather than included in the install ZIP.
 
@@ -92,3 +92,18 @@ The creator reviewed the first funnel demo and found captions overlapping graphi
 - Disk: each render copies the whole public folder into /tmp/remotion-webpack-bundle-*; a long session filled the disk mid-render. Delete those folders between renders.
 
 Not done: the explainer demo was not part of this review round; it is unchanged.
+
+## Storyboard added (beta.3) — 2026-10-26
+
+The creator asked for a way to see and approve the whole video before it renders.
+- New command `npm run f48 -- storyboard <plan.json>` for talking-head, yap, life scene, explainer and stick plans. It renders one still per scene, effect and graphic (plus a frame wherever a stretch of more than 3.5 s has nothing new, up to 20 frames), and saves `sheet.png` (numbered contact sheet), `index.html` (open in a browser) and `storyboard.md` (time, what is on screen, the words being said, file). It never overwrites an earlier storyboard (`-v2`, `-v3`).
+- The video-production skill, `AGENTS.md`, the project rules and START-HERE now require it before the first render and wait for approval or frame numbers to change.
+- Tested on three of the funnel demo plans (spotlight: 4 frames, hype reel: 4 frames, explainer: 14 frames) and with 6 automated tests (the pure frame-picking logic). Typecheck clean.
+- Limits: the stills are single frames, so motion is not shown (use `preview` for a closer look at one second). Sheet numbers need ffmpeg to find a system font; if it cannot, the sheet is made without numbers and `index.html` still has them. Not yet tried on Windows or on a life scene render (life scene logic is covered by tests only).
+
+## Landscape talking heads (beta.4)
+- A 1920 x 1080 talking-head plan renders with audio (ffprobe: 1920x1080, video and audio streams).
+- Stills inspected: full-frame layout with editorial hero captions, pill and heavy captions, split layout with a framed window, scene tag, statement card, hidden-speaker chips, end card, digital zoom and a warm grade across the full width.
+- The same portrait plan renders pixel-identical stills before and after the change (three moments compared).
+- Seventeen automated tests pass.
+- Not covered: a real horizontal talking-head recording (the test clip was a crop of a portrait clip), long videos, and a visual check of every graphic in the landscape split layout.

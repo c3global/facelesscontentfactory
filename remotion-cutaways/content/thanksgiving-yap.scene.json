@@ -1,0 +1,124 @@
+{
+ "slug": "thanksgiving-yap",
+ "video": "raw/thanksgiving-yap.mp4",
+ "durationSec": 27.59,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "rest",
+  "explanation",
+  "pause",
+  "people",
+  "enjoy"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 640,
+  "bottom": 920
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "rest",
+  "explanation",
+  "pause",
+  "enjoy"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "style": "signature",
+ "music": {
+  "src": "music/leveled/warm-marscott-warm-sunlight.mp3",
+  "volume": 0.35,
+  "duckTo": 0.16,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ },
+ "scenes": [
+  {
+   "id": "yap",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 27.59,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 16,
+      "zoom": 1
+     }
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "digital-zoom",
+   "at": 3.2,
+   "until": 6.4,
+   "props": {
+    "creepTo": 1.0,
+    "snapAt": 3.2,
+    "snapTo": 1.28
+   }
+  },
+  {
+   "type": "digital-zoom",
+   "at": 6.7,
+   "until": 9.95,
+   "props": {
+    "creepTo": 1.06,
+    "snapTo": 1.06
+   }
+  },
+  {
+   "type": "digital-zoom",
+   "at": 10.28,
+   "until": 13.55,
+   "props": {
+    "creepTo": 1.0,
+    "snapAt": 10.28,
+    "snapTo": 1.28
+   }
+  },
+  {
+   "type": "digital-zoom",
+   "at": 13.85,
+   "until": 19.4,
+   "props": {
+    "creepTo": 1.07,
+    "snapTo": 1.07
+   }
+  },
+  {
+   "type": "digital-zoom",
+   "at": 21.37,
+   "until": 23.92,
+   "props": {
+    "creepTo": 1.06,
+    "snapTo": 1.06
+   }
+  },
+  {
+   "type": "digital-zoom",
+   "at": 24.12,
+   "until": 27.59,
+   "props": {
+    "creepTo": 1.0,
+    "snapAt": 24.12,
+    "snapTo": 1.28
+   }
+  }
+ ],
+ "scrim": 0.7
+}

@@ -1,0 +1,81 @@
+{
+ "slug": "thanksgiving-rest",
+ "video": "raw/thanksgiving-rest.mp4",
+ "durationSec": 30.0,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "rest",
+  "explanation",
+  "pause",
+  "people",
+  "enjoy"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "rest",
+  "explanation",
+  "pause",
+  "enjoy"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "style": "signature",
+ "music": {
+  "src": "music/leveled/warm-marscott-warm-sunlight.mp3",
+  "volume": 0.35,
+  "duckTo": 0.16,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ },
+ "scenes": [
+  {
+   "id": "yap",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 30.0,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "digital-zoom",
+   "at": 3.2,
+   "until": 13.8,
+   "props": {
+    "creepTo": 1.08,
+    "snapTo": 1.08
+   }
+  },
+  {
+   "type": "digital-zoom",
+   "at": 21.7,
+   "until": 29.8,
+   "props": {
+    "creepTo": 1.1,
+    "snapTo": 1.1
+   }
+  }
+ ],
+ "scrim": 0.7
+}
