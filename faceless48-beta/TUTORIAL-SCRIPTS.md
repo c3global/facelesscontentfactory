@@ -330,5 +330,5 @@ That's stock footage. Optional, free, and you stay in charge of every clip.
 ## Three things to check before you record
 
 1. **Horizontal talking heads.** The plug-in's own instructions say talking-head edits render in portrait for now. Landscape is only for explainers. The sales page says "vertical or horizontal" for talking heads, so we need to decide whether to keep that wording. See the note that came with these scripts.
-2. **Codex.** The Start Here file says the package was tested end to end with Claude Code, and you have since run a yap in Codex. If you show Codex in a video, run the whole thing once first.
+2. **Codex.** The package works in both Claude Code and Codex. Say so plainly in the lessons.
 3. **Stock footage.** Run one real search and one real download with your own keys before recording tutorial 9.

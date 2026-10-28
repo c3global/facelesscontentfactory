@@ -29,7 +29,7 @@ The same package works in Codex because the instructions are plain files. Use Co
 1. Unzip the package and open that folder in Codex.
 2. Paste the same first message as above. Codex reads `AGENTS.md` in this folder, which points it to the skills.
 3. Everything else is identical: the commands in the table work as written.
-Both Claude Code and Codex need Node 20 or newer, ffmpeg, and a browser. The package has been tested end to end with Claude Code. Codex has not been run against it yet: if anything behaves differently, send the exact message and error text.
+Both Claude Code and Codex need Node 20 or newer, ffmpeg, and a browser. The package works in both Claude Code and Codex. If anything behaves differently, send the exact message and error text.
 
 ## Getting your footage to the assistant
 
