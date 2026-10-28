@@ -56,7 +56,17 @@ Still open:
 
 - Life Scenes ported from the creator's workflow as one `kind: "life-scene"` plan rendered in a single pass (shots with hard cuts and camera moves, text cards, seven overlays, dust, voiceover). Text cards and overlays follow brand.json colors and metal. Preview stills verified in a test brand. Full motion render and long voiceover hold not yet reviewed by eye.
 - Not ported: color grades, light leaks, letterbox and blackout/flash finishing flags (the creator's rule is no color changes; add on request), the zoom-through transition and the creator's Notion and Marky steps.
-- Stock footage: `npm run f48 -- stock keys|search|pick|credits` with the member's own Pexels and Pixabay keys (stock-keys.json, git-ignored, or environment). 24-hour search cache, previews as thumbnails only, one person-picked download at a time, credits saved to content/stock-credits.json. 3 new automated tests (10 total) pass with simulated provider responses. Live API calls not yet tested: this cloud session cannot reach pexels.com or pixabay.com.
+- Stock footage: `npm run f48 -- stock keys|search|pick|credits` with the member's own Pexels and Pixabay keys (stock-keys.json, git-ignored, or environment). 24-hour search cache, previews as thumbnails only, one person-picked download at a time, credits saved to content/stock-credits.json. 3 new automated tests (10 total) pass with simulated provider responses. Live API calls tested on 2026-10-28: see below.
+
+### Stock footage live test — 2026-10-28 (Linux cloud session, Claude Code)
+
+Pexels and Pixabay both work from a cloud session with the member's own keys in the environment (`PEXELS_API_KEY`, `PIXABAY_API_KEY`).
+- `stock keys` reported both keys as set without printing them.
+- `stock search "woman typing laptop night"` returned results from both providers with the creator, a link to the clip page and a preview image. Previews saved to `out/stock-preview/`.
+- `stock pick pexels:6586065 --name woman-laptop-night` downloaded a 1080x1920, 17-second MP4 and recorded it in `content/stock-credits.json`. `stock credits` listed the credit line, link, creator page and license.
+- Pixabay portrait searches: Pixabay has no orientation filter and its first eight hits for this phrase were all landscape, so a portrait search came back empty. Portrait clips exist further down (for example `pixabay:180776`). Fixed in beta.5: portrait searches ask Pixabay for a wider page, filter, and say how many clips were hidden.
+- Typecheck and all 24 automated tests pass on the rebuilt beta.5 package. The stock test no longer picks up a member's real keys from the environment.
+- For cloud sessions, allow `api.pexels.com`, `videos.pexels.com`, `images.pexels.com`, `pixabay.com` and `cdn.pixabay.com` in the network settings.
 
 ## Funnel demo build notes — 2026-10-21 (creator review round 1)
 
