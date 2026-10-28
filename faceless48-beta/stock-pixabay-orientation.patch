@@ -1,0 +1,99 @@
+--- a/runtime/scripts/stock.ts
++++ b/runtime/scripts/stock.ts
+@@ -20,6 +20,8 @@
+ import path from 'node:path';
+ import crypto from 'node:crypto';
+ 
++const PIXABAY_WIDE_PAGE = 50;
++
+ export type Provider = 'pexels' | 'pixabay';
+ export type StockResult = {
+   ref: string; // provider:id, used with "stock pick"
+@@ -154,22 +156,34 @@
+   const per = Math.min(Math.max(opts.perPage ?? 8, 3), 20);
+   const notes: string[] = [];
+   let results: StockResult[] = [];
++  const fits = (r: StockResult) => orientation === 'any' || (orientation === 'portrait' ? r.height >= r.width : r.width >= r.height);
+   for (const p of want) {
+     const key = keys[p];
+     if (!key) {
+       notes.push(keyHelp(p));
+       continue;
+     }
++    let found: StockResult[];
+     if (p === 'pexels') {
+       const o = orientation === 'any' ? '' : `&orientation=${orientation}`;
+       const json = await cachedJson(`https://api.pexels.com/videos/search?query=${encodeURIComponent(q)}&per_page=${per}${o}`, {Authorization: key}, 'Pexels', fetcher);
+-      results.push(...parsePexels(json, target));
++      found = parsePexels(json, target);
+     } else {
+-      const json = await cachedJson(`https://pixabay.com/api/videos/?key=${encodeURIComponent(key)}&q=${encodeURIComponent(q)}&per_page=${per}&safesearch=true`, {}, 'Pixabay', fetcher);
+-      results.push(...parsePixabay(json, target));
++      // Pixabay has no orientation filter, so ask for a wider page and filter here. Otherwise a page of
++      // eight landscape-heavy hits can leave a portrait search empty even when portrait clips exist further down.
++      const ask = orientation === 'any' ? per : PIXABAY_WIDE_PAGE;
++      const json = await cachedJson(`https://pixabay.com/api/videos/?key=${encodeURIComponent(key)}&q=${encodeURIComponent(q)}&per_page=${ask}&safesearch=true`, {}, 'Pixabay', fetcher);
++      found = parsePixabay(json, target);
++    }
++    const kept = found.filter(fits);
++    const label = p === 'pexels' ? 'Pexels' : 'Pixabay';
++    if (found.length && !kept.length) {
++      notes.push(`${label}: ${found.length} clips matched, but none are ${orientation}. Add --orientation any to see them (they will need cropping).`);
++    } else if (kept.length < found.length && orientation !== 'any') {
++      notes.push(`${label}: ${found.length - kept.length} ${orientation === 'portrait' ? 'landscape' : 'portrait'} clips hidden. Add --orientation any to see them.`);
+     }
++    results.push(...kept.slice(0, per));
+   }
+-  if (orientation !== 'any') results = results.filter((r) => (orientation === 'portrait' ? r.height >= r.width : r.width >= r.height));
+   if (opts.minSec) results = results.filter((r) => r.durationSec >= opts.minSec!);
+   fs.mkdirSync(cacheDir(), {recursive: true});
+   // remembered so "stock pick" can download exactly what the member saw, without searching again
+--- a/runtime/scripts/stock.test.ts
++++ b/runtime/scripts/stock.test.ts
+@@ -38,6 +38,8 @@
+   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'f48-stock-'));
+   const cwd = process.cwd();
+   process.chdir(dir);
++  delete process.env.PEXELS_API_KEY; // a member's real keys in the environment must not leak into this test
++  delete process.env.PIXABAY_API_KEY;
+   try {
+     const none = await search('city at night', {}, fakeFetch([]));
+     assert.equal(none.results.length, 0);
+@@ -60,4 +62,37 @@
+   } finally {
+     process.chdir(cwd);
+   }
++});
++
++test('Pixabay portrait search asks for a wide page, finds portrait clips below the first hits, and explains what it hid', async () => {
++  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'f48-stock-'));
++  const cwd = process.cwd();
++  process.chdir(dir);
++  try {
++    delete process.env.PEXELS_API_KEY;
++    delete process.env.PIXABAY_API_KEY;
++    fs.writeFileSync('stock-keys.json', JSON.stringify({pixabay: 'XK'}));
++    const land = (id: number) => ({id, pageURL: `https://pixabay.com/videos/id-${id}/`, duration: 10, user: 'dee', user_id: 7, videos: {large: {url: `https://p/${id}`, width: 1920, height: 1080, thumbnail: `https://t/${id}`}}});
++    const hits = [...Array.from({length: 9}, (_, i) => land(100 + i)), pixabayJson.hits[0]];
++    const calls: string[] = [];
++    const fetcher = (async (url: string) => {
++      calls.push(String(url));
++      return {ok: true, status: 200, json: async () => ({hits}), arrayBuffer: async () => new ArrayBuffer(0)} as any;
++    }) as unknown as typeof fetch;
++    const a = await search('desk at night', {provider: 'pixabay'}, fetcher);
++    assert.deepEqual(a.results.map((r) => r.ref), ['pixabay:21'], 'portrait clip ranked tenth is found');
++    assert.match(calls[0], /per_page=50/);
++    assert.ok(a.notes.some((n) => /9 landscape clips hidden/.test(n)));
++
++    const onlyLand = (async () => ({ok: true, status: 200, json: async () => ({hits: hits.slice(0, 9)}), arrayBuffer: async () => new ArrayBuffer(0)} as any)) as unknown as typeof fetch;
++    const b = await search('another desk', {provider: 'pixabay'}, onlyLand);
++    assert.equal(b.results.length, 0);
++    assert.ok(b.notes.some((n) => /none are portrait.*--orientation any/.test(n)), 'says why the list is empty instead of a bare "No matching clips"');
++
++    const c = await search('desk at night', {provider: 'pixabay', orientation: 'any'}, fetcher);
++    assert.equal(c.results.length, 8, 'results trimmed to the requested page size');
++    assert.match(calls[calls.length - 1], /per_page=8/);
++  } finally {
++    process.chdir(cwd);
++  }
+ });
