@@ -13,16 +13,6 @@ import {TrustGreenStage} from './TrustGreenStage';
 import {TacitStage} from './TacitStage';
 import {QuietStage} from './QuietStage';
 import {AvoidStage} from './AvoidStage';
-import {PlatformStage} from './PlatformStage';
-import {LeaveStage} from './LeaveStage';
-import {WorkingStage} from './WorkingStage';
-import {RoomsStage} from './RoomsStage';
-import {WritingStage} from './WritingStage';
-import {TestsStage} from './TestsStage';
-import {ThanksStage} from './ThanksStage';
-import {QuietWeekStage} from './QuietWeekStage';
-import {SystemStage} from './SystemStage';
-import {HandOffStage} from './HandOffStage';
 
 /** Stage art by episode. The key is `stage` in content/<slug>.stick.json. */
 export const STAGES: Record<string, React.FC<{t: number; q: Cues}>> = {
@@ -39,14 +29,4 @@ export const STAGES: Record<string, React.FC<{t: number; q: Cues}>> = {
   'more-than-you-can-tell': TacitStage,
   'quick-or-quiet': QuietStage,
   'three-things-to-avoid': AvoidStage,
-  'three-questions-platform': PlatformStage,
-  'leave-alone': LeaveStage,
-  'really-working': WorkingStage,
-  'every-community': RoomsStage,
-  'members-anywhere': WritingStage,
-  'three-tests': TestsStage,
-  'thank-you-ways': ThanksStage,
-  'quiet-week': QuietWeekStage,
-  'small-business-system': SystemStage,
-  'hand-it-off': HandOffStage,
 };

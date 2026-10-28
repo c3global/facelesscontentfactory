@@ -266,8 +266,6 @@ export const planSchema = z.object({
   captionPageMs: z.number().int().min(100).max(1500).default(500),
   scenes: z.array(sceneSchema).min(1),
   endCard: endCardSchema.optional(),
-  /** more end cards after `endCard`, in order (used by the graphics demo to show both end cards); each replaces the one before it */
-  moreEndCards: z.array(endCardSchema).default([]),
   /** effects on her clip (see src/fx). Behind-her effects need `matte`. */
   fx: z.array(fxSchema).default([]),
   /** slug of her person matte: public/matte/<slug>.webm and .anchors.json, made by `npm run matte -- <slug>` */
