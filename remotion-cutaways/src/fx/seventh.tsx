@@ -28,7 +28,7 @@ export const LiveCursor: React.FC<{fx: Of<'live-cursor'>}> = ({fx}) => {
   const h = w * 1.15;
   const draw = tw(t, 0.15, 0.6);
   const x = p.x - w / 2;
-  const y = p.y - h / 2;
+  const y = p.y - h / 2 + 130;
   // the cursor travels in from the lower right, then sits on the bottom-right handle while the box grows
   const cx = x + w + (1 - tw(t, 0, 0.5)) * 260;
   const cy = y + h + (1 - tw(t, 0, 0.5)) * 340;

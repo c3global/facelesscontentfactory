@@ -1,0 +1,114 @@
+{
+ "slug": "drck-fx",
+ "video": "raw/drck-fx.mp4",
+ "durationSec": 26.5,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 26.5,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "live-cursor",
+   "at": 0.3,
+   "until": 2.9,
+   "props": {
+    "label": "C3G"
+   }
+  },
+  {
+   "type": "clone-row",
+   "at": 3.2,
+   "until": 6.2,
+   "props": {
+    "count": 3
+   }
+  },
+  {
+   "type": "day-dial",
+   "at": 6.5,
+   "until": 9.5,
+   "props": {
+    "word": "day",
+    "label": "Day 1 to 12"
+   }
+  },
+  {
+   "type": "predict-keys",
+   "at": 9.8,
+   "until": 12.8,
+   "props": {
+    "text": "Predict your week",
+    "suggestions": [
+     "the",
+     "your",
+     "what"
+    ]
+   }
+  },
+  {
+   "type": "letter-orbit",
+   "at": 13.1,
+   "until": 16.4,
+   "props": {
+    "word": "C3 Global"
+   }
+  },
+  {
+   "type": "code-body",
+   "at": 16.7,
+   "until": 19.2
+  },
+  {
+   "type": "post-wall",
+   "at": 19.5,
+   "until": 22.6,
+   "props": {
+    "count": 1403,
+    "label": "posts"
+   }
+  },
+  {
+   "type": "letter-dive",
+   "at": 22.9,
+   "until": 26.3,
+   "props": {
+    "word": "dive",
+    "diveLetter": 1,
+    "label": "Letter dive"
+   }
+  }
+ ],
+ "matte": "drck-fx"
+}
