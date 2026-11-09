@@ -1,5 +1,5 @@
 import React from 'react';
-import {OffthreadVideo, staticFile, useVideoConfig} from 'remotion';
+import {Img, OffthreadVideo, staticFile, useVideoConfig} from 'remotion';
 import {serifFamily} from '../fonts';
 import {Cutout} from './behind';
 import {Caret, typedSlice, useSpan} from './fourth';
@@ -225,31 +225,60 @@ export const CodeBodyFront: React.FC<{fx: Of<'code-body'>}> = ({fx}) => {
   );
 };
 
-// ---------------------------------------------------------------- post wall (a grid of posts fills in behind her, a counter climbs)
+// ---------------------------------------------------------------- post wall (real-looking posts land behind her in a feed grid, a counter climbs)
+// `images`: post thumbnails in public/ (her real posts, or stills from her clip). Between them sit branded quote cards from `quotes`.
+const PostTile: React.FC<{i: number; size: number; images: string[]; quotes: string[]}> = ({i, size, images, quotes}) => {
+  const useQuote = quotes.length > 0 && (images.length === 0 || i % 4 === 2);
+  const likes = ((i * 7919) % 900) + 40;
+  const multi = i % 5 === 1;
+  if (useQuote) {
+    const q = quotes[i % quotes.length];
+    const tones = [{bg: C3.copperGrad, fg: '#2a1206'}, {bg: 'linear-gradient(160deg,#1b1d1f,#0b0c0d)', fg: '#F4B08A'}, {bg: CREAM, fg: INK}];
+    const tone = tones[i % tones.length];
+    return (
+      <div style={{width: size, height: size, background: tone.bg, padding: size * 0.1, boxSizing: 'border-box', display: 'flex', alignItems: 'center', fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 600, fontSize: size * 0.13, lineHeight: 1.15, color: tone.fg}}>{q}</div>
+    );
+  }
+  const src = images[i % images.length];
+  const zoom = 1 + ((i * 37) % 30) / 100;
+  return (
+    <div style={{width: size, height: size, overflow: 'hidden', position: 'relative', background: '#111'}}>
+      <Img src={staticFile(src)} style={{width: size * zoom, height: size * zoom, objectFit: 'cover', marginLeft: -((zoom - 1) * size) * ((i % 3) / 2), filter: i % 3 === 0 ? 'saturate(0.85) contrast(1.05)' : undefined}} />
+      {multi && <div style={{position: 'absolute', right: size * 0.06, top: size * 0.06, width: size * 0.13, height: size * 0.13, border: '2px solid #fff', borderRadius: 3, boxShadow: '3px -3px 0 -1px rgba(255,255,255,0.85)'}} />}
+      <div style={{position: 'absolute', left: size * 0.06, bottom: size * 0.05, fontFamily: C3.sans, fontWeight: 700, fontSize: size * 0.1, color: '#fff', textShadow: '0 1px 4px rgba(0,0,0,0.8)'}}>♥ {likes}</div>
+    </div>
+  );
+};
 export const PostWallPlate: React.FC<{fx: Of<'post-wall'>}> = ({fx}) => {
   const {t, len, outK} = useSpan(fx);
-  const {count, label} = fx.props;
-  const cols = 22;
-  const rows = 34;
-  const cell = 1080 / cols;
+  const {count, label, images, quotes} = fx.props;
+  const cols = 6;
+  const gap = 6;
+  const size = (1080 - gap * (cols + 1)) / cols;
+  const rows = Math.ceil(1920 / (size + gap)) + 1;
   const total = cols * rows;
-  const fill = tw(t, 0.2, Math.max(0.8, len - 0.5), 0, 1, (x) => x * x);
-  const lit = Math.floor(fill * total);
+  const fill = tw(t, 0.15, Math.max(0.8, len - 0.6), 0, 1, (x) => x * (2 - x));
   const shown = Math.round(fill * count);
-  const tones = ['#B5622C', '#E08A57', '#F4B08A', '#E3BF63', '#3a3f42', '#6b4a36', '#F3EBDD'];
+  // the feed scrolls up slowly while posts land
+  const scroll = t * 40;
   return (
     <div style={{...FILL, background: '#0d0e0f', opacity: outK, overflow: 'hidden'}}>
-      {Array.from({length: total}, (_, i) => {
-        // fill order scatters outward from the top center so it reads as posts landing
-        const r = Math.floor(i / cols);
-        const c = i % cols;
-        const order = (Math.abs(c - cols / 2) * 3 + r * 2 + ((c * 7 + r * 13) % 11)) / (cols * 1.5 + rows * 2 + 11);
-        const on = order * total < lit;
-        return <div key={i} style={{position: 'absolute', left: c * cell + 2, top: r * cell + 2, width: cell - 4, height: cell - 4, borderRadius: 4, background: on ? tones[(c * 3 + r * 5) % tones.length] : 'rgba(255,255,255,0.04)', opacity: on ? 0.85 : 1}} />;
-      })}
-      <div style={{position: 'absolute', right: 50, top: 120, textAlign: 'right'}}>
-        <div style={{fontFamily: MONO, fontWeight: 700, fontSize: 84, color: '#fff', textShadow: '0 4px 20px rgba(0,0,0,0.8)'}}>{shown.toLocaleString('en-US')}</div>
-        <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 24, letterSpacing: 5, color: C3.copper, textTransform: 'uppercase'}}>{label}</div>
+      <div style={{position: 'absolute', left: 0, top: -scroll, width: 1080}}>
+        {Array.from({length: total}, (_, i) => {
+          const r = Math.floor(i / cols);
+          const c = i % cols;
+          const order = (r * 1.6 + Math.abs(c - (cols - 1) / 2) + ((c * 7 + r * 13) % 5) * 0.4) / (rows * 1.6 + cols);
+          const k = tw(fill, order * 0.9, order * 0.9 + 0.1, 0, 1, pop);
+          return (
+            <div key={i} style={{position: 'absolute', left: gap + c * (size + gap), top: gap + r * (size + gap), width: size, height: size, borderRadius: 8, overflow: 'hidden', opacity: k, transform: `scale(${0.6 + 0.4 * k})`, background: 'rgba(255,255,255,0.04)'}}>
+              <PostTile i={i} size={size} images={images} quotes={quotes} />
+            </div>
+          );
+        })}
+      </div>
+      <div style={{position: 'absolute', right: 40, top: 110, textAlign: 'right', padding: '14px 26px', borderRadius: 20, background: 'rgba(10,10,12,0.82)', border: C3.hair}}>
+        <div style={{fontFamily: MONO, fontWeight: 700, fontSize: 80, color: '#fff'}}>{shown.toLocaleString('en-US')}</div>
+        <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 26, letterSpacing: 5, color: C3.copper, textTransform: 'uppercase'}}>{label}</div>
       </div>
     </div>
   );

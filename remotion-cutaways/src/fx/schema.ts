@@ -128,7 +128,7 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('predict-keys'), props: z.object({text: z.string(), suggestions: z.array(z.string()).min(3).max(3).default(['the', 'your', 'what']), y: z.number().default(1180)})}),
   z.object({...base, type: z.literal('letter-orbit'), props: z.object({word: z.string(), radius: z.number().default(330), tilt: z.number().default(60)})}),
   z.object({...base, type: z.literal('code-body'), props: z.object({seed: z.string().default('c3')}).prefault({})}),
-  z.object({...base, type: z.literal('post-wall'), props: z.object({count: z.number().int().min(1).default(1403), label: z.string().default('posts')}).prefault({})}),
+  z.object({...base, type: z.literal('post-wall'), props: z.object({count: z.number().int().min(1).default(1403), label: z.string().default('posts'), /** post thumbnails in public/, e.g. her real posts */ images: z.array(z.string()).default([]), /** short lines for branded quote tiles between the photos */ quotes: z.array(z.string()).default([])}).prefault({})}),
   z.object({...base, type: z.literal('letter-dive'), props: z.object({word: z.string(), diveLetter: z.number().int().min(0).default(1), label: z.string().optional()})}),
 ]);
 

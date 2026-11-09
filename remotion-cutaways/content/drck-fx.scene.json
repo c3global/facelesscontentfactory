@@ -96,7 +96,21 @@
    "until": 22.6,
    "props": {
     "count": 1403,
-    "label": "posts"
+    "label": "posts",
+    "images": [
+     "posts/drck-fx-1.jpg",
+     "posts/drck-fx-2.jpg",
+     "posts/drck-fx-3.jpg",
+     "posts/drck-fx-4.jpg",
+     "posts/drck-fx-5.jpg",
+     "posts/drck-fx-6.jpg",
+     "posts/drck-fx-7.jpg",
+     "posts/drck-fx-8.jpg"
+    ],
+    "quotes": [
+     "Don't just communicate.",
+     "Connect."
+    ]
    }
   },
   {
