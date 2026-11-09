@@ -18,33 +18,51 @@ const CREAM = '#F3EBDD';
 const INK = '#2B2420';
 const COPPER_DARK = '#A5551F';
 
-// ---------------------------------------------------------------- live cursor (a selection box with handles locks onto her, a named cursor drags it)
+// ---------------------------------------------------------------- live cursor
+// Like a design canvas: the named cursor drags a small box around her head, then pulls it out into a big rectangle
+// (any size: width/height in px), live size readout, a center guide flashes, and the box nudges her a little.
 export const LiveCursor: React.FC<{fx: Of<'live-cursor'>}> = ({fx}) => {
-  const {t, abs, fps, outK} = useSpan(fx);
+  const {t, abs, fps, len, outK} = useSpan(fx);
   const {anchors} = useFxEnv();
-  const {label, target, size} = fx.props;
-  const p = anchorPx(anchors, Math.round(abs * fps), target);
-  const w = size * (0.75 + 0.25 * tw(t, 0.5, 1.1));
-  const h = w * 1.15;
-  const draw = tw(t, 0.15, 0.6);
-  const x = p.x - w / 2;
-  const y = p.y - h / 2 + 130;
-  // the cursor travels in from the lower right, then sits on the bottom-right handle while the box grows
-  const cx = x + w + (1 - tw(t, 0, 0.5)) * 260;
-  const cy = y + h + (1 - tw(t, 0, 0.5)) * 340;
-  const handle = (hx: number, hy: number, i: number) => <div key={i} style={{position: 'absolute', left: hx - 9, top: hy - 9, width: 18, height: 18, background: '#fff', border: `3px solid ${C3.copper}`, boxSizing: 'border-box', opacity: draw}} />;
+  const {label, width, height, nudge} = fx.props;
+  const head = anchorPx(anchors, Math.round(abs * fps), 'head');
+  const ease = (x: number) => 1 - (1 - x) ** 3;
+  // phase 1: small head box drawn from its top-left corner
+  const draw = tw(t, 0.25, 0.6, 0, 1, ease);
+  // phase 2: pulled out to the full rectangle
+  const grow = tw(t, 0.7, 1.25, 0, 1, ease);
+  const w0 = 300;
+  const h0 = 340;
+  const w = w0 + (width - w0) * grow;
+  const h = h0 + (height - h0) * grow;
+  // phase 3: nudge sideways and back
+  const nx = nudge * Math.sin(Math.PI * tw(t, 1.4, len - 0.3, 0, 1, (x) => x));
+  const x = head.x - w / 2 + nx;
+  const y = head.y - h0 * 0.45;
+  const bw = w * Math.min(1, draw * 1.2);
+  const bh = h * draw;
+  const live = (v: number, k: number) => Math.round(v + (grow > 0 && grow < 1 ? Math.sin(abs * 40 + k) * 6 : 0));
+  // the cursor rides the bottom-right handle; before it arrives it travels in from the left
+  const enter = tw(t, 0, 0.3, 0, 1, ease);
+  const cx = (x + bw) * enter + 120 * (1 - enter);
+  const cy = (y + bh) * enter + (y - 80) * (1 - enter);
+  const guide = tw(t, 1.3, 1.45) * (1 - tw(t, 1.9, 2.1));
+  const handles: [number, number][] = [[x, y], [x + bw / 2, y], [x + bw, y], [x, y + bh / 2], [x + bw, y + bh / 2], [x, y + bh], [x + bw / 2, y + bh], [x + bw, y + bh]];
   return (
     <div style={{...FILL, opacity: outK}}>
-      <div style={{position: 'absolute', left: x, top: y, width: w, height: h, border: `3px solid ${C3.copper}`, boxSizing: 'border-box', clipPath: `inset(0 ${100 - draw * 100}% ${100 - draw * 100}% 0)`, background: 'rgba(224,138,87,0.06)'}} />
-      {[[x, y], [x + w, y], [x, y + h], [x + w, y + h], [x + w / 2, y], [x + w / 2, y + h], [x, y + h / 2], [x + w, y + h / 2]].map(([hx, hy], i) => handle(hx, hy, i))}
-      <div style={{position: 'absolute', left: x + w / 2 - 80, top: y - 64, width: 160, textAlign: 'center', opacity: tw(t, 0.5, 0.75)}}>
-        <span style={{display: 'inline-block', padding: '6px 14px', borderRadius: 8, background: C3.copperGrad, color: '#2a1206', fontFamily: MONO, fontWeight: 700, fontSize: 24}}>{Math.round(w)} × {Math.round(h)}</span>
-      </div>
-      <div style={{position: 'absolute', left: cx, top: cy}}>
-        <svg width={46} height={56} viewBox="0 0 23 28" style={{filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.5))'}}>
-          <path d="M1 1 L1 22 L7 17 L11 27 L15 25 L11 15 L19 15 Z" fill="#fff" stroke="#111" strokeWidth={1.4} strokeLinejoin="round" />
+      <div style={{position: 'absolute', left: 540 + nx - 1.5, top: 0, width: 3, height: 1920, background: '#FF5A4E', opacity: guide * 0.9}} />
+      {draw > 0 && <div style={{position: 'absolute', left: x, top: y, width: bw, height: bh, border: `3px solid ${C3.gold}`, boxSizing: 'border-box', background: 'rgba(227,191,99,0.05)'}} />}
+      {draw > 0.95 && handles.map(([hx, hy], i) => <div key={i} style={{position: 'absolute', left: hx - 10, top: hy - 10, width: 20, height: 20, background: '#fff', border: `3px solid ${C3.gold}`, boxSizing: 'border-box'}} />)}
+      {draw > 0.95 && (
+        <div style={{position: 'absolute', left: x + bw / 2 - 120, top: y - 62, width: 240, textAlign: 'center'}}>
+          <span style={{display: 'inline-block', padding: '6px 16px', borderRadius: 8, background: C3.gold, color: '#2a1d06', fontFamily: MONO, fontWeight: 700, fontSize: 26}}>{live(w, 1)} × {live(h, 2)}</span>
+        </div>
+      )}
+      <div style={{position: 'absolute', left: cx - 4, top: cy - 4}}>
+        <svg width={64} height={78} viewBox="0 0 23 28" style={{filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.5))'}}>
+          <path d="M1 1 L1 22 L7 17 L11 27 L15 25 L11 15 L19 15 Z" fill="#fff" stroke="#111" strokeWidth={1.2} strokeLinejoin="round" />
         </svg>
-        <div style={{position: 'absolute', left: 34, top: 44, padding: '6px 16px', borderRadius: 18, background: C3.copperGrad, color: '#2a1206', fontFamily: C3.sans, fontWeight: 700, fontSize: 26, whiteSpace: 'nowrap', boxShadow: '0 6px 16px rgba(0,0,0,0.4)'}}>{label}</div>
+        <div style={{position: 'absolute', left: 52, top: 64, padding: '8px 20px', borderRadius: 10, background: C3.copperGrad, color: '#2a1206', fontFamily: C3.sans, fontWeight: 700, fontSize: 30, whiteSpace: 'nowrap', boxShadow: '0 6px 16px rgba(0,0,0,0.4)'}}>{label}</div>
       </div>
     </div>
   );
