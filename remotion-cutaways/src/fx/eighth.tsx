@@ -241,7 +241,7 @@ const Rosette: React.FC<{size: number; text: string; sub?: string}> = ({size, te
       {Array.from({length: 36}, (_, i) => <ellipse key={i} cx={size / 2} cy={size / 2} rx={size * 0.46} ry={size * 0.2} fill="none" stroke={NOTE_INK} strokeWidth={0.9} opacity={0.7} transform={`rotate(${i * 5} ${size / 2} ${size / 2})`} />)}
       <circle cx={size / 2} cy={size / 2} r={size * 0.24} fill={NOTE_PAPER} stroke={NOTE_INK} strokeWidth={2} />
     </svg>
-    <div style={{position: 'absolute', left: 0, top: size / 2 - 30, width: size, textAlign: 'center', fontFamily: serifFamily, fontStyle: 'italic', fontSize: 26, lineHeight: '28px', color: NOTE_INK}}>{text}</div>
+    <div style={{position: 'absolute', left: 0, top: size / 2 - 30, width: size, textAlign: 'center', fontFamily: serifFamily, fontStyle: 'italic', fontSize: 21, lineHeight: '28px', color: NOTE_INK}}>{text}</div>
     {sub && <div style={{position: 'absolute', left: 0, top: size / 2 + 4, width: size, textAlign: 'center', fontFamily: serifFamily, fontSize: 15, letterSpacing: 2, color: NOTE_INK, textTransform: 'uppercase'}}>{sub}</div>}
   </div>
 );
@@ -253,47 +253,75 @@ export const Banknote: React.FC<{fx: Of<'banknote'>}> = ({fx}) => {
   const inK = tw(t, 0, 0.3);
   const n = Math.round(amount * tw(t, 0.25, Math.max(0.8, len - 0.6), 0, 1, (x) => 1 - (1 - x) ** 3));
   const num = `${n.toLocaleString('en-US')}.`;
+  const W = 1080;
+  const CX = W / 2;
+  // tall, narrow numerals like engraved currency type
+  const numeral = (size: number, extra: React.CSSProperties = {}) => ({fontFamily: serifFamily, fontSize: size, color: NOTE_INK, display: 'inline-block', transform: 'scaleX(0.78)', whiteSpace: 'nowrap', ...extra}) as React.CSSProperties;
   const box = (x: number, y: number, w: number, h: number, child: React.ReactNode, r = 22) => (
-    <div style={{position: 'absolute', left: x, top: y, width: w, height: h, borderRadius: r, border: `3px solid ${NOTE_INK}`, boxShadow: `inset 0 0 0 6px ${NOTE_PAPER}, inset 0 0 0 7.5px ${NOTE_INK}`, background: NOTE_PAPER, display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box'}}>{child}</div>
+    <div style={{position: 'absolute', left: x, top: y, width: w, height: h, borderRadius: r, border: `3px solid ${NOTE_INK}`, boxShadow: `inset 0 0 0 7px ${NOTE_PAPER}, inset 0 0 0 9px ${NOTE_INK}`, background: NOTE_PAPER, display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box', overflow: 'hidden'}}>{child}</div>
   );
-  const OX = 300;
-  const OY = 300;
-  const OW = 700;
-  const OH = 900;
-  const ringText = `${ring} • `.repeat(4);
+  // portrait oval, centered
+  const OW = 640;
+  const OH = 820;
+  const OY = 250;
+  const ringText = `${ring} • `.repeat(9).toUpperCase();
+  const SW = OW + 200;
+  const SH = OH + 200;
   return (
     <div style={{...FILL, background: NOTE_PAPER, opacity: outK * inK, overflow: 'hidden', transform: `scale(${1.04 - 0.04 * inK})`}}>
-      {waves(1080, 1920, 9, 3, 'nw')}
-      <div style={{position: 'absolute', left: 30, top: 30, width: 1020, height: 1860, border: `4px solid ${NOTE_INK}`, borderRadius: 18}} />
-      <div style={{position: 'absolute', left: 44, top: 200, width: 46, height: 1500}}><Guilloche w={46} h={1500} vertical /></div>
-      <div style={{position: 'absolute', left: 990, top: 200, width: 46, height: 1500}}><Guilloche w={46} h={1500} vertical /></div>
-      <div style={{position: 'absolute', left: 120, top: 1712, width: 840, height: 40}}><Guilloche w={840} h={40} /></div>
-      {box(48, 48, 420, 140, <span style={{fontFamily: serifFamily, fontSize: 78, color: NOTE_INK}}>{num}</span>)}
-      {box(520, 60, 500, 110, <span style={{fontFamily: serifFamily, fontWeight: 700, fontSize: 44, letterSpacing: 3, color: '#9E2B2B'}}>{serial}</span>)}
-      {/* the portrait oval: engraved rings, curved lettering, her face in green line engraving */}
-      <svg width={OW + 120} height={OH + 120} style={{position: 'absolute', left: OX - 60, top: OY - 60}}>
-        <defs><path id="ringPath" d={`M ${(OW + 120) / 2} 30 a ${OW / 2 + 30} ${OH / 2 + 30} 0 1 1 -0.1 0`} /></defs>
-        {Array.from({length: 60}, (_, i) => <ellipse key={i} cx={(OW + 120) / 2} cy={(OH + 120) / 2} rx={OW / 2 + 52} ry={OH / 2 + 52} fill="none" stroke={NOTE_INK} strokeWidth={0.8} opacity={0.55} transform={`rotate(${i * 6} ${(OW + 120) / 2} ${(OH + 120) / 2}) scale(1 ${1 - (i % 3) * 0.01})`} style={{transformOrigin: 'center'}} />)}
-        <ellipse cx={(OW + 120) / 2} cy={(OH + 120) / 2} rx={OW / 2 + 48} ry={OH / 2 + 48} fill={NOTE_PAPER} stroke={NOTE_INK} strokeWidth={3} />
-        <ellipse cx={(OW + 120) / 2} cy={(OH + 120) / 2} rx={OW / 2 + 6} ry={OH / 2 + 6} fill="none" stroke={NOTE_INK} strokeWidth={3} />
-        <text fontFamily="Playfair Display, Georgia, serif" fontSize={30} letterSpacing={6} fill={NOTE_INK}><textPath href="#ringPath">{ringText.toUpperCase()}</textPath></text>
+      {/* wavy engraved field inside the border */}
+      <div style={{position: 'absolute', left: 90, top: 150, width: 900, height: 1620, overflow: 'hidden'}}>{waves(900, 1620, 8, 3, 'nw')}</div>
+      {/* outer frame and guilloche band all the way around */}
+      <div style={{position: 'absolute', left: 24, top: 24, width: 1032, height: 1872, border: `3px solid ${NOTE_INK}`, borderRadius: 20}} />
+      <div style={{position: 'absolute', left: 36, top: 140, width: 50, height: 1640}}><Guilloche w={50} h={1640} vertical /></div>
+      <div style={{position: 'absolute', left: 994, top: 140, width: 50, height: 1640}}><Guilloche w={50} h={1640} vertical /></div>
+      <div style={{position: 'absolute', left: 300, top: 40, width: 480, height: 50}}><Guilloche w={480} h={50} /></div>
+      <div style={{position: 'absolute', left: 300, top: 1830, width: 480, height: 50}}><Guilloche w={480} h={50} /></div>
+      <div style={{position: 'absolute', left: 88, top: 148, width: 904, height: 1624, border: `2px solid ${NOTE_INK}`}} />
+      {/* top row */}
+      {box(40, 36, 300, 110, <span style={numeral(76)}>{num}</span>)}
+      {box(CX - 170, 46, 340, 90, <span style={{fontFamily: serifFamily, fontWeight: 700, fontSize: 38, letterSpacing: 3, color: '#9E2B2B'}}>{serial}</span>)}
+      {box(W - 340, 36, 300, 110, <span style={numeral(76)}>{num}</span>)}
+      {/* oval: beaded rim, lettering, engraved portrait */}
+      <svg width={SW} height={SH} style={{position: 'absolute', left: CX - SW / 2, top: OY - 100}}>
+        <defs><path id="ringPath" d={`M ${SW / 2} ${100 - 42} a ${OW / 2 + 42} ${OH / 2 + 42} 0 1 1 -0.1 0`} /></defs>
+        {Array.from({length: 72}, (_, i) => <ellipse key={i} cx={SW / 2} cy={SH / 2} rx={OW / 2 + 88} ry={OH / 2 + 88} fill="none" stroke={NOTE_INK} strokeWidth={0.8} opacity={0.6} transform={`rotate(${i * 5} ${SW / 2} ${SH / 2}) scale(1)`} style={{transform: `scale(${1 - (i % 4) * 0.012})`, transformOrigin: 'center'}} />)}
+        {Array.from({length: 120}, (_, i) => {
+          const th = (i / 120) * Math.PI * 2;
+          return <circle key={`b${i}`} cx={SW / 2 + (OW / 2 + 70) * Math.cos(th)} cy={SH / 2 + (OH / 2 + 70) * Math.sin(th)} r={7} fill="none" stroke={NOTE_INK} strokeWidth={1.6} />;
+        })}
+        <ellipse cx={SW / 2} cy={SH / 2} rx={OW / 2 + 60} ry={OH / 2 + 60} fill="none" stroke={NOTE_INK} strokeWidth={2} />
+        <ellipse cx={SW / 2} cy={SH / 2} rx={OW / 2 + 22} ry={OH / 2 + 22} fill={NOTE_PAPER} stroke={NOTE_INK} strokeWidth={3} />
+        <text fontFamily="Playfair Display, Georgia, serif" fontSize={26} fontWeight={700} letterSpacing={7} fill={NOTE_INK}><textPath href="#ringPath">{ringText}</textPath></text>
+        <ellipse cx={SW / 2} cy={SH / 2} rx={OW / 2 + 2} ry={OH / 2 + 2} fill="none" stroke={NOTE_INK} strokeWidth={4} />
       </svg>
-      <div style={{position: 'absolute', left: OX, top: OY, width: OW, height: OH, borderRadius: '50%', overflow: 'hidden', background: NOTE_PAPER, isolation: 'isolate'}}>
-        <OffthreadVideo src={staticFile(video)} muted startFrom={Math.round(a * fps)} style={{position: 'absolute', left: -320, top: -200, width: 1340, height: 2382, objectFit: 'cover', filter: 'grayscale(1) contrast(2.4) brightness(1.15)'}} />
+      <div style={{position: 'absolute', left: CX - OW / 2, top: OY, width: OW, height: OH, borderRadius: '50%', overflow: 'hidden', background: NOTE_INK, isolation: 'isolate'}}>
+        <OffthreadVideo src={staticFile(video)} muted startFrom={Math.round(a * fps)} style={{position: 'absolute', left: -(1060 - OW) / 2, top: -110, width: 1060, height: 1884, objectFit: 'cover', filter: 'grayscale(1) contrast(2.3) brightness(0.72)'}} />
         <div style={{position: 'absolute', inset: 0, background: NOTE_INK, mixBlendMode: 'screen'}} />
-        <div style={{position: 'absolute', inset: 0, background: `repeating-linear-gradient(-8deg, ${NOTE_PAPER} 0 2px, transparent 2px 6px)`, mixBlendMode: 'lighten', opacity: 0.9}} />
+        <div style={{position: 'absolute', inset: 0, background: `repeating-linear-gradient(-6deg, ${NOTE_INK} 0 1.6px, transparent 1.6px 4.5px)`, mixBlendMode: 'multiply', opacity: 0.8}} />
+        <div style={{position: 'absolute', inset: 0, background: `repeating-linear-gradient(-6deg, ${NOTE_PAPER} 0 1.4px, transparent 1.4px 4.5px)`, mixBlendMode: 'lighten', opacity: 0.85}} />
       </div>
-      <div style={{position: 'absolute', left: 70, top: 1000}}><Rosette size={230} text={seal} sub={sealSub} /></div>
+      {/* seals either side */}
+      <div style={{position: 'absolute', left: 92, top: 1060}}><Rosette size={180} text={seal} sub={sealSub} /></div>
+      <div style={{position: 'absolute', left: W - 272, top: 1060}}><Rosette size={180} text="" /></div>
       {/* the big value panel */}
-      {box(110, 1240, 860, 400, (
-        <div style={{textAlign: 'center'}}>
-          <div style={{fontFamily: serifFamily, fontSize: 230, lineHeight: '240px', color: NOTE_INK, textShadow: `3px 3px 0 ${NOTE_PAPER}, 6px 6px 0 rgba(31,74,53,0.45)`}}>{n.toLocaleString('en-US')}</div>
-          <div style={{fontFamily: serifFamily, fontSize: 52, letterSpacing: 2, color: NOTE_INK, textTransform: 'uppercase'}}>{title}</div>
+      {box(100, 1220, 880, 440, (
+        <div style={{textAlign: 'center', width: '100%'}}>
+          <svg width={880} height={300} style={{display: 'block'}}>
+            <defs>
+              <pattern id="hatch" width={6} height={6} patternUnits="userSpaceOnUse" patternTransform="rotate(-35)"><line x1={0} y1={0} x2={0} y2={6} stroke={NOTE_INK} strokeWidth={3.4} /></pattern>
+            </defs>
+            <g transform="translate(440 270) scale(0.74 1)">
+              <text x={0} y={0} textAnchor="middle" fontFamily="Playfair Display, Georgia, serif" fontSize={330} fill="url(#hatch)" stroke={NOTE_INK} strokeWidth={3}>{num}</text>
+            </g>
+          </svg>
+          <div style={{...numeral(64, {letterSpacing: 2, textTransform: 'uppercase', marginTop: -10})}}>{title}</div>
         </div>
       ), 30)}
-      {box(48, 1770, 420, 120, <span style={{fontFamily: serifFamily, fontSize: 70, color: NOTE_INK}}>{num}</span>)}
-      {finePrint && box(500, 1780, 330, 100, <span style={{fontFamily: serifFamily, fontWeight: 700, fontSize: 20, lineHeight: 1.3, letterSpacing: 1, textAlign: 'center', color: NOTE_INK, textTransform: 'uppercase', padding: '0 14px'}}>{finePrint}</span>, 16)}
-      {box(860, 1770, 180, 120, <span style={{fontFamily: serifFamily, fontSize: 44, color: NOTE_INK}}>{n.toLocaleString('en-US').slice(0, 3)}</span>)}
+      {/* bottom row */}
+      {box(40, 1780, 300, 100, <span style={numeral(68)}>{num}</span>)}
+      {finePrint && box(CX - 190, 1786, 380, 88, <span style={{fontFamily: serifFamily, fontWeight: 700, fontSize: 21, lineHeight: 1.3, letterSpacing: 1, textAlign: 'center', color: NOTE_INK, textTransform: 'uppercase', padding: '0 14px'}}>{finePrint}</span>, 16)}
+      {box(W - 340, 1780, 300, 100, <span style={numeral(68)}>{num}</span>)}
     </div>
   );
 };
