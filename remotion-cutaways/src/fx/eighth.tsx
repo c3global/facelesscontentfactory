@@ -183,7 +183,7 @@ export const RackFocus: React.FC<{fx: Of<'rack-focus'>}> = ({fx}) => {
 /** 0 = focus on the foreground (she is soft), 1 = focus on her */
 export const rackK = (t: number, len: number) => tw(t, 0.5, Math.min(len - 0.3, 1.3));
 
-// ---------------------------------------------------------------- banknote: a cream note in copper ink with her engraved portrait, the number counts up
+// ---------------------------------------------------------------- banknote: a classic green note with her engraved portrait, the number counts up
 export const Banknote: React.FC<{fx: Of<'banknote'>}> = ({fx}) => {
   const {t, len, a, outK} = useSpan(fx);
   const {video} = useFxEnv();
@@ -192,24 +192,25 @@ export const Banknote: React.FC<{fx: Of<'banknote'>}> = ({fx}) => {
   const inK = tw(t, 0, 0.35, 0, 1, pop);
   const n = Math.round(amount * tw(t, 0.3, Math.max(0.8, len - 0.6), 0, 1, (x) => 1 - (1 - x) ** 3));
   const num = n.toLocaleString('en-US');
-  const ink = '#7A3A14';
-  const guilloche = `repeating-radial-gradient(circle at 50% 50%, transparent 0 6px, rgba(122,58,20,0.18) 6px 7px)`;
+  const ink = '#2F5440';
+  const paper = '#E8EBDA';
+  const guilloche = `repeating-radial-gradient(circle at 50% 50%, transparent 0 6px, rgba(47,84,64,0.2) 6px 7px)`;
   return (
     <div style={{...FILL, background: '#141516', opacity: outK, overflow: 'hidden'}}>
-      <div style={{position: 'absolute', left: 50, top: 340, width: 980, height: 1240, background: `${CREAM}`, border: `10px double ${ink}`, boxSizing: 'border-box', transform: `scale(${0.8 + 0.2 * inK}) rotate(${(1 - inK) * -6}deg)`, opacity: inK, boxShadow: '0 30px 80px rgba(0,0,0,0.6)'}}>
+      <div style={{position: 'absolute', left: 50, top: 340, width: 980, height: 1240, background: `${paper}`, border: `10px double ${ink}`, boxSizing: 'border-box', transform: `scale(${0.8 + 0.2 * inK}) rotate(${(1 - inK) * -6}deg)`, opacity: inK, boxShadow: '0 30px 80px rgba(0,0,0,0.6)'}}>
         <div style={{position: 'absolute', inset: 18, border: `3px solid ${ink}`, backgroundImage: guilloche, backgroundSize: '160px 160px'}} />
         <div style={{position: 'absolute', left: 40, top: 34, fontFamily: serifFamily, fontSize: 56, color: ink}}>{num}</div>
-        <div style={{position: 'absolute', right: 40, top: 40, padding: '4px 16px', border: `2px solid ${ink}`, fontFamily: serifFamily, fontSize: 30, color: COPPER_DARK, background: CREAM}}>{serial}</div>
-        <div style={{position: 'absolute', left: 240, top: 150, width: 500, height: 620, borderRadius: '50%', border: `8px solid ${ink}`, overflow: 'hidden', background: CREAM}}>
-          <OffthreadVideo src={staticFile(video)} muted startFrom={Math.round(a * fps)} style={{position: 'absolute', left: -230, top: -210, width: 960, height: 1707, objectFit: 'cover', filter: 'grayscale(1) contrast(1.9) brightness(1.08) sepia(1) hue-rotate(-12deg) saturate(2.2)'}} />
-          <div style={{position: 'absolute', inset: 0, background: `repeating-linear-gradient(0deg, rgba(243,235,221,0.55) 0 2px, transparent 2px 5px)`, mixBlendMode: 'screen'}} />
+        <div style={{position: 'absolute', right: 40, top: 40, padding: '4px 16px', border: `2px solid ${ink}`, fontFamily: serifFamily, fontSize: 30, color: ink, background: paper}}>{serial}</div>
+        <div style={{position: 'absolute', left: 240, top: 150, width: 500, height: 620, borderRadius: '50%', border: `8px solid ${ink}`, overflow: 'hidden', background: paper}}>
+          <OffthreadVideo src={staticFile(video)} muted startFrom={Math.round(a * fps)} style={{position: 'absolute', left: -230, top: -210, width: 960, height: 1707, objectFit: 'cover', filter: 'grayscale(1) contrast(1.9) brightness(1.08) sepia(1) hue-rotate(75deg) saturate(1.4)'}} />
+          <div style={{position: 'absolute', inset: 0, background: `repeating-linear-gradient(0deg, rgba(232,235,218,0.55) 0 2px, transparent 2px 5px)`, mixBlendMode: 'screen'}} />
         </div>
-        <div style={{position: 'absolute', left: 40, right: 40, top: 800, height: 230, border: `4px solid ${ink}`, background: CREAM, textAlign: 'center'}}>
+        <div style={{position: 'absolute', left: 40, right: 40, top: 800, height: 230, border: `4px solid ${ink}`, background: paper, textAlign: 'center'}}>
           <div style={{fontFamily: serifFamily, fontSize: 150, lineHeight: '170px', color: ink}}>{num}</div>
           <div style={{fontFamily: serifFamily, fontSize: 38, letterSpacing: 2, color: ink, textTransform: 'uppercase'}}>{title}</div>
         </div>
         <div style={{position: 'absolute', left: 40, bottom: 40, fontFamily: serifFamily, fontSize: 56, color: ink}}>{num}</div>
-        {finePrint && <div style={{position: 'absolute', left: 370, bottom: 46, width: 240, textAlign: 'center', padding: '6px 8px', border: `2px solid ${ink}`, fontFamily: serifFamily, fontSize: 18, lineHeight: 1.2, color: ink, background: CREAM, textTransform: 'uppercase'}}>{finePrint}</div>}
+        {finePrint && <div style={{position: 'absolute', left: 370, bottom: 46, width: 240, textAlign: 'center', padding: '6px 8px', border: `2px solid ${ink}`, fontFamily: serifFamily, fontSize: 18, lineHeight: 1.2, color: ink, background: paper, textTransform: 'uppercase'}}>{finePrint}</div>}
         <div style={{position: 'absolute', right: 40, bottom: 40, fontFamily: serifFamily, fontSize: 56, color: ink}}>{num}</div>
       </div>
     </div>
