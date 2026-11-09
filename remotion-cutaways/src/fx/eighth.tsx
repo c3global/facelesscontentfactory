@@ -134,7 +134,7 @@ export const BladeSlice: React.FC<{fx: Of<'blade-slice'>}> = ({fx}) => {
   const cy = head.y + 440;
   const line = tw(t, 0.05, 0.2, 0, 1, (x) => x);
   const flash = tw(t, 0.05, 0.12) * (1 - tw(t, 0.25, 0.35));
-  const slide = tw(t, 0.22, 0.45, 0, 1, (x) => 1 - (1 - x) ** 3) * (1 - tw(t, 0.75, 0.95, 0, 1, (x) => x * x));
+  const slide = tw(t, 0.2, 0.36, 0, 1, (x) => 1 - (1 - x) ** 3) * (1 - tw(t, 0.8, 0.98, 0, 1, (x) => x * x));
   const dist = fx.props.slide * slide;
   const dx = Math.cos(ang) * dist;
   const dy = Math.sin(ang) * dist;
@@ -154,8 +154,9 @@ export const BladeSlice: React.FC<{fx: Of<'blade-slice'>}> = ({fx}) => {
       {cutting && <div style={{...FILL, background: '#050505'}} />}
       {cutting && vid(bottom, 0, 0)}
       {cutting && vid(top, -dx, -dy)}
+      {cutting && <div style={{...FILL, clipPath: top, transform: `translate(${-dx}px, ${-dy}px)`, boxShadow: 'inset 0 -6px 0 rgba(255,255,255,0.85)'}} />}
       <svg width={1080} height={1920} style={{position: 'absolute', left: 0, top: 0}}>
-        <line x1={1080} y1={yAt(1080)} x2={1080 - 1080 * line} y2={yAt(1080 - 1080 * line)} stroke="#fff" strokeWidth={5} opacity={1 - tw(t, 0.3, 0.45)} style={{filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.9))'}} />
+        <line x1={1080} y1={yAt(1080)} x2={1080 - 1080 * line} y2={yAt(1080 - 1080 * line)} stroke="#fff" strokeWidth={8} opacity={1 - tw(t, 0.3, 0.45)} style={{filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.9))'}} />
       </svg>
       <div style={{...FILL, background: '#fff', opacity: 0.25 * flash}} />
     </div>
