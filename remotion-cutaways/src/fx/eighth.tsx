@@ -123,21 +123,41 @@ export const SketchWordsPlate: React.FC<{fx: Of<'sketch-words'>}> = ({fx}) => {
   );
 };
 
-// ---------------------------------------------------------------- blade slice: a copper blade streak cuts across her head, with a white glint and a quick shudder
+// ---------------------------------------------------------------- blade slice: a thin white line flashes across her, then the frame is cut along it and the top half slides off and snaps back
 export const BladeSlice: React.FC<{fx: Of<'blade-slice'>}> = ({fx}) => {
-  const {t, abs, fps} = useSpan(fx);
-  const {anchors} = useFxEnv();
+  const {t, abs, a, fps} = useSpan(fx);
+  const {anchors, video, videoStyle} = useFxEnv();
   const head = anchorPx(anchors, Math.round(abs * fps), 'head');
-  const cut = tw(t, 0.1, 0.32, 0, 1, (x) => x * x);
-  const fade = 1 - tw(t, 0.45, 0.9);
-  const ang = fx.props.angle;
-  const len = 1500;
+  const ang = (fx.props.angle * Math.PI) / 180;
+  // the cut passes just under her chin
+  const cx = head.x;
+  const cy = head.y + 440;
+  const line = tw(t, 0.05, 0.2, 0, 1, (x) => x);
+  const flash = tw(t, 0.05, 0.12) * (1 - tw(t, 0.25, 0.35));
+  const slide = tw(t, 0.22, 0.45, 0, 1, (x) => 1 - (1 - x) ** 3) * (1 - tw(t, 0.75, 0.95, 0, 1, (x) => x * x));
+  const dist = fx.props.slide * slide;
+  const dx = Math.cos(ang) * dist;
+  const dy = Math.sin(ang) * dist;
+  // the cut line across the whole frame: y = cy + tan(ang) * (x - cx)
+  const yAt = (x: number) => cy + Math.tan(ang) * (x - cx);
+  const top = `polygon(0 0, 1080px 0, 1080px ${yAt(1080)}px, 0 ${yAt(0)}px)`;
+  const bottom = `polygon(0 ${yAt(0)}px, 1080px ${yAt(1080)}px, 1080px 1920px, 0 1920px)`;
+  const from = Math.round(a * fps);
+  const vid = (clip: string, tx: number, ty: number) => (
+    <div style={{...FILL, clipPath: clip, transform: `translate(${tx}px, ${ty}px)`}}>
+      <OffthreadVideo src={staticFile(video)} muted startFrom={from} style={{...FILL, objectFit: 'cover', ...videoStyle}} />
+    </div>
+  );
+  const cutting = slide > 0.001;
   return (
     <div style={{...FILL, overflow: 'hidden', pointerEvents: 'none'}}>
-      <div style={{position: 'absolute', left: head.x - len / 2, top: head.y + 40, width: len, height: 24, transform: `rotate(${ang}deg)`, transformOrigin: '50% 50%', opacity: fade}}>
-        <div style={{position: 'absolute', right: 0, top: 0, height: 24, width: `${cut * 100}%`, borderRadius: 12, background: 'linear-gradient(90deg, rgba(20,10,4,0) 0%, rgba(20,10,4,0.9) 55%, #B5622C 85%, #fff 100%)', boxShadow: '0 0 30px rgba(244,176,138,0.8)'}} />
-      </div>
-      <div style={{...FILL, background: '#fff', opacity: 0.35 * tw(t, 0.3, 0.34) * (1 - tw(t, 0.36, 0.5))}} />
+      {cutting && <div style={{...FILL, background: '#050505'}} />}
+      {cutting && vid(bottom, 0, 0)}
+      {cutting && vid(top, -dx, -dy)}
+      <svg width={1080} height={1920} style={{position: 'absolute', left: 0, top: 0}}>
+        <line x1={1080} y1={yAt(1080)} x2={1080 - 1080 * line} y2={yAt(1080 - 1080 * line)} stroke="#fff" strokeWidth={5} opacity={1 - tw(t, 0.3, 0.45)} style={{filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.9))'}} />
+      </svg>
+      <div style={{...FILL, background: '#fff', opacity: 0.25 * flash}} />
     </div>
   );
 };
@@ -183,36 +203,96 @@ export const RackFocus: React.FC<{fx: Of<'rack-focus'>}> = ({fx}) => {
 /** 0 = focus on the foreground (she is soft), 1 = focus on her */
 export const rackK = (t: number, len: number) => tw(t, 0.5, Math.min(len - 0.3, 1.3));
 
-// ---------------------------------------------------------------- banknote: a classic green note with her engraved portrait, the number counts up
+// ---------------------------------------------------------------- banknote: a full-screen green-ink note like real currency, her portrait engraved in the oval, the number counts up
+const NOTE_INK = '#1F4A35';
+const NOTE_PAPER = '#F1EEDF';
+const waves = (w: number, h: number, step: number, amp: number, id: string) => (
+  <svg width={w} height={h} style={{position: 'absolute', left: 0, top: 0}}>
+    <defs>
+      <pattern id={id} width={120} height={step} patternUnits="userSpaceOnUse">
+        <path d={`M0 ${step / 2} Q 30 ${step / 2 - amp} 60 ${step / 2} T 120 ${step / 2}`} fill="none" stroke={NOTE_INK} strokeWidth={1.1} opacity={0.55} />
+      </pattern>
+    </defs>
+    <rect width={w} height={h} fill={`url(#${id})`} />
+  </svg>
+);
+/** a guilloche band: overlapping sine strands, like the edge pattern on a bill */
+const Guilloche: React.FC<{w: number; h: number; vertical?: boolean}> = ({w, h, vertical}) => {
+  const L = vertical ? h : w;
+  const T = vertical ? w : h;
+  const paths = Array.from({length: 5}, (_, k) => {
+    let d = '';
+    for (let x = 0; x <= L; x += 6) {
+      const y = T / 2 + Math.sin((x / 22) + k * 1.25) * (T / 2 - 3);
+      d += `${x === 0 ? 'M' : 'L'}${vertical ? `${y} ${x}` : `${x} ${y}`} `;
+    }
+    return d;
+  });
+  return (
+    <svg width={w} height={h} style={{position: 'absolute', left: 0, top: 0}}>
+      {paths.map((d, i) => <path key={i} d={d} fill="none" stroke={NOTE_INK} strokeWidth={1.3} opacity={0.8} />)}
+    </svg>
+  );
+};
+const Rosette: React.FC<{size: number; text: string; sub?: string}> = ({size, text, sub}) => (
+  <div style={{position: 'absolute', width: size, height: size}}>
+    <svg width={size} height={size}>
+      {Array.from({length: 36}, (_, i) => <ellipse key={i} cx={size / 2} cy={size / 2} rx={size * 0.46} ry={size * 0.2} fill="none" stroke={NOTE_INK} strokeWidth={0.9} opacity={0.7} transform={`rotate(${i * 5} ${size / 2} ${size / 2})`} />)}
+      <circle cx={size / 2} cy={size / 2} r={size * 0.24} fill={NOTE_PAPER} stroke={NOTE_INK} strokeWidth={2} />
+    </svg>
+    <div style={{position: 'absolute', left: 0, top: size / 2 - 30, width: size, textAlign: 'center', fontFamily: serifFamily, fontStyle: 'italic', fontSize: 26, lineHeight: '28px', color: NOTE_INK}}>{text}</div>
+    {sub && <div style={{position: 'absolute', left: 0, top: size / 2 + 4, width: size, textAlign: 'center', fontFamily: serifFamily, fontSize: 15, letterSpacing: 2, color: NOTE_INK, textTransform: 'uppercase'}}>{sub}</div>}
+  </div>
+);
 export const Banknote: React.FC<{fx: Of<'banknote'>}> = ({fx}) => {
   const {t, len, a, outK} = useSpan(fx);
   const {video} = useFxEnv();
   const {fps} = useVideoConfig();
-  const {amount, title, serial, finePrint} = fx.props;
-  const inK = tw(t, 0, 0.35, 0, 1, pop);
-  const n = Math.round(amount * tw(t, 0.3, Math.max(0.8, len - 0.6), 0, 1, (x) => 1 - (1 - x) ** 3));
-  const num = n.toLocaleString('en-US');
-  const ink = '#2F5440';
-  const paper = '#E8EBDA';
-  const guilloche = `repeating-radial-gradient(circle at 50% 50%, transparent 0 6px, rgba(47,84,64,0.2) 6px 7px)`;
+  const {amount, title, serial, finePrint, ring, seal, sealSub} = fx.props;
+  const inK = tw(t, 0, 0.3);
+  const n = Math.round(amount * tw(t, 0.25, Math.max(0.8, len - 0.6), 0, 1, (x) => 1 - (1 - x) ** 3));
+  const num = `${n.toLocaleString('en-US')}.`;
+  const box = (x: number, y: number, w: number, h: number, child: React.ReactNode, r = 22) => (
+    <div style={{position: 'absolute', left: x, top: y, width: w, height: h, borderRadius: r, border: `3px solid ${NOTE_INK}`, boxShadow: `inset 0 0 0 6px ${NOTE_PAPER}, inset 0 0 0 7.5px ${NOTE_INK}`, background: NOTE_PAPER, display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box'}}>{child}</div>
+  );
+  const OX = 300;
+  const OY = 300;
+  const OW = 700;
+  const OH = 900;
+  const ringText = `${ring} • `.repeat(4);
   return (
-    <div style={{...FILL, background: '#141516', opacity: outK, overflow: 'hidden'}}>
-      <div style={{position: 'absolute', left: 50, top: 340, width: 980, height: 1240, background: `${paper}`, border: `10px double ${ink}`, boxSizing: 'border-box', transform: `scale(${0.8 + 0.2 * inK}) rotate(${(1 - inK) * -6}deg)`, opacity: inK, boxShadow: '0 30px 80px rgba(0,0,0,0.6)'}}>
-        <div style={{position: 'absolute', inset: 18, border: `3px solid ${ink}`, backgroundImage: guilloche, backgroundSize: '160px 160px'}} />
-        <div style={{position: 'absolute', left: 40, top: 34, fontFamily: serifFamily, fontSize: 56, color: ink}}>{num}</div>
-        <div style={{position: 'absolute', right: 40, top: 40, padding: '4px 16px', border: `2px solid ${ink}`, fontFamily: serifFamily, fontSize: 30, color: ink, background: paper}}>{serial}</div>
-        <div style={{position: 'absolute', left: 240, top: 150, width: 500, height: 620, borderRadius: '50%', border: `8px solid ${ink}`, overflow: 'hidden', background: paper}}>
-          <OffthreadVideo src={staticFile(video)} muted startFrom={Math.round(a * fps)} style={{position: 'absolute', left: -230, top: -210, width: 960, height: 1707, objectFit: 'cover', filter: 'grayscale(1) contrast(1.9) brightness(1.08) sepia(1) hue-rotate(75deg) saturate(1.4)'}} />
-          <div style={{position: 'absolute', inset: 0, background: `repeating-linear-gradient(0deg, rgba(232,235,218,0.55) 0 2px, transparent 2px 5px)`, mixBlendMode: 'screen'}} />
-        </div>
-        <div style={{position: 'absolute', left: 40, right: 40, top: 800, height: 230, border: `4px solid ${ink}`, background: paper, textAlign: 'center'}}>
-          <div style={{fontFamily: serifFamily, fontSize: 150, lineHeight: '170px', color: ink}}>{num}</div>
-          <div style={{fontFamily: serifFamily, fontSize: 38, letterSpacing: 2, color: ink, textTransform: 'uppercase'}}>{title}</div>
-        </div>
-        <div style={{position: 'absolute', left: 40, bottom: 40, fontFamily: serifFamily, fontSize: 56, color: ink}}>{num}</div>
-        {finePrint && <div style={{position: 'absolute', left: 370, bottom: 46, width: 240, textAlign: 'center', padding: '6px 8px', border: `2px solid ${ink}`, fontFamily: serifFamily, fontSize: 18, lineHeight: 1.2, color: ink, background: paper, textTransform: 'uppercase'}}>{finePrint}</div>}
-        <div style={{position: 'absolute', right: 40, bottom: 40, fontFamily: serifFamily, fontSize: 56, color: ink}}>{num}</div>
+    <div style={{...FILL, background: NOTE_PAPER, opacity: outK * inK, overflow: 'hidden', transform: `scale(${1.04 - 0.04 * inK})`}}>
+      {waves(1080, 1920, 9, 3, 'nw')}
+      <div style={{position: 'absolute', left: 30, top: 30, width: 1020, height: 1860, border: `4px solid ${NOTE_INK}`, borderRadius: 18}} />
+      <div style={{position: 'absolute', left: 44, top: 200, width: 46, height: 1500}}><Guilloche w={46} h={1500} vertical /></div>
+      <div style={{position: 'absolute', left: 990, top: 200, width: 46, height: 1500}}><Guilloche w={46} h={1500} vertical /></div>
+      <div style={{position: 'absolute', left: 120, top: 1712, width: 840, height: 40}}><Guilloche w={840} h={40} /></div>
+      {box(48, 48, 420, 140, <span style={{fontFamily: serifFamily, fontSize: 78, color: NOTE_INK}}>{num}</span>)}
+      {box(520, 60, 500, 110, <span style={{fontFamily: serifFamily, fontWeight: 700, fontSize: 44, letterSpacing: 3, color: '#9E2B2B'}}>{serial}</span>)}
+      {/* the portrait oval: engraved rings, curved lettering, her face in green line engraving */}
+      <svg width={OW + 120} height={OH + 120} style={{position: 'absolute', left: OX - 60, top: OY - 60}}>
+        <defs><path id="ringPath" d={`M ${(OW + 120) / 2} 30 a ${OW / 2 + 30} ${OH / 2 + 30} 0 1 1 -0.1 0`} /></defs>
+        {Array.from({length: 60}, (_, i) => <ellipse key={i} cx={(OW + 120) / 2} cy={(OH + 120) / 2} rx={OW / 2 + 52} ry={OH / 2 + 52} fill="none" stroke={NOTE_INK} strokeWidth={0.8} opacity={0.55} transform={`rotate(${i * 6} ${(OW + 120) / 2} ${(OH + 120) / 2}) scale(1 ${1 - (i % 3) * 0.01})`} style={{transformOrigin: 'center'}} />)}
+        <ellipse cx={(OW + 120) / 2} cy={(OH + 120) / 2} rx={OW / 2 + 48} ry={OH / 2 + 48} fill={NOTE_PAPER} stroke={NOTE_INK} strokeWidth={3} />
+        <ellipse cx={(OW + 120) / 2} cy={(OH + 120) / 2} rx={OW / 2 + 6} ry={OH / 2 + 6} fill="none" stroke={NOTE_INK} strokeWidth={3} />
+        <text fontFamily="Playfair Display, Georgia, serif" fontSize={30} letterSpacing={6} fill={NOTE_INK}><textPath href="#ringPath">{ringText.toUpperCase()}</textPath></text>
+      </svg>
+      <div style={{position: 'absolute', left: OX, top: OY, width: OW, height: OH, borderRadius: '50%', overflow: 'hidden', background: NOTE_PAPER, isolation: 'isolate'}}>
+        <OffthreadVideo src={staticFile(video)} muted startFrom={Math.round(a * fps)} style={{position: 'absolute', left: -320, top: -200, width: 1340, height: 2382, objectFit: 'cover', filter: 'grayscale(1) contrast(2.4) brightness(1.15)'}} />
+        <div style={{position: 'absolute', inset: 0, background: NOTE_INK, mixBlendMode: 'screen'}} />
+        <div style={{position: 'absolute', inset: 0, background: `repeating-linear-gradient(-8deg, ${NOTE_PAPER} 0 2px, transparent 2px 6px)`, mixBlendMode: 'lighten', opacity: 0.9}} />
       </div>
+      <div style={{position: 'absolute', left: 70, top: 1000}}><Rosette size={230} text={seal} sub={sealSub} /></div>
+      {/* the big value panel */}
+      {box(110, 1240, 860, 400, (
+        <div style={{textAlign: 'center'}}>
+          <div style={{fontFamily: serifFamily, fontSize: 230, lineHeight: '240px', color: NOTE_INK, textShadow: `3px 3px 0 ${NOTE_PAPER}, 6px 6px 0 rgba(31,74,53,0.45)`}}>{n.toLocaleString('en-US')}</div>
+          <div style={{fontFamily: serifFamily, fontSize: 52, letterSpacing: 2, color: NOTE_INK, textTransform: 'uppercase'}}>{title}</div>
+        </div>
+      ), 30)}
+      {box(48, 1770, 420, 120, <span style={{fontFamily: serifFamily, fontSize: 70, color: NOTE_INK}}>{num}</span>)}
+      {finePrint && box(500, 1780, 330, 100, <span style={{fontFamily: serifFamily, fontWeight: 700, fontSize: 20, lineHeight: 1.3, letterSpacing: 1, textAlign: 'center', color: NOTE_INK, textTransform: 'uppercase', padding: '0 14px'}}>{finePrint}</span>, 16)}
+      {box(860, 1770, 180, 120, <span style={{fontFamily: serifFamily, fontSize: 44, color: NOTE_INK}}>{n.toLocaleString('en-US').slice(0, 3)}</span>)}
     </div>
   );
 };

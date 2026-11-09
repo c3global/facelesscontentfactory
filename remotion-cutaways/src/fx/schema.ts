@@ -134,10 +134,10 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('comment-post'), props: z.object({comment: z.string(), postAt: sec, reply: z.string(), replyAt: sec, handle: z.string().default('c3global'), replyName: z.string().default('C3 Global'), y: z.number().default(110)})}),
   z.object({...base, type: z.literal('layer-explode'), props: z.object({title: z.string().default('layer\nexplode'), labels: z.array(z.string()).max(6).default(['Room', 'Me', 'Type', 'Sound'])}).prefault({})}),
   z.object({...base, type: z.literal('sketch-words'), props: z.object({small: z.string(), big: z.string()})}),
-  z.object({...base, type: z.literal('blade-slice'), props: z.object({angle: z.number().default(-14)}).prefault({})}),
+  z.object({...base, type: z.literal('blade-slice'), props: z.object({angle: z.number().default(-14), /** how far the top half slides along the cut, px */ slide: z.number().default(70)}).prefault({})}),
   z.object({...base, type: z.literal('head-stack'), props: z.object({labels: z.array(z.string()).min(2).max(8), gap: z.number().default(0.22)})}),
   z.object({...base, type: z.literal('rack-focus'), props: z.object({blurPx: z.number().default(14)}).prefault({})}),
-  z.object({...base, type: z.literal('banknote'), props: z.object({amount: z.number().int().min(1), title: z.string(), serial: z.string().default('C3G 2026'), finePrint: z.string().optional()})}),
+  z.object({...base, type: z.literal('banknote'), props: z.object({amount: z.number().int().min(1), title: z.string(), serial: z.string().default('C3G 2026'), finePrint: z.string().optional(), /** lettering around the portrait oval */ ring: z.string().default('C3 Global'), /** name on the round seal */ seal: z.string().default('Dr. CK'), sealSub: z.string().optional()})}),
   z.object({...base, type: z.literal('voice-note'), props: z.object({label: z.string().default('Voice note'), y: z.number().default(130)}).prefault({})}),
 ]);
 
