@@ -95,13 +95,21 @@ const LEN: Record<FxType, number> = {
   'step-chips': 6,
   'pen-circle': 3.2,
   'caption-stack': 3.4,
+  'live-cursor': 2.4,
+  'clone-row': 3,
+  'day-dial': 3,
+  'predict-keys': 3,
+  'letter-orbit': 3.5,
+  'code-body': 2.5,
+  'post-wall': 3,
+  'letter-dive': 2.4,
   'script-panel': 7,
   'card-carousel': 4.4,
   'card-flip': 4,
 };
 
 /** effects that draw behind her (they need the person matte) */
-export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story', 'script-panel'];
+export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story', 'script-panel', 'clone-row', 'day-dial', 'letter-orbit', 'code-body', 'post-wall'];
 export const NEEDS_MATTE: FxType[] = [...BEHIND, 'freeze-sticker'];
 
 export const fxRange = (f: Fx): [number, number] => {
@@ -355,6 +363,22 @@ const rawCues = (f: Fx): Cue[] => {
     case 'keycap-drop':
       return [main('tick', f.at + 0.4, 0.6), d('tick', f.at + 0.7, 0.4), d('tick', f.at + 1.0, 0.4)];
     case 'storyboard-wall':
+    case 'live-cursor':
+      return [main('blip', f.at + 0.15, 0.6)];
+    case 'clone-row':
+      return [main('whoosh', f.at, 0.6)];
+    case 'day-dial':
+      return [main('swish', f.at, 0.6), d('tick', f.at + 0.8, 0.5), d('tick', f.at + 1.4, 0.5)];
+    case 'predict-keys':
+      return [main('type', f.at + 0.4, 0.5)];
+    case 'letter-orbit':
+      return [main('swish', f.at, 0.5)];
+    case 'code-body':
+      return [main('glitch', f.at, 0.6)];
+    case 'post-wall':
+      return [main('riser', f.at, 0.4)];
+    case 'letter-dive':
+      return [main('whoosh', fxRange(f)[1] - 0.9, 0.8)];
     case 'caption-stack':
       return [main('pop', f.at + 0.15, 0.5)];
     case 'step-chips':

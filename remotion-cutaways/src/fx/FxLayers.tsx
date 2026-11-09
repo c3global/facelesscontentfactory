@@ -1,6 +1,7 @@
 import React from 'react';
 import {fifthOver} from './fifth';
 import {sixthOver} from './sixth';
+import {CloneRowCopies, seventhOver} from './seventh';
 import {fourthOver} from './fourth';
 import {thirdOver} from './third';
 import {Audio, Sequence, staticFile, useVideoConfig} from 'remotion';
@@ -54,6 +55,7 @@ const BehindItem: React.FC<{fx: Fx}> = ({fx}) => {
   return (
     <>
       {behindPlate(fx)}
+      {fx.type === 'clone-row' && <CloneRowCopies fx={fx} />}
       <Cutout from={from} style={cutoutStyle(fx, abs)} />
       {fx.type === 'clone' && <CloneCopies fx={fx} />}
       {behindFront(fx)}
@@ -113,7 +115,7 @@ export const FxOver: React.FC<{fx: Fx[]}> = ({fx}) => {
   return (
     <>
       {fx.map((f, i) => {
-        const node = overItem(f) ?? extraOver(f) ?? thirdOver(f) ?? fourthOver(f) ?? fifthOver(f) ?? sixthOver(f);
+        const node = overItem(f) ?? extraOver(f) ?? thirdOver(f) ?? fourthOver(f) ?? fifthOver(f) ?? sixthOver(f) ?? seventhOver(f);
         if (!node) return null;
         const [a, b] = fxRange(f);
         return (

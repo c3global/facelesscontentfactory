@@ -121,6 +121,15 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('card-carousel'), props: z.object({tiles: z.array(sec).min(3).max(6).default([2, 5, 8, 11, 14, 17]), cy: z.number().default(1300), radius: z.number().default(430), width: z.number().default(240), spinSec: z.number().default(8), tiltX: z.number().default(-10)}).prefault({})}),
   z.object({...base, type: z.literal('script-panel'), props: z.object({title: z.string().default('Script'), beats: z.array(z.object({quote: z.string(), time: z.string().optional(), label: z.string().optional(), notes: z.array(z.string()).max(3).optional()})).min(2).max(8), steps: z.array(z.object({label: z.string(), at: sec})).max(5).default([])})}),
   z.object({...base, type: z.literal('caption-stack'), props: z.object({words: z.array(z.string()).min(2).max(5), y: z.number().default(1420)})}),
+  // ---- seventh batch (three-reel build, Nov 2026)
+  z.object({...base, type: z.literal('live-cursor'), props: z.object({label: z.string().default('C3'), target: target.default('head'), size: z.number().default(420)}).prefault({})}),
+  z.object({...base, type: z.literal('clone-row'), props: z.object({count: z.number().int().min(1).max(4).default(3)}).prefault({})}),
+  z.object({...base, type: z.literal('day-dial'), props: z.object({word: z.string().default('day'), marks: z.number().int().min(4).max(12).default(12), label: z.string().optional()}).prefault({})}),
+  z.object({...base, type: z.literal('predict-keys'), props: z.object({text: z.string(), suggestions: z.array(z.string()).min(3).max(3).default(['the', 'your', 'what']), y: z.number().default(1180)})}),
+  z.object({...base, type: z.literal('letter-orbit'), props: z.object({word: z.string(), radius: z.number().default(330), tilt: z.number().default(60)})}),
+  z.object({...base, type: z.literal('code-body'), props: z.object({seed: z.string().default('c3')}).prefault({})}),
+  z.object({...base, type: z.literal('post-wall'), props: z.object({count: z.number().int().min(1).default(1403), label: z.string().default('posts')}).prefault({})}),
+  z.object({...base, type: z.literal('letter-dive'), props: z.object({word: z.string(), diveLetter: z.number().int().min(0).default(1), label: z.string().optional()})}),
 ]);
 
 

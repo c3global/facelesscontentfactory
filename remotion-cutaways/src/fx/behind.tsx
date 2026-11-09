@@ -6,6 +6,7 @@ import {metalFill} from '../metal';
 import type {Fx} from './schema';
 import {scriptPanelCutout, sixthPlate} from './sixth';
 import {thirdFront, thirdPlate} from './third';
+import {seventhFront, seventhPlate} from './seventh';
 import {fxRange, pop, tw, useFxEnv, useFxTime} from './util';
 
 type Of<T extends Fx['type']> = Extract<Fx, {type: T}>;
@@ -370,10 +371,10 @@ export const behindPlate = (fx: Fx): React.ReactNode => {
     case 'green-screen':
       return <GreenScreenPlate fx={fx} />;
     default:
-      return thirdPlate(fx) ?? sixthPlate(fx);
+      return thirdPlate(fx) ?? sixthPlate(fx) ?? seventhPlate(fx);
   }
 };
 
 /** things drawn above her cutout but still inside the person frame */
-export const behindFront = (fx: Fx): React.ReactNode => (fx.type === 'orbit' ? <OrbitItems fx={fx} half="front" /> : thirdFront(fx));
+export const behindFront = (fx: Fx): React.ReactNode => (fx.type === 'orbit' ? <OrbitItems fx={fx} half="front" /> : thirdFront(fx) ?? seventhFront(fx));
 export {Sequence, metalGradient};
