@@ -103,13 +103,21 @@ const LEN: Record<FxType, number> = {
   'code-body': 2.5,
   'post-wall': 3,
   'letter-dive': 2.4,
+  'comment-post': 4,
+  'layer-explode': 2.8,
+  'sketch-words': 3,
+  'blade-slice': 1,
+  'head-stack': 3,
+  'rack-focus': 2.2,
+  'banknote': 3,
+  'voice-note': 3.2,
   'script-panel': 7,
   'card-carousel': 4.4,
   'card-flip': 4,
 };
 
 /** effects that draw behind her (they need the person matte) */
-export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story', 'script-panel', 'clone-row', 'day-dial', 'letter-orbit', 'code-body', 'post-wall'];
+export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story', 'script-panel', 'clone-row', 'day-dial', 'letter-orbit', 'code-body', 'post-wall', 'sketch-words'];
 export const NEEDS_MATTE: FxType[] = [...BEHIND, 'freeze-sticker'];
 
 export const fxRange = (f: Fx): [number, number] => {
@@ -379,6 +387,22 @@ const rawCues = (f: Fx): Cue[] => {
       return [main('riser', f.at, 0.4)];
     case 'letter-dive':
       return [main('whoosh', fxRange(f)[1] - 0.9, 0.8)];
+    case 'comment-post':
+      return [main('type', f.at + 0.35, 0.5), d('pop', f.props.postAt, 0.6), d('pop', f.props.replyAt, 0.5)];
+    case 'layer-explode':
+      return [main('whoosh', f.at + 0.15, 0.7)];
+    case 'sketch-words':
+      return [main('swish', f.at + 0.5, 0.5)];
+    case 'blade-slice':
+      return [main('swish', f.at + 0.1, 0.9)];
+    case 'head-stack':
+      return f.props.labels.map((_, i) => (i === 0 ? main('thud', f.at + 0.5, 0.5) : d('tick', f.at + 0.5 + i * f.props.gap, 0.5)));
+    case 'rack-focus':
+      return [];
+    case 'banknote':
+      return [main('riser', f.at, 0.4), d('ding', fxRange(f)[1] - 0.6, 0.5)];
+    case 'voice-note':
+      return [main('blip', f.at, 0.6), d('swish', fxRange(f)[1] - 0.9, 0.5)];
     case 'caption-stack':
       return [main('pop', f.at + 0.15, 0.5)];
     case 'step-chips':

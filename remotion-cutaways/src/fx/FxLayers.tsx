@@ -2,6 +2,7 @@ import React from 'react';
 import {fifthOver} from './fifth';
 import {sixthOver} from './sixth';
 import {CloneRowCopies, seventhOver} from './seventh';
+import {eighthOver, rackK} from './eighth';
 import {fourthOver} from './fourth';
 import {thirdOver} from './third';
 import {Audio, Sequence, staticFile, useVideoConfig} from 'remotion';
@@ -25,6 +26,9 @@ export const videoMods = (fx: Fx[], t: number): {zoom: number; blur: number; foc
         else if (t <= b) zoom *= f.props.snapTo;
         else zoom *= 1 + (f.props.snapTo - 1) * (1 - tw(t, b, b + 0.25));
       }
+    } else if (f.type === 'rack-focus') {
+      // she starts soft (focus on the foreground objects) and comes sharp as focus racks to her
+      if (t >= a && t <= b) blur = Math.max(blur, f.props.blurPx * (1 - rackK(t - a, b - a)));
     } else if (f.type === 'pull-back') {
       // start tight and ease out to the normal framing (keep `from` modest on 720p sources)
       if (t >= a && t <= b) zoom *= f.props.from + (1 - f.props.from) * tw(t, a, b, 0, 1, easeOutC);
@@ -115,7 +119,7 @@ export const FxOver: React.FC<{fx: Fx[]}> = ({fx}) => {
   return (
     <>
       {fx.map((f, i) => {
-        const node = overItem(f) ?? extraOver(f) ?? thirdOver(f) ?? fourthOver(f) ?? fifthOver(f) ?? sixthOver(f) ?? seventhOver(f);
+        const node = overItem(f) ?? extraOver(f) ?? thirdOver(f) ?? fourthOver(f) ?? fifthOver(f) ?? sixthOver(f) ?? seventhOver(f) ?? eighthOver(f);
         if (!node) return null;
         const [a, b] = fxRange(f);
         return (
