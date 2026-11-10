@@ -1,10 +1,11 @@
 import React from 'react';
+import {customerBrand} from '../brandConfig';
 import {OffthreadVideo, staticFile, useVideoConfig} from 'remotion';
 import {handFamily, serifFamily} from '../fonts';
 import {Cutout} from './behind';
 import {Caret, typedSlice, useSpan} from './fourth';
 import type {Fx} from './schema';
-import {BrandAvatar, C3, HeartIcon, SendArrow} from './theme';
+import {BrandAvatar, C3, HeartIcon, SendArrow, rgbaOf} from './theme';
 import {anchorPx, pop, tw, useFxEnv} from './util';
 
 /**
@@ -16,7 +17,7 @@ const FILL: React.CSSProperties = {position: 'absolute', left: 0, top: 0, width:
 const MONO = '"SF Mono", "Menlo", "Courier New", monospace';
 const CREAM = '#F3EBDD';
 const INK = '#2B2420';
-const COPPER_DARK = '#A5551F';
+const COPPER_DARK = `${C3.copperDark}`;
 
 // ---------------------------------------------------------------- comment post (Comment drop, new look): a white comment box types the keyword, posts it, a reply lands under it
 export const CommentPost: React.FC<{fx: Of<'comment-post'>}> = ({fx}) => {
@@ -36,7 +37,7 @@ export const CommentPost: React.FC<{fx: Of<'comment-post'>}> = ({fx}) => {
         <div style={{...cardStyle, top: y, alignItems: 'center', transform: `scale(${0.85 + 0.15 * boxIn})`, opacity: boxIn}}>
           <BrandAvatar size={60} />
           <div style={{flex: 1, fontFamily: C3.sans, fontSize: 36, color: typed ? INK : '#9a9a9a', fontWeight: typed ? 700 : 400}}>{typed || 'Add a comment...'}{typed && <Caret frame={frame} h={34} color={COPPER_DARK} />}</div>
-          <div style={{padding: '10px 26px', borderRadius: 24, background: typed ? C3.copperGrad : '#eee', color: typed ? '#2a1206' : '#999', fontFamily: C3.sans, fontWeight: 700, fontSize: 28}}>Post</div>
+          <div style={{padding: '10px 26px', borderRadius: 24, background: typed ? C3.copperGrad : '#eee', color: typed ? `${C3.onMetal}` : '#999', fontFamily: C3.sans, fontWeight: 700, fontSize: 28}}>Post</div>
         </div>
       )}
       {posted && (
@@ -72,7 +73,7 @@ export const LayerExplode: React.FC<{fx: Of<'layer-explode'>}> = ({fx}) => {
   const rotY = -38 * open;
   const gapZ = 260 * open;
   const sc = 1 - 0.38 * open;
-  const plane = (z: number, child: React.ReactNode, glass = false): React.CSSProperties & {child?: React.ReactNode} => ({position: 'absolute', left: 0, top: 0, width: 1080, height: 1920, transform: `translateZ(${z}px)`, border: open > 0.05 ? '3px solid rgba(244,176,138,0.7)' : 'none', background: glass ? 'rgba(255,255,255,0.06)' : undefined, boxSizing: 'border-box', overflow: 'hidden', borderRadius: 18 * open});
+  const plane = (z: number, child: React.ReactNode, glass = false): React.CSSProperties & {child?: React.ReactNode} => ({position: 'absolute', left: 0, top: 0, width: 1080, height: 1920, transform: `translateZ(${z}px)`, border: open > 0.05 ? `3px solid ${rgbaOf(customerBrand.metalLight, 0.7)}` : 'none', background: glass ? 'rgba(255,255,255,0.06)' : undefined, boxSizing: 'border-box', overflow: 'hidden', borderRadius: 18 * open});
   const bars = Array.from({length: 46}, (_, i) => 30 + Math.abs(Math.sin(i * 1.7 + t * 6)) * 160);
   return (
     <div style={{...FILL, background: '#0b0c0d', opacity: outK, overflow: 'hidden'}}>
@@ -111,7 +112,7 @@ export const SketchWordsPlate: React.FC<{fx: Of<'sketch-words'>}> = ({fx}) => {
   const lineK = tw(t, 1.4, 1.8, 0, 1, (x) => x);
   const fs = Math.min(320, 1700 / Math.max(3, big.length));
   return (
-    <div style={{...FILL, background: `${CREAM} repeating-linear-gradient(180deg, transparent 0 58px, rgba(165,85,31,0.08) 58px 60px)`, opacity: outK, overflow: 'hidden'}}>
+    <div style={{...FILL, background: `${CREAM} repeating-linear-gradient(180deg, transparent 0 58px, ${rgbaOf(customerBrand.metal, 0.08)} 58px 60px)`, opacity: outK, overflow: 'hidden'}}>
       <div style={{position: 'absolute', left: 90, top: 90, fontFamily: handFamily, fontSize: 110, color: INK, clipPath: `inset(0 ${100 - smallK * 100}% 0 0)`}}>{small}</div>
       <svg width={1080} height={520} style={{position: 'absolute', left: 0, top: 100}}>
         {[0, 1].map((k) => (
@@ -181,7 +182,7 @@ export const HeadStack: React.FC<{fx: Of<'head-stack'>}> = ({fx}) => {
         const rot = ((i * 37) % 13) - 6;
         const dx = ((i * 53) % 60) - 30;
         return (
-          <div key={i} style={{position: 'absolute', left: cap.x + dx, top: y, transform: `translateX(-50%) rotate(${rot * (0.4 + 0.6 * land)}deg) scaleY(${1 - 0.12 * (land > 0 && land < 1 ? 1 - land : 0)})`, padding: '10px 24px', borderRadius: 12, background: i % 3 === 0 ? C3.copperGrad : i % 3 === 1 ? CREAM : '#1b1d1f', color: i % 3 === 2 ? C3.copper : '#2a1206', border: '2px solid rgba(0,0,0,0.35)', fontFamily: MONO, fontWeight: 700, fontSize: 30, whiteSpace: 'nowrap', boxShadow: '0 6px 14px rgba(0,0,0,0.45)'}}>{l}</div>
+          <div key={i} style={{position: 'absolute', left: cap.x + dx, top: y, transform: `translateX(-50%) rotate(${rot * (0.4 + 0.6 * land)}deg) scaleY(${1 - 0.12 * (land > 0 && land < 1 ? 1 - land : 0)})`, padding: '10px 24px', borderRadius: 12, background: i % 3 === 0 ? C3.copperGrad : i % 3 === 1 ? CREAM : '#1b1d1f', color: i % 3 === 2 ? C3.copper : `${C3.onMetal}`, border: '2px solid rgba(0,0,0,0.35)', fontFamily: MONO, fontWeight: 700, fontSize: 30, whiteSpace: 'nowrap', boxShadow: '0 6px 14px rgba(0,0,0,0.45)'}}>{l}</div>
         );
       })}
     </div>
@@ -192,7 +193,7 @@ export const HeadStack: React.FC<{fx: Of<'head-stack'>}> = ({fx}) => {
 export const RackFocus: React.FC<{fx: Of<'rack-focus'>}> = ({fx}) => {
   const {t, len, outK} = useSpan(fx);
   const k = rackK(t, len);
-  const blobs = [{x: 120, y: 1500, r: 150, c: '#F4B08A'}, {x: 930, y: 1650, r: 190, c: '#E3BF63'}, {x: 980, y: 380, r: 90, c: '#E08A57'}, {x: 60, y: 520, r: 70, c: '#FFF3C9'}];
+  const blobs = [{x: 120, y: 1500, r: 150, c: `${C3.copperLight}`}, {x: 930, y: 1650, r: 190, c: `${C3.gold}`}, {x: 980, y: 380, r: 90, c: `${C3.copper}`}, {x: 60, y: 520, r: 70, c: `${C3.goldBright}`}];
   return (
     <div style={{...FILL, opacity: outK * (0.25 + 0.75 * (1 - k * 0.6)), pointerEvents: 'none'}}>
       {blobs.map((b, i) => (
@@ -358,7 +359,7 @@ export const VoiceNote: React.FC<{fx: Of<'voice-note'>}> = ({fx}) => {
             })}
           </div>
           <div style={{fontFamily: MONO, fontWeight: 700, fontSize: 30, color: INK}}>0:{String(Math.floor(secs)).padStart(2, '0')}</div>
-          <div style={{width: 60, height: 60, borderRadius: 30, background: C3.copperGrad, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${sent ? 1 + 0.25 * (1 - tw(t, sendAt, sendAt + 0.3)) : 1})`}}><SendArrow size={30} color="#2a1206" /></div>
+          <div style={{width: 60, height: 60, borderRadius: 30, background: C3.copperGrad, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${sent ? 1 + 0.25 * (1 - tw(t, sendAt, sendAt + 0.3)) : 1})`}}><SendArrow size={30} color={C3.onMetal} /></div>
         </div>
         <BrandAvatar size={84} />
       </div>

@@ -1,3 +1,4 @@
+import {customerBrand} from './brandConfig';
 import React from 'react';
 import {AbsoluteFill, Easing, interpolate, useCurrentFrame} from 'remotion';
 import {z} from 'zod';
@@ -11,7 +12,7 @@ loadBrandFonts();
 
 const FPS = 24;
 const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
-const RIM = ['#B76E79', '#F8E8B4', '#FFFFFF', '#E9B3B4', '#B76E79'];
+const RIM = [`${customerBrand.metal}`, `${customerBrand.metalLight}`, '#FFFFFF', `${customerBrand.metalLight}`, `${customerBrand.metal}`];
 const easeOut = Easing.out(Easing.cubic);
 
 /** small crimson velvet square used as an app icon / highlight */
@@ -143,7 +144,7 @@ export const LSPhone: React.FC<LSPhoneProps> = ({header, rows, highlight, fromSe
               <div style={{display: 'flex', alignItems: 'center', gap: 4, height: 60, justifyContent: 'space-between'}}>
                 {bars.map((_, i) => {
                   const h = 10 + 38 * Math.abs(Math.sin(i * 0.9 + (f / FPS) * 6)) * (0.5 + 0.5 * Math.sin(i * 0.37 + 1));
-                  return <div key={i} style={{width: 6, height: h, borderRadius: 3, background: i / bars.length < ((f - from) / (to - from)) * 1.2 ? '#D8895A' : 'rgba(255,255,255,0.55)'}} />;
+                  return <div key={i} style={{width: 6, height: h, borderRadius: 3, background: i / bars.length < ((f - from) / (to - from)) * 1.2 ? `${customerBrand.metal}` : 'rgba(255,255,255,0.55)'}} />;
                 })}
               </div>
             </div>

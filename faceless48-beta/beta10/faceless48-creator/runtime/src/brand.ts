@@ -58,6 +58,10 @@ const METAL_STOPS: Record<MetalKind, Record<MetalVariant, [string, string, strin
     bright: ['#B38A32', '#E3BF63', '#FFF3C9', '#E3BF63', '#B38A32'],
   },
 };
+// Every metal an effect asks for (rose, gold or copper) is drawn in the member's own metallic finish from brand.json,
+// so a silver or gold brand never shows copper. Silver and crimson keep their own roles.
+METAL_STOPS.rose = METAL_STOPS.copper;
+METAL_STOPS.gold = METAL_STOPS.copper;
 export const STOP_OFFSETS = [0, 0.28, 0.5, 0.72, 1] as const;
 
 export const metalStops = (kind: MetalKind, variant: MetalVariant) => METAL_STOPS[kind][variant];

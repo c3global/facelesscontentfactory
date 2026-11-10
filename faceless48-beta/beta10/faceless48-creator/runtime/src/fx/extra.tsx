@@ -1,5 +1,7 @@
 import customerBrand from "../brandConfig";
 import React from 'react';
+import {C3} from './theme';
+import {rgbaOf} from './theme';
 import {Freeze, Img, OffthreadVideo, staticFile, useVideoConfig} from 'remotion';
 import {brand} from '../brand';
 import {handFamily, heavyFamily, sansFamily, serifFamily} from '../fonts';
@@ -16,7 +18,7 @@ const useFill = (): React.CSSProperties => {
 };
 const SANS = sansFamily('DM Sans');
 const GLASS = 'rgba(12,13,15,0.84)';
-const HAIR = '1.5px solid rgba(213,170,74,0.75)';
+const HAIR = `1.5px solid ${rgbaOf(customerBrand.metalLight, 0.75)}`;
 
 const useSpan = (fx: Fx) => {
   const [a, b] = fxRange(fx);
@@ -141,7 +143,7 @@ export const VoiceMemo: React.FC<{fx: Of<'voice-memo'>}> = ({fx}) => {
             <div style={{width: 20, height: 20, borderRadius: 10, background: brand.crimson, opacity: blink ? 1 : 0.25}} />
             <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 38, color: brand.white}}>{fx.props.title}</div>
           </div>
-          <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 38, color: '#E3BF63', letterSpacing: 2}}>{`${mm}:${String(ss).padStart(2, '0')}`}</div>
+          <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 38, color: `${C3.gold}`, letterSpacing: 2}}>{`${mm}:${String(ss).padStart(2, '0')}`}</div>
         </div>
         {fx.props.subtitle && <div style={{fontFamily: SANS, fontWeight: 500, fontSize: 28, color: 'rgba(255,255,255,0.6)', marginTop: 6}}>{fx.props.subtitle}</div>}
         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 190, marginTop: 14}}>
@@ -181,9 +183,9 @@ export const NotesPage: React.FC<{fx: Of<'notes-page'>}> = ({fx}) => {
   const {abs, inK, outK} = useSpan(fx);
   return (
     <div style={{...FILL, opacity: outK}}>
-      <div style={{position: 'absolute', left: 60, top: 1010, width: 960, minHeight: 560, borderRadius: 34, background: '#ffffff', border: '2px solid rgba(213,170,74,0.8)', boxSizing: 'border-box', padding: '30px 46px', opacity: inK, transform: `translateY(${(1 - inK) * 50}px) scale(${0.96 + 0.04 * inK})`, boxShadow: '0 24px 60px rgba(0,0,0,0.5)'}}>
+      <div style={{position: 'absolute', left: 60, top: 1010, width: 960, minHeight: 560, borderRadius: 34, background: '#ffffff', border: `2px solid ${rgbaOf(customerBrand.metalLight, 0.8)}`, boxSizing: 'border-box', padding: '30px 46px', opacity: inK, transform: `translateY(${(1 - inK) * 50}px) scale(${0.96 + 0.04 * inK})`, boxShadow: '0 24px 60px rgba(0,0,0,0.5)'}}>
         <div style={{display: 'flex', alignItems: 'center', gap: 14, marginBottom: 8}}>
-          <div style={{width: 18, height: 18, borderRadius: 9, background: '#D5AA4A'}} />
+          <div style={{width: 18, height: 18, borderRadius: 9, background: `${C3.gold}`}} />
           <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 26, letterSpacing: 4, textTransform: 'uppercase', color: '#8E6B1E'}}>Notes</div>
         </div>
         <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 700, fontSize: 60, color: brand.charcoal, marginBottom: 14}}>{fx.props.title}</div>
@@ -208,7 +210,7 @@ export const EmailCompose: React.FC<{fx: Of<'email-compose'>}> = ({fx}) => {
   const fly = tw(abs, sendAt, sendAt + 0.5, 0, 1, (x) => x * x);
   return (
     <div style={{...FILL, opacity: outK}}>
-      <div style={{position: 'absolute', left: 60, top: 1020, width: 960, borderRadius: 30, background: '#ffffff', border: '2px solid rgba(213,170,74,0.8)', boxSizing: 'border-box', overflow: 'hidden', opacity: inK * (1 - fly), transform: `translateY(${(1 - inK) * 50 - fly * 300}px) scale(${0.96 + 0.04 * inK - fly * 0.2})`, boxShadow: '0 24px 60px rgba(0,0,0,0.5)'}}>
+      <div style={{position: 'absolute', left: 60, top: 1020, width: 960, borderRadius: 30, background: '#ffffff', border: `2px solid ${rgbaOf(customerBrand.metalLight, 0.8)}`, boxSizing: 'border-box', overflow: 'hidden', opacity: inK * (1 - fly), transform: `translateY(${(1 - inK) * 50 - fly * 300}px) scale(${0.96 + 0.04 * inK - fly * 0.2})`, boxShadow: '0 24px 60px rgba(0,0,0,0.5)'}}>
         <div style={{background: '#17191b', color: '#fff', fontFamily: SANS, fontWeight: 700, fontSize: 28, letterSpacing: 3, textTransform: 'uppercase', padding: '18px 36px'}}>New message</div>
         <div style={{padding: '12px 36px 22px'}}>
           {[['To', fx.props.to], ['Subject', fx.props.subject]].map(([k, v]) => (
@@ -218,7 +220,7 @@ export const EmailCompose: React.FC<{fx: Of<'email-compose'>}> = ({fx}) => {
             </div>
           ))}
           <div style={{fontFamily: SANS, fontWeight: 500, fontSize: 40, lineHeight: 1.35, color: brand.charcoal, minHeight: 210, paddingTop: 16}}>{body}</div>
-          <div style={{display: 'inline-block', marginTop: 6, padding: '14px 40px', borderRadius: 14, fontFamily: SANS, fontWeight: 700, fontSize: 34, color: '#2a1206', transform: `scale(${1 - 0.06 * press})`, ...metalFill({kind: 'gold', variant: 'bright', frame: 0, shimmer: false})}}>{sent ? 'Sent' : 'Send'}</div>
+          <div style={{display: 'inline-block', marginTop: 6, padding: '14px 40px', borderRadius: 14, fontFamily: SANS, fontWeight: 700, fontSize: 34, color: `${C3.onMetal}`, transform: `scale(${1 - 0.06 * press})`, ...metalFill({kind: 'gold', variant: 'bright', frame: 0, shimmer: false})}}>{sent ? 'Sent' : 'Send'}</div>
         </div>
       </div>
     </div>
@@ -234,7 +236,7 @@ export const LockScreen: React.FC<{fx: Of<'lock-screen'>}> = ({fx}) => {
     <div style={{...FILL, pointerEvents: 'none'}}>
       <div style={{position: 'absolute', left: 36, top: 190, width: 1008, borderRadius: 40, background: 'rgba(36,38,40,0.94)', border: '1px solid rgba(255,255,255,0.16)', boxSizing: 'border-box', padding: '26px 30px', transform: `translateY(${(1 - inK) * -380 - out * 380}px)`, opacity: Math.min(1, inK * 2) * (1 - out), boxShadow: '0 24px 60px rgba(0,0,0,0.5)'}}>
         <div style={{display: 'flex', alignItems: 'center', gap: 16, marginBottom: 14}}>
-          <div style={{width: 54, height: 54, borderRadius: 14, background: `linear-gradient(135deg,${brand.crimson},#3d0709)`, border: '2px solid #D5AA4A'}} />
+          <div style={{width: 54, height: 54, borderRadius: 14, background: `linear-gradient(135deg,${brand.crimson},${C3.accentDarker})`, border: `2px solid ${C3.gold}`}} />
           <div style={{flex: 1, fontFamily: SANS, fontWeight: 700, fontSize: 28, letterSpacing: 2, textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)'}}>{fx.props.app}</div>
           <div style={{fontFamily: SANS, fontWeight: 500, fontSize: 28, color: 'rgba(255,255,255,0.55)'}}>{fx.props.time}</div>
         </div>

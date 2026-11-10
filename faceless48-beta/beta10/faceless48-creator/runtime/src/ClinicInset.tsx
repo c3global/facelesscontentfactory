@@ -1,3 +1,4 @@
+import {customerBrand} from './brandConfig';
 import React from 'react';
 import {interpolate,useCurrentFrame,useVideoConfig} from 'remotion';
 import {Arrival,Paper,Surface} from './ClinicCardTrials';
@@ -11,7 +12,7 @@ const script={fontFamily:handFamilies.caveat,fontWeight:600,fontSize:58,lineHeig
 function Tip({tip,index,light=false,badge=false}:{tip:Props['tips'][number];index:number;light?:boolean;badge?:boolean}){
  return <div style={{...script,color:light?brand.white:brand.charcoal}}>
    {tip.lines.map((line,j)=><div key={j} style={{whiteSpace:'nowrap'}}>
-     {j===0 && (badge ? <span style={{display:'inline-flex',width:36,height:36,marginRight:12,borderRadius:'50%',background:brand.crimson,color:brand.white,fontFamily:'DM Sans',fontSize:24,verticalAlign:'middle',alignItems:'center',justifyContent:'center'}}>{index+1}</span> : <span style={{color:light?'#F1B9A5':brand.crimson}}>{index+1}. </span>)}{line}
+     {j===0 && (badge ? <span style={{display:'inline-flex',width:36,height:36,marginRight:12,borderRadius:'50%',background:brand.crimson,color:brand.white,fontFamily:'DM Sans',fontSize:24,verticalAlign:'middle',alignItems:'center',justifyContent:'center'}}>{index+1}</span> : <span style={{color:light?`${customerBrand.metalLight}`:brand.crimson}}>{index+1}. </span>)}{line}
    </div>)}
  </div>;
 }
@@ -55,9 +56,9 @@ function Envelope({tips,bodyTop}:Props){
      {tips.map((tip,i)=>frame<Math.round(tip.at*fps)?null:<div key={i} style={{marginTop:i?16:0}}><Tip tip={tip} index={i}/></div>)}
    </div>
    <div style={{position:'absolute',top:300,width:W,height:360,zIndex:2,borderRadius:16,overflow:'hidden',background:`linear-gradient(165deg,${brand.crimson},${brand.crimsonDeep})`}}>
-     <svg width={W} height={360} viewBox="0 0 760 360"><path d="M0 0L380 230L760 0M0 360L266 180M760 360L494 180" fill="none" stroke="#A9574A" strokeWidth={3}/></svg><MetalRim radius={16} thickness={4} variant="bright" seed={23}/>
+     <svg width={W} height={360} viewBox="0 0 760 360"><path d="M0 0L380 230L760 0M0 360L266 180M760 360L494 180" fill="none" stroke={`${customerBrand.metal}`} strokeWidth={3}/></svg><MetalRim radius={16} thickness={4} variant="bright" seed={23}/>
    </div>
-   <div style={{position:'absolute',top:300,width:W,height:230,zIndex:3,transformOrigin:'50% 0',transform:`rotateX(${-opening*175}deg)`,opacity:opening>.6?0:1}}><svg width={W} height={230} viewBox="0 0 760 230"><polygon points="0,0 760,0 380,230" fill={brand.crimson} stroke="#A9574A" strokeWidth={3}/></svg></div>
+   <div style={{position:'absolute',top:300,width:W,height:230,zIndex:3,transformOrigin:'50% 0',transform:`rotateX(${-opening*175}deg)`,opacity:opening>.6?0:1}}><svg width={W} height={230} viewBox="0 0 760 230"><polygon points="0,0 760,0 380,230" fill={brand.crimson} stroke={`${customerBrand.metal}`} strokeWidth={3}/></svg></div>
    <MetalBox variant="deep" seed={11} style={{position:'absolute',left:338,top:474,width:84,height:84,borderRadius:'50%',zIndex:5,opacity:1-opening}}/>
  </Arrival></div>;
 }

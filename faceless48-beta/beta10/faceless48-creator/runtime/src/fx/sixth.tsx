@@ -1,16 +1,17 @@
 import React from 'react';
+import {customerBrand} from '../brandConfig';
 import {brand} from '../brand';
 import {handFamily, heavyFamily, serifFamily} from '../fonts';
 import {Caret, ClipTile, PERSPECTIVE, flyPose, tiltXform, typedSlice, useSpan} from './fourth';
 import type {Fx} from './schema';
-import {C3, GlobeIcon} from './theme';
+import {C3, GlobeIcon, rgbaOf} from './theme';
 import {anchorPx, fxRange, pop, tw, useFxEnv} from './util';
 
 /** Sixth FX batch (C3 skin): editing-desk moments from the Claude edit reel. Cutaway panels are solid and brief; labels sit low, never over her face. */
 type Of<T extends Fx['type']> = Extract<Fx, {type: T}>;
 const FILL: React.CSSProperties = {position: 'absolute', left: 0, top: 0, width: 1080, height: 1920};
 const MONO = '"SF Mono", "Menlo", "Courier New", monospace';
-const cap = (extra: React.CSSProperties = {}): React.CSSProperties => ({fontFamily: C3.sans, fontWeight: 700, fontSize: 20, letterSpacing: 4, textTransform: 'uppercase', color: '#A5551F', ...extra});
+const cap = (extra: React.CSSProperties = {}): React.CSSProperties => ({fontFamily: C3.sans, fontWeight: 700, fontSize: 20, letterSpacing: 4, textTransform: 'uppercase', color: `${C3.copperDark}`, ...extra});
 const PANEL = 'linear-gradient(160deg,#1b1d1f,#0b0c0d)';
 
 // ---------------------------------------------------------------- receipt ticket
@@ -35,7 +36,7 @@ export const ReceiptTicket: React.FC<{fx: Of<'receipt-ticket'>}> = ({fx}) => {
           <div style={{borderTop: '2px dashed rgba(58,63,66,0.35)', margin: '12px 0'}} />
           <div style={{fontFamily: MONO, fontWeight: 700, fontSize: 31, lineHeight: 1.25, color: C3.cardText, textTransform: 'uppercase', minHeight: 116}}>{shown}{!done && <Caret frame={frame} h={30} />}</div>
           <div style={{borderTop: '2px dashed rgba(58,63,66,0.35)', margin: '10px 0 8px', opacity: done ? 1 : 0}} />
-          <div style={{display: 'flex', justifyContent: 'space-between', fontFamily: MONO, fontWeight: 700, fontSize: 19, letterSpacing: 2, color: C3.cardText, opacity: done ? 1 : 0}}><span>TOTAL</span><span style={{transform: `scale(${0.7 + 0.3 * stamp})`, color: '#A5551F'}}>{total}</span></div>
+          <div style={{display: 'flex', justifyContent: 'space-between', fontFamily: MONO, fontWeight: 700, fontSize: 19, letterSpacing: 2, color: C3.cardText, opacity: done ? 1 : 0}}><span>TOTAL</span><span style={{transform: `scale(${0.7 + 0.3 * stamp})`, color: `${C3.copperDark}`}}>{total}</span></div>
         </div>
       </div>
     </div>
@@ -124,7 +125,7 @@ export const KeycapDrop: React.FC<{fx: Of<'keycap-drop'>}> = ({fx}) => {
         const dy = (1 - fall(p)) * -200;
         const rot = (((i * 47) % 30) - 15) * (0.4 + 0.6 * tw(t, d, d + 0.7));
         return (
-          <div key={i} style={{position: 'absolute', left: rx - w / 2, top: ry, width: w, height: 104, borderRadius: 20, background: i === n - 1 ? 'linear-gradient(145deg,#E03A37,#8d1214)' : 'linear-gradient(180deg,#fff,#dfe2e4)', border: C3.hair, boxSizing: 'border-box', transform: `translateY(${dy}px) rotate(${rot}deg)`, opacity: p > 0 ? 1 : 0, boxShadow: '0 10px 0 rgba(0,0,0,0.35), 0 18px 30px rgba(0,0,0,0.5)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+          <div key={i} style={{position: 'absolute', left: rx - w / 2, top: ry, width: w, height: 104, borderRadius: 20, background: i === n - 1 ? `linear-gradient(145deg,#E03A37,${C3.accentDeep})` : 'linear-gradient(180deg,#fff,#dfe2e4)', border: C3.hair, boxSizing: 'border-box', transform: `translateY(${dy}px) rotate(${rot}deg)`, opacity: p > 0 ? 1 : 0, boxShadow: '0 10px 0 rgba(0,0,0,0.35), 0 18px 30px rgba(0,0,0,0.5)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
             <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: wide ? 34 : 46, color: i === n - 1 ? '#fff' : C3.cardText}}>{k.key}</div>
             {k.sub && <div style={{fontFamily: C3.sans, fontWeight: 600, fontSize: 14, letterSpacing: 2, textTransform: 'uppercase', color: i === n - 1 ? 'rgba(255,255,255,0.8)' : C3.cardMuted}}>{k.sub}</div>}
           </div>
@@ -243,7 +244,7 @@ export const StoryboardWall: React.FC<{fx: Of<'storyboard-wall'>}> = ({fx}) => {
         return (
           <div key={i} style={{position: 'absolute', left: pose.x - cw / 2, top: pose.y - chh / 2, width: cw, height: chh, borderRadius: 14, overflow: 'hidden', border: C3.hair, boxSizing: 'border-box', opacity: pose.op, transform: `rotate(${pose.rot}deg) scale(${pose.sc})`, boxShadow: '0 12px 28px rgba(0,0,0,0.55)'}}>
             <ClipTile w={cw} h={chh} startSec={o} zoom={1.3} focusY="6%" />
-            <div style={{position: 'absolute', left: 8, top: 8, minWidth: 28, height: 28, borderRadius: 14, background: C3.copperGrad, color: '#2a1206', fontFamily: C3.sans, fontWeight: 700, fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{i + 1}</div>
+            <div style={{position: 'absolute', left: 8, top: 8, minWidth: 28, height: 28, borderRadius: 14, background: C3.copperGrad, color: `${C3.onMetal}`, fontFamily: C3.sans, fontWeight: 700, fontSize: 16, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{i + 1}</div>
           </div>
         );
       })}
@@ -262,7 +263,7 @@ export const StepChips: React.FC<{fx: Of<'step-chips'>}> = ({fx}) => {
   return (
     <div style={{...FILL, opacity: outK}}>
       <div style={{position: 'absolute', left: 60, top: y, display: 'flex', alignItems: 'center', gap: 16, padding: '12px 28px 12px 14px', borderRadius: 40, background: C3.glass, border: C3.hair, opacity: k, transform: `translateX(${(1 - k) * -80}px)`, boxShadow: '0 12px 30px rgba(0,0,0,0.5)'}}>
-        <div style={{width: 48, height: 48, borderRadius: 24, background: C3.copperGrad, color: '#2a1206', fontFamily: C3.sans, fontWeight: 700, fontSize: 24, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{String(idx + 1).padStart(2, '0')}</div>
+        <div style={{width: 48, height: 48, borderRadius: 24, background: C3.copperGrad, color: `${C3.onMetal}`, fontFamily: C3.sans, fontWeight: 700, fontSize: 24, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{String(idx + 1).padStart(2, '0')}</div>
         <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 34, color: '#fff'}}>{s.label}</div>
       </div>
     </div>
@@ -401,9 +402,9 @@ export const ScriptPanelPlate: React.FC<{fx: Of<'script-panel'>}> = ({fx}) => {
       <div style={{position: 'absolute', left: 70, top: 170, width: 940, height: view, overflow: 'hidden', WebkitMaskImage: 'linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent)', maskImage: 'linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent)'}}>
         <div style={{transform: `translateY(${-scroll}px)`}}>
           {beats.map((b, i) => (
-            <div key={i} style={{height: cardH, marginBottom: 24, borderRadius: 22, background: 'rgba(255,255,255,0.06)', border: '1.5px solid rgba(224,138,87,0.45)', boxSizing: 'border-box', padding: '22px 30px', overflow: 'hidden'}}>
+            <div key={i} style={{height: cardH, marginBottom: 24, borderRadius: 22, background: 'rgba(255,255,255,0.06)', border: `1.5px solid ${rgbaOf(customerBrand.metal, 0.45)}`, boxSizing: 'border-box', padding: '22px 30px', overflow: 'hidden'}}>
               <div style={{display: 'flex', gap: 14, alignItems: 'center', ...cap({fontSize: 18, color: C3.copper})}}>
-                <span style={{width: 34, height: 34, borderRadius: 17, background: C3.copperGrad, color: '#2a1206', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', letterSpacing: 0}}>{i + 1}</span>
+                <span style={{width: 34, height: 34, borderRadius: 17, background: C3.copperGrad, color: `${C3.onMetal}`, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', letterSpacing: 0}}>{i + 1}</span>
                 {b.time && <span>{b.time}</span>}
                 {b.label && <span style={{color: 'rgba(255,255,255,0.55)'}}>{b.label}</span>}
               </div>
@@ -415,7 +416,7 @@ export const ScriptPanelPlate: React.FC<{fx: Of<'script-panel'>}> = ({fx}) => {
       </div>
       {chip && (
         <div style={{position: 'absolute', left: 690, top: 1600, display: 'flex', alignItems: 'center', gap: 14, padding: '10px 24px 10px 12px', borderRadius: 38, background: C3.glass, border: C3.hair, opacity: ck, transform: `translateX(${(1 - ck) * 60}px)`, boxShadow: '0 12px 30px rgba(0,0,0,0.5)'}}>
-          <div style={{width: 44, height: 44, borderRadius: 22, background: C3.copperGrad, color: '#2a1206', fontFamily: C3.sans, fontWeight: 700, fontSize: 22, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{String(idx + 1).padStart(2, '0')}</div>
+          <div style={{width: 44, height: 44, borderRadius: 22, background: C3.copperGrad, color: `${C3.onMetal}`, fontFamily: C3.sans, fontWeight: 700, fontSize: 22, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{String(idx + 1).padStart(2, '0')}</div>
           <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 30, color: '#fff'}}>{chip.label}</div>
         </div>
       )}

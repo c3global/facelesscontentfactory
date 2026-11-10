@@ -1,3 +1,4 @@
+import {customerBrand} from './brandConfig';
 import React from 'react';
 import {AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
 import {z} from 'zod';
@@ -57,15 +58,15 @@ function Hook({hook, hookAt, hookTop, hookSize, hookEffect, paper, inset}: {
 /** Local Christmas ornament details, in the approved crimson and copper finish. */
 function HolidayTrim(){
  return <div style={{position:'absolute',inset:0,pointerEvents:'none'}}>
-   <div style={{position:'absolute',left:30,right:30,top:16,height:1,background:'#F1B9A5',opacity:.65}} />
+   <div style={{position:'absolute',left:30,right:30,top:16,height:1,background:`${customerBrand.metalLight}`,opacity:.65}} />
    {[0,1].map((i)=><div key={i} style={{position:'absolute',...(i ? {right:32} : {left:32}),top:0,width:32,height:75}}>
-     <div style={{position:'absolute',left:15,top:0,width:1,height:33,background:'#F1B9A5'}} />
+     <div style={{position:'absolute',left:15,top:0,width:1,height:33,background:`${customerBrand.metalLight}`}} />
      <MetalBox kind="copper" variant="deep" seed={51+i} style={{position:'absolute',left:1,top:32,width:30,height:34,borderRadius:'48%',boxShadow:'0 3px 5px rgba(0,0,0,.22)'}}>
        <div style={{position:'absolute',left:5,right:5,top:14,height:1,background:'rgba(255,255,255,.7)'}} />
      </MetalBox>
    </div>)}
    <div style={{position:'absolute',left:'50%',transform:'translateX(-50%)',top:2,width:54,height:29}}>
-     <svg width="54" height="29" viewBox="0 0 54 29"><path d="M27 15C5-12-8 21 23 18M27 15C49-12 62 21 31 18M25 17L15 28M29 17L39 28" fill="#C91B19" stroke="#F1B9A5" strokeWidth="1.5"/></svg>
+     <svg width="54" height="29" viewBox="0 0 54 29"><path d="M27 15C5-12-8 21 23 18M27 15C49-12 62 21 31 18M25 17L15 28M29 17L39 28" fill={`${customerBrand.accent}`} stroke={`${customerBrand.metalLight}`} strokeWidth="1.5"/></svg>
    </div>
  </div>;
 }

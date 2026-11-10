@@ -1,5 +1,7 @@
 import customerBrand from "../brandConfig";
 import React from 'react';
+import {C3} from './theme';
+import {rgbaOf} from './theme';
 import {Img, OffthreadVideo, Sequence, staticFile, useVideoConfig} from 'remotion';
 import {brand, metalGradient} from '../brand';
 import {heavyFamily, sansFamily, serifFamily} from '../fonts';
@@ -147,7 +149,7 @@ export const CouchWall: React.FC<{fx: Of<'couch-wall'>}> = ({fx}) => {
           const row = Math.floor(i / 3);
           const enter = tw(t, ((col + row) % 5) * 0.07, ((col + row) % 5) * 0.07 + 0.32, 0, 1, pop);
           const depth = (i * 37) % 3;
-          const g = [`linear-gradient(160deg,${customerBrand.accent},#4a090b)`, 'linear-gradient(160deg,#8d1214,#1b0405)', 'linear-gradient(160deg,#3A3F42,#0e1011)'][depth];
+          const g = [`linear-gradient(160deg,${customerBrand.accent},#4a090b)`, `linear-gradient(160deg,${C3.accentDeep},#1b0405)`, 'linear-gradient(160deg,#3A3F42,#0e1011)'][depth];
           return (
             <div
               key={i}
@@ -160,7 +162,7 @@ export const CouchWall: React.FC<{fx: Of<'couch-wall'>}> = ({fx}) => {
                 borderRadius: 28,
                 background: g,
                 boxSizing: 'border-box',
-                border: '2px solid rgba(213,170,74,0.7)',
+                border: `2px solid ${rgbaOf(customerBrand.metalLight, 0.7)}`,
                 transform: `scale(${0.8 + 0.2 * enter})`,
                 opacity: enter,
                 display: 'flex',
@@ -207,7 +209,7 @@ export const KnockoutTiles: React.FC<{fx: Of<'knockout-tiles'>}> = ({fx}) => {
               height: tileH,
               borderRadius: 24,
               background: i % 3 === 0 ? brand.white : i % 3 === 1 ? brand.crimson : brand.black,
-              border: `3px solid ${i % 3 === 2 ? 'rgba(213,170,74,0.8)' : 'rgba(0,0,0,0.0)'}`,
+              border: `3px solid ${i % 3 === 2 ? '${rgbaOf(customerBrand.metalLight, 0.8)}' : 'rgba(0,0,0,0.0)'}`,
               boxSizing: 'border-box',
               display: 'flex',
               alignItems: 'center',
@@ -244,7 +246,7 @@ export const SpotlightDim: React.FC<{fx: Of<'spotlight'>}> = ({fx}) => {
 
 // ---------------------------------------------------------------- orbit
 const OrbitCard: React.FC<{label: string; i: number}> = ({label, i}) => (
-  <div style={{width: 230, height: 410, borderRadius: 30, boxSizing: 'border-box', border: '2px solid rgba(213,170,74,0.85)', background: i % 2 ? `linear-gradient(165deg,${customerBrand.accent},#3d0709)` : 'linear-gradient(165deg,#2b2f31,#050606)', padding: 22, display: 'flex', alignItems: 'flex-end', boxShadow: '0 18px 40px rgba(0,0,0,0.55)'}}>
+  <div style={{width: 230, height: 410, borderRadius: 30, boxSizing: 'border-box', border: `2px solid ${rgbaOf(customerBrand.metalLight, 0.85)}`, background: i % 2 ? `linear-gradient(165deg,${customerBrand.accent},${C3.accentDarker})` : 'linear-gradient(165deg,#2b2f31,#050606)', padding: 22, display: 'flex', alignItems: 'flex-end', boxShadow: '0 18px 40px rgba(0,0,0,0.55)'}}>
     <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 700, fontSize: 38, lineHeight: 1.1, color: brand.white}}>{label}</div>
   </div>
 );
@@ -302,7 +304,7 @@ export const FrameBreakPlate: React.FC<{fx: Of<'frame-break'>}> = ({fx}) => {
   void frame;
   return (
     <div style={{...FILL, background: PLATE, opacity: 1}}>
-      <div style={{...FILL, transform: `translateY(${-90 * shrink}px) scale(${s})`, borderRadius: r, overflow: 'hidden', boxShadow: `0 0 0 ${6 * shrink}px #D5AA4A, 0 30px 80px rgba(0,0,0,0.6)`}}>
+      <div style={{...FILL, transform: `translateY(${-90 * shrink}px) scale(${s})`, borderRadius: r, overflow: 'hidden', boxShadow: `0 0 0 ${6 * shrink}px ${C3.gold}, 0 30px 80px rgba(0,0,0,0.6)`}}>
         <OffthreadVideo src={staticFile(useFxEnv().video)} muted startFrom={Math.round(a * fps)} style={{...FILL, objectFit: 'cover'}} />
       </div>
       {fx.props.label && (
@@ -321,18 +323,18 @@ export const UiWorld: React.FC<{fx: Of<'ui-world'>}> = ({fx}) => {
   return (
     <div style={{...FILL, background: 'linear-gradient(180deg,#15181a,#0a0b0c)', opacity: fade}}>
       <div style={{position: 'absolute', left: 0, top: 0, width: 1080, height: 120, display: 'flex', alignItems: 'center', padding: '0 44px', gap: 14, background: 'rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.1)'}}>
-        {[`${customerBrand.accent}`, '#D5AA4A', '#9aa0a3'].map((c, i) => (
+        {[`${customerBrand.accent}`, `${C3.gold}`, '#9aa0a3'].map((c, i) => (
           <div key={i} style={{width: 22, height: 22, borderRadius: 11, background: c}} />
         ))}
         <div style={{marginLeft: 22, fontFamily: sansFamily('DM Sans'), fontWeight: 700, fontSize: 34, color: brand.white, letterSpacing: 1}}>{fx.props.title}</div>
       </div>
       <div style={{position: 'absolute', left: 54, top: 220, width: 972, fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 700, fontSize: 84, lineHeight: 1.1, color: brand.white}}>What are we making today?</div>
-      <div style={{position: 'absolute', left: 54, top: 560, width: 972, minHeight: 250, borderRadius: 36, background: 'rgba(255,255,255,0.08)', border: '2px solid rgba(213,170,74,0.7)', boxSizing: 'border-box', padding: '36px 40px'}}>
+      <div style={{position: 'absolute', left: 54, top: 560, width: 972, minHeight: 250, borderRadius: 36, background: 'rgba(255,255,255,0.08)', border: `2px solid ${rgbaOf(customerBrand.metalLight, 0.7)}`, boxSizing: 'border-box', padding: '36px 40px'}}>
         <div style={{fontFamily: sansFamily('DM Sans'), fontWeight: 500, fontSize: 48, lineHeight: 1.25, color: brand.white}}>
           {shown}
-          <span style={{color: '#D5AA4A'}}>{caret}</span>
+          <span style={{color: `${C3.gold}`}}>{caret}</span>
         </div>
-        <div style={{position: 'absolute', right: 30, bottom: 26, width: 78, height: 78, borderRadius: 39, ...metalFill({kind: 'copper', variant: 'bright', frame: 0, shimmer: false}), display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 40, color: '#2a1206'}}>↑</div>
+        <div style={{position: 'absolute', right: 30, bottom: 26, width: 78, height: 78, borderRadius: 39, ...metalFill({kind: 'copper', variant: 'bright', frame: 0, shimmer: false}), display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 40, color: `${C3.onMetal}`}}>↑</div>
       </div>
       <div style={{position: 'absolute', left: 54, top: 880, display: 'flex', gap: 18, flexWrap: 'wrap', width: 972}}>
         {fx.props.chips.map((c, i) => (
