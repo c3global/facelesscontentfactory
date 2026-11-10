@@ -3,6 +3,7 @@ import {fifthOver} from './fifth';
 import {sixthOver} from './sixth';
 import {CloneRowCopies, seventhOver} from './seventh';
 import {eighthOver, rackK} from './eighth';
+import {ninthOver} from './ninth';
 import {fourthOver} from './fourth';
 import {thirdOver} from './third';
 import {Audio, Sequence, staticFile, useVideoConfig} from 'remotion';
@@ -119,7 +120,7 @@ export const FxOver: React.FC<{fx: Fx[]}> = ({fx}) => {
   return (
     <>
       {fx.map((f, i) => {
-        const node = overItem(f) ?? extraOver(f) ?? thirdOver(f) ?? fourthOver(f) ?? fifthOver(f) ?? sixthOver(f) ?? seventhOver(f) ?? eighthOver(f);
+        const node = overItem(f) ?? extraOver(f) ?? thirdOver(f) ?? fourthOver(f) ?? fifthOver(f) ?? sixthOver(f) ?? seventhOver(f) ?? eighthOver(f) ?? ninthOver(f);
         if (!node) return null;
         const [a, b] = fxRange(f);
         return (

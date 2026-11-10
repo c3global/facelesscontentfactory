@@ -139,6 +139,16 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('rack-focus'), props: z.object({blurPx: z.number().default(14)}).prefault({})}),
   z.object({...base, type: z.literal('banknote'), props: z.object({amount: z.number().int().min(1), title: z.string(), serial: z.string().default('C3G 2026'), finePrint: z.string().default('This note is not money. The number is real.'), /** lettering around the portrait oval */ ring: z.string().default('C3 Global'), /** name on the round seal */ seal: z.string().default('Dr. CK'), sealSub: z.string().optional()})}),
   z.object({...base, type: z.literal('voice-note'), props: z.object({label: z.string().default('Voice note'), y: z.number().default(130)}).prefault({})}),
+  // ---- ninth batch (three-reel build, batch 3)
+  z.object({...base, type: z.literal('impact-frame'), props: z.object({word: z.string().default('Impact')}).prefault({})}),
+  z.object({...base, type: z.literal('dolly-zoom'), props: z.object({to: z.number().min(1.1).max(2.2).default(1.6), direction: z.enum(['in', 'out']).default('in')}).prefault({})}),
+  z.object({...base, type: z.literal('press-front'), props: z.object({masthead: z.string().default('The C3 Times'), headline: z.string(), subhead: z.string().default(''), date: z.string().default(''), caption: z.string().default('')})}),
+  z.object({...base, type: z.literal('paper-tear'), props: z.object({text: z.string().default('')}).prefault({})}),
+  z.object({...base, type: z.literal('blow-away'), props: z.object({/** a still of the empty set in public/ (makes her blow away to reveal the empty room) */ plate: z.string().optional()}).prefault({})}),
+  z.object({...base, type: z.literal('depth-scatter'), props: z.object({words: z.array(z.string()).min(2).max(10)})}),
+  z.object({...base, type: z.literal('spatial-glass'), props: z.object({title: z.string().default(''), text: z.string(), y: z.number().default(1180)})}),
+  z.object({...base, type: z.literal('shatter-3d'), props: z.object({cols: z.number().int().min(2).max(5).default(3), rows: z.number().int().min(2).max(6).default(4)}).prefault({})}),
+  z.object({...base, type: z.literal('scene-text'), props: z.object({word: z.string(), x: z.number().default(330), y: z.number().default(120), size: z.number().default(150)})}),
 ]);
 
 
