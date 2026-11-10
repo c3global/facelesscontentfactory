@@ -264,7 +264,13 @@ export const Banknote: React.FC<{fx: Of<'banknote'>}> = ({fx}) => {
   const OW = 640;
   const OH = 820;
   const OY = 250;
-  const ringText = `${ring} • `.repeat(9).toUpperCase();
+  const RR = 32;
+  const ra = OW / 2 + RR;
+  const rb = OH / 2 + RR;
+  // ellipse perimeter (Ramanujan), so the lettering fills the whole loop evenly
+  const per = Math.PI * (3 * (ra + rb) - Math.sqrt((3 * ra + rb) * (ra + 3 * rb)));
+  const unit = `${ring} • `.toUpperCase();
+  const ringText = unit.repeat(Math.max(1, Math.round(per / (unit.length * 21))));
   const SW = OW + 200;
   const SH = OH + 200;
   return (
@@ -284,7 +290,7 @@ export const Banknote: React.FC<{fx: Of<'banknote'>}> = ({fx}) => {
       {box(W - 340, 36, 300, 110, <span style={numeral(76)}>{num}</span>)}
       {/* oval: beaded rim, lettering, engraved portrait */}
       <svg width={SW} height={SH} style={{position: 'absolute', left: CX - SW / 2, top: OY - 100}}>
-        <defs><path id="ringPath" d={`M ${SW / 2} ${100 - 42} a ${OW / 2 + 42} ${OH / 2 + 42} 0 1 1 -0.1 0`} /></defs>
+        <defs><path id="ringPath" d={`M ${SW / 2} ${100 - RR} a ${OW / 2 + RR} ${OH / 2 + RR} 0 1 1 -0.1 0`} /></defs>
         {Array.from({length: 72}, (_, i) => <ellipse key={i} cx={SW / 2} cy={SH / 2} rx={OW / 2 + 88} ry={OH / 2 + 88} fill="none" stroke={NOTE_INK} strokeWidth={0.8} opacity={0.6} transform={`rotate(${i * 5} ${SW / 2} ${SH / 2}) scale(1)`} style={{transform: `scale(${1 - (i % 4) * 0.012})`, transformOrigin: 'center'}} />)}
         {Array.from({length: 120}, (_, i) => {
           const th = (i / 120) * Math.PI * 2;
@@ -292,7 +298,7 @@ export const Banknote: React.FC<{fx: Of<'banknote'>}> = ({fx}) => {
         })}
         <ellipse cx={SW / 2} cy={SH / 2} rx={OW / 2 + 60} ry={OH / 2 + 60} fill="none" stroke={NOTE_INK} strokeWidth={2} />
         <ellipse cx={SW / 2} cy={SH / 2} rx={OW / 2 + 22} ry={OH / 2 + 22} fill={NOTE_PAPER} stroke={NOTE_INK} strokeWidth={3} />
-        <text fontFamily="Playfair Display, Georgia, serif" fontSize={26} fontWeight={700} letterSpacing={7} fill={NOTE_INK}><textPath href="#ringPath">{ringText}</textPath></text>
+        <text fontFamily="Playfair Display, Georgia, serif" fontSize={24} fontWeight={700} fill={NOTE_INK} dominantBaseline="middle"><textPath href="#ringPath" textLength={per - 8} lengthAdjust="spacing">{ringText}</textPath></text>
         <ellipse cx={SW / 2} cy={SH / 2} rx={OW / 2 + 2} ry={OH / 2 + 2} fill="none" stroke={NOTE_INK} strokeWidth={4} />
       </svg>
       <div style={{position: 'absolute', left: CX - OW / 2, top: OY, width: OW, height: OH, borderRadius: '50%', overflow: 'hidden', background: NOTE_INK, isolation: 'isolate'}}>
