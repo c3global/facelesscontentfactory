@@ -1,0 +1,64 @@
+{
+  "handoffVersion": 1,
+  "createdAt": "2026-11-02T14:05:00Z",
+  "source": {
+    "app": "faceless48-studio",
+    "engines": [
+      "script",
+      "shorts",
+      "thumbnail"
+    ]
+  },
+  "title": "Why your first video feels hard",
+  "type": "faceless",
+  "format": "landscape",
+  "script": {
+    "text": "Most people quit before their first video is done. The hard part is not the camera. It is the blank screen. Start with one clip and one sentence, and let the plug-in do the rest.",
+    "sections": [
+      {
+        "id": "s1",
+        "heading": "The hook",
+        "text": "Most people quit before their first video is done.",
+        "visual": "someone staring at a blank screen"
+      },
+      {
+        "id": "s2",
+        "heading": "The real problem",
+        "text": "The hard part is not the camera. It is the blank screen."
+      },
+      {
+        "id": "s3",
+        "heading": "The fix",
+        "text": "Start with one clip and one sentence, and let the plug-in do the rest."
+      }
+    ]
+  },
+  "shorts": [
+    {
+      "id": "sh1",
+      "title": "The quit point",
+      "text": "Most people quit before their first video is done. The hard part is the blank screen, not the camera.",
+      "fromSections": [
+        "s1",
+        "s2"
+      ],
+      "approxSeconds": 20
+    }
+  ],
+  "thumbnail": {
+    "file": "thumbnail.png",
+    "headline": "Why it feels hard",
+    "alt": "A blank laptop screen and a cup of coffee"
+  },
+  "stock": {
+    "terms": [
+      {
+        "sectionId": "s1",
+        "terms": [
+          "blank laptop screen night"
+        ]
+      }
+    ]
+  },
+  "notes": "Example package for testing the importer. Not a real video."
+}

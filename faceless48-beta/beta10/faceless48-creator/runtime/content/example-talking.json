@@ -1,0 +1,46 @@
+{
+  "kind": "talking-head",
+  "plan": {
+    "slug": "sample",
+    "video": "raw/sample.mp4",
+    "durationSec": 6,
+    "fxSound": "off",
+    "scenes": [
+      {
+        "id": "intro",
+        "mood": "dark",
+        "segments": [
+          {
+            "start": 0,
+            "end": 6,
+            "layout": "A",
+            "graphics": []
+          }
+        ]
+      }
+    ],
+    "fx": [
+      {
+        "type": "digital-zoom",
+        "at": 0,
+        "until": 2,
+        "props": {}
+      },
+      {
+        "type": "card-flip",
+        "at": 2,
+        "until": 6,
+        "props": {
+          "cards": [
+            {
+              "front": "Your next idea",
+              "from": 0
+            }
+          ],
+          "flipAt": 0.7
+        }
+      }
+    ]
+  },
+  "captions": []
+}

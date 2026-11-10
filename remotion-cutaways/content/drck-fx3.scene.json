@@ -1,0 +1,117 @@
+{
+ "slug": "drck-fx3",
+ "video": "raw/drck-fx.mp4",
+ "durationSec": 27.4,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 27.4,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "impact-frame",
+   "at": 0.3,
+   "until": 1.9,
+   "props": {
+    "word": "Impact"
+   }
+  },
+  {
+   "type": "dolly-zoom",
+   "at": 3.3,
+   "until": 6.3
+  },
+  {
+   "type": "press-front",
+   "at": 6.6,
+   "until": 9.6,
+   "props": {
+    "headline": "Don't just communicate.",
+    "subhead": "Connect.",
+    "date": "November 2026",
+    "caption": "Dr. CK at her desk"
+   }
+  },
+  {
+   "type": "paper-tear",
+   "at": 9.8,
+   "until": 11.6,
+   "props": {
+    "text": "Connect."
+   }
+  },
+  {
+   "type": "blow-away",
+   "at": 11.9,
+   "until": 14.9
+  },
+  {
+   "type": "depth-scatter",
+   "at": 15.2,
+   "until": 18.2,
+   "props": {
+    "words": [
+     "Don't",
+     "just",
+     "communicate.",
+     "Connect.",
+     "C3 Global"
+    ]
+   }
+  },
+  {
+   "type": "scene-text",
+   "at": 18.5,
+   "until": 21.3,
+   "props": {
+    "word": "Connect."
+   }
+  },
+  {
+   "type": "spatial-glass",
+   "at": 21.6,
+   "until": 24.4,
+   "props": {
+    "title": "C3 Global",
+    "text": "Don't just communicate. Connect."
+   }
+  },
+  {
+   "type": "shatter-3d",
+   "at": 24.7,
+   "until": 27.1
+  }
+ ],
+ "matte": "drck-fx"
+}

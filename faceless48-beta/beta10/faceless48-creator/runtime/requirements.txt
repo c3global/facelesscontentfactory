@@ -1,0 +1,8 @@
+# Python packages for cutouts (behind-you effects), sound effects and caption checks. Installed into .venv by `npm run setup`.
+mediapipe
+opencv-python-headless
+numpy
+scipy
+pymatting
+onnxruntime
+Pillow

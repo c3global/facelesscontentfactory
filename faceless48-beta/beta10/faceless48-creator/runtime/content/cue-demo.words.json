@@ -1,0 +1,17 @@
+[
+  {
+    "text": "Discover",
+    "startMs": 0,
+    "endMs": 600
+  },
+  {
+    "text": "Explain",
+    "startMs": 700,
+    "endMs": 1300
+  },
+  {
+    "text": "Apply",
+    "startMs": 1400,
+    "endMs": 2000
+  }
+]

@@ -1,0 +1,61 @@
+{
+  "name": "faceless48-remotion",
+  "private": true,
+  "version": "0.1.0-beta.10",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "transcribe": "node --import ./scripts/tools-path.mjs scripts/transcribe.mjs",
+    "captions:from-words": "node --import ./scripts/tools-path.mjs scripts/words-to-captions.mjs",
+    "render": "tsx --import ./scripts/tools-path.mjs scripts/render-batch.mjs",
+    "tests": "tsx --import ./scripts/tools-path.mjs scripts/render-tests.mjs",
+    "finish": "tsx --import ./scripts/tools-path.mjs scripts/render-finish.mjs",
+    "captions:test": "tsx --import ./scripts/tools-path.mjs scripts/render-captions.mjs",
+    "stills": "tsx --import ./scripts/tools-path.mjs scripts/render-stills.mjs",
+    "pacing": "node --import ./scripts/tools-path.mjs scripts/pacing.mjs",
+    "finalize": "node --import ./scripts/tools-path.mjs scripts/finalize.mjs",
+    "music": "node --import ./scripts/tools-path.mjs scripts/pick-music.mjs",
+    "new": "node --import ./scripts/tools-path.mjs scripts/new-video.mjs",
+    "stitch": "node --import ./scripts/tools-path.mjs scripts/stitch.mjs",
+    "matte": "node --import ./scripts/tools-path.mjs scripts/matte.mjs",
+    "sfx": "node --import ./scripts/tools-path.mjs scripts/make-sfx.mjs",
+    "word": "node --import ./scripts/tools-path.mjs scripts/word-at.mjs",
+    "outline": "node --import ./scripts/tools-path.mjs scripts/py.mjs scripts/outline.py",
+    "style": "tsx --import ./scripts/tools-path.mjs scripts/style.mjs",
+    "ramp": "node --import ./scripts/tools-path.mjs scripts/speed-ramp.mjs",
+    "matte:refine": "node --import ./scripts/tools-path.mjs scripts/py.mjs scripts/matte-refine.py",
+    "f48": "node --import tsx --import ./scripts/tools-path.mjs scripts/f48.ts",
+    "test:beta": "node --import tsx --import ./scripts/tools-path.mjs --test scripts/beta.test.ts scripts/stock.test.ts scripts/yap.test.ts scripts/lint.test.ts scripts/broll.test.ts scripts/handoff.test.ts scripts/redact.test.ts",
+    "setup": "node scripts/setup.mjs",
+    "matte:hq": "node --import ./scripts/tools-path.mjs scripts/py.mjs scripts/matte-hq.py"
+  },
+  "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.2.0",
+    "@fontsource/manrope": "^5.2.0",
+    "@remotion/bundler": "^4.0.532",
+    "@remotion/captions": "^4.0.532",
+    "@remotion/cli": "4.0.532",
+    "@remotion/google-fonts": "^4.0.532",
+    "@remotion/install-whisper-cpp": "^4.0.532",
+    "@remotion/renderer": "^4.0.532",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "4.0.532",
+    "zod": "4.5.4",
+    "ffmpeg-static": "5.2.0",
+    "ffprobe-static": "3.1.0"
+  },
+  "devDependencies": {
+    "@fontsource/anton": "^5.3.0",
+    "@fontsource/caveat": "^5.3.0",
+    "@fontsource/dm-sans": "^5.3.0",
+    "@fontsource/montserrat": "^5.3.0",
+    "@fontsource/playfair-display": "^5.3.0",
+    "@types/react": "^18.3.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.6.0"
+  },
+  "engines": {
+    "node": ">=20.6"
+  }
+}

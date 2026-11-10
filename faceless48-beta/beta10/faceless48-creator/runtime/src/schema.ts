@@ -1,0 +1,325 @@
+import customerBrand from "./brandConfig";
+import {z} from 'zod';
+import {fxSchema} from './fx/schema';
+
+const sec = z.number().min(0);
+const emphasis = z.array(z.string()).optional();
+
+/** Every graphic is `{type, at, until?, props}`. `at` and `until` are absolute seconds in the video. */
+const box = z.object({y: z.number().optional(), h: z.number().optional(), /** center the graphic vertically inside the box */ center: z.boolean().optional()}).optional();
+const base = {at: sec, until: sec.optional(), box};
+
+export const graphicSchema = z.discriminatedUnion('type', [
+  z.object({
+    ...base,
+    type: z.literal('tag'),
+    props: z.object({text: z.string()}),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('headline-card'),
+    props: z.object({
+      label: z.string(),
+      line: z.string(),
+      emphasis,
+      /** absolute second at which the line is struck through */
+      strikeAt: sec.optional(),
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('rewrite-card'),
+    props: z.object({
+      label: z.string(),
+      oldLine: z.string(),
+      newLine: z.string(),
+      emphasis,
+      /** old line is already struck through when the card appears */
+      struckAtStart: z.boolean().default(false),
+      strikeAt: sec.optional(),
+      /** absolute second the new line starts writing in */
+      writeAt: sec,
+      writeSeconds: z.number().min(0.2).default(2.4),
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('notification-stack'),
+    props: z.object({
+      items: z
+        .array(z.object({app: z.string(), text: z.string(), at: sec}))
+        .min(1)
+        .max(5),
+      badgeLabel: z.string().default('new'),
+      /** scales the whole panel so it fills the frame */
+      zoom: z.number().min(0.8).max(2).default(1),
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('hub-diagram'),
+    props: z.object({
+      center: z.string(),
+      centerAt: sec,
+      nodes: z.array(z.object({label: z.string(), at: sec})).min(3).max(5),
+      /** lines draw outward from the center */
+      drawAt: sec,
+      /** nodes switch from `fromLabel` to `toLabel` */
+      changeAt: sec,
+      /** scale the whole diagram down to fit a shorter area (1 = full 960 x 1070) */
+      fit: z.number().min(0.5).max(1).default(1),
+      fromLabel: z.string().default('Waiting'),
+      toLabel: z.string().default('Agreeing'),
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('chat-ui'),
+    props: z.object({
+      title: z.string(),
+      items: z
+        .array(z.object({channel: z.string(), text: z.string(), at: sec}))
+        .min(1)
+        .max(4),
+      badgeLabel: z.string().default('unread'),
+      zoom: z.number().min(0.8).max(2).default(1),
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('meeting-tile'),
+    props: z.object({
+      title: z.string(),
+      status: z.string(),
+      participants: z.number().int().min(2).max(6).default(4),
+      /** second at which the mic-muted / silent state kicks in */
+      mutedAt: sec.optional(),
+      zoom: z.number().min(0.8).max(2).default(1),
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('floating-chips'),
+    props: z.object({
+      chips: z.array(z.object({text: z.string(), at: sec})).min(1).max(5),
+      /** stack: a centered column of large chips (hidden-avatar scenes); float: small chips drifting around her */
+      mode: z.enum(['float', 'stack']).default('float'),
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('chapter-card'),
+    props: z.object({
+      numeral: z.string(),
+      title: z.string(),
+      flowLabel: z.string().optional(),
+      flow: z.array(z.string()).min(2).max(4),
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('congruence-map'),
+    props: z.object({
+      /** four components in reading order: top, right, bottom, left. `at` is when each is introduced. */
+      nodes: z.array(z.object({label: z.string(), at: sec, /** when the label replaces the bare numeral (defaults to `at`) */ labelAt: sec.optional()})).length(4),
+      /** the remaining links between the four are drawn */
+      connectAt: sec,
+      /** every link carries a pulse and a small crimson dot marks the shared center */
+      pulseAt: sec,
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('notes-card'),
+    props: z.object({
+      label: z.string().default('Notes'),
+      title: z.string(),
+      items: z.array(z.object({text: z.string(), at: sec, /** the check mark draws this many seconds after the line appears */ checkAfter: z.number().min(0).optional()})).min(1).max(5),
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('quiet-feed'),
+    props: z.object({
+      label: z.string().default('COMMUNITY FEED'),
+      post: z.string(),
+      /** shown under the post once it has had time to sit unanswered */
+      status: z.string(),
+      statusAt: sec,
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('citation-card'),
+    props: z.object({
+      label: z.string().default('SOURCE'),
+      authors: z.string(),
+      year: z.string().optional(),
+      title: z.string(),
+      source: z.string(),
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('screenshot-card'),
+    props: z.object({
+      /** image in public/, for example shots/substack.png */
+      src: z.string(),
+      /** slow pan down a tall screenshot (0 = none, 1 = the full overflow) */
+      pan: z.number().min(0).max(1).default(0),
+      /** card: glass frame beside or under her window. full: the page fills the whole frame like a screen recording */
+      mode: z.enum(['card', 'full']).default('card'),
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('broll'),
+    props: z.object({
+      /** video clip in public/, for example stock/typing-night.mp4 */
+      src: z.string(),
+      /** second inside the clip where the cutaway starts (trims the head) */
+      startSec: sec.default(0),
+      /** one camera move per clip: slow push, tight-to-wide reveal, quick zoom on a beat, or a gentle handheld sway */
+      move: z.enum(['none', 'zoom', 'pullback', 'punch', 'drift']).default('zoom'),
+      /** how far the move goes: end zoom for zoom and punch (1.1 to 1.25), start zoom for pullback (1.3 to 1.4) */
+      zoom: z.number().min(1).max(1.6).default(1.1),
+      /** the point the camera moves toward, as a fraction of the frame */
+      px: z.number().min(0).max(1).default(0.5),
+      py: z.number().min(0).max(1).default(0.45),
+      /** soft darkening under the caption band so captions stay readable */
+      scrim: z.boolean().default(true),
+    }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal('statement-card'),
+    props: z.object({text: z.string(), emphasis, /** absolute second each word is spoken: the word pops in then */ wordTimes: z.array(sec).optional()}),
+  }),
+]);
+
+export const segmentSchema = z.object({
+  start: sec,
+  end: sec,
+  layout: z.enum(['A', 'B', 'C', 'D', 'E', 'S']),
+  /** where kinetic captions sit in this segment: bottom band, top band, or alternating by sentence (top first) */
+  captionPos: z.enum(['bottom', 'top', 'alternate']).default('bottom'),
+  /** 'off' when a graphic in this segment shows every spoken word itself (the graphic becomes the caption) */
+  captions: z.enum(['on', 'off']).default('on'),
+  /** per-segment framing of her inside the window: where the face sits (focusY, percent) and extra zoom */
+  focus: z.object({y: z.number(), zoom: z.number()}).optional(),
+  /** layouts C and E: show her as a small window, or hide her (audio keeps playing) */
+  avatar: z.enum(['circle', 'hidden']).optional(),
+  graphics: z.array(graphicSchema).default([]),
+});
+
+export const sceneSchema = z.object({
+  id: z.string(),
+  mood: z.enum(['dark', 'light']),
+  /** small spaced-caps label at the top of the scene */
+  tag: z.string().optional(),
+  /** photo background for this scene, a path inside public/ (for example backdrops/marble-black.jpg). Overrides the field. */
+  bg: z.string().optional(),
+  segments: z.array(segmentSchema).min(1),
+});
+
+export const endCardSchema = z.discriminatedUnion('variant', [
+  z.object({
+    variant: z.literal('link-pill'),
+    startAt: sec,
+    label: z.string(),
+    url: z.string(),
+  }),
+  z.object({
+    variant: z.literal('comment-keyword'),
+    startAt: sec,
+    prompt: z.string(),
+    keyword: z.string(),
+  }),
+]);
+
+export const planSchema = z.object({
+  slug: z.string().regex(/^[a-z0-9-]+$/),
+  /** path inside public/ */
+  video: z.string(),
+  /** portrait is 1080 x 1920 (Reels, TikTok, Shorts). landscape is 1920 x 1080 (YouTube): full-frame speaker, split layouts, captions, graphics, camera moves and looks. */
+  format: z.enum(['portrait', 'landscape']).default('portrait'),
+  durationSec: z.number().positive(),
+  theme: z
+    .object({
+      field: z.enum(['black', 'crimson', 'charcoal', 'rosegold', 'marble-black', 'marble-white', 'marble-red']).default('black'),
+      sans: z.enum(['DM Sans', 'Montserrat']).default('DM Sans'),
+    })
+    .prefault({}),
+  /** words rendered in the Playfair italic rose gold emphasis treatment */
+  emphasis: z.array(z.string()).default([]),
+  /**
+   * pill: small glass-pill subtitles. editorial / heavy: kinetic lockups (one hero word set huge, small
+   * support words around it, optional highlight box). Editorial sets the hero in Playfair Black, heavy in Anton.
+   */
+  captionStyle: z.enum(['pill', 'editorial', 'heavy']).default((customerBrand as any).captionStyle ?? 'editorial'),
+  /** words that should become the hero of a lockup (emphasis words always can) */
+  hero: z.array(z.string()).default([]),
+  /** words that get a highlight box behind them */
+  boxed: z.array(z.string()).default([]),
+  /** createTikTokStyleCaptions combineTokensWithinMilliseconds (pill style). Low = 1 to 3 words per page. */
+  /** vertical band for kinetic captions, in px. Default keeps them in the lower third; the plain-avatar preset uses 1056 to 1382 (55 to 72 percent). */
+  captionBand: z.object({top: z.number(), bottom: z.number()}).prefault({top: 1160, bottom: 1490}),
+  /** the band used when a segment moves captions to the top */
+  /** film finish over the whole frame: grain (0 to 1) and light leaks (0 to 1, warm brand-tint leaks that drift and burst on cuts) */
+  finish: z.object({grain: z.number().min(0).max(1).default(0), lightLeaks: z.number().min(0).max(1).default(0)}).prefault({}),
+  /** background music from public/music (licensed tracks stay out of git). Ducks under her voice automatically, fades in and out. */
+  music: z
+    .object({
+      src: z.string(),
+      /** level when she is silent (0 to 1) */
+      volume: z.number().min(0).max(1).default(0.35),
+      /** level while she speaks */
+      duckTo: z.number().min(0).max(1).default(0.16),
+      fadeInSec: z.number().min(0).default(1.5),
+      fadeOutSec: z.number().min(0).default(2.5),
+      startFromSec: z.number().min(0).default(0),
+    })
+    .optional(),
+  captionBandTop: z.object({top: z.number(), bottom: z.number()}).prefault({top: 250, bottom: 560}),
+  captionPageMs: z.number().int().min(100).max(1500).default(500),
+  /** strength of the dark gradient under the hook caption, 0 to 1 (default 1). Yaps use a lighter one so the room shows. */
+  scrim: z.number().min(0).max(1).optional(),
+  /** shows every caption this many seconds earlier, to match an avatar whose mouth moves slightly before its sound */
+  captionLeadSec: z.number().min(0).max(0.5).optional(),
+  scenes: z.array(sceneSchema).min(1),
+  endCard: endCardSchema.optional(),
+  /** effects on her clip (see src/fx). Behind-her effects need `matte`. */
+  fx: z.array(fxSchema).default([]),
+  /** slug of her person matte: public/matte/<slug>.webm and .anchors.json, made by `npm run matte -- <slug>` */
+  matte: z.string().optional(),
+  /** effect sound level (0 to 1). Each effect has a default sound; `sfx: 'none'` on an event silences it. */
+  fxVolume: z.number().min(0).max(1).default(0.5),
+  /** minimal: only each effect's main entrance sound. full: adds ticks, pops and per-item cues. off: silent. */
+  fxSound: z.enum(['minimal', 'full', 'off']).default('minimal'),
+  /** review aid: show each effect sound's name on screen when it plays */
+  soundLabels: z.boolean().default(false),
+  /** outline around her cutout in the behind-her effects: a clean edge on busy backgrounds, or a metallic look. Bake it first: npm run outline -- <slug> <white|copper|gold> */
+  matteOutline: z.enum(['none', 'white', 'copper', 'gold']).default('none'),
+});
+
+export type Graphic = z.infer<typeof graphicSchema>;
+export type Segment = z.infer<typeof segmentSchema>;
+export type Scene = z.infer<typeof sceneSchema>;
+export type EndCard = z.infer<typeof endCardSchema>;
+export type ScenePlan = z.infer<typeof planSchema>;
+
+/** Props handed to the composition by the batch renderer and the Studio. */
+export const videoPropsSchema = z.object({
+  plan: planSchema,
+  /** Remotion `Caption[]` from @remotion/captions */
+  captions: z.array(
+    z.object({
+      text: z.string(),
+      startMs: z.number(),
+      endMs: z.number(),
+      timestampMs: z.number().nullable(),
+      confidence: z.number().nullable(),
+    }),
+  ),
+});
+export type VideoProps = z.infer<typeof videoPropsSchema>;

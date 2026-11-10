@@ -30,18 +30,18 @@ Read this first in any new conversation about Faceless48. Update it when Dr. CK 
 
 ## In progress: beta.10
 
-1. **Waiting on** `F48-code.zip`: her Faceless48 Demo folder (iCloud, `~/Library/Mobile Documents/com~apple~CloudDocs/C3 Global/Clients/Faceless48 Demo`) zipped without node_modules, out, .git and media. It should hold the video carousels and the wiring for clinic notes. Folder connection from cloud sessions is not available to her.
-2. **Merge** Codex beta.9 pack and that folder into beta.8. Keep redact and everything else from beta.8.
-3. **New effects from three reels** (frame sheets in `reels/`; download reels again with `yt-dlp`, it works for public Instagram reels):
-   - Reel 1 https://www.instagram.com/reel/DfgSB4DthfJ/ : build all: Live cursor, Clone row (new look), Day dial, Predict keys, Letter orbit (text ring look of orbit), Code body, Post wall, Letter dive, Comment drop (new look), Layer explode, Sketch words, Blade slice, Head stack, Rack focus, Banknote, Voice note (new look), Impact frame, Dolly zoom (new look of vertigo), Press front (newspaper), Paper tear, Blow away.
-   - Reel 3 https://www.instagram.com/reel/Dff6wULz-i4/ : Rack focus, Depth scatter, Spatial glass, Shatter 3D, Scene text.
-   - Reel 2 https://www.instagram.com/reel/Def9pj5TWtA/ : all 17 already exist; add new looks only where his version differs.
-   - Use her brand, not his designs. Effects that go behind her need the high-quality cutout.
-4. **Easier setup** (her client needed an hour): assistant runs the installs with permission; use Remotion's bundled ffmpeg/ffprobe (`@remotion/compositor-*`) instead of a system FFmpeg; install cutout tools up front (python3, mediapipe, opencv-python-headless, numpy, pymatting, onnxruntime, Pillow; BiRefNet lite model about 220 MB) and captions (whisper.cpp small.en, about 470 MB); test each piece. Needs one real Mac and one Windows test.
-5. **"Before you start" video**: stick-figure explainer with a drawn computer and Terminal. Open question: her voice or Jogg avatar.
-6. Then: tests, effects list, zip, swap into lesson 1, update Start Here.
+**Built (Nov 10):** `faceless48-creator-0.1.0-beta.10.zip` from the working copy `beta10/faceless48-creator/`. tsc clean, 31/31 tests. Contains:
+- beta.8 (redact kept) + Codex beta.9 (beat-sync skill, picker reference, music-section finder) + her demo-folder wiring (clinic notes in LifeScene: `clinicNote`, `cardTrial`, `velvetEditorial`, `graphicsOnly`; LSClip accepts stills).
+- 25 new effects (seventh/eighth/ninth.tsx, 119 total), member defaults use `customerBrand.name`, never C3 or Dr. CK. Studio copy in `remotion-cutaways/src/fx/` (previews `content/drck-fx*.scene.json` on her clip `public/raw/drck-fx.mp4`, not in git).
+- One-step setup: `node tools/setup.mjs "<folder>"` / `npm run setup`: ffmpeg-static + ffprobe-static (Remotion's own ffmpeg lacks overlay/afade/sidechaincompress), Remotion browser, private Python in `.venv` (requirements.txt), whisper.cpp + small.en, BiRefNet lite; report in `out/setup-report.txt`. Tools reach scripts via `--import ./scripts/tools-path.mjs` on each npm script (an .npmrc node-options approach broke npm ci). Python scripts run through `scripts/py.mjs`. Passed end to end on Linux in 2.5 min.
+
+**Next:**
+1. Real Mac and Windows test of setup (Mac may need Command Line Tools for whisper; setup triggers the install prompt). Not yet tested there.
+2. Swap the zip into lesson 1 (Pinball media) and update the Start Here guide and recording checklist (still says beta.7).
+3. "Before you start" stick-figure video: open question, her voice or Jogg avatar.
+4. Blow away reveals a dark backdrop; ask her for 3 s of her empty set to reveal the room.
+5. Her Pexels/Pixabay keys were in the demo zip in git history on branch claude/jolly-allen-3bm01m (removed from the file Nov 10). She should regenerate both keys.
 
 ## Small open items
 
-- Recording checklist PDF still says beta.7.
 - Ask her to check the space as an ebook-only member (Zulie Rodriguez) once.

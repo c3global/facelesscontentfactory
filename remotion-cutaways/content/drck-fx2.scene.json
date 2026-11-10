@@ -1,0 +1,111 @@
+{
+ "slug": "drck-fx2",
+ "video": "raw/drck-fx.mp4",
+ "durationSec": 24.8,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 24.8,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "comment-post",
+   "at": 0.3,
+   "until": 4.3,
+   "props": {
+    "comment": "EDIT to get the full list",
+    "postAt": 1.6,
+    "reply": "Sent! Check your DMs.",
+    "replyAt": 2.6
+   }
+  },
+  {
+   "type": "layer-explode",
+   "at": 4.6,
+   "until": 7.4,
+   "props": {
+    "title": "layer\nexplode"
+   }
+  },
+  {
+   "type": "sketch-words",
+   "at": 7.7,
+   "until": 10.7,
+   "props": {
+    "small": "sketch",
+    "big": "words"
+   }
+  },
+  {
+   "type": "blade-slice",
+   "at": 11.0,
+   "until": 12.0
+  },
+  {
+   "type": "head-stack",
+   "at": 12.2,
+   "until": 15.2,
+   "props": {
+    "labels": [
+     "Live cursor",
+     "Clone row",
+     "Day dial",
+     "Post wall",
+     "Banknote",
+     "Voice note"
+    ]
+   }
+  },
+  {
+   "type": "rack-focus",
+   "at": 15.5,
+   "until": 17.7
+  },
+  {
+   "type": "banknote",
+   "at": 18.0,
+   "until": 21.0,
+   "props": {
+    "amount": 12500,
+    "title": "C3 Global"
+   }
+  },
+  {
+   "type": "voice-note",
+   "at": 21.3,
+   "until": 24.5
+  }
+ ],
+ "matte": "drck-fx"
+}

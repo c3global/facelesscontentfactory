@@ -95,13 +95,38 @@ const LEN: Record<FxType, number> = {
   'step-chips': 6,
   'pen-circle': 3.2,
   'caption-stack': 3.4,
+  'live-cursor': 2.4,
+  'clone-row': 3,
+  'day-dial': 3,
+  'predict-keys': 3,
+  'letter-orbit': 3.5,
+  'code-body': 2.5,
+  'post-wall': 3,
+  'letter-dive': 2.4,
+  'comment-post': 4,
+  'layer-explode': 2.8,
+  'sketch-words': 3,
+  'blade-slice': 1,
+  'head-stack': 3,
+  'rack-focus': 2.2,
+  'banknote': 3,
+  'voice-note': 3.2,
+  'impact-frame': 1.6,
+  'dolly-zoom': 3,
+  'press-front': 3,
+  'paper-tear': 1.8,
+  'blow-away': 3,
+  'depth-scatter': 3,
+  'spatial-glass': 2.8,
+  'shatter-3d': 2.4,
+  'scene-text': 2.8,
   'script-panel': 7,
   'card-carousel': 4.4,
   'card-flip': 4,
 };
 
 /** effects that draw behind her (they need the person matte) */
-export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story', 'script-panel'];
+export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story', 'script-panel', 'clone-row', 'day-dial', 'letter-orbit', 'code-body', 'post-wall', 'sketch-words', 'dolly-zoom', 'blow-away', 'depth-scatter', 'scene-text'];
 export const NEEDS_MATTE: FxType[] = [...BEHIND, 'freeze-sticker'];
 
 export const fxRange = (f: Fx): [number, number] => {
@@ -355,6 +380,56 @@ const rawCues = (f: Fx): Cue[] => {
     case 'keycap-drop':
       return [main('tick', f.at + 0.4, 0.6), d('tick', f.at + 0.7, 0.4), d('tick', f.at + 1.0, 0.4)];
     case 'storyboard-wall':
+    case 'live-cursor':
+      return [main('blip', f.at + 0.15, 0.6)];
+    case 'clone-row':
+      return [main('whoosh', f.at, 0.6)];
+    case 'day-dial':
+      return [main('swish', f.at, 0.6), d('tick', f.at + 0.8, 0.5), d('tick', f.at + 1.4, 0.5)];
+    case 'predict-keys':
+      return [main('type', f.at + 0.4, 0.5)];
+    case 'letter-orbit':
+      return [main('swish', f.at, 0.5)];
+    case 'code-body':
+      return [main('glitch', f.at, 0.6)];
+    case 'post-wall':
+      return [main('riser', f.at, 0.4)];
+    case 'letter-dive':
+      return [main('whoosh', fxRange(f)[1] - 0.9, 0.8)];
+    case 'comment-post':
+      return [main('type', f.at + 0.35, 0.5), d('pop', f.props.postAt, 0.6), d('pop', f.props.replyAt, 0.5)];
+    case 'layer-explode':
+      return [main('whoosh', f.at + 0.15, 0.7)];
+    case 'sketch-words':
+      return [main('swish', f.at + 0.5, 0.5)];
+    case 'blade-slice':
+      return [main('swish', f.at + 0.1, 0.9)];
+    case 'head-stack':
+      return f.props.labels.map((_, i) => (i === 0 ? main('thud', f.at + 0.5, 0.5) : d('tick', f.at + 0.5 + i * f.props.gap, 0.5)));
+    case 'rack-focus':
+      return [];
+    case 'banknote':
+      return [main('riser', f.at, 0.4), d('ding', fxRange(f)[1] - 0.6, 0.5)];
+    case 'voice-note':
+      return [main('blip', f.at, 0.6), d('swish', fxRange(f)[1] - 0.9, 0.5)];
+    case 'impact-frame':
+      return [main('boom', f.at + 0.05, 0.8)];
+    case 'dolly-zoom':
+      return [main('riser', f.at, 0.4)];
+    case 'press-front':
+      return [main('shutter', f.at, 0.6)];
+    case 'paper-tear':
+      return [main('swish', fxRange(f)[0] + (fxRange(f)[1] - fxRange(f)[0]) * 0.35, 0.8)];
+    case 'blow-away':
+      return [main('whoosh', f.at + 0.5, 0.7)];
+    case 'depth-scatter':
+      return [main('swish', f.at + 0.1, 0.4)];
+    case 'spatial-glass':
+      return [main('blip', f.at, 0.5)];
+    case 'shatter-3d':
+      return [main('glitch', f.at + 0.15, 0.7)];
+    case 'scene-text':
+      return [];
     case 'caption-stack':
       return [main('pop', f.at + 0.15, 0.5)];
     case 'step-chips':
