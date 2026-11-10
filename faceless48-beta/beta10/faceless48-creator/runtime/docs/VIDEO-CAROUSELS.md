@@ -10,9 +10,9 @@ Three ready-made carousels live in `content/templates/`. When a member names one
 
 | Say | File | Look |
 | --- | --- | --- |
-| "Tech carousel" | `carousel-tech.json` | `editorial` dark glass: status panel with a ticking checklist, branching plan, checklist, comment keyword |
-| "Influencer carousel" | `carousel-influencer.json` | `bold` on the brand color: big hook, statement, numbered list, quote, comment keyword. No presenter needed. |
-| "LinkedIn carousel" | `carousel-linkedin.json` | `clean` light: professional cover, before-and-after, steps, pull quote, soft call to action |
+| "Tech carousel" | `carousel-tech.json` | `editorial` dark glass: status panel with a ticking checklist, branching plan, checklist, link-in-bio end screen |
+| "Influencer carousel" | `carousel-influencer.json` | `bold` on the brand color: big hook, statement, numbered list, quote, save-this end screen. No presenter needed. |
+| "LinkedIn carousel" | `carousel-linkedin.json` | `clean` light: professional cover, before-and-after, steps, pull quote, follow end screen |
 
 Any template can add a presenter (the member or their AI avatar) or switch style.
 
@@ -26,7 +26,7 @@ Any template can add a presenter (the member or their AI avatar) or switch style
    - `steps`: up to 5 steps on a growing line.
    - `status`: an animated panel (`panel` title) that goes from `working` to `done` with a progress bar; `items` become a paper checklist that ticks off.
    - `branches`: a top card (`panel`, `root`) that branches into up to 3 cards (`items` as "Label: text").
-   - `cta`: `keyword` to comment, plus a line.
+   - `cta` (the end screen), with `end`: `keyword` (comment a word, set `keyword`), `follow` (logo ring and a Follow button, optional `handle`), `save` (bookmark: save this for later), `link` (a link-in-bio button, `handle` sets its text) or `question` (a big question mark and a comment bubble with `body`). Vary the end screen between carousels.
    Any slide can add `note`: a handwritten line that writes on.
 3. Wrap a word in `*asterisks*` in a headline to set it in the accent script. Keep headlines under about 12 words.
 4. Save `content/<slug>.json`:
@@ -39,6 +39,8 @@ Any template can add a presenter (the member or their AI avatar) or switch style
   {"layout": "cta", "headline": "Want the guide?", "keyword": "guide", "body": "and I'll send it to you."}
  ]}
 ```
+
+**Alignment** (`align`): `center` by default (where people look first), or `left` or `right`, for the whole carousel or per slide.
 
 **Style** (`style`): `editorial` (glass panels, serif accents), `luxe` (deeper, framed, metallic rules), `clean` (light paper) or `bold` (big type on the accent color). Colors, fonts, metallic finish and logo always come from the member's brand automatically; never ask them to restate it.
 

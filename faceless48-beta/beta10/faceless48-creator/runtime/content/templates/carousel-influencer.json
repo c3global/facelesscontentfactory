@@ -38,9 +38,9 @@
   },
   {
    "layout": "cta",
-   "headline": "Want my *30 faceless post ideas?*",
-   "keyword": "ideas",
-   "body": "and I'll send you the list.",
+   "end": "save",
+   "headline": "Save this for your next *content day.*",
+   "body": "Then send it to a friend who's camera shy.",
    "seconds": 5
   }
  ]

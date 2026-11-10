@@ -52,9 +52,10 @@
   },
   {
    "layout": "cta",
-   "headline": "Want the *tool audit* checklist?",
-   "keyword": "audit",
-   "body": "and I'll send it to you.",
+   "end": "link",
+   "headline": "Get the *tool audit* checklist.",
+   "handle": "Link in bio",
+   "body": "Run it before your next rollout.",
    "seconds": 5
   }
  ]

@@ -34,6 +34,12 @@ const slideSchema = z.object({
   note: z.string().max(80).default(''),
   /** photo in public/ shown framed (cover and statement) */
   image: z.string().optional(),
+  /** text alignment for this slide (defaults to the carousel's align) */
+  align: z.enum(['left', 'center', 'right']).optional(),
+  /** cta: which end screen: keyword (comment a word), follow, save, link (link in bio), question */
+  end: z.enum(['keyword', 'follow', 'save', 'link', 'question']).default('keyword'),
+  /** cta follow/link: the handle or link to show, for example @yourbrand */
+  handle: z.string().max(40).default(''),
   /** show the presenter cutout on this slide (default: on cover, statement, status and branches) */
   presenter: z.boolean().optional(),
 });
@@ -44,6 +50,8 @@ export const videoCarouselSchema = z.object({
   style: z.enum(['editorial', 'luxe', 'clean', 'bold']).default('editorial'),
   /** small label in the header, for example a series name */
   series: z.string().max(40).default(''),
+  /** text alignment for every slide: center (default), left or right */
+  align: z.enum(['left', 'center', 'right']).default('center'),
   /** footer link or handle, for example bio.yourbrand.com */
   link: z.string().max(40).default(''),
   /** cutout PNG of the member or their AI avatar (transparent background), or leave out for no presenter */
@@ -86,6 +94,7 @@ const shade = (hex: string, amt: number) => {
 };
 // HI: the readable highlight color for the current style (light styles use the deeper metal tone)
 let HI = B.metalLight;
+let AL: 'left' | 'center' | 'right' = 'center';
 let LIGHT = false;
 const metalTextBase: React.CSSProperties = {fontFamily: serif, fontStyle: 'italic', fontWeight: 600, letterSpacing: 0, background: `linear-gradient(135deg, ${B.metalLight}, ${B.metal} 70%)`, WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent'};
 
@@ -93,12 +102,12 @@ const metalTextFor = (light: boolean, bold = false): React.CSSProperties =>
   bold ? {...metalTextBase, background: `linear-gradient(135deg, #FFFFFF, ${shade(B.metalLight, 0.45)})`, WebkitBackgroundClip: 'text', backgroundClip: 'text', filter: 'drop-shadow(0 2px 10px rgba(0,0,0,0.25))'} : light ? {...metalTextBase, background: `linear-gradient(135deg, ${shade(B.metal, -0.05)}, ${shade(B.metal, -0.4)})`, WebkitBackgroundClip: 'text', backgroundClip: 'text'} : metalTextBase;
 let metalText = metalTextBase;
 const Headline: React.FC<{text: string; size: number; th: Th; center?: boolean}> = ({text, size, th, center}) => (
-  <h1 style={{fontFamily: sans, fontWeight: 700, fontSize: size, lineHeight: 1.08, letterSpacing: -size * 0.03, margin: 0, color: th.ink, textAlign: center ? 'center' : 'left'}}>
+  <h1 style={{fontFamily: sans, fontWeight: 700, fontSize: size, lineHeight: 1.08, letterSpacing: -size * 0.03, margin: 0, color: th.ink, textAlign: center ? 'center' : 'inherit'}}>
     {text.split(/(\*[^*]+\*)/g).map((part, i) => (part.startsWith('*') && part.endsWith('*') ? <span key={i} style={metalText}>{part.slice(1, -1)}</span> : <React.Fragment key={i}>{part}</React.Fragment>))}
   </h1>
 );
 const Kicker: React.FC<{text: string; t: number; center?: boolean}> = ({text, t, center}) =>
-  text ? <div style={{fontFamily: sans, fontWeight: 700, fontSize: 24, letterSpacing: 4, textTransform: 'uppercase', color: HI, marginBottom: 22, textAlign: center ? 'center' : 'left', ...rise(t, 0)}}>{text}</div> : null;
+  text ? <div style={{fontFamily: sans, fontWeight: 700, fontSize: 24, letterSpacing: 4, textTransform: 'uppercase', color: HI, marginBottom: 22, textAlign: center ? 'center' : 'inherit', ...rise(t, 0)}}>{text}</div> : null;
 const Check: React.FC<{t: number; at: number; size?: number}> = ({t, at, size = 44}) => (
   <svg width={size} height={size} viewBox="0 0 40 40" style={{flex: 'none'}}>
     <circle cx={20} cy={20} r={18} fill={B.accent} />
@@ -152,13 +161,14 @@ const Paper: React.FC<{items: string[]; t: number; at: number; style?: React.CSS
 const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}> = ({s, t, th, withPresenter}) => {
   const items = s.items;
   const narrow: React.CSSProperties = withPresenter ? {maxWidth: 640} : {};
+  const panelAlign: React.CSSProperties = AL === 'center' && !withPresenter ? {marginLeft: 'auto', marginRight: 'auto'} : AL === 'right' ? {marginLeft: 'auto'} : {};
   switch (s.layout) {
     case 'cover':
       return (
         <>
           <Kicker text={s.kicker} t={t} />
           <div style={{...rise(t, 0.1), ...narrow}}><Headline text={s.headline} size={th.hero} th={th} /></div>
-          {s.body && <p style={{fontFamily: sans, fontSize: 34, lineHeight: 1.4, color: th.muted, marginTop: 30, maxWidth: s.image || withPresenter ? 560 : 900, ...rise(t, 0.35)}}>{s.body}</p>}
+          {s.body && <p style={{fontFamily: sans, fontSize: 34, lineHeight: 1.4, color: th.muted, marginTop: 30, maxWidth: s.image || withPresenter ? 560 : 900, ...panelAlign, ...rise(t, 0.35)}}>{s.body}</p>}
           <Note text={s.note} t={t} at={1.2} />
           {s.image && <Framed src={s.image} t={t} style={{right: -10, bottom: 0, width: 400, height: 520, transform: 'rotate(3deg)'}} />}
         </>
@@ -183,7 +193,7 @@ const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}>
         <>
           <Kicker text={s.kicker} t={t} />
           <div style={{...rise(t, 0.1), ...narrow}}><Headline text={s.headline} size={78} th={th} /></div>
-          <div style={{position: 'relative', height: 520, marginTop: 40}}>
+          <div style={{position: 'relative', height: 520, marginTop: 40, width: withPresenter ? 640 : 860, alignSelf: AL === 'center' && !withPresenter ? 'center' : AL === 'right' ? 'flex-end' : 'flex-start', textAlign: 'left'}}>
             <StatusPanel s={s} t={t} th={th} style={{position: 'absolute', left: 0, top: 0, transform: `rotate(-3deg) ${rise(t, 0.3).transform}`, opacity: prog(t, 0.3, 0.35)}} />
             {items.length > 0 && <Paper items={items} t={t} at={2.2} style={{position: 'absolute', left: withPresenter ? 330 : 520, top: 170, transform: `rotate(5deg) translateY(${Math.sin(t * 1.1) * 4}px)`, opacity: prog(t, 1.9, 0.35)}} />}
           </div>
@@ -197,16 +207,16 @@ const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}>
       });
       return (
         <>
-          <Kicker text={s.kicker} t={t} center={!withPresenter} />
-          <div style={{...rise(t, 0.1), ...narrow}}><Headline text={s.headline} size={74} th={th} center={!withPresenter} /></div>
-          <div style={{...th.panel, marginTop: 40, padding: '24px 30px', width: withPresenter ? 520 : 600, alignSelf: withPresenter ? 'flex-start' : 'center', ...rise(t, 0.35)}}>
+          <Kicker text={s.kicker} t={t} />
+          <div style={{...rise(t, 0.1), ...narrow}}><Headline text={s.headline} size={74} th={th} /></div>
+          <div style={{...th.panel, marginTop: 40, padding: '24px 30px', width: withPresenter ? 520 : 600, alignSelf: withPresenter ? 'flex-start' : AL === 'center' ? 'center' : AL === 'right' ? 'flex-end' : 'flex-start', textAlign: 'left', ...rise(t, 0.35)}}>
             <div style={{fontFamily: sans, fontWeight: 700, fontSize: 20, letterSpacing: 2.5, textTransform: 'uppercase', color: th.muted}}>{s.panel || 'The plan'}</div>
             <div style={{fontFamily: sans, fontWeight: 700, fontSize: 36, color: th.ink, marginTop: 10}}>{s.root}</div>
           </div>
           <svg width={928} height={70} style={{display: 'block'}}>
             <path d={`M ${withPresenter ? 260 : 464} 0 V 30 H 155 V 70 M ${withPresenter ? 260 : 464} 30 H 773 V 70 M 464 30 V 70`} fill="none" stroke={hexA(B.metalLight, 0.6)} strokeWidth={2.5} pathLength={1} style={{strokeDasharray: 1, strokeDashoffset: 1 - prog(t, 0.8, 0.6)}} />
           </svg>
-          <div style={{display: 'flex', gap: 22}}>
+          <div style={{display: 'flex', gap: 22, textAlign: 'left'}}>
             {cards.map((c, i) => (
               <div key={i} style={{...th.panel, flex: 1, padding: '24px 24px 28px', ...rise(t, 1.2 + i * 0.3)}}>
                 <span style={{...metalText, fontSize: 40}}>{String(i + 1).padStart(2, '0')}</span>
@@ -228,7 +238,7 @@ const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}>
           {s.body && <p style={{fontFamily: sans, fontSize: 30, lineHeight: 1.4, color: th.muted, marginTop: 20, ...rise(t, 0.2)}}>{s.body}</p>}
           <div style={{display: 'flex', flexDirection: 'column', gap: 20, marginTop: 40}}>
             {items.map((x, i) => (
-              <div key={i} style={{...th.panel, padding: '26px 32px', display: 'flex', alignItems: 'center', gap: 26, ...rise(t, 0.45 + i * 0.35)}}>
+              <div key={i} style={{...th.panel, padding: '26px 32px', display: 'flex', alignItems: 'center', gap: 26, textAlign: 'left', ...rise(t, 0.45 + i * 0.35)}}>
                 {s.layout === 'checklist' ? <Check t={t} at={0.75 + i * 0.35} /> : <Num n={i + 1} />}
                 <span style={{fontFamily: sans, fontSize: 34, lineHeight: 1.3, color: th.ink}}>{x}</span>
               </div>
@@ -244,7 +254,7 @@ const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}>
         <>
           <Kicker text={s.kicker} t={t} />
           <div style={rise(t, 0.1)}><Headline text={s.headline} size={74} th={th} /></div>
-          <div style={{display: 'flex', gap: 24, marginTop: 50}}>
+          <div style={{display: 'flex', gap: 24, marginTop: 50, textAlign: 'left'}}>
             {cols.map((col, c) => (
               <div key={c} style={{...th.panel, flex: 1, padding: 34, ...(c === 1 ? (LIGHT ? {borderColor: B.accent, background: B.accent, color: '#fff'} : {borderColor: B.accent, background: `linear-gradient(135deg, ${hexA(B.accent, 0.35)}, ${hexA(B.accentDeep, 0.25)})`}) : {opacity: 0.85}), ...rise(t, 0.4 + c * 0.5)}}>
                 <div style={{fontFamily: sans, fontWeight: 700, fontSize: 24, letterSpacing: 3, textTransform: 'uppercase', color: c === 1 ? (LIGHT ? '#FFFFFF' : HI) : th.muted}}>{c === 0 ? s.left : s.right}</div>
@@ -272,7 +282,7 @@ const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}>
         <>
           <Kicker text={s.kicker} t={t} />
           <div style={rise(t, 0.1)}><Headline text={s.headline} size={74} th={th} /></div>
-          <div style={{position: 'relative', marginTop: 50, paddingLeft: 40}}>
+          <div style={{position: 'relative', marginTop: 50, paddingLeft: 40, alignSelf: AL === 'center' ? 'center' : AL === 'right' ? 'flex-end' : 'flex-start', textAlign: 'left'}}>
             <div style={{position: 'absolute', left: 21, top: 20, width: 3, height: `${Math.max(0, items.length - 1) * 150 * prog(t, 0.5, 0.4 + items.length * 0.35)}px`, background: `linear-gradient(${B.metalLight}, ${B.metal})`}} />
             {items.map((x, i) => (
               <div key={i} style={{display: 'flex', alignItems: 'center', gap: 34, height: 150, marginLeft: -40, ...rise(t, 0.5 + i * 0.35)}}>
@@ -283,22 +293,73 @@ const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}>
           </div>
         </>
       );
-    case 'cta':
+    case 'cta': {
+      const onPanel = LIGHT ? '#FFFFFF' : th.ink;
+      const panelBg = LIGHT ? `linear-gradient(135deg, ${B.accent}, ${B.accentDeep})` : `linear-gradient(135deg, ${hexA(B.accent, 0.4)}, ${hexA(B.accentDeep, 0.3)})`;
+      const pop = 0.92 + 0.08 * ease(prog(t, 0.7, 0.5));
+      const big: React.CSSProperties = {fontFamily: serif, fontSize: 150, lineHeight: 1.15, letterSpacing: 6, color: LIGHT ? shade(B.metalLight, 0.4) : HI, transform: `scale(${pop})`};
+      const head = <><Kicker text={s.kicker} t={t} /><div style={{...rise(t, 0.1), ...narrow, ...panelAlign}}><Headline text={s.headline} size={80} th={th} /></div></>;
+      if (s.end === 'follow')
+        return (
+          <>
+            <div style={{width: 260, height: 260, borderRadius: 130, padding: 8, background: `conic-gradient(from ${t * 60}deg, ${B.metalLight}, ${B.accent}, ${B.metal}, ${B.metalLight})`, marginBottom: 40, ...panelAlign, ...rise(t, 0)}}>
+              <div style={{width: '100%', height: '100%', borderRadius: '50%', background: LIGHT ? '#FFFFFF' : '#0B0B0D', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden'}}>
+                {B.logo ? <Img src={staticFile(B.logo)} style={{width: '70%', height: '70%', objectFit: 'contain'}} /> : <span style={{...metalText, fontSize: 96}}>{B.name.slice(0, 1)}</span>}
+              </div>
+            </div>
+            {head}
+            <div style={{display: 'inline-flex', alignItems: 'center', gap: 16, marginTop: 44, padding: '22px 46px', borderRadius: 60, background: `linear-gradient(135deg, ${B.metalLight}, ${B.metal})`, color: '#14100c', fontFamily: sans, fontWeight: 700, fontSize: 38, alignSelf: AL === 'center' && !withPresenter ? 'center' : AL === 'right' ? 'flex-end' : 'flex-start', transform: `scale(${pop})`, ...rise(t, 0.5)}}>+ Follow{s.handle ? ` ${s.handle}` : ''}</div>
+            {s.body && <p style={{fontFamily: sans, fontSize: 32, lineHeight: 1.4, color: th.muted, marginTop: 30, ...narrow, ...panelAlign, ...rise(t, 0.8)}}>{s.body}</p>}
+          </>
+        );
+      if (s.end === 'save')
+        return (
+          <>
+            <svg width={170} height={210} viewBox="0 0 34 42" style={{marginBottom: 36, alignSelf: AL === 'center' && !withPresenter ? 'center' : AL === 'right' ? 'flex-end' : 'flex-start', transform: `translateY(${(1 - ease(prog(t, 0, 0.6))) * -80}px) scale(${pop})`, filter: 'drop-shadow(0 18px 30px rgba(0,0,0,0.35))'}}>
+              <defs><linearGradient id="bm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor={B.metalLight} /><stop offset="1" stopColor={B.metal} /></linearGradient></defs>
+              <path d="M4 2 H30 V40 L17 31 L4 40 Z" fill="url(#bm)" />
+            </svg>
+            {head}
+            {s.body && <p style={{fontFamily: sans, fontSize: 34, lineHeight: 1.4, color: th.muted, marginTop: 30, ...narrow, ...panelAlign, ...rise(t, 0.5)}}>{s.body}</p>}
+          </>
+        );
+      if (s.end === 'link')
+        return (
+          <>
+            {head}
+            <div style={{display: 'inline-flex', alignItems: 'center', gap: 22, marginTop: 50, padding: '28px 50px', borderRadius: 22, background: panelBg, border: `2px solid ${hexA(B.metalLight, 0.6)}`, color: onPanel, fontFamily: sans, fontWeight: 700, fontSize: 42, alignSelf: AL === 'center' && !withPresenter ? 'center' : AL === 'right' ? 'flex-end' : 'flex-start', ...rise(t, 0.45)}}>
+              {s.handle || 'Link in bio'}
+              <span style={{display: 'inline-block', transform: `translateX(${8 * Math.sin(t * 4)}px)`, color: LIGHT ? '#FFFFFF' : HI}}>→</span>
+            </div>
+            {s.body && <p style={{fontFamily: sans, fontSize: 32, lineHeight: 1.4, color: th.muted, marginTop: 30, ...narrow, ...panelAlign, ...rise(t, 0.7)}}>{s.body}</p>}
+          </>
+        );
+      if (s.end === 'question')
+        return (
+          <>
+            <div style={{fontFamily: serif, fontSize: 260, lineHeight: 0.8, ...metalText, marginBottom: 10, ...rise(t, 0)}}>?</div>
+            {head}
+            <div style={{position: 'relative', marginTop: 50, padding: '30px 40px', borderRadius: 34, borderBottomLeftRadius: 6, background: LIGHT ? '#FFFFFF' : 'rgba(255,255,255,0.12)', border: `1.5px solid ${hexA(B.metalLight, 0.45)}`, color: th.ink, fontFamily: sans, fontSize: 34, lineHeight: 1.35, maxWidth: 760, textAlign: 'left', alignSelf: AL === 'center' && !withPresenter ? 'center' : AL === 'right' ? 'flex-end' : 'flex-start', boxShadow: '0 18px 40px rgba(0,0,0,0.25)', ...rise(t, 0.5)}}>
+              {s.body || 'Tell me in the comments.'}
+              <span style={{display: 'inline-block', width: 4, height: 34, marginLeft: 6, verticalAlign: 'middle', background: B.accent, opacity: Math.floor(t * 2) % 2 ? 0.2 : 1}} />
+            </div>
+          </>
+        );
       return (
         <>
-          <Kicker text={s.kicker} t={t} />
-          <div style={{...rise(t, 0.1), ...narrow}}><Headline text={s.headline} size={80} th={th} /></div>
-          <div style={{...th.panel, marginTop: 50, padding: 46, borderColor: B.metal, background: LIGHT ? `linear-gradient(135deg, ${B.accent}, ${B.accentDeep})` : `linear-gradient(135deg, ${hexA(B.accent, 0.4)}, ${hexA(B.accentDeep, 0.3)})`, ...narrow, ...rise(t, 0.4)}}>
+          {head}
+          <div style={{...th.panel, marginTop: 50, padding: 46, borderColor: B.metal, background: panelBg, ...narrow, ...rise(t, 0.4)}}>
             {s.keyword && (
               <>
-                <div style={{fontFamily: sans, fontSize: 32, color: LIGHT ? '#FFFFFF' : th.ink}}>Comment</div>
-                <div style={{fontFamily: serif, fontSize: 150, lineHeight: 1.15, letterSpacing: 6, color: LIGHT ? shade(B.metalLight, 0.4) : HI, transform: `scale(${0.92 + 0.08 * ease(prog(t, 0.7, 0.5))})`, transformOrigin: 'left center'}}>{s.keyword.toUpperCase()}</div>
+                <div style={{fontFamily: sans, fontSize: 32, color: onPanel}}>Comment</div>
+                <div style={{...big, transformOrigin: AL === 'center' ? 'center' : AL === 'right' ? 'right center' : 'left center'}}>{s.keyword.toUpperCase()}</div>
               </>
             )}
-            {s.body && <div style={{fontFamily: sans, fontSize: 34, lineHeight: 1.4, color: LIGHT ? '#FFFFFF' : th.ink}}>{s.body}</div>}
+            {s.body && <div style={{fontFamily: sans, fontSize: 34, lineHeight: 1.4, color: onPanel}}>{s.body}</div>}
           </div>
         </>
       );
+    }
   }
 };
 
@@ -326,6 +387,7 @@ export const VideoCarousel: React.FC<{plan: VideoCarouselPlan}> = ({plan}) => {
   const s = plan.slides[idx];
   const u = t - start;
   const n = plan.slides.length;
+  AL = s.align ?? plan.align;
   const enterK = ease(prog(u, 0, 0.35));
   const last = idx === n - 1;
   const P = plan.presenter;
@@ -352,7 +414,7 @@ export const VideoCarousel: React.FC<{plan: VideoCarouselPlan}> = ({plan}) => {
         <span style={{fontSize: 22, letterSpacing: 3, color: HI}}>{String(idx + 1).padStart(2, '0')} / {String(n).padStart(2, '0')}</span>
       </div>
       <div style={{position: 'absolute', top: 140, left: 76, width: 70 + 40 * Math.sin((Math.min(1, u) * Math.PI) / 2), height: 5, background: B.accent}} />
-      <div style={{position: 'absolute', left: 76, right: 76, top: 190, bottom: 170, display: 'flex', flexDirection: 'column', justifyContent: 'center', opacity: enterK, transform: `translateX(${(1 - enterK) * 70}px)`}}>
+      <div style={{position: 'absolute', left: 76, right: 76, top: 190, bottom: 170, display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: AL, opacity: enterK, transform: `translateX(${(1 - enterK) * 70}px)`}}>
         <SlideBody s={s} t={u} th={th} withPresenter={showP} />
       </div>
       <div style={{position: 'absolute', bottom: 64, left: 76, right: 76, borderTop: `1px solid ${th.rule}`, paddingTop: 26, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>

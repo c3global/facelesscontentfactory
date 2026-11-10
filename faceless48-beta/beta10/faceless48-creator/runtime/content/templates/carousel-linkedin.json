@@ -46,9 +46,9 @@
   },
   {
    "layout": "cta",
-   "headline": "Want the *decision-owner* template?",
-   "keyword": "template",
-   "body": "Comment below and I'll share it.",
+   "end": "follow",
+   "headline": "Follow for more *leadership notes.*",
+   "body": "One practical idea every week.",
    "seconds": 5
   }
  ]
