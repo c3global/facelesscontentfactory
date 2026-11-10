@@ -1,0 +1,18 @@
+{
+  "name": "Your Brand",
+  "tagline": null,
+  "logo": null,
+  "accent": "#087F8C",
+  "accentMid": "#06636D",
+  "accentDeep": "#03434A",
+  "metalFinish": "copper",
+  "metal": "#B5622C",
+  "metalLight": "#F4B08A",
+  "headingFont": "Playfair Display",
+  "bodyFont": "DM Sans",
+  "captionStyle": "editorial",
+  "host": {
+    "type": "stick-figure",
+    "art": []
+  }
+}

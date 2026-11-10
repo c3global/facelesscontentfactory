@@ -1,0 +1,98 @@
+{
+  "slug": "all-layouts",
+  "format": "landscape",
+  "style": "editorial",
+  "durationSec": 14,
+  "scenes": [
+    {
+      "start": 0,
+      "end": 2,
+      "title": "Compare two approaches",
+      "visual": "comparison",
+      "items": [
+        "First idea",
+        "Second idea"
+      ],
+      "highlights": [
+        {
+          "index": 1,
+          "at": 1
+        }
+      ]
+    },
+    {
+      "start": 2,
+      "end": 4,
+      "title": "Three clear steps",
+      "visual": "steps",
+      "items": [
+        "Discover",
+        "Explain",
+        "Apply"
+      ],
+      "highlights": [
+        {
+          "index": 1,
+          "at": 3
+        }
+      ]
+    },
+    {
+      "start": 4,
+      "end": 6,
+      "title": "Build understanding",
+      "visual": "layers",
+      "items": [
+        "Discover",
+        "Explain",
+        "Apply"
+      ],
+      "highlights": [
+        {
+          "index": 1,
+          "at": 5
+        }
+      ]
+    },
+    {
+      "start": 6,
+      "end": 8,
+      "title": "Load versus capacity",
+      "visual": "capacity",
+      "load": 80,
+      "capacity": 100
+    },
+    {
+      "start": 8,
+      "end": 10,
+      "title": "Repeat the process",
+      "visual": "process",
+      "items": [
+        "Discover",
+        "Explain",
+        "Apply"
+      ],
+      "highlights": [
+        {
+          "index": 1,
+          "at": 9
+        }
+      ],
+      "loop": true
+    },
+    {
+      "start": 10,
+      "end": 12,
+      "title": "Bring your images",
+      "visual": "image",
+      "src": "brand/lab/dropper.svg"
+    },
+    {
+      "start": 12,
+      "end": 14,
+      "title": "Bring your footage",
+      "visual": "video",
+      "src": "raw/sample.mp4"
+    }
+  ]
+}

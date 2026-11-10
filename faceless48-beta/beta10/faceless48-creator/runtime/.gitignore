@@ -1,0 +1,7 @@
+node_modules/
+out/
+whisper.cpp/
+.stock-cache/
+# your own API keys: never commit or share this file
+stock-keys.json
+.env

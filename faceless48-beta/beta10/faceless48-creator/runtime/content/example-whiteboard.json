@@ -1,0 +1,26 @@
+{
+  "slug": "explainer-whiteboard",
+  "format": "portrait",
+  "style": "whiteboard",
+  "durationSec": 6,
+  "scenes": [
+    {
+      "start": 0,
+      "end": 3,
+      "title": "One clear idea",
+      "body": "Give your audience something to remember.",
+      "visual": "presenter"
+    },
+    {
+      "start": 3,
+      "end": 6,
+      "title": "Show the change",
+      "visual": "steps",
+      "items": [
+        "Name the challenge",
+        "Make the next step clear"
+      ]
+    }
+  ],
+  "vo": "raw/sample-voice.wav"
+}

@@ -1,0 +1,38 @@
+{
+  "slug": "cue-demo",
+  "format": "portrait",
+  "style": "dark",
+  "durationSec": 3,
+  "captionsFile": "cue-demo.words.json",
+  "scenes": [
+    {
+      "title": "Follow the words",
+      "visual": "steps",
+      "items": [
+        "Discover",
+        "Explain",
+        "Apply"
+      ],
+      "highlightCues": [
+        {
+          "index": 0,
+          "cue": {
+            "phrase": "Discover"
+          }
+        },
+        {
+          "index": 1,
+          "cue": {
+            "phrase": "Explain"
+          }
+        },
+        {
+          "index": 2,
+          "cue": {
+            "phrase": "Apply"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "slug": "cue-demo",
+  "format": "portrait",
+  "style": "dark",
+  "durationSec": 3,
+  "musicVolume": 0.06,
+  "scenes": [
+    {
+      "start": 0,
+      "end": 3,
+      "title": "Follow the words",
+      "body": "",
+      "visual": "steps",
+      "items": [
+        "Discover",
+        "Explain",
+        "Apply"
+      ],
+      "highlights": [
+        {
+          "index": 0,
+          "at": 0
+        },
+        {
+          "index": 1,
+          "at": 0.7
+        },
+        {
+          "index": 2,
+          "at": 1.4
+        }
+      ],
+      "loop": false
+    }
+  ],
+  "captions": [
+    {
+      "text": "Discover",
+      "startMs": 0,
+      "endMs": 600
+    },
+    {
+      "text": "Explain",
+      "startMs": 700,
+      "endMs": 1300
+    },
+    {
+      "text": "Apply",
+      "startMs": 1400,
+      "endMs": 2000
+    }
+  ]
+}

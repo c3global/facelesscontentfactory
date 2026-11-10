@@ -1,0 +1,22 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "faceless48-creator",
+  "version": "0.1.0-beta.8",
+  "description": "Local Remotion video workflows, effects and configurable explainer scenes for founding-member testing.",
+  "author": {
+    "name": "Faceless Content Collective"
+  },
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Faceless48 Creator",
+        "shortDescription": "Branded videos with Remotion",
+        "longDescription": "Create, preview and revise local Remotion videos using supplied footage, voiceover and configurable scenes. Requires a coding agent and local runtime.",
+        "developerName": "Faceless Content Collective",
+        "category": "Productivity",
+        "capabilities": [],
+        "defaultPrompt": "Help me create a branded video with Faceless48."
+      }
+    }
+  }
+}

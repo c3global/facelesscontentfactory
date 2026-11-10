@@ -1,0 +1,90 @@
+import {NEEDS_MATTE} from '../src/fx/util';
+import {LANDSCAPE_FX} from '../src/VideoWide';
+import {compileBrief} from './cues';
+import fs from 'node:fs';
+import path from 'node:path';
+import {spawnSync} from 'node:child_process';
+import {bundle} from '@remotion/bundler';
+import {renderMedia,renderStill,selectComposition} from '@remotion/renderer';
+import {explainerSchema} from '../src/Explainer';
+import {lifeScenePlanSchema} from '../src/LifeScene';
+import {stockCli} from './stock';
+import {handoffCli} from './handoff';
+import {redactCli} from './redact';
+import {printLint} from './lint';
+import {storyboardMoments,storyboardHtml,storyboardMarkdown} from './storyboard';
+import {planSchema,videoPropsSchema} from '../src/schema';
+import {applyStyle} from '../src/styles';
+const BROWSER_HELP='The video browser could not start. Fixes, in order: (1) run "npx remotion browser ensure" in this project folder to install the browser Remotion is tested with; (2) if you set REMOTION_BROWSER_EXECUTABLE, point it to a "chrome-headless-shell" or regular Chrome, or remove it; (3) restart the computer and try again. Give your assistant this whole message.';
+/** Stops a step that goes quiet and says why in plain words, instead of hanging forever. */
+function watchdog<T>(work:Promise<T>,label:string,ms:number):Promise<T>{let timer:any;const stall=new Promise<never>((_,reject)=>{timer=setTimeout(()=>reject(Error(`${label} made no progress for ${Math.round(ms/1000)} seconds and was stopped. ${BROWSER_HELP}`)),ms);});return Promise.race([work,stall]).finally(()=>clearTimeout(timer));}
+function friendly(e:unknown){const m=String(e);if(/launch the browser|Headless mode|browser process|Target closed|ECONNREFUSED|timed out|Timeout/i.test(m)&&!m.includes(BROWSER_HELP))return `${m}\n\n${BROWSER_HELP}`;return m;}
+const [cmd,file,arg]=process.argv.slice(2);const root=process.cwd();
+const read=(p:string)=>JSON.parse(fs.readFileSync(p,'utf8'));
+const browser=process.env.REMOTION_BROWSER_EXECUTABLE?{browserExecutable:process.env.REMOTION_BROWSER_EXECUTABLE}:{};
+function asset(p:string){const full=path.resolve(root,'public',p);const base=path.resolve(root,'public')+path.sep;if(!full.startsWith(base)||!fs.existsSync(full)||!fs.statSync(full).isFile())throw Error(`Missing or invalid public asset: ${p}`);if(!fs.realpathSync(full).startsWith(fs.realpathSync(path.join(root,'public'))+path.sep))throw Error('Asset symlinks outside public/ are not allowed');}
+/** A B-roll cutaway needs its clip in public/ and long enough for the seconds it is on screen. */
+function checkBroll(g:any,segEnd:number){asset(g.props.src);const length=(g.until??segEnd)-g.at;const probe=spawnSync('ffprobe',['-v','error','-show_entries','format=duration','-of','csv=p=0',path.join(root,'public',g.props.src)],{encoding:'utf8'});const have=parseFloat(String(probe.stdout||'').trim());if(Number.isFinite(have)&&have+0.05<g.props.startSec+length)throw Error(`The B-roll clip ${g.props.src} is ${have.toFixed(1)}s long, but the cutaway at ${g.at}s needs ${(g.props.startSec+length).toFixed(1)}s. Shorten the cutaway, lower startSec, or pick a longer clip.`);}
+function load(file:string){const raw=read(file);if(raw.kind==='life-scene'){const plan=lifeScenePlanSchema.parse(raw);const total=plan.shots.reduce((a,s)=>a+s.lengthSec,0);if(Math.abs(total-plan.durationSec)>0.05)throw Error(`Shot lengths add up to ${total.toFixed(2)}s but durationSec is ${plan.durationSec}s. Make them match.`);for(const s of plan.shots)asset(s.src);if(plan.voiceover)asset(plan.voiceover);for(const l of plan.text)if(l.toSec>plan.durationSec)throw Error('A text card ends after the video ends');return {id:'LifeScene',props:{plan},slug:plan.slug};}
+ if(raw.kind==='stick'){const plan=raw.plan;if(!plan?.stage||!plan.durationSec)throw Error('Stick plan needs plan.stage and plan.durationSec');if(plan.vo)asset(plan.vo);if(plan.music)asset(plan.music.src);for(const c of plan.cici||[])asset(`stick/${c.src}`);return {id:'Stick',props:{format:raw.format||'landscape',plan,captions:raw.captions||[]},slug:plan.slug};}
+ if(raw.kind==='talking-head'){
+ const plan=planSchema.parse(applyStyle(raw.plan));if(plan.format==='landscape'){const later=[...new Set(plan.fx.map(f=>f.type).filter(t=>!LANDSCAPE_FX.includes(t)))];if(later.length)throw Error(`These effects are drawn for the portrait frame and are not available in landscape yet: ${later.join(', ')}. Landscape supports: ${LANDSCAPE_FX.join(', ')}. Remove them, or make this video portrait.`);if(plan.matte)throw Error('Cutouts (matte) are portrait-only for now. Remove the matte from this landscape plan.');}if(plan.fx.some(f=>NEEDS_MATTE.includes(f.type))&&!plan.matte)throw Error('Selected effect requires a person matte. Run the matte workflow before rendering.');if(plan.matteOutline!=='none'){if(!plan.matte)throw Error('Outline requires a matte');asset(`matte/${plan.matte}.${plan.matteOutline}.webm`);}for(const f of plan.fx){if(f.at>=plan.durationSec||(f.until!==undefined&&(f.until<=f.at||f.until>plan.durationSec)))throw Error('Effect timing outside video');const p=f.props as any;for(const k of ['src','iconSrc'])if(p?.[k]&&p[k]!=='drawn')asset(p[k]);} const props=videoPropsSchema.parse({plan,captions:raw.captions||[]});asset(plan.video);if(plan.music)asset(plan.music.src);if(plan.matte){asset(`matte/${plan.matte}.webm`);asset(`matte/${plan.matte}.anchors.json`);}for(const scene of plan.scenes){if(scene.bg)asset(scene.bg);for(const seg of scene.segments){if(seg.end<=seg.start||seg.end>plan.durationSec)throw Error('Invalid scene timing');for(const g of seg.graphics){if(g.type==='screenshot-card')asset(g.props.src);if(g.type==='broll')checkBroll(g,seg.end);}}}return {id:'Video',props,slug:plan.slug};}
+ const plan=explainerSchema.parse(raw);for(const p of [plan.vo,plan.music,...plan.scenes.flatMap(s=>[s.src,s.character])].filter(Boolean))asset(p!);return {id:'Explainer',props:{plan},slug:plan.slug};}
+async function run(file:string,still=false,seconds=0){const p=load(file);printLint(read(file));fs.mkdirSync('out',{recursive:true});const suffix=still?`-${seconds}s.png`:'.mp4';const dest=path.join('out',p.slug+suffix);if(fs.existsSync(dest))throw Error(`Output exists: ${dest}. Choose a new slug/version or move the old output.`);console.log(`Preparing ${p.slug} (${p.id})`);const serveUrl=await bundle({entryPoint:path.resolve('src/index.ts')});const inputProps=p.props as any;console.log('Opening the video browser...');const composition=await watchdog(selectComposition({serveUrl,id:p.id,inputProps,...browser,timeoutInMilliseconds:90000,envVariables:{REMOTION_LOCAL_FONTS:'1'}}),'Opening the video browser',120000);if(still){if(!Number.isFinite(seconds)||seconds<0||seconds*composition.fps>=composition.durationInFrames)throw Error('Preview second outside video');await watchdog(renderStill({serveUrl,composition,inputProps,output:dest,frame:Math.round(seconds*composition.fps),...browser,timeoutInMilliseconds:90000,envVariables:{REMOTION_LOCAL_FONTS:'1'}}),'The preview',180000);}else{let last=Date.now(),shown=-1;const job=renderMedia({serveUrl,composition,inputProps,outputLocation:dest,codec:'h264',concurrency:1,timeoutInMilliseconds:90000,onProgress:({progress})=>{last=Date.now();const pct=Math.floor(progress*10)*10;if(pct!==shown){shown=pct;console.log(`Rendering ${pct}%`);}},...browser,envVariables:{REMOTION_LOCAL_FONTS:'1'}});let tick:any;const stall=new Promise<never>((_,reject)=>{tick=setInterval(()=>{if(Date.now()-last>180000)reject(Error(`The render made no progress for 3 minutes and was stopped. ${BROWSER_HELP}`));},5000);});try{await Promise.race([job,stall]);}finally{clearInterval(tick);}}console.log(dest);}
+
+/** Onboarding: one still per caption style on the member's clip (or the sample), in their brand, side by side. */
+async function brandPreview(clip?:string){const video=clip||'raw/sample.mp4';asset(video);const words='Your message, in your brand colors'.split(' ');const captions=words.map((w,i)=>({text:(i?' ':'')+w,startMs:150+i*300,endMs:2900,timestampMs:null,confidence:1}));const dir=path.join('out','brand-preview');fs.mkdirSync(dir,{recursive:true});const stamp=Date.now();const shots:string[]=[];
+ const serveUrl=await bundle({entryPoint:path.resolve('src/index.ts')});
+ for(const style of ['editorial','heavy','pill']){const plan=planSchema.parse({slug:`preview-${style}`,video,durationSec:3,fxSound:'off',captionStyle:style,scenes:[{id:'p',mood:'dark',segments:[{start:0,end:3,layout:'A',graphics:[]}]}],fx:[]});const inputProps=videoPropsSchema.parse({plan,captions});
+  const composition=await watchdog(selectComposition({serveUrl,id:'Video',inputProps,...browser,timeoutInMilliseconds:90000,envVariables:{REMOTION_LOCAL_FONTS:'1'}}),'Opening the video browser',120000);
+  const out=path.join(dir,`${stamp}-${style}.png`);await watchdog(renderStill({serveUrl,composition,inputProps,output:out,frame:63,...browser,timeoutInMilliseconds:90000,envVariables:{REMOTION_LOCAL_FONTS:'1'}}),'The preview',180000);shots.push(out);console.log(`${style}: ${out}`);}
+ const sheet=path.join(dir,`${stamp}-caption-styles.png`);const r=spawnSync('ffmpeg',['-v','error','-y',...shots.flatMap(s=>['-i',s]),'-filter_complex',`${shots.map((_,i)=>`[${i}]`).join('')}hstack=${shots.length},scale=1620:-1`,sheet]);console.log(r.status===0?`Side by side (left to right: editorial, heavy, pill): ${sheet}`:'Could not join the stills (ffmpeg missing); show the three files instead.');}
+
+/** Adds a licensed music track under the voice of a finished video: loops to length, ducks under speech, fades in and out. */
+function mixMusic(video?:string,track?:string,out?:string,volume=0.35){if(!video||!track)throw Error('Usage: npm run f48 -- mix-music <video.mp4> <music.mp3> [out.mp4]. Use music you have the license for.');if(!fs.existsSync(video))throw Error(`Video not found: ${video}`);if(!fs.existsSync(track))throw Error(`Music not found: ${track}`);const dest=out||video.replace(/\.mp4$/,'-music.mp4');if(fs.existsSync(dest))throw Error(`Output exists: ${dest}. Choose another name.`);const dur=Number(spawnSync('ffprobe',['-v','error','-show_entries','format=duration','-of','csv=p=0',video],{encoding:'utf8'}).stdout);if(!dur)throw Error('Could not read the video length.');const fade=3.5;const f=`[1:a]aresample=48000,volume=${volume},afade=t=in:st=0:d=1.5[m];[0:a]aresample=48000,asplit=2[v][sc];[m][sc]sidechaincompress=threshold=0.03:ratio=5:attack=150:release=600[d0];[d0]afade=t=out:st=${Math.max(0,dur-fade).toFixed(2)}:d=${fade}[d];[v][d]amix=inputs=2:duration=first:normalize=0[a]`;const r=spawnSync('ffmpeg',['-v','error','-y','-i',video,'-stream_loop','-1','-i',track,'-filter_complex',f,'-map','0:v','-map','[a]','-c:v','copy','-c:a','aac','-b:a','192k','-movflags','+faststart',dest],{encoding:'utf8'});if(r.status!==0)throw Error(`Mixing failed: ${r.stderr}`);console.log(dest);}
+/** The whole video as numbered stills, in order, to approve before anything renders. */
+async function storyboard(file?:string){
+ if(!file)throw Error('Usage: npm run f48 -- storyboard <plan.json>');
+ const p=load(file);const raw=read(file);printLint(raw);
+ const {moments}=storyboardMoments(raw);
+ if(!moments.length)throw Error('No moments found to show in this plan');
+ let dir=path.join('out',`storyboard-${p.slug}`);for(let v=2;fs.existsSync(dir);v++)dir=path.join('out',`storyboard-${p.slug}-v${v}`);
+ fs.mkdirSync(dir,{recursive:true});
+ console.log(`Preparing the storyboard for ${p.slug} (${moments.length} frames)`);
+ const serveUrl=await bundle({entryPoint:path.resolve('src/index.ts')});const inputProps=p.props as any;
+ const composition=await watchdog(selectComposition({serveUrl,id:p.id,inputProps,...browser,timeoutInMilliseconds:90000,envVariables:{REMOTION_LOCAL_FONTS:'1'}}),'Opening the video browser',120000);
+ const files:string[]=[];
+ for(const [i,m] of moments.entries()){const name=`${String(i+1).padStart(2,'0')}.png`;const frame=Math.min(composition.durationInFrames-1,Math.round(m.t*composition.fps));await watchdog(renderStill({serveUrl,composition,inputProps,output:path.join(dir,name),frame,...browser,timeoutInMilliseconds:90000,envVariables:{REMOTION_LOCAL_FONTS:'1'}}),`Frame ${i+1}`,180000);files.push(name);console.log(`Frame ${i+1}/${moments.length}: ${m.label} at ${m.t.toFixed(1)}s`);}
+ const portrait=composition.height>=composition.width;
+ fs.writeFileSync(path.join(dir,'index.html'),storyboardHtml(p.slug,moments,files,portrait));
+ fs.writeFileSync(path.join(dir,'storyboard.md'),storyboardMarkdown(p.slug,moments,files));
+ // one contact sheet image so the whole video can be seen at a glance; numbers are added when ffmpeg can find a font
+ const cols=portrait?6:3;const w=portrait?270:520;
+ const font=['/System/Library/Fonts/Helvetica.ttc','/Library/Fonts/Arial.ttf','C:/Windows/Fonts/arial.ttf','/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf','/usr/share/fonts/dejavu/DejaVuSans-Bold.ttf'].find(f=>fs.existsSync(f));
+ const sheet=path.join(dir,'sheet.png');
+ const pos=(n:number,unit:string)=>n===0?'0':Array(n).fill(unit).join('+');
+ const layout=files.map((_,i)=>`${pos(i%cols,'w0')}_${pos(Math.floor(i/cols),'h0')}`).join('|');
+ const fontArg=font?font.replace(/\\/g,'/').replace(/:/g,'\\:'):'';
+ const tile=(i:number,numbers:boolean)=>`[${i}:v]scale=${w}:-1${numbers?`,drawbox=x=8:y=8:w=44:h=44:color=0xC9956C:t=fill,drawtext=fontfile='${fontArg}':text='${i+1}':fontcolor=0x1C1533:fontsize=30:x=8+(44-text_w)/2:y=8+(44-text_h)/2`:''}[s${i}]`;
+ const build=(numbers:boolean)=>spawnSync('ffmpeg',['-v','error','-y',...files.flatMap(f=>['-i',path.join(dir,f)]),'-filter_complex',`${files.map((_,i)=>tile(i,numbers)).join(';')};${files.map((_,i)=>`[s${i}]`).join('')}xstack=inputs=${files.length}:layout=${layout}[out]`,'-map','[out]','-frames:v','1',sheet],{encoding:'utf8'});
+ let r=font?build(true):{status:1};if(r.status!==0)r=build(false);
+ console.log(r.status===0?`Contact sheet: ${sheet}`:'Contact sheet could not be made (ffmpeg problem). The numbered frames and index.html are still there.');
+ console.log(`Storyboard folder: ${dir}`);console.log(`Open ${path.join(dir,'index.html')} in a browser, or look at the frames in order. Approve it before rendering.`);
+}
+async function main(){
+ if(cmd==='compile'){if(!arg)throw Error('compile requires output path');if(fs.existsSync(arg))throw Error('Output plan already exists');const brief=read(file);if(!brief.captionsFile)throw Error('Brief needs captionsFile pointing to actual timed transcript');const words=read(path.resolve(path.dirname(file),brief.captionsFile));const plan=explainerSchema.parse(compileBrief(brief,words));fs.writeFileSync(arg,JSON.stringify(plan,null,2));console.log(arg);return;}
+ if(cmd==='doctor'){for(const executable of ['node','ffmpeg','python3']){const r=spawnSync(executable,['--version'],{encoding:'utf8'});console.log(`${executable}: ${r.error?'MISSING':'found'}`);}try{const {openBrowser}=await import('@remotion/renderer');const b=await watchdog(openBrowser('chrome',{...browser}),'Browser check',60000);await b.close({silent:true});console.log('video browser: works');}catch(e){console.log(`video browser: NOT WORKING\n${friendly(e)}`);}console.log('Core requires Node 20+, npm packages and Chrome. Transcription also needs git, make and a C++ compiler. Cutouts require optional Python packages. No paid generation is invoked.');return;}
+ if(cmd==='mix-music')return mixMusic(file,arg,process.argv[5]);
+ if(cmd==='lint'){if(!file)throw Error('Usage: npm run f48 -- lint <plan.json>');printLint(read(file));return;}
+ if(cmd==='stock')return stockCli(process.argv.slice(3));
+ if(cmd==='handoff')return handoffCli(process.argv.slice(3));
+ if(cmd==='redact')return redactCli(process.argv.slice(3));
+ if(cmd==='brand-preview')return brandPreview(file);
+ if(cmd==='validate'){load(file);console.log('Plan and required primary assets valid');printLint(read(file));return;}
+ if(cmd==='storyboard')return storyboard(file);
+ if(cmd==='preview')return run(file,true,Number(arg||0));
+ if(cmd==='render')return run(file);
+ if(cmd==='batch'){const jobs=read(file);if(!Array.isArray(jobs)||jobs.some(x=>typeof x!=='string'))throw Error('Batch must be a JSON list of plan paths');const results=[];for(const job of jobs){try{await run(job);results.push({job,status:'complete'});}catch(e){results.push({job,status:'failed',error:friendly(e)});}}fs.mkdirSync('out',{recursive:true});const report=`out/batch-${Date.now()}.json`;fs.writeFileSync(report,JSON.stringify(results,null,2));console.log(report);if(results.some(x=>x.status==='failed'))process.exitCode=1;return;}
+ throw Error('Usage: npm run f48 -- doctor | lint <plan> | mix-music <video> <track> [out] | stock keys|search|pick|credits | handoff check|import|show|stock | redact frame|check|apply | brand-preview [public/clip.mp4] | validate <plan.json> | storyboard <plan.json> | preview <plan.json> [second] | render <plan.json> | batch <jobs.json>');
+}
+main().then(()=>process.exit(process.exitCode??0)).catch(e=>{console.error(friendly(e));process.exit(1);});
