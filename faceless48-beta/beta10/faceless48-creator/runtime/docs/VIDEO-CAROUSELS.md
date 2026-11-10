@@ -46,4 +46,9 @@ Any template can add a presenter (the member or their AI avatar) or switch style
 
 **Presenter** (optional): a cutout of the member or their AI avatar, or nobody. Ask once: "Do you want yourself, your AI avatar, or no one on the slides?" If yes, ask for a clear photo (or a frame of their avatar video), run `npm run cutout -- <photo>`, and set `"presenter": {"src": "cutouts/<name>.png", "side": "right"}`. It shows on cover, statement, status, branches and cta slides by default; set `"presenter": false` on a slide to hide it there. Footer `link` adds a handle or URL. Each slide can set `seconds` (default 6). Optional `music`: `{"src": "music/track.mp3", "volume": 0.25}`.
 
-5. `npm run f48 -- storyboard content/<slug>.json` and show the sheet (one frame per slide). After approval, `npm run f48 -- render content/<slug>.json`. The storyboard frames double as the stills for a swipe carousel.
+5. **Music is on by default.** Carousels pick a licensed track from `public/music` (leveled copies first), different per carousel, and play it across every slide. Set `"music": {"src": "music/<file>.mp3", "volume": 0.3}` to choose one, or `"music": false` for none. If `public/music` is empty, tell the member once: add licensed tracks there, or pick a sound in Instagram or TikTok when posting.
+6. **Motion:** every slide keeps moving (twinkling sparkles, a light sweep across metallic words, floating panels, a pulsing glow behind the presenter), and the status slide draws an arrow from the finished task to the checklist. Nothing to set.
+7. `npm run f48 -- storyboard content/<slug>.json` and show the sheet (one frame per slide). After approval:
+   - **For an Instagram or TikTok carousel post (each slide its own video):** `npm run f48 -- carousel-slides content/<slug>.json` writes `out/<slug>-slides/slide-01.mp4`, `slide-02.mp4`, ... Upload them in order as one carousel. The music runs on from slide to slide.
+   - **As one video (Reels):** `npm run f48 -- render content/<slug>.json`.
+   - The storyboard frames double as stills for a static carousel.

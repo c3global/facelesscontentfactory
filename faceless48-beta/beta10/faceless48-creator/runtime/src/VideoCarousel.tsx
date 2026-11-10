@@ -101,9 +101,11 @@ const metalTextBase: React.CSSProperties = {fontFamily: serif, fontStyle: 'itali
 const metalTextFor = (light: boolean, bold = false): React.CSSProperties =>
   bold ? {...metalTextBase, background: `linear-gradient(135deg, #FFFFFF, ${shade(B.metalLight, 0.45)})`, WebkitBackgroundClip: 'text', backgroundClip: 'text', filter: 'drop-shadow(0 2px 10px rgba(0,0,0,0.25))'} : light ? {...metalTextBase, background: `linear-gradient(135deg, ${shade(B.metal, -0.05)}, ${shade(B.metal, -0.4)})`, WebkitBackgroundClip: 'text', backgroundClip: 'text'} : metalTextBase;
 let metalText = metalTextBase;
+let SHINE = 0;
+const shine = (base: React.CSSProperties): React.CSSProperties => ({...base, backgroundImage: `linear-gradient(110deg, transparent ${SHINE - 12}%, rgba(255,255,255,0.85) ${SHINE}%, transparent ${SHINE + 12}%), ${String(base.background)}`});
 const Headline: React.FC<{text: string; size: number; th: Th; center?: boolean}> = ({text, size, th, center}) => (
   <h1 style={{fontFamily: sans, fontWeight: 700, fontSize: size, lineHeight: 1.08, letterSpacing: -size * 0.03, margin: 0, color: th.ink, textAlign: center ? 'center' : 'inherit'}}>
-    {text.split(/(\*[^*]+\*)/g).map((part, i) => (part.startsWith('*') && part.endsWith('*') ? <span key={i} style={metalText}>{part.slice(1, -1)}</span> : <React.Fragment key={i}>{part}</React.Fragment>))}
+    {text.split(/(\*[^*]+\*)/g).map((part, i) => (part.startsWith('*') && part.endsWith('*') ? <span key={i} style={shine(metalText)}>{part.slice(1, -1)}</span> : <React.Fragment key={i}>{part}</React.Fragment>))}
   </h1>
 );
 const Kicker: React.FC<{text: string; t: number; center?: boolean}> = ({text, t, center}) =>
@@ -194,10 +196,16 @@ const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}>
           <Kicker text={s.kicker} t={t} />
           <div style={{...rise(t, 0.1), ...narrow}}><Headline text={s.headline} size={78} th={th} /></div>
           <div style={{position: 'relative', height: 520, marginTop: 40, width: withPresenter ? 640 : 860, alignSelf: AL === 'center' && !withPresenter ? 'center' : AL === 'right' ? 'flex-end' : 'flex-start', textAlign: 'left'}}>
-            <StatusPanel s={s} t={t} th={th} style={{position: 'absolute', left: 0, top: 0, transform: `rotate(-3deg) ${rise(t, 0.3).transform}`, opacity: prog(t, 0.3, 0.35)}} />
-            {items.length > 0 && <Paper items={items} t={t} at={2.2} style={{position: 'absolute', left: withPresenter ? 330 : 520, top: 170, transform: `rotate(5deg) translateY(${Math.sin(t * 1.1) * 4}px)`, opacity: prog(t, 1.9, 0.35)}} />}
+            <StatusPanel s={s} t={t} th={th} style={{position: 'absolute', left: 0, top: 0, transform: `rotate(-3deg) ${rise(t, 0.3).transform} translateY(${Math.sin(t * 0.9) * 5}px)`, opacity: prog(t, 0.3, 0.35)}} />
+            {items.length > 0 && (
+              <svg width={300} height={220} viewBox="0 0 300 220" style={{position: 'absolute', left: withPresenter ? 150 : 300, top: 150, overflow: 'visible'}}>
+                <path d="M 10 30 C 120 30, 170 80, 215 160" fill="none" stroke={HI} strokeWidth={5} strokeLinecap="round" pathLength={1} style={{strokeDasharray: 1, strokeDashoffset: 1 - prog(t, 1.75, 0.45)}} />
+                <path d="M 192 150 L 218 166 L 224 136" fill="none" stroke={HI} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" opacity={prog(t, 2.15, 0.15)} />
+              </svg>
+            )}
+            {items.length > 0 && <Paper items={items} t={t} at={2.6} style={{position: 'absolute', left: withPresenter ? 330 : 520, top: 190, transform: `rotate(5deg) translateY(${Math.sin(t * 1.1) * 6}px)`, opacity: prog(t, 2.2, 0.35)}} />}
           </div>
-          <Note text={s.note} t={t} at={3.2} />
+          <Note text={s.note} t={t} at={3.4} />
         </>
       );
     case 'branches': {
@@ -238,7 +246,7 @@ const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}>
           {s.body && <p style={{fontFamily: sans, fontSize: 30, lineHeight: 1.4, color: th.muted, marginTop: 20, ...rise(t, 0.2)}}>{s.body}</p>}
           <div style={{display: 'flex', flexDirection: 'column', gap: 20, marginTop: 40}}>
             {items.map((x, i) => (
-              <div key={i} style={{...th.panel, padding: '26px 32px', display: 'flex', alignItems: 'center', gap: 26, textAlign: 'left', ...rise(t, 0.45 + i * 0.35)}}>
+              <div key={i} style={{...th.panel, padding: '26px 32px', display: 'flex', alignItems: 'center', gap: 26, textAlign: 'left', ...rise(t, 0.45 + i * 0.35), marginLeft: Math.sin(t * 1.3 + i) * 3}}>
                 {s.layout === 'checklist' ? <Check t={t} at={0.75 + i * 0.35} /> : <Num n={i + 1} />}
                 <span style={{fontFamily: sans, fontSize: 34, lineHeight: 1.3, color: th.ink}}>{x}</span>
               </div>
@@ -363,6 +371,29 @@ const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}>
   }
 };
 
+/** looping ambient motion: twinkling sparkles and soft drifting light, so a still moment never looks frozen */
+const Ambient: React.FC<{t: number; style: VideoCarouselPlan['style']}> = ({t, style}) => {
+  const n = style === 'bold' ? 34 : style === 'clean' ? 12 : 22;
+  const color = style === 'clean' ? B.metal : style === 'bold' ? '#FFFFFF' : B.metalLight;
+  return (
+    <div style={{position: 'absolute', inset: 0, pointerEvents: 'none'}}>
+      {Array.from({length: n}, (_, i) => {
+        const r1 = ((i * 9301 + 49297) % 233280) / 233280;
+        const r2 = ((i * 4271 + 17) % 9973) / 9973;
+        const x = 40 + r1 * 1000;
+        const y = 60 + r2 * 1230 - ((t * (8 + r1 * 14)) % 1350);
+        const tw = Math.max(0, Math.sin(t * (1.2 + r2 * 2.2) + i * 1.7));
+        const size = 6 + r1 * (style === 'bold' ? 16 : 10);
+        return (
+          <svg key={i} width={size * 2} height={size * 2} viewBox="-10 -10 20 20" style={{position: 'absolute', left: x, top: ((y % 1350) + 1350) % 1350, opacity: tw * (style === 'clean' ? 0.45 : 0.8), transform: `rotate(${t * 40 + i * 30}deg) scale(${0.6 + tw * 0.6})`}}>
+            <path d="M0 -10 L2 -2 L10 0 L2 2 L0 10 L-2 2 L-10 0 L-2 -2 Z" fill={color} />
+          </svg>
+        );
+      })}
+    </div>
+  );
+};
+
 const DEFAULT_PRESENTER: Slide['layout'][] = ['cover', 'statement', 'status', 'branches', 'cta'];
 
 export const VideoCarousel: React.FC<{plan: VideoCarouselPlan}> = ({plan}) => {
@@ -388,6 +419,7 @@ export const VideoCarousel: React.FC<{plan: VideoCarouselPlan}> = ({plan}) => {
   const u = t - start;
   const n = plan.slides.length;
   AL = s.align ?? plan.align;
+  SHINE = ((u * 28) % 160) - 30;
   const enterK = ease(prog(u, 0, 0.35));
   const last = idx === n - 1;
   const P = plan.presenter;
@@ -400,11 +432,12 @@ export const VideoCarousel: React.FC<{plan: VideoCarouselPlan}> = ({plan}) => {
         <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves={3} stitchTiles="stitch" /></filter>
         <rect width="100%" height="100%" filter="url(#grain)" />
       </svg>
+      <Ambient t={t} style={plan.style} />
       {plan.style === 'luxe' && <div style={{position: 'absolute', left: 40, right: 40, top: 40, bottom: 40, border: `1px solid ${hexA(B.metal, 0.35)}`, borderRadius: 8}} />}
       {/* the presenter: a cutout of the member or their AI avatar, standing in the frame with a soft brand glow */}
       {showP && P && (
         <div style={{position: 'absolute', bottom: 150, [P.side]: -30, width: ph * 0.75, height: ph, opacity: pIn, transform: `translateY(${(1 - pIn) * 40 - 4 * Math.sin(u * 0.7)}px)`}}>
-          <div style={{position: 'absolute', left: '10%', right: '10%', top: '20%', bottom: '5%', borderRadius: '50%', background: `radial-gradient(circle, ${hexA(B.accent, 0.45)}, transparent 70%)`, filter: 'blur(30px)'}} />
+          <div style={{position: 'absolute', left: '10%', right: '10%', top: '20%', bottom: '5%', borderRadius: '50%', background: `radial-gradient(circle, ${hexA(B.accent, 0.35 + 0.15 * Math.sin(u * 1.6))}, transparent 70%)`, filter: 'blur(30px)', transform: `scale(${1 + 0.05 * Math.sin(u * 1.6)})`}} />
           <Img src={staticFile(P.src)} style={{position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'bottom', filter: 'drop-shadow(0 24px 40px rgba(0,0,0,0.55))'}} />
         </div>
       )}
@@ -424,7 +457,7 @@ export const VideoCarousel: React.FC<{plan: VideoCarouselPlan}> = ({plan}) => {
         {plan.link && <span style={{fontSize: 22, letterSpacing: 1, color: th.muted}}>{plan.link}</span>}
         <span style={{fontSize: 22, letterSpacing: 3, textTransform: 'uppercase', color: th.muted, opacity: last ? 0 : 1, transform: `translateX(${4 * Math.sin(u * 3)}px)`}}>Swipe →</span>
       </div>
-      {plan.music && <Audio src={staticFile(plan.music.src)} volume={plan.music.volume} />}
+      {plan.music && <Audio src={staticFile(plan.music.src)} volume={(f) => plan.music!.volume * Math.min(1, f / 15)} />}
     </AbsoluteFill>
   );
 };
