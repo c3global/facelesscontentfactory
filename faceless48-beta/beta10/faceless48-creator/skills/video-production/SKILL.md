@@ -25,7 +25,7 @@ If the clip is a screen recording that may show private details (an inbox, share
 
 ## Life Scenes
 
-For cinematic clips with on-screen text (no talking head), use skills/life-scenes/SKILL.md.
+For cinematic clips with on-screen text (no talking head), use skills/life-scenes/SKILL.md. Clinic notes (her name for Life Scenes with tip cards) use `clinicNote` or `cardTrial` in the Life Scene plan; for text timed to music beats, use skills/beat-sync/SKILL.md.
 
 ## Yaps
 

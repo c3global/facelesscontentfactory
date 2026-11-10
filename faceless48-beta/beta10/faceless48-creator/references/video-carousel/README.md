@@ -1,0 +1,1 @@
+Reference snapshot from the C3G Video Carousels project. Experimental and not registered in the plugin runtime. Depends on project assets and code; not a ready-to-render feature. The originating conversation remains active. Verify dependencies, remove brand-specific assets, integrate and test before release.

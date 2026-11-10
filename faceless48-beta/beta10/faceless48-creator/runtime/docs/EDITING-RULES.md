@@ -9,6 +9,7 @@ These rules come from weeks of real edits and reviews. They are what makes a vid
 - Plan at least one diagram or list for any script that teaches a framework or steps, and a proof cutaway (a real source card or page capture the member supplies) for every cited source.
 
 ## Face and safe zones
+- **Balanced portrait compositions:** Arrange the presenter, graphics, and captions as a cohesive group around the middle of the frame. Keep visual breathing room above and below roughly balanced where platform safe areas permit. Center headings and numerals unless their alignment serves a clear design purpose; avoid off-center presenters without a visual purpose, isolated elements, awkward gaps, and overlap. Check several points in motion, not only one still.
 - Never put a tag, pill or card on the face. Cards that sit in the top half of a full-frame shot cover the face: lists, charts and comment bubbles go in the lower third.
 - Keep text clear of the top 12 percent, the bottom 22 percent and the right 12 percent of a portrait frame (platform buttons live there).
 - Pill captions always sit at the bottom. In split-screen layout `S` the person fills the lower half, so pill captions land on the face. Use layout `C` or `E`, or editorial captions, for those moments.

@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, Easing, Freeze, interpolate, OffthreadVideo, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Easing, Freeze, Img, interpolate, OffthreadVideo, staticFile, useCurrentFrame} from 'remotion';
 import {z} from 'zod';
 
 const FPS = 24;
@@ -58,7 +58,10 @@ export const LSClip: React.FC<LSClipProps> = ({src, effect, from, to, moveSec, p
     ty = drift * (8 * Math.sin(t * 0.7 + 0.6) + 4 * Math.sin(t * 1.9 + 2.2));
     rot = drift * (0.22 * Math.sin(t * 0.8 + 0.4) + 0.1 * Math.sin(t * 1.7));
   }
-  const video = <OffthreadVideo src={staticFile(src)} muted startFrom={Math.round(startSec * FPS)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />;
+  const placement = {width: '100%', height: '100%', objectFit: 'cover' as const};
+  const video = /\.(png|jpe?g|webp)$/i.test(src)
+    ? <Img src={staticFile(src)} style={placement} />
+    : <OffthreadVideo src={staticFile(src)} muted startFrom={Math.round(startSec * FPS)} style={placement} />;
   const freezeAt = Math.round(atSec * FPS);
   return (
     <AbsoluteFill style={{backgroundColor: '#000', overflow: 'hidden'}}>

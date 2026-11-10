@@ -1,4 +1,4 @@
-# Faceless48 Creator — private beta 0.1.0-beta.8
+# Faceless48 Creator — private beta 0.1.0-beta.10
 
 Local video production with Remotion. Includes the creator's 111-effect source library, six talking-head presets, an original stick-figure rig and reusable explainer scene planning with whiteboard, editorial and dark styles.
 
@@ -44,3 +44,10 @@ Read VALIDATION.md before distributing. This is a locally built beta, not a prom
 `runtime/content/example-layouts.json` demonstrates all five layouts plus supplied image/video scenes. `cue-demo.brief.json` and `cue-demo.words.json` demonstrate keyword matching with a synthetic timed transcript, not a transcription of the sample voiceover. The assistant should obtain actual timestamps from your recording for production.
 
 The supported beta entry point is `npm run f48`. Other retained scripts are advanced source tools, not a tested alternate installer or product UI. Historical episode compositions require explicit registration before rendering; their original personal media is not included.
+
+## Beta 10
+
+- **One-step setup:** `node tools/setup.mjs "<project folder>"` (or `npm run setup` in a project) installs and tests everything: packages, the project's own ffmpeg and ffprobe, the render browser, a private Python for cutouts, the small.en captions model and the high-quality cutout model. No system installs by hand.
+- **Beat picker and clinic notes (from beta 9):** the tested picker reference, member-selected frame cues, clinic-note (Life Scene) styles wired into Life Scenes (`clinicNote`, `cardTrial`, `velvetEditorial`, `graphicsOnly` for native-footage export), and the music-section finder. See runtime/docs/BEAT-SYNC-WORKFLOW.md. The picker page is a session reference to adapt per project.
+- **25 new effects** from three reference reels (live cursor, clone row, day dial, predict keys, letter orbit, code body, post wall, letter dive, comment post, layer explode, sketch words, blade slice, head stack, rack focus, banknote, voice note, impact frame, dolly zoom, press front, paper tear, blow away, depth scatter, spatial glass, shatter 3D, scene text). See runtime/docs/EFFECTS-LIST.md.
+- Blur my private info (beta 8) is kept.

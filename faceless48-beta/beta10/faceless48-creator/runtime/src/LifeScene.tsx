@@ -7,6 +7,9 @@ import {LSMessage, lsMessageSchema, LSNote, lsNoteSchema} from './LifeSceneOverl
 import {LSChecklist, lsChecklistSchema, LSPhone, lsPhoneSchema, LSStack, lsStackSchema} from './LifeSceneEffects';
 import {LSComment, lsCommentSchema, LSTimeline, lsTimelineSchema} from './LifeSceneEffects2';
 import {LSDust} from './LSAtmosphere';
+import {VelvetEditorial, velvetEditorialSchema} from './VelvetEditorial';
+import {ClinicCardTrials, clinicCardTrialSchema} from './ClinicCardTrials';
+import {NextClinicNotes, nextClinicNoteSchema} from './NextClinicNotes';
 
 /**
  * A Life Scene: short cinematic clips (Google Flow, Seedance, Veo, stock or your own camera) with
@@ -27,6 +30,8 @@ export const lifeScenePlanSchema = z.object({
   kind: z.literal('life-scene'),
   slug: z.string().regex(/^[a-z0-9-]+$/),
   durationSec: z.number().positive(),
+  /** Export graphics separately so the original footage can be composited at native resolution. */
+  graphicsOnly: z.boolean().default(false),
   /** shots play in order with hard cuts; each shot's camera move uses the LSClip options */
   shots: z.array(lsClipSchema.extend({lengthSec: z.number().positive(), keepAudio: z.boolean().default(true)})).min(1),
   /** optional voiceover inside public/; when set, clip audio is dropped unless a shot says keepAudio */
@@ -37,6 +42,9 @@ export const lifeScenePlanSchema = z.object({
   font: lifeSceneTextSchema.shape.font.default('covered'),
   overlays: z.array(overlay).default([]),
   dust: z.boolean().default(false),
+  velvetEditorial: velvetEditorialSchema.optional(),
+  cardTrial: clinicCardTrialSchema.optional(),
+  clinicNote: nextClinicNoteSchema.optional(),
   /** optional stock-footage credits shown nowhere on screen; kept for the record (see credits.json) */
   credits: z.array(z.string()).default([]),
 });
@@ -49,8 +57,8 @@ export const LifeScene: React.FC<{plan: LifeScenePlan}> = ({plan}) => {
   let at = 0;
   const vo = !!plan.voiceover;
   return (
-    <AbsoluteFill style={{backgroundColor: '#000'}}>
-      {plan.shots.map((s, i) => {
+    <AbsoluteFill style={{backgroundColor: plan.graphicsOnly ? 'transparent' : '#000'}}>
+      {!plan.graphicsOnly && plan.shots.map((s, i) => {
         const from = Math.round(at * LS_FPS);
         const len = Math.round(s.lengthSec * LS_FPS);
         at += s.lengthSec;
@@ -73,7 +81,10 @@ export const LifeScene: React.FC<{plan: LifeScenePlan}> = ({plan}) => {
         );
       })}
       <LifeSceneText lines={plan.text} font={plan.font} durationSec={plan.durationSec} />
-      {plan.voiceover && (
+      {plan.velvetEditorial && <VelvetEditorial {...plan.velvetEditorial} />}
+      {plan.cardTrial && <ClinicCardTrials {...plan.cardTrial} />}
+      {plan.clinicNote && <NextClinicNotes {...plan.clinicNote} />}
+      {!plan.graphicsOnly && plan.voiceover && (
         <Sequence from={Math.round(plan.voiceoverDelaySec * LS_FPS)}>
           <Audio src={staticFile(plan.voiceover)} />
         </Sequence>

@@ -122,6 +122,34 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('card-carousel'), props: z.object({tiles: z.array(sec).min(3).max(6).default([2, 5, 8, 11, 14, 17]), cy: z.number().default(1300), radius: z.number().default(430), width: z.number().default(240), spinSec: z.number().default(8), tiltX: z.number().default(-10)}).prefault({})}),
   z.object({...base, type: z.literal('script-panel'), props: z.object({title: z.string().default('Script'), beats: z.array(z.object({quote: z.string(), time: z.string().optional(), label: z.string().optional(), notes: z.array(z.string()).max(3).optional()})).min(2).max(8), steps: z.array(z.object({label: z.string(), at: sec})).max(5).default([])})}),
   z.object({...base, type: z.literal('caption-stack'), props: z.object({words: z.array(z.string()).min(2).max(5), y: z.number().default(1420)})}),
+  // ---- seventh batch (three-reel build, Nov 2026)
+  z.object({...base, type: z.literal('live-cursor'), props: z.object({label: z.string().default(customerBrand.name), /** final box size in px on the 1080x1920 frame; any size */ width: z.number().default(620), height: z.number().default(980), /** how far the box nudges her sideways, px (0 for none) */ nudge: z.number().default(0)}).prefault({})}),
+  z.object({...base, type: z.literal('clone-row'), props: z.object({count: z.number().int().min(1).max(4).default(3)}).prefault({})}),
+  z.object({...base, type: z.literal('day-dial'), props: z.object({word: z.string().default('day'), marks: z.number().int().min(4).max(12).default(12), label: z.string().optional()}).prefault({})}),
+  z.object({...base, type: z.literal('predict-keys'), props: z.object({text: z.string(), suggestions: z.array(z.string()).min(3).max(3).default(['the', 'your', 'what']), y: z.number().default(1180)})}),
+  z.object({...base, type: z.literal('letter-orbit'), props: z.object({word: z.string(), radius: z.number().default(330), tilt: z.number().default(60)})}),
+  z.object({...base, type: z.literal('code-body'), props: z.object({seed: z.string().default('c3')}).prefault({})}),
+  z.object({...base, type: z.literal('post-wall'), props: z.object({count: z.number().int().min(1).default(1403), label: z.string().default('posts'), /** post thumbnails in public/, e.g. her real posts */ images: z.array(z.string()).default([]), /** short lines for branded quote tiles between the photos */ quotes: z.array(z.string()).default([])}).prefault({})}),
+  z.object({...base, type: z.literal('letter-dive'), props: z.object({word: z.string(), diveLetter: z.number().int().min(0).default(1), label: z.string().optional()})}),
+  // ---- eighth batch (three-reel build, batch 2)
+  z.object({...base, type: z.literal('comment-post'), props: z.object({comment: z.string(), postAt: sec, reply: z.string(), replyAt: sec, handle: z.string().default('you'), replyName: z.string().default(customerBrand.name), y: z.number().default(110)})}),
+  z.object({...base, type: z.literal('layer-explode'), props: z.object({title: z.string().default('layer\nexplode'), labels: z.array(z.string()).max(6).default(['Room', 'Me', 'Type', 'Sound'])}).prefault({})}),
+  z.object({...base, type: z.literal('sketch-words'), props: z.object({small: z.string(), big: z.string()})}),
+  z.object({...base, type: z.literal('blade-slice'), props: z.object({angle: z.number().default(-14), /** how far the top half slides along the cut, px */ slide: z.number().default(220)}).prefault({})}),
+  z.object({...base, type: z.literal('head-stack'), props: z.object({labels: z.array(z.string()).min(2).max(8), gap: z.number().default(0.22)})}),
+  z.object({...base, type: z.literal('rack-focus'), props: z.object({blurPx: z.number().default(14)}).prefault({})}),
+  z.object({...base, type: z.literal('banknote'), props: z.object({amount: z.number().int().min(1), title: z.string(), serial: z.string().default('NO 000 001'), finePrint: z.string().default('This note is not money. The number is real.'), /** lettering around the portrait oval */ ring: z.string().default(customerBrand.name), /** name on the round seal */ seal: z.string().default(''), sealSub: z.string().optional()})}),
+  z.object({...base, type: z.literal('voice-note'), props: z.object({label: z.string().default('Voice note'), y: z.number().default(130)}).prefault({})}),
+  // ---- ninth batch (three-reel build, batch 3)
+  z.object({...base, type: z.literal('impact-frame'), props: z.object({word: z.string().default('Impact')}).prefault({})}),
+  z.object({...base, type: z.literal('dolly-zoom'), props: z.object({to: z.number().min(1.1).max(2.2).default(1.6), direction: z.enum(['in', 'out']).default('in')}).prefault({})}),
+  z.object({...base, type: z.literal('press-front'), props: z.object({masthead: z.string().default('The Daily Edit'), edition: z.string().default(''), headline: z.string(), subhead: z.string().default(''), date: z.string().default(''), caption: z.string().default('')})}),
+  z.object({...base, type: z.literal('paper-tear'), props: z.object({text: z.string().default('')}).prefault({})}),
+  z.object({...base, type: z.literal('blow-away'), props: z.object({/** a still of the empty set in public/ (makes her blow away to reveal the empty room) */ plate: z.string().optional()}).prefault({})}),
+  z.object({...base, type: z.literal('depth-scatter'), props: z.object({words: z.array(z.string()).min(2).max(10)})}),
+  z.object({...base, type: z.literal('spatial-glass'), props: z.object({title: z.string().default(''), text: z.string(), y: z.number().default(1180)})}),
+  z.object({...base, type: z.literal('shatter-3d'), props: z.object({cols: z.number().int().min(2).max(5).default(3), rows: z.number().int().min(2).max(6).default(4)}).prefault({})}),
+  z.object({...base, type: z.literal('scene-text'), props: z.object({word: z.string(), x: z.number().default(330), y: z.number().default(120), size: z.number().default(150)})}),
 ]);
 
 

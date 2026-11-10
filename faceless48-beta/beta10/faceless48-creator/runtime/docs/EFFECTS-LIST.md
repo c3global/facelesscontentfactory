@@ -181,3 +181,35 @@ Animated explainers are separate from this effect count. See the plugin CHARACTE
 Lab plans: `content/fxlab12`, `fxlab13` and `fxlab14`. 
 
 **3D tilt** (`tilt` prop on `storyboard-deck`, `playing-grid`, `video-card`, `cover-frame` and `phone-frame`): `in` swings the card or page flat from rotated back in space, `float` does that and then drifts slowly in perspective. Default `off`. `reel-stack` already sits in real perspective. Lab plan: `content/fxlab16.scene.json`.
+
+## Beta 10: 25 new effects (three reference reels)
+
+Behind-you effects (marked *) need the high-quality cutout: `npm run matte -- <slug>` then `npm run matte:hq -- <slug> <start> <end>`.
+
+| Name | Type | What it does |
+| --- | --- | --- |
+| Live cursor | `live-cursor` | A named cursor draws a box on the head, then pulls it out to a big rectangle (any `width`/`height`), with a live size readout and a center guide. |
+| Clone row* | `clone-row` | Copies of the speaker fan out in a row behind them, smaller toward the edges. |
+| Day dial* | `day-dial` | A cream clock face swings in behind them; the hand ticks through the days. |
+| Predict keys | `predict-keys` | A phone keyboard types the words with a suggestion bar. |
+| Letter orbit* | `letter-orbit` | The letters of a word circle the head, passing behind and in front. |
+| Code body* | `code-body` | The room goes dark and code scrolls across the speaker. |
+| Post wall* | `post-wall` | A feed of post tiles (`images`, `quotes`) fills in behind them while a counter climbs. |
+| Letter dive | `letter-dive` | The clip plays inside a giant serif word, then the camera dives into one letter. |
+| Comment post | `comment-post` | A white comment box types a keyword, posts it, a heart pops, a reply drops in. |
+| Layer explode | `layer-explode` | The frame splits into 3D glass layers: room, speaker, title, sound. |
+| Sketch words* | `sketch-words` | A notebook page behind them: a handwritten word, then a big inked word with an underline. |
+| Blade slice | `blade-slice` | A white line flashes across, the frame is cut along it and the top half slides off and snaps back (`slide` px). |
+| Head stack | `head-stack` | Label tiles drop and pile up on the head. |
+| Rack focus | `rack-focus` | Soft shapes sharp in the foreground, then focus racks to the speaker. |
+| Banknote | `banknote` | A full-screen green currency note with the speaker engraved in the oval; the number counts up. |
+| Voice note | `voice-note` | A chat voice message records with a live waveform, sends, reads Delivered. |
+| Impact frame | `impact-frame` | Comic panel: hard black ink on cream, speed lines, a double flash and one huge word. |
+| Dolly zoom* | `dolly-zoom` | The speaker holds still while the room recedes behind them. |
+| Press front | `press-front` | A newspaper front page with a halftone photo and the headline. |
+| Paper tear | `paper-tear` | A printed page rips down the middle and flies apart to reveal the speaker. |
+| Blow away* | `blow-away` | The speaker dissolves into dust that drifts off (`plate`: a still of the empty set reveals the empty room). |
+| Depth scatter* | `depth-scatter` | Words hang in the room at different depths, some behind and some in front. |
+| Spatial glass | `spatial-glass` | A frosted glass panel floats in 3D in front of them with an orb and a progress bar. |
+| Shatter 3D | `shatter-3d` | The frame breaks into shards that pop toward camera, then settle back. |
+| Scene text* | `scene-text` | A big serif word sits in the room behind the speaker. |
