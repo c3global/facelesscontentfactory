@@ -23,6 +23,10 @@ If the member has a package exported from the Faceless48 Script, Shorts or Thumb
 
 If the clip is a screen recording that may show private details (an inbox, share links, keys, file paths, account names or pictures), or the member says "blur my private info", use skills/redact/SKILL.md before editing, and edit from the redacted clip.
 
+## Video carousels
+
+For "make a video carousel", follow runtime/docs/VIDEO-CAROUSELS.md (in the project: docs/VIDEO-CAROUSELS.md).
+
 ## Life Scenes
 
 For cinematic clips with on-screen text (no talking head), use skills/life-scenes/SKILL.md. Clinic notes (her name for Life Scenes with tip cards) use `clinicNote` or `cardTrial` in the Life Scene plan; for text timed to music beats, use skills/beat-sync/SKILL.md.
