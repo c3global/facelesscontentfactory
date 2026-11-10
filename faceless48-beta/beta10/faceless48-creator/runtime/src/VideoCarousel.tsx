@@ -16,7 +16,7 @@ const slideSchema = z.object({
   kicker: z.string().max(60).default(''),
   headline: z.string().max(140),
   body: z.string().max(220).default(''),
-  items: z.array(z.string().max(110)).max(5).default([]),
+  items: z.array(z.string().max(110)).max(6).default([]),
   /** compare: the two column titles */
   left: z.string().max(40).default('Before'),
   right: z.string().max(40).default('After'),
@@ -70,7 +70,7 @@ const theme = (style: VideoCarouselPlan['style']): Th => {
   if (style === 'clean')
     return {bg: `radial-gradient(ellipse at 85% 40%, ${hexA(B.accent, 0.1)}, transparent 60%), #F6F3EE`, ink: '#16161A', muted: 'rgba(22,22,26,0.62)', rule: 'rgba(22,22,26,0.14)', panel: {background: '#FFFFFF', border: `1.5px solid ${hexA(B.metal, 0.4)}`, borderRadius: 24, boxShadow: '0 18px 46px rgba(30,20,10,0.12)'}, hero: 84};
   if (style === 'bold')
-    return {bg: `linear-gradient(160deg, ${B.accentDeep}, #0A0A0B 70%)`, ink: '#FFFFFF', muted: 'rgba(255,255,255,0.72)', rule: 'rgba(255,255,255,0.18)', panel: {...glass, background: hexA(B.accent, 0.28), border: `2px solid ${hexA(B.metalLight, 0.5)}`}, hero: 104};
+    return {bg: `radial-gradient(ellipse at 20% 10%, rgba(255,255,255,0.18), transparent 55%), linear-gradient(155deg, ${B.accent}, ${B.accentMid} 55%, ${B.accentDeep})`, ink: '#FFFFFF', muted: 'rgba(255,255,255,0.82)', rule: 'rgba(255,255,255,0.28)', panel: {background: 'rgba(255,255,255,0.14)', border: '2px solid rgba(255,255,255,0.4)', borderRadius: 30, boxShadow: '0 20px 50px rgba(0,0,0,0.25)'}, hero: 108};
   if (style === 'luxe')
     return {bg: `radial-gradient(ellipse at 80% 55%, ${hexA(B.accentDeep, 0.55)}, transparent 62%), radial-gradient(ellipse at 15% 0%, ${hexA(B.metal, 0.18)}, transparent 50%), #070708`, ink: '#FFFFFF', muted: 'rgba(255,255,255,0.66)', rule: hexA(B.metal, 0.35), panel: glass, hero: 90};
   return {bg: `radial-gradient(ellipse at 85% 45%, ${hexA(B.accent, 0.26)}, transparent 60%), radial-gradient(ellipse at 10% 0%, ${hexA(B.metal, 0.16)}, transparent 50%), #0B0B0D`, ink: '#FFFFFF', muted: 'rgba(255,255,255,0.68)', rule: 'rgba(255,255,255,0.14)', panel: glass, hero: 92};
@@ -78,15 +78,27 @@ const theme = (style: VideoCarouselPlan['style']): Th => {
 
 const serif = `"${B.headingFont}", Georgia, serif`;
 const sans = `"${B.bodyFont}", "Helvetica Neue", Arial, sans-serif`;
-const metalText: React.CSSProperties = {fontFamily: serif, fontStyle: 'italic', fontWeight: 600, letterSpacing: 0, background: `linear-gradient(135deg, ${B.metalLight}, ${B.metal} 70%)`, WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent'};
+const shade = (hex: string, amt: number) => {
+  const n = parseInt(hex.slice(1), 16);
+  const mix = (c: number) => Math.round(amt >= 0 ? c + (255 - c) * amt : c * (1 + amt));
+  const [r, g, b] = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map(mix);
+  return '#' + ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1);
+};
+// HI: the readable highlight color for the current style (light styles use the deeper metal tone)
+let HI = B.metalLight;
+let LIGHT = false;
+const metalTextBase: React.CSSProperties = {fontFamily: serif, fontStyle: 'italic', fontWeight: 600, letterSpacing: 0, background: `linear-gradient(135deg, ${B.metalLight}, ${B.metal} 70%)`, WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent'};
 
+const metalTextFor = (light: boolean, bold = false): React.CSSProperties =>
+  bold ? {...metalTextBase, background: `linear-gradient(135deg, #FFFFFF, ${shade(B.metalLight, 0.45)})`, WebkitBackgroundClip: 'text', backgroundClip: 'text', filter: 'drop-shadow(0 2px 10px rgba(0,0,0,0.25))'} : light ? {...metalTextBase, background: `linear-gradient(135deg, ${shade(B.metal, -0.05)}, ${shade(B.metal, -0.4)})`, WebkitBackgroundClip: 'text', backgroundClip: 'text'} : metalTextBase;
+let metalText = metalTextBase;
 const Headline: React.FC<{text: string; size: number; th: Th; center?: boolean}> = ({text, size, th, center}) => (
   <h1 style={{fontFamily: sans, fontWeight: 700, fontSize: size, lineHeight: 1.08, letterSpacing: -size * 0.03, margin: 0, color: th.ink, textAlign: center ? 'center' : 'left'}}>
     {text.split(/(\*[^*]+\*)/g).map((part, i) => (part.startsWith('*') && part.endsWith('*') ? <span key={i} style={metalText}>{part.slice(1, -1)}</span> : <React.Fragment key={i}>{part}</React.Fragment>))}
   </h1>
 );
 const Kicker: React.FC<{text: string; t: number; center?: boolean}> = ({text, t, center}) =>
-  text ? <div style={{fontFamily: sans, fontWeight: 700, fontSize: 24, letterSpacing: 4, textTransform: 'uppercase', color: B.metalLight, marginBottom: 22, textAlign: center ? 'center' : 'left', ...rise(t, 0)}}>{text}</div> : null;
+  text ? <div style={{fontFamily: sans, fontWeight: 700, fontSize: 24, letterSpacing: 4, textTransform: 'uppercase', color: HI, marginBottom: 22, textAlign: center ? 'center' : 'left', ...rise(t, 0)}}>{text}</div> : null;
 const Check: React.FC<{t: number; at: number; size?: number}> = ({t, at, size = 44}) => (
   <svg width={size} height={size} viewBox="0 0 40 40" style={{flex: 'none'}}>
     <circle cx={20} cy={20} r={18} fill={B.accent} />
@@ -95,7 +107,7 @@ const Check: React.FC<{t: number; at: number; size?: number}> = ({t, at, size = 
 );
 const Num: React.FC<{n: number}> = ({n}) => <span style={{...metalText, fontSize: 52, minWidth: 74}}>{String(n).padStart(2, '0')}</span>;
 const Note: React.FC<{text: string; t: number; at: number}> = ({text, t, at}) =>
-  text ? <div style={{fontFamily: handFamily, fontWeight: 700, fontSize: 56, color: B.metalLight, clipPath: `inset(0 ${100 - prog(t, at, 0.9) * 100}% 0 0)`, marginTop: 30}}>{text}</div> : null;
+  text ? <div style={{fontFamily: handFamily, fontWeight: 700, fontSize: 56, color: HI, clipPath: `inset(0 ${100 - prog(t, at, 0.9) * 100}% 0 0)`, marginTop: 30}}>{text}</div> : null;
 const Framed: React.FC<{src: string; t: number; style: React.CSSProperties}> = ({src, t, style}) => (
   <div style={{position: 'absolute', overflow: 'hidden', borderRadius: 30, border: `2px solid ${hexA(B.metalLight, 0.6)}`, boxShadow: '0 30px 70px rgba(0,0,0,0.5)', opacity: prog(t, 0.3, 0.4), ...style}}>
     <Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${1.04 + 0.03 * Math.sin(t * 0.4)})`}} />
@@ -198,7 +210,7 @@ const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}>
             {cards.map((c, i) => (
               <div key={i} style={{...th.panel, flex: 1, padding: '24px 24px 28px', ...rise(t, 1.2 + i * 0.3)}}>
                 <span style={{...metalText, fontSize: 40}}>{String(i + 1).padStart(2, '0')}</span>
-                {c.label && <div style={{fontFamily: sans, fontWeight: 700, fontSize: 18, letterSpacing: 2, textTransform: 'uppercase', color: B.metalLight, marginTop: 8}}>{c.label}</div>}
+                {c.label && <div style={{fontFamily: sans, fontWeight: 700, fontSize: 18, letterSpacing: 2, textTransform: 'uppercase', color: HI, marginTop: 8}}>{c.label}</div>}
                 <div style={{fontFamily: sans, fontSize: 27, lineHeight: 1.3, color: th.ink, marginTop: 8}}>{c.text}</div>
               </div>
             ))}
@@ -234,10 +246,10 @@ const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}>
           <div style={rise(t, 0.1)}><Headline text={s.headline} size={74} th={th} /></div>
           <div style={{display: 'flex', gap: 24, marginTop: 50}}>
             {cols.map((col, c) => (
-              <div key={c} style={{...th.panel, flex: 1, padding: 34, ...(c === 1 ? {borderColor: B.accent, background: `linear-gradient(135deg, ${hexA(B.accent, 0.35)}, ${hexA(B.accentDeep, 0.25)})`} : {opacity: 0.85}), ...rise(t, 0.4 + c * 0.5)}}>
-                <div style={{fontFamily: sans, fontWeight: 700, fontSize: 24, letterSpacing: 3, textTransform: 'uppercase', color: c === 1 ? B.metalLight : th.muted}}>{c === 0 ? s.left : s.right}</div>
+              <div key={c} style={{...th.panel, flex: 1, padding: 34, ...(c === 1 ? (LIGHT ? {borderColor: B.accent, background: B.accent, color: '#fff'} : {borderColor: B.accent, background: `linear-gradient(135deg, ${hexA(B.accent, 0.35)}, ${hexA(B.accentDeep, 0.25)})`}) : {opacity: 0.85}), ...rise(t, 0.4 + c * 0.5)}}>
+                <div style={{fontFamily: sans, fontWeight: 700, fontSize: 24, letterSpacing: 3, textTransform: 'uppercase', color: c === 1 ? (LIGHT ? '#FFFFFF' : HI) : th.muted}}>{c === 0 ? s.left : s.right}</div>
                 {col.map((x, i) => (
-                  <div key={i} style={{fontFamily: sans, fontSize: 32, lineHeight: 1.3, color: th.ink, marginTop: 22, textDecoration: c === 0 && prog(t, 1.4 + i * 0.25) > 0.5 ? `line-through ${hexA(B.accent, 0.9)}` : 'none'}}>{x}</div>
+                  <div key={i} style={{fontFamily: sans, fontSize: 32, lineHeight: 1.3, color: LIGHT && c === 1 ? '#FFFFFF' : th.ink, marginTop: 22, textDecoration: c === 0 && prog(t, 1.4 + i * 0.25) > 0.5 ? `line-through ${hexA(B.accent, 0.9)}` : 'none'}}>{x}</div>
                 ))}
               </div>
             ))}
@@ -252,7 +264,7 @@ const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}>
           <Kicker text={s.kicker} t={t} />
           <div style={{fontFamily: serif, fontSize: 220, lineHeight: 0.6, color: B.metal, opacity: prog(t, 0, 0.4), height: 110}}>“</div>
           <div style={{fontFamily: serif, fontStyle: 'italic', fontWeight: 500, fontSize: 70, lineHeight: 1.18, color: th.ink, ...rise(t, 0.2)}}>{s.headline.replace(/\*/g, '')}</div>
-          {s.by && <div style={{fontFamily: sans, fontWeight: 700, fontSize: 28, letterSpacing: 3, textTransform: 'uppercase', color: B.metalLight, marginTop: 40, ...rise(t, 0.6)}}>{s.by}</div>}
+          {s.by && <div style={{fontFamily: sans, fontWeight: 700, fontSize: 28, letterSpacing: 3, textTransform: 'uppercase', color: HI, marginTop: 40, ...rise(t, 0.6)}}>{s.by}</div>}
         </>
       );
     case 'steps':
@@ -276,14 +288,14 @@ const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}>
         <>
           <Kicker text={s.kicker} t={t} />
           <div style={{...rise(t, 0.1), ...narrow}}><Headline text={s.headline} size={80} th={th} /></div>
-          <div style={{...th.panel, marginTop: 50, padding: 46, borderColor: B.metal, background: `linear-gradient(135deg, ${hexA(B.accent, 0.4)}, ${hexA(B.accentDeep, 0.3)})`, ...narrow, ...rise(t, 0.4)}}>
+          <div style={{...th.panel, marginTop: 50, padding: 46, borderColor: B.metal, background: LIGHT ? `linear-gradient(135deg, ${B.accent}, ${B.accentDeep})` : `linear-gradient(135deg, ${hexA(B.accent, 0.4)}, ${hexA(B.accentDeep, 0.3)})`, ...narrow, ...rise(t, 0.4)}}>
             {s.keyword && (
               <>
-                <div style={{fontFamily: sans, fontSize: 32, color: th.ink}}>Comment</div>
-                <div style={{fontFamily: serif, fontSize: 150, lineHeight: 1.15, letterSpacing: 6, color: B.metalLight, transform: `scale(${0.92 + 0.08 * ease(prog(t, 0.7, 0.5))})`, transformOrigin: 'left center'}}>{s.keyword.toUpperCase()}</div>
+                <div style={{fontFamily: sans, fontSize: 32, color: LIGHT ? '#FFFFFF' : th.ink}}>Comment</div>
+                <div style={{fontFamily: serif, fontSize: 150, lineHeight: 1.15, letterSpacing: 6, color: LIGHT ? shade(B.metalLight, 0.4) : HI, transform: `scale(${0.92 + 0.08 * ease(prog(t, 0.7, 0.5))})`, transformOrigin: 'left center'}}>{s.keyword.toUpperCase()}</div>
               </>
             )}
-            {s.body && <div style={{fontFamily: sans, fontSize: 34, lineHeight: 1.4, color: th.ink}}>{s.body}</div>}
+            {s.body && <div style={{fontFamily: sans, fontSize: 34, lineHeight: 1.4, color: LIGHT ? '#FFFFFF' : th.ink}}>{s.body}</div>}
           </div>
         </>
       );
@@ -298,6 +310,9 @@ export const VideoCarousel: React.FC<{plan: VideoCarouselPlan}> = ({plan}) => {
   const {fps} = useVideoConfig();
   const t = frame / fps;
   const th = theme(plan.style);
+  LIGHT = plan.style === 'clean';
+  HI = LIGHT ? shade(B.metal, -0.15) : plan.style === 'bold' ? shade(B.metalLight, 0.6) : B.metalLight;
+  metalText = metalTextFor(LIGHT, plan.style === 'bold');
   let start = 0;
   let idx = plan.slides.length - 1;
   for (let i = 0; i < plan.slides.length; i++) {
@@ -334,7 +349,7 @@ export const VideoCarousel: React.FC<{plan: VideoCarouselPlan}> = ({plan}) => {
       <div style={{position: 'absolute', top: 58, left: 76, right: 76, display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
         {B.logo ? <Img src={staticFile(B.logo)} style={{height: 52, maxWidth: 220, objectFit: 'contain'}} /> : <span style={{fontFamily: serif, fontSize: 30, color: th.ink}}>{B.name}</span>}
         {plan.series && <span style={{fontSize: 20, letterSpacing: 3, textTransform: 'uppercase', color: th.muted}}>{plan.series}</span>}
-        <span style={{fontSize: 22, letterSpacing: 3, color: B.metalLight}}>{String(idx + 1).padStart(2, '0')} / {String(n).padStart(2, '0')}</span>
+        <span style={{fontSize: 22, letterSpacing: 3, color: HI}}>{String(idx + 1).padStart(2, '0')} / {String(n).padStart(2, '0')}</span>
       </div>
       <div style={{position: 'absolute', top: 140, left: 76, width: 70 + 40 * Math.sin((Math.min(1, u) * Math.PI) / 2), height: 5, background: B.accent}} />
       <div style={{position: 'absolute', left: 76, right: 76, top: 190, bottom: 170, display: 'flex', flexDirection: 'column', justifyContent: 'center', opacity: enterK, transform: `translateX(${(1 - enterK) * 70}px)`}}>

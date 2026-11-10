@@ -1,0 +1,61 @@
+{
+ "kind": "video-carousel",
+ "slug": "carousel-tech",
+ "style": "editorial",
+ "series": "Tool Notes",
+ "link": "",
+ "slides": [
+  {
+   "layout": "cover",
+   "kicker": "Before you add another tool",
+   "headline": "Your new tool is live. Is it *saving time yet?*",
+   "body": "Three checks to run before you call it a win.",
+   "seconds": 6
+  },
+  {
+   "layout": "status",
+   "kicker": "What usually happens",
+   "headline": "The tool finishes. *The old steps keep going.*",
+   "panel": "Automation",
+   "working": "Running...",
+   "done": "Task complete.",
+   "items": [
+    "Report",
+    "Sign-off",
+    "Copy to folder"
+   ],
+   "note": "...and someone still does it by hand.",
+   "seconds": 7
+  },
+  {
+   "layout": "branches",
+   "kicker": "Check these three",
+   "headline": "Where the time *really goes.*",
+   "panel": "The workflow",
+   "root": "Tool: switched on",
+   "items": [
+    "Handoffs: Who still copies it over?",
+    "Approvals: Who still signs off?",
+    "Exceptions: What breaks the routine?"
+   ],
+   "seconds": 7
+  },
+  {
+   "layout": "checklist",
+   "headline": "Keep it if it *removes a step.*",
+   "items": [
+    "It replaces a task, not adds one",
+    "Someone owns the old step ending",
+    "You measured before and after"
+   ],
+   "seconds": 6
+  },
+  {
+   "layout": "cta",
+   "headline": "Want the *tool audit* checklist?",
+   "keyword": "audit",
+   "body": "and I'll send it to you.",
+   "seconds": 5
+  }
+ ]
+}

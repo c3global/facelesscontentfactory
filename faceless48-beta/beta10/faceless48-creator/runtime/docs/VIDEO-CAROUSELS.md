@@ -4,6 +4,18 @@ A video carousel is a moving Instagram-style carousel: 4:5 (1080 x 1350), one id
 
 Member says: **"Make a video carousel about ..."** (or gives slide text).
 
+## Starter templates
+
+Three ready-made carousels live in `content/templates/`. When a member names one ("use the LinkedIn carousel template for my topic"), copy it to `content/<slug>.json`, keep its style and layouts, and rewrite every slide in their words for their topic (never keep the sample copy). Their brand colors, fonts and logo apply automatically.
+
+| Say | File | Look |
+| --- | --- | --- |
+| "Tech carousel" | `carousel-tech.json` | `editorial` dark glass: status panel with a ticking checklist, branching plan, checklist, comment keyword |
+| "Influencer carousel" | `carousel-influencer.json` | `bold` on the brand color: big hook, statement, numbered list, quote, comment keyword. No presenter needed. |
+| "LinkedIn carousel" | `carousel-linkedin.json` | `clean` light: professional cover, before-and-after, steps, pull quote, soft call to action |
+
+Any template can add a presenter (the member or their AI avatar) or switch style.
+
 1. Write 4 to 8 slides from their idea or approved copy. Never invent facts, numbers or quotes. Show the slide text and get approval.
 2. Pick a layout per slide:
    - `cover`: kicker, big headline, one line under it, optional `image` (photo or avatar cutout PNG in public/).

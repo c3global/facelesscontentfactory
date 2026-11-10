@@ -1,0 +1,47 @@
+{
+ "kind": "video-carousel",
+ "slug": "carousel-influencer",
+ "style": "bold",
+ "series": "Faceless 101",
+ "link": "",
+ "slides": [
+  {
+   "layout": "cover",
+   "kicker": "Save this",
+   "headline": "You don't need to show your face to *grow.*",
+   "body": "Here's what to post instead.",
+   "seconds": 5
+  },
+  {
+   "layout": "statement",
+   "headline": "People follow *a feeling,* not a face.",
+   "body": "Pick the one feeling your page gives people, and post it every day.",
+   "seconds": 6
+  },
+  {
+   "layout": "list",
+   "kicker": "Faceless formats that work",
+   "headline": "Try *one* this week.",
+   "items": [
+    "Hands-only tutorials",
+    "Voiceover over B-roll",
+    "Text-on-screen stories",
+    "Day-in-the-life clips"
+   ],
+   "seconds": 7
+  },
+  {
+   "layout": "quote",
+   "headline": "Consistency beats a perfect camera angle.",
+   "by": "Your brand",
+   "seconds": 5
+  },
+  {
+   "layout": "cta",
+   "headline": "Want my *30 faceless post ideas?*",
+   "keyword": "ideas",
+   "body": "and I'll send you the list.",
+   "seconds": 5
+  }
+ ]
+}
