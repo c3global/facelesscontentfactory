@@ -117,3 +117,11 @@ The creator asked for a way to see and approve the whole video before it renders
 - The same portrait plan renders pixel-identical stills before and after the change (three moments compared).
 - Seventeen automated tests pass.
 - Not covered: a real horizontal talking-head recording (the test clip was a crop of a portrait clip), long videos, and a visual check of every graphic in the landscape split layout.
+
+## Hype-reel test on a real talking-head clip, 2026-10-28 (Linux cloud session, Claude Code)
+- Clip: 30 seconds, 720x1280, with repeated phrases and long pauses. Cuts made from the transcript and the waveform; a beam-search pass on the end of the clip found a false start ("on simplifying where people" said twice) that the default transcript had merged.
+- Stock: four Pexels and Pixabay clips chosen by the member, plus one more picked after the first storyboard. Cutaways, a 3D carousel and an orbit of cards played those clips (new `srcs` on `card-orbit` and `card-carousel`).
+- Music: a licensed instrumental from the member's own Drive folder, trimmed, leveled to about -24 LUFS and mixed with `plan.music`. Mix measured -21 LUFS, peak -4.8 dBFS.
+- Crisp cutout: the high-quality cutout (BiRefNet) for the two behind-her moments only. About 12 seconds per computed frame on 4 CPU cores. Linux needs `libegl1` and `libgles2` for the standard cutout, and the 224 MB model for the high-quality one. Edges checked against a flat color: clean hair, glasses and mic. Two cutout windows were merged into one transparent file with ffmpeg (`overlay`, VP9 alpha).
+- Render: 1080x1920, 19.1 seconds, no brightness jumps except at planned cuts. Audio and motion were not heard or watched by the assistant.
+
