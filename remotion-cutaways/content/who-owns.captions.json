@@ -735,458 +735,73 @@
     "confidence": null
   },
   {
-    "text": " If",
+    "text": " Follow",
     "startMs": 30000,
     "endMs": 30120,
     "timestampMs": 30060,
     "confidence": null
   },
   {
-    "text": " the",
-    "startMs": 30760,
+    "text": " and",
+    "startMs": 30260,
+    "endMs": 30400,
+    "timestampMs": 30330,
+    "confidence": null
+  },
+  {
+    "text": " subscribe",
+    "startMs": 30400,
     "endMs": 30880,
-    "timestampMs": 30820,
+    "timestampMs": 30640,
     "confidence": null
   },
   {
-    "text": " team",
-    "startMs": 30890,
-    "endMs": 31120,
-    "timestampMs": 31005,
+    "text": " for",
+    "startMs": 30880,
+    "endMs": 31090,
+    "timestampMs": 30985,
     "confidence": null
   },
   {
-    "text": " can't",
-    "startMs": 31120,
-    "endMs": 31360,
-    "timestampMs": 31240,
+    "text": " more",
+    "startMs": 31100,
+    "endMs": 31300,
+    "timestampMs": 31200,
     "confidence": null
   },
   {
-    "text": " answer",
-    "startMs": 31360,
-    "endMs": 31670,
+    "text": " answers",
+    "startMs": 31300,
+    "endMs": 31730,
     "timestampMs": 31515,
     "confidence": null
   },
   {
-    "text": " those,",
-    "startMs": 31680,
-    "endMs": 31970,
-    "timestampMs": 31825,
-    "confidence": null
-  },
-  {
-    "text": " the",
-    "startMs": 32130,
-    "endMs": 32250,
-    "timestampMs": 32190,
-    "confidence": null
-  },
-  {
-    "text": " tool",
-    "startMs": 32250,
-    "endMs": 32480,
-    "timestampMs": 32365,
-    "confidence": null
-  },
-  {
-    "text": " will",
-    "startMs": 32480,
-    "endMs": 32710,
-    "timestampMs": 32595,
-    "confidence": null
-  },
-  {
-    "text": " sit",
-    "startMs": 32710,
-    "endMs": 32830,
-    "timestampMs": 32770,
-    "confidence": null
-  },
-  {
-    "text": " there",
-    "startMs": 32880,
-    "endMs": 33160,
-    "timestampMs": 33020,
-    "confidence": null
-  },
-  {
-    "text": " while",
-    "startMs": 33270,
-    "endMs": 33460,
-    "timestampMs": 33365,
-    "confidence": null
-  },
-  {
-    "text": " people",
-    "startMs": 33460,
-    "endMs": 33810,
-    "timestampMs": 33635,
-    "confidence": null
-  },
-  {
-    "text": " go",
-    "startMs": 33810,
-    "endMs": 33920,
-    "timestampMs": 33865,
-    "confidence": null
-  },
-  {
-    "text": " back",
-    "startMs": 33920,
-    "endMs": 34150,
-    "timestampMs": 34035,
-    "confidence": null
-  },
-  {
-    "text": " to",
-    "startMs": 34150,
-    "endMs": 34260,
-    "timestampMs": 34205,
-    "confidence": null
-  },
-  {
-    "text": " doing",
-    "startMs": 34260,
-    "endMs": 34550,
-    "timestampMs": 34405,
-    "confidence": null
-  },
-  {
-    "text": " things",
-    "startMs": 34550,
-    "endMs": 34900,
-    "timestampMs": 34725,
-    "confidence": null
-  },
-  {
-    "text": " the",
-    "startMs": 34900,
-    "endMs": 35070,
-    "timestampMs": 34985,
-    "confidence": null
-  },
-  {
-    "text": " old",
-    "startMs": 35070,
-    "endMs": 35230,
-    "timestampMs": 35150,
-    "confidence": null
-  },
-  {
-    "text": " way.",
-    "startMs": 35240,
-    "endMs": 35360,
-    "timestampMs": 35300,
-    "confidence": null
-  },
-  {
-    "text": " Pick",
-    "startMs": 35830,
-    "endMs": 35920,
-    "timestampMs": 35875,
-    "confidence": null
-  },
-  {
-    "text": " one",
-    "startMs": 35920,
-    "endMs": 36160,
-    "timestampMs": 36040,
-    "confidence": null
-  },
-  {
-    "text": " owner",
-    "startMs": 36160,
-    "endMs": 36400,
-    "timestampMs": 36280,
-    "confidence": null
-  },
-  {
-    "text": " this",
-    "startMs": 36400,
-    "endMs": 36610,
-    "timestampMs": 36505,
-    "confidence": null
-  },
-  {
-    "text": " week",
-    "startMs": 36610,
-    "endMs": 36820,
-    "timestampMs": 36715,
-    "confidence": null
-  },
-  {
-    "text": " and",
-    "startMs": 36820,
-    "endMs": 36960,
-    "timestampMs": 36890,
-    "confidence": null
-  },
-  {
-    "text": " write",
-    "startMs": 37130,
-    "endMs": 37230,
-    "timestampMs": 37180,
-    "confidence": null
-  },
-  {
-    "text": " the",
-    "startMs": 37230,
-    "endMs": 37380,
-    "timestampMs": 37305,
-    "confidence": null
-  },
-  {
-    "text": " answers",
-    "startMs": 37380,
-    "endMs": 37740,
-    "timestampMs": 37560,
-    "confidence": null
-  },
-  {
-    "text": " down.",
-    "startMs": 37740,
-    "endMs": 37960,
-    "timestampMs": 37850,
-    "confidence": null
-  },
-  {
-    "text": " Follow",
-    "startMs": 38110,
-    "endMs": 38240,
-    "timestampMs": 38175,
-    "confidence": null
-  },
-  {
-    "text": " and",
-    "startMs": 38420,
-    "endMs": 38570,
-    "timestampMs": 38495,
-    "confidence": null
-  },
-  {
-    "text": " subscribe",
-    "startMs": 38570,
-    "endMs": 39040,
-    "timestampMs": 38805,
-    "confidence": null
-  },
-  {
-    "text": " for",
-    "startMs": 39040,
-    "endMs": 39250,
-    "timestampMs": 39145,
-    "confidence": null
-  },
-  {
-    "text": " more",
-    "startMs": 39270,
-    "endMs": 39400,
-    "timestampMs": 39335,
-    "confidence": null
-  },
-  {
-    "text": " answers",
-    "startMs": 39400,
-    "endMs": 39790,
-    "timestampMs": 39595,
-    "confidence": null
-  },
-  {
     "text": " about",
-    "startMs": 39790,
-    "endMs": 40050,
-    "timestampMs": 39920,
+    "startMs": 31730,
+    "endMs": 32040,
+    "timestampMs": 31885,
     "confidence": null
   },
   {
     "text": " rolling",
-    "startMs": 40050,
-    "endMs": 40480,
-    "timestampMs": 40265,
-    "confidence": null
-  },
-  {
-    "text": " out.",
-    "startMs": 40480,
-    "endMs": 40600,
-    "timestampMs": 40540,
-    "confidence": null
-  },
-  {
-    "text": " Follow",
-    "startMs": 41340,
-    "endMs": 41380,
-    "timestampMs": 41360,
-    "confidence": null
-  },
-  {
-    "text": " and",
-    "startMs": 41340,
-    "endMs": 41380,
-    "timestampMs": 41360,
-    "confidence": null
-  },
-  {
-    "text": " subscribe",
-    "startMs": 41350,
-    "endMs": 41920,
-    "timestampMs": 41635,
-    "confidence": null
-  },
-  {
-    "text": " for",
-    "startMs": 41950,
-    "endMs": 42150,
-    "timestampMs": 42050,
-    "confidence": null
-  },
-  {
-    "text": " more",
-    "startMs": 42150,
-    "endMs": 42420,
-    "timestampMs": 42285,
-    "confidence": null
-  },
-  {
-    "text": " answers",
-    "startMs": 42420,
-    "endMs": 42900,
-    "timestampMs": 42660,
-    "confidence": null
-  },
-  {
-    "text": " about",
-    "startMs": 42900,
-    "endMs": 43240,
-    "timestampMs": 43070,
-    "confidence": null
-  },
-  {
-    "text": " rolling",
-    "startMs": 43240,
-    "endMs": 43670,
-    "timestampMs": 43455,
+    "startMs": 32040,
+    "endMs": 32460,
+    "timestampMs": 32250,
     "confidence": null
   },
   {
     "text": " out",
-    "startMs": 43720,
-    "endMs": 43920,
-    "timestampMs": 43820,
-    "confidence": null
-  },
-  {
-    "text": " AI",
-    "startMs": 43920,
-    "endMs": 44040,
-    "timestampMs": 43980,
-    "confidence": null
-  },
-  {
-    "text": " and",
-    "startMs": 44040,
-    "endMs": 44230,
-    "timestampMs": 44135,
-    "confidence": null
-  },
-  {
-    "text": " rolling",
-    "startMs": 44400,
-    "endMs": 44730,
-    "timestampMs": 44565,
-    "confidence": null
-  },
-  {
-    "text": " out",
-    "startMs": 44730,
-    "endMs": 44930,
-    "timestampMs": 44830,
+    "startMs": 32460,
+    "endMs": 32640,
+    "timestampMs": 32550,
     "confidence": null
   },
   {
     "text": " AI.",
-    "startMs": 44930,
-    "endMs": 45060,
-    "timestampMs": 44995,
-    "confidence": null
-  },
-  {
-    "text": " Follow",
-    "startMs": 45360,
-    "endMs": 45500,
-    "timestampMs": 45430,
-    "confidence": null
-  },
-  {
-    "text": " and",
-    "startMs": 46370,
-    "endMs": 46410,
-    "timestampMs": 46390,
-    "confidence": null
-  },
-  {
-    "text": " subscribe",
-    "startMs": 46380,
-    "endMs": 46640,
-    "timestampMs": 46510,
-    "confidence": null
-  },
-  {
-    "text": " for",
-    "startMs": 46640,
-    "endMs": 46850,
-    "timestampMs": 46745,
-    "confidence": null
-  },
-  {
-    "text": " about",
-    "startMs": 46850,
-    "endMs": 47210,
-    "timestampMs": 47030,
-    "confidence": null
-  },
-  {
-    "text": " rolling",
-    "startMs": 47210,
-    "endMs": 47710,
-    "timestampMs": 47460,
-    "confidence": null
-  },
-  {
-    "text": " out",
-    "startMs": 47710,
-    "endMs": 47920,
-    "timestampMs": 47815,
-    "confidence": null
-  },
-  {
-    "text": " AI.",
-    "startMs": 47920,
-    "endMs": 48060,
-    "timestampMs": 47990,
-    "confidence": null
-  },
-  {
-    "text": " Follow",
-    "startMs": 48270,
-    "endMs": 48690,
-    "timestampMs": 48480,
-    "confidence": null
-  },
-  {
-    "text": " and",
-    "startMs": 48690,
-    "endMs": 48810,
-    "timestampMs": 48750,
-    "confidence": null
-  },
-  {
-    "text": " subscribe.",
-    "startMs": 49540,
-    "endMs": 49660,
-    "timestampMs": 49600,
+    "startMs": 32640,
+    "endMs": 32800,
+    "timestampMs": 32720,
     "confidence": null
   }
 ]
