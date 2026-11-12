@@ -1,6 +1,6 @@
 # Faceless48: where things stand
 
-Read this first in any new conversation about Faceless48. Update it when Dr. CK says "wrap up". Last updated 2026-11-09.
+Read this first in any new conversation about Faceless48. Update it when Dr. CK says "wrap up". Last updated 2026-11-12.
 
 ## Working with Dr. CK
 
@@ -39,16 +39,21 @@ Read this first in any new conversation about Faceless48. Update it when Dr. CK 
 
 **Lesson 1 PDF (Nov 10):** new `lesson-pdfs/Lesson-1-Instructions.pdf` (one-sentence setup, support@faceless48.com) replaced the old instructions-and-transcript PDF in Lesson 1. She is recording a new Lesson 1 video today (Mac setup test); when she sends it, make the matching Instructions-and-Transcript PDF and swap the lesson video.
 
-**Beta 11 in progress (Nov 12, release next week):** from her 3 new reels (corbinsylk) and 2 IG carousels (Deyz9hVk-q4 "Effects of the week", De78kL4k3p- "Liquid Glass"). DONE: carousel styles `glass` and `showcase`, layouts media/toggles/proof/graph/ab/doc, collage end screen, handwritten notes with arrows, cover fan, starter templates 4 and 5 (content/templates/carousel-showcase.json, carousel-glass.json). TODO: ~14 new effects (over-the-shoulder zoom with floating cards, iris, match cut, image collage, product demo, floating glass UI cards, pixelated monitor, slot machine, 3D hologram phone, silhouette transformation) + text animation pack (true focus, shiny, gradient, blur-in, split, glitch, scramble signature reveal, effect-of-the-day badge); previews on her avatar in 2 batches; then beta.11 zip, Lesson 1 swap, announcement. Lesson 1 stays on beta.10 until then. ANNOUNCEMENT MEDIA: keep every preview video and storyboard for the beta 11 announcement; they live in faceless48-beta/beta11-media (README lists each). Also done since: text-pop pack (11 looks incl. stack opener, glass with Bagel Fat One, fill, focus, exits), eleventh.tsx card effects (proof-card, focus-list, compare, trend-graph, freebie-doc, note-arrow), carousel arrow fix. Still to port as video fx: collage, cover fan, framed clip with notes.
+**Beta 11 (release next week; Lesson 1 stays on beta.10 until then).** Built so far in `remotion-cutaways/src/fx` (studio copy; port to the plug-in at release) and the plug-in carousel:
+- Carousel: styles `glass` and `showcase`, layouts media/toggles/proof/graph/ab/doc, collage end screen, handwritten notes with arrows (arrows start outside the note on the side facing the target and bend away from the words; `from` and `bend` adjustable), cover fan, starter templates 4 and 5 (`content/templates/carousel-showcase.json`, `carousel-glass.json`).
+- `tenth.tsx` text-pop pack (look: focus, shiny, gradient, blur-in, split, glitch, scramble, badge, glass, fill, stack; each has an exit). Bubble glass font: Bagel Fat One (OFL, `public/fonts`, also in fonts.ts). Fontspace fonts are mostly personal-use only: do not ship them.
+- `eleventh.tsx` carousel slides as video fx: proof-card, focus-list, compare (winner), trend-graph, freebie-doc, note-arrow (dark scrim behind each).
+- Fixes she asked for: head-stack (big cream label blocks; video eases down with a blurred fill for headroom; the stack tumbles off on exit), live-cursor (the cursor drags the box and everything inside moves; default nudge -180).
+- Preview plans: content/drck-text*, drck-cards, drck-head, drck-cursor (render with `REMOTION_LOCAL_FONTS=1 npm run render -- <slug>`; online fonts time out here).
+- ANNOUNCEMENT MEDIA: keep every preview and storyboard; they go in `faceless48-beta/beta11-media` (README lists each). Add each new preview there.
 
-**Upgrade plan (approved idea, Nov 12; run with Fable in 3 batches of 5, preview each):** NEVER replace an existing effect. Each upgrade is a second version of the same effect, picked with a `version: 2` prop (or a new effect name when the idea is different); the original stays the default and keeps working in old plans. Batch 1 (v2 of: checklist -> glass focus-list style, odometer -> proof-card style, chart-grow -> glowing trend graph, pointer-callout -> fixed note-arrow, clone -> clone-row fan). Batch 2 (side-by-side compare from before-after, brand flash from flash-frame, magazine poster type for kinetic-hook/giant-caption, follow-card handle + FOLLOW stamp, NEW effect wall-text alongside type-wall). Batch 3 (label-maker look for the-stack/sticky-text/freeze-sticker, one Instagram comment style for comment-bubble/drop/cta, spotlight with dust, polaroid-drop fan, phone-mockup v2 as 3D hologram phone). Members say "the new version" or "version 2" to use it.
-
-**Next:**
-1. Real Mac and Windows test of setup (Mac may need Command Line Tools for whisper; setup triggers the install prompt). Not yet tested there.
-2. Swap the zip into lesson 1 (Pinball media) and update the Start Here guide and recording checklist (still says beta.7).
-3. "Before you start" stick-figure video: open question, her voice or Jogg avatar.
-4. Blow away reveals a dark backdrop; ask her for 3 s of her empty set to reveal the room.
-5. Her Pexels/Pixabay keys were in the demo zip in git history on branch claude/jolly-allen-3bm01m (removed from the file Nov 10). She should regenerate both keys.
+**Next, in order (she builds new effects with Fable; say "pick up" then the task):**
+1. Reel effects batch (previews on her avatar, high-quality cutout): over-the-shoulder zoom with floating step cards, iris, match cut, product demo with cursor, floating glass UI cards, pixelated monitor close-up, slot machine, 3D hologram phone, silhouette transformation.
+2. Port as video fx: image collage, cover fan of tilted frames, framed clip with notes.
+3. From reel DflSIzduyab (Opus vs Fable): side-by-side comparison with labels, vote pill, brand-color flash transition, magazine poster type, duotone, big stat, grayscale thank-you with handwriting, follow end card. Plus NEW `wall-text` (perspective text on a wall surface behind her; her favorite idea). Most of these overlap the upgrade plan below.
+4. Upgrade plan, 3 batches of 5 with previews. NEVER replace an effect: each upgrade is a second version (`version: 2` prop, or a new name when the idea differs); the original stays default. Batch 1: v2 of checklist (glass focus-list), odometer (proof-card), chart-grow (trend graph), pointer-callout (note-arrow), clone (clone-row fan). Batch 2: before-after side by side, flash-frame brand flash, kinetic-hook/giant-caption poster type, follow-card handle + FOLLOW stamp, new wall-text beside type-wall. Batch 3: label-maker look for the-stack/sticky-text/freeze-sticker, one Instagram comment style for comment-bubble/drop/cta, spotlight with dust, polaroid-drop fan, phone-mockup v2 hologram. Members say "version 2".
+5. Release: port all fx + carousel changes into `beta10/faceless48-creator` (becomes beta.11), update EFFECTS-LIST and docs, tsc + tests, zip, swap into Lesson 1, announcement post + email with the beta11-media clips.
+6. Older items: real Mac/Windows setup test; Lesson 1 video + PDF when she sends her recording; "Before you start" stick video (her voice or Jogg avatar?); 3 s of her empty set for blow-away; she should regenerate her Pexels/Pixabay keys (were in git history).
 
 ## Small open items
 
