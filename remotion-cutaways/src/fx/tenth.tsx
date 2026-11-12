@@ -51,19 +51,48 @@ export const TextPop: React.FC<{fx: Of<'text-pop'>}> = ({fx}) => {
       );
     }
     case 'shiny': {
-      const sh = 120 - ((t / 1.2) % 1) * 140;
-      return wrap(<span style={{...base, textShadow: 'none', display: 'inline-block', background: `linear-gradient(110deg, #8d8d8d ${sh - 14}%, #ffffff ${sh}%, #8d8d8d ${sh + 14}%)`, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', opacity: tw(t, 0, 0.3), filter: 'drop-shadow(0 8px 30px rgba(0,0,0,0.5))'}}>{text}</span>);
+      // SVG text with a moving gradient band (background-clip text is unreliable in the renderer)
+      const bx = -300 + ((t / 1.2) % 1) * 1680;
+      const id = `shine-${fx.at}`;
+      return wrap(
+        <svg width={1080} height={size * 1.3} style={{overflow: 'visible', opacity: tw(t, 0, 0.3), filter: 'drop-shadow(0 8px 30px rgba(0,0,0,0.55))'}}>
+          <defs>
+            <linearGradient id={id} gradientUnits="userSpaceOnUse" x1={bx - 160} y1={0} x2={bx + 160} y2={size * 0.4}>
+              <stop offset="0" stopColor="#9a9a9a" />
+              <stop offset="0.5" stopColor="#ffffff" />
+              <stop offset="1" stopColor="#9a9a9a" />
+            </linearGradient>
+          </defs>
+          <text x={540} y={size * 1.05} textAnchor="middle" fill={`url(#${id})`} style={{fontFamily: heavyFamily, fontSize: size, letterSpacing: 2}}>{text}</text>
+        </svg>,
+      );
     }
     case 'glass': {
-      // liquid glass letters: clear body, bright rim, a highlight that rolls through them
+      // liquid glass letters: clear rounded body, bright rim, top sheen, and a highlight that rolls through
       const k = tw(t, 0, 0.45, 0, 1, pop);
-      const sh = 120 - ((t / 1.6) % 1) * 140;
-      const g: React.CSSProperties = {...base, fontSize: size * 1.25, letterSpacing: 4, position: 'absolute', left: 0, right: 0, top: 0};
+      const fs = size * 1.15;
+      const bx = -300 + ((t / 1.6) % 1) * 1680;
+      const id = `glass-${fx.at}`;
+      const font: React.CSSProperties = {fontFamily: C3.sans, fontWeight: 900, fontSize: fs, letterSpacing: -2};
       return wrap(
-        <div style={{position: 'relative', height: size * 1.25, transform: `scale(${0.8 + 0.2 * k})`, opacity: k}}>
-          <div style={{...g, color: 'rgba(255,255,255,0.10)', WebkitTextStroke: '3px rgba(255,255,255,0.75)', textShadow: '0 0 2px rgba(255,255,255,0.9), 0 10px 30px rgba(0,0,0,0.55), inset 0 0 0 #000'}}>{text}</div>
-          <div style={{...g, textShadow: 'none', background: `linear-gradient(160deg, rgba(255,255,255,0) ${sh - 18}%, rgba(255,255,255,0.85) ${sh}%, rgba(255,255,255,0) ${sh + 10}%), linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 35%, rgba(0,0,0,0.25) 70%, rgba(255,255,255,0.35) 100%)`, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent'}}>{text}</div>
-        </div>,
+        <svg width={1080} height={fs * 1.3} style={{overflow: 'visible', opacity: k, transform: `scale(${0.8 + 0.2 * k})`, filter: 'drop-shadow(0 10px 28px rgba(0,0,0,0.6))'}}>
+          <defs>
+            <linearGradient id={`${id}-v`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#fff" stopOpacity="0.55" />
+              <stop offset="0.35" stopColor="#fff" stopOpacity="0.06" />
+              <stop offset="0.75" stopColor="#000" stopOpacity="0.25" />
+              <stop offset="1" stopColor="#fff" stopOpacity="0.4" />
+            </linearGradient>
+            <linearGradient id={`${id}-h`} gradientUnits="userSpaceOnUse" x1={bx - 120} y1={0} x2={bx + 120} y2={fs * 0.5}>
+              <stop offset="0" stopColor="#fff" stopOpacity="0" />
+              <stop offset="0.5" stopColor="#fff" stopOpacity="0.9" />
+              <stop offset="1" stopColor="#fff" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <text x={540} y={fs * 1.02} textAnchor="middle" fill={`url(#${id}-v)`} stroke="rgba(255,255,255,0.85)" strokeWidth={3.5} style={font}>{text}</text>
+          <text x={540} y={fs * 1.02} textAnchor="middle" fill={`url(#${id}-h)`} style={font}>{text}</text>
+          <text x={540} y={fs * 1.02} textAnchor="middle" fill="none" stroke="rgba(0,0,0,0.35)" strokeWidth={1.2} transform="translate(3 4)" style={font}>{text}</text>
+        </svg>,
       );
     }
     case 'fill': {
@@ -71,13 +100,13 @@ export const TextPop: React.FC<{fx: Of<'text-pop'>}> = ({fx}) => {
       const per = Math.min(0.32, (len - 0.8) / Math.max(1, chars.length));
       const fillCol = C3.accent;
       return wrap(
-        <div style={{...base, display: 'inline-flex', textShadow: 'none'}}>
+        <div style={{...base, fontSize: size * 1.3, display: 'inline-flex', textShadow: 'none'}}>
           {chars.map((c, i) => {
             const k = tw(t, 0.2 + i * per, 0.2 + i * per + per * 1.6, 0, 1, (x) => x);
             const active = k > 0 && k < 1 && c !== ' ';
             return (
               <span key={i} style={{position: 'relative', display: 'inline-block', whiteSpace: 'pre'}}>
-                <span style={{color: 'transparent', WebkitTextStroke: `2px ${fillCol}`, opacity: 0.8}}>{c}</span>
+                <span style={{color: 'transparent', WebkitTextStroke: `3px ${fillCol}`, opacity: 0.9}}>{c}</span>
                 <span style={{position: 'absolute', left: 0, top: 0, color: fillCol, clipPath: `inset(${(1 - k) * 100}% 0 0 0)`, filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.45))'}}>{c}</span>
                 {active && (
                   <>
