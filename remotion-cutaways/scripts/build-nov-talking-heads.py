@@ -5,7 +5,7 @@ def words(slug):
 def mk(slug,dur,music,scenes,fx,end_at,hero,emph):
     return {"slug":slug,"video":f"raw/{slug}.mp4","durationSec":dur,"theme":{"field":"black","sans":"DM Sans"},"emphasis":emph,"captionStyle":"editorial","captionBand":{"top":1056,"bottom":1382},"captionBandTop":{"top":250,"bottom":560},"hero":hero,"boxed":[],"finish":{"grain":0.35,"lightLeaks":0.5},"style":"signature","scrim":0.7,"scenes":scenes,"fx":fx,
       "endCard":{"variant":"link-pill","startAt":end_at,"label":"LINK BELOW OR IN MY BIO","url":"bio.c3global.co"},
-      "music":{"src":f"music/leveled/{music}","volume":0.35,"duckTo":0.16,"fadeInSec":1.5,"fadeOutSec":2.5,"startFromSec":0}}
+      "music":{"src":f"music/leveled/{music}","volume":0.5,"duckTo":0.26,"fadeInSec":1.5,"fadeOutSec":2.5,"startFromSec":0}}
 def A(i,s,e): return {"id":i,"mood":"dark","segments":[{"start":s,"end":e,"layout":"A","captionPos":"bottom","graphics":[]}]}
 def S(i,s,e,g): return {"id":i,"mood":"light","segments":[{"start":s,"end":e,"layout":"S","captionPos":"top","graphics":[dict(g,at=s,until=e)],"focus":{"y":8,"zoom":1.1}}]}
 def H(label,line,em): return {"type":"headline-card","props":{"label":label,"line":line,"emphasis":em}}

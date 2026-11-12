@@ -226,8 +226,8 @@
  },
  "music": {
   "src": "music/leveled/lofi-fuad-assani-enjoy.mp3",
-  "volume": 0.35,
-  "duckTo": 0.16,
+  "volume": 0.5,
+  "duckTo": 0.26,
   "fadeInSec": 1.5,
   "fadeOutSec": 2.5,
   "startFromSec": 0
