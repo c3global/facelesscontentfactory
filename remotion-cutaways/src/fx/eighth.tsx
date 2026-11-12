@@ -171,6 +171,10 @@ export const HeadStack: React.FC<{fx: Of<'head-stack'>}> = ({fx}) => {
   const {labels, gap} = fx.props;
   // exit: the stack tips over and tumbles off her head, blocks scattering with motion blur
   const exitAt = b - 0.95;
+  // big cream paper blocks; if her head is near the top of the frame they shrink just enough to fit the whole stack
+  const step0 = 92;
+  const sc = Math.max(0.62, Math.min(1, (cap.y + 30) / (labels.length * step0 + 40)));
+  const step = step0 * sc;
   return (
     <div style={{...FILL, pointerEvents: 'none'}}>
       {labels.map((l, i) => {
@@ -178,7 +182,7 @@ export const HeadStack: React.FC<{fx: Of<'head-stack'>}> = ({fx}) => {
         const k = tw(abs, at, at + 0.35, 0, 1, (x) => x * x);
         const land = tw(abs, at + 0.35, at + 0.55, 0, 1, pop);
         if (abs < at) return null;
-        const restY = cap.y - 10 - i * 58;
+        const restY = cap.y + 10 * sc - (i + 1) * step;
         const y = -100 + (restY + 100) * k;
         const rot = ((i * 37) % 13) - 6;
         const dx = ((i * 53) % 60) - 30;
@@ -190,7 +194,11 @@ export const HeadStack: React.FC<{fx: Of<'head-stack'>}> = ({fx}) => {
         const frot = e * (-70 - i * 28) * (side > 0 ? 0.6 : 1);
         const blur = e > 0 ? 9 * Math.sin(Math.PI * Math.min(1, e * 1.4)) : 0;
         return (
-          <div key={i} style={{position: 'absolute', left: cap.x + dx + fx2, top: y + fy, filter: blur ? `blur(${blur}px)` : undefined, transform: `translateX(-50%) rotate(${rot * (0.4 + 0.6 * land) + frot}deg) scaleY(${1 - 0.12 * (land > 0 && land < 1 ? 1 - land : 0)})`, padding: '10px 24px', borderRadius: 12, background: i % 3 === 0 ? C3.copperGrad : i % 3 === 1 ? CREAM : '#1b1d1f', color: i % 3 === 2 ? C3.copper : '#2a1206', border: '2px solid rgba(0,0,0,0.35)', fontFamily: MONO, fontWeight: 700, fontSize: 30, whiteSpace: 'nowrap', boxShadow: '0 6px 14px rgba(0,0,0,0.45)'}}>{l}</div>
+          <div key={i} style={{position: 'absolute', left: cap.x + dx + fx2, top: y + fy, filter: blur ? `blur(${blur}px)` : undefined, transform: `translateX(-50%) rotate(${rot * (0.4 + 0.6 * land) + frot}deg) scaleY(${1 - 0.12 * (land > 0 && land < 1 ? 1 - land : 0)})`, padding: `${8 * sc}px ${26 * sc}px ${10 * sc}px`, borderRadius: 10 * sc, background: 'linear-gradient(180deg, #F6F1E4, #E9E1CF)', color: '#1d1a17', border: '2px solid rgba(0,0,0,0.18)', fontFamily: MONO, fontWeight: 700, whiteSpace: 'nowrap', boxShadow: '0 10px 22px rgba(0,0,0,0.45), inset 0 -3px 0 rgba(0,0,0,0.08)'}}>
+            {/* first word big, the rest small, like a label maker */}
+            <span style={{fontSize: 64 * sc, letterSpacing: -1}}>{l.split(' ')[0]}</span>
+            {l.includes(' ') && <span style={{fontSize: 34 * sc, marginLeft: 10 * sc}}>{l.split(' ').slice(1).join(' ')}</span>}
+          </div>
         );
       })}
     </div>
