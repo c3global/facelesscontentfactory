@@ -52,11 +52,11 @@ export const TextPop: React.FC<{fx: Of<'text-pop'>}> = ({fx}) => {
     }
     case 'shiny': {
       const pos = 140 - ((t * 70) % 280);
-      return wrap(<span style={{...base, textShadow: 'none', background: `linear-gradient(110deg, #b9b9b9 ${pos}%, #fff ${pos + 12}%, #b9b9b9 ${pos + 24}%)`, backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', color: 'transparent', opacity: tw(t, 0, 0.3), filter: 'drop-shadow(0 8px 30px rgba(0,0,0,0.45))'}}>{text}</span>);
+      return wrap(<span style={{...base, textShadow: 'none', background: `linear-gradient(110deg, #b9b9b9 ${pos}%, #fff ${pos + 12}%, #b9b9b9 ${pos + 24}%)`, backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', backgroundClip: 'text', display: 'inline-block', color: 'transparent', opacity: tw(t, 0, 0.3), filter: 'drop-shadow(0 8px 30px rgba(0,0,0,0.45))'}}>{text}</span>);
     }
     case 'gradient': {
       const sh = (t * 120) % 400;
-      return wrap(<span style={{...base, textShadow: 'none', background: `linear-gradient(90deg, ${C3.accent}, ${C3.gold}, ${C3.copper}, #fff, ${C3.accent})`, backgroundSize: '400% 100%', backgroundPosition: `${sh}% 0`, WebkitBackgroundClip: 'text', color: 'transparent', transform: `scale(${0.85 + 0.15 * tw(t, 0, 0.35, 0, 1, pop)})`, display: 'inline-block', filter: 'drop-shadow(0 8px 30px rgba(0,0,0,0.5))'}}>{text}</span>);
+      return wrap(<span style={{...base, textShadow: 'none', background: `linear-gradient(90deg, ${C3.accent}, ${C3.gold}, ${C3.copper}, #fff, ${C3.accent})`, backgroundSize: '400% 100%', backgroundPosition: `${sh}% 0`, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', transform: `scale(${0.85 + 0.15 * tw(t, 0, 0.35, 0, 1, pop)})`, display: 'inline-block', filter: 'drop-shadow(0 8px 30px rgba(0,0,0,0.5))'}}>{text}</span>);
     }
     case 'blur-in':
       return wrap(
