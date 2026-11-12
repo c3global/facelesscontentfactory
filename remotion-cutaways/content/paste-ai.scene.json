@@ -1,0 +1,236 @@
+{
+ "slug": "paste-ai",
+ "video": "raw/paste-ai.mp4",
+ "durationSec": 29.9,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "paste"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "paste",
+  "control",
+  "rule",
+  "safely"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "style": "signature",
+ "scrim": 0.7,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 4.4,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  },
+  {
+   "id": "control",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 4.4,
+     "end": 9.95,
+     "layout": "E",
+     "captionPos": "bottom",
+     "avatar": "hidden",
+     "captions": "off",
+     "graphics": [
+      {
+       "type": "statement-card",
+       "at": 4.4,
+       "until": 9.95,
+       "box": {
+        "y": 360,
+        "h": 1200,
+        "center": true
+       },
+       "props": {
+        "text": "With many tools, once you paste something in, you may not control where it goes.",
+        "emphasis": [
+         "control"
+        ],
+        "wordTimes": [
+         4.48,
+         4.48,
+         4.62,
+         5.16,
+         5.48,
+         5.7,
+         6.09,
+         6.79,
+         7.18,
+         7.45,
+         7.8,
+         8.0,
+         8.66,
+         9.13,
+         9.32
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "rule",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 9.95,
+     "end": 12.95,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  },
+  {
+   "id": "groups",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 12.95,
+     "end": 20.4,
+     "layout": "S",
+     "captionPos": "top",
+     "graphics": [
+      {
+       "type": "notes-card",
+       "props": {
+        "label": "Notes",
+        "title": "A simple rule",
+        "items": [
+         {
+          "text": "Safe to paste: public information",
+          "at": 13.0,
+          "checkAfter": 0.5
+         },
+         {
+          "text": "Ask first: clients and the business",
+          "at": 16.0,
+          "checkAfter": 0.5
+         }
+        ]
+       },
+       "at": 12.95,
+       "until": 20.4
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     }
+    }
+   ]
+  },
+  {
+   "id": "never",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 20.4,
+     "end": 25.95,
+     "layout": "E",
+     "captionPos": "bottom",
+     "avatar": "hidden",
+     "captions": "off",
+     "graphics": [
+      {
+       "type": "statement-card",
+       "at": 20.4,
+       "until": 25.95,
+       "box": {
+        "y": 360,
+        "h": 1200,
+        "center": true
+       },
+       "props": {
+        "text": "Do not paste passwords, private personal details, and anything you're legally required to protect.",
+        "emphasis": [
+         "not"
+        ],
+        "wordTimes": [
+         20.47,
+         20.47,
+         20.47,
+         20.94,
+         22.0,
+         22.64,
+         23.35,
+         24.13,
+         24.21,
+         24.57,
+         24.81,
+         25.11,
+         25.46,
+         25.53
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "end",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 25.95,
+     "end": 29.9,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "flash-frame",
+   "at": 20.1,
+   "props": {
+    "version": 2
+   }
+  }
+ ],
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 26.05,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/lofi-fuad-assani-enjoy.mp3",
+  "volume": 0.35,
+  "duckTo": 0.16,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}

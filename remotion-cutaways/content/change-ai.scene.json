@@ -1,0 +1,232 @@
+{
+ "slug": "change-ai",
+ "video": "raw/change-ai.mp4",
+ "durationSec": 26.33,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "change"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "Monday",
+  "Friday",
+  "rollout",
+  "paper",
+  "adoption"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "style": "signature",
+ "scrim": 0.7,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 3.85,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  },
+  {
+   "id": "friday",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 3.85,
+     "end": 8.9,
+     "layout": "E",
+     "captionPos": "bottom",
+     "avatar": "hidden",
+     "captions": "off",
+     "graphics": [
+      {
+       "type": "statement-card",
+       "at": 3.85,
+       "until": 8.9,
+       "box": {
+        "y": 360,
+        "h": 1200,
+        "center": true
+       },
+       "props": {
+        "text": "and by Friday, the questions are scattered across hallways and chat threads.",
+        "emphasis": [
+         "scattered"
+        ],
+        "wordTimes": [
+         3.87,
+         4.0,
+         4.2,
+         4.82,
+         4.96,
+         5.46,
+         5.61,
+         6.1,
+         6.4,
+         7.34,
+         7.61,
+         8.05
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "covered",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 8.9,
+     "end": 16.9,
+     "layout": "S",
+     "captionPos": "top",
+     "graphics": [
+      {
+       "type": "headline-card",
+       "props": {
+        "label": "THE ANNOUNCEMENT",
+        "line": "Not what to do on day one, or where to go when you get stuck.",
+        "emphasis": [
+         "day",
+         "one"
+        ]
+       },
+       "at": 8.9,
+       "until": 16.9
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     }
+    }
+   ]
+  },
+  {
+   "id": "walk",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 16.9,
+     "end": 20.05,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  },
+  {
+   "id": "guide",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 20.05,
+     "end": 24.5,
+     "layout": "E",
+     "captionPos": "bottom",
+     "avatar": "hidden",
+     "captions": "off",
+     "graphics": [
+      {
+       "type": "statement-card",
+       "at": 20.05,
+       "until": 24.5,
+       "box": {
+        "y": 360,
+        "h": 1200,
+        "center": true
+       },
+       "props": {
+        "text": "Find what will confuse people by 10 o'clock, then put an AI guide right there to answer them.",
+        "emphasis": [
+         "guide"
+        ],
+        "wordTimes": [
+         20.08,
+         20.28,
+         20.48,
+         20.68,
+         21.03,
+         21.33,
+         21.46,
+         21.77,
+         22.18,
+         22.38,
+         22.56,
+         22.63,
+         22.73,
+         22.98,
+         23.23,
+         23.48,
+         23.58,
+         23.98
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "end",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 24.5,
+     "end": 26.33,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "digital-zoom",
+   "at": 17.0,
+   "until": 20.0,
+   "props": {
+    "creepTo": 1.07,
+    "snapTo": 1.07
+   }
+  }
+ ],
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 24.9,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/lofi-agnes-azria-paper-cut.mp3",
+  "volume": 0.35,
+  "duckTo": 0.16,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}
