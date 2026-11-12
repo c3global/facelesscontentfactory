@@ -1,7 +1,7 @@
 {
  "slug": "drck-text2",
  "video": "raw/drck-fx.mp4",
- "durationSec": 13.4,
+ "durationSec": 13,
  "theme": {
   "field": "black",
   "sans": "DM Sans"
@@ -29,7 +29,7 @@
    "segments": [
     {
      "start": 0,
-     "end": 13.4,
+     "end": 13,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -42,7 +42,7 @@
   {
    "type": "text-pop",
    "at": 0.2,
-   "until": 5.2,
+   "until": 5.4,
    "props": {
     "look": "stack",
     "text": "SIGNATURE",
@@ -54,17 +54,21 @@
   },
   {
    "type": "text-pop",
-   "at": 5.5,
-   "until": 8.3,
+   "at": 5.45,
+   "until": 8.6,
    "props": {
-    "look": "shiny",
-    "text": "Signature"
+    "look": "badge",
+    "text": "EFFECT",
+    "sub": "of the day",
+    "tag": "EP. 01",
+    "y": 1460,
+    "size": 150
    }
   },
   {
    "type": "text-pop",
-   "at": 8.6,
-   "until": 11.4,
+   "at": 8.9,
+   "until": 12.6,
    "props": {
     "look": "blur-in",
     "text": "Quiet power"
