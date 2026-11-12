@@ -6,6 +6,7 @@ import {eighthOver, rackK} from './eighth';
 import {ninthOver} from './ninth';
 import {tenthOver} from './tenth';
 import {eleventhOver} from './eleventh';
+import {CloneFan} from './twelfth';
 import {fourthOver} from './fourth';
 import {thirdOver} from './third';
 import {Audio, Sequence, staticFile, useVideoConfig} from 'remotion';
@@ -66,8 +67,9 @@ const BehindItem: React.FC<{fx: Fx}> = ({fx}) => {
     <>
       {behindPlate(fx)}
       {fx.type === 'clone-row' && <CloneRowCopies fx={fx} />}
+      {fx.type === 'clone' && fx.props.version === 2 && <CloneFan fx={fx} />}
       <Cutout from={from} style={cutoutStyle(fx, abs)} />
-      {fx.type === 'clone' && <CloneCopies fx={fx} />}
+      {fx.type === 'clone' && fx.props.version !== 2 && <CloneCopies fx={fx} />}
       {behindFront(fx)}
     </>
   );

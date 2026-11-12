@@ -13,12 +13,12 @@ type Of<T extends Fx['type']> = Extract<Fx, {type: T}>;
 const FILL: React.CSSProperties = {position: 'absolute', left: 0, top: 0, width: 1080, height: 1920, pointerEvents: 'none'};
 const SANS = C3.sans;
 
-const Panel: React.FC<{y: number; k: number; out: number; w?: number; children: React.ReactNode}> = ({y, k, out, w = 920, children}) => (
+export const Panel: React.FC<{y: number; k: number; out: number; w?: number; children: React.ReactNode}> = ({y, k, out, w = 920, children}) => (
   <div style={{position: 'absolute', left: (1080 - w) / 2, width: w, top: y, transform: `translateY(${(1 - k) * 60}px) scale(${0.94 + 0.06 * k})`, opacity: k * out, borderRadius: 34, padding: '40px 46px', boxSizing: 'border-box', background: 'linear-gradient(160deg, rgba(40,42,52,0.78), rgba(14,15,20,0.86))', border: '1.5px solid rgba(255,255,255,0.22)', boxShadow: '0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.18)', backdropFilter: 'blur(22px) saturate(1.3)', color: '#fff', fontFamily: SANS}}>
     {children}
   </div>
 );
-const Title: React.FC<{text?: string; k: number}> = ({text, k}) => {
+export const Title: React.FC<{text?: string; k: number}> = ({text, k}) => {
   if (!text) return null;
   const parts = text.split(' ');
   const last = parts.pop();
@@ -28,7 +28,7 @@ const Title: React.FC<{text?: string; k: number}> = ({text, k}) => {
     </div>
   );
 };
-const Label: React.FC<{text: string}> = ({text}) => <div style={{fontSize: 26, letterSpacing: 4, textTransform: 'uppercase', opacity: 0.75, fontWeight: 700}}>{text}</div>;
+export const Label: React.FC<{text: string}> = ({text}) => <div style={{fontSize: 26, letterSpacing: 4, textTransform: 'uppercase', opacity: 0.75, fontWeight: 700}}>{text}</div>;
 
 // ---------------------------------------------------------------- proof card: a number counts up, an underline draws in
 export const ProofCard: React.FC<{fx: Of<'proof-card'>}> = ({fx}) => {
@@ -170,22 +170,23 @@ export const FreebieDoc: React.FC<{fx: Of<'freebie-doc'>}> = ({fx}) => {
 };
 
 // ---------------------------------------------------------------- handwritten note with an arrow that starts outside the words and curves away from them
-export const NoteArrow: React.FC<{fx: Of<'note-arrow'>}> = ({fx}) => {
-  const {t, outK} = useSpan(fx);
-  const {text, x, y, to, from, bend, size} = fx.props;
+/** the size of a handwritten note's text block, so a caller can place it (right-align it, for example) */
+export const noteBox = (text: string, size: number) => {
   const cw = size * 0.45;
-  const words = text.split(' ');
+  const maxW = size * 8;
   let lines = 1;
   let cur = 0;
   let widest = 0;
-  const maxW = size * 8;
-  for (const w of words) {
+  for (const w of text.split(' ')) {
     const ww = w.length * cw + cw * 0.5;
     if (cur + ww > maxW && cur > 0) { lines++; widest = Math.max(widest, cur); cur = ww; } else cur += ww;
   }
   widest = Math.max(widest, cur);
-  const bw = Math.min(maxW, widest);
-  const bh = lines * size * 1.05 + 6;
+  return {maxW, bw: Math.min(maxW, widest), bh: lines * size * 1.05 + 6};
+};
+/** the ink itself: `w` writes the words in (0..1), `k` draws the arrow (0..1) */
+export const NoteInk: React.FC<{text: string; x: number; y: number; to?: readonly [number, number]; from?: 'auto' | 'left' | 'right' | 'top' | 'bottom'; bend?: number; size: number; w: number; k: number; ink?: string; /** wrap the words at the measured width (for a note placed against the right edge) */ snug?: boolean}> = ({text, x, y, to, from = 'auto', bend, size, w, k, ink = C3.gold, snug}) => {
+  const {maxW, bw, bh} = noteBox(text, size);
   const cx = x + bw / 2;
   const cy = y + bh / 2;
   const gap = 18;
@@ -200,27 +201,33 @@ export const NoteArrow: React.FC<{fx: Of<'note-arrow'>}> = ({fx}) => {
   const mx = (sx + tx) / 2 + nx * b;
   const my = (sy + ty) / 2 + ny * b;
   const ang = Math.atan2(ty - my, tx - mx);
-  const w = tw(t, 0.1, 0.8);
-  const k = tw(t, 0.7, 1.2);
-  const ink = C3.gold;
   return (
-    <div style={{...FILL, opacity: outK}}>
-      <div style={{position: 'absolute', left: x, top: y, width: maxW, fontFamily: handFamily, fontWeight: 700, fontSize: size, lineHeight: 1.05, color: ink, transform: 'rotate(-4deg)', transformOrigin: '0 0', clipPath: `inset(0 ${100 - w * 100}% 0 0)`, textShadow: '0 2px 10px rgba(0,0,0,0.5)'}}>{text}</div>
+    <>
+      <div style={{position: 'absolute', left: x, top: y, width: snug ? bw + 14 : maxW, fontFamily: handFamily, fontWeight: 700, fontSize: size, lineHeight: 1.05, color: ink, transform: 'rotate(-4deg)', transformOrigin: '0 0', clipPath: `inset(0 ${100 - w * 100}% 0 0)`, textShadow: '0 2px 10px rgba(0,0,0,0.5)'}}>{text}</div>
       {to && (
         <svg width={1080} height={1920} style={{position: 'absolute', left: 0, top: 0, overflow: 'visible'}}>
           <path d={`M ${sx} ${sy} Q ${mx} ${my} ${tx} ${ty}`} fill="none" stroke={ink} strokeWidth={5} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - k} style={{filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.5))'}} />
           <path d={`M ${tx - 26 * Math.cos(ang - 0.5)} ${ty - 26 * Math.sin(ang - 0.5)} L ${tx} ${ty} L ${tx - 26 * Math.cos(ang + 0.5)} ${ty - 26 * Math.sin(ang + 0.5)}`} fill="none" stroke={ink} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" opacity={k > 0.95 ? 1 : 0} />
         </svg>
       )}
+    </>
+  );
+};
+export const NoteArrow: React.FC<{fx: Of<'note-arrow'>}> = ({fx}) => {
+  const {t, outK} = useSpan(fx);
+  const {text, x, y, to, from, bend, size} = fx.props;
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      <NoteInk text={text} x={x} y={y} to={to} from={from} bend={bend} size={size} w={tw(t, 0.1, 0.8)} k={tw(t, 0.7, 1.2)} />
     </div>
   );
 };
 
-const Scrim: React.FC<{fx: Fx; top: number}> = ({fx, top}) => {
+export const Scrim: React.FC<{fx: Fx; top: number}> = ({fx, top}) => {
   const {inK, outK} = useSpan(fx);
   return <div style={{...FILL, top: top - 260, height: 1920 - top + 260, background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.62) 30%, rgba(0,0,0,0.72) 100%)', opacity: inK * outK}} />;
 };
-const withScrim = (fx: Fx, y: number, node: React.ReactNode) => <><Scrim fx={fx} top={y} />{node}</>;
+export const withScrim = (fx: Fx, y: number, node: React.ReactNode) => <><Scrim fx={fx} top={y} />{node}</>;
 
 export const eleventhOver = (fx: Fx): React.ReactNode => {
   switch (fx.type) {

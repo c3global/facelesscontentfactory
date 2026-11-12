@@ -1,0 +1,152 @@
+{
+ "slug": "drck-v2",
+ "video": "raw/drck-fx.mp4",
+ "durationSec": 22,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 22,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "odometer",
+   "at": 0.3,
+   "until": 4.0,
+   "props": {
+    "version": 2,
+    "label": "Odometer \u00b7 version 2",
+    "to": 12480,
+    "sub": "sample number, rolls digit by digit"
+   }
+  },
+  {
+   "type": "checklist",
+   "at": 4.3,
+   "until": 9.3,
+   "props": {
+    "version": 2,
+    "title": "Four simple steps",
+    "items": [
+     {
+      "text": "Pick the idea",
+      "at": 4.9
+     },
+     {
+      "text": "Write the script",
+      "at": 5.9
+     },
+     {
+      "text": "Record your voice",
+      "at": 6.9
+     },
+     {
+      "text": "Add the effects",
+      "at": 7.9
+     }
+    ]
+   }
+  },
+  {
+   "type": "chart-grow",
+   "at": 9.6,
+   "until": 13.4,
+   "props": {
+    "version": 2,
+    "label": "Chart grow \u00b7 version 2",
+    "endLabel": "+82%",
+    "points": [
+     20,
+     28,
+     26,
+     40,
+     48,
+     62,
+     74
+    ]
+   }
+  },
+  {
+   "type": "pointer-callout",
+   "at": 13.7,
+   "until": 17.7,
+   "props": {
+    "version": 2,
+    "cards": [
+     {
+      "text": "notes follow her",
+      "at": 14.0,
+      "target": "head"
+     },
+     {
+      "text": "even when she moves",
+      "at": 15.0,
+      "target": "right"
+     },
+     {
+      "text": "point anywhere",
+      "at": 16.0,
+      "target": "hands"
+     }
+    ]
+   }
+  },
+  {
+   "type": "clone",
+   "at": 18.0,
+   "until": 21.8,
+   "props": {
+    "version": 2,
+    "copies": [
+     {
+      "at": 18.3,
+      "side": "left"
+     },
+     {
+      "at": 18.8,
+      "side": "right"
+     },
+     {
+      "at": 19.3,
+      "side": "left"
+     },
+     {
+      "at": 19.8,
+      "side": "right"
+     }
+    ]
+   }
+  }
+ ],
+ "matte": "drck-fx"
+}

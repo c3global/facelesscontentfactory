@@ -181,3 +181,16 @@ Stick-figure explainers (Dr. CiCi with a modern gray cast) have their own playbo
 Lab plans: `content/fxlab12`, `fxlab13` and `fxlab14`. 
 
 **3D tilt** (`tilt` prop on `storyboard-deck`, `playing-grid`, `video-card`, `cover-frame` and `phone-frame`): `in` swings the card or page flat from rotated back in space, `float` does that and then drifts slowly in perspective. Default `off`. `reel-stack` already sits in real perspective. Lab plan: `content/fxlab16.scene.json`.
+
+## Second versions (upgrade batch 1), same effect name plus `"version": 2`
+The original look stays the default and is never replaced. Add `"version": 2` to the effect's props (or say "version 2" in chat) for the newer look. All timing props stay the same, so switching versions never changes when things land.
+
+| Name | Version 2 look | Extra props in version 2 |
+| --- | --- | --- |
+| `checklist` | Frosted glass rows with switches. Each row switches on at its own second; the current row is sharp, the rows still to come are soft. | `y` (top of the list) |
+| `odometer` | The rolling digits on a frosted proof card, with commas, an underline that draws in, and a line under the number. | `sub`, `y` |
+| `chart-grow` | A glowing line on a frosted card; the end label lands as the dot starts to pulse. | `y` |
+| `pointer-callout` | Handwritten notes with curved arrows that follow her (needs the matte anchors, as before). | `size` (handwriting size) |
+| `clone` | The copies fan out in a row behind her, each on its own second, smaller and darker toward the edges (needs the cutout, as before). | none |
+
+Preview plan: `content/drck-v2.scene.json`. Code: `src/fx/twelfth.tsx`.
