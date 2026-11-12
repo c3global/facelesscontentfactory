@@ -1,0 +1,80 @@
+{
+ "slug": "drck-text2",
+ "video": "raw/drck-fx.mp4",
+ "durationSec": 12.4,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 12.4,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "text-pop",
+   "at": 0.2,
+   "until": 3.0,
+   "props": {
+    "text": "SIGNATURE",
+    "look": "glass"
+   }
+  },
+  {
+   "type": "text-pop",
+   "at": 3.2,
+   "until": 6.0,
+   "props": {
+    "text": "TEXT EFFECTS",
+    "look": "fill"
+   }
+  },
+  {
+   "type": "text-pop",
+   "at": 6.2,
+   "until": 9.0,
+   "props": {
+    "text": "Signature",
+    "look": "shiny"
+   }
+  },
+  {
+   "type": "text-pop",
+   "at": 9.2,
+   "until": 12.0,
+   "props": {
+    "text": "Quiet power",
+    "look": "blur-in"
+   }
+  }
+ ],
+ "matte": "drck-fx"
+}

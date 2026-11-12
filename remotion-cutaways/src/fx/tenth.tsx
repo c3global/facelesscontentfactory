@@ -51,8 +51,46 @@ export const TextPop: React.FC<{fx: Of<'text-pop'>}> = ({fx}) => {
       );
     }
     case 'shiny': {
-      const sh = 100 - ((t * 60) % 130);
-      return wrap(<span style={{...base, textShadow: 'none', display: 'inline-block', background: 'linear-gradient(110deg, #bdbdbd 40%, #ffffff 50%, #bdbdbd 60%)', backgroundSize: '300% 100%', backgroundPosition: `${sh}% 0`, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', opacity: tw(t, 0, 0.3), filter: 'drop-shadow(0 8px 30px rgba(0,0,0,0.5))'}}>{text}</span>);
+      const sh = 120 - ((t / 1.2) % 1) * 140;
+      return wrap(<span style={{...base, textShadow: 'none', display: 'inline-block', background: `linear-gradient(110deg, #8d8d8d ${sh - 14}%, #ffffff ${sh}%, #8d8d8d ${sh + 14}%)`, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', opacity: tw(t, 0, 0.3), filter: 'drop-shadow(0 8px 30px rgba(0,0,0,0.5))'}}>{text}</span>);
+    }
+    case 'glass': {
+      // liquid glass letters: clear body, bright rim, a highlight that rolls through them
+      const k = tw(t, 0, 0.45, 0, 1, pop);
+      const sh = 120 - ((t / 1.6) % 1) * 140;
+      const g: React.CSSProperties = {...base, fontSize: size * 1.25, letterSpacing: 4, position: 'absolute', left: 0, right: 0, top: 0};
+      return wrap(
+        <div style={{position: 'relative', height: size * 1.25, transform: `scale(${0.8 + 0.2 * k})`, opacity: k}}>
+          <div style={{...g, color: 'rgba(255,255,255,0.10)', WebkitTextStroke: '3px rgba(255,255,255,0.75)', textShadow: '0 0 2px rgba(255,255,255,0.9), 0 10px 30px rgba(0,0,0,0.55), inset 0 0 0 #000'}}>{text}</div>
+          <div style={{...g, textShadow: 'none', background: `linear-gradient(160deg, rgba(255,255,255,0) ${sh - 18}%, rgba(255,255,255,0.85) ${sh}%, rgba(255,255,255,0) ${sh + 10}%), linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 35%, rgba(0,0,0,0.25) 70%, rgba(255,255,255,0.35) 100%)`, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent'}}>{text}</div>
+        </div>,
+      );
+    }
+    case 'fill': {
+      // outlined letters fill with color bottom to top, one after another, with a design-tool selection box on the letter filling
+      const per = Math.min(0.32, (len - 0.8) / Math.max(1, chars.length));
+      const fillCol = C3.accent;
+      return wrap(
+        <div style={{...base, display: 'inline-flex', textShadow: 'none'}}>
+          {chars.map((c, i) => {
+            const k = tw(t, 0.2 + i * per, 0.2 + i * per + per * 1.6, 0, 1, (x) => x);
+            const active = k > 0 && k < 1 && c !== ' ';
+            return (
+              <span key={i} style={{position: 'relative', display: 'inline-block', whiteSpace: 'pre'}}>
+                <span style={{color: 'transparent', WebkitTextStroke: `2px ${fillCol}`, opacity: 0.8}}>{c}</span>
+                <span style={{position: 'absolute', left: 0, top: 0, color: fillCol, clipPath: `inset(${(1 - k) * 100}% 0 0 0)`, filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.45))'}}>{c}</span>
+                {active && (
+                  <>
+                    <span style={{position: 'absolute', left: -4, right: -4, top: size * 0.06, bottom: size * 0.04, border: '2px dashed rgba(255,255,255,0.9)'}} />
+                    {[[0, 0], [1, 0], [0, 1], [1, 1]].map(([x, y], q) => <span key={q} style={{position: 'absolute', width: 10, height: 10, background: '#fff', left: x ? undefined : -9, right: x ? -9 : undefined, top: y ? undefined : size * 0.06 - 5, bottom: y ? size * 0.04 - 5 : undefined}} />)}
+                    <span style={{position: 'absolute', left: 0, top: -30, fontFamily: 'monospace', fontSize: 22, color: '#fff', whiteSpace: 'nowrap', letterSpacing: 0}}>{`${c.toUpperCase()}  ${Math.round(size * 0.46)} × ${Math.round(size * 1.1)}`}</span>
+                  </>
+                )}
+              </span>
+            );
+          })}
+        </div>,
+      );
     }
     case 'gradient': {
       const sh = (t * 120) % 400;
@@ -62,8 +100,8 @@ export const TextPop: React.FC<{fx: Of<'text-pop'>}> = ({fx}) => {
       return wrap(
         <div style={base}>
           {chars.map((c, i) => {
-            const k = tw(t, i * 0.05, i * 0.05 + 0.45);
-            return <span key={i} style={{display: 'inline-block', filter: `blur(${(1 - k) * 18}px)`, opacity: k, transform: `translateY(${(1 - k) * 30}px)`}}>{c}</span>;
+            const k = tw(t, 0.1 + i * 0.09, 0.1 + i * 0.09 + 0.7);
+            return <span key={i} style={{display: 'inline-block', whiteSpace: 'pre', filter: `blur(${(1 - k) * 26}px)`, opacity: k, transform: `translateY(${(1 - k) * 60}px) scale(${1.4 - 0.4 * k})`}}>{c}</span>;
           })}
         </div>,
       );
