@@ -461,3 +461,12 @@ const rawCues = (f: Fx): Cue[] => {
       return [];
   }
 };
+
+/** head stack headroom: 0..1, the video eases down and shrinks so big blocks fit above her head, then eases back after they fall */
+export const HEADROOM = {shift: 330, shrink: 0.16};
+export const headRoomK = (f: Fx, t: number) => {
+  if (f.type !== 'head-stack') return 0;
+  const [a, b] = fxRange(f);
+  return tw(t, a - 0.1, a + 0.45, 0, 1, easeInOutQ) * (1 - tw(t, b - 0.15, b + 0.45, 0, 1, easeInOutQ));
+};
+const easeInOutQ = (x: number) => (x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2);

@@ -13,11 +13,14 @@ import {Cutout, CloneCopies, behindFront, behindPlate, cutoutStyle} from './behi
 import {LOOKS, extraOver, lookLayer} from './extra';
 import {overItem} from './over';
 import type {Fx} from './schema';
-import {BEHIND, Cue, cuesFor, fxRange, pop, tw, useFxEnv, useFxTime, easeInC, easeOutC} from './util';
+import {BEHIND, HEADROOM, headRoomK, Cue, cuesFor, fxRange, pop, tw, useFxEnv, useFxTime, easeInC, easeOutC} from './util';
 
 /** Camera moves on her clip: extra zoom, blur and face position for a given second. */
-export const videoMods = (fx: Fx[], t: number): {zoom: number; blur: number; focusY?: number} => {
+export const videoMods = (fx: Fx[], t: number): {zoom: number; blur: number; focusY?: number; shiftY: number; room: number} => {
   let zoom = 1;
+  let room = 0;
+  for (const f of fx) room = Math.max(room, headRoomK(f, t));
+  zoom *= 1 - HEADROOM.shrink * room;
   let blur = 0;
   let focusY: number | undefined;
   for (const f of fx) {
@@ -51,7 +54,7 @@ export const videoMods = (fx: Fx[], t: number): {zoom: number; blur: number; foc
       }
     }
   }
-  return {zoom, blur, focusY};
+  return {zoom, blur, focusY, shiftY: HEADROOM.shift * room, room};
 };
 
 const BehindItem: React.FC<{fx: Fx}> = ({fx}) => {

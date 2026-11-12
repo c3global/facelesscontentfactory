@@ -5,7 +5,7 @@ import {Cutout} from './behind';
 import {Caret, typedSlice, useSpan} from './fourth';
 import type {Fx} from './schema';
 import {BrandAvatar, C3, HeartIcon, SendArrow} from './theme';
-import {anchorPx, pop, tw, useFxEnv} from './util';
+import {HEADROOM, anchorPx, headRoomK, pop, tw, useFxEnv} from './util';
 
 /**
  * Eighth FX batch (C3 skin), batch 2 of the three-reel build (Nov 2026): comment post, layer explode, sketch words,
@@ -167,13 +167,18 @@ export const BladeSlice: React.FC<{fx: Of<'blade-slice'>}> = ({fx}) => {
 export const HeadStack: React.FC<{fx: Of<'head-stack'>}> = ({fx}) => {
   const {abs, fps, b} = useSpan(fx);
   const {anchors} = useFxEnv();
-  const cap = anchorPx(anchors, Math.round(abs * fps), 'cap');
+  const raw = anchorPx(anchors, Math.round(abs * fps), 'cap');
+  // follow the video as it eases down to make headroom (same scale and shift as the clip, origin 50% 30%)
+  const room = headRoomK(fx, abs);
+  const s0 = 1 - HEADROOM.shrink * room;
+  const cap = {x: 540 + (raw.x - 540) * s0, y: 576 + (raw.y - 576) * s0 + HEADROOM.shift * room};
   const {labels, gap} = fx.props;
   // exit: the stack tips over and tumbles off her head, blocks scattering with motion blur
   const exitAt = b - 0.95;
   // big cream paper blocks; if her head is near the top of the frame they shrink just enough to fit the whole stack
   const step0 = 92;
-  const sc = Math.max(0.62, Math.min(1, (cap.y + 30) / (labels.length * step0 + 40)));
+  const fullCapY = 576 + (raw.y - 576) * (1 - HEADROOM.shrink) + HEADROOM.shift;
+  const sc = Math.max(0.7, Math.min(1, (fullCapY + 10) / (labels.length * step0 + 30)));
   const step = step0 * sc;
   return (
     <div style={{...FILL, pointerEvents: 'none'}}>
