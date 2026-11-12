@@ -4,7 +4,7 @@ import {handFamily, heavyFamily, serifFamily} from '../fonts';
 import {Label, Panel, Scrim, Title} from './eleventh';
 import {useSpan} from './fourth';
 import type {Fx} from './schema';
-import {BrandAvatar, C3, CheckMark} from './theme';
+import {BrandAvatar, C3, CheckMark, ROSE, ROSE_TEXT} from './theme';
 import {fxRange, pop, tw, useFxEnv, useFxTime} from './util';
 
 /**
@@ -47,7 +47,7 @@ export const BeforeAfterV2: React.FC<{fx: Of<'before-after'>}> = ({fx}) => {
     <div style={{...FILL, overflow: 'hidden'}}>
       {half(false)}
       {half(true)}
-      <div style={{position: 'absolute', left: 540 * k - 3, top: 0, width: 6, height: 1920, background: `linear-gradient(180deg, ${C3.goldBright}, ${C3.gold})`, boxShadow: '0 0 30px 6px rgba(227,191,99,0.6)', opacity: Math.min(1, k * 3)}} />
+      <div style={{position: 'absolute', left: 540 * k - 3, top: 0, width: 6, height: 1920, background: 'linear-gradient(180deg, #FFD9BD, #E08A57 35%, #FCE2DF 55%, #D48A8C 80%, #B76E79)', boxShadow: `0 0 30px 6px rgba(${ROSE.glow},0.6)`, opacity: Math.min(1, k * 3)}} />
       <Pill text={fx.props.beforeLabel} style={{position: 'absolute', left: 270 - 130, width: 260, textAlign: 'center', boxSizing: 'border-box', top: 260, opacity: tw(t, 0.45, 0.75) * k}} />
       <Pill text={fx.props.afterLabel} win style={{position: 'absolute', left: 810 - 130, width: 260, textAlign: 'center', boxSizing: 'border-box', top: 260, opacity: tw(t, 0.6, 0.9) * k}} />
     </div>
@@ -65,7 +65,7 @@ export const SideBySide: React.FC<{fx: Of<'side-by-side'>}> = ({fx}) => {
     const k = tw(t, 0.1 + i * 0.18, 0.55 + i * 0.18, 0, 1, pop);
     return (
       <div style={{flex: 1, transform: `translateY(${(1 - k) * 60}px) rotate(${(i ? 2 : -2) * (1 - pick * (win ? 1 : 0))}deg) scale(${win ? 1 + 0.05 * pick : 1 - 0.04 * pick})`, opacity: k * (winner && !win ? 1 - 0.4 * pick : 1)}}>
-        <div style={{height, borderRadius: 26, overflow: 'hidden', border: win ? `5px solid rgba(227,191,99,${0.4 + 0.6 * pick})` : '5px solid #fff', boxSizing: 'border-box', boxShadow: win ? `0 0 ${60 * pick}px rgba(227,191,99,0.45), 0 26px 60px rgba(0,0,0,0.5)` : '0 26px 60px rgba(0,0,0,0.5)', background: '#16171c'}}>
+        <div style={{height, borderRadius: 26, overflow: 'hidden', border: win ? `5px solid rgba(${ROSE.glow},${0.4 + 0.6 * pick})` : '5px solid #fff', boxSizing: 'border-box', boxShadow: win ? `0 0 ${60 * pick}px rgba(${ROSE.glow},0.5), 0 26px 60px rgba(0,0,0,0.5)` : '0 26px 60px rgba(0,0,0,0.5)', background: '#16171c'}}>
           <Media src={m.src} />
         </div>
         <div style={{display: 'flex', justifyContent: 'center', marginTop: -30}}><Pill text={m.label} win={win && pick > 0.5} /></div>
@@ -125,7 +125,7 @@ export const FlashFrameV2: React.FC<{fx: Of<'flash-frame'>}> = ({fx}) => {
   const x = -1700 + p * 3400;
   return (
     <div style={{...FILL, overflow: 'hidden'}}>
-      <div style={{position: 'absolute', left: x - 260, top: -200, width: 1600, height: 2400, transform: 'skewX(-14deg)', background: `linear-gradient(90deg, ${C3.accentDeep} 0%, ${C3.accent} 30%, ${C3.accent} 70%, ${C3.accentDeep} 100%)`, boxShadow: `-14px 0 0 ${C3.gold}, 14px 0 0 ${C3.goldBright}`}} />
+      <div style={{position: 'absolute', left: x - 260, top: -200, width: 1600, height: 2400, transform: 'skewX(-14deg)', background: `linear-gradient(90deg, ${C3.accentDeep} 0%, ${C3.accent} 30%, ${C3.accent} 70%, ${C3.accentDeep} 100%)`, boxShadow: `-14px 0 0 ${ROSE.mid}, 14px 0 0 ${ROSE.light}`}} />
       <div style={{...FILL, background: '#fff', opacity: 0.1 * Math.sin(Math.PI * p)}} />
     </div>
   );
@@ -152,7 +152,7 @@ const PosterLines: React.FC<{lines: PLine[]; abs: number; y: number; out: number
         top += l.h;
         return (
           <div key={i} style={{position: 'absolute', left: 50, width: 980, top: myTop, height: l.h, overflow: 'hidden'}}>
-            <div style={{transform: `translateY(${(1 - k) * 105}%)`, fontFamily: l.heavy ? heavyFamily : serifFamily, fontStyle: l.face === 'italic' ? 'italic' : 'normal', fontWeight: l.heavy ? 400 : 900, fontSize: l.fs, lineHeight: `${l.h}px`, letterSpacing: l.heavy ? 1 : -3, textTransform: l.heavy ? 'uppercase' : 'none', color: l.face === 'italic' ? C3.goldBright : '#fff', whiteSpace: 'nowrap'}}>{l.text}</div>
+            <div style={{transform: `translateY(${(1 - k) * 105}%)`, fontFamily: l.heavy ? heavyFamily : serifFamily, fontStyle: l.face === 'italic' ? 'italic' : 'normal', fontWeight: l.heavy ? 400 : 900, fontSize: l.fs, lineHeight: `${l.h}px`, letterSpacing: l.heavy ? 1 : -3, textTransform: l.heavy ? 'uppercase' : 'none', ...(l.face === 'italic' ? ROSE_TEXT : {color: '#fff'}), whiteSpace: 'nowrap'}}>{l.text}</div>
           </div>
         );
       })}
@@ -215,7 +215,7 @@ export const BigStat: React.FC<{fx: Of<'big-stat'>}> = ({fx}) => {
         <div style={{position: 'absolute', left: 50, width: 980, top: y, opacity: inK, transform: `translateY(${(1 - inK) * 50}px)`, color: '#fff'}}>
           <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 34, letterSpacing: 8, textTransform: 'uppercase', borderTop: '6px solid #fff', paddingTop: 16}}>{label}</div>
           <div style={{fontFamily: heavyFamily, fontSize: fs, lineHeight: 1, letterSpacing: 2, width: 980, textShadow: '0 10px 40px rgba(0,0,0,0.5)'}}>{shown}</div>
-          {sub && <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 700, fontSize: 56, color: C3.goldBright, opacity: tw(t, 1.2, 1.6), borderBottom: `6px solid ${C3.accent}`, paddingBottom: 18}}>{sub}</div>}
+          {sub && <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 700, fontSize: 56, ...ROSE_TEXT, opacity: tw(t, 1.2, 1.6), borderBottom: `6px solid ${C3.accent}`, paddingBottom: 18}}>{sub}</div>}
         </div>
       </div>
     </>
@@ -235,7 +235,8 @@ export const ThankYou: React.FC<{fx: Of<'thank-you'>}> = ({fx}) => {
       <div style={{...FILL, backdropFilter: 'grayscale(1) contrast(1.1) brightness(0.72)', WebkitBackdropFilter: 'grayscale(1) contrast(1.1) brightness(0.72)'}} />
       <div style={{position: 'absolute', left: 40, width: 1000, top: y, textAlign: 'center', fontFamily: handFamily, fontWeight: 700, fontSize: fs, lineHeight: 1.05, color: '#fff', transform: 'rotate(-4deg)', clipPath: `inset(-30px ${100 - w * 100}% -30px -30px)`, textShadow: '0 4px 24px rgba(0,0,0,0.7)'}}>{text}</div>
       <svg width={1080} height={1920} style={{position: 'absolute', left: 0, top: 0}}>
-        <path d={`M 250 ${y + fs * 1.22} Q 540 ${y + fs * 1.22 - 46} 840 ${y + fs * 1.22 - 62}`} fill="none" stroke={C3.gold} strokeWidth={8} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - u} />
+        <defs><linearGradient id="tyRose" x1="0" x2="1"><stop offset="0" stopColor="#B5622C" /><stop offset="0.3" stopColor="#E08A57" /><stop offset="0.5" stopColor="#FFD9BD" /><stop offset="0.75" stopColor="#D48A8C" /><stop offset="1" stopColor="#B76E79" /></linearGradient></defs>
+        <path d={`M 250 ${y + fs * 1.22} Q 540 ${y + fs * 1.22 - 46} 840 ${y + fs * 1.22 - 62}`} fill="none" stroke="url(#tyRose)" strokeWidth={8} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - u} />
       </svg>
       {sub && <div style={{position: 'absolute', left: 0, width: 1080, top: y + fs * 1.22 + 40, textAlign: 'center', fontFamily: SANS, fontWeight: 700, fontSize: 34, letterSpacing: 6, textTransform: 'uppercase', color: '#fff', opacity: tw(t, 1.7, 2.1)}}>{sub}</div>}
     </div>
@@ -281,9 +282,9 @@ export const ChecklistV2: React.FC<{fx: Of<'checklist'>}> = ({fx}) => {
             const bump = tw(abs, it.at, it.at + 0.15, 0, 1) * (1 - tw(abs, it.at + 0.15, it.at + 0.4));
             return (
               <div key={i} style={{display: 'flex', alignItems: 'center', gap: 26, height: 104, borderTop: i ? '1px solid rgba(255,255,255,0.12)' : 'none'}}>
-                <div style={{flex: 'none', width: 62, height: 62, borderRadius: 16, border: `3px solid ${draw > 0.05 ? C3.copper : 'rgba(255,255,255,0.55)'}`, background: draw > 0.05 ? `rgba(224,138,87,${0.25 * draw})` : 'transparent', boxSizing: 'border-box', display: 'grid', placeItems: 'center', transform: `scale(${1 + 0.18 * bump})`}}>
+                <div style={{flex: 'none', width: 62, height: 62, borderRadius: 16, border: `3px solid ${draw > 0.05 ? ROSE.mid : 'rgba(255,255,255,0.55)'}`, background: draw > 0.05 ? `rgba(${ROSE.glow},${0.25 * draw})` : 'transparent', boxSizing: 'border-box', display: 'grid', placeItems: 'center', transform: `scale(${1 + 0.18 * bump})`}}>
                   <svg width={38} height={38} viewBox="0 0 34 34">
-                    <path d="M6 18 L14 26 L29 8" fill="none" stroke={C3.goldBright} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={50} strokeDashoffset={50 * (1 - draw)} />
+                    <path d="M6 18 L14 26 L29 8" fill="none" stroke={ROSE.light} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={50} strokeDashoffset={50 * (1 - draw)} />
                   </svg>
                 </div>
                 <div style={{fontWeight: 700, fontSize: 46, opacity: 0.7 + 0.3 * draw}}>{it.text}</div>

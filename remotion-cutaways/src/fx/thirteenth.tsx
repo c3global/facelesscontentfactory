@@ -3,7 +3,7 @@ import {Img, OffthreadVideo, staticFile} from 'remotion';
 import {heavyFamily, serifFamily} from '../fonts';
 import {useSpan} from './fourth';
 import type {Fx} from './schema';
-import {C3, CheckMark} from './theme';
+import {C3, CheckMark, ROSE, ROSE_TEXT} from './theme';
 import {anchorPx, easeInC, easeOutC, fxRange, pop, tw, useFxEnv, useFxTime} from './util';
 
 /**
@@ -53,13 +53,13 @@ export const ShoulderSteps: React.FC<{fx: Of<'shoulder-steps'>}> = ({fx}) => {
       </div>
       <div style={{...FILL, background: `linear-gradient(${side === 'left' ? 270 : 90}deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0) 70%)`, opacity: k}} />
       <div style={{position: 'absolute', left: cardX, top: 330, width: 480, perspective: 1400, opacity: Math.min(1, k * 1.4)}}>
-        {title && <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 30, letterSpacing: 5, textTransform: 'uppercase', color: C3.goldBright, marginBottom: 26, textShadow: '0 2px 14px rgba(0,0,0,0.8)'}}>{title}</div>}
+        {title && <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 30, letterSpacing: 5, textTransform: 'uppercase', ...ROSE_TEXT, marginBottom: 26}}>{title}</div>}
         {steps.map((s, i) => {
           const c = tw(abs, s.at, s.at + 0.45, 0, 1, pop);
           const bob = Math.sin(t * 1.6 + i * 1.3) * 7;
           return (
             <div key={i} style={{marginBottom: 30, marginLeft: (side === 'left' ? 1 : -1) * i * -14 + 20, transform: `translate3d(${(1 - c) * -dir * 160}px, ${bob}px, 0) rotateY(${-dir * (16 - 3 * i)}deg) scale(${0.86 + 0.14 * c})`, transformOrigin: side === 'left' ? '100% 50%' : '0 50%', opacity: c, display: 'flex', alignItems: 'center', gap: 22, padding: '26px 30px', borderRadius: 30, background: GLASS, border: '1.5px solid rgba(255,255,255,0.26)', boxShadow: '0 26px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.2)', backdropFilter: 'blur(20px) saturate(1.3)', color: '#fff', fontFamily: SANS}}>
-              <span style={{flex: 'none', width: 64, height: 64, borderRadius: 32, background: C3.copperGrad, color: '#2a1206', fontWeight: 700, fontSize: 34, display: 'grid', placeItems: 'center'}}>{i + 1}</span>
+              <span style={{flex: 'none', width: 64, height: 64, borderRadius: 32, background: ROSE.grad, color: '#2a1206', fontWeight: 700, fontSize: 34, display: 'grid', placeItems: 'center'}}>{i + 1}</span>
               <span style={{fontWeight: 700, fontSize: 36, lineHeight: 1.15}}>{s.text}</span>
             </div>
           );
@@ -89,7 +89,7 @@ export const Iris: React.FC<{fx: Of<'iris'>}> = ({fx}) => {
   return (
     <div style={{...FILL, overflow: 'hidden'}}>
       <div style={{position: 'absolute', left: p.x - r, top: p.y - r, width: r * 2, height: r * 2, borderRadius: '50%', boxShadow: `0 0 0 3200px ${color}`}} />
-      {r < FULL - 50 && r > 4 && <div style={{position: 'absolute', left: p.x - r - 5, top: p.y - r - 5, width: r * 2 + 10, height: r * 2 + 10, borderRadius: '50%', border: `5px solid ${C3.gold}`, boxSizing: 'border-box', opacity: 0.9}} />}
+      {r < FULL - 50 && r > 4 && <div style={{position: 'absolute', left: p.x - r - 5, top: p.y - r - 5, width: r * 2 + 10, height: r * 2 + 10, borderRadius: '50%', border: `5px solid ${ROSE.mid}`, boxSizing: 'border-box', opacity: 0.9}} />}
       {word && <div style={{position: 'absolute', left: 0, width: 1080, top: Math.min(1560, p.y + holdRadius + 90), textAlign: 'center', fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 700, fontSize: 96, color: '#fff', opacity: held, transform: `translateY(${(1 - held) * 24}px)`}}>{word}</div>}
     </div>
   );
@@ -143,7 +143,7 @@ export const DemoCursor: React.FC<{fx: Of<'demo-cursor'>}> = ({fx}) => {
       <div style={{position: 'absolute', left: (1080 - W) / 2, top: y, width: W, transform: `translateY(${(1 - inK) * 80}px) rotateX(${8 - 5 * inK}deg) rotateY(${-5 * (1 - inK) - 2}deg) scale(${0.92 + 0.08 * inK})`, opacity: inK, transformStyle: 'preserve-3d'}}>
         <div style={{borderRadius: 30, overflow: 'hidden', background: 'rgba(16,17,22,0.9)', border: '1.5px solid rgba(255,255,255,0.22)', boxShadow: '0 40px 100px rgba(0,0,0,0.6)', backdropFilter: 'blur(22px)', fontFamily: SANS, color: '#fff'}}>
           <div style={{height: 86, display: 'flex', alignItems: 'center', gap: 12, padding: '0 28px', background: 'rgba(255,255,255,0.07)', borderBottom: '1px solid rgba(255,255,255,0.1)'}}>
-            {[C3.accent, C3.gold, '#9aa0a3'].map((c, i) => <span key={i} style={{width: 20, height: 20, borderRadius: 10, background: c}} />)}
+            {[C3.accent, ROSE.mid, '#9aa0a3'].map((c, i) => <span key={i} style={{width: 20, height: 20, borderRadius: 10, background: c}} />)}
             <span style={{marginLeft: 16, fontWeight: 700, fontSize: 30}}>{title}</span>
           </div>
           <div style={{position: 'relative', height: bodyH}}>
@@ -157,7 +157,7 @@ export const DemoCursor: React.FC<{fx: Of<'demo-cursor'>}> = ({fx}) => {
                     <div key={i} style={{height: 72, marginBottom: 20, borderRadius: 18, background: 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', padding: '0 24px', fontWeight: 500, fontSize: 32, opacity: lk, transform: `translateX(${(1 - lk) * 24}px)`}}>{l}</div>
                   );
                 })}
-                <div style={{position: 'absolute', left: W / 2 - 230, top: bodyH - 122, width: 460, height: 92, borderRadius: 46, background: done > 0.5 ? C3.copperGrad : C3.accent, color: done > 0.5 ? '#2a1206' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, fontWeight: 700, fontSize: 36, transform: `scale(${1 - 0.06 * press + 0.05 * done})`, boxShadow: '0 10px 26px rgba(0,0,0,0.4)'}}>
+                <div style={{position: 'absolute', left: W / 2 - 230, top: bodyH - 122, width: 460, height: 92, borderRadius: 46, background: done > 0.5 ? ROSE.grad : C3.accent, color: done > 0.5 ? '#2a1206' : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14, fontWeight: 700, fontSize: 36, transform: `scale(${1 - 0.06 * press + 0.05 * done})`, boxShadow: '0 10px 26px rgba(0,0,0,0.4)'}}>
                   {done > 0.5 && <CheckMark size={38} color="#2a1206" />}
                   {done > 0.5 ? doneLabel : button}
                 </div>
@@ -165,7 +165,7 @@ export const DemoCursor: React.FC<{fx: Of<'demo-cursor'>}> = ({fx}) => {
             )}
           </div>
         </div>
-        {ring > 0 && ring < 1 && <div style={{position: 'absolute', left: bx - 70 * ring - 6, top: by - 70 * ring - 6, width: 140 * ring + 12, height: 140 * ring + 12, borderRadius: '50%', border: `5px solid ${C3.goldBright}`, boxSizing: 'border-box', opacity: 1 - ring}} />}
+        {ring > 0 && ring < 1 && <div style={{position: 'absolute', left: bx - 70 * ring - 6, top: by - 70 * ring - 6, width: 140 * ring + 12, height: 140 * ring + 12, borderRadius: '50%', border: `5px solid ${ROSE.light}`, boxSizing: 'border-box', opacity: 1 - ring}} />}
         <div style={{opacity: tw(abs, clickAt - 1.15, clickAt - 0.95)}}><Cursor x={cx} y={cy} press={press} /></div>
       </div>
     </div>
@@ -191,13 +191,13 @@ export const GlassCards: React.FC<{fx: Of<'glass-cards'>}> = ({fx}) => {
           <div key={i} style={{position: 'absolute', left: x, top: y + bob, minWidth: 300, maxWidth: 420, transform: `translate3d(${(1 - k) * -dir * 120}px, ${(1 - k) * 40}px, 0) rotateY(${dir * 14 + sway}deg) rotateX(${4}deg) scale(${0.8 + 0.2 * k})`, opacity: k, borderRadius: 28, padding: '24px 28px', overflow: 'hidden', background: 'linear-gradient(150deg, rgba(255,255,255,0.22), rgba(255,255,255,0.07))', border: '1.5px solid rgba(255,255,255,0.42)', boxShadow: '0 26px 60px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.5)', backdropFilter: 'blur(22px) saturate(1.5)', color: '#fff', fontFamily: SANS, textShadow: '0 2px 10px rgba(0,0,0,0.45)'}}>
             <div style={{position: 'absolute', left: `${sheen}%`, top: -20, width: 90, height: '160%', background: 'linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.22), rgba(255,255,255,0))', transform: 'rotate(18deg)'}} />
             <div style={{display: 'flex', alignItems: 'center', gap: 12, fontWeight: 700, fontSize: 24, letterSpacing: 3, textTransform: 'uppercase', opacity: 0.9}}>
-              <span style={{width: 14, height: 14, borderRadius: 7, background: i % 2 ? C3.gold : C3.accent, boxShadow: `0 0 12px ${i % 2 ? C3.gold : C3.accent}`}} />
+              <span style={{width: 14, height: 14, borderRadius: 7, background: i % 2 ? ROSE.grad : C3.accent, boxShadow: `0 0 12px ${i % 2 ? ROSE.mid : C3.accent}`}} />
               {c.label}
             </div>
             {c.value && <div style={{fontWeight: 700, fontSize: 62, lineHeight: 1.1, marginTop: 6}}>{c.value}</div>}
             {c.bar !== undefined && (
               <div style={{height: 12, borderRadius: 6, background: 'rgba(255,255,255,0.22)', marginTop: 14, overflow: 'hidden'}}>
-                <div style={{height: '100%', width: `${Math.max(0, Math.min(100, c.bar)) * tw(abs, c.at + 0.3, c.at + 1.2)}%`, borderRadius: 6, background: C3.copperGrad}} />
+                <div style={{height: '100%', width: `${Math.max(0, Math.min(100, c.bar)) * tw(abs, c.at + 0.3, c.at + 1.2)}%`, borderRadius: 6, background: ROSE.grad}} />
               </div>
             )}
           </div>
@@ -266,8 +266,8 @@ export const SlotMachine: React.FC<{fx: Of<'slot-machine'>}> = ({fx}) => {
   return (
     <div style={{...FILL, opacity: outK}}>
       <div style={{position: 'absolute', left: (1080 - W) / 2, top: y, width: W, transform: `translateY(${(1 - inK) * 60}px) scale(${0.94 + 0.06 * inK})`, opacity: inK}}>
-        <div style={{borderRadius: 40, padding: 30, boxSizing: 'border-box', background: 'linear-gradient(170deg, rgba(44,46,56,0.9), rgba(12,13,17,0.94))', border: `2px solid rgba(227,191,99,${0.45 + 0.55 * allDone})`, boxShadow: `0 30px 80px rgba(0,0,0,0.55), 0 0 ${60 * allDone}px rgba(227,191,99,0.45)`, backdropFilter: 'blur(20px)'}}>
-          {label && <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 26, letterSpacing: 5, textTransform: 'uppercase', color: C3.goldBright, textAlign: 'center', marginBottom: 20}}>{label}</div>}
+        <div style={{borderRadius: 40, padding: 30, boxSizing: 'border-box', background: 'linear-gradient(170deg, rgba(44,46,56,0.9), rgba(12,13,17,0.94))', border: `2px solid rgba(${ROSE.glow},${0.45 + 0.55 * allDone})`, boxShadow: `0 30px 80px rgba(0,0,0,0.55), 0 0 ${60 * allDone}px rgba(${ROSE.glow},0.5)`, backdropFilter: 'blur(20px)'}}>
+          {label && <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 26, letterSpacing: 5, textTransform: 'uppercase', ...ROSE_TEXT, textAlign: 'center', marginBottom: 20}}>{label}</div>}
           <div style={{display: 'flex', gap: 16}}>
             {words.map((w, i) => {
               const strip = [...Array.from({length: 9}, (_, j) => pool[(j * 3 + i * 2) % pool.length]), w];
@@ -281,7 +281,7 @@ export const SlotMachine: React.FC<{fx: Of<'slot-machine'>}> = ({fx}) => {
                 <div key={i} style={{width: colW, height: H, borderRadius: 24, overflow: 'hidden', position: 'relative', background: 'linear-gradient(180deg, #0a0a0c 0%, #26272e 50%, #0a0a0c 100%)', border: '1.5px solid rgba(255,255,255,0.16)'}}>
                   <div style={{transform: `translateY(${-pos * H}px)`, filter: moving > 0.6 ? `blur(${moving}px)` : undefined}}>
                     {strip.map((s, j) => (
-                      <div key={j} style={{height: H, lineHeight: `${H}px`, textAlign: 'center', fontFamily: heavyFamily, fontSize: fs, letterSpacing: 1, textTransform: 'uppercase', color: j === strip.length - 1 && landed ? C3.goldBright : '#fff'}}>{s}</div>
+                      <div key={j} style={{height: H, lineHeight: `${H}px`, textAlign: 'center', fontFamily: heavyFamily, fontSize: fs, letterSpacing: 1, textTransform: 'uppercase', ...(j === strip.length - 1 && landed ? {...ROSE_TEXT, filter: 'none', paddingRight: 0} : {color: '#fff'})}}>{s}</div>
                     ))}
                   </div>
                   <div style={{position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,0) 72%, rgba(0,0,0,0.7) 100%)'}} />

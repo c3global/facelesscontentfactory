@@ -29,6 +29,20 @@ export const C3 = {
   copper: '#E08A57',
 } as const;
 
+/**
+ * Dr. CK's primary accent (her note, Nov 12 2026): shiny metallic copper running into rose gold, never a flat brown copper.
+ * Always a multi-stop metal with a bright highlight. Crimson (C3.accent) is always welcome beside it. Gold stays the secondary accent.
+ */
+export const ROSE = {
+  grad: 'linear-gradient(115deg, #B5622C 0%, #E08A57 20%, #FFD9BD 40%, #FCE2DF 50%, #E9A99B 62%, #D48A8C 78%, #B76E79 100%)',
+  /** for thin strokes and borders, where a gradient cannot be drawn */
+  light: '#FFD9BD',
+  mid: '#E9A08C',
+  glow: '233,160,140',
+} as const;
+/** metallic copper-to-rose-gold text. It replaces `color`; a text-shadow would paint over the metal, so the shadow is a filter. */
+export const ROSE_TEXT: React.CSSProperties = {backgroundImage: 'linear-gradient(115deg, #D97B45 0%, #F4B08A 20%, #FFE3CF 40%, #FCE2DF 50%, #EDAE9F 64%, #DC979A 80%, #C98089 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', WebkitTextFillColor: 'transparent', textShadow: 'none', filter: 'drop-shadow(0 3px 8px rgba(0,0,0,0.55))', paddingRight: '0.12em'};
+
 /** Dr. CK's orbital globe (public/brand/orbital-globe.png). `src` swaps in another icon file under public/; `src="drawn"` draws a plain line globe instead. */
 export const GlobeIcon: React.FC<{size: number; color?: string; bg?: string; src?: string}> = ({size, color = C3.gold, bg = 'transparent', src = 'brand/orbital-globe.png'}) =>
   src !== 'drawn' ? (

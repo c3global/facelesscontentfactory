@@ -5,7 +5,7 @@ import {Cutout} from './behind';
 import {Label, NoteInk, Panel, Scrim, Title, noteBox} from './eleventh';
 import {useSpan} from './fourth';
 import type {Fx} from './schema';
-import {C3} from './theme';
+import {C3, ROSE, ROSE_TEXT} from './theme';
 import {anchorPx, pop, tw, useFxEnv} from './util';
 
 /**
@@ -61,7 +61,7 @@ export const OdometerV2: React.FC<{fx: Of<'odometer'>}> = ({fx}) => {
             })}
             {suffix && <span style={{marginLeft: 10}}>{suffix}</span>}
           </div>
-          <div style={{height: 7, borderRadius: 4, background: C3.copper, width: `${done * 100}%`, maxWidth: 620, marginTop: 10}} />
+          <div style={{height: 7, borderRadius: 4, background: ROSE.grad, width: `${done * 100}%`, maxWidth: 620, marginTop: 10}} />
           {sub && <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontSize: 44, marginTop: 18, opacity: tw(t, 2.3, 2.7) * 0.9}}>{sub}</div>}
         </Panel>
       </div>
@@ -91,17 +91,18 @@ export const ChartGrowV2: React.FC<{fx: Of<'chart-grow'>}> = ({fx}) => {
         <Panel y={y} k={inK} out={outK}>
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', minHeight: 96}}>
             {label ? <Label text={label} /> : <span />}
-            {endLabel && <div style={{fontWeight: 700, fontSize: 92, lineHeight: 0.9, color: C3.goldBright, transform: `scale(${land})`, transformOrigin: '100% 50%', opacity: Math.min(1, land * 2)}}>{endLabel}</div>}
+            {endLabel && <div style={{fontWeight: 700, fontSize: 92, lineHeight: 0.9, ...ROSE_TEXT, transform: `scale(${land})`, transformOrigin: '100% 50%', opacity: Math.min(1, land * 2)}}>{endLabel}</div>}
           </div>
           <svg width={W} height={H} style={{overflow: 'visible', marginTop: 14, display: 'block'}}>
             <defs>
               <linearGradient id={id} x1="0" x2="1">
                 <stop offset="0" stopColor={C3.accent} />
-                <stop offset="1" stopColor={C3.goldBright} />
+                <stop offset="0.6" stopColor={ROSE.mid} />
+                <stop offset="1" stopColor={ROSE.light} />
               </linearGradient>
               <linearGradient id={`${id}a`} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor={C3.gold} stopOpacity="0.32" />
-                <stop offset="1" stopColor={C3.gold} stopOpacity="0" />
+                <stop offset="0" stopColor={ROSE.mid} stopOpacity="0.32" />
+                <stop offset="1" stopColor={ROSE.mid} stopOpacity="0" />
               </linearGradient>
               <filter id={`${id}g`} x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur stdDeviation="6" /></filter>
             </defs>
@@ -111,7 +112,7 @@ export const ChartGrowV2: React.FC<{fx: Of<'chart-grow'>}> = ({fx}) => {
             <path d={`${d} L ${W} ${H} L 0 ${H} Z`} fill={`url(#${id}a)`} style={{clipPath: `inset(0 ${(1 - k) * 100}% 0 0)`}} />
             <path d={d} fill="none" stroke={`url(#${id})`} strokeWidth={14} opacity={0.5} filter={`url(#${id}g)`} pathLength={1} strokeDasharray={1} strokeDashoffset={1 - k} />
             <path d={d} fill="none" stroke={`url(#${id})`} strokeWidth={6} strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - k} />
-            {k > 0.98 && <circle cx={end[0]} cy={end[1]} r={13 + 3 * Math.sin(t * 6)} fill="#fff" stroke={C3.gold} strokeWidth={4} />}
+            {k > 0.98 && <circle cx={end[0]} cy={end[1]} r={13 + 3 * Math.sin(t * 6)} fill="#fff" stroke={ROSE.mid} strokeWidth={4} />}
           </svg>
         </Panel>
       </div>

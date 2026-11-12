@@ -10,6 +10,8 @@ Read this first in any new conversation about Faceless48. Update it when Dr. CK 
 - The plug-in works in both Claude Code and Codex. Never call it untested on Codex.
 - "Clinic notes" is her personal name for Life Scenes.
 - Kai = ChatGPT/Codex. Credits are tight: batch requests, keep replies short.
+- Her primary accent is SHINY METALLIC copper running into rose gold, never flat brown copper or flat gold (her note, Nov 12). In the studio fx use `ROSE` / `ROSE_TEXT` from `src/fx/theme.tsx`. Crimson is always welcome. Gold is secondary.
+- A list with switches is a FOCUS LIST, never a checklist. A checklist has boxes that get checked.
 
 ## What is live
 
@@ -56,8 +58,10 @@ Read this first in any new conversation about Faceless48. Update it when Dr. CK 
 - PREVIEW CLIP: `drck-fx.mp4` is lost (was never in git or Drive). Previews now use Drive file 1GB0yYL4EHV93VbtsPxH7Kfy8rz0EvMaB ("Dr. CiCi TH - Test Small Pieces.mp4", has a HeyGen watermark): `curl -L "https://drive.usercontent.google.com/download?id=<id>&export=download&confirm=t"`, then seconds 2 to 24 conformed to 1080x1920 30 fps as `public/raw/cici-fx.mp4`; `npm run matte -- cici-fx` (needs `apt-get install libegl1 libgles2`, `pip install mediapipe`), then `python3 scripts/matte-hq.py cici-fx 11.0 15.0` (behind-her effects in every cici plan sit inside seconds 11 to 15). Plans: content/cici-*.scene.json. Previews saved in beta11-media.
 - Awaiting her review of the 7 previews. Known soft spots: wall-text (uses head-stack headroom, text partly over the blurred fill), holo-phone is faint on busy backgrounds.
 
+**Her real videos (Nov 12, kills two birds: real edits double as Beta 11 announcement proof).** Drive folder 1aMpwazzlUvLNpzcvQXOG3ZUiJj98PCLU has 12 clean C3 Global clips = 6 videos, joined to `public/raw/<slug>.mp4` (1080x1920, 30 fps): who-owns (Pt 1+2, 50 s), change-ai (26 s), paste-ai (Pt 1+2+3, 30 s), quiet-space (40 s), tolerance (40 s, International Day for Tolerance is Nov 16: do first), decisions (40 s). Download each with the usercontent curl line below. Transcribed with small.en (content/<slug>.captions.json). Next: she confirms transcripts, then playbook section 12 per video using the new effects (one strong effect every 4 to 6 s, on her words; stills before render; RENDER_CONCURRENCY=1). She is also sending details for about 8 video carousels.
+
 **Next, in order:**
-1. Her notes on the Nov 12 previews.
+1. She said the Nov 12 previews are beautiful (only note: the metallic accent, done). Edit her 6 real videos and build her carousels.
 2. Upgrade batch 3 (second versions): label-maker look for the-stack/sticky-text/freeze-sticker, one Instagram comment style for comment-bubble/drop/cta, spotlight with dust, polaroid-drop fan, phone-mockup v2 (reuse holo-phone).
 3. Release: port all fx (tenth to fifteenth) + carousel changes into `beta10/faceless48-creator` (becomes beta.11; member defaults read brand.json, never C3 colors), update EFFECTS-LIST and docs, tsc + tests, zip, swap into Lesson 1, announcement post + email with the beta11-media clips.
 4. Older items: real Mac/Windows setup test; Lesson 1 video + PDF when she sends her recording; "Before you start" stick video (her voice or Jogg avatar?); 3 s of her empty set for blow-away; she should regenerate her Pexels/Pixabay keys (were in git history).
