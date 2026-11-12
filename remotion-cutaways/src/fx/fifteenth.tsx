@@ -133,11 +133,14 @@ export const FlashFrameV2: React.FC<{fx: Of<'flash-frame'>}> = ({fx}) => {
 
 // ---------------------------------------------------------------- poster type (kinetic-hook v2 and giant-caption v2)
 type PLine = {text: string; face: 'serif' | 'sans' | 'italic'; at: number};
-const PosterLines: React.FC<{lines: PLine[]; abs: number; y: number; out: number}> = ({lines, abs, y, out}) => {
+const PosterLines: React.FC<{lines: PLine[]; abs: number; y: number; out: number; width?: number}> = ({lines, abs, y, out, width = 980}) => {
+  const W = width;
+  const X = (1080 - W) / 2;
+  const sc = W / 980;
   const sized = lines.map((l) => {
     const heavy = l.face === 'sans';
     const per = heavy ? 0.46 : 0.5;
-    const fs = Math.min(heavy ? 330 : 250, 980 / (Math.max(2, l.text.length) * per));
+    const fs = Math.min((heavy ? 330 : 250) * sc, W / (Math.max(2, l.text.length) * per));
     return {...l, heavy, fs, h: fs * (heavy ? 1.02 : 1.05)};
   });
   const total = sized.reduce((s, l) => s + l.h, 0);
@@ -145,25 +148,25 @@ const PosterLines: React.FC<{lines: PLine[]; abs: number; y: number; out: number
   return (
     <div style={{...FILL, opacity: out}}>
       <div style={{...FILL, top: y - total / 2 - 200, height: total + 400, background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 25%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,0) 100%)', opacity: tw(abs, lines[0].at, lines[0].at + 0.3)}} />
-      <div style={{position: 'absolute', left: 50, top: y - total / 2 - 26, width: 980 * tw(abs, lines[0].at, lines[0].at + 0.5), height: 6, background: '#fff'}} />
+      <div style={{position: 'absolute', left: X, top: y - total / 2 - 26 * sc, width: W * tw(abs, lines[0].at, lines[0].at + 0.5), height: 6, background: '#fff'}} />
       {sized.map((l, i) => {
         const k = tw(abs, l.at, l.at + 0.42);
         const myTop = top;
         top += l.h;
         return (
-          <div key={i} style={{position: 'absolute', left: 50, width: 980, top: myTop, height: l.h, overflow: 'hidden'}}>
+          <div key={i} style={{position: 'absolute', left: X, width: W, top: myTop, height: l.h, overflow: 'hidden'}}>
             <div style={{transform: `translateY(${(1 - k) * 105}%)`, fontFamily: l.heavy ? heavyFamily : serifFamily, fontStyle: l.face === 'italic' ? 'italic' : 'normal', fontWeight: l.heavy ? 400 : 900, fontSize: l.fs, lineHeight: `${l.h}px`, letterSpacing: l.heavy ? 1 : -3, textTransform: l.heavy ? 'uppercase' : 'none', ...(l.face === 'italic' ? ROSE_TEXT : {color: '#fff'}), whiteSpace: 'nowrap'}}>{l.text}</div>
           </div>
         );
       })}
-      <div style={{position: 'absolute', left: 50, top: y + total / 2 + 14, width: 980 * tw(abs, lines[lines.length - 1].at + 0.2, lines[lines.length - 1].at + 0.7), height: 6, background: C3.accent}} />
+      <div style={{position: 'absolute', left: X, top: y + total / 2 + 14 * sc, width: W * tw(abs, lines[lines.length - 1].at + 0.2, lines[lines.length - 1].at + 0.7), height: 6, background: C3.accent}} />
     </div>
   );
 };
 export const KineticHookV2: React.FC<{fx: Of<'kinetic-hook'>}> = ({fx}) => {
   const {abs, outK} = useSpan(fx);
   const lines = fx.props.lines.map((l, i) => ({text: l.text, face: l.face, at: l.at ?? fx.at + 0.1 + i * 0.3}));
-  return <PosterLines lines={lines} abs={abs} y={fx.props.y} out={outK} />;
+  return <PosterLines lines={lines} abs={abs} y={fx.props.y} out={outK} width={fx.props.width} />;
 };
 export const GiantCaptionV2: React.FC<{fx: Of<'giant-caption'>}> = ({fx}) => {
   const {abs, outK} = useSpan(fx);
@@ -183,7 +186,7 @@ export const GiantCaptionV2: React.FC<{fx: Of<'giant-caption'>}> = ({fx}) => {
   if (accent && text.includes(accent)) lines.push({text: accent, face: 'italic', at: 0});
   if (rest[1]) push(rest[1]);
   lines.forEach((l, i) => { l.at = fx.at + 0.08 + i * 0.22; });
-  return <PosterLines lines={lines.slice(0, 5)} abs={abs} y={fx.props.y} out={outK} />;
+  return <PosterLines lines={lines.slice(0, 5)} abs={abs} y={fx.props.y} out={outK} width={fx.props.width} />;
 };
 
 // ---------------------------------------------------------------- duotone: her whole picture in two colors
@@ -203,11 +206,11 @@ export const Duotone: React.FC<{fx: Of<'duotone'>}> = ({fx}) => {
 // ---------------------------------------------------------------- big stat: one huge number, poster style
 export const BigStat: React.FC<{fx: Of<'big-stat'>}> = ({fx}) => {
   const {t, inK, outK} = useSpan(fx);
-  const {value, prefix, suffix, label, sub, y} = fx.props;
+  const {value, prefix, suffix, label, sub, y, size} = fx.props;
   const c = tw(t, 0.25, 1.4, 0, 1, (x) => 1 - Math.pow(1 - x, 3));
   const shown = `${prefix}${Math.round(value * c).toLocaleString('en-US')}${suffix}`;
   const full = `${prefix}${Math.round(value).toLocaleString('en-US')}${suffix}`;
-  const fs = Math.min(520, 980 / (full.length * 0.47));
+  const fs = Math.min(size, 980 / (full.length * 0.47));
   return (
     <>
       <Scrim fx={fx} top={y} />
