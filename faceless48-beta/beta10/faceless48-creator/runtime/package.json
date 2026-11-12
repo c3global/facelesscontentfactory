@@ -27,7 +27,8 @@
     "f48": "node --import tsx --import ./scripts/tools-path.mjs scripts/f48.ts",
     "test:beta": "node --import tsx --import ./scripts/tools-path.mjs --test scripts/beta.test.ts scripts/stock.test.ts scripts/yap.test.ts scripts/lint.test.ts scripts/broll.test.ts scripts/handoff.test.ts scripts/redact.test.ts",
     "setup": "node scripts/setup.mjs",
-    "matte:hq": "node --import ./scripts/tools-path.mjs scripts/py.mjs scripts/matte-hq.py"
+    "matte:hq": "node --import ./scripts/tools-path.mjs scripts/py.mjs scripts/matte-hq.py",
+    "cutout": "node --import ./scripts/tools-path.mjs scripts/py.mjs scripts/cutout-image.py"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.0",

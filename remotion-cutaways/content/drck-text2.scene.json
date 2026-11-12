@@ -1,0 +1,79 @@
+{
+ "slug": "drck-text2",
+ "video": "raw/drck-fx.mp4",
+ "durationSec": 13,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 13,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "text-pop",
+   "at": 0.2,
+   "until": 5.4,
+   "props": {
+    "look": "stack",
+    "text": "SIGNATURE",
+    "line2": "TEXT EFFECTS",
+    "line3": "ONE PROMPT USING CLAUDE",
+    "y": 1380,
+    "size": 150
+   }
+  },
+  {
+   "type": "text-pop",
+   "at": 5.45,
+   "until": 8.6,
+   "props": {
+    "look": "badge",
+    "text": "EFFECT",
+    "sub": "of the day",
+    "tag": "EP. 01",
+    "y": 1460,
+    "size": 150
+   }
+  },
+  {
+   "type": "text-pop",
+   "at": 8.9,
+   "until": 12.6,
+   "props": {
+    "look": "blur-in",
+    "text": "Quiet power"
+   }
+  }
+ ],
+ "matte": "drck-fx"
+}

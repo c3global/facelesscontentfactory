@@ -1,0 +1,55 @@
+{
+ "kind": "video-carousel",
+ "slug": "carousel-linkedin",
+ "style": "clean",
+ "series": "Leadership Notes",
+ "link": "",
+ "slides": [
+  {
+   "layout": "cover",
+   "kicker": "For team leads",
+   "headline": "Your team doesn't need more meetings. It needs *clearer decisions.*",
+   "body": "A simple way to cut the back-and-forth.",
+   "seconds": 6
+  },
+  {
+   "layout": "compare",
+   "kicker": "Most teams",
+   "headline": "Same meeting, *different outcome.*",
+   "left": "Today",
+   "right": "With a decision owner",
+   "items": [
+    "Everyone discusses",
+    "Nobody decides",
+    "Follow-up meeting booked",
+    "One person owns the call",
+    "Decision made in the room",
+    "Next step assigned"
+   ],
+   "seconds": 7
+  },
+  {
+   "layout": "steps",
+   "headline": "Run it in *three steps.*",
+   "items": [
+    "Name the decision before the meeting",
+    "Give one person the final call",
+    "Write the decision down before you leave"
+   ],
+   "seconds": 7
+  },
+  {
+   "layout": "quote",
+   "headline": "A meeting without a decision is just a conversation with a calendar invite.",
+   "by": "Your brand",
+   "seconds": 6
+  },
+  {
+   "layout": "cta",
+   "end": "follow",
+   "headline": "Follow for more *leadership notes.*",
+   "body": "One practical idea every week.",
+   "seconds": 5
+  }
+ ]
+}

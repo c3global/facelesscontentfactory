@@ -122,7 +122,7 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('script-panel'), props: z.object({title: z.string().default('Script'), beats: z.array(z.object({quote: z.string(), time: z.string().optional(), label: z.string().optional(), notes: z.array(z.string()).max(3).optional()})).min(2).max(8), steps: z.array(z.object({label: z.string(), at: sec})).max(5).default([])})}),
   z.object({...base, type: z.literal('caption-stack'), props: z.object({words: z.array(z.string()).min(2).max(5), y: z.number().default(1420)})}),
   // ---- seventh batch (three-reel build, Nov 2026)
-  z.object({...base, type: z.literal('live-cursor'), props: z.object({label: z.string().default('C3G'), /** final box size in px on the 1080x1920 frame; any size */ width: z.number().default(620), height: z.number().default(980), /** how far the box nudges her sideways, px (0 for none) */ nudge: z.number().default(0)}).prefault({})}),
+  z.object({...base, type: z.literal('live-cursor'), props: z.object({label: z.string().default('C3G'), /** final box size in px on the 1080x1920 frame; any size */ width: z.number().default(620), height: z.number().default(980), /** how far the cursor drags the box sideways, px; everything inside the box moves with it (0 for no drag; negative drags left) */ nudge: z.number().default(-180)}).prefault({})}),
   z.object({...base, type: z.literal('clone-row'), props: z.object({count: z.number().int().min(1).max(4).default(3)}).prefault({})}),
   z.object({...base, type: z.literal('day-dial'), props: z.object({word: z.string().default('day'), marks: z.number().int().min(4).max(12).default(12), label: z.string().optional()}).prefault({})}),
   z.object({...base, type: z.literal('predict-keys'), props: z.object({text: z.string(), suggestions: z.array(z.string()).min(3).max(3).default(['the', 'your', 'what']), y: z.number().default(1180)})}),
@@ -149,6 +149,15 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('spatial-glass'), props: z.object({title: z.string().default(''), text: z.string(), y: z.number().default(1180)})}),
   z.object({...base, type: z.literal('shatter-3d'), props: z.object({cols: z.number().int().min(2).max(5).default(3), rows: z.number().int().min(2).max(6).default(4)}).prefault({})}),
   z.object({...base, type: z.literal('scene-text'), props: z.object({word: z.string(), x: z.number().default(330), y: z.number().default(120), size: z.number().default(150)})}),
+  // ---- tenth batch (beta 11): text animation pack
+  z.object({...base, type: z.literal('text-pop'), props: z.object({text: z.string(), look: z.enum(['focus', 'shiny', 'gradient', 'blur-in', 'split', 'glitch', 'scramble', 'badge', 'glass', 'fill', 'stack']).default('blur-in'), y: z.number().default(1560), size: z.number().default(130), /** badge only: the line under the pill */ sub: z.string().optional(), /** stack only: the red line and the focus line */ line2: z.string().optional(), line3: z.string().optional(), /** badge only: a small episode tag, e.g. "EP. 01" */ tag: z.string().optional()})}),
+  // ---- eleventh batch (beta 11): the carousel slides as video effects
+  z.object({...base, type: z.literal('proof-card'), props: z.object({title: z.string().optional(), label: z.string(), /** only real numbers from the member */ value: z.number(), prefix: z.string().default(''), suffix: z.string().default(''), sub: z.string().optional(), y: z.number().default(1080)})}),
+  z.object({...base, type: z.literal('focus-list'), props: z.object({title: z.string().optional(), items: z.array(z.string()).min(2).max(6), y: z.number().default(820)})}),
+  z.object({...base, type: z.literal('compare'), props: z.object({title: z.string().optional(), left: z.string().default('Option A'), right: z.string().default('Option B'), leftText: z.string(), rightText: z.string(), winner: z.enum(['left', 'right']).default('right'), badge: z.string().default('Winner'), y: z.number().default(1000)})}),
+  z.object({...base, type: z.literal('trend-graph'), props: z.object({title: z.string().optional(), label: z.string(), value: z.number(), suffix: z.string().default(''), points: z.array(z.number()).min(3).max(12), y: z.number().default(1060)})}),
+  z.object({...base, type: z.literal('freebie-doc'), props: z.object({title: z.string(), keyword: z.string(), y: z.number().default(1060)})}),
+  z.object({...base, type: z.literal('note-arrow'), props: z.object({text: z.string().max(60), x: z.number(), y: z.number(), /** arrow tip in px; omit for a note with no arrow */ to: z.tuple([z.number(), z.number()]).optional(), from: z.enum(['auto', 'left', 'right', 'top', 'bottom']).default('auto'), bend: z.number().min(-1).max(1).optional(), size: z.number().default(52)})}),
 ]);
 
 

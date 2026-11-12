@@ -1,9 +1,10 @@
 import React from 'react';
+import {customerBrand} from '../brandConfig';
 import {Freeze, OffthreadVideo, staticFile, useVideoConfig} from 'remotion';
 import {heavyFamily, serifFamily} from '../fonts';
 import {metalFill, metalTextStyle} from '../metal';
 import type {Fx} from './schema';
-import {AppIcon, BrandAvatar, C3, CheckMark, HeartIcon, SendArrow} from './theme';
+import {AppIcon, BrandAvatar, C3, CheckMark, HeartIcon, SendArrow, rgbaOf} from './theme';
 import {easeInC, easeOutC, fxRange, pop, tw, useFxEnv, useFxTime} from './util';
 
 /**
@@ -47,14 +48,14 @@ export const PromptBar: React.FC<{fx: Of<'prompt-bar'>}> = ({fx}) => {
       <div style={{position: 'absolute', left: 80, top: fx.props.y, width: 920, height: 148, borderRadius: 52, background: C3.card, border: C3.hair, boxSizing: 'border-box', display: 'flex', alignItems: 'center', padding: '0 24px 0 30px', gap: 20, opacity: inK, transform: `translateY(${(1 - inK) * 46}px) scale(${0.95 + 0.05 * inK})`, boxShadow: C3.cardShadow}}>
         <BrandAvatar size={80} src={fx.props.iconSrc} />
         <div style={{flex: 1, minWidth: 0}}>
-          <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 23, letterSpacing: 4, textTransform: 'uppercase', color: done ? '#A5551F' : C3.cardMuted}}>{done ? fx.props.doneLabel : fx.props.label}</div>
+          <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 23, letterSpacing: 4, textTransform: 'uppercase', color: done ? `${C3.copperDark}` : C3.cardMuted}}>{done ? fx.props.doneLabel : fx.props.label}</div>
           <div style={{fontFamily: C3.sans, fontWeight: 500, fontSize: 46, lineHeight: 1.2, color: C3.cardText, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'clip'}}>
             {shown}
             {!done && !sent && <Caret frame={frame} h={44} />}
           </div>
         </div>
         <div style={{flex: 'none', width: 96, height: 96, borderRadius: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', background: done ? C3.copperGrad : C3.accent, transform: `scale(${1 - 0.12 * sendPress + (done ? 0.08 * doneK : 0)})`, boxShadow: '0 6px 16px rgba(0,0,0,0.3)'}}>
-          {done ? <CheckMark size={50} color="#2a1206" /> : <SendArrow size={52} />}
+          {done ? <CheckMark size={50} color={C3.onMetal} /> : <SendArrow size={52} />}
         </div>
       </div>
     </div>
@@ -116,7 +117,7 @@ const CommentLayer: React.FC<{fx: Of<'comment-drop'> | Of<'comment-cta'>}> = ({f
             <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 42, lineHeight: 1.1, color: '#fff'}}>{reply}</div>
           </div>
           {fx.props.linkLabel && (
-            <div style={{flex: 'none', padding: '8px 22px', borderRadius: 22, fontFamily: C3.sans, fontWeight: 700, fontSize: 30, color: '#2a1206', ...metalFill({kind: 'copper', variant: 'bright', frame: 0, shimmer: false})}}>{fx.props.linkLabel}</div>
+            <div style={{flex: 'none', padding: '8px 22px', borderRadius: 22, fontFamily: C3.sans, fontWeight: 700, fontSize: 30, color: `${C3.onMetal}`, ...metalFill({kind: 'copper', variant: 'bright', frame: 0, shimmer: false})}}>{fx.props.linkLabel}</div>
           )}
         </div>
       )}
@@ -151,7 +152,7 @@ export const FileDrop: React.FC<{fx: Of<'file-drop'>}> = ({fx}) => {
           <div style={{fontFamily: C3.sans, fontWeight: 500, fontSize: 27, color: C3.cardMuted}}>{fx.props.meta}</div>
         </div>
         <div style={{flex: 'none', width: 58, height: 58, borderRadius: 29, background: C3.copperGrad, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${checkK})`}}>
-          <CheckMark size={34} color="#2a1206" />
+          <CheckMark size={34} color={C3.onMetal} />
         </div>
       </div>
     </div>
@@ -184,7 +185,7 @@ export const IconStrike: React.FC<{fx: Of<'icon-strike'>}> = ({fx}) => {
         <path d={`M${L + 140} ${cy} L${R - 150} ${cy} M${R - 175} ${cy - 22} L${R - 150} ${cy} L${R - 175} ${cy + 22}`} stroke={C3.copper} strokeWidth={9} strokeLinecap="round" strokeLinejoin="round" fill="none" />
       </svg>
       <div style={{position: 'absolute', left: R - size / 2, top: cy - size / 2, width: size, opacity: winK, transform: `scale(${0.6 + 0.4 * winK})`}}>
-        <div style={{borderRadius: size * 0.23, boxShadow: `0 0 ${50 * winK}px rgba(224,138,87,0.65)`}}>
+        <div style={{borderRadius: size * 0.23, boxShadow: `0 0 ${50 * winK}px ${rgbaOf(customerBrand.metal, 0.65)}`}}>
           <AppIcon size={size} glyph={fx.props.winnerGlyph} tone="copper" src={fx.props.winnerSrc} />
         </div>
         {label(fx.props.winnerLabel, '#fff')}
@@ -211,7 +212,7 @@ export const JiggleDelete: React.FC<{fx: Of<'jiggle-delete'>}> = ({fx}) => {
   return (
     <div style={{...FILL, opacity: outK}}>
       <div style={{position: 'absolute', left: 80, top: y, width: 920, height: 290, borderRadius: 46, background: C3.card, border: C3.hair, boxSizing: 'border-box', opacity: inK, transform: `translateY(${(1 - inK) * 40}px)`, boxShadow: C3.cardShadow}}>
-        <div style={{position: 'absolute', left: 36, top: 22, fontFamily: C3.sans, fontWeight: 700, fontSize: 22, letterSpacing: 5, textTransform: 'uppercase', color: '#A5551F'}}>Edit mode</div>
+        <div style={{position: 'absolute', left: 36, top: 22, fontFamily: C3.sans, fontWeight: 700, fontSize: 22, letterSpacing: 5, textTransform: 'uppercase', color: `${C3.copperDark}`}}>Edit mode</div>
         <div style={{position: 'absolute', right: 36, top: 22, fontFamily: C3.sans, fontWeight: 500, fontSize: 22, color: C3.cardMuted}}>{left} {left === 1 ? 'app' : 'apps'}</div>
       </div>
       {icons.map((ic, i) => {
@@ -311,10 +312,10 @@ export const StoryboardDeck: React.FC<{fx: Of<'storyboard-deck'>}> = ({fx}) => {
           <div key={c} style={{position: 'absolute', width: 270, height: 360, borderRadius: 26, background: C3.card, border: C3.hair, boxSizing: 'border-box', overflow: 'hidden', boxShadow: '0 22px 50px rgba(0,0,0,0.55)', ...box}}>
             {c === 0 ? (
               <div style={{padding: '22px 20px'}}>
-                <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 18, letterSpacing: 4, textTransform: 'uppercase', color: '#A5551F', marginBottom: 14}}>Storyboard</div>
+                <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 18, letterSpacing: 4, textTransform: 'uppercase', color: `${C3.copperDark}`, marginBottom: 14}}>Storyboard</div>
                 {lines.map((l, i) => (
                   <div key={i} style={{display: 'flex', gap: 10, marginBottom: 14, opacity: tw(t, 0.6 + i * 0.2, 0.85 + i * 0.2)}}>
-                    <div style={{flex: 'none', width: 28, height: 28, borderRadius: 14, background: C3.copperGrad, color: '#2a1206', fontFamily: C3.sans, fontWeight: 700, fontSize: 17, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{i + 1}</div>
+                    <div style={{flex: 'none', width: 28, height: 28, borderRadius: 14, background: C3.copperGrad, color: `${C3.onMetal}`, fontFamily: C3.sans, fontWeight: 700, fontSize: 17, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{i + 1}</div>
                     <div style={{fontFamily: C3.sans, fontWeight: 500, fontSize: 21, lineHeight: 1.2, color: C3.cardText}}>{l}</div>
                   </div>
                 ))}
@@ -388,7 +389,7 @@ export const GradeSlider: React.FC<{fx: Of<'grade-slider'>}> = ({fx}) => {
     <div style={{...FILL, opacity: outK}}>
       <TintLayer rgb={TINTS[fx.props.look]} k={k * inK} />
       <div style={{position: 'absolute', left: 120, top: fx.props.y, width: 840, height: 120, borderRadius: 44, background: C3.card, border: C3.hair, boxSizing: 'border-box', display: 'flex', alignItems: 'center', padding: '0 34px', gap: 26, opacity: inK, transform: `translateY(${(1 - inK) * 40}px)`, boxShadow: C3.cardShadow}}>
-        <div style={{flex: 'none', fontFamily: C3.sans, fontWeight: 700, fontSize: 24, letterSpacing: 4, textTransform: 'uppercase', color: '#A5551F', width: 130}}>{fx.props.label}</div>
+        <div style={{flex: 'none', fontFamily: C3.sans, fontWeight: 700, fontSize: 24, letterSpacing: 4, textTransform: 'uppercase', color: `${C3.copperDark}`, width: 130}}>{fx.props.label}</div>
         <div style={{position: 'relative', width: trackW, height: 14, borderRadius: 7, background: 'rgba(58,63,66,0.16)'}}>
           <div style={{position: 'absolute', left: 0, top: 0, height: 14, borderRadius: 7, width: trackW * k, background: C3.copperGrad}} />
           <div style={{position: 'absolute', top: -17, left: trackW * k - 24, width: 48, height: 48, borderRadius: 24, background: '#fff', border: `5px solid ${C3.copper}`, boxSizing: 'border-box', boxShadow: '0 4px 12px rgba(0,0,0,0.35)'}} />
@@ -422,7 +423,7 @@ export const EyedropperGrade: React.FC<{fx: Of<'eyedropper-grade'>}> = ({fx}) =>
     <div style={{...FILL, opacity: outK}}>
       <TintLayer rgb={rgb} k={grade * inK} />
       <div style={{position: 'absolute', left: 180, top: y, width: 720, height: 150, borderRadius: 46, background: C3.card, border: C3.hair, boxSizing: 'border-box', opacity: inK, transform: `translateY(${(1 - inK) * 40}px)`, boxShadow: C3.cardShadow}}>
-        <div style={{position: 'absolute', left: 36, top: 16, fontFamily: C3.sans, fontWeight: 700, fontSize: 21, letterSpacing: 4, textTransform: 'uppercase', color: '#A5551F'}}>{fx.props.label}</div>
+        <div style={{position: 'absolute', left: 36, top: 16, fontFamily: C3.sans, fontWeight: 700, fontSize: 21, letterSpacing: 4, textTransform: 'uppercase', color: `${C3.copperDark}`}}>{fx.props.label}</div>
       </div>
       {swatches.map((c, i) => {
         const hit = picked && i === idx;
@@ -540,7 +541,7 @@ export const VideoCard: React.FC<{fx: Of<'video-card'>}> = ({fx}) => {
         </div>
         <div style={{padding: '16px 26px 20px'}}>
           <div style={{fontFamily: serifFamily, fontWeight: 600, fontSize: 44, lineHeight: 1.1, color: C3.cardText}}>{fx.props.title}</div>
-          {fx.props.sub && <div style={{marginTop: 6, fontFamily: C3.sans, fontWeight: 700, fontSize: 21, letterSpacing: 4, textTransform: 'uppercase', color: '#A5551F'}}>{fx.props.sub}</div>}
+          {fx.props.sub && <div style={{marginTop: 6, fontFamily: C3.sans, fontWeight: 700, fontSize: 21, letterSpacing: 4, textTransform: 'uppercase', color: `${C3.copperDark}`}}>{fx.props.sub}</div>}
         </div>
       </div>
     </div>

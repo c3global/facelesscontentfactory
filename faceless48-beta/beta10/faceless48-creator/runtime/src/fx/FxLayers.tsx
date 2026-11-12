@@ -1,4 +1,5 @@
 import React from 'react';
+import {C3} from './theme';
 import {fifthOver} from './fifth';
 import {sixthOver} from './sixth';
 import {CloneRowCopies, seventhOver} from './seventh';
@@ -137,8 +138,8 @@ const SoundLabel: React.FC<{name: string; from?: string; row: number}> = ({name,
   const {t} = useFxTime(0);
   const k = tw(t, 0, 0.12, 0, 1, pop) * (1 - tw(t, 0.9, 1.1));
   return (
-    <div style={{position: 'absolute', left: 40, top: 150 + row * 118, opacity: k, transform: `scale(${0.9 + 0.1 * k})`, transformOrigin: 'left top', padding: '12px 26px 14px', borderRadius: 18, background: 'rgba(10,10,12,0.9)', border: '3px solid #E4BC62', color: '#fff', fontFamily: '"DM Sans", Arial, sans-serif'}}>
-      <div style={{fontSize: 22, fontWeight: 700, letterSpacing: 3, color: '#E4BC62'}}>SOUND{from ? ` · ${from.toUpperCase()}` : ''}</div>
+    <div style={{position: 'absolute', left: 40, top: 150 + row * 118, opacity: k, transform: `scale(${0.9 + 0.1 * k})`, transformOrigin: 'left top', padding: '12px 26px 14px', borderRadius: 18, background: 'rgba(10,10,12,0.9)', border: `3px solid ${C3.gold}`, color: '#fff', fontFamily: '"DM Sans", Arial, sans-serif'}}>
+      <div style={{fontSize: 22, fontWeight: 700, letterSpacing: 3, color: `${C3.gold}`}}>SOUND{from ? ` · ${from.toUpperCase()}` : ''}</div>
       <div style={{fontSize: 64, fontWeight: 700, lineHeight: 1.05, letterSpacing: 2}}>{name.toUpperCase()}</div>
     </div>
   );

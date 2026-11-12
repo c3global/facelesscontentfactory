@@ -1,3 +1,4 @@
+import {customerBrand} from './brandConfig';
 import React from 'react';
 import {interpolate, useCurrentFrame, useVideoConfig} from 'remotion';
 import {Arrival, Surface, Paper} from './ClinicCardTrials';
@@ -23,7 +24,7 @@ export function CenteredCards({tips, treatment}: Pick<Props, 'tips' | 'treatment
               color: brand.white, fontSize: rest ? 60 : 64, lineHeight: 1.08,
               padding: '17px 25px 20px', textAlign: 'center', whiteSpace: 'nowrap',
             }}>
-              <span style={{color: '#F1B9A5'}}>{index + 1}. </span>
+              <span style={{color: `${customerBrand.metalLight}`}}>{index + 1}. </span>
               {tip.lines.join(' ')}
             </div>
           </Surface>
@@ -76,7 +77,7 @@ export function InvitationEnvelope({tips}: TipProps) {
         }}>
           <svg width={940} height={360} viewBox="0 0 940 360">
             <path d="M0 0L470 230L940 0M0 360L329 180M940 360L611 180"
-              fill="none" stroke="#A9574A" strokeWidth={3} />
+              fill="none" stroke={`${customerBrand.metal}`} strokeWidth={3} />
           </svg>
           <MetalRim radius={16} thickness={4} kind="copper" variant="bright" seed={23} />
         </div>
@@ -86,14 +87,14 @@ export function InvitationEnvelope({tips}: TipProps) {
           opacity: opening > .6 ? 0 : 1,
         }}>
           <svg width={940} height={230} viewBox="0 0 940 230">
-            <polygon points="0,0 940,0 470,230" fill={brand.crimson} stroke="#A9574A" strokeWidth={3} />
+            <polygon points="0,0 940,0 470,230" fill={brand.crimson} stroke={`${customerBrand.metal}`} strokeWidth={3} />
           </svg>
         </div>
         <MetalBox kind="copper" variant="deep" seed={11} style={{
           position: 'absolute', left: 428, top: 454, width: 84, height: 84, borderRadius: 42,
           zIndex: 5, opacity: 1 - opening, boxShadow: '0 4px 10px rgba(0,0,0,.4)',
         }}>
-          <div style={{position: 'absolute', inset: 10, border: '2px solid #F1B9A5', borderRadius: '50%'}} />
+          <div style={{position: 'absolute', inset: 10, border: `2px solid ${customerBrand.metalLight}`, borderRadius: '50%'}} />
         </MetalBox>
       </Arrival>
     </div>

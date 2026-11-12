@@ -5,14 +5,14 @@ import {handFamily, heavyFamily, serifFamily} from '../fonts';
 import {metalTextStyle} from '../metal';
 import {Caret, ClipTile, flyPose, typedSlice, useSpan} from './fourth';
 import type {Fx} from './schema';
-import {AppIcon, BrandAvatar, C3, CheckMark, GlobeIcon} from './theme';
+import {AppIcon, BrandAvatar, C3, CheckMark, GlobeIcon, rgbaOf} from './theme';
 import {easeInC, pop, tw} from './util';
 
 /** Fifth FX batch (C3 skin): desk-object and UI moments from the reference reels. Pills and cards sit low and stay brief. */
 type Of<T extends Fx['type']> = Extract<Fx, {type: T}>;
 const FILL: React.CSSProperties = {position: 'absolute', left: 0, top: 0, width: 1080, height: 1920};
 const MONO = '"SF Mono", "Menlo", "Courier New", monospace';
-const cap = (extra: React.CSSProperties = {}): React.CSSProperties => ({fontFamily: C3.sans, fontWeight: 700, fontSize: 21, letterSpacing: 4, textTransform: 'uppercase', color: '#A5551F', ...extra});
+const cap = (extra: React.CSSProperties = {}): React.CSSProperties => ({fontFamily: C3.sans, fontWeight: 700, fontSize: 21, letterSpacing: 4, textTransform: 'uppercase', color: `${C3.copperDark}`, ...extra});
 
 // ---------------------------------------------------------------- name tag
 export const NameTag: React.FC<{fx: Of<'name-tag'>}> = ({fx}) => {
@@ -83,7 +83,7 @@ export const DropdownSelect: React.FC<{fx: Of<'dropdown-select'>}> = ({fx}) => {
         {abs >= openAt && !picked && (
           <div style={{marginTop: 10, borderRadius: 26, background: '#fff', border: C3.hair, overflow: 'hidden', opacity: open, transform: `scaleY(${0.8 + 0.2 * open})`, transformOrigin: 'top', boxShadow: C3.cardShadow}}>
             {options.map((o, i) => (
-              <div key={i} style={{height: rowH, display: 'flex', alignItems: 'center', padding: '0 28px', fontFamily: C3.sans, fontWeight: 500, fontSize: 34, color: C3.cardText, background: i === idx && cur > 0.9 ? 'rgba(224,138,87,0.22)' : 'transparent'}}>{o}</div>
+              <div key={i} style={{height: rowH, display: 'flex', alignItems: 'center', padding: '0 28px', fontFamily: C3.sans, fontWeight: 500, fontSize: 34, color: C3.cardText, background: i === idx && cur > 0.9 ? `${rgbaOf(customerBrand.metal, 0.22)}` : 'transparent'}}>{o}</div>
             ))}
           </div>
         )}
@@ -91,7 +91,7 @@ export const DropdownSelect: React.FC<{fx: Of<'dropdown-select'>}> = ({fx}) => {
       {abs >= openAt && !picked && (
         <svg width={46} height={46} viewBox="0 0 24 24" style={{position: 'absolute', left: 1000 - (1 - cur) * 0 + 0 - 300 - (1 - cur) * -260, top: cy - 6 + (1 - cur) * 40, filter: 'drop-shadow(0 3px 6px rgba(0,0,0,0.5))'}}><path d="M5 3l14 8-6 2-3 6z" fill="#fff" stroke="#24282b" strokeWidth="1.6" strokeLinejoin="round" /></svg>
       )}
-      {picked && <div style={{position: 'absolute', left: 190 + 640, top: y + 44, transform: `scale(${tw(abs, pickAt, pickAt + 0.25, 0, 1, pop)})`}}><div style={{width: 50, height: 50, borderRadius: 25, background: C3.copperGrad, display: 'flex', alignItems: 'center', justifyContent: 'center'}}><CheckMark size={30} color="#2a1206" /></div></div>}
+      {picked && <div style={{position: 'absolute', left: 190 + 640, top: y + 44, transform: `scale(${tw(abs, pickAt, pickAt + 0.25, 0, 1, pop)})`}}><div style={{width: 50, height: 50, borderRadius: 25, background: C3.copperGrad, display: 'flex', alignItems: 'center', justifyContent: 'center'}}><CheckMark size={30} color={C3.onMetal} /></div></div>}
       <div style={{display: 'none'}}>{cx}</div>
     </div>
   );
@@ -193,7 +193,7 @@ export const WaitlistCard: React.FC<{fx: Of<'waitlist-card'>}> = ({fx}) => {
             <div key={i} style={{marginTop: 14, height: 76, borderRadius: 16, display: 'flex', alignItems: 'center', padding: '0 20px', gap: 20, background: you ? `rgba(224,138,87,${0.28 * hit})` : 'rgba(58,63,66,0.06)', border: you && hit > 0.5 ? `2px solid ${customerBrand.metal}` : '2px solid transparent'}}>
               <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 30, color: C3.cardMuted, width: 96, whiteSpace: 'nowrap'}}>No. {i + 1}</div>
               <div style={{flex: 1, fontFamily: handFamily, fontWeight: 700, fontSize: 56, lineHeight: 1, color: C3.cardText, opacity: you ? hit : 0}}>you</div>
-              {you && <div style={{width: 50, height: 50, borderRadius: 25, background: C3.copperGrad, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${hit})`}}><CheckMark size={30} color="#2a1206" /></div>}
+              {you && <div style={{width: 50, height: 50, borderRadius: 25, background: C3.copperGrad, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${hit})`}}><CheckMark size={30} color={C3.onMetal} /></div>}
             </div>
           );
         })}
@@ -244,7 +244,7 @@ export const TestimonialStack: React.FC<{fx: Of<'testimonial-stack'>}> = ({fx}) 
           : {left: 90, top: fx.props.y + i * 190, opacity: k, transform: `translateX(${(1 - k) * 500}px)`};
         return (
           <div key={i} style={{position: 'absolute', width: 900, minHeight: 168, borderRadius: 32, background: '#fff', border: C3.hair, boxSizing: 'border-box', padding: '20px 28px', display: 'flex', gap: 20, boxShadow: C3.cardShadow, ...box}}>
-            <div style={{flex: 'none', width: 72, height: 72, borderRadius: 36, background: C3.copperGrad, color: '#2a1206', fontFamily: C3.sans, fontWeight: 700, fontSize: 34, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{c.name.slice(0, 1)}</div>
+            <div style={{flex: 'none', width: 72, height: 72, borderRadius: 36, background: C3.copperGrad, color: `${C3.onMetal}`, fontFamily: C3.sans, fontWeight: 700, fontSize: 34, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{c.name.slice(0, 1)}</div>
             <div><div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 28, color: C3.cardText}}>{c.name}</div><div style={{fontFamily: C3.sans, fontWeight: 500, fontSize: 32, lineHeight: 1.25, color: C3.cardText}}>{c.text}</div></div>
           </div>
         );
@@ -288,7 +288,7 @@ export const FeedbackNote: React.FC<{fx: Of<'feedback-note'>}> = ({fx}) => {
 
 // ---------------------------------------------------------------- leaderboard
 const Trophy: React.FC = () => (
-  <svg width={46} height={46} viewBox="0 0 24 24" fill="none" stroke="#E3BF63" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M7 4h10v5a5 5 0 01-10 0zM7 6H4v2a3 3 0 003 3M17 6h3v2a3 3 0 01-3 3M12 14v4M8 20h8" /></svg>
+  <svg width={46} height={46} viewBox="0 0 24 24" fill="none" stroke={C3.gold} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M7 4h10v5a5 5 0 01-10 0zM7 6H4v2a3 3 0 003 3M17 6h3v2a3 3 0 01-3 3M12 14v4M8 20h8" /></svg>
 );
 export const Leaderboard: React.FC<{fx: Of<'leaderboard'>}> = ({fx}) => {
   const {t, inK, outK} = useSpan(fx);
@@ -299,8 +299,8 @@ export const Leaderboard: React.FC<{fx: Of<'leaderboard'>}> = ({fx}) => {
         {fx.props.items.map((it, i) => {
           const k = tw(t, 0.25 + i * 0.22, 0.55 + i * 0.22, 0, 1, pop);
           return (
-            <div key={i} style={{height: 76, marginTop: 8, borderRadius: 18, display: 'flex', alignItems: 'center', padding: '0 20px', gap: 20, opacity: k, transform: `translateX(${(1 - k) * 80}px)`, background: i === 0 ? 'linear-gradient(135deg,rgba(224,138,87,0.55),rgba(181,98,44,0.4))' : 'rgba(255,255,255,0.08)', border: i === 0 ? `1.5px solid ${customerBrand.metal}` : '1.5px solid transparent'}}>
-              <div style={{width: 46, height: 46, borderRadius: 12, background: i === 0 ? C3.copperGrad : 'rgba(255,255,255,0.14)', color: i === 0 ? '#2a1206' : '#fff', fontFamily: C3.sans, fontWeight: 700, fontSize: 28, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{i + 1}</div>
+            <div key={i} style={{height: 76, marginTop: 8, borderRadius: 18, display: 'flex', alignItems: 'center', padding: '0 20px', gap: 20, opacity: k, transform: `translateX(${(1 - k) * 80}px)`, background: i === 0 ? `linear-gradient(135deg,${rgbaOf(customerBrand.metal, 0.55)},rgba(181,98,44,0.4))` : 'rgba(255,255,255,0.08)', border: i === 0 ? `1.5px solid ${customerBrand.metal}` : '1.5px solid transparent'}}>
+              <div style={{width: 46, height: 46, borderRadius: 12, background: i === 0 ? C3.copperGrad : 'rgba(255,255,255,0.14)', color: i === 0 ? `${C3.onMetal}` : '#fff', fontFamily: C3.sans, fontWeight: 700, fontSize: 28, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{i + 1}</div>
               <div style={{flex: 1, fontFamily: C3.sans, fontWeight: 700, fontSize: 34, color: '#fff'}}>{it}</div>
               {i === 0 && <Trophy />}
             </div>
@@ -348,7 +348,7 @@ export const TerminalType: React.FC<{fx: Of<'terminal-type'>}> = ({fx}) => {
   return (
     <div style={{...FILL, opacity: outK}}>
       <div style={{position: 'absolute', left: 90, top: fx.props.y, width: 900, borderRadius: 26, background: 'rgba(14,15,17,0.94)', border: C3.hair, boxSizing: 'border-box', padding: '16px 26px 26px', opacity: inK, transform: `translateY(${(1 - inK) * 40}px)`, boxShadow: C3.cardShadow}}>
-        <div style={{display: 'flex', gap: 10, marginBottom: 16}}>{[`${customerBrand.accent}`, '#E3BF63', '#7a8085'].map((c) => <div key={c} style={{width: 18, height: 18, borderRadius: 9, background: c}} />)}</div>
+        <div style={{display: 'flex', gap: 10, marginBottom: 16}}>{[`${customerBrand.accent}`, `${C3.gold}`, '#7a8085'].map((c) => <div key={c} style={{width: 18, height: 18, borderRadius: 9, background: c}} />)}</div>
         {rows.map(({l, at, dur, i}) => abs >= at && (
           <div key={i} style={{fontFamily: MONO, fontSize: 34, lineHeight: 1.45, color: i === rows.length - 1 ? '#fff' : 'rgba(255,255,255,0.78)'}}>
             <span style={{color: `${customerBrand.metal}`}}>{'> '}</span>{typedSlice(l.text, abs, at, at + dur)}
@@ -371,7 +371,7 @@ export const ToggleSwitch: React.FC<{fx: Of<'toggle-switch'>}> = ({fx}) => {
         <AppIcon size={80} glyph={fx.props.glyph} tone="white" />
         <div style={{flex: 1}}>
           <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 40, color: C3.cardText}}>{fx.props.label}</div>
-          {fx.props.sub && <div style={{fontFamily: C3.sans, fontWeight: 500, fontSize: 24, color: k > 0.5 ? '#A5551F' : C3.cardMuted}}>{k > 0.5 ? `Connected · ${fx.props.sub}` : fx.props.sub}</div>}
+          {fx.props.sub && <div style={{fontFamily: C3.sans, fontWeight: 500, fontSize: 24, color: k > 0.5 ? `${C3.copperDark}` : C3.cardMuted}}>{k > 0.5 ? `Connected · ${fx.props.sub}` : fx.props.sub}</div>}
         </div>
         <div style={{width: 112, height: 62, borderRadius: 31, background: k > 0.5 ? C3.copperGrad : 'rgba(58,63,66,0.25)', position: 'relative'}}>
           <div style={{position: 'absolute', top: 5, left: 5 + 50 * k, width: 52, height: 52, borderRadius: 26, background: '#fff', boxShadow: '0 3px 8px rgba(0,0,0,0.35)'}} />

@@ -1,0 +1,145 @@
+{
+ "slug": "drck-cards",
+ "video": "raw/drck-fx.mp4",
+ "durationSec": 22,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 22,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "proof-card",
+   "at": 0.2,
+   "until": 3.6,
+   "props": {
+    "title": "Proof card",
+    "label": "Cash collected \u00b7 this week",
+    "value": 8000,
+    "prefix": "$",
+    "sub": "from 3 booked calls",
+    "y": 1060
+   }
+  },
+  {
+   "type": "note-arrow",
+   "at": 1.4,
+   "until": 3.6,
+   "props": {
+    "text": "one week",
+    "x": 640,
+    "y": 1600,
+    "to": [
+     600,
+     1460
+    ]
+   }
+  },
+  {
+   "type": "focus-list",
+   "at": 3.8,
+   "until": 8.2,
+   "props": {
+    "title": "Focus list",
+    "items": [
+     "Collect information",
+     "Profile optimization",
+     "Ideation and scripting",
+     "Filming and editing",
+     "Posting and DMs"
+    ],
+    "y": 960
+   }
+  },
+  {
+   "type": "compare",
+   "at": 8.4,
+   "until": 11.8,
+   "props": {
+    "title": "Hook A vs Hook B",
+    "leftText": "Here are three tips for better videos.",
+    "rightText": "Your first three seconds decide everything.",
+    "left": "Hook A",
+    "right": "Hook B",
+    "y": 1000
+   }
+  },
+  {
+   "type": "trend-graph",
+   "at": 12,
+   "until": 15.4,
+   "props": {
+    "title": "Watch time graph",
+    "label": "Retention",
+    "value": 82,
+    "suffix": "%",
+    "points": [
+     20,
+     28,
+     26,
+     40,
+     48,
+     62,
+     74
+    ],
+    "y": 1020
+   }
+  },
+  {
+   "type": "note-arrow",
+   "at": 13.2,
+   "until": 15.4,
+   "props": {
+    "text": "draws itself in",
+    "x": 560,
+    "y": 1650,
+    "to": [
+     860,
+     1450
+    ]
+   }
+  },
+  {
+   "type": "freebie-doc",
+   "at": 15.6,
+   "until": 19.2,
+   "props": {
+    "title": "The 3-Second Hook Guide",
+    "keyword": "HOOK",
+    "y": 1060
+   }
+  }
+ ],
+ "matte": "drck-fx"
+}

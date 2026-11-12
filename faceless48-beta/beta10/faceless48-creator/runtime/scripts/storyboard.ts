@@ -80,6 +80,17 @@ export function storyboardMoments(raw: any): {moments: Moment[]; durationSec: nu
     const moments = fillGaps(thin(list), plan.durationSec).map((m) => ({...m, t: Math.min(m.t, plan.durationSec - 0.05), caption: captionAround(caps, m.t)}));
     return {moments, durationSec: plan.durationSec};
   }
+  if (raw.kind === 'video-carousel') {
+    const list: Moment[] = [];
+    let at = 0;
+    for (const [i, sl] of (raw.slides || []).entries()) {
+      const sec = sl.seconds ?? 6;
+      // sample each slide once everything on it has animated in
+      list.push({t: at + Math.min(sec - 0.2, 3.2), label: `Slide ${i + 1}: ${sl.layout}`, caption: String(sl.headline || '').replace(/\*/g, '')});
+      at += sec;
+    }
+    return {moments: list, durationSec: at};
+  }
   if (raw.kind === 'life-scene') {
     const plan = raw.plan ?? raw;
     const list: Moment[] = [];

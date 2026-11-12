@@ -22,8 +22,8 @@ const COPPER_DARK = '#A5551F';
 // Like a design canvas: the named cursor drags a small box around her head, then pulls it out into a big rectangle
 // (any size: width/height in px), live size readout, a center guide flashes, and the box nudges her a little.
 export const LiveCursor: React.FC<{fx: Of<'live-cursor'>}> = ({fx}) => {
-  const {t, abs, fps, len, outK} = useSpan(fx);
-  const {anchors} = useFxEnv();
+  const {t, abs, fps, len, outK, a} = useSpan(fx);
+  const {anchors, video, videoStyle} = useFxEnv();
   const {label, width, height, nudge} = fx.props;
   const head = anchorPx(anchors, Math.round(abs * fps), 'head');
   const ease = (x: number) => 1 - (1 - x) ** 3;
@@ -36,7 +36,8 @@ export const LiveCursor: React.FC<{fx: Of<'live-cursor'>}> = ({fx}) => {
   const w = w0 + (width - w0) * grow;
   const h = h0 + (height - h0) * grow;
   // phase 3: nudge sideways and back
-  const nx = nudge * Math.sin(Math.PI * tw(t, 1.4, len - 0.3, 0, 1, (x) => x));
+  // phase 3: the cursor grabs the box and drags it sideways; whatever is inside the box moves with it, then it is dropped back
+  const nx = nudge * Math.sin(Math.PI * tw(t, 1.4, len - 0.3, 0, 1, (x) => x * x * (3 - 2 * x)));
   const x = head.x - w / 2 + nx;
   const y = head.y - h0 * 0.45;
   const bw = w * Math.min(1, draw * 1.2);
@@ -48,8 +49,24 @@ export const LiveCursor: React.FC<{fx: Of<'live-cursor'>}> = ({fx}) => {
   const cy = (y + bh) * enter + (y - 80) * (1 - enter);
   const guide = tw(t, 1.3, 1.45) * (1 - tw(t, 1.9, 2.1));
   const handles: [number, number][] = [[x, y], [x + bw / 2, y], [x + bw, y], [x, y + bh / 2], [x + bw, y + bh / 2], [x, y + bh], [x + bw / 2, y + bh], [x + bw, y + bh]];
+  const bx0 = head.x - width / 2;
+  const moving = Math.abs(nx) > 0.5;
+  // over effects play inside a Sequence that starts at `a`, so the clip starts there too
+  const from = Math.round(a * fps);
   return (
     <div style={{...FILL, opacity: outK}}>
+      {moving && (
+        <>
+          {/* the spot the box left: a soft, darker blur of the same frame, so nothing is doubled */}
+          <div style={{position: 'absolute', left: bx0, top: y, width, height, overflow: 'hidden'}}>
+            <OffthreadVideo src={staticFile(video)} muted startFrom={from} style={{...videoStyle, position: 'absolute', left: -bx0, top: -y, width: 1080, height: 1920, objectFit: 'cover', filter: 'blur(26px) brightness(0.55)'}} />
+          </div>
+          {/* the box's contents, carried along by the drag */}
+          <div style={{position: 'absolute', left: bx0 + nx, top: y, width, height, overflow: 'hidden', boxShadow: '0 20px 50px rgba(0,0,0,0.55)'}}>
+            <OffthreadVideo src={staticFile(video)} muted startFrom={from} style={{...videoStyle, position: 'absolute', left: -bx0, top: -y, width: 1080, height: 1920, objectFit: 'cover'}} />
+          </div>
+        </>
+      )}
       <div style={{position: 'absolute', left: 540 + nx - 1.5, top: 0, width: 3, height: 1920, background: '#FF5A4E', opacity: guide * 0.9}} />
       {draw > 0 && <div style={{position: 'absolute', left: x, top: y, width: bw, height: bh, border: `3px solid ${C3.gold}`, boxSizing: 'border-box', background: 'rgba(227,191,99,0.05)'}} />}
       {draw > 0.95 && handles.map(([hx, hy], i) => <div key={i} style={{position: 'absolute', left: hx - 10, top: hy - 10, width: 20, height: 20, background: '#fff', border: `3px solid ${C3.gold}`, boxSizing: 'border-box'}} />)}

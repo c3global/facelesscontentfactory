@@ -1,10 +1,11 @@
 import React from 'react';
+import {customerBrand} from '../brandConfig';
 import {Img, OffthreadVideo, staticFile, useVideoConfig} from 'remotion';
 import {heavyFamily, serifFamily} from '../fonts';
 import {Cutout} from './behind';
 import {useSpan} from './fourth';
 import type {Fx} from './schema';
-import {C3} from './theme';
+import {C3, rgbaOf} from './theme';
 import {anchorPx, fxRange, pop, tw, useFxEnv} from './util';
 
 /**
@@ -161,7 +162,7 @@ export const BlowAwayDust: React.FC<{fx: Of<'blow-away'>}> = ({fx}) => {
         const op = Math.max(0, 1 - age / 1.6);
         const size = 3 + r2 * 7;
         void born;
-        return <div key={i} style={{position: 'absolute', left: x, top: y, width: size, height: size, borderRadius: size, background: i % 3 === 0 ? '#F4B08A' : i % 3 === 1 ? '#7a2a22' : '#1a1a1a', opacity: op}} />;
+        return <div key={i} style={{position: 'absolute', left: x, top: y, width: size, height: size, borderRadius: size, background: i % 3 === 0 ? `${C3.copperLight}` : i % 3 === 1 ? '#7a2a22' : '#1a1a1a', opacity: op}} />;
       })}
     </div>
   );
@@ -209,7 +210,7 @@ export const SpatialGlass: React.FC<{fx: Of<'spatial-glass'>}> = ({fx}) => {
         <div style={{marginTop: 26, height: 16, borderRadius: 8, background: 'rgba(255,255,255,0.25)', overflow: 'hidden'}}>
           <div style={{width: `${fill * 100}%`, height: '100%', borderRadius: 8, background: C3.copperGrad}} />
         </div>
-        <div style={{position: 'absolute', right: -40, top: -50, width: 120, height: 120, borderRadius: 60, background: 'radial-gradient(circle at 35% 30%, #FFF3C9, #E3BF63 45%, #A5551F 100%)', boxShadow: '0 0 60px rgba(227,191,99,0.8)', transform: `scale(${orb})`}} />
+        <div style={{position: 'absolute', right: -40, top: -50, width: 120, height: 120, borderRadius: 60, background: `radial-gradient(circle at 35% 30%, ${C3.goldBright}, ${C3.gold} 45%, ${C3.copperDark} 100%)`, boxShadow: `0 0 60px ${rgbaOf(customerBrand.metalLight, 0.8)}`, transform: `scale(${orb})`}} />
       </div>
     </div>
   );
@@ -237,7 +238,7 @@ export const Shatter3D: React.FC<{fx: Of<'shatter-3d'>}> = ({fx}) => {
           return (
             <div key={i} style={{position: 'absolute', left: c * cw, top: r * ch, width: cw, height: ch, overflow: 'hidden', transform: `translateZ(${z}px) rotateX(${rx}deg) rotateY(${ry}deg)`, boxShadow: pop1 > 0.02 ? '0 20px 40px rgba(0,0,0,0.6)' : undefined}}>
               <div style={{position: 'absolute', left: -c * cw, top: -r * ch, width: 1080, height: 1920}}><BaseClip from={from} /></div>
-              <div style={{position: 'absolute', inset: 0, boxSizing: 'border-box', border: `${3 * pop1}px solid rgba(244,176,138,0.9)`}} />
+              <div style={{position: 'absolute', inset: 0, boxSizing: 'border-box', border: `${3 * pop1}px solid ${rgbaOf(customerBrand.metalLight, 0.9)}`}} />
             </div>
           );
         })}

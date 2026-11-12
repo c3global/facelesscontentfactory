@@ -1,0 +1,57 @@
+{
+ "slug": "drck-text3",
+ "video": "raw/drck-fx.mp4",
+ "durationSec": 3.2,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 3.2,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "text-pop",
+   "at": 0.2,
+   "until": 8,
+   "props": {
+    "look": "stack",
+    "text": "SIGNATURE",
+    "line2": "TEXT EFFECTS",
+    "line3": "ONE PROMPT USING CLAUDE",
+    "y": 1380,
+    "size": 150
+   }
+  }
+ ],
+ "matte": "drck-fx"
+}

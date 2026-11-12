@@ -1,3 +1,4 @@
+import {customerBrand} from './brandConfig';
 import React from 'react';
 import {AbsoluteFill, Easing, interpolate, spring, useCurrentFrame} from 'remotion';
 import {z} from 'zod';
@@ -21,7 +22,7 @@ export type LSCommentProps = z.infer<typeof lsCommentSchema>;
 
 const Heart: React.FC<{size: number; pop: number}> = ({size, pop}) => (
   <svg width={size} height={size} viewBox="0 0 24 24" style={{transform: `scale(${pop})`, filter: 'drop-shadow(0 2px 5px rgba(0,0,0,0.45))'}}>
-    <path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.9 6.4 4.9c2 0 3.6 1.1 4.6 2.6 1-1.5 2.6-2.6 4.6-2.6 3.5 0 5.5 3.5 4 6.9C19.5 16.4 12 21 12 21z" fill="#FFFFFF" stroke="#E9A87A" strokeWidth="1.2" />
+    <path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.9 6.4 4.9c2 0 3.6 1.1 4.6 2.6 1-1.5 2.6-2.6 4.6-2.6 3.5 0 5.5 3.5 4 6.9C19.5 16.4 12 21 12 21z" fill="#FFFFFF" stroke={`${customerBrand.metalLight}`} strokeWidth="1.2" />
   </svg>
 );
 
@@ -107,7 +108,7 @@ export const LSTimeline: React.FC<LSTimelineProps> = ({items, startSec, endSec})
     const y = TL_Y - age * (60 + r * 70) + 0.5 * 120 * age * age * 0.4;
     const o = (1 - age / life) * 0.95;
     const size = 5 + r * 5;
-    return <div key={j} style={{position: 'absolute', left: x, top: y, width: size, height: size, borderRadius: size, background: r > 0.5 ? '#FFD6B4' : '#F8E8B4', opacity: o, boxShadow: '0 0 10px rgba(255,170,100,0.9)'}} />;
+    return <div key={j} style={{position: 'absolute', left: x, top: y, width: size, height: size, borderRadius: size, background: r > 0.5 ? `${customerBrand.metalLight}` : `${customerBrand.metalLight}`, opacity: o, boxShadow: '0 0 10px rgba(255,170,100,0.9)'}} />;
   });
   return (
     <AbsoluteFill>
@@ -157,7 +158,7 @@ export const LSTimeline: React.FC<LSTimelineProps> = ({items, startSec, endSec})
         })}
         {/* the ember at the head of the burn */}
         {burning && (
-          <div style={{position: 'absolute', left: headX - 26, top: TL_Y - 26, width: 52, height: 52, borderRadius: 26, background: 'radial-gradient(circle, #FFFFFF 0%, #FFD6B4 28%, rgba(255,140,60,0.75) 55%, rgba(255,120,40,0) 75%)', opacity: 0.85 + 0.15 * Math.sin(f * 1.7)}} />
+          <div style={{position: 'absolute', left: headX - 26, top: TL_Y - 26, width: 52, height: 52, borderRadius: 26, background: `radial-gradient(circle, #FFFFFF 0%, ${customerBrand.metalLight} 28%, rgba(255,140,60,0.75) 55%, rgba(255,120,40,0) 75%)`, opacity: 0.85 + 0.15 * Math.sin(f * 1.7)}} />
         )}
         {embers}
       </div>

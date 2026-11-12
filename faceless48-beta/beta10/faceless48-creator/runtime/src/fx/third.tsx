@@ -1,4 +1,5 @@
 import React from 'react';
+import {C3} from './theme';
 import {OffthreadVideo, staticFile, useVideoConfig} from 'remotion';
 import {brand} from '../brand';
 import {handFamily, heavyFamily, sansFamily, serifFamily} from '../fonts';
@@ -30,7 +31,7 @@ const useSpan = (fx: Fx) => {
 const TONES = {
   kraft: {back: '#c8a27c', a: '#efe3cf', b: '#b0452f', c: '#2b2523'},
   cream: {back: '#efe6d6', a: '#d9c7a6', b: '#b0452f', c: '#3a2a22'},
-  crimson: {back: '#8a1a1d', a: '#efe3cf', b: '#d5aa4a', c: '#2b0e0f'},
+  crimson: {back: '#8a1a1d', a: '#efe3cf', b: `${C3.gold}`, c: '#2b0e0f'},
 } as const;
 
 /** a sheet of paper with torn, uneven edges (a polygon with jittered edge points) */
@@ -93,7 +94,7 @@ export const PaperCutFront: React.FC<{fx: Of<'paper-cut'>}> = ({fx}) => {
   const text = fx.props.label;
   if (!text) return null;
   const letters = text.toUpperCase().split('');
-  const tiles = ['#f6efe1', '#1f1a18', '#b0452f', '#d5aa4a'];
+  const tiles = ['#f6efe1', '#1f1a18', '#b0452f', `${C3.gold}`];
   return (
     <div style={{...FILL, opacity: outK, pointerEvents: 'none'}}>
       <div style={{position: 'absolute', left: 0, width: 1080, top: 1560, display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 6, padding: '0 40px'}}>
@@ -203,7 +204,7 @@ export const DoodleBoil: React.FC<{fx: Of<'doodle-boil'>}> = ({fx}) => {
           const side = m.side === 'left' ? -1 : 1;
           const k = tw(abs - m.at, 0, 0.55, 0, 1, (v) => v);
           const strokes = strokesFor(m.kind, x, y, side);
-          const col = m.color === 'gold' ? '#E4BC62' : m.color === 'red' ? '#FF5A55' : '#FFFFFF';
+          const col = m.color === 'gold' ? `${C3.gold}` : m.color === 'red' ? '#FF5A55' : '#FFFFFF';
           return (
             <g key={mi} strokeLinecap="round" strokeLinejoin="round" fill="none">
               {strokes.map((s, si) => {
@@ -226,7 +227,7 @@ export const DoodleBoil: React.FC<{fx: Of<'doodle-boil'>}> = ({fx}) => {
         const f0 = Math.round(abs * 30);
         const {x, y} = anchorPx(anchors, f0, m.target);
         const side = m.side === 'left' ? -1 : 1;
-        const col = m.color === 'gold' ? '#E4BC62' : m.color === 'red' ? '#FF5A55' : '#FFFFFF';
+        const col = m.color === 'gold' ? `${C3.gold}` : m.color === 'red' ? '#FF5A55' : '#FFFFFF';
         const px = m.kind === 'text' ? x : m.kind === 'arrow' ? x + side * 330 : x + side * 250;
         const py = m.kind === 'text' ? y - 190 : m.kind === 'arrow' ? y + 270 : y - 260;
         const k = tw(abs - m.at, 0.15, 0.45, 0, 1, pop);
@@ -312,7 +313,7 @@ export const CoverStoryFront: React.FC<{fx: Of<'cover-story'>}> = ({fx}) => {
       <div style={{position: 'absolute', left: 54, right: 54, top: 1560, fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 900, fontSize: 104, lineHeight: 1.02, color: '#fff', textShadow: '0 4px 30px rgba(0,0,0,0.55)', transform: `translateY(${(1 - k) * 60}px)`, opacity: k}}>
         {fx.props.headline}
       </div>
-      <div style={{position: 'absolute', left: 54, right: 54, top: 1450, display: 'flex', flexWrap: 'wrap', gap: '4px 26px', fontFamily: SANS, fontWeight: 700, fontSize: 34, letterSpacing: 2, color: '#E4BC62', opacity: k}}>
+      <div style={{position: 'absolute', left: 54, right: 54, top: 1450, display: 'flex', flexWrap: 'wrap', gap: '4px 26px', fontFamily: SANS, fontWeight: 700, fontSize: 34, letterSpacing: 2, color: `${C3.gold}`, opacity: k}}>
         {fx.props.lines.map((l, i) => (
           <span key={i}>{l.toUpperCase()}</span>
         ))}

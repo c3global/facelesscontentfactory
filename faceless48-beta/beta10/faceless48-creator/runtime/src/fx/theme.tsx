@@ -10,6 +10,18 @@ import {sansFamily} from '../fonts';
  * the layout and motion of the effects stay as they are.
  * Palette follows src/brand.ts: crimson, white, black, charcoal, plus the metals. No cream.
  */
+/** #RRGGBB to rgba() */
+export const rgbaOf = (hex: string, a: number) => {
+  const n = parseInt(hex.slice(1), 16);
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
+};
+/** mix toward white (amt > 0) or black (amt < 0) */
+export const shadeHex = (hex: string, amt: number) => {
+  const n = parseInt(hex.slice(1), 16);
+  const mix = (c: number) => Math.round(amt >= 0 ? c + (255 - c) * amt : c * (1 + amt));
+  const [r, g, b] = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map(mix);
+  return '#' + ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1).toUpperCase();
+};
 export const C3 = {
   sans: sansFamily('DM Sans'),
   /** light card (a text field, a posted comment) */
@@ -21,12 +33,16 @@ export const C3 = {
   glass: 'rgba(12,13,15,0.86)',
   glassText: brand.white,
   /** copper first: rose gold and copper carry the brand, gold is the secondary accent */
-  hair: '1.5px solid rgba(224,138,87,0.85)',
+  hair: `1.5px solid ${rgbaOf(customerBrand.metal, 0.85)}`,
   copperGrad: `linear-gradient(135deg,${customerBrand.metal},${customerBrand.metalLight} 50%,${customerBrand.metal})`,
   accent: brand.crimson,
   accentDeep: brand.crimsonDeep,
-  gold: '#E3BF63',
-  goldBright: '#FFF3C9',
+  gold: customerBrand.metalLight,
+  goldBright: shadeHex(customerBrand.metalLight, 0.6),
+  copperLight: customerBrand.metalLight,
+  copperDark: shadeHex(customerBrand.metal, -0.25),
+  onMetal: shadeHex(customerBrand.metal, -0.78),
+  accentDarker: shadeHex(customerBrand.accentDeep, -0.35),
   copper: `${customerBrand.metal}`,
 } as const;
 

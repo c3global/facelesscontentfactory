@@ -213,3 +213,25 @@ Behind-you effects (marked *) need the high-quality cutout: `npm run matte -- <s
 | Spatial glass | `spatial-glass` | A frosted glass panel floats in 3D in front of them with an orb and a progress bar. |
 | Shatter 3D | `shatter-3d` | The frame breaks into shards that pop toward camera, then settle back. |
 | Scene text* | `scene-text` | A big serif word sits in the room behind the speaker. |
+
+## Life Scenes (cinematic B-roll with your text on top): 33
+
+Life Scenes are short cinematic clips, mostly B-roll (or still photos), with on-screen text layered over them. Plan details: docs/LIFE-SCENES.md.
+
+| Group | Names |
+| --- | --- |
+| Overlays (7) | `message`, `note`, `stack`, `phone`, `checklist`, `comment`, `timeline` |
+| Camera moves (5) | `zoom`, `pullback`, `punch`, `drift`, `freeze` |
+| Atmosphere (3) | dust, light leaks, zoom-through |
+| Tip-card text styles (9), `clinicNote.treatment` | `invitation-messages`, `invitation-cards`, `invitation-envelope`, `visitor-checklist`, `announcement-note`, `announcement-numbered`, `welcome-clipboard`, `appreciation-cards`, `rest-cards` |
+| Hook openers (3), `clinicNote.hookEffect` | `standard`, `stamp`, `holiday` |
+| Card styles (3), `cardTrial.treatment` | `crimson-card`, `message-bubbles`, `handwritten-note` |
+| Editorial type styles (3), `velvetEditorial.treatment` | `engraved-serif`, `gallery-sans`, `copper-script` |
+
+Beat picker: time tip cards to music beats (skills/beat-sync/SKILL.md).
+
+## Video carousels: 16 slide layouts, 6 styles, 6 end screens
+
+Layouts: `cover`, `statement`, `list`, `checklist`, `compare`, `quote`, `steps`, `status`, `branches`, `media`, `toggles`, `proof`, `graph`, `ab`, `doc`, `cta`. Styles: `editorial`, `luxe`, `clean`, `bold`, `glass`, `showcase`. End screens: keyword, follow, save, link, question, collage. Handwritten notes with arrows on any slide. Five starter templates. Optional presenter cutout (`npm run cutout`). See docs/VIDEO-CAROUSELS.md.
+
+**Total: 136 talking-head effects and graphics + 33 Life Scene effects and styles = 169, plus 10 carousel layouts in 4 styles.**

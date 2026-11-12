@@ -1,5 +1,7 @@
 import customerBrand, {accentRgba} from "../brandConfig";
 import React from 'react';
+import {C3} from './theme';
+import {rgbaOf} from './theme';
 import {Freeze, OffthreadVideo, staticFile, useVideoConfig} from 'remotion';
 import {brand} from '../brand';
 import {handFamily, heavyFamily, sansFamily, serifFamily} from '../fonts';
@@ -12,7 +14,7 @@ type Of<T extends Fx['type']> = Extract<Fx, {type: T}>;
 const FILL: React.CSSProperties = {position: 'absolute', left: 0, top: 0, width: 1080, height: 1920};
 const SANS = sansFamily('DM Sans');
 const GLASS = 'rgba(12,13,15,0.82)';
-const HAIR = '1.5px solid rgba(213,170,74,0.75)';
+const HAIR = `1.5px solid ${rgbaOf(customerBrand.metalLight, 0.75)}`;
 
 const useSpan = (fx: Fx) => {
   const [a, b] = fxRange(fx);
@@ -54,7 +56,7 @@ export const StickyText: React.FC<{fx: Of<'sticky-text'>}> = ({fx}) => {
   return (
     <div style={{...FILL}}>
       <div style={{position: 'absolute', left: p.x, top: p.y, transform: `translate(-50%, -125%) rotate(-5deg) scale(${inK * outK})`, transformOrigin: '50% 120%'}}>
-        <div style={{padding: '12px 30px 8px', borderRadius: 18, fontFamily: heavyFamily, fontSize: 74, letterSpacing: 2, color: '#2a1206', textTransform: 'uppercase', ...metalFill({kind: 'copper', variant: 'bright', frame: 0, shimmer: false}), boxShadow: '0 10px 26px rgba(0,0,0,0.45)', whiteSpace: 'nowrap'}}>{fx.props.text}</div>
+        <div style={{padding: '12px 30px 8px', borderRadius: 18, fontFamily: heavyFamily, fontSize: 74, letterSpacing: 2, color: `${C3.onMetal}`, textTransform: 'uppercase', ...metalFill({kind: 'copper', variant: 'bright', frame: 0, shimmer: false}), boxShadow: '0 10px 26px rgba(0,0,0,0.45)', whiteSpace: 'nowrap'}}>{fx.props.text}</div>
         <div style={{width: 0, height: 0, margin: '0 auto', borderLeft: '16px solid transparent', borderRight: '16px solid transparent', borderTop: `22px solid ${customerBrand.metal}`}} />
       </div>
     </div>
@@ -66,8 +68,8 @@ const Pointer: React.FC<{x: number; y: number; cx: number; cy: number; k: number
   const len = Math.hypot(cx - x, cy - y);
   return (
     <svg width={1080} height={1920} style={{position: 'absolute', left: 0, top: 0, overflow: 'visible', pointerEvents: 'none'}}>
-      <line x1={cx} y1={cy} x2={x} y2={y} stroke="#E3BF63" strokeWidth={4} strokeLinecap="round" strokeDasharray={len} strokeDashoffset={len * (1 - k)} />
-      <circle cx={x} cy={y} r={14 * k} fill={`${customerBrand.accent}`} stroke="#FFF3C9" strokeWidth={4} />
+      <line x1={cx} y1={cy} x2={x} y2={y} stroke={C3.gold} strokeWidth={4} strokeLinecap="round" strokeDasharray={len} strokeDashoffset={len * (1 - k)} />
+      <circle cx={x} cy={y} r={14 * k} fill={`${customerBrand.accent}`} stroke={C3.goldBright} strokeWidth={4} />
     </svg>
   );
 };
@@ -134,8 +136,8 @@ export const PhoneMockup: React.FC<{fx: Of<'phone-mockup'>}> = ({fx}) => {
         <div style={{...FILL, width: 400, height: 820, borderRadius: 68, padding: 14, boxSizing: 'border-box', ...metalFill({kind: 'copper', variant: 'bright', frame: 0, shimmer: false}), boxShadow: '0 40px 90px rgba(0,0,0,0.6)'}}>
           <div style={{width: '100%', height: '100%', borderRadius: 56, background: '#0b0c0d', overflow: 'hidden', position: 'relative'}}>
             <div style={{position: 'absolute', left: 130, top: 14, width: 140, height: 30, borderRadius: 15, background: '#000'}} />
-            <div style={{position: 'absolute', left: 24, top: 70, fontFamily: SANS, fontWeight: 700, fontSize: 26, letterSpacing: 3, color: '#E3BF63', textTransform: 'uppercase'}}>{fx.props.title}</div>
-            <div style={{position: 'absolute', left: 24, right: 24, top: 120, height: 360, borderRadius: 30, background: `linear-gradient(160deg,${customerBrand.accent},#3d0709)`, border: '1.5px solid rgba(213,170,74,0.7)'}}>
+            <div style={{position: 'absolute', left: 24, top: 70, fontFamily: SANS, fontWeight: 700, fontSize: 26, letterSpacing: 3, color: `${C3.gold}`, textTransform: 'uppercase'}}>{fx.props.title}</div>
+            <div style={{position: 'absolute', left: 24, right: 24, top: 120, height: 360, borderRadius: 30, background: `linear-gradient(160deg,${customerBrand.accent},${C3.accentDarker})`, border: `1.5px solid ${rgbaOf(customerBrand.metalLight, 0.7)}`}}>
               <div style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)', width: 0, height: 0, borderTop: '30px solid transparent', borderBottom: '30px solid transparent', borderLeft: '50px solid rgba(255,255,255,0.92)'}} />
             </div>
             {fx.props.lines.map((l, i) => (
@@ -156,15 +158,15 @@ export const Checklist: React.FC<{fx: Of<'checklist'>}> = ({fx}) => {
   return (
     <div style={{...FILL, opacity: outK}}>
       <div style={{position: 'absolute', left: 54, top: 1090, width: 800, padding: '26px 40px 14px', borderRadius: 34, background: GLASS, border: HAIR, boxSizing: 'border-box', transform: `scale(${0.94 + 0.06 * inK})`, opacity: inK, boxShadow: '0 20px 50px rgba(0,0,0,0.5)'}}>
-        {fx.props.title && <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 28, letterSpacing: 4, textTransform: 'uppercase', color: '#E3BF63', marginBottom: 12}}>{fx.props.title}</div>}
+        {fx.props.title && <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 28, letterSpacing: 4, textTransform: 'uppercase', color: `${C3.gold}`, marginBottom: 12}}>{fx.props.title}</div>}
         {fx.props.items.map((it, i) => {
           const k = tw(abs, it.at, it.at + 0.28, 0, 1, pop);
           const draw = tw(abs, it.at + 0.3, it.at + 0.55);
           return (
             <div key={i} style={{display: 'flex', alignItems: 'center', gap: 26, height: 100, borderTop: i ? '1px solid rgba(255,255,255,0.1)' : 'none', opacity: tw(abs, it.at - 0.2, it.at + 0.1, 0.35, 1)}}>
-              <div style={{width: 62, height: 62, borderRadius: 31, border: `3px solid ${draw > 0.05 ? '#E3BF63' : 'rgba(255,255,255,0.5)'}`, boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center', background: draw > 0.95 ? 'rgba(227,191,99,0.2)' : 'transparent'}}>
+              <div style={{width: 62, height: 62, borderRadius: 31, border: `3px solid ${draw > 0.05 ? '${C3.gold}' : 'rgba(255,255,255,0.5)'}`, boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center', background: draw > 0.95 ? `${rgbaOf(customerBrand.metalLight, 0.2)}` : 'transparent'}}>
                 <svg width={34} height={34} viewBox="0 0 34 34">
-                  <path d="M6 18 L14 26 L29 8" fill="none" stroke="#E3BF63" strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={50} strokeDashoffset={50 * (1 - draw)} />
+                  <path d="M6 18 L14 26 L29 8" fill="none" stroke={C3.gold} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={50} strokeDashoffset={50 * (1 - draw)} />
                 </svg>
               </div>
               <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 46, color: brand.white, transform: `translateX(${(1 - k) * 20}px)`}}>{it.text}</div>
@@ -228,7 +230,7 @@ export const BeforeAfter: React.FC<{fx: Of<'before-after'>}> = ({fx}) => {
           <OffthreadVideo src={staticFile(video)} muted startFrom={Math.round(a * fps)} style={{...FILL, objectFit: 'cover', filter: 'saturate(0.5) contrast(0.8) brightness(1.1) blur(0.5px)'}} />
         </div>
       )}
-      {!isCut && p > 0.001 && p < 0.999 && <div style={{position: 'absolute', left: x - 3, top: 0, width: 6, height: 1920, background: 'linear-gradient(180deg,#FFF3C9,#E3BF63)', boxShadow: '0 0 30px 8px rgba(227,191,99,0.7)'}} />}
+      {!isCut && p > 0.001 && p < 0.999 && <div style={{position: 'absolute', left: x - 3, top: 0, width: 6, height: 1920, background: `linear-gradient(180deg,${C3.goldBright},${C3.gold})`, boxShadow: `0 0 30px 8px ${rgbaOf(customerBrand.metalLight, 0.7)}`}} />}
       <div style={{position: 'absolute', left: 40, top: 250, padding: '10px 26px', borderRadius: 30, background: 'rgba(0,0,0,0.7)', fontFamily: SANS, fontWeight: 700, fontSize: 32, letterSpacing: 4, textTransform: 'uppercase', color: '#F8E8B4', opacity: (isCut ? (p >= 1 ? 1 : 0) : tw(t, 1.0, 1.4)) * outK}}>{fx.props.afterLabel}</div>
       <div style={{position: 'absolute', right: 40, top: 250, padding: '10px 26px', borderRadius: 30, background: 'rgba(0,0,0,0.7)', fontFamily: SANS, fontWeight: 700, fontSize: 32, letterSpacing: 4, textTransform: 'uppercase', color: brand.white, opacity: (isCut ? (p >= 1 ? 0 : 1) : 1 - tw(t, 0.4 + fx.props.sweepSec * 0.7, 0.4 + fx.props.sweepSec)) * tw(t, 0, 0.3)}}>{fx.props.beforeLabel}</div>
     </div>
@@ -251,7 +253,7 @@ export const ChartGrow: React.FC<{fx: Of<'chart-grow'>}> = ({fx}) => {
   return (
     <div style={{...FILL, opacity: outK}}>
       <div style={{position: 'absolute', left: 54, top: 1100, width: 972, height: 600, borderRadius: 36, background: GLASS, border: HAIR, boxSizing: 'border-box', padding: 36, opacity: inK, transform: `scale(${0.94 + 0.06 * inK})`, boxShadow: '0 22px 56px rgba(0,0,0,0.55)'}}>
-        {fx.props.label && <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 30, letterSpacing: 4, textTransform: 'uppercase', color: '#E3BF63', marginBottom: 14}}>{fx.props.label}</div>}
+        {fx.props.label && <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 30, letterSpacing: 4, textTransform: 'uppercase', color: `${C3.gold}`, marginBottom: 14}}>{fx.props.label}</div>}
         <svg width={W} height={Hh + 20} viewBox={`0 0 ${W} ${Hh}`} style={{overflow: 'visible'}}>
           <defs>
             <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
@@ -264,9 +266,9 @@ export const ChartGrow: React.FC<{fx: Of<'chart-grow'>}> = ({fx}) => {
           ))}
           <path d={`${d} L${W} ${Hh} L0 ${Hh} Z`} fill="url(#cg)" opacity={draw} style={{clipPath: `inset(0 ${(1 - draw) * 100}% 0 0)`}} />
           <path d={d} fill="none" stroke={`${customerBrand.metalLight}`} strokeWidth={9} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={total} strokeDashoffset={total * (1 - draw)} />
-          {draw > 0.97 && <circle cx={end[0]} cy={end[1]} r={16} fill={`${customerBrand.accent}`} stroke="#FFF3C9" strokeWidth={5} />}
+          {draw > 0.97 && <circle cx={end[0]} cy={end[1]} r={16} fill={`${customerBrand.accent}`} stroke={C3.goldBright} strokeWidth={5} />}
         </svg>
-        {fx.props.endLabel && draw > 0.97 && <div style={{position: 'absolute', left: 36 + end[0] - 170, top: 36 + 50 + end[1] - 100, padding: '10px 26px', borderRadius: 24, fontFamily: heavyFamily, fontSize: 56, color: '#2a1206', ...metalFill({kind: 'gold', variant: 'bright', frame: 0, shimmer: false}), transform: `scale(${tw(t, 2.2, 2.5, 0, 1, pop)})`}}>{fx.props.endLabel}</div>}
+        {fx.props.endLabel && draw > 0.97 && <div style={{position: 'absolute', left: 36 + end[0] - 170, top: 36 + 50 + end[1] - 100, padding: '10px 26px', borderRadius: 24, fontFamily: heavyFamily, fontSize: 56, color: `${C3.onMetal}`, ...metalFill({kind: 'gold', variant: 'bright', frame: 0, shimmer: false}), transform: `scale(${tw(t, 2.2, 2.5, 0, 1, pop)})`}}>{fx.props.endLabel}</div>}
       </div>
     </div>
   );
@@ -291,10 +293,10 @@ export const CommentBubble: React.FC<{fx: Of<'comment-bubble'>}> = ({fx}) => {
         </div>
       </div>
       <div style={{position: 'absolute', left: 150, top: 1340, display: 'flex', alignItems: 'center', gap: 18, opacity: rk, transform: `translateY(${(1 - rk) * 30}px) scale(${0.9 + 0.1 * rk})`}}>
-        <div style={{width: 64, height: 64, borderRadius: 32, background: `linear-gradient(135deg,${brand.crimson},#3d0709)`, border: '2px solid #D5AA4A', flex: 'none'}} />
+        <div style={{width: 64, height: 64, borderRadius: 32, background: `linear-gradient(135deg,${brand.crimson},${C3.accentDarker})`, border: `2px solid ${C3.gold}`, flex: 'none'}} />
         <div style={{padding: '16px 28px', borderRadius: 36, background: 'rgba(30,32,34,0.95)', fontFamily: SANS, fontWeight: 500, fontSize: 40, color: brand.white, boxShadow: '0 10px 30px rgba(0,0,0,0.4)'}}>
           {fx.props.reply}
-          <div style={{display: 'inline-block', marginLeft: 18, padding: '8px 22px', borderRadius: 24, fontWeight: 700, fontSize: 36, color: '#2a1206', ...metalFill({kind: 'gold', variant: 'bright', frame: 0, shimmer: false})}}>🔗 {fx.props.linkLabel}</div>
+          <div style={{display: 'inline-block', marginLeft: 18, padding: '8px 22px', borderRadius: 24, fontWeight: 700, fontSize: 36, color: `${C3.onMetal}`, ...metalFill({kind: 'gold', variant: 'bright', frame: 0, shimmer: false})}}>🔗 {fx.props.linkLabel}</div>
         </div>
       </div>
     </div>
@@ -322,7 +324,7 @@ export const TimelineBurn: React.FC<{fx: Of<'timeline-burn'>}> = ({fx}) => {
             <div style={{position: 'absolute', left: x0, top: 1330, width: Math.max(0, head - x0), height: 22, borderRadius: 11, background: '#1a1a1a', boxShadow: '0 0 12px rgba(0,0,0,0.6)'}} />
             {Array.from({length: 8}).map((_, i) => {
               const hh = (90 + ((i * 53) % 90)) * (0.6 + 0.4 * Math.sin(frame * 0.5 + i * 1.7)) * Math.min(1, prog * 6) * (1 - tw(abs, burnAt + 2.2, burnAt + 3.0));
-              return <div key={i} style={{position: 'absolute', left: head - 46 + (i - 4) * 12, bottom: 1920 - 1345, width: 70, height: Math.max(0, hh), borderRadius: '50% 50% 40% 40% / 70% 70% 30% 30%', background: 'radial-gradient(ellipse at 50% 90%, #FFF1B0 0%, #FFB020 30%, #F0561A 62%, rgba(201,27,25,0) 100%)', filter: 'blur(6px)', mixBlendMode: 'screen'}} />;
+              return <div key={i} style={{position: 'absolute', left: head - 46 + (i - 4) * 12, bottom: 1920 - 1345, width: 70, height: Math.max(0, hh), borderRadius: '50% 50% 40% 40% / 70% 70% 30% 30%', background: `radial-gradient(ellipse at 50% 90%, #FFF1B0 0%, #FFB020 30%, #F0561A 62%, ${rgbaOf(customerBrand.accent, 0)} 100%)`, filter: 'blur(6px)', mixBlendMode: 'screen'}} />;
             })}
             {Array.from({length: 14}).map((_, i) => {
               const life = (frame * 0.03 + i * 0.211) % 1;
@@ -335,7 +337,7 @@ export const TimelineBurn: React.FC<{fx: Of<'timeline-burn'>}> = ({fx}) => {
   }
   const burn = tw(abs, burnAt, burnAt + 1.2, 0, 1, (x) => x);
   const shake = abs >= burnAt ? Math.sin(frame * 3.1) * 4 * (1 - burn) : 0;
-  const colors = [`${customerBrand.accent}`, '#D5AA4A', '#3A3F42', `${customerBrand.metal}`, '#8d1214', '#E3BF63', `${customerBrand.accentDeep}`, '#9aa0a3'];
+  const colors = [`${customerBrand.accent}`, `${C3.gold}`, '#3A3F42', `${customerBrand.metal}`, `${C3.accentDeep}`, `${C3.gold}`, `${customerBrand.accentDeep}`, '#9aa0a3'];
   return (
     <div style={{...FILL, opacity: outK}}>
       <div style={{position: 'absolute', left: 40, top: 1080, width: 1000, height: 420, borderRadius: 34, background: GLASS, border: HAIR, boxSizing: 'border-box', padding: 30, transform: `translate(${shake}px, ${burn * 40}px)`, opacity: 1 - burn * 0.85, filter: `brightness(${1 - 0.5 * burn}) sepia(${burn})`}}>
@@ -358,7 +360,7 @@ export const TimelineBurn: React.FC<{fx: Of<'timeline-burn'>}> = ({fx}) => {
             const life = ((frame * 0.045 + i * 0.37) % 1);
             const h = (160 + ((i * 71) % 220)) * (0.5 + 0.5 * Math.sin(frame * 0.35 + i)) * Math.min(1, burn * 1.6) * (abs > burnAt + 2.4 ? Math.max(0, 1 - (abs - burnAt - 2.4)) : 1);
             return (
-              <div key={i} style={{position: 'absolute', left: bx - 70, bottom: 130 - life * 0, width: 140, height: Math.max(0, h), borderRadius: '50% 50% 40% 40% / 70% 70% 30% 30%', background: 'radial-gradient(ellipse at 50% 85%, #FFF1B0 0%, #FFB020 28%, #F0561A 58%, rgba(201,27,25,0) 100%)', filter: 'blur(8px)', transform: `translateY(${-(i % 3) * 16}px) scaleX(${0.8 + 0.3 * Math.sin(frame * 0.4 + i * 2)})`, mixBlendMode: 'screen'}} />
+              <div key={i} style={{position: 'absolute', left: bx - 70, bottom: 130 - life * 0, width: 140, height: Math.max(0, h), borderRadius: '50% 50% 40% 40% / 70% 70% 30% 30%', background: `radial-gradient(ellipse at 50% 85%, #FFF1B0 0%, #FFB020 28%, #F0561A 58%, ${rgbaOf(customerBrand.accent, 0)} 100%)`, filter: 'blur(8px)', transform: `translateY(${-(i % 3) * 16}px) scaleX(${0.8 + 0.3 * Math.sin(frame * 0.4 + i * 2)})`, mixBlendMode: 'screen'}} />
             );
           })}
           {Array.from({length: 26}).map((_, i) => {
@@ -383,7 +385,7 @@ export const PullBackReveal: React.FC<{fx: Of<'pull-back-reveal'>}> = ({fx}) => 
       <div style={{...FILL, background: PLATE_BG, opacity: s}} />
       <div style={{position: 'absolute', left: 120, top: 180, width: 840, height: 1280, borderRadius: 36, background: '#17191b', border: HAIR, opacity: s, transform: `scale(${0.96 + 0.04 * s})`, boxShadow: '0 40px 100px rgba(0,0,0,0.6)'}}>
         <div style={{height: 70, borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', gap: 12, padding: '0 28px'}}>
-          {[`${customerBrand.accent}`, '#D5AA4A', '#9aa0a3'].map((c, i) => (
+          {[`${customerBrand.accent}`, `${C3.gold}`, '#9aa0a3'].map((c, i) => (
             <div key={i} style={{width: 18, height: 18, borderRadius: 9, background: c}} />
           ))}
           <div style={{marginLeft: 18, fontFamily: SANS, fontWeight: 700, fontSize: 28, color: brand.white}}>{fx.props.appTitle}</div>

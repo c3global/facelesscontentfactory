@@ -1,10 +1,11 @@
 import React from 'react';
+import {customerBrand} from '../brandConfig';
 import {Img, OffthreadVideo, staticFile, useVideoConfig} from 'remotion';
 import {serifFamily} from '../fonts';
 import {Cutout} from './behind';
 import {Caret, typedSlice, useSpan} from './fourth';
 import type {Fx} from './schema';
-import {C3} from './theme';
+import {C3, rgbaOf} from './theme';
 import {anchorPx, pop, tw, useFxEnv} from './util';
 
 /**
@@ -16,7 +17,7 @@ const FILL: React.CSSProperties = {position: 'absolute', left: 0, top: 0, width:
 const MONO = '"SF Mono", "Menlo", "Courier New", monospace';
 const CREAM = '#F3EBDD';
 const INK = '#2B2420';
-const COPPER_DARK = '#A5551F';
+const COPPER_DARK = `${C3.copperDark}`;
 
 // ---------------------------------------------------------------- live cursor
 // Like a design canvas: the named cursor drags a small box around her head, then pulls it out into a big rectangle
@@ -51,7 +52,7 @@ export const LiveCursor: React.FC<{fx: Of<'live-cursor'>}> = ({fx}) => {
   return (
     <div style={{...FILL, opacity: outK}}>
       <div style={{position: 'absolute', left: 540 + nx - 1.5, top: 0, width: 3, height: 1920, background: '#FF5A4E', opacity: guide * 0.9}} />
-      {draw > 0 && <div style={{position: 'absolute', left: x, top: y, width: bw, height: bh, border: `3px solid ${C3.gold}`, boxSizing: 'border-box', background: 'rgba(227,191,99,0.05)'}} />}
+      {draw > 0 && <div style={{position: 'absolute', left: x, top: y, width: bw, height: bh, border: `3px solid ${C3.gold}`, boxSizing: 'border-box', background: `${rgbaOf(customerBrand.metalLight, 0.05)}`}} />}
       {draw > 0.95 && handles.map(([hx, hy], i) => <div key={i} style={{position: 'absolute', left: hx - 10, top: hy - 10, width: 20, height: 20, background: '#fff', border: `3px solid ${C3.gold}`, boxSizing: 'border-box'}} />)}
       {draw > 0.95 && (
         <div style={{position: 'absolute', left: x + bw / 2 - 120, top: y - 62, width: 240, textAlign: 'center'}}>
@@ -62,7 +63,7 @@ export const LiveCursor: React.FC<{fx: Of<'live-cursor'>}> = ({fx}) => {
         <svg width={64} height={78} viewBox="0 0 23 28" style={{filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.5))'}}>
           <path d="M1 1 L1 22 L7 17 L11 27 L15 25 L11 15 L19 15 Z" fill="#fff" stroke="#111" strokeWidth={1.2} strokeLinejoin="round" />
         </svg>
-        <div style={{position: 'absolute', left: 52, top: 64, padding: '8px 20px', borderRadius: 10, background: C3.copperGrad, color: '#2a1206', fontFamily: C3.sans, fontWeight: 700, fontSize: 30, whiteSpace: 'nowrap', boxShadow: '0 6px 16px rgba(0,0,0,0.4)'}}>{label}</div>
+        <div style={{position: 'absolute', left: 52, top: 64, padding: '8px 20px', borderRadius: 10, background: C3.copperGrad, color: `${C3.onMetal}`, fontFamily: C3.sans, fontWeight: 700, fontSize: 30, whiteSpace: 'nowrap', boxShadow: '0 6px 16px rgba(0,0,0,0.4)'}}>{label}</div>
       </div>
     </div>
   );
@@ -144,7 +145,7 @@ export const PredictKeys: React.FC<{fx: Of<'predict-keys'>}> = ({fx}) => {
       <div style={{position: 'absolute', left: 40, top: y + (1 - rise) * 500, width: W, borderRadius: 34, background: 'rgba(28,28,30,0.94)', border: C3.hair, padding: '18px 14px 26px', boxSizing: 'border-box', boxShadow: '0 24px 60px rgba(0,0,0,0.55)'}}>
         <div style={{display: 'flex', alignItems: 'center', gap: 14, padding: '10px 20px', margin: '0 6px 14px', borderRadius: 26, background: 'rgba(255,255,255,0.08)'}}>
           <div style={{flex: 1, fontFamily: C3.sans, fontWeight: 600, fontSize: 40, color: '#fff'}}>{shown}<Caret frame={frame} h={38} /></div>
-          <div style={{width: 52, height: 52, borderRadius: 26, background: C3.copperGrad, color: '#2a1206', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 30, fontWeight: 700}}>↑</div>
+          <div style={{width: 52, height: 52, borderRadius: 26, background: C3.copperGrad, color: `${C3.onMetal}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 30, fontWeight: 700}}>↑</div>
         </div>
         <div style={{display: 'flex', justifyContent: 'space-around', fontFamily: C3.sans, fontWeight: 600, fontSize: 32, color: 'rgba(255,255,255,0.85)', paddingBottom: 14, borderBottom: '1px solid rgba(255,255,255,0.12)', marginBottom: 14}}>
           {suggestions.slice(0, 3).map((s, i) => (
@@ -156,7 +157,7 @@ export const PredictKeys: React.FC<{fx: Of<'predict-keys'>}> = ({fx}) => {
             {r.split('').map((c) => {
               const hot = c === next && abs >= typeFrom && abs < typeTo;
               return (
-                <div key={c} style={{width: key, height: key * 1.12, borderRadius: 12, background: hot ? C3.copperGrad : 'rgba(255,255,255,0.16)', color: hot ? '#2a1206' : '#fff', fontFamily: C3.sans, fontSize: 38, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: hot ? 'translateY(-8px) scale(1.12)' : undefined}}>{c}</div>
+                <div key={c} style={{width: key, height: key * 1.12, borderRadius: 12, background: hot ? C3.copperGrad : 'rgba(255,255,255,0.16)', color: hot ? `${C3.onMetal}` : '#fff', fontFamily: C3.sans, fontSize: 38, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: hot ? 'translateY(-8px) scale(1.12)' : undefined}}>{c}</div>
               );
             })}
           </div>
@@ -233,7 +234,7 @@ const PostTile: React.FC<{i: number; size: number; images: string[]; quotes: str
   const multi = i % 5 === 1;
   if (useQuote) {
     const q = quotes[i % quotes.length];
-    const tones = [{bg: C3.copperGrad, fg: '#2a1206'}, {bg: 'linear-gradient(160deg,#1b1d1f,#0b0c0d)', fg: '#F4B08A'}, {bg: CREAM, fg: INK}];
+    const tones = [{bg: C3.copperGrad, fg: `${C3.onMetal}`}, {bg: 'linear-gradient(160deg,#1b1d1f,#0b0c0d)', fg: `${C3.copperLight}`}, {bg: CREAM, fg: INK}];
     const tone = tones[i % tones.length];
     return (
       <div style={{width: size, height: size, background: tone.bg, padding: size * 0.1, boxSizing: 'border-box', display: 'flex', alignItems: 'center', fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 600, fontSize: size * 0.13, lineHeight: 1.15, color: tone.fg}}>{q}</div>

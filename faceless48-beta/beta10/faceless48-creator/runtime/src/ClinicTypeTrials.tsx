@@ -1,3 +1,4 @@
+import {customerBrand} from './brandConfig';
 import React, {useEffect, useState} from 'react';
 import {AbsoluteFill, continueRender, delayRender, interpolate, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import brand from './brandConfig';
@@ -18,7 +19,7 @@ const foil: React.CSSProperties = {
 };
 const crimson: React.CSSProperties = {
   color: brand.accent,
-  WebkitTextStroke: '0.7px #F1B9A5',
+  WebkitTextStroke: `0.7px ${customerBrand.metalLight}`,
   paintOrder: 'stroke fill',
   textShadow: shadow,
 };

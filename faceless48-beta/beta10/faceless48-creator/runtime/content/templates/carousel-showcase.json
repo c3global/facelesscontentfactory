@@ -1,0 +1,145 @@
+{
+ "kind": "video-carousel",
+ "slug": "carousel-showcase",
+ "style": "showcase",
+ "series": "Of the week",
+ "align": "left",
+ "slides": [
+  {
+   "layout": "cover",
+   "kicker": "4 effects",
+   "headline": "Effects *of the week*",
+   "body": "Swipe to see each one in action.",
+   "seconds": 5,
+   "images": [
+    "media/clip-1.mp4",
+    "collage/3.png",
+    "media/clip-2.mp4"
+   ],
+   "align": "center"
+  },
+  {
+   "layout": "media",
+   "headline": "Clone *row*",
+   "media": "media/clip-1.mp4",
+   "side": "left",
+   "notes": [
+    {
+     "text": "copies of you fan out",
+     "x": 64,
+     "y": 22,
+     "to": [
+      52,
+      32
+     ]
+    },
+    {
+     "text": "each one smaller",
+     "x": 64,
+     "y": 72,
+     "to": [
+      52,
+      62
+     ]
+    }
+   ],
+   "seconds": 6
+  },
+  {
+   "layout": "media",
+   "headline": "Layer *explode*",
+   "media": "media/clip-2.mp4",
+   "side": "right",
+   "notes": [
+    {
+     "text": "your frame splits into glass",
+     "x": 2,
+     "y": 20,
+     "to": [
+      42,
+      30
+     ]
+    },
+    {
+     "text": "in 3D",
+     "x": 6,
+     "y": 74,
+     "to": [
+      42,
+      66
+     ]
+    }
+   ],
+   "seconds": 6
+  },
+  {
+   "layout": "graph",
+   "headline": "Watch time *graph*",
+   "panel": "Retention",
+   "value": 82,
+   "suffix": "%",
+   "points": [
+    22,
+    30,
+    28,
+    41,
+    50,
+    64,
+    82
+   ],
+   "notes": [
+    {
+     "text": "draws itself in",
+     "x": 60,
+     "y": 78,
+     "to": [
+      78,
+      58
+     ]
+    }
+   ],
+   "seconds": 6
+  },
+  {
+   "layout": "ab",
+   "headline": "Hook A vs *Hook B*",
+   "left": "Hook A",
+   "right": "Hook B",
+   "items": [
+    "Here are three tips for better videos.",
+    "Your first three seconds decide everything."
+   ],
+   "winner": "b",
+   "notes": [
+    {
+     "text": "the pick jumps to the winner",
+     "x": 55,
+     "y": 82,
+     "to": [
+      72,
+      62
+     ]
+    }
+   ],
+   "seconds": 6
+  },
+  {
+   "layout": "cta",
+   "end": "collage",
+   "headline": "Want every effect?",
+   "keyword": "effects",
+   "body": "for the full list",
+   "images": [
+    "collage/1.png",
+    "collage/2.png",
+    "collage/3.png",
+    "collage/4.png",
+    "collage/5.png",
+    "collage/6.png",
+    "collage/7.png",
+    "collage/8.png"
+   ],
+   "seconds": 5
+  }
+ ]
+}
