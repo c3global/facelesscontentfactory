@@ -1,7 +1,7 @@
 {
  "slug": "drck-text2",
  "video": "raw/drck-fx.mp4",
- "durationSec": 12.4,
+ "durationSec": 13.4,
  "theme": {
   "field": "black",
   "sans": "DM Sans"
@@ -29,7 +29,7 @@
    "segments": [
     {
      "start": 0,
-     "end": 12.4,
+     "end": 13.4,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -42,37 +42,32 @@
   {
    "type": "text-pop",
    "at": 0.2,
-   "until": 3.0,
+   "until": 5.2,
    "props": {
+    "look": "stack",
     "text": "SIGNATURE",
-    "look": "glass"
+    "line2": "TEXT EFFECTS",
+    "line3": "ONE PROMPT USING CLAUDE",
+    "y": 1380,
+    "size": 150
    }
   },
   {
    "type": "text-pop",
-   "at": 3.2,
-   "until": 6.0,
+   "at": 5.5,
+   "until": 8.3,
    "props": {
-    "text": "TEXT EFFECTS",
-    "look": "fill"
+    "look": "shiny",
+    "text": "Signature"
    }
   },
   {
    "type": "text-pop",
-   "at": 6.2,
-   "until": 9.0,
+   "at": 8.6,
+   "until": 11.4,
    "props": {
-    "text": "Signature",
-    "look": "shiny"
-   }
-  },
-  {
-   "type": "text-pop",
-   "at": 9.2,
-   "until": 12.0,
-   "props": {
-    "text": "Quiet power",
-    "look": "blur-in"
+    "look": "blur-in",
+    "text": "Quiet power"
    }
   }
  ],

@@ -29,27 +29,21 @@ export const TextPop: React.FC<{fx: Of<'text-pop'>}> = ({fx}) => {
     </div>
   );
   switch (look) {
-    case 'focus': {
-      // true focus: each word comes into focus in turn inside a bracket frame
-      const words = text.split(' ');
-      const step = Math.max(0.35, (len - 0.6) / words.length);
-      const cur = Math.min(words.length - 1, Math.floor(t / step));
-      return wrap(
-        <div style={{...base, display: 'inline-flex', gap: 28}}>
-          {words.map((w, i) => {
-            const on = i === cur;
-            return (
-              <span key={i} style={{position: 'relative', filter: on ? 'none' : 'blur(7px)', opacity: on ? 1 : 0.55, padding: '0 10px'}}>
-                {w}
-                {on && ['0 0', '100% 0', '0 100%', '100% 100%'].map((p, k) => (
-                  <span key={k} style={{position: 'absolute', left: p.startsWith('0') ? -6 : undefined, right: p.startsWith('100') ? -6 : undefined, top: p.endsWith(' 0') ? -10 : undefined, bottom: p.endsWith('100%') ? -10 : undefined, width: 26, height: 26, borderColor: C3.copper, borderStyle: 'solid', borderWidth: `${p.endsWith(' 0') ? 5 : 0}px ${p.startsWith('100') ? 5 : 0}px ${p.endsWith('100%') ? 5 : 0}px ${p.startsWith('0') ? 5 : 0}px`}} />
-                ))}
-              </span>
-            );
-          })}
-        </div>,
+    case 'focus':
+      return wrap(<FocusLine text={text} t={t} size={size * 0.55} />);
+    case 'glass':
+      return wrap(<GlassLine text={text} t={t} size={size} id={`g${fx.at}`} />);
+    case 'fill':
+      return wrap(<FillLine text={text} t={t} size={size} />);
+    case 'stack':
+      // his opener: a glass word, a red word that is drawn on guide lines and filled, then a focus line
+      return (
+        <div style={{...FILL, opacity: outK}}>
+          <div style={{position: 'absolute', left: 0, width: 1080, top: y - size * 1.25, textAlign: 'center'}}><GlassLine text={text} t={t} size={size} id={`g${fx.at}`} /></div>
+          <div style={{position: 'absolute', left: 0, width: 1080, top: y + size * 0.05, textAlign: 'center'}}><FillLine text={fx.props.line2 ?? ''} t={t - 0.9} size={size} /></div>
+          <div style={{position: 'absolute', left: 0, width: 1080, top: y + size * 1.55, textAlign: 'center'}}><FocusLine text={fx.props.line3 ?? ''} t={t - 1.6} size={size * 0.42} /></div>
+        </div>
       );
-    }
     case 'shiny': {
       // SVG text with a moving gradient band (background-clip text is unreliable in the renderer)
       const bx = -300 + ((t / 1.2) % 1) * 1680;
@@ -65,60 +59,6 @@ export const TextPop: React.FC<{fx: Of<'text-pop'>}> = ({fx}) => {
           </defs>
           <text x={540} y={size * 1.05} textAnchor="middle" fill={`url(#${id})`} style={{fontFamily: heavyFamily, fontSize: size, letterSpacing: 2}}>{text}</text>
         </svg>,
-      );
-    }
-    case 'glass': {
-      // liquid glass letters: clear rounded body, bright rim, top sheen, and a highlight that rolls through
-      const k = tw(t, 0, 0.45, 0, 1, pop);
-      const fs = size * 1.15;
-      const bx = -300 + ((t / 1.6) % 1) * 1680;
-      const id = `glass-${fx.at}`;
-      const font: React.CSSProperties = {fontFamily: C3.sans, fontWeight: 900, fontSize: fs, letterSpacing: -2};
-      return wrap(
-        <svg width={1080} height={fs * 1.3} style={{overflow: 'visible', opacity: k, transform: `scale(${0.8 + 0.2 * k})`, filter: 'drop-shadow(0 10px 28px rgba(0,0,0,0.6))'}}>
-          <defs>
-            <linearGradient id={`${id}-v`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="#fff" stopOpacity="0.55" />
-              <stop offset="0.35" stopColor="#fff" stopOpacity="0.06" />
-              <stop offset="0.75" stopColor="#000" stopOpacity="0.25" />
-              <stop offset="1" stopColor="#fff" stopOpacity="0.4" />
-            </linearGradient>
-            <linearGradient id={`${id}-h`} gradientUnits="userSpaceOnUse" x1={bx - 120} y1={0} x2={bx + 120} y2={fs * 0.5}>
-              <stop offset="0" stopColor="#fff" stopOpacity="0" />
-              <stop offset="0.5" stopColor="#fff" stopOpacity="0.9" />
-              <stop offset="1" stopColor="#fff" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <text x={540} y={fs * 1.02} textAnchor="middle" fill={`url(#${id}-v)`} stroke="rgba(255,255,255,0.85)" strokeWidth={3.5} style={font}>{text}</text>
-          <text x={540} y={fs * 1.02} textAnchor="middle" fill={`url(#${id}-h)`} style={font}>{text}</text>
-          <text x={540} y={fs * 1.02} textAnchor="middle" fill="none" stroke="rgba(0,0,0,0.35)" strokeWidth={1.2} transform="translate(3 4)" style={font}>{text}</text>
-        </svg>,
-      );
-    }
-    case 'fill': {
-      // outlined letters fill with color bottom to top, one after another, with a design-tool selection box on the letter filling
-      const per = Math.min(0.32, (len - 0.8) / Math.max(1, chars.length));
-      const fillCol = C3.accent;
-      return wrap(
-        <div style={{...base, fontSize: size * 1.3, display: 'inline-flex', textShadow: 'none'}}>
-          {chars.map((c, i) => {
-            const k = tw(t, 0.2 + i * per, 0.2 + i * per + per * 1.6, 0, 1, (x) => x);
-            const active = k > 0 && k < 1 && c !== ' ';
-            return (
-              <span key={i} style={{position: 'relative', display: 'inline-block', whiteSpace: 'pre'}}>
-                <span style={{color: 'transparent', WebkitTextStroke: `3px ${fillCol}`, opacity: 0.9}}>{c}</span>
-                <span style={{position: 'absolute', left: 0, top: 0, color: fillCol, clipPath: `inset(${(1 - k) * 100}% 0 0 0)`, filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.45))'}}>{c}</span>
-                {active && (
-                  <>
-                    <span style={{position: 'absolute', left: -4, right: -4, top: size * 0.06, bottom: size * 0.04, border: '2px dashed rgba(255,255,255,0.9)'}} />
-                    {[[0, 0], [1, 0], [0, 1], [1, 1]].map(([x, y], q) => <span key={q} style={{position: 'absolute', width: 10, height: 10, background: '#fff', left: x ? undefined : -9, right: x ? -9 : undefined, top: y ? undefined : size * 0.06 - 5, bottom: y ? size * 0.04 - 5 : undefined}} />)}
-                    <span style={{position: 'absolute', left: 0, top: -30, fontFamily: 'monospace', fontSize: 22, color: '#fff', whiteSpace: 'nowrap', letterSpacing: 0}}>{`${c.toUpperCase()}  ${Math.round(size * 0.46)} × ${Math.round(size * 1.1)}`}</span>
-                  </>
-                )}
-              </span>
-            );
-          })}
-        </div>,
       );
     }
     case 'gradient': {
@@ -187,6 +127,128 @@ export const TextPop: React.FC<{fx: Of<'text-pop'>}> = ({fx}) => {
       );
     }
   }
+};
+
+
+// ---------------------------------------------------------------- the three building blocks of his opener
+/** chrome glass letters: dark clear body, chrome rim, build in, white gloss running letter by letter, a twinkling sparkle */
+export const GlassLine: React.FC<{text: string; t: number; size: number; id: string}> = ({text, t, size, id}) => {
+  if (t < 0 || !text) return null;
+  const chars = [...text];
+  const n = chars.length;
+  const fs = size * 1.15;
+  const W = Math.min(1020, fs * 0.66 * n);
+  const x0 = 540 - W / 2;
+  const k = tw(t, 0, 0.5, 0, 1, pop);
+  const flash = t > 0.9 ? Math.floor((t - 0.9) / 0.09) % (n + 14) : -1;
+  const sp = Math.floor(t / 1.1);
+  const spT = (t % 1.1) / 1.1;
+  const spI = Math.floor(hash(sp + 4) * n);
+  const spX = x0 + (W * (spI + 0.75)) / n;
+  const spS = Math.sin(Math.min(1, spT * 2) * Math.PI) * 26;
+  const bx = -200 + ((t / 1.8) % 1) * 1500;
+  const font: React.CSSProperties = {fontFamily: C3.sans, fontWeight: 900, fontSize: fs, letterSpacing: -3};
+  const T = (props: React.SVGProps<SVGTextElement>, kids: React.ReactNode) => (
+    <text x={x0} y={fs * 0.95} textLength={W} lengthAdjust="spacingAndGlyphs" style={font} {...props}>{kids}</text>
+  );
+  return (
+    <svg width={1080} height={fs * 1.2} viewBox={`0 0 1080 ${fs * 1.2}`} style={{overflow: 'visible', opacity: Math.min(1, t * 4), transform: `scale(${0.85 + 0.15 * k})`, filter: `blur(${(1 - k) * 10}px) drop-shadow(0 10px 26px rgba(0,0,0,0.55))`}}>
+      <defs>
+        <linearGradient id={`${id}b`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#3a3b3f" stopOpacity="0.55" />
+          <stop offset="0.5" stopColor="#18191b" stopOpacity="0.35" />
+          <stop offset="1" stopColor="#0c0c0d" stopOpacity="0.65" />
+        </linearGradient>
+        <linearGradient id={`${id}r`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#ffffff" />
+          <stop offset="0.3" stopColor="#7d7f84" />
+          <stop offset="0.55" stopColor="#f2f2f2" />
+          <stop offset="0.8" stopColor="#4b4c50" />
+          <stop offset="1" stopColor="#d9d9d9" />
+        </linearGradient>
+        <linearGradient id={`${id}h`} gradientUnits="userSpaceOnUse" x1={bx - 140} y1={0} x2={bx + 140} y2={fs * 0.6}>
+          <stop offset="0" stopColor={C3.copper} stopOpacity="0" />
+          <stop offset="0.5" stopColor={C3.copper} stopOpacity="0.55" />
+          <stop offset="1" stopColor={C3.copper} stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id={`${id}w`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#ffffff" />
+          <stop offset="1" stopColor="#bfc3c9" />
+        </linearGradient>
+      </defs>
+      {T({fill: `url(#${id}b)`, stroke: `url(#${id}r)`, strokeWidth: 5}, chars.map((c, i) => <tspan key={i} opacity={tw(t, i * 0.04, i * 0.04 + 0.3)} fill={i === flash || i === flash - 1 ? `url(#${id}w)` : undefined}>{c}</tspan>))}
+      {T({fill: `url(#${id}h)`}, text)}
+      {T({fill: 'none', stroke: 'rgba(255,255,255,0.55)', strokeWidth: 1.2, transform: 'translate(-2 -3)'}, text)}
+      {spS > 0.5 && (
+        <path transform={`translate(${spX} ${fs * 0.12}) scale(${spS / 20})`} d="M0 -20 C2 -4 4 -2 20 0 C4 2 2 4 0 20 C-2 4 -4 2 -20 0 C-4 -2 -2 -4 0 -20Z" fill="#fff" style={{filter: 'drop-shadow(0 0 8px #fff)'}} />
+      )}
+    </svg>
+  );
+};
+
+/** red letters drawn on type guide lines: guides and a wireframe draw in, color rises bottom to top, then an inspect box hops letter to letter */
+export const FillLine: React.FC<{text: string; t: number; size: number}> = ({text, t, size}) => {
+  if (t < 0 || !text) return null;
+  const chars = [...text];
+  const fs = size * 1.15;
+  const col = C3.accent;
+  const g = tw(t, 0, 0.45) * (1 - tw(t, 1.7, 2.1));
+  const guides: [string, number][] = [['cap height', 0.13], ['x-height', 0.3], ['baseline', 0.93], ['descender', 1.04]];
+  const letters = chars.map((c, i) => ({c, i})).filter((x) => x.c !== ' ');
+  const insp = t > 1.6 ? letters[Math.floor((t - 1.6) / 0.38) % letters.length].i : -1;
+  return (
+    <div style={{position: 'relative', display: 'inline-block'}}>
+      {guides.map(([lab, f]) => (
+        <div key={lab} style={{position: 'absolute', left: -40, width: `calc((100% + 80px) * ${g})`, top: fs * f, height: 0, borderTop: '1px dashed rgba(255,255,255,0.6)', opacity: g}}>
+          <span style={{position: 'absolute', left: 0, top: -18, fontFamily: 'monospace', fontSize: 15, color: 'rgba(255,255,255,0.8)'}}>{lab}</span>
+        </div>
+      ))}
+      <div style={{display: 'inline-flex', fontFamily: heavyFamily, fontSize: fs, lineHeight: 1.08, letterSpacing: 2}}>
+        {chars.map((c, i) => {
+          const st = 0.45 + hash(i + 2) * 0.4;
+          const k = tw(t, st, st + 0.55, 0, 1, (x) => x);
+          const on = i === insp;
+          return (
+            <span key={i} style={{position: 'relative', display: 'inline-block', whiteSpace: 'pre'}}>
+              <span style={{color: 'transparent', WebkitTextStroke: `1.5px ${on ? '#fff' : 'rgba(255,255,255,0.75)'}`, opacity: tw(t, 0.15, 0.45)}}>{c}</span>
+              <span style={{position: 'absolute', left: 0, top: 0, color: col, opacity: on ? 0.3 : 1, clipPath: `inset(${(1 - k) * 100}% 0 0 0)`, filter: 'drop-shadow(0 6px 20px rgba(0,0,0,0.45))'}}>{c}</span>
+              {on && (
+                <>
+                  <span style={{position: 'absolute', left: -3, right: -3, top: fs * 0.1, bottom: fs * 0.06, border: '1.5px dashed rgba(255,255,255,0.95)'}} />
+                  {[[0, 0], [1, 0], [0, 1], [1, 1]].map(([x, yy], q) => <span key={q} style={{position: 'absolute', width: 9, height: 9, background: '#fff', left: x ? undefined : -7, right: x ? -7 : undefined, top: yy ? undefined : fs * 0.1 - 4, bottom: yy ? fs * 0.06 - 4 : undefined}} />)}
+                  <span style={{position: 'absolute', left: 0, top: -6, fontFamily: 'monospace', fontSize: 17, color: '#fff', whiteSpace: 'nowrap', letterSpacing: 0}}>{`${c.toUpperCase()}  ${Math.round(fs * (0.4 + hash(i) * 0.12))} × ${Math.round(fs * 1.02)}`}</span>
+                </>
+              )}
+            </span>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+/** words blur in left to right, then a bracket frame jumps word to word while the rest stay soft */
+export const FocusLine: React.FC<{text: string; t: number; size: number}> = ({text, t, size}) => {
+  if (t < 0 || !text) return null;
+  const words = text.split(' ');
+  const cur = t > 0.8 ? Math.floor((t - 0.8) / 0.42) % words.length : -1;
+  return (
+    <div style={{display: 'inline-flex', gap: size * 0.32, fontFamily: C3.sans, fontWeight: 800, fontSize: size, color: '#fff', letterSpacing: 1, textShadow: '0 4px 18px rgba(0,0,0,0.5)'}}>
+      {words.map((w, i) => {
+        const r = tw(t, i * 0.12, i * 0.12 + 0.4);
+        const on = i === cur;
+        const blur = (1 - r) * 16 + (cur >= 0 && !on ? 5 : 0);
+        return (
+          <span key={i} style={{position: 'relative', display: 'inline-block', padding: '2px 8px'}}>
+            <span style={{filter: `blur(${blur}px)`, opacity: r * (cur >= 0 && !on ? 0.6 : 1)}}>{w}</span>
+            {on && ['tl', 'tr', 'bl', 'br'].map((p) => (
+              <span key={p} style={{position: 'absolute', width: 16, height: 16, left: p[1] === 'l' ? -2 : undefined, right: p[1] === 'r' ? -2 : undefined, top: p[0] === 't' ? -4 : undefined, bottom: p[0] === 'b' ? -4 : undefined, borderStyle: 'solid', borderColor: C3.copper, borderWidth: `${p[0] === 't' ? 3 : 0}px ${p[1] === 'r' ? 3 : 0}px ${p[0] === 'b' ? 3 : 0}px ${p[1] === 'l' ? 3 : 0}px`}} />
+            ))}
+          </span>
+        );
+      })}
+    </div>
+  );
 };
 
 export const tenthOver = (fx: Fx): React.ReactNode => (fx.type === 'text-pop' ? <TextPop fx={fx} /> : null);
