@@ -156,7 +156,7 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('focus-list'), props: z.object({title: z.string().optional(), items: z.array(z.string()).min(2).max(6), y: z.number().default(820)})}),
   z.object({...base, type: z.literal('compare'), props: z.object({title: z.string().optional(), left: z.string().default('Option A'), right: z.string().default('Option B'), leftText: z.string(), rightText: z.string(), winner: z.enum(['left', 'right']).default('right'), badge: z.string().default('Winner'), y: z.number().default(1000)})}),
   z.object({...base, type: z.literal('trend-graph'), props: z.object({title: z.string().optional(), label: z.string(), value: z.number(), suffix: z.string().default(''), points: z.array(z.number()).min(3).max(12), y: z.number().default(1060)})}),
-  z.object({...base, type: z.literal('freebie-doc'), props: z.object({title: z.string(), keyword: z.string(), y: z.number().default(820)})}),
+  z.object({...base, type: z.literal('freebie-doc'), props: z.object({title: z.string(), keyword: z.string(), y: z.number().default(1060)})}),
   z.object({...base, type: z.literal('note-arrow'), props: z.object({text: z.string().max(60), x: z.number(), y: z.number(), /** arrow tip in px; omit for a note with no arrow */ to: z.tuple([z.number(), z.number()]).optional(), from: z.enum(['auto', 'left', 'right', 'top', 'bottom']).default('auto'), bend: z.number().min(-1).max(1).optional(), size: z.number().default(52)})}),
 ]);
 

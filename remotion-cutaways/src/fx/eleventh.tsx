@@ -14,7 +14,7 @@ const FILL: React.CSSProperties = {position: 'absolute', left: 0, top: 0, width:
 const SANS = C3.sans;
 
 const Panel: React.FC<{y: number; k: number; out: number; w?: number; children: React.ReactNode}> = ({y, k, out, w = 920, children}) => (
-  <div style={{position: 'absolute', left: (1080 - w) / 2, width: w, top: y, transform: `translateY(${(1 - k) * 60}px) scale(${0.94 + 0.06 * k})`, opacity: k * out, borderRadius: 34, padding: '40px 46px', boxSizing: 'border-box', background: 'linear-gradient(160deg, rgba(40,42,52,0.62), rgba(14,15,20,0.72))', border: '1.5px solid rgba(255,255,255,0.22)', boxShadow: '0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.18)', backdropFilter: 'blur(22px) saturate(1.3)', color: '#fff', fontFamily: SANS}}>
+  <div style={{position: 'absolute', left: (1080 - w) / 2, width: w, top: y, transform: `translateY(${(1 - k) * 60}px) scale(${0.94 + 0.06 * k})`, opacity: k * out, borderRadius: 34, padding: '40px 46px', boxSizing: 'border-box', background: 'linear-gradient(160deg, rgba(40,42,52,0.78), rgba(14,15,20,0.86))', border: '1.5px solid rgba(255,255,255,0.22)', boxShadow: '0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.18)', backdropFilter: 'blur(22px) saturate(1.3)', color: '#fff', fontFamily: SANS}}>
     {children}
   </div>
 );
@@ -23,8 +23,8 @@ const Title: React.FC<{text?: string; k: number}> = ({text, k}) => {
   const parts = text.split(' ');
   const last = parts.pop();
   return (
-    <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 64, marginBottom: 26, opacity: k}}>
-      {parts.join(' ')} <span style={{fontFamily: serifFamily, fontStyle: 'italic', color: C3.copper}}>{last}</span>
+    <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 64, marginBottom: 26, opacity: k, textShadow: '0 4px 24px rgba(0,0,0,0.9), 0 0 4px rgba(0,0,0,0.6)'}}>
+      {parts.join(' ')} <span style={{fontFamily: serifFamily, fontStyle: 'italic', color: C3.goldBright}}>{last}</span>
     </div>
   );
 };
@@ -65,7 +65,7 @@ export const FocusList: React.FC<{fx: Of<'focus-list'>}> = ({fx}) => {
           const sw = tw(t, 0.5 + i * step + step * 0.45, 0.5 + i * step + step * 0.7);
           const blur = active ? 0 : i > cur ? 5 : 0;
           return (
-            <div key={i} style={{display: 'flex', alignItems: 'center', gap: 22, height: active ? 112 : 92, marginBottom: 16, padding: '0 34px', borderRadius: 60, background: 'linear-gradient(160deg, rgba(40,42,52,0.62), rgba(14,15,20,0.72))', border: `1.5px solid rgba(255,255,255,${active ? 0.35 : 0.16})`, boxShadow: '0 16px 40px rgba(0,0,0,0.4)', backdropFilter: 'blur(18px)', filter: `blur(${blur}px)`, opacity: i > cur ? 0.6 : 1}}>
+            <div key={i} style={{display: 'flex', alignItems: 'center', gap: 22, height: active ? 112 : 92, marginBottom: 16, padding: '0 34px', borderRadius: 60, background: 'linear-gradient(160deg, rgba(40,42,52,0.78), rgba(14,15,20,0.86))', border: `1.5px solid rgba(255,255,255,${active ? 0.35 : 0.16})`, boxShadow: '0 16px 40px rgba(0,0,0,0.4)', backdropFilter: 'blur(18px)', filter: `blur(${blur}px)`, opacity: i > cur ? 0.6 : 1}}>
               <span style={{fontWeight: 700, fontSize: 34, color: C3.copper}}>{String(i + 1).padStart(2, '0')}</span>
               <span style={{flex: 1, fontWeight: 700, fontSize: active ? 46 : 38}}>{it}</span>
               <span style={{width: 92, height: 50, borderRadius: 25, background: on ? C3.accent : `rgba(255,255,255,${0.15 + 0.2 * sw})`, position: 'relative'}}>
@@ -87,7 +87,7 @@ export const Compare: React.FC<{fx: Of<'compare'>}> = ({fx}) => {
   const card = (head: string, body: string, win: boolean, i: number) => {
     const k = tw(t, 0.1 + i * 0.2, 0.5 + i * 0.2, 0, 1, pop);
     return (
-      <div style={{flex: 1, minHeight: 360, borderRadius: 30, padding: '34px 34px', boxSizing: 'border-box', background: 'linear-gradient(160deg, rgba(40,42,52,0.62), rgba(14,15,20,0.72))', border: win ? `3px solid rgba(227,191,99,${0.3 + 0.7 * pick})` : '1.5px solid rgba(255,255,255,0.2)', backdropFilter: 'blur(18px)', boxShadow: win ? `0 0 ${50 * pick}px rgba(227,191,99,0.35)` : '0 16px 40px rgba(0,0,0,0.4)', transform: `translateY(${(1 - k) * 50}px) scale(${win ? 1 + 0.04 * pick : 1 - 0.03 * pick})`, opacity: k * (win ? 1 : 1 - 0.35 * pick)}}>
+      <div style={{flex: 1, minHeight: 360, borderRadius: 30, padding: '34px 34px', boxSizing: 'border-box', background: 'linear-gradient(160deg, rgba(40,42,52,0.78), rgba(14,15,20,0.86))', border: win ? `3px solid rgba(227,191,99,${0.3 + 0.7 * pick})` : '1.5px solid rgba(255,255,255,0.2)', backdropFilter: 'blur(18px)', boxShadow: win ? `0 0 ${50 * pick}px rgba(227,191,99,0.35)` : '0 16px 40px rgba(0,0,0,0.4)', transform: `translateY(${(1 - k) * 50}px) scale(${win ? 1 + 0.04 * pick : 1 - 0.03 * pick})`, opacity: k * (win ? 1 : 1 - 0.35 * pick)}}>
         <div style={{fontSize: 26, letterSpacing: 4, fontWeight: 700, color: win ? C3.gold : 'rgba(255,255,255,0.75)'}}>{head.toUpperCase()}</div>
         <div style={{fontSize: 40, lineHeight: 1.25, marginTop: 18}}>{body}</div>
         {win && <div style={{display: 'inline-block', marginTop: 24, background: C3.accent, borderRadius: 40, padding: '8px 26px', fontWeight: 700, fontSize: 32, transform: `scale(${pick})`}}>{badge}</div>}
@@ -216,13 +216,19 @@ export const NoteArrow: React.FC<{fx: Of<'note-arrow'>}> = ({fx}) => {
   );
 };
 
+const Scrim: React.FC<{fx: Fx; top: number}> = ({fx, top}) => {
+  const {inK, outK} = useSpan(fx);
+  return <div style={{...FILL, top: top - 260, height: 1920 - top + 260, background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.62) 30%, rgba(0,0,0,0.72) 100%)', opacity: inK * outK}} />;
+};
+const withScrim = (fx: Fx, y: number, node: React.ReactNode) => <><Scrim fx={fx} top={y} />{node}</>;
+
 export const eleventhOver = (fx: Fx): React.ReactNode => {
   switch (fx.type) {
-    case 'proof-card': return <ProofCard fx={fx} />;
-    case 'focus-list': return <FocusList fx={fx} />;
-    case 'compare': return <Compare fx={fx} />;
-    case 'trend-graph': return <TrendGraph fx={fx} />;
-    case 'freebie-doc': return <FreebieDoc fx={fx} />;
+    case 'proof-card': return withScrim(fx, fx.props.y, <ProofCard fx={fx} />);
+    case 'focus-list': return withScrim(fx, fx.props.y, <FocusList fx={fx} />);
+    case 'compare': return withScrim(fx, fx.props.y, <Compare fx={fx} />);
+    case 'trend-graph': return withScrim(fx, fx.props.y, <TrendGraph fx={fx} />);
+    case 'freebie-doc': return withScrim(fx, fx.props.y, <FreebieDoc fx={fx} />);
     case 'note-arrow': return <NoteArrow fx={fx} />;
     default: return null;
   }
