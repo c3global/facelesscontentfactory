@@ -1,7 +1,7 @@
 {
  "slug": "drck-cursor",
  "video": "raw/drck-fx.mp4",
- "durationSec": 4,
+ "durationSec": 3.6,
  "theme": {
   "field": "black",
   "sans": "DM Sans"
@@ -29,7 +29,7 @@
    "segments": [
     {
      "start": 0,
-     "end": 4,
+     "end": 3.6,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -41,8 +41,8 @@
  "fx": [
   {
    "type": "live-cursor",
-   "at": 0.3,
-   "until": 3.8,
+   "at": 0.2,
+   "until": 3.4,
    "props": {
     "label": "C3G"
    }

@@ -15,4 +15,6 @@ Previews saved for next week's Beta 11 announcement (compressed to 720x1280 to k
 The two carousel videos use Dr. CK's licensed Audiio tracks ("Move", "Cherry Blossoms"): fine for her own announcement, never ship them in the plug-in.
 | head-stack-exit.mp4 | Head stack fix: the stack tumbles off her head on exit | remotion-cutaways: drck-head |
 
+| live-cursor-drag.mp4 | Live cursor fix: the box grabs what is inside it and drags it | remotion-cutaways: drck-cursor |
+
 More previews get added here as the reel effects are built.
