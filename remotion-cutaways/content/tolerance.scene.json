@@ -188,24 +188,20 @@
    "props": {
     "holdRadius": 330
    }
-  },
-  {
-   "type": "comment-cta",
-   "at": 37.0,
-   "until": 40.0,
-   "props": {
-    "keyword": "CQ",
-    "line": "Comment CQ and I'll send you the compass.",
-    "postAt": 38.3
-   }
   }
  ],
  "music": {
-  "src": "music/leveled/warm-marscott-warm-sunlight.mp3",
+  "src": "music/leveled/lofi-agnes-azria-weeks-in-paris.mp3",
   "volume": 0.35,
   "duckTo": 0.16,
   "fadeInSec": 1.5,
   "fadeOutSec": 2.5,
   "startFromSec": 0
+ },
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 37.0,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
  }
 }

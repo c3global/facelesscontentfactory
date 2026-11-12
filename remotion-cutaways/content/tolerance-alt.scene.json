@@ -1,0 +1,212 @@
+{
+ "slug": "tolerance-alt",
+ "video": "raw/tolerance.mp4",
+ "durationSec": 40.06,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "belong",
+  "unwritten",
+  "newcomer",
+  "left out"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "belong",
+  "replies",
+  "reaction",
+  "holidays",
+  "belongs",
+  "Tolerance",
+  "unwritten",
+  "newcomer",
+  "culture",
+  "left"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "style": "signature",
+ "matte": "tolerance",
+ "scrim": 0.7,
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 40.06,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "kinetic-hook",
+   "at": 0.2,
+   "until": 3.9,
+   "props": {
+    "version": 2,
+    "width": 640,
+    "y": 1560,
+    "lines": [
+     {
+      "text": "Who belongs",
+      "face": "sans",
+      "at": 0.25
+     },
+     {
+      "text": "here?",
+      "face": "italic",
+      "at": 0.6
+     }
+    ]
+   }
+  },
+  {
+   "type": "digital-zoom",
+   "at": 4.0,
+   "until": 7.9,
+   "props": {
+    "creepTo": 1.07,
+    "snapTo": 1.07
+   }
+  },
+  {
+   "type": "glass-cards",
+   "at": 8.3,
+   "until": 16.6,
+   "props": {
+    "cards": [
+     {
+      "label": "who gets",
+      "value": "replies",
+      "at": 9.2,
+      "side": "left",
+      "x": 24,
+      "y": 250
+     },
+     {
+      "label": "whose name",
+      "value": "spelled correctly",
+      "at": 10.3,
+      "side": "right",
+      "x": 720,
+      "y": 270
+     },
+     {
+      "label": "which posts",
+      "value": "get a reaction",
+      "at": 12.4,
+      "side": "left",
+      "x": 20,
+      "y": 460
+     },
+     {
+      "label": "which holidays",
+      "value": "get mentioned",
+      "at": 14.8,
+      "side": "right",
+      "x": 724,
+      "y": 480
+     }
+    ]
+   }
+  },
+  {
+   "type": "wall-text",
+   "at": 17.0,
+   "until": 20.95,
+   "props": {
+    "lines": [
+     {
+      "text": "Who",
+      "at": 19.6
+     },
+     {
+      "text": "belongs",
+      "at": 19.85
+     },
+     {
+      "text": "here.",
+      "at": 20.3
+     }
+    ]
+   }
+  },
+  {
+   "type": "flash-frame",
+   "at": 20.95,
+   "props": {
+    "version": 2
+   }
+  },
+  {
+   "type": "big-stat",
+   "at": 25.0,
+   "until": 28.9,
+   "props": {
+    "value": 5,
+    "label": "Write down",
+    "sub": "unwritten rules",
+    "size": 210,
+    "y": 1400
+   }
+  },
+  {
+   "type": "giant-caption",
+   "at": 29.2,
+   "until": 33.1,
+   "props": {
+    "version": 2,
+    "width": 700,
+    "y": 1570,
+    "text": "Which would a newcomer not know?",
+    "accent": "newcomer"
+   }
+  },
+  {
+   "type": "iris",
+   "at": 33.4,
+   "until": 36.95,
+   "props": {
+    "holdRadius": 330
+   }
+  },
+  {
+   "type": "follow-card",
+   "at": 37.0,
+   "until": 40.0,
+   "props": {
+    "version": 2,
+    "handle": "bio.c3global.co",
+    "sub": "link below or in my bio",
+    "followAt": 38.3
+   }
+  }
+ ],
+ "music": {
+  "src": "music/leveled/lofi-agnes-azria-weeks-in-paris.mp3",
+  "volume": 0.35,
+  "duckTo": 0.16,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}

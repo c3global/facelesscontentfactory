@@ -139,7 +139,7 @@ const PosterLines: React.FC<{lines: PLine[]; abs: number; y: number; out: number
   const sc = W / 980;
   const sized = lines.map((l) => {
     const heavy = l.face === 'sans';
-    const per = heavy ? 0.46 : 0.5;
+    const per = heavy ? 0.56 : 0.56;
     const fs = Math.min((heavy ? 330 : 250) * sc, W / (Math.max(2, l.text.length) * per));
     return {...l, heavy, fs, h: fs * (heavy ? 1.02 : 1.05)};
   });
@@ -178,7 +178,7 @@ export const GiantCaptionV2: React.FC<{fx: Of<'giant-caption'>}> = ({fx}) => {
     const words = s.split(' ').filter(Boolean);
     let cur = '';
     for (const w of words) {
-      if (cur && (cur + ' ' + w).length > 12) { lines.push({text: cur, face: 'sans', at: 0}); cur = w; } else cur = cur ? cur + ' ' + w : w;
+      if (cur && (cur + ' ' + w).length > 14) { lines.push({text: cur, face: 'sans', at: 0}); cur = w; } else cur = cur ? cur + ' ' + w : w;
     }
     if (cur) lines.push({text: cur, face: 'sans', at: 0});
   };
@@ -308,7 +308,7 @@ export const WallText: React.FC<{fx: Of<'wall-text'>}> = ({fx}) => {
   const out = 1 - tw(abs, b - 0.35, b);
   const right = side === 'right';
   const longest = Math.max(...lines.map((l) => l.text.length));
-  const fs = Math.min(290, 1250 / (longest * 0.46));
+  const fs = Math.min(290, 1000 / (longest * 0.68));
   const body = (blendMode: React.CSSProperties['mixBlendMode'], opacity: number) => (
     <div style={{...FILL, perspective: 1300, perspectiveOrigin: right ? '0% 40%' : '100% 40%', mixBlendMode: blendMode, opacity}}>
       <div style={{position: 'absolute', left: right ? 40 : -260, top: y, width: 1300, transformOrigin: right ? '0 50%' : '100% 50%', transform: `rotateY(${right ? -tilt : tilt}deg)`, textAlign: right ? 'left' : 'right'}}>
