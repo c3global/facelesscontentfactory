@@ -139,6 +139,9 @@ const LEN: Record<FxType, number> = {
   'slot-machine': 3.6,
   'holo-phone': 4,
   'silhouette-shift': 3.4,
+  'image-collage': 3.6,
+  'cover-fan': 3.4,
+  'framed-clip': 4,
 };
 
 /** effects that draw behind her (they need the person matte) */
@@ -458,6 +461,12 @@ const rawCues = (f: Fx): Cue[] => {
       return [main('swish', f.at, 0.4), d('type', f.at + 1.4, 0.5)];
     case 'note-arrow':
       return [main('swish', f.at + 0.7, 0.35)];
+    case 'image-collage':
+      return [main('swish', f.at + 0.2, 0.5)];
+    case 'cover-fan':
+      return [main('swish', f.at + 0.25, 0.6)];
+    case 'framed-clip':
+      return [main('pop', f.at + 0.1, 0.5)];
     case 'shoulder-steps':
       return [main('whoosh', f.at, 0.6), ...f.props.steps.map((s) => d('pop', s.at, 0.5))];
     case 'iris':
