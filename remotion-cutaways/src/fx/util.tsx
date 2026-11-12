@@ -130,10 +130,19 @@ const LEN: Record<FxType, number> = {
   'script-panel': 7,
   'card-carousel': 4.4,
   'card-flip': 4,
+  'shoulder-steps': 4.5,
+  iris: 2.6,
+  'match-cut': 3,
+  'demo-cursor': 3.6,
+  'glass-cards': 4,
+  'pixel-monitor': 2.4,
+  'slot-machine': 3.6,
+  'holo-phone': 4,
+  'silhouette-shift': 3.4,
 };
 
 /** effects that draw behind her (they need the person matte) */
-export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story', 'script-panel', 'clone-row', 'day-dial', 'letter-orbit', 'code-body', 'post-wall', 'sketch-words', 'dolly-zoom', 'blow-away', 'depth-scatter', 'scene-text'];
+export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story', 'script-panel', 'clone-row', 'day-dial', 'letter-orbit', 'code-body', 'post-wall', 'sketch-words', 'dolly-zoom', 'blow-away', 'depth-scatter', 'scene-text', 'silhouette-shift'];
 export const NEEDS_MATTE: FxType[] = [...BEHIND, 'freeze-sticker'];
 
 export const fxRange = (f: Fx): [number, number] => {
@@ -440,7 +449,7 @@ const rawCues = (f: Fx): Cue[] => {
     case 'proof-card':
       return [main('riser', f.at + 0.3, 0.4), d('ding', f.at + 1.5, 0.5)];
     case 'focus-list':
-      return [main('pop', f.at + 0.1, 0.5)];
+      return [main('pop', f.at + 0.1, 0.5), ...f.props.items.flatMap((it) => (typeof it === 'string' ? [] : [d('tick', it.at, 0.6)]))];
     case 'compare':
       return [main('swish', f.at + 0.1, 0.4), d('ding', f.at + 1.4, 0.5)];
     case 'trend-graph':
@@ -449,6 +458,24 @@ const rawCues = (f: Fx): Cue[] => {
       return [main('swish', f.at, 0.4), d('type', f.at + 1.4, 0.5)];
     case 'note-arrow':
       return [main('swish', f.at + 0.7, 0.35)];
+    case 'shoulder-steps':
+      return [main('whoosh', f.at, 0.6), ...f.props.steps.map((s) => d('pop', s.at, 0.5))];
+    case 'iris':
+      return [main('swish', f.at, 0.6)];
+    case 'match-cut':
+      return f.props.cuts.map((c, i) => (i === 0 ? main('snap', c.at, 0.7) : d('snap', c.at, 0.7)));
+    case 'demo-cursor':
+      return [main('swish', f.at, 0.4), d('blip', f.props.clickAt ?? f.at + 1.9, 0.7)];
+    case 'glass-cards':
+      return f.props.cards.map((c, i) => (i === 0 ? main('pop', c.at, 0.5) : d('pop', c.at, 0.45)));
+    case 'pixel-monitor':
+      return [main('glitch', f.at, 0.5)];
+    case 'slot-machine':
+      return [main('riser', f.at + 0.1, 0.4), ...f.props.words.map((_, i) => d('thud', f.props.stopAt?.[i] ?? f.at + 1.1 + i * 0.5, 0.6)), d('ding', (f.props.stopAt?.[f.props.words.length - 1] ?? f.at + 1.1 + (f.props.words.length - 1) * 0.5) + 0.1, 0.6)];
+    case 'holo-phone':
+      return [main('blip', f.at + 0.1, 0.6)];
+    case 'silhouette-shift':
+      return [main('boom', f.at, 0.5), d('shutter', f.props.revealAt ?? fxRange(f)[1] - 1.1, 0.6)];
     case 'text-pop':
       return f.props.look === 'glitch' ? [main('glitch', f.at + 0.05, 0.5)] : f.props.look === 'badge' ? [main('pop', f.at + 0.1, 0.6)] : [main('swish', f.at + 0.05, 0.4)];
     case 'caption-stack':

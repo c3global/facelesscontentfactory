@@ -11,7 +11,6 @@ import {anchorPx, pop, tw, useFxEnv} from './util';
 /**
  * Twelfth FX batch (beta 11): second versions. Each one is the same effect with the same timing props and a newer look,
  * switched on with `version: 2` in its props. The originals stay the default and are never replaced.
- *   checklist v2        glass rows with switches; the current row is sharp, the ones to come are soft
  *   odometer v2         the rolling number on a frosted proof card
  *   chart-grow v2       a glowing line on a frosted card, the end dot pulses
  *   pointer-callout v2  handwritten notes with arrows that follow her
@@ -20,39 +19,6 @@ import {anchorPx, pop, tw, useFxEnv} from './util';
 type Of<T extends Fx['type']> = Extract<Fx, {type: T}>;
 const FILL: React.CSSProperties = {position: 'absolute', left: 0, top: 0, width: 1080, height: 1920, pointerEvents: 'none'};
 const SANS = C3.sans;
-const ROW = 'linear-gradient(160deg, rgba(40,42,52,0.78), rgba(14,15,20,0.86))';
-
-// ---------------------------------------------------------------- checklist v2: each row switches on at its own second
-export const ChecklistV2: React.FC<{fx: Of<'checklist'>}> = ({fx}) => {
-  const {abs, inK, outK} = useSpan(fx);
-  const {items, title} = fx.props;
-  const y = fx.props.y ?? 1640 - items.length * 116 - (title ? 104 : 0);
-  return (
-    <>
-      <Scrim fx={fx} top={y} />
-      <div style={{...FILL, opacity: outK}}>
-        <div style={{position: 'absolute', left: 80, width: 920, top: y, transform: `translateY(${(1 - inK) * 50}px)`, opacity: inK, fontFamily: SANS, color: '#fff'}}>
-          <Title text={title} k={inK} />
-          {items.map((it, i) => {
-            const next = items[i + 1]?.at ?? 1e6;
-            const on = tw(abs, it.at, it.at + 0.25);
-            const seen = tw(abs, it.at - 0.2, it.at + 0.1);
-            const focus = seen * (1 - tw(abs, next - 0.2, next + 0.1));
-            return (
-              <div key={i} style={{display: 'flex', alignItems: 'center', gap: 22, height: 92 + 20 * focus, marginBottom: 16, padding: '0 34px', borderRadius: 60, background: ROW, border: `1.5px solid rgba(255,255,255,${0.16 + 0.19 * focus})`, boxShadow: '0 16px 40px rgba(0,0,0,0.4)', backdropFilter: 'blur(18px)', filter: `blur(${5 * (1 - seen)}px)`, opacity: 0.6 + 0.4 * seen}}>
-                <span style={{fontWeight: 700, fontSize: 34, color: C3.copper}}>{String(i + 1).padStart(2, '0')}</span>
-                <span style={{flex: 1, fontWeight: 700, fontSize: 38 + 8 * focus}}>{it.text}</span>
-                <span style={{flex: 'none', width: 92, height: 50, borderRadius: 25, background: on > 0.5 ? C3.accent : `rgba(255,255,255,${0.15 + 0.2 * on})`, position: 'relative'}}>
-                  <span style={{position: 'absolute', top: 5, left: 5 + 42 * on, width: 40, height: 40, borderRadius: 20, background: '#fff'}} />
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </>
-  );
-};
 
 // ---------------------------------------------------------------- odometer v2: digits roll on a proof card, an underline draws in
 const Roll: React.FC<{pos: number; h: number; dim: boolean}> = ({pos, h, dim}) => (

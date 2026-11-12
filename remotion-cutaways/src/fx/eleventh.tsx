@@ -49,12 +49,44 @@ export const ProofCard: React.FC<{fx: Of<'proof-card'>}> = ({fx}) => {
   );
 };
 
+// ---------------------------------------------------------------- focus list, timed: every item has its own second, and its switch turns on right then
+const ROW = 'linear-gradient(160deg, rgba(40,42,52,0.78), rgba(14,15,20,0.86))';
+const FocusListTimed: React.FC<{fx: Of<'focus-list'>; items: {text: string; at: number}[]}> = ({fx, items}) => {
+  const {abs, inK, outK} = useSpan(fx);
+  const {y, title} = fx.props;
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      <div style={{position: 'absolute', left: 80, width: 920, top: y, transform: `translateY(${(1 - inK) * 50}px)`, opacity: inK, fontFamily: SANS, color: '#fff'}}>
+        <Title text={title} k={inK} />
+        {items.map((it, i) => {
+          const next = items[i + 1]?.at ?? 1e6;
+          const on = tw(abs, it.at, it.at + 0.25);
+          const seen = tw(abs, it.at - 0.2, it.at + 0.1);
+          const focus = seen * (1 - tw(abs, next - 0.2, next + 0.1));
+          return (
+            <div key={i} style={{display: 'flex', alignItems: 'center', gap: 22, height: 92 + 20 * focus, marginBottom: 16, padding: '0 34px', borderRadius: 60, background: ROW, border: `1.5px solid rgba(255,255,255,${0.16 + 0.19 * focus})`, boxShadow: '0 16px 40px rgba(0,0,0,0.4)', backdropFilter: 'blur(18px)', filter: `blur(${5 * (1 - seen)}px)`, opacity: 0.6 + 0.4 * seen}}>
+              <span style={{fontWeight: 700, fontSize: 34, color: C3.copper}}>{String(i + 1).padStart(2, '0')}</span>
+              <span style={{flex: 1, fontWeight: 700, fontSize: 38 + 8 * focus}}>{it.text}</span>
+              <span style={{flex: 'none', width: 92, height: 50, borderRadius: 25, background: on > 0.5 ? C3.accent : `rgba(255,255,255,${0.15 + 0.2 * on})`, position: 'relative'}}>
+                <span style={{position: 'absolute', top: 5, left: 5 + 42 * on, width: 40, height: 40, borderRadius: 20, background: '#fff'}} />
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
 // ---------------------------------------------------------------- focus list: switches turn on one row at a time; the current row is sharp, the rest soft
 export const FocusList: React.FC<{fx: Of<'focus-list'>}> = ({fx}) => {
   const {t, len, inK, outK} = useSpan(fx);
-  const {items, y, title} = fx.props;
+  const {y, title} = fx.props;
+  const timed = fx.props.items.filter((it): it is {text: string; at: number} => typeof it !== 'string');
+  const items = fx.props.items.map((it) => (typeof it === 'string' ? it : it.text));
   const step = Math.max(0.45, (len - 1.2) / items.length);
   const cur = Math.min(items.length - 1, Math.floor(Math.max(0, t - 0.5) / step));
+  if (timed.length === fx.props.items.length) return <FocusListTimed fx={fx} items={timed} />;
   return (
     <div style={{...FILL, opacity: outK}}>
       <div style={{position: 'absolute', left: 80, width: 920, top: y, transform: `translateY(${(1 - inK) * 50}px)`, opacity: inK, fontFamily: SANS, color: '#fff'}}>

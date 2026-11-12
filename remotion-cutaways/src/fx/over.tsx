@@ -5,7 +5,7 @@ import {handFamily, heavyFamily, sansFamily, serifFamily} from '../fonts';
 import {metalFill, metalTextStyle} from '../metal';
 import {Cutout} from './behind';
 import type {Fx} from './schema';
-import {ChartGrowV2, ChecklistV2, OdometerV2, PointerCalloutV2} from './twelfth';
+import {ChartGrowV2, OdometerV2, PointerCalloutV2} from './twelfth';
 import {anchorPx, fxRange, pop, tw, useFxEnv, useFxTime} from './util';
 
 type Of<T extends Fx['type']> = Extract<Fx, {type: T}>;
@@ -473,7 +473,7 @@ export const overItem = (fx: Fx): React.ReactNode => {
     case 'phone-mockup':
       return <PhoneMockup fx={fx} />;
     case 'checklist':
-      return fx.props.version === 2 ? <ChecklistV2 fx={fx} /> : <Checklist fx={fx} />;
+      return <Checklist fx={fx} />;
     case 'odometer':
       return fx.props.version === 2 ? <OdometerV2 fx={fx} /> : <Odometer fx={fx} />;
     case 'before-after':

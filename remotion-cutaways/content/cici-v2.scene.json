@@ -1,7 +1,7 @@
 {
- "slug": "drck-v2",
- "video": "raw/drck-fx.mp4",
- "durationSec": 22,
+ "slug": "cici-v2",
+ "video": "raw/cici-fx.mp4",
+ "durationSec": 20,
  "theme": {
   "field": "black",
   "sans": "DM Sans"
@@ -29,7 +29,7 @@
    "segments": [
     {
      "start": 0,
-     "end": 22,
+     "end": 20,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -42,7 +42,7 @@
   {
    "type": "odometer",
    "at": 0.3,
-   "until": 4.0,
+   "until": 3.8,
    "props": {
     "version": 2,
     "label": "Odometer \u00b7 version 2",
@@ -51,36 +51,9 @@
    }
   },
   {
-   "type": "checklist",
-   "at": 4.3,
-   "until": 9.3,
-   "props": {
-    "version": 2,
-    "title": "Four simple steps",
-    "items": [
-     {
-      "text": "Pick the idea",
-      "at": 4.9
-     },
-     {
-      "text": "Write the script",
-      "at": 5.9
-     },
-     {
-      "text": "Record your voice",
-      "at": 6.9
-     },
-     {
-      "text": "Add the effects",
-      "at": 7.9
-     }
-    ]
-   }
-  },
-  {
    "type": "chart-grow",
-   "at": 9.6,
-   "until": 13.4,
+   "at": 4.0,
+   "until": 7.4,
    "props": {
     "version": 2,
     "label": "Chart grow \u00b7 version 2",
@@ -97,56 +70,83 @@
    }
   },
   {
-   "type": "pointer-callout",
-   "at": 13.7,
-   "until": 17.7,
+   "type": "focus-list",
+   "at": 7.6,
+   "until": 10.9,
    "props": {
-    "version": 2,
-    "cards": [
+    "title": "Focus list, timed",
+    "y": 1010,
+    "items": [
      {
-      "text": "notes follow her",
-      "at": 14.0,
-      "target": "head"
+      "text": "Pick the idea",
+      "at": 8.0
      },
      {
-      "text": "even when she moves",
-      "at": 15.0,
-      "target": "right"
+      "text": "Write the script",
+      "at": 8.7
      },
      {
-      "text": "point anywhere",
-      "at": 16.0,
-      "target": "hands"
+      "text": "Record your voice",
+      "at": 9.4
+     },
+     {
+      "text": "Add the effects",
+      "at": 10.1
      }
     ]
    }
   },
   {
    "type": "clone",
-   "at": 18.0,
-   "until": 21.8,
+   "at": 11.1,
+   "until": 14.9,
    "props": {
     "version": 2,
     "copies": [
      {
-      "at": 18.3,
+      "at": 11.4,
       "side": "left"
      },
      {
-      "at": 18.8,
+      "at": 11.9,
       "side": "right"
      },
      {
-      "at": 19.3,
+      "at": 12.4,
       "side": "left"
      },
      {
-      "at": 19.8,
+      "at": 12.9,
       "side": "right"
+     }
+    ]
+   }
+  },
+  {
+   "type": "pointer-callout",
+   "at": 15.2,
+   "until": 19.4,
+   "props": {
+    "version": 2,
+    "cards": [
+     {
+      "text": "notes follow her",
+      "at": 15.5,
+      "target": "head"
+     },
+     {
+      "text": "even when she moves",
+      "at": 16.5,
+      "target": "right"
+     },
+     {
+      "text": "point anywhere",
+      "at": 17.5,
+      "target": "hands"
      }
     ]
    }
   }
  ],
- "matte": "drck-fx"
+ "matte": "cici-fx"
 }

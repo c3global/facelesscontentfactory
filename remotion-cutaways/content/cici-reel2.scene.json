@@ -1,0 +1,85 @@
+{
+ "slug": "cici-reel2",
+ "video": "raw/cici-fx.mp4",
+ "durationSec": 15,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 15,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "pixel-monitor",
+   "at": 0.3,
+   "until": 2.9,
+   "props": {
+    "label": "REC"
+   }
+  },
+  {
+   "type": "slot-machine",
+   "at": 3.2,
+   "until": 6.8,
+   "props": {
+    "label": "Today's video",
+    "words": [
+     "HOOK",
+     "STORY",
+     "OFFER"
+    ]
+   }
+  },
+  {
+   "type": "holo-phone",
+   "at": 7.1,
+   "until": 11.0,
+   "props": {
+    "title": "Hologram",
+    "lines": [
+     "Turns in 3D",
+     "Glows and flickers"
+    ]
+   }
+  },
+  {
+   "type": "silhouette-shift",
+   "at": 11.3,
+   "until": 14.7,
+   "props": {
+    "word": "NEW"
+   }
+  }
+ ],
+ "matte": "cici-fx"
+}

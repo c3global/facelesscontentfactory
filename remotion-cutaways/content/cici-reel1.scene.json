@@ -1,0 +1,148 @@
+{
+ "slug": "cici-reel1",
+ "video": "raw/cici-fx.mp4",
+ "durationSec": 19.5,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 19.5,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "shoulder-steps",
+   "at": 0.3,
+   "until": 4.8,
+   "props": {
+    "title": "Three steps",
+    "steps": [
+     {
+      "text": "Write the hook",
+      "at": 1.0
+     },
+     {
+      "text": "Record once",
+      "at": 1.8
+     },
+     {
+      "text": "Add the effects",
+      "at": 2.6
+     }
+    ]
+   }
+  },
+  {
+   "type": "iris",
+   "at": 5.0,
+   "until": 7.6,
+   "props": {
+    "word": "look closer"
+   }
+  },
+  {
+   "type": "match-cut",
+   "at": 7.9,
+   "until": 10.9,
+   "props": {
+    "cuts": [
+     {
+      "at": 7.9,
+      "zoom": 1.3,
+      "word": "Same"
+     },
+     {
+      "at": 8.6,
+      "zoom": 1.7,
+      "word": "face"
+     },
+     {
+      "at": 9.3,
+      "zoom": 2.2,
+      "word": "new",
+      "mono": true
+     },
+     {
+      "at": 10.0,
+      "zoom": 1.1,
+      "word": "frame"
+     }
+    ]
+   }
+  },
+  {
+   "type": "demo-cursor",
+   "at": 11.2,
+   "until": 14.8,
+   "props": {
+    "title": "Demo with cursor",
+    "lines": [
+     "Pick a template",
+     "Drop in your clip"
+    ],
+    "button": "Render video",
+    "doneLabel": "Rendered"
+   }
+  },
+  {
+   "type": "glass-cards",
+   "at": 15.1,
+   "until": 19.1,
+   "props": {
+    "cards": [
+     {
+      "label": "Hook",
+      "value": "3 sec",
+      "at": 15.3
+     },
+     {
+      "label": "Captions",
+      "value": "On",
+      "at": 15.8
+     },
+     {
+      "label": "Progress",
+      "value": "Step 2 of 3",
+      "bar": 66,
+      "at": 16.3
+     },
+     {
+      "label": "Effects",
+      "value": "Glass cards",
+      "at": 16.8
+     }
+    ]
+   }
+  }
+ ],
+ "matte": "cici-fx"
+}

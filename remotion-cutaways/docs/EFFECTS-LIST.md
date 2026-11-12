@@ -187,10 +187,26 @@ The original look stays the default and is never replaced. Add `"version": 2` to
 
 | Name | Version 2 look | Extra props in version 2 |
 | --- | --- | --- |
-| `checklist` | Frosted glass rows with switches. Each row switches on at its own second; the current row is sharp, the rows still to come are soft. | `y` (top of the list) |
 | `odometer` | The rolling digits on a frosted proof card, with commas, an underline that draws in, and a line under the number. | `sub`, `y` |
 | `chart-grow` | A glowing line on a frosted card; the end label lands as the dot starts to pulse. | `y` |
 | `pointer-callout` | Handwritten notes with curved arrows that follow her (needs the matte anchors, as before). | `size` (handwriting size) |
 | `clone` | The copies fan out in a row behind her, each on its own second, smaller and darker toward the edges (needs the cutout, as before). | none |
 
-Preview plan: `content/drck-v2.scene.json`. Code: `src/fx/twelfth.tsx`.
+`checklist` has no version 2. The list with switches is a focus list, not a checklist (Dr. CK, Nov 12): it lives in `focus-list`. Give every item `{"text": "...", "at": <second>}` and each switch turns on at its own second; plain words still switch on at an even pace.
+
+Preview plan: `content/cici-v2.scene.json`. Code: `src/fx/twelfth.tsx` (the timed focus list is in `eleventh.tsx`).
+
+## Reel effects (9), in the `fx` list
+| Name | What it does | Needs cutout |
+| --- | --- | --- |
+| `shoulder-steps` | The shot pushes in and slides her to one side; numbered step cards float beside her in depth, each on its own second | anchors |
+| `iris` | A round iris closes to a circle on her face, holds (optional word), and opens again. `mode`: `peek`, `close` or `open` | anchors |
+| `match-cut` | Hard cuts between framings with her face pinned to the same spot, a white flash and an optional big word per cut (`mono` makes a cut black and white) | anchors |
+| `demo-cursor` | An app window floats in; a cursor glides to the button and clicks it, and the button turns to done. `src` swaps in a real screenshot | no |
+| `glass-cards` | Small frosted cards float around her and bob, each with a label, a value and an optional bar | no |
+| `pixel-monitor` | Opens as a close-up of a pixel screen (red, green, blue stripes), then pulls back and sharpens into her clip | anchors |
+| `slot-machine` | Up to three reels spin and stop one by one on her words, then the frame glows | no |
+| `holo-phone` | A see-through hologram phone turns beside her, with scan lines, glow and a light cone | no |
+| `silhouette-shift` | She turns into a dark silhouette on a color field, a big word lands behind her, then a light sweep brings her back | yes |
+
+Preview plans: `content/cici-reel1.scene.json`, `content/cici-reel2.scene.json`. Code: `src/fx/thirteenth.tsx`. Never put invented numbers in `glass-cards` or `demo-cursor`.
