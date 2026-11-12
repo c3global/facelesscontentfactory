@@ -51,7 +51,7 @@ const slideSchema = z.object({
   /** ab: the two panel titles and which one wins (a or b) */
   winner: z.enum(['a', 'b']).default('b'),
   /** handwritten notes with curved arrows: x, y and the arrow tip `to` in percent of the slide area */
-  notes: z.array(z.object({text: z.string().max(60), x: z.number().min(0).max(100), y: z.number().min(0).max(100), to: z.tuple([z.number(), z.number()]).optional()})).max(4).default([]),
+  notes: z.array(z.object({text: z.string().max(60), x: z.number().min(0).max(100), y: z.number().min(0).max(100), to: z.tuple([z.number(), z.number()]).optional(), /** which side of the note the arrow leaves from (auto picks the side facing the target) */ from: z.enum(['auto', 'left', 'right', 'top', 'bottom']).default('auto'), /** curve: -1 bends one way, 1 the other, 0 straight; auto bends away from the note */ bend: z.number().min(-1).max(1).optional()})).max(4).default([]),
   /** cta follow/link: the handle or link to show, for example @yourbrand */
   handle: z.string().max(40).default(''),
   /** show the presenter cutout on this slide (default: on cover, statement, status and branches) */
@@ -193,10 +193,33 @@ const Annotations: React.FC<{notes: Slide['notes']; t: number}> = ({notes, t}) =
           {n.to && (() => {
             const tx = (n.to[0] / 100) * W;
             const ty = (n.to[1] / 100) * H;
-            const sx = x + 40;
-            const sy = y + 70;
-            const mx = (sx + tx) / 2 + (ty - sy) * 0.25;
-            const my = (sy + ty) / 2 - (tx - sx) * 0.25;
+            // the note's own box (rotation ignored), so the arrow starts just outside it and never runs through the words
+            const words = n.text.split(' ');
+            let lines = 1;
+            let cur = 0;
+            let widest = 0;
+            for (const w of words) {
+              const ww = w.length * 18 + 10;
+              if (cur + ww > 300 && cur > 0) { lines++; widest = Math.max(widest, cur); cur = ww; } else cur += ww;
+            }
+            widest = Math.max(widest, cur);
+            const bw = Math.min(300, widest);
+            const bh = lines * 42 + 6;
+            const cx = x + bw / 2;
+            const cy = y + bh / 2;
+            const gap = 16;
+            const side = n.from !== 'auto' ? n.from : Math.abs(tx - cx) / bw > Math.abs(ty - cy) / bh ? (tx > cx ? 'right' : 'left') : ty > cy ? 'bottom' : 'top';
+            const sx = side === 'left' ? x - gap : side === 'right' ? x + bw + gap : Math.max(x + 20, Math.min(x + bw - 20, tx));
+            const sy = side === 'top' ? y - gap : side === 'bottom' ? y + bh + gap : cy;
+            // bend away from the note: push the control point to the side of the line that is farther from the box center
+            const nx = -(ty - sy);
+            const ny = tx - sx;
+            const away = (sx + tx) / 2 + nx * 0.1 - cx;
+            const away2 = (sy + ty) / 2 + ny * 0.1 - cy;
+            const autoSign = away * nx + away2 * ny >= 0 ? 1 : -1;
+            const b = (n.bend ?? autoSign * 0.6) * 0.42;
+            const mx = (sx + tx) / 2 + nx * b;
+            const my = (sy + ty) / 2 + ny * b;
             const ang = Math.atan2(ty - my, tx - mx);
             const k = prog(t, at + 0.6, 0.5);
             return (
