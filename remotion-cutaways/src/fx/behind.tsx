@@ -9,6 +9,7 @@ import {thirdFront, thirdPlate} from './third';
 import {seventhFront, seventhPlate} from './seventh';
 import {eighthPlate} from './eighth';
 import {blowAwayMask, ninthFront, ninthPlate} from './ninth';
+import {fifteenthPlate} from './fifteenth';
 import {silhouetteCutout, thirteenthFront, thirteenthPlate} from './thirteenth';
 import {fxRange, pop, tw, useFxEnv, useFxTime} from './util';
 
@@ -381,7 +382,7 @@ export const behindPlate = (fx: Fx): React.ReactNode => {
     case 'green-screen':
       return <GreenScreenPlate fx={fx} />;
     default:
-      return thirdPlate(fx) ?? sixthPlate(fx) ?? seventhPlate(fx) ?? eighthPlate(fx) ?? ninthPlate(fx) ?? thirteenthPlate(fx);
+      return thirdPlate(fx) ?? sixthPlate(fx) ?? seventhPlate(fx) ?? eighthPlate(fx) ?? ninthPlate(fx) ?? thirteenthPlate(fx) ?? fifteenthPlate(fx);
   }
 };
 

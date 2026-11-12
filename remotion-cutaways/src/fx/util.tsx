@@ -142,14 +142,21 @@ const LEN: Record<FxType, number> = {
   'image-collage': 3.6,
   'cover-fan': 3.4,
   'framed-clip': 4,
+  'side-by-side': 4,
+  'vote-pill': 3.2,
+  duotone: 2.6,
+  'big-stat': 3.2,
+  'thank-you': 3.4,
+  'wall-text': 3.6,
 };
 
 /** effects that draw behind her (they need the person matte) */
-export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story', 'script-panel', 'clone-row', 'day-dial', 'letter-orbit', 'code-body', 'post-wall', 'sketch-words', 'dolly-zoom', 'blow-away', 'depth-scatter', 'scene-text', 'silhouette-shift'];
+export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story', 'script-panel', 'clone-row', 'day-dial', 'letter-orbit', 'code-body', 'post-wall', 'sketch-words', 'dolly-zoom', 'blow-away', 'depth-scatter', 'scene-text', 'silhouette-shift', 'wall-text'];
 export const NEEDS_MATTE: FxType[] = [...BEHIND, 'freeze-sticker'];
 
 export const fxRange = (f: Fx): [number, number] => {
   if (f.type === 'zoom-through') return [Math.max(0, f.at - f.props.diveSec), f.at + 0.6];
+  if (f.type === 'flash-frame' && f.props.version === 2) return [f.at, f.until ?? f.at + 0.6];
   return [f.at, f.until ?? f.at + LEN[f.type]];
 };
 
@@ -461,6 +468,18 @@ const rawCues = (f: Fx): Cue[] => {
       return [main('swish', f.at, 0.4), d('type', f.at + 1.4, 0.5)];
     case 'note-arrow':
       return [main('swish', f.at + 0.7, 0.35)];
+    case 'side-by-side':
+      return [main('swish', f.at + 0.1, 0.5), ...(f.props.winner ? [d('ding', f.props.pickAt ?? f.at + 1.6, 0.5)] : [])];
+    case 'vote-pill':
+      return [main('pop', f.at + 0.1, 0.5), ...(f.props.pick ? [d('blip', f.props.pickAt ?? f.at + 1.3, 0.6)] : [])];
+    case 'duotone':
+      return [main('shutter', f.at, 0.5, 2)];
+    case 'big-stat':
+      return [main('riser', f.at + 0.2, 0.4), d('thud', f.at + 1.4, 0.6)];
+    case 'thank-you':
+      return [main('swish', f.at + 0.35, 0.4)];
+    case 'wall-text':
+      return [main('whoosh', f.at, 0.5)];
     case 'image-collage':
       return [main('swish', f.at + 0.2, 0.5)];
     case 'cover-fan':
