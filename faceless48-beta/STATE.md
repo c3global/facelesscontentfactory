@@ -39,6 +39,8 @@ Read this first in any new conversation about Faceless48. Update it when Dr. CK 
 
 **Lesson 1 PDF (Nov 10):** new `lesson-pdfs/Lesson-1-Instructions.pdf` (one-sentence setup, support@faceless48.com) replaced the old instructions-and-transcript PDF in Lesson 1. She is recording a new Lesson 1 video today (Mac setup test); when she sends it, make the matching Instructions-and-Transcript PDF and swap the lesson video.
 
+**Beta 11 in progress (Nov 12, release next week):** from her 3 new reels (corbinsylk) and 2 IG carousels (Deyz9hVk-q4 "Effects of the week", De78kL4k3p- "Liquid Glass"). DONE: carousel styles `glass` and `showcase`, layouts media/toggles/proof/graph/ab/doc, collage end screen, handwritten notes with arrows, cover fan, starter templates 4 and 5 (content/templates/carousel-showcase.json, carousel-glass.json). TODO: ~14 new effects (over-the-shoulder zoom with floating cards, iris, match cut, image collage, product demo, floating glass UI cards, pixelated monitor, slot machine, 3D hologram phone, silhouette transformation) + text animation pack (true focus, shiny, gradient, blur-in, split, glitch, scramble signature reveal, effect-of-the-day badge); previews on her avatar in 2 batches; then beta.11 zip, Lesson 1 swap, announcement. Lesson 1 stays on beta.10 until then.
+
 **Next:**
 1. Real Mac and Windows test of setup (Mac may need Command Line Tools for whisper; setup triggers the install prompt). Not yet tested there.
 2. Swap the zip into lesson 1 (Pinball media) and update the Start Here guide and recording checklist (still says beta.7).

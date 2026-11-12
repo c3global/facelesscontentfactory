@@ -1,0 +1,107 @@
+{
+ "kind": "video-carousel",
+ "slug": "carousel-glass",
+ "style": "glass",
+ "series": "Liquid glass",
+ "align": "left",
+ "slides": [
+  {
+   "layout": "cover",
+   "kicker": "This week's",
+   "headline": "Style *spotlight*",
+   "body": "Liquid glass, in your brand.",
+   "seconds": 5,
+   "images": [
+    "collage/1.png",
+    "collage/4.png",
+    "collage/6.png"
+   ],
+   "align": "center"
+  },
+  {
+   "layout": "toggles",
+   "headline": "Focus *list*",
+   "items": [
+    "Collect information",
+    "Profile optimization",
+    "Ideation and scripting",
+    "Filming and editing",
+    "Posting and DMs"
+   ],
+   "notes": [
+    {
+     "text": "you are here",
+     "x": 58,
+     "y": 88,
+     "to": [
+      48,
+      72
+     ]
+    }
+   ],
+   "seconds": 6
+  },
+  {
+   "layout": "proof",
+   "headline": "Proof *card*",
+   "panel": "Cash collected \u00b7 this week",
+   "value": 8000,
+   "prefix": "$",
+   "body": "from 3 booked calls",
+   "notes": [
+    {
+     "text": "one week",
+     "x": 62,
+     "y": 78,
+     "to": [
+      50,
+      62
+     ]
+    }
+   ],
+   "seconds": 6
+  },
+  {
+   "layout": "graph",
+   "headline": "Glass line *graph*",
+   "panel": "Retention",
+   "value": 82,
+   "suffix": "%",
+   "points": [
+    18,
+    24,
+    26,
+    35,
+    44,
+    60,
+    82
+   ],
+   "seconds": 6
+  },
+  {
+   "layout": "doc",
+   "headline": "Freebie *doc*",
+   "panel": "The 5-step content plan",
+   "keyword": "Glass",
+   "seconds": 6
+  },
+  {
+   "layout": "cta",
+   "end": "collage",
+   "headline": "Want the style pack?",
+   "keyword": "glass",
+   "body": "+ every slide in this style",
+   "images": [
+    "collage/1.png",
+    "collage/2.png",
+    "collage/3.png",
+    "collage/4.png",
+    "collage/5.png",
+    "collage/6.png",
+    "collage/7.png",
+    "collage/8.png"
+   ],
+   "seconds": 5
+  }
+ ]
+}

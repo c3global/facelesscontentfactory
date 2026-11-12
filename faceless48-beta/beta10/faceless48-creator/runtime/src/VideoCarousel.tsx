@@ -1,5 +1,5 @@
 import React from 'react';
-import {AbsoluteFill, Audio, Img, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
+import {AbsoluteFill, Audio, Img, OffthreadVideo, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {z} from 'zod';
 import {customerBrand as B} from './brandConfig';
 import {handFamily, loadBrandFonts} from './fonts';
@@ -11,7 +11,7 @@ import {handFamily, loadBrandFonts} from './fonts';
  * Wrap a word in *asterisks* in any headline to set it in the accent script.
  */
 const slideSchema = z.object({
-  layout: z.enum(['cover', 'statement', 'list', 'checklist', 'compare', 'quote', 'steps', 'status', 'branches', 'cta']),
+  layout: z.enum(['cover', 'statement', 'list', 'checklist', 'compare', 'quote', 'steps', 'status', 'branches', 'media', 'toggles', 'proof', 'graph', 'ab', 'doc', 'cta']),
   seconds: z.number().min(2).max(20).default(6),
   kicker: z.string().max(60).default(''),
   headline: z.string().max(140),
@@ -37,7 +37,21 @@ const slideSchema = z.object({
   /** text alignment for this slide (defaults to the carousel's align) */
   align: z.enum(['left', 'center', 'right']).optional(),
   /** cta: which end screen: keyword (comment a word), follow, save, link (link in bio), question */
-  end: z.enum(['keyword', 'follow', 'save', 'link', 'question']).default('keyword'),
+  end: z.enum(['keyword', 'follow', 'save', 'link', 'question', 'collage']).default('keyword'),
+  /** media: a clip (.mp4) or picture in public/ shown in a frame; collage end: pictures for the grid */
+  media: z.string().optional(),
+  side: z.enum(['left', 'right', 'center']).default('center'),
+  images: z.array(z.string()).max(12).default([]),
+  /** proof: the number to count up to, with optional prefix/suffix ("$", "%") */
+  value: z.number().optional(),
+  prefix: z.string().max(4).default(''),
+  suffix: z.string().max(6).default(''),
+  /** graph: points (any scale) and the closing value label */
+  points: z.array(z.number()).max(12).default([]),
+  /** ab: the two panel titles and which one wins (a or b) */
+  winner: z.enum(['a', 'b']).default('b'),
+  /** handwritten notes with curved arrows: x, y and the arrow tip `to` in percent of the slide area */
+  notes: z.array(z.object({text: z.string().max(60), x: z.number().min(0).max(100), y: z.number().min(0).max(100), to: z.tuple([z.number(), z.number()]).optional()})).max(4).default([]),
   /** cta follow/link: the handle or link to show, for example @yourbrand */
   handle: z.string().max(40).default(''),
   /** show the presenter cutout on this slide (default: on cover, statement, status and branches) */
@@ -47,7 +61,7 @@ export const videoCarouselSchema = z.object({
   kind: z.literal('video-carousel'),
   slug: z.string().regex(/^[a-z0-9-]+$/),
   /** look: editorial (glass panels, serif accents), luxe (deeper, metallic rules), clean (light paper), bold (big type, accent fields) */
-  style: z.enum(['editorial', 'luxe', 'clean', 'bold']).default('editorial'),
+  style: z.enum(['editorial', 'luxe', 'clean', 'bold', 'glass', 'showcase']).default('editorial'),
   /** small label in the header, for example a series name */
   series: z.string().max(40).default(''),
   /** text alignment for every slide: center (default), left or right */
@@ -75,6 +89,10 @@ const hexA = (hex: string, a: number) => {
 type Th = {bg: string; ink: string; muted: string; rule: string; panel: React.CSSProperties; hero: number};
 const theme = (style: VideoCarouselPlan['style']): Th => {
   const glass: React.CSSProperties = {background: 'linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04) 45%, rgba(255,255,255,0.07))', border: `1.5px solid ${hexA(B.metalLight, 0.36)}`, borderRadius: 26, boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.28), 0 24px 70px rgba(0,0,0,0.45)'};
+  if (style === 'glass')
+    return {bg: `#06091A`, ink: '#FFFFFF', muted: 'rgba(255,255,255,0.7)', rule: 'rgba(255,255,255,0.16)', panel: {background: 'linear-gradient(140deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.09))', border: '1.5px solid rgba(255,255,255,0.28)', borderRadius: 28, boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.4), 0 30px 80px rgba(0,0,0,0.5)', backdropFilter: 'blur(18px)'}, hero: 88};
+  if (style === 'showcase')
+    return {bg: `radial-gradient(ellipse at 70% 30%, ${hexA(B.metal, 0.22)}, transparent 60%), linear-gradient(170deg, #2A1A12, #120B07)`, ink: '#FFFFFF', muted: 'rgba(255,240,225,0.7)', rule: 'rgba(255,220,190,0.18)', panel: {background: 'rgba(255,255,255,0.07)', border: `1.5px solid ${hexA(B.metalLight, 0.3)}`, borderRadius: 22, boxShadow: '0 24px 60px rgba(0,0,0,0.5)'}, hero: 88};
   if (style === 'clean')
     return {bg: `radial-gradient(ellipse at 85% 40%, ${hexA(B.accent, 0.1)}, transparent 60%), #F6F3EE`, ink: '#16161A', muted: 'rgba(22,22,26,0.62)', rule: 'rgba(22,22,26,0.14)', panel: {background: '#FFFFFF', border: `1.5px solid ${hexA(B.metal, 0.4)}`, borderRadius: 24, boxShadow: '0 18px 46px rgba(30,20,10,0.12)'}, hero: 84};
   if (style === 'bold')
@@ -160,6 +178,56 @@ const Paper: React.FC<{items: string[]; t: number; at: number; style?: React.CSS
   </div>
 );
 
+// ---- handwritten notes with curved arrows (annotate any slide)
+const Annotations: React.FC<{notes: Slide['notes']; t: number}> = ({notes, t}) => (
+  <div style={{position: 'absolute', inset: 0, pointerEvents: 'none'}}>
+    {notes.map((n, i) => {
+      const at = 1.0 + i * 0.5;
+      const W = 928;
+      const H = 990;
+      const x = (n.x / 100) * W;
+      const y = (n.y / 100) * H;
+      return (
+        <React.Fragment key={i}>
+          <div style={{position: 'absolute', left: x, top: y, width: 300, fontFamily: handFamily, fontWeight: 700, fontSize: 40, lineHeight: 1.05, color: NOTE_INK, transform: `rotate(-4deg)`, clipPath: `inset(0 ${100 - prog(t, at, 0.7) * 100}% 0 0)`, textShadow: '0 2px 8px rgba(0,0,0,0.35)'}}>{n.text}</div>
+          {n.to && (() => {
+            const tx = (n.to[0] / 100) * W;
+            const ty = (n.to[1] / 100) * H;
+            const sx = x + 40;
+            const sy = y + 70;
+            const mx = (sx + tx) / 2 + (ty - sy) * 0.25;
+            const my = (sy + ty) / 2 - (tx - sx) * 0.25;
+            const ang = Math.atan2(ty - my, tx - mx);
+            const k = prog(t, at + 0.6, 0.5);
+            return (
+              <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0, overflow: 'visible'}}>
+                <path d={`M ${sx} ${sy} Q ${mx} ${my} ${tx} ${ty}`} fill="none" stroke={NOTE_INK} strokeWidth={4} strokeLinecap="round" pathLength={1} style={{strokeDasharray: 1, strokeDashoffset: 1 - k}} />
+                <path d={`M ${tx - 22 * Math.cos(ang - 0.5)} ${ty - 22 * Math.sin(ang - 0.5)} L ${tx} ${ty} L ${tx - 22 * Math.cos(ang + 0.5)} ${ty - 22 * Math.sin(ang + 0.5)}`} fill="none" stroke={NOTE_INK} strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" opacity={k > 0.95 ? 1 : 0} />
+              </svg>
+            );
+          })()}
+        </React.Fragment>
+      );
+    })}
+  </div>
+);
+let NOTE_INK = '#F2D24B';
+
+// ---- drifting light for the glass style
+const GlassLight: React.FC<{t: number}> = ({t}) => (
+  <div style={{position: 'absolute', inset: 0, overflow: 'hidden'}}>
+    {[{c: B.metal, x: 760, y: 980, r: 420, s: 0.35}, {c: B.accent, x: 120, y: 260, r: 520, s: 0.27}, {c: B.metalLight, x: 980, y: 260, r: 260, s: 0.5}].map((b, i) => (
+      <div key={i} style={{position: 'absolute', left: b.x - b.r + 70 * Math.sin(t * b.s + i), top: b.y - b.r + 50 * Math.cos(t * b.s * 0.8 + i * 2), width: b.r * 2, height: b.r * 2, borderRadius: '50%', background: `radial-gradient(circle, ${hexA(b.c, 0.55)}, transparent 65%)`, filter: 'blur(40px)'}} />
+    ))}
+  </div>
+);
+
+const Media: React.FC<{src: string; t: number; style: React.CSSProperties}> = ({src, t, style}) => (
+  <div style={{position: 'absolute', overflow: 'hidden', borderRadius: 28, border: `2px solid ${hexA(B.metalLight, 0.45)}`, boxShadow: '0 30px 80px rgba(0,0,0,0.55)', opacity: prog(t, 0.2, 0.4), ...style}}>
+    {/\.(mp4|mov|webm)$/i.test(src) ? <OffthreadVideo src={staticFile(src)} muted style={{width: '100%', height: '100%', objectFit: 'cover'}} /> : <Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${1.03 + 0.03 * Math.sin(t * 0.5)})`}} />}
+  </div>
+);
+
 const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}> = ({s, t, th, withPresenter}) => {
   const items = s.items;
   const narrow: React.CSSProperties = withPresenter ? {maxWidth: 640} : {};
@@ -169,10 +237,24 @@ const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}>
       return (
         <>
           <Kicker text={s.kicker} t={t} />
-          <div style={{...rise(t, 0.1), ...narrow}}><Headline text={s.headline} size={th.hero} th={th} /></div>
+          <div style={{...rise(t, 0.1), ...narrow}}><Headline text={s.headline} size={s.images.length ? 120 : th.hero} th={th} /></div>
           {s.body && <p style={{fontFamily: sans, fontSize: 34, lineHeight: 1.4, color: th.muted, marginTop: 30, maxWidth: s.image || withPresenter ? 560 : 900, ...panelAlign, ...rise(t, 0.35)}}>{s.body}</p>}
           <Note text={s.note} t={t} at={1.2} />
           {s.image && <Framed src={s.image} t={t} style={{right: -10, bottom: 0, width: 400, height: 520, transform: 'rotate(3deg)'}} />}
+          {s.images.length > 0 && (
+            <div style={{position: 'relative', height: 470, marginTop: 30}}>
+              {s.images.slice(0, 3).map((src, i) => {
+                const n = Math.min(3, s.images.length);
+                const off = i - (n - 1) / 2;
+                const k = ease(prog(t, 0.4 + i * 0.15, 0.6));
+                return (
+                  <div key={i} style={{position: 'absolute', left: 464 - 150 + off * 230 * k, top: 30 + Math.abs(off) * 30, width: 300, height: 400, borderRadius: 22, overflow: 'hidden', border: `2px solid ${hexA(B.metalLight, 0.5)}`, boxShadow: '0 30px 60px rgba(0,0,0,0.55)', transform: `rotate(${off * 9 * k}deg) translateY(${Math.sin(t * 0.9 + i) * 5}px)`, opacity: k, zIndex: 3 - Math.abs(off)}}>
+                    {/\.(mp4|mov|webm)$/i.test(src) ? <OffthreadVideo src={staticFile(src)} muted style={{width: '100%', height: '100%', objectFit: 'cover'}} /> : <Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </>
       );
     case 'statement':
@@ -301,12 +383,150 @@ const SlideBody: React.FC<{s: Slide; t: number; th: Th; withPresenter: boolean}>
           </div>
         </>
       );
+    case 'media': {
+      const w = s.side === 'center' ? 560 : 520;
+      const left = s.side === 'left' ? 0 : s.side === 'right' ? 928 - w : (928 - w) / 2;
+      return (
+        <>
+          <Kicker text={s.kicker} t={t} />
+          <div style={rise(t, 0.05)}><Headline text={s.headline} size={78} th={th} /></div>
+          <div style={{position: 'relative', height: 700, marginTop: 30}}>
+            {s.media && <Media src={s.media} t={t} style={{left, top: 0, width: w, height: 700, transform: `translateY(${Math.sin(t * 0.8) * 4}px)`}} />}
+          </div>
+        </>
+      );
+    }
+    case 'toggles': {
+      const active = Math.min(items.length - 1, Math.floor(Math.max(0, t - 0.6) / 0.9));
+      return (
+        <>
+          <Kicker text={s.kicker} t={t} />
+          <div style={rise(t, 0.05)}><Headline text={s.headline} size={78} th={th} /></div>
+          <div style={{display: 'flex', flexDirection: 'column', gap: 18, marginTop: 44, textAlign: 'left'}}>
+            {items.map((x, i) => {
+              const on = i < active || (i === active && t > 0.6);
+              const cur = i === active;
+              return (
+                <div key={i} style={{...th.panel, borderRadius: 60, padding: cur ? '26px 34px' : '20px 34px', display: 'flex', alignItems: 'center', gap: 18, transform: `scale(${cur ? 1.04 : 0.94})`, filter: cur || i < active ? 'none' : 'blur(2.5px)', opacity: cur ? 1 : i < active ? 0.75 : 0.5, ...rise(t, 0.2 + i * 0.12)}}>
+                  <span style={{fontFamily: sans, fontWeight: 700, fontSize: 26, color: HI}}>{String(i + 1).padStart(2, '0')}</span>
+                  <span style={{flex: 1, fontFamily: sans, fontWeight: 700, fontSize: cur ? 36 : 30, color: th.ink}}>{x}</span>
+                  <div style={{width: 74, height: 42, borderRadius: 21, background: on && !cur ? B.accent : on ? hexA(B.metalLight, 0.35) : 'rgba(255,255,255,0.15)', position: 'relative'}}>
+                    <div style={{position: 'absolute', top: 4, left: on ? 36 : 4, width: 34, height: 34, borderRadius: 17, background: '#fff', boxShadow: '0 2px 6px rgba(0,0,0,0.3)'}} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      );
+    }
+    case 'proof': {
+      const v = s.value ?? 0;
+      const k = 1 - Math.pow(1 - prog(t, 0.5, 1.6), 3);
+      const shown = Math.round(v * k).toLocaleString('en-US');
+      return (
+        <>
+          <Kicker text={s.kicker} t={t} />
+          <div style={rise(t, 0.05)}><Headline text={s.headline} size={78} th={th} /></div>
+          <div style={{...th.panel, marginTop: 60, padding: '44px 50px', textAlign: 'left', ...panelAlign, maxWidth: 760, ...rise(t, 0.3)}}>
+            <div style={{fontFamily: sans, fontWeight: 700, fontSize: 24, letterSpacing: 3, textTransform: 'uppercase', color: th.muted}}>{s.panel}</div>
+            <div style={{fontFamily: sans, fontWeight: 700, fontSize: 150, lineHeight: 1.1, color: th.ink, letterSpacing: -4, display: 'inline-block', position: 'relative'}}>
+              {s.prefix}{shown}{s.suffix}
+              <div style={{position: 'absolute', left: 0, bottom: 4, height: 7, borderRadius: 4, width: `${prog(t, 1.9, 0.6) * 100}%`, background: B.metal}} />
+            </div>
+            {s.body && <div style={{fontFamily: serif, fontStyle: 'italic', fontSize: 36, color: th.muted, marginTop: 8}}>{s.body}</div>}
+          </div>
+        </>
+      );
+    }
+    case 'graph': {
+      const pts = s.points.length > 1 ? s.points : [2, 3, 2.6, 4, 4.8, 6.5, 8.2];
+      const mn = Math.min(...pts);
+      const mx = Math.max(...pts);
+      const W2 = 760;
+      const H2 = 300;
+      const xy = pts.map((p, i) => [40 + (i / (pts.length - 1)) * (W2 - 80), 40 + (1 - (p - mn) / (mx - mn || 1)) * (H2 - 80)]);
+      const d = xy.map(([x, y], i) => `${i ? 'L' : 'M'} ${x.toFixed(1)} ${y.toFixed(1)}`).join(' ');
+      const k = prog(t, 0.6, 1.6);
+      const tip = xy[Math.min(xy.length - 1, Math.floor(k * (xy.length - 1) + 0.0001))];
+      return (
+        <>
+          <Kicker text={s.kicker} t={t} />
+          <div style={rise(t, 0.05)}><Headline text={s.headline} size={78} th={th} /></div>
+          <div style={{...th.panel, marginTop: 50, padding: '34px 40px', textAlign: 'left', ...panelAlign, width: 840, ...rise(t, 0.3)}}>
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'baseline'}}>
+              <span style={{fontFamily: sans, fontWeight: 700, fontSize: 24, letterSpacing: 3, textTransform: 'uppercase', color: th.muted}}>{s.panel}</span>
+              <span style={{fontFamily: sans, fontWeight: 700, fontSize: 72, color: th.ink}}>{s.prefix}{Math.round((s.value ?? 0) * k)}{s.suffix}</span>
+            </div>
+            <svg width={W2} height={H2} style={{display: 'block', marginTop: 10}}>
+              <defs><linearGradient id="gl" x1="0" x2="1"><stop offset="0" stopColor={B.accent} /><stop offset="1" stopColor={B.metalLight} /></linearGradient></defs>
+              <path d={d} fill="none" stroke="url(#gl)" strokeWidth={7} strokeLinecap="round" strokeLinejoin="round" pathLength={1} style={{strokeDasharray: 1, strokeDashoffset: 1 - k, filter: `drop-shadow(0 0 10px ${hexA(B.metalLight, 0.7)})`}} />
+              {k > 0.02 && <circle cx={tip[0]} cy={tip[1]} r={11 + 2 * Math.sin(t * 5)} fill="#fff" stroke={B.metalLight} strokeWidth={4} />}
+            </svg>
+          </div>
+        </>
+      );
+    }
+    case 'ab': {
+      const win = s.winner === 'a' ? 0 : 1;
+      const pick = prog(t, 2.0, 0.4);
+      return (
+        <>
+          <Kicker text={s.kicker} t={t} />
+          <div style={rise(t, 0.05)}><Headline text={s.headline} size={78} th={th} /></div>
+          <div style={{display: 'flex', gap: 24, marginTop: 50, textAlign: 'left'}}>
+            {[s.left, s.right].map((title, c) => (
+              <div key={c} style={{...th.panel, flex: 1, minHeight: 420, padding: 34, transform: `scale(${c === win ? 1 + 0.04 * pick : 1 - 0.03 * pick})`, opacity: c === win ? 1 : 1 - 0.4 * pick, border: c === win && pick > 0.5 ? `3px solid ${B.metalLight}` : (th.panel.border as string), ...rise(t, 0.3 + c * 0.3)}}>
+                <div style={{fontFamily: sans, fontWeight: 700, fontSize: 24, letterSpacing: 3, textTransform: 'uppercase', color: c === win ? HI : th.muted}}>{title}</div>
+                <div style={{fontFamily: sans, fontSize: 32, lineHeight: 1.35, color: th.ink, marginTop: 20}}>{items[c] ?? ''}</div>
+                {c === win && pick > 0.5 && <div style={{marginTop: 26, display: 'inline-block', padding: '8px 20px', borderRadius: 30, background: B.accent, color: '#fff', fontFamily: sans, fontWeight: 700, fontSize: 24}}>Winner</div>}
+              </div>
+            ))}
+          </div>
+        </>
+      );
+    }
+    case 'doc':
+      return (
+        <>
+          <Kicker text={s.kicker} t={t} />
+          <div style={rise(t, 0.05)}><Headline text={s.headline} size={78} th={th} /></div>
+          <div style={{...th.panel, marginTop: 44, padding: '40px 44px', width: 620, alignSelf: AL === 'center' ? 'center' : AL === 'right' ? 'flex-end' : 'flex-start', textAlign: 'left', transform: `rotate(-2deg) translateY(${Math.sin(t * 0.8) * 5}px)`, ...rise(t, 0.3)}}>
+            <div style={{fontFamily: sans, fontWeight: 700, fontSize: 34, color: th.ink, marginBottom: 20}}>{s.panel || s.body}</div>
+            {Array.from({length: 9}, (_, i) => <div key={i} style={{height: 12, borderRadius: 6, marginBottom: 16, width: `${[92, 80, 88, 60, 90, 76, 84, 70, 50][i]}%`, background: i % 4 === 0 ? hexA(B.metal, 0.75) : 'rgba(255,255,255,0.22)', transform: `scaleX(${prog(t, 0.5 + i * 0.08, 0.4)})`, transformOrigin: 'left'}} />)}
+          </div>
+          {s.keyword && (
+            <div style={{display: 'flex', alignItems: 'center', gap: 16, marginTop: 34, padding: '14px 16px 14px 30px', borderRadius: 50, ...th.panel, width: 560, alignSelf: AL === 'center' ? 'center' : AL === 'right' ? 'flex-end' : 'flex-start', ...rise(t, 1.2)}}>
+              <span style={{flex: 1, fontFamily: sans, fontWeight: 700, fontSize: 34, color: th.ink, textAlign: 'left'}}>{s.keyword.slice(0, Math.floor(prog(t, 1.5, 0.6) * s.keyword.length))}</span>
+              <div style={{width: 58, height: 58, borderRadius: 29, background: B.metal, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 30, fontWeight: 700}}>↑</div>
+            </div>
+          )}
+        </>
+      );
     case 'cta': {
       const onPanel = LIGHT ? '#FFFFFF' : th.ink;
       const panelBg = LIGHT ? `linear-gradient(135deg, ${B.accent}, ${B.accentDeep})` : `linear-gradient(135deg, ${hexA(B.accent, 0.4)}, ${hexA(B.accentDeep, 0.3)})`;
       const pop = 0.92 + 0.08 * ease(prog(t, 0.7, 0.5));
       const big: React.CSSProperties = {fontFamily: serif, fontSize: 150, lineHeight: 1.15, letterSpacing: 6, color: LIGHT ? shade(B.metalLight, 0.4) : HI, transform: `scale(${pop})`};
       const head = <><Kicker text={s.kicker} t={t} /><div style={{...rise(t, 0.1), ...narrow, ...panelAlign}}><Headline text={s.headline} size={80} th={th} /></div></>;
+      if (s.end === 'collage') {
+        const tiles = s.images.length ? s.images : [];
+        return (
+          <>
+            <Kicker text={s.kicker} t={t} />
+            <div style={{...rise(t, 0.05)}}><Headline text={s.headline} size={78} th={th} /></div>
+            {s.keyword && <div style={{display: 'inline-block', alignSelf: AL === 'center' ? 'center' : 'flex-start', marginTop: 20, padding: '10px 26px', borderRadius: 14, background: B.accent, color: '#fff', fontFamily: sans, fontWeight: 700, fontSize: 34, transform: `rotate(-2deg) scale(${pop})`}}>Comment "{s.keyword.toUpperCase()}"</div>}
+            {s.body && <div style={{fontFamily: serif, fontStyle: 'italic', fontSize: 34, color: th.muted, marginTop: 14}}>{s.body}</div>}
+            <div style={{display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginTop: 36}}>
+              {(tiles.length ? tiles : Array.from({length: 8}, () => '')).slice(0, 12).map((src, i) => (
+                <div key={i} style={{aspectRatio: '4 / 5', borderRadius: 14, overflow: 'hidden', ...th.panel, padding: 0, opacity: prog(t, 0.4 + i * 0.07, 0.3), transform: `translateY(${(1 - prog(t, 0.4 + i * 0.07, 0.4)) * 30}px)`}}>
+                  {src && <Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover'}} />}
+                </div>
+              ))}
+            </div>
+          </>
+        );
+      }
       if (s.end === 'follow')
         return (
           <>
@@ -405,6 +625,7 @@ export const VideoCarousel: React.FC<{plan: VideoCarouselPlan}> = ({plan}) => {
   LIGHT = plan.style === 'clean';
   HI = LIGHT ? shade(B.metal, -0.15) : plan.style === 'bold' ? shade(B.metalLight, 0.6) : B.metalLight;
   metalText = metalTextFor(LIGHT, plan.style === 'bold');
+  NOTE_INK = plan.style === 'clean' ? shade(B.metal, -0.2) : plan.style === 'showcase' ? '#F2D24B' : shade(B.metalLight, 0.35);
   let start = 0;
   let idx = plan.slides.length - 1;
   for (let i = 0; i < plan.slides.length; i++) {
@@ -432,6 +653,7 @@ export const VideoCarousel: React.FC<{plan: VideoCarouselPlan}> = ({plan}) => {
         <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves={3} stitchTiles="stitch" /></filter>
         <rect width="100%" height="100%" filter="url(#grain)" />
       </svg>
+      {plan.style === 'glass' && <GlassLight t={t} />}
       <Ambient t={t} style={plan.style} />
       {plan.style === 'luxe' && <div style={{position: 'absolute', left: 40, right: 40, top: 40, bottom: 40, border: `1px solid ${hexA(B.metal, 0.35)}`, borderRadius: 8}} />}
       {/* the presenter: a cutout of the member or their AI avatar, standing in the frame with a soft brand glow */}
@@ -449,6 +671,7 @@ export const VideoCarousel: React.FC<{plan: VideoCarouselPlan}> = ({plan}) => {
       <div style={{position: 'absolute', top: 140, left: 76, width: 70 + 40 * Math.sin((Math.min(1, u) * Math.PI) / 2), height: 5, background: B.accent}} />
       <div style={{position: 'absolute', left: 76, right: 76, top: 190, bottom: 170, display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: AL, opacity: enterK, transform: `translateX(${(1 - enterK) * 70}px)`}}>
         <SlideBody s={s} t={u} th={th} withPresenter={showP} />
+        <Annotations notes={s.notes} t={u} />
       </div>
       <div style={{position: 'absolute', bottom: 64, left: 76, right: 76, borderTop: `1px solid ${th.rule}`, paddingTop: 26, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
         <div style={{display: 'flex', gap: 10}}>

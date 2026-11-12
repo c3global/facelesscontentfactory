@@ -230,8 +230,8 @@ Life Scenes are short cinematic clips, mostly B-roll (or still photos), with on-
 
 Beat picker: time tip cards to music beats (skills/beat-sync/SKILL.md).
 
-## Video carousels: 10 slide layouts, 4 styles
+## Video carousels: 16 slide layouts, 6 styles, 6 end screens
 
-Layouts: `cover`, `statement`, `list`, `checklist`, `compare`, `quote`, `steps`, `status`, `branches`, `cta`. Styles: `editorial`, `luxe`, `clean`, `bold`. Optional presenter cutout (`npm run cutout`). See docs/VIDEO-CAROUSELS.md.
+Layouts: `cover`, `statement`, `list`, `checklist`, `compare`, `quote`, `steps`, `status`, `branches`, `media`, `toggles`, `proof`, `graph`, `ab`, `doc`, `cta`. Styles: `editorial`, `luxe`, `clean`, `bold`, `glass`, `showcase`. End screens: keyword, follow, save, link, question, collage. Handwritten notes with arrows on any slide. Five starter templates. Optional presenter cutout (`npm run cutout`). See docs/VIDEO-CAROUSELS.md.
 
 **Total: 136 talking-head effects and graphics + 33 Life Scene effects and styles = 169, plus 10 carousel layouts in 4 styles.**
