@@ -51,8 +51,8 @@ export const TextPop: React.FC<{fx: Of<'text-pop'>}> = ({fx}) => {
       );
     }
     case 'shiny': {
-      const pos = 140 - ((t * 70) % 280);
-      return wrap(<span style={{...base, textShadow: 'none', background: `linear-gradient(110deg, #b9b9b9 ${pos}%, #fff ${pos + 12}%, #b9b9b9 ${pos + 24}%)`, backgroundSize: '200% 100%', WebkitBackgroundClip: 'text', backgroundClip: 'text', display: 'inline-block', color: 'transparent', opacity: tw(t, 0, 0.3), filter: 'drop-shadow(0 8px 30px rgba(0,0,0,0.45))'}}>{text}</span>);
+      const sh = 100 - ((t * 60) % 130);
+      return wrap(<span style={{...base, textShadow: 'none', display: 'inline-block', background: 'linear-gradient(110deg, #bdbdbd 40%, #ffffff 50%, #bdbdbd 60%)', backgroundSize: '300% 100%', backgroundPosition: `${sh}% 0`, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', opacity: tw(t, 0, 0.3), filter: 'drop-shadow(0 8px 30px rgba(0,0,0,0.5))'}}>{text}</span>);
     }
     case 'gradient': {
       const sh = (t * 120) % 400;
