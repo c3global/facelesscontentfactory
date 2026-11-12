@@ -178,7 +178,7 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('duotone'), props: z.object({dark: z.string().default('#4a0709'), light: z.string().default('#FFE9C7')}).prefault({})}),
   z.object({...base, type: z.literal('big-stat'), props: z.object({/** only real numbers from the member */ value: z.number(), prefix: z.string().default(''), suffix: z.string().default(''), label: z.string(), sub: z.string().optional(), y: z.number().default(1040)})}),
   z.object({...base, type: z.literal('thank-you'), props: z.object({text: z.string().default('thank you'), sub: z.string().optional(), y: z.number().default(1180)}).prefault({})}),
-  z.object({...base, type: z.literal('wall-text'), props: z.object({lines: z.array(z.object({text: z.string(), at: sec.optional()})).min(1).max(4), /** which side of the wall is nearer the camera */ side: z.enum(['left', 'right']).default('left'), color: z.string().default('#FFFFFF'), y: z.number().default(170), tilt: z.number().default(34), blend: z.enum(['overlay', 'soft-light', 'screen', 'multiply']).default('overlay')})}),
+  z.object({...base, type: z.literal('wall-text'), props: z.object({lines: z.array(z.object({text: z.string(), at: sec.optional()})).min(1).max(4), /** which side of the wall is nearer the camera */ side: z.enum(['left', 'right']).default('left'), color: z.string().default('#FFFFFF'), y: z.number().default(70), tilt: z.number().default(30), blend: z.enum(['overlay', 'soft-light', 'screen', 'multiply']).default('overlay')})}),
 ]);
 
 

@@ -126,7 +126,7 @@ export const FlashFrameV2: React.FC<{fx: Of<'flash-frame'>}> = ({fx}) => {
   return (
     <div style={{...FILL, overflow: 'hidden'}}>
       <div style={{position: 'absolute', left: x - 260, top: -200, width: 1600, height: 2400, transform: 'skewX(-14deg)', background: `linear-gradient(90deg, ${C3.accentDeep} 0%, ${C3.accent} 30%, ${C3.accent} 70%, ${C3.accentDeep} 100%)`, boxShadow: `-14px 0 0 ${C3.gold}, 14px 0 0 ${C3.goldBright}`}} />
-      <div style={{...FILL, background: '#fff', opacity: 0.25 * Math.sin(Math.PI * p)}} />
+      <div style={{...FILL, background: '#fff', opacity: 0.1 * Math.sin(Math.PI * p)}} />
     </div>
   );
 };
@@ -304,7 +304,7 @@ export const WallText: React.FC<{fx: Of<'wall-text'>}> = ({fx}) => {
   const out = 1 - tw(abs, b - 0.35, b);
   const right = side === 'right';
   const longest = Math.max(...lines.map((l) => l.text.length));
-  const fs = Math.min(360, 1300 / (longest * 0.46));
+  const fs = Math.min(290, 1250 / (longest * 0.46));
   const body = (blendMode: React.CSSProperties['mixBlendMode'], opacity: number) => (
     <div style={{...FILL, perspective: 1300, perspectiveOrigin: right ? '0% 40%' : '100% 40%', mixBlendMode: blendMode, opacity}}>
       <div style={{position: 'absolute', left: right ? 40 : -260, top: y, width: 1300, transformOrigin: right ? '0 50%' : '100% 50%', transform: `rotateY(${right ? -tilt : tilt}deg)`, textAlign: right ? 'left' : 'right'}}>
@@ -321,7 +321,7 @@ export const WallText: React.FC<{fx: Of<'wall-text'>}> = ({fx}) => {
       <Clip from={Math.round(a * fps)} />
       {/* once blended into the wall so its light and texture show through, once faint on top so it stays readable */}
       {body(blend, 0.95)}
-      {body('normal', 0.28)}
+      {body('normal', 0.55)}
     </div>
   );
 };

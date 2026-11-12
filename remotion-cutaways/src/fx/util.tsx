@@ -520,7 +520,8 @@ const rawCues = (f: Fx): Cue[] => {
 /** head stack headroom: 0..1, the video eases down and shrinks so big blocks fit above her head, then eases back after they fall */
 export const HEADROOM = {shift: 330, shrink: 0.16};
 export const headRoomK = (f: Fx, t: number) => {
-  if (f.type !== 'head-stack') return 0;
+  // wall-text uses the same headroom, so the words have wall to sit on above her head
+  if (f.type !== 'head-stack' && f.type !== 'wall-text') return 0;
   const [a, b] = fxRange(f);
   return tw(t, a - 0.1, a + 0.45, 0, 1, easeInOutQ) * (1 - tw(t, b - 0.15, b + 0.45, 0, 1, easeInOutQ));
 };

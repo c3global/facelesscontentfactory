@@ -46,6 +46,8 @@ export const ShoulderSteps: React.FC<{fx: Of<'shoulder-steps'>}> = ({fx}) => {
   const cardX = side === 'left' ? 560 : 40;
   return (
     <div style={{...FILL, overflow: 'hidden', opacity: tw(t, 0, 0.12) * (1 - tw(t, len - 0.1, len))}}>
+      {/* a soft, enlarged copy fills the strip the slide would otherwise uncover */}
+      <Clip from={Math.round(a * fps)} style={{transform: 'scale(1.5)', filter: 'blur(36px) brightness(0.6)'}} />
       <div style={{...FILL, transformOrigin: `${p.x}px ${p.y - 260}px`, transform: `translateX(${dir * 290 * k}px) scale(${1 + (zoom - 1) * k})`}}>
         <Clip from={Math.round(a * fps)} />
       </div>

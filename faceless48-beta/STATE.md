@@ -47,13 +47,20 @@ Read this first in any new conversation about Faceless48. Update it when Dr. CK 
 - Preview plans: content/drck-text*, drck-cards, drck-head, drck-cursor (render with `REMOTION_LOCAL_FONTS=1 npm run render -- <slug>`; online fonts time out here).
 - ANNOUNCEMENT MEDIA: keep every preview and storyboard; they go in `faceless48-beta/beta11-media` (README lists each). Add each new preview there.
 
-**Next, in order (she builds new effects with Fable; say "pick up" then the task):**
-1. Reel effects batch (previews on her avatar, high-quality cutout): over-the-shoulder zoom with floating step cards, iris, match cut, product demo with cursor, floating glass UI cards, pixelated monitor close-up, slot machine, 3D hologram phone, silhouette transformation.
-2. Port as video fx: image collage, cover fan of tilted frames, framed clip with notes.
-3. From reel DflSIzduyab (Opus vs Fable): side-by-side comparison with labels, vote pill, brand-color flash transition, magazine poster type, duotone, big stat, grayscale thank-you with handwriting, follow end card. Plus NEW `wall-text` (perspective text on a wall surface behind her; her favorite idea). Most of these overlap the upgrade plan below.
-4. Upgrade plan, 3 batches of 5 with previews. NEVER replace an effect: each upgrade is a second version (`version: 2` prop, or a new name when the idea differs); the original stays default. Batch 1 BUILT Nov 12 (`src/fx/twelfth.tsx`, switch is `"version": 2` in props, originals untouched, docs in EFFECTS-LIST "Second versions"): checklist, odometer, chart-grow, pointer-callout, clone. tsc clean; layout checked in stills on a stand-in clip only. STILL OWED: the real preview on her avatar (plan `content/drck-v2.scene.json`, needs `public/raw/drck-fx.mp4` plus `npm run matte:hq`; the clip is not in git or Drive, ask her for it), then save it to beta11-media. Batch 2: before-after side by side, flash-frame brand flash, kinetic-hook/giant-caption poster type, follow-card handle + FOLLOW stamp, new wall-text beside type-wall. Batch 3: label-maker look for the-stack/sticky-text/freeze-sticker, one Instagram comment style for comment-bubble/drop/cta, spotlight with dust, polaroid-drop fan, phone-mockup v2 hologram. Members say "version 2".
-5. Release: port all fx + carousel changes into `beta10/faceless48-creator` (becomes beta.11), update EFFECTS-LIST and docs, tsc + tests, zip, swap into Lesson 1, announcement post + email with the beta11-media clips.
-6. Older items: real Mac/Windows setup test; Lesson 1 video + PDF when she sends her recording; "Before you start" stick video (her voice or Jogg avatar?); 3 s of her empty set for blow-away; she should regenerate her Pexels/Pixabay keys (were in git history).
+**Built Nov 12 (studio copy `remotion-cutaways/src/fx`, all in docs/EFFECTS-LIST.md; tsc clean; previews rendered):**
+- `twelfth.tsx` upgrade batch 1: `"version": 2` on odometer, chart-grow, pointer-callout, clone. The switch list is NOT a checklist (her correction): it is `focus-list` with `{text, at}` items.
+- `thirteenth.tsx` reel effects (9): shoulder-steps, iris, match-cut, demo-cursor, glass-cards, pixel-monitor, slot-machine, holo-phone, silhouette-shift.
+- `fourteenth.tsx` carousel pieces (3): image-collage, cover-fan, framed-clip.
+- `fifteenth.tsx` comparison set + upgrade batch 2: side-by-side, vote-pill, duotone, big-stat, thank-you, wall-text; version 2 of before-after, flash-frame, kinetic-hook, giant-caption, follow-card, checklist (a true checklist, boxes get checked).
+- Rule kept: originals never replaced. `fifteenthOver` is checked first in FxOver so a version 2 draws its new look.
+- PREVIEW CLIP: `drck-fx.mp4` is lost (was never in git or Drive). Previews now use Drive file 1GB0yYL4EHV93VbtsPxH7Kfy8rz0EvMaB ("Dr. CiCi TH - Test Small Pieces.mp4", has a HeyGen watermark): `curl -L "https://drive.usercontent.google.com/download?id=<id>&export=download&confirm=t"`, then seconds 2 to 24 conformed to 1080x1920 30 fps as `public/raw/cici-fx.mp4`; `npm run matte -- cici-fx` (needs `apt-get install libegl1 libgles2`, `pip install mediapipe`), then `python3 scripts/matte-hq.py cici-fx 11.0 15.0` (behind-her effects in every cici plan sit inside seconds 11 to 15). Plans: content/cici-*.scene.json. Previews saved in beta11-media.
+- Awaiting her review of the 7 previews. Known soft spots: wall-text (uses head-stack headroom, text partly over the blurred fill), holo-phone is faint on busy backgrounds.
+
+**Next, in order:**
+1. Her notes on the Nov 12 previews.
+2. Upgrade batch 3 (second versions): label-maker look for the-stack/sticky-text/freeze-sticker, one Instagram comment style for comment-bubble/drop/cta, spotlight with dust, polaroid-drop fan, phone-mockup v2 (reuse holo-phone).
+3. Release: port all fx (tenth to fifteenth) + carousel changes into `beta10/faceless48-creator` (becomes beta.11; member defaults read brand.json, never C3 colors), update EFFECTS-LIST and docs, tsc + tests, zip, swap into Lesson 1, announcement post + email with the beta11-media clips.
+4. Older items: real Mac/Windows setup test; Lesson 1 video + PDF when she sends her recording; "Before you start" stick video (her voice or Jogg avatar?); 3 s of her empty set for blow-away; she should regenerate her Pexels/Pixabay keys (were in git history).
 
 ## Small open items
 
