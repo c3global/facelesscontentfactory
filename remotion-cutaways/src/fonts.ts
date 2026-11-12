@@ -5,6 +5,7 @@ import {loadFont as loadPlayfair} from '@remotion/google-fonts/PlayfairDisplay';
 import {loadFont as loadAnton} from '@remotion/google-fonts/Anton';
 import {loadFont as loadCaveat} from '@remotion/google-fonts/Caveat';
 import {loadFont as loadRubik} from '@remotion/google-fonts/Rubik';
+import {loadFont as loadBagel} from '@remotion/google-fonts/BagelFatOne';
 import type {SansOption} from './brand';
 
 declare const process: {env: Record<string, string | undefined>};
@@ -12,7 +13,7 @@ declare const process: {env: Record<string, string | undefined>};
 export const serifFamily = '"Playfair Display", Georgia, serif';
 export const handFamily = '"Caveat", "Bradley Hand", cursive';
 /** a round, very heavy face for the bubble (liquid glass) letters */
-export const bubbleFamily = '"Rubik", "Arial Rounded MT Bold", sans-serif';
+export const bubbleFamily = '"Bagel Fat One", "Rubik", "Arial Rounded MT Bold", sans-serif';
 export const heavyFamily = '"Anton", "Impact", "Arial Narrow", sans-serif';
 export const sansFamily = (sans: SansOption) => `"${sans}", "Helvetica Neue", Arial, sans-serif`;
 
@@ -39,6 +40,7 @@ const localFaces: Array<[string, string, string, string]> = [
   ['Anton', 'anton-latin-400-normal.woff2', '400', 'normal'],
   ['Caveat', 'caveat-latin-700-normal.woff2', '700', 'normal'],
   ['Rubik', 'rubik-latin-900-normal.woff2', '900', 'normal'],
+  ['Bagel Fat One', 'bagel-fat-one-latin-400-normal.woff2', '400', 'normal'],
 ];
 
 let started = false;
@@ -71,4 +73,5 @@ export const loadBrandFonts = () => {
   loadAnton('normal', {weights: ['400'], subsets: ['latin']});
   loadCaveat('normal', {weights: ['700'], subsets: ['latin']});
   loadRubik('normal', {weights: ['900'], subsets: ['latin']});
+  loadBagel('normal', {weights: ['400'], subsets: ['latin']});
 };

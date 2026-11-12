@@ -166,7 +166,7 @@ export const GlassLine: React.FC<{text: string; t: number; size: number; id: str
   const spX = x0 + (W * (spI + 0.75)) / n;
   const spS = Math.sin(Math.min(1, spT * 2) * Math.PI) * 26;
   const bx = -200 + ((t / 1.8) % 1) * 1500;
-  const font: React.CSSProperties = {fontFamily: bubbleFamily, fontWeight: 900, fontSize: fs, letterSpacing: -2};
+  const font: React.CSSProperties = {fontFamily: bubbleFamily, fontWeight: 400, fontSize: fs, letterSpacing: 0};
   const T = (props: React.SVGProps<SVGTextElement>, kids: React.ReactNode) => (
     <text x={x0} y={fs * 0.95} textLength={W} lengthAdjust="spacing" style={font} {...props}>{kids}</text>
   );
