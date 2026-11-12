@@ -120,6 +120,7 @@ const LEN: Record<FxType, number> = {
   'spatial-glass': 2.8,
   'shatter-3d': 2.4,
   'scene-text': 2.8,
+  'text-pop': 2.4,
   'script-panel': 7,
   'card-carousel': 4.4,
   'card-flip': 4,
@@ -430,6 +431,8 @@ const rawCues = (f: Fx): Cue[] => {
       return [main('glitch', f.at + 0.15, 0.7)];
     case 'scene-text':
       return [];
+    case 'text-pop':
+      return f.props.look === 'glitch' ? [main('glitch', f.at + 0.05, 0.5)] : f.props.look === 'badge' ? [main('pop', f.at + 0.1, 0.6)] : [main('swish', f.at + 0.05, 0.4)];
     case 'caption-stack':
       return [main('pop', f.at + 0.15, 0.5)];
     case 'step-chips':

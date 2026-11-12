@@ -149,6 +149,8 @@ export const fxSchema = z.discriminatedUnion('type', [
   z.object({...base, type: z.literal('spatial-glass'), props: z.object({title: z.string().default(''), text: z.string(), y: z.number().default(1180)})}),
   z.object({...base, type: z.literal('shatter-3d'), props: z.object({cols: z.number().int().min(2).max(5).default(3), rows: z.number().int().min(2).max(6).default(4)}).prefault({})}),
   z.object({...base, type: z.literal('scene-text'), props: z.object({word: z.string(), x: z.number().default(330), y: z.number().default(120), size: z.number().default(150)})}),
+  // ---- tenth batch (beta 11): text animation pack
+  z.object({...base, type: z.literal('text-pop'), props: z.object({text: z.string(), look: z.enum(['focus', 'shiny', 'gradient', 'blur-in', 'split', 'glitch', 'scramble', 'badge']).default('blur-in'), y: z.number().default(330), size: z.number().default(130), /** badge only: the line under the pill */ sub: z.string().optional()})}),
 ]);
 
 

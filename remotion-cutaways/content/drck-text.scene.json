@@ -1,0 +1,117 @@
+{
+ "slug": "drck-text",
+ "video": "raw/drck-fx.mp4",
+ "durationSec": 24,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 24,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "text-pop",
+   "at": 0.3,
+   "until": 2.9,
+   "props": {
+    "text": "Say it plainly",
+    "look": "focus"
+   }
+  },
+  {
+   "type": "text-pop",
+   "at": 3.1999999999999997,
+   "until": 5.8,
+   "props": {
+    "text": "Signature",
+    "look": "shiny"
+   }
+  },
+  {
+   "type": "text-pop",
+   "at": 6.1,
+   "until": 8.7,
+   "props": {
+    "text": "Culture first",
+    "look": "gradient"
+   }
+  },
+  {
+   "type": "text-pop",
+   "at": 9.0,
+   "until": 11.6,
+   "props": {
+    "text": "Quiet power",
+    "look": "blur-in"
+   }
+  },
+  {
+   "type": "text-pop",
+   "at": 11.9,
+   "until": 14.5,
+   "props": {
+    "text": "Split second",
+    "look": "split"
+   }
+  },
+  {
+   "type": "text-pop",
+   "at": 14.8,
+   "until": 17.400000000000002,
+   "props": {
+    "text": "Reboot",
+    "look": "glitch"
+   }
+  },
+  {
+   "type": "text-pop",
+   "at": 17.7,
+   "until": 20.3,
+   "props": {
+    "text": "Dr. CK",
+    "look": "scramble"
+   }
+  },
+  {
+   "type": "text-pop",
+   "at": 20.6,
+   "until": 23.200000000000003,
+   "props": {
+    "text": "Effect of the day",
+    "look": "badge",
+    "sub": "True focus"
+   }
+  }
+ ],
+ "matte": "drck-fx"
+}
