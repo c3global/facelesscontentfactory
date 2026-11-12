@@ -165,12 +165,14 @@ export const BladeSlice: React.FC<{fx: Of<'blade-slice'>}> = ({fx}) => {
 
 // ---------------------------------------------------------------- head stack: label tiles drop from the top and pile up on her head
 export const HeadStack: React.FC<{fx: Of<'head-stack'>}> = ({fx}) => {
-  const {abs, fps, outK} = useSpan(fx);
+  const {abs, fps, b} = useSpan(fx);
   const {anchors} = useFxEnv();
   const cap = anchorPx(anchors, Math.round(abs * fps), 'cap');
   const {labels, gap} = fx.props;
+  // exit: the stack tips over and tumbles off her head, blocks scattering with motion blur
+  const exitAt = b - 0.95;
   return (
-    <div style={{...FILL, opacity: outK, pointerEvents: 'none'}}>
+    <div style={{...FILL, pointerEvents: 'none'}}>
       {labels.map((l, i) => {
         const at = fx.at + 0.15 + i * gap;
         const k = tw(abs, at, at + 0.35, 0, 1, (x) => x * x);
@@ -180,8 +182,15 @@ export const HeadStack: React.FC<{fx: Of<'head-stack'>}> = ({fx}) => {
         const y = -100 + (restY + 100) * k;
         const rot = ((i * 37) % 13) - 6;
         const dx = ((i * 53) % 60) - 30;
+        // the top of the stack goes first, then the rest follow
+        const e = tw(abs, exitAt + (labels.length - 1 - i) * 0.04, exitAt + (labels.length - 1 - i) * 0.04 + 0.8, 0, 1, (x) => x);
+        const side = i % 2 ? 1 : -1;
+        const fx2 = e * (side * 140 - 260 - i * 50);
+        const fy = -220 * e + 2300 * e * e * (0.6 + i * 0.04);
+        const frot = e * (-70 - i * 28) * (side > 0 ? 0.6 : 1);
+        const blur = e > 0 ? 9 * Math.sin(Math.PI * Math.min(1, e * 1.4)) : 0;
         return (
-          <div key={i} style={{position: 'absolute', left: cap.x + dx, top: y, transform: `translateX(-50%) rotate(${rot * (0.4 + 0.6 * land)}deg) scaleY(${1 - 0.12 * (land > 0 && land < 1 ? 1 - land : 0)})`, padding: '10px 24px', borderRadius: 12, background: i % 3 === 0 ? C3.copperGrad : i % 3 === 1 ? CREAM : '#1b1d1f', color: i % 3 === 2 ? C3.copper : '#2a1206', border: '2px solid rgba(0,0,0,0.35)', fontFamily: MONO, fontWeight: 700, fontSize: 30, whiteSpace: 'nowrap', boxShadow: '0 6px 14px rgba(0,0,0,0.45)'}}>{l}</div>
+          <div key={i} style={{position: 'absolute', left: cap.x + dx + fx2, top: y + fy, filter: blur ? `blur(${blur}px)` : undefined, transform: `translateX(-50%) rotate(${rot * (0.4 + 0.6 * land) + frot}deg) scaleY(${1 - 0.12 * (land > 0 && land < 1 ? 1 - land : 0)})`, padding: '10px 24px', borderRadius: 12, background: i % 3 === 0 ? C3.copperGrad : i % 3 === 1 ? CREAM : '#1b1d1f', color: i % 3 === 2 ? C3.copper : '#2a1206', border: '2px solid rgba(0,0,0,0.35)', fontFamily: MONO, fontWeight: 700, fontSize: 30, whiteSpace: 'nowrap', boxShadow: '0 6px 14px rgba(0,0,0,0.45)'}}>{l}</div>
         );
       })}
     </div>
