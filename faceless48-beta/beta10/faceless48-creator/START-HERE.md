@@ -28,6 +28,10 @@ Then it walks you through your brand setup (30 to 60 minutes, once): your name, 
 | **Find stock footage for this** | Optional Pexels and Pixabay search with your own free keys. |
 | **Add my music** | Puts your licensed track under a finished video and ducks it under the voice. |
 
+## Which model should I use?
+
+Any model works. Every effect is built in, so it looks the same whichever model you use. A stronger model picks effects and places them on your words more creatively; a lighter one is faster and uses fewer credits. Either way, you approve the storyboard before anything renders.
+
 ## Using it with GPT (Codex) instead of Claude
 
 The same package works in Codex because the instructions are plain files. Use Codex on your own computer (the desktop app or the terminal), not the browser chat.
