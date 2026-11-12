@@ -171,7 +171,7 @@ export const DemoCursor: React.FC<{fx: Of<'demo-cursor'>}> = ({fx}) => {
 };
 
 // ---------------------------------------------------------------- glass cards
-const SPOTS: Record<'left' | 'right', [number, number][]> = {left: [[44, 300], [30, 1010], [70, 1420]], right: [[640, 430], [620, 1130], [590, 1500]]};
+const SPOTS: Record<'left' | 'right', [number, number][]> = {left: [[44, 300], [30, 1010], [70, 1420]], right: [[730, 330], [640, 1130], [600, 1500]]};
 export const GlassCards: React.FC<{fx: Of<'glass-cards'>}> = ({fx}) => {
   const {t, abs, outK} = useSpan(fx);
   const used = {left: 0, right: 0};
@@ -347,18 +347,27 @@ export const silhouetteCutout = (fx: Of<'silhouette-shift'>, abs: number): React
 export const SilhouettePlate: React.FC<{fx: Of<'silhouette-shift'>}> = ({fx}) => {
   const {abs} = useFxTime(fx.at);
   const {plate, dark, revealAt, a} = shiftK(fx, abs);
-  const {word, from, to} = fx.props;
-  const wk = tw(abs, a + 0.3, a + 0.7, 0, 1, pop) * (1 - tw(abs, revealAt + 0.3, revealAt + 0.7));
+  const {from, to} = fx.props;
+  void a;
   const sweep = tw(abs, revealAt - 0.1, revealAt + 0.7);
   return (
     <div style={{...FILL, opacity: plate, overflow: 'hidden', background: `linear-gradient(180deg, ${from} 0%, ${to} 100%)`}}>
       <div style={{position: 'absolute', left: 240, top: 220, width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 70%)', opacity: 0.5 + 0.5 * dark}} />
-      {word && <div style={{position: 'absolute', left: 0, width: 1080, top: 250, textAlign: 'center', fontFamily: heavyFamily, fontSize: Math.min(420, 1900 / Math.max(3, word.length)), lineHeight: 0.9, color: 'rgba(255,255,255,0.92)', textTransform: 'uppercase', opacity: wk, transform: `scale(${0.8 + 0.2 * wk})`}}>{word}</div>}
       <div style={{position: 'absolute', left: -400 + sweep * 1900, top: -200, width: 300, height: 2400, background: 'linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.7), rgba(255,255,255,0))', transform: 'rotate(14deg)', opacity: sweep > 0 && sweep < 1 ? 1 : 0}} />
     </div>
   );
 };
 
+/** the word sits in front of her, low in the frame, so her silhouette never hides it */
+export const SilhouetteWord: React.FC<{fx: Of<'silhouette-shift'>}> = ({fx}) => {
+  const {abs} = useFxTime(fx.at);
+  const {a, revealAt} = shiftK(fx, abs);
+  const word = fx.props.word;
+  if (!word) return null;
+  const wk = tw(abs, a + 0.3, a + 0.7, 0, 1, pop) * (1 - tw(abs, revealAt + 0.25, revealAt + 0.6));
+  return <div style={{...FILL, top: 1330, height: 400, textAlign: 'center', fontFamily: heavyFamily, fontSize: Math.min(360, 1700 / Math.max(3, word.length)), lineHeight: 1, color: '#fff', textTransform: 'uppercase', opacity: wk, transform: `scale(${0.8 + 0.2 * wk})`, textShadow: '0 8px 40px rgba(0,0,0,0.6)'}}>{word}</div>;
+};
+export const thirteenthFront = (fx: Fx): React.ReactNode => (fx.type === 'silhouette-shift' ? <SilhouetteWord fx={fx} /> : null);
 export const thirteenthPlate = (fx: Fx): React.ReactNode => (fx.type === 'silhouette-shift' ? <SilhouettePlate fx={fx} /> : null);
 export const thirteenthOver = (fx: Fx): React.ReactNode => {
   switch (fx.type) {

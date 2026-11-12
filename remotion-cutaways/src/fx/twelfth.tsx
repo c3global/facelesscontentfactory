@@ -157,7 +157,7 @@ export const CloneFan: React.FC<{fx: Of<'clone'>}> = ({fx}) => {
         if (k <= 0.01) return null;
         const dir = c.side === 'left' ? -1 : 1;
         const scale = Math.pow(0.82, c.rank);
-        const dx = dir * (c.rank * 250 - (c.rank - 1) * c.rank * 18) * k;
+        const dx = dir * (c.rank * 340 - (c.rank - 1) * c.rank * 60) * k;
         return <Cutout key={i} plain from={Math.round(a * fps)} style={{transformOrigin: '50% 100%', transform: `translateX(${dx}px) rotate(${dir * c.rank * 3.5 * k}deg) scale(${scale})`, opacity: Math.min(1, k * 1.4), filter: `brightness(${1 - c.rank * 0.12})`}} />;
       })}
     </>

@@ -9,7 +9,7 @@ import {thirdFront, thirdPlate} from './third';
 import {seventhFront, seventhPlate} from './seventh';
 import {eighthPlate} from './eighth';
 import {blowAwayMask, ninthFront, ninthPlate} from './ninth';
-import {silhouetteCutout, thirteenthPlate} from './thirteenth';
+import {silhouetteCutout, thirteenthFront, thirteenthPlate} from './thirteenth';
 import {fxRange, pop, tw, useFxEnv, useFxTime} from './util';
 
 type Of<T extends Fx['type']> = Extract<Fx, {type: T}>;
@@ -386,5 +386,5 @@ export const behindPlate = (fx: Fx): React.ReactNode => {
 };
 
 /** things drawn above her cutout but still inside the person frame */
-export const behindFront = (fx: Fx): React.ReactNode => (fx.type === 'orbit' ? <OrbitItems fx={fx} half="front" /> : thirdFront(fx) ?? seventhFront(fx) ?? ninthFront(fx));
+export const behindFront = (fx: Fx): React.ReactNode => (fx.type === 'orbit' ? <OrbitItems fx={fx} half="front" /> : thirdFront(fx) ?? seventhFront(fx) ?? ninthFront(fx) ?? thirteenthFront(fx));
 export {Sequence, metalGradient};

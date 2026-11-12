@@ -235,7 +235,7 @@ export const NoteInk: React.FC<{text: string; x: number; y: number; to?: readonl
   const ang = Math.atan2(ty - my, tx - mx);
   return (
     <>
-      <div style={{position: 'absolute', left: x, top: y, width: snug ? bw + 14 : maxW, fontFamily: handFamily, fontWeight: 700, fontSize: size, lineHeight: 1.05, color: ink, transform: 'rotate(-4deg)', transformOrigin: '0 0', clipPath: `inset(0 ${100 - w * 100}% 0 0)`, textShadow: '0 2px 10px rgba(0,0,0,0.5)'}}>{text}</div>
+      <div style={{position: 'absolute', left: x, top: y, width: snug ? bw + 14 : maxW, fontFamily: handFamily, fontWeight: 700, fontSize: size, lineHeight: 1.05, color: ink, transform: 'rotate(-4deg)', transformOrigin: '0 0', clipPath: `inset(-20px ${100 - w * 100}% -20px -20px)`, textShadow: '0 2px 6px rgba(0,0,0,0.8), 0 0 22px rgba(0,0,0,0.75)'}}>{text}</div>
       {to && (
         <svg width={1080} height={1920} style={{position: 'absolute', left: 0, top: 0, overflow: 'visible'}}>
           <path d={`M ${sx} ${sy} Q ${mx} ${my} ${tx} ${ty}`} fill="none" stroke={ink} strokeWidth={5} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - k} style={{filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.5))'}} />
