@@ -18,3 +18,16 @@ The two carousel videos use Dr. CK's licensed Audiio tracks ("Move", "Cherry Blo
 | live-cursor-drag.mp4 | Live cursor fix: the box grabs what is inside it and drags it | remotion-cutaways: drck-cursor |
 
 More previews get added here as the reel effects are built.
+
+## Nov 12 previews (on the Dr. CiCi clip from Drive, which has a HeyGen watermark; sample text only)
+
+| File | What it shows | Re-render |
+|---|---|---|
+| nov12-v2.mp4 | Version 2 looks: odometer, chart grow, timed focus list, clone fan, handwritten pointer notes | remotion-cutaways: cici-v2 |
+| nov12-reel1.mp4 | Reel effects: shoulder steps, iris, match cut, demo with cursor, glass cards | cici-reel1 |
+| nov12-reel2.mp4 | Reel effects: pixel monitor, slot machine, hologram phone, silhouette shift | cici-reel2 |
+| nov12-carousel-fx.mp4 | Carousel pieces as video effects: cover fan, image collage, framed clip with notes | cici-carousel-fx |
+| nov12-compare.mp4 | Poster type hook, brand flash, side by side, vote pill, wall text, duotone, big stat | cici-compare |
+| nov12-compare2.mp4 | Before and after side by side, checklist version 2, follow card with FOLLOW stamp, thank you | cici-compare2 |
+
+How to get the clip and cutout back is in STATE.md. These are stand-ins until Dr. CK's real edits replace them.

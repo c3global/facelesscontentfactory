@@ -48,7 +48,7 @@ export const ShoulderSteps: React.FC<{fx: Of<'shoulder-steps'>}> = ({fx}) => {
     <div style={{...FILL, overflow: 'hidden', opacity: tw(t, 0, 0.12) * (1 - tw(t, len - 0.1, len))}}>
       {/* a soft, enlarged copy fills the strip the slide would otherwise uncover */}
       <Clip from={Math.round(a * fps)} style={{transform: 'scale(1.5)', filter: 'blur(36px) brightness(0.6)'}} />
-      <div style={{...FILL, transformOrigin: `${p.x}px ${p.y - 260}px`, transform: `translateX(${dir * 290 * k}px) scale(${1 + (zoom - 1) * k})`}}>
+      <div style={{...FILL, transformOrigin: `${p.x}px ${p.y - 260}px`, transform: `translateX(${dir * Math.min(290, (zoom - 1) * 540 - 6) * k}px) scale(${1 + (zoom - 1) * k})`}}>
         <Clip from={Math.round(a * fps)} />
       </div>
       <div style={{...FILL, background: `linear-gradient(${side === 'left' ? 270 : 90}deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0) 70%)`, opacity: k}} />
