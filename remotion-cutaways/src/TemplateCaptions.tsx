@@ -163,7 +163,7 @@ export const TemplateCaptionLayer: React.FC<{captions: Caption[]; plan: ScenePla
     const k = on(w);
     return {opacity: k, display: 'inline-block', transform: `translateY(${(1 - k) * px}px)`};
   };
-  const yBand = top ? 400 : 1260;
+  const yBand = seg?.captionY ?? (top ? 400 : 1260);
   const fadeOut = interpolate(t - p.end, [0.45, 0.7], [1, 0], clamp);
   const shadow = mood === 'light' ? 'none' : '0 3px 18px rgba(0,0,0,0.7)';
   const sp = (k: number) => (k ? ' ' : '');
@@ -186,7 +186,7 @@ export const TemplateCaptionLayer: React.FC<{captions: Caption[]; plan: ScenePla
   if (style === 'magazine') {
     const rule = interpolate(since, [0, 0.35], [0, 1], clamp);
     return (
-      <div style={{position: 'absolute', left: 80, width: 840, top: (top ? 400 : 1385) - 100, padding: '22px 34px', boxSizing: 'border-box', background: mood === 'light' ? 'rgba(255,255,255,0.96)' : 'rgba(10,10,10,0.9)', boxShadow: '0 18px 40px rgba(0,0,0,0.35)', opacity: interpolate(since, [0, 0.15], [0, 1], clamp) * fadeOut}}>
+      <div style={{position: 'absolute', left: 80, width: 840, top: (seg?.captionY ?? (top ? 400 : 1385)) - 100, padding: '22px 34px', boxSizing: 'border-box', background: mood === 'light' ? 'rgba(255,255,255,0.96)' : 'rgba(10,10,10,0.9)', boxShadow: '0 18px 40px rgba(0,0,0,0.35)', opacity: interpolate(since, [0, 0.15], [0, 1], clamp) * fadeOut}}>
         <div style={{height: 2, width: `${rule * 100}%`, ...metalLine(frame)}} />
         <div style={{padding: '14px 0 16px', fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 600, fontSize: 64, lineHeight: 1.08, color: ink}}>
           {p.words.map((w, k) => {
@@ -267,8 +267,8 @@ export const TemplateCaptionLayer: React.FC<{captions: Caption[]; plan: ScenePla
 
   if (style === 'film') {
     return (
-      <div style={{position: 'absolute', left: 110, width: 860, top: top ? 330 : 1400, textAlign: 'center', opacity: fadeOut}}>
-        <span style={{fontFamily: sans, fontWeight: 400, fontSize: 42, letterSpacing: 0.6, lineHeight: 1.35, color: '#F4F4F4', textShadow: '0 2px 6px rgba(0,0,0,0.9)'}}>
+      <div style={{position: 'absolute', left: 110, width: 860, top: (seg?.captionY ?? (top ? 330 : 1400)) - 30, textAlign: 'center', opacity: fadeOut}}>
+        <span style={{fontFamily: sans, fontWeight: 500, fontSize: 42, letterSpacing: 0.6, lineHeight: 1.35, color: '#F7F7F7', textShadow: '0 2px 6px rgba(0,0,0,0.9)', background: 'rgba(8,8,10,0.55)', padding: '6px 18px', borderRadius: 10, boxDecorationBreak: 'clone', WebkitBoxDecorationBreak: 'clone'}}>
           {p.words.map((w, k) => (
             <React.Fragment key={k}>
               {sp(k)}
@@ -289,7 +289,7 @@ export const TemplateCaptionLayer: React.FC<{captions: Caption[]; plan: ScenePla
     const rot = i % 2 ? 2.5 : -2.5;
     const txt = p.words.map((w) => w.text).join(' ');
     return (
-      <div style={{position: 'absolute', left: 60, right: 130, top: (top ? 470 : 1180) - 130, height: 260, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `rotate(${rot}deg) scale(${0.55 + 0.45 * s})`, opacity: Math.min(1, s * 1.5) * fadeOut}}>
+      <div style={{position: 'absolute', left: 60, right: 130, top: (seg?.captionY ?? (top ? 470 : 1180)) - 130, height: 260, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `rotate(${rot}deg) scale(${0.55 + 0.45 * s})`, opacity: Math.min(1, s * 1.5) * fadeOut}}>
         <span style={{fontFamily: heavyFamily, fontSize: txt.length > 12 ? 128 : 160, lineHeight: 0.95, textTransform: 'uppercase', textAlign: 'center', color: '#FFFFFF', WebkitTextStroke: '3px #000', paintOrder: 'stroke fill', textShadow: '0 10px 0 rgba(0,0,0,0.55)'}}>
           {p.words.map((w, k) => (
             <React.Fragment key={k}>

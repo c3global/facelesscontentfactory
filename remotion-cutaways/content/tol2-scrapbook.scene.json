@@ -95,8 +95,8 @@
           "at": 6.97
          }
         ],
-        "y": 720,
-        "height": 740,
+        "y": 800,
+        "height": 680,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -106,6 +106,7 @@
        }
       }
      ],
+     "captionY": 735,
      "cut": true
     }
    ],
@@ -191,8 +192,8 @@
           "at": 10.46
          }
         ],
-        "y": 720,
-        "height": 740,
+        "y": 800,
+        "height": 680,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -202,6 +203,7 @@
        }
       }
      ],
+     "captionY": 735,
      "cut": true
     }
    ],
@@ -360,8 +362,8 @@
           "at": 23.57
          }
         ],
-        "y": 895,
-        "height": 590,
+        "y": 1010,
+        "height": 470,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -370,7 +372,8 @@
         ]
        }
       }
-     ]
+     ],
+     "captionY": 935
     }
    ],
    "bg": "backdrops/red-velvet.jpg"

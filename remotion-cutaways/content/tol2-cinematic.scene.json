@@ -95,8 +95,8 @@
           "at": 6.97
          }
         ],
-        "y": 895,
-        "height": 590,
+        "y": 1010,
+        "height": 470,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -106,6 +106,7 @@
        }
       }
      ],
+     "captionY": 935,
      "cut": true
     }
    ],
@@ -191,8 +192,8 @@
           "at": 10.46
          }
         ],
-        "y": 895,
-        "height": 590,
+        "y": 1010,
+        "height": 470,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -202,6 +203,7 @@
        }
       }
      ],
+     "captionY": 935,
      "cut": true
     }
    ],
@@ -301,8 +303,8 @@
        "at": 17.508,
        "until": 20.593,
        "box": {
-        "y": 360,
-        "h": 1200,
+        "y": 150,
+        "h": 900,
         "center": true
        },
        "props": {
@@ -338,7 +340,7 @@
      "start": 20.593,
      "end": 23.406,
      "layout": "A",
-     "captionPos": "bottom",
+     "captionPos": "top",
      "graphics": [],
      "focus": {
       "y": 40,
@@ -400,8 +402,8 @@
    "at": 0,
    "until": 35.669,
    "props": {
-    "look": "golden-hour",
-    "strength": 0.45
+    "look": "cool",
+    "strength": 0.3
    }
   },
   {
@@ -409,9 +411,30 @@
    "at": 0,
    "until": 35.669,
    "props": {
-    "count": 40,
-    "strength": 0.5
+    "count": 18,
+    "strength": 0.3
    }
+  },
+  {
+   "type": "glow",
+   "at": 0,
+   "until": 35.669,
+   "props": {
+    "strength": 0.2
+   }
+  },
+  {
+   "type": "zoom-through",
+   "at": 13.768,
+   "props": {
+    "diveSec": 0.45
+   }
+  },
+  {
+   "type": "freeze-hold",
+   "at": 28.937,
+   "until": 29.842,
+   "props": {}
   },
   {
    "type": "dolly-zoom",

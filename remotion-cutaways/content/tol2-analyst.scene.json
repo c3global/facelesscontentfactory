@@ -78,8 +78,8 @@
           "at": 3.74
          }
         ],
-        "y": 895,
-        "height": 590,
+        "y": 1010,
+        "height": 470,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -88,7 +88,8 @@
         ]
        }
       }
-     ]
+     ],
+     "captionY": 935
     }
    ]
   },
@@ -122,8 +123,8 @@
           "at": 6.97
          }
         ],
-        "y": 895,
-        "height": 590,
+        "y": 1010,
+        "height": 470,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -133,6 +134,7 @@
        }
       }
      ],
+     "captionY": 935,
      "cut": true
     }
    ]
@@ -216,8 +218,8 @@
           "at": 10.46
          }
         ],
-        "y": 895,
-        "height": 590,
+        "y": 1010,
+        "height": 470,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -227,6 +229,7 @@
        }
       }
      ],
+     "captionY": 935,
      "cut": true
     }
    ]
@@ -330,7 +333,7 @@
      "start": 20.593,
      "end": 23.406,
      "layout": "E",
-     "captionPos": "top",
+     "captionPos": "bottom",
      "graphics": [],
      "avatar": "hidden"
     }
@@ -376,8 +379,8 @@
           "at": 23.57
          }
         ],
-        "y": 895,
-        "height": 590,
+        "y": 1010,
+        "height": 470,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -386,7 +389,8 @@
         ]
        }
       }
-     ]
+     ],
+     "captionY": 935
     }
    ]
   },
@@ -443,8 +447,9 @@
     "value": 5,
     "label": "UNWRITTEN RULES",
     "sub": "in your community or team",
-    "size": 440,
-    "y": 1000
+    "size": 560,
+    "y": 470,
+    "align": "center"
    }
   },
   {

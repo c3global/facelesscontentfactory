@@ -201,8 +201,8 @@
           "at": 20.74
          }
         ],
-        "y": 720,
-        "height": 740,
+        "y": 800,
+        "height": 680,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -211,7 +211,8 @@
         ]
        }
       }
-     ]
+     ],
+     "captionY": 735
     }
    ]
   },
@@ -255,8 +256,8 @@
           "at": 23.57
          }
         ],
-        "y": 895,
-        "height": 590,
+        "y": 1010,
+        "height": 470,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -265,7 +266,8 @@
         ]
        }
       }
-     ]
+     ],
+     "captionY": 935
     }
    ]
   },
@@ -310,8 +312,8 @@
           "at": 27.28
          }
         ],
-        "y": 720,
-        "height": 740,
+        "y": 800,
+        "height": 680,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -320,7 +322,8 @@
         ]
        }
       }
-     ]
+     ],
+     "captionY": 735
     }
    ]
   },

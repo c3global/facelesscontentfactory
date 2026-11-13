@@ -171,8 +171,8 @@
           "at": 8.64
          }
         ],
-        "y": 895,
-        "height": 590,
+        "y": 1010,
+        "height": 470,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -182,6 +182,7 @@
        }
       }
      ],
+     "captionY": 935,
      "cut": true
     }
    ]
@@ -265,8 +266,8 @@
           "at": 12.27
          }
         ],
-        "y": 895,
-        "height": 590,
+        "y": 1010,
+        "height": 470,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -276,6 +277,7 @@
        }
       }
      ],
+     "captionY": 935,
      "cut": true
     }
    ]

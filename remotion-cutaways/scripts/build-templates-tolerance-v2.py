@@ -90,11 +90,11 @@ def examples(s, e, skin, items, y=720, h=760):
 
 
 def examplesT(s, e, skin, items):
-    return examples(s, e, skin, items, y=895, h=590)
+    return examples(s, e, skin, items, y=1010, h=470)
 
 
 SIG_B = [7.25, 9.1, 11.0, 12.92, 14.49]
-BOX = {'S': (250, 720), 'T': (895, 590), 'O': (720, 740)}
+BOX = {'S': (250, 720), 'T': (1010, 470), 'O': (800, 680)}
 
 
 def seq(sid, items, bounds, skin, layouts, mood='dark', bg=None):
@@ -128,6 +128,11 @@ def full(sid, s, e, close=1.5, mood='dark', cap='bottom', bg=None, first_close=F
 
 def scene(sid, s, e, layout, graphics=(), mood='dark', avatar=None, cap='bottom', bg=None, focus=None):
     seg = {'start': s, 'end': e, 'layout': layout, 'captionPos': cap, 'graphics': list(graphics)}
+    # captions sit in the empty space between her window and the card, never on either
+    if layout == 'T':
+        seg['captionY'] = 935
+    elif layout == 'O':
+        seg['captionY'] = 735
     if avatar:
         seg['avatar'] = avatar
     if focus:
@@ -140,7 +145,7 @@ def scene(sid, s, e, layout, graphics=(), mood='dark', avatar=None, cap='bottom'
 
 def statement(s, e, mood='dark', bg=None, em=('Tolerance',)):
     text, times = say(s, e)
-    g = {'type': 'statement-card', 'at': s, 'until': e, 'box': {'y': 360, 'h': 1200, 'center': True}, 'props': {'text': text, 'emphasis': list(em), 'wordTimes': times}}
+    g = {'type': 'statement-card', 'at': s, 'until': e, 'box': {'y': 150, 'h': 900, 'center': True}, 'props': {'text': text, 'emphasis': list(em), 'wordTimes': times}}
     return scene('st%d' % int(s), s, e, 'E', [g], mood=mood, avatar='hidden', bg=bg)
 
 
@@ -176,7 +181,7 @@ plan('quiet', 'quiet', SONG1, [
     *seq('signals', SIG, SIG_B, 'light', 'TS'),
     full('little', 14.49, 18.39, close=1.35),
     statement(18.39, 21.65),
-    scene('rules', 21.65, 24.86, 'O', [examples(21.65, 24.86, 'light', RULES, y=720, h=740)]),
+    scene('rules', 21.65, 24.86, 'O', [examples(21.65, 24.86, 'light', RULES, y=800, h=680)]),
     full('ask', 24.86, 28.65, close=1.35, first_close=True),
     full('left', 28.65, 32.64, close=1.35),
     full('end', 32.64, DUR, close=1.35),
@@ -210,7 +215,7 @@ plan('glass', 'glass', SONG1, [
     *seq('signals', SIG, SIG_B, 'glass', 'TS'),
     full('little', 14.49, 18.39, close=1.4),
     full('today', 18.39, 21.65, close=1.4, first_close=True),
-    scene('rules', 21.65, 24.86, 'O', [examples(21.65, 24.86, 'glass', RULES, y=720, h=740)]),
+    scene('rules', 21.65, 24.86, 'O', [examples(21.65, 24.86, 'glass', RULES, y=800, h=680)]),
     full('ask', 24.86, 28.65, close=1.4),
     scene('left', 28.65, 32.64, 'E', avatar='hidden'),
     scene('end', 32.64, DUR, 'F'),
@@ -250,13 +255,13 @@ plan('analyst', 'ticker', SONG1, [
     *seq('signals', SIG, SIG_B, 'data', 'TS'),
     full('little', 14.49, 18.39, close=1.45),
     scene('today', 18.39, 21.65, 'F'),
-    scene('five', 21.65, 24.86, 'E', avatar='hidden', cap='top'),
+    scene('five', 21.65, 24.86, 'E', avatar='hidden'),
     scene('new', 24.86, 28.65, 'T', [examplesT(24.86, 28.65, 'data', NEW)]),
     full('left', 28.65, 32.64, close=1.45),
     full('end', 32.64, DUR, close=1.45),
 ], [
     {'type': 'date-stamp', 'at': 0.3, 'until': 3.7, 'props': {'text': 'NOVEMBER 16', 'position': 'top'}},
-    {'type': 'big-stat', 'at': at('five') - 0.2, 'until': 24.8, 'props': {'value': 5, 'label': 'UNWRITTEN RULES', 'sub': 'in your community or team', 'size': 440, 'y': 1000}},
+    {'type': 'big-stat', 'at': at('five') - 0.2, 'until': 24.8, 'props': {'value': 5, 'label': 'UNWRITTEN RULES', 'sub': 'in your community or team', 'size': 560, 'y': 470, 'align': 'center'}},
     {'type': 'knockout-tiles', 'at': 28.65, 'until': 32.64, 'props': {'names': [{'text': 'Replies', 'knockAt': at('left')}, {'text': 'Names', 'knockAt': at('without')}, {'text': 'Reactions', 'knockAt': at('meaning')}, {'text': 'Holidays', 'knockAt': at('leave')}]}},
 ], field='charcoal', scrim=0.55)
 
@@ -266,12 +271,15 @@ plan('cinematic', 'film', SONG1, [
     *seq('signals', SIG, SIG_B, 'dark', 'TS', bg=VEL),
     full('little', 14.49, 18.39, close=1.4),
     statement(18.39, 21.65, bg=VEL),
-    full('rules', 21.65, 24.86, close=1.4),
+    full('rules', 21.65, 24.86, close=1.4, cap='top'),
     full('ask', 24.86, 28.65, close=1.4),
     full('left', 28.65, DUR, close=1.4),
 ], [
-    {'type': 'grade', 'at': 0, 'until': DUR, 'props': {'look': 'golden-hour', 'strength': 0.45}},
-    {'type': 'dust', 'at': 0, 'until': DUR, 'props': {'count': 40, 'strength': 0.5}},
+    {'type': 'grade', 'at': 0, 'until': DUR, 'props': {'look': 'cool', 'strength': 0.3}},
+    {'type': 'dust', 'at': 0, 'until': DUR, 'props': {'count': 18, 'strength': 0.3}},
+    {'type': 'glow', 'at': 0, 'until': DUR, 'props': {'strength': 0.2}},
+    {'type': 'zoom-through', 'at': 14.49, 'props': {'diveSec': 0.45}},
+    {'type': 'freeze-hold', 'at': at('left') + 0.05, 'until': at('left') + 0.85, 'props': {}},
     {'type': 'dolly-zoom', 'at': 0.2, 'until': 3.8, 'props': {'to': 1.5}},
     {'type': 'rack-focus', 'at': 3.82, 'until': 5.2, 'props': {}},
     {'type': 'iris', 'at': at('who', 17.0) - 0.2, 'until': 18.38, 'props': {'mode': 'peek', 'target': 'head'}},
@@ -309,9 +317,9 @@ plan('teach', 'karaoke', SONG1, [
     full('signals', 7.25, 14.49, close=1.0),
     full('little', 14.49, 18.39, close=1.4),
     scene('today', 18.39, 21.65, 'S', [{'type': 'headline-card', 'at': 18.39, 'until': 21.65, 'props': {'label': 'NOVEMBER 16', 'line': 'International Day for Tolerance', 'emphasis': ['Tolerance']}}], mood='light', cap='top', focus={'y': 8, 'zoom': 1.1}),
-    scene('rules', 21.65, 24.86, 'O', [examples(21.65, 24.86, 'light', RULES, y=720, h=740)]),
+    scene('rules', 21.65, 24.86, 'O', [examples(21.65, 24.86, 'light', RULES, y=800, h=680)]),
     scene('new', 24.86, 28.65, 'T', [examplesT(24.86, 28.65, 'light', NEW)]),
-    scene('left', 28.65, 32.64, 'O', [examples(28.65, 32.64, 'light', LEFT, y=720, h=740)]),
+    scene('left', 28.65, 32.64, 'O', [examples(28.65, 32.64, 'light', LEFT, y=800, h=680)]),
     full('end', 32.64, DUR, close=1.4),
 ], [
     {'type': 'shoulder-steps', 'at': 7.25, 'until': 14.49, 'props': {'title': 'They watch', 'steps': [{'text': say(7.8, 9.1)[0], 'at': at('who')}, {'text': say(9.1, 11.0)[0], 'at': at('whose')}, {'text': say(11.0, 12.92)[0], 'at': at('which')}, {'text': say(12.92, 14.49)[0], 'at': at('holidays') - 0.4}], 'side': 'left', 'zoom': 1.5}},

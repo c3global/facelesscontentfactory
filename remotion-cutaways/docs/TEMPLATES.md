@@ -14,3 +14,14 @@ A template changes everything a viewer reads in the first two seconds, not just 
 | Teach Board (`teach`) | `karaoke`: the word being said sits in a white box | full frame, split for the key card | shoulder-steps, headline card, step-chips | clean |
 
 Rules: every jump cut from the clean cut gets a hard punch-in (`"cut": true` on the segment, alternating `focus.zoom`). Full-page effects that would hide captions take `scale` so captions sit under the page. Card text is the member's script or supplied on-screen text only.
+
+## Rules from Dr. CK's review of the Tolerance renders (Nov 13 2026)
+- Captions appear word by word as she speaks, and never repeat words already written on screen (automatic, `src/TemplateCaptions.tsx`).
+- A caption never sits on an effect or card. Each scene sets `captionY` so the caption lands in empty space (between her window and the card for layout T, under the circle for O). Keep inside the portrait safe zone (y 240 to 1480).
+- When examples change, she changes position (card on top and her below, then her on top and the card below): `seq()` in the builder.
+- Cut every pause (clean cut breath 0.08 s); Creator Hype especially. Check the seams between parts for a cut-off word (Part 1 of Tolerance ended on a half "write").
+- Clean the voice before editing: `scripts/voice-polish.sh public/raw/<slug>.mp4`. Master the final mix to -14 LUFS (work/finish.sh does it).
+- Nothing on her face; effects that would cover a caption move (holo phone above, glass panels higher, notes stay in frame).
+- No letterbox on Cinematic, no orange golden-hour grade (she found it ugly); cool moody grade.
+- Single cards and big numbers sit front and center, never low on an empty screen.
+- Magazine opens on a broadsheet front page with our own masthead (never a real paper's brand).

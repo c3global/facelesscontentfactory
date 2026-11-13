@@ -203,6 +203,8 @@ export const segmentSchema = z.object({
   avatar: z.enum(['circle', 'hidden']).optional(),
   /** a hard cut into this segment (no eased move): a punch-in on a jump cut */
   cut: z.boolean().optional(),
+  /** template captions: exact vertical centre of the caption, px, so it sits in empty space and never on an effect */
+  captionY: z.number().optional(),
   graphics: z.array(graphicSchema).default([]),
 });
 

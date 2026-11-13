@@ -206,7 +206,7 @@ export const Duotone: React.FC<{fx: Of<'duotone'>}> = ({fx}) => {
 // ---------------------------------------------------------------- big stat: one huge number, poster style
 export const BigStat: React.FC<{fx: Of<'big-stat'>}> = ({fx}) => {
   const {t, inK, outK} = useSpan(fx);
-  const {value, prefix, suffix, label, sub, y, size} = fx.props;
+  const {value, prefix, suffix, label, sub, y, size, align} = fx.props;
   const c = tw(t, 0.25, 1.4, 0, 1, (x) => 1 - Math.pow(1 - x, 3));
   const shown = `${prefix}${Math.round(value * c).toLocaleString('en-US')}${suffix}`;
   const full = `${prefix}${Math.round(value).toLocaleString('en-US')}${suffix}`;
@@ -215,7 +215,7 @@ export const BigStat: React.FC<{fx: Of<'big-stat'>}> = ({fx}) => {
     <>
       <Scrim fx={fx} top={y} />
       <div style={{...FILL, opacity: outK}}>
-        <div style={{position: 'absolute', left: 50, width: 980, top: y, opacity: inK, transform: `translateY(${(1 - inK) * 50}px)`, color: '#fff'}}>
+        <div style={{position: 'absolute', left: 50, width: 980, top: y, opacity: inK, transform: `translateY(${(1 - inK) * 50}px)`, color: '#fff', textAlign: align}}>
           <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 34, letterSpacing: 8, textTransform: 'uppercase', borderTop: '6px solid #fff', paddingTop: 16}}>{label}</div>
           <div style={{fontFamily: heavyFamily, fontSize: fs, lineHeight: 1, letterSpacing: 2, width: 980, textShadow: '0 10px 40px rgba(0,0,0,0.5)'}}>{shown}</div>
           {sub && <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 700, fontSize: 56, ...ROSE_TEXT, opacity: tw(t, 1.2, 1.6), borderBottom: `6px solid ${C3.accent}`, paddingBottom: 18}}>{sub}</div>}
