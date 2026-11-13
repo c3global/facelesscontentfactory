@@ -25,8 +25,8 @@ const causticsTint = (r: number, g: number, b: number, seed: number, freq: strin
     `<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='1600'><filter id='c' x='0' y='0' width='100%' height='100%'><feTurbulence type='turbulence' baseFrequency='${freq}' numOctaves='2' seed='${seed}' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 ${r} 0 0 0 0 ${g} 0 0 0 0 ${b} -40 0 0 0 4.3'/><feGaussianBlur stdDeviation='1.6'/></filter><rect width='100%' height='100%' filter='url(#c)'/></svg>`,
   );
 const caustics = causticsTint(1, 1, 1, 11, '0.0075 0.011');
-// the black field: light catching metal, taken from the rose gold and gold highlight stops (#E9B3B4, #F8E8B4)
-const causticsRose = causticsTint(0.914, 0.702, 0.706, 11, '0.0075 0.011');
+// the black field: light catching metal, taken from the rose gold and gold highlight stops (#F1B9A5, #F8E8B4)
+const causticsRose = causticsTint(0.945, 0.725, 0.647, 11, '0.0075 0.011');
 const causticsGold = causticsTint(0.973, 0.91, 0.706, 29, '0.0062 0.0095');
 
 type BloomSpec = {
@@ -186,7 +186,7 @@ const GOLD = '213,170,74';
 const WHITE = '255,255,255';
 const DEEP_CRIMSON = '111,13,15';
 const DEEP_ROSE = '122,60,71';
-const ROSE_HI = '233,179,180'; // rose gold highlight stop
+const ROSE_HI = '241,185,165'; // rose gold highlight stop
 const GOLD_HI = '248,232,180'; // gold highlight stop
 
 const BLOOMS: Record<Exclude<BackdropKind, 'marble-black' | 'marble-white' | 'marble-red'>, BloomSpec[]> = {
@@ -232,7 +232,7 @@ const baseFor = (kind: Exclude<BackdropKind, 'marble-black' | 'marble-white' | '
         ? `linear-gradient(${165 + drift}deg, ${brand.charcoal} 0%, #1D2022 52%, ${brand.black} 100%)`
         : `linear-gradient(${165 + drift}deg, ${brand.black} 0%, #1D2022 48%, ${brand.charcoal} 100%)`;
     case 'rosegold':
-      return `linear-gradient(${158 + drift}deg, #7A3C47 0%, #B76E79 16%, #E9B3B4 30%, #B76E79 45%, #8A4651 60%, #D48A8C 74%, #F6D5D2 85%, #B76E79 100%)`;
+      return `linear-gradient(${158 + drift}deg, #6B3129 0%, #A9574A 16%, #F1B9A5 30%, #A9574A 45%, #8A4651 60%, #C27A6B 74%, #F6D5D2 85%, #A9574A 100%)`;
     case 'light':
       return brand.white;
   }

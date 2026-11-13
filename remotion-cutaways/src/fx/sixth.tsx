@@ -424,7 +424,7 @@ export const ScriptPanelPlate: React.FC<{fx: Of<'script-panel'>}> = ({fx}) => {
       <div style={{position: 'absolute', left: 70, top: 170, width: 940, height: view, overflow: 'hidden', WebkitMaskImage: 'linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent)', maskImage: 'linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent)'}}>
         <div style={{transform: `translateY(${-scroll}px)`}}>
           {beats.map((b, i) => (
-            <div key={i} style={{height: cardH, marginBottom: 24, borderRadius: 22, background: 'rgba(255,255,255,0.06)', border: '1.5px solid rgba(224,138,87,0.45)', boxSizing: 'border-box', padding: '22px 30px', overflow: 'hidden'}}>
+            <div key={i} style={{height: cardH, marginBottom: 24, borderRadius: 22, background: 'rgba(255,255,255,0.06)', border: '1.5px solid rgba(169,87,74,0.45)', boxSizing: 'border-box', padding: '22px 30px', overflow: 'hidden'}}>
               <div style={{display: 'flex', gap: 14, alignItems: 'center', ...cap({fontSize: 18, color: C3.copper})}}>
                 <span style={{width: 34, height: 34, borderRadius: 17, background: C3.copperGrad, color: '#2a1206', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', letterSpacing: 0}}>{i + 1}</span>
                 {b.time && <span>{b.time}</span>}

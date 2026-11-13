@@ -23,22 +23,22 @@ export type MetalVariant = 'deep' | 'bright';
 
 /**
  * Stops are [shadow, mid, highlight, mid, shadow].
- * Rose gold is built on #B76E79 with its tint #D48A8C and a deeper shade; gold is built on #D5AA4A.
+ * Rose gold is built on #A9574A with its tint #C27A6B and a deeper shade; gold is built on #D5AA4A.
  */
 const METAL_STOPS: Record<MetalKind, Record<MetalVariant, [string, string, string, string, string]>> = {
   rose: {
-    deep: ['#7A3C47', '#B76E79', '#E9B3B4', '#B76E79', '#86444F'],
-    bright: ['#B76E79', '#D48A8C', '#FCE2DF', '#D48A8C', '#B76E79'],
+    deep: ['#6B3129', '#A9574A', '#F1B9A5', '#A9574A', '#7A3A31'],
+    bright: ['#A9574A', '#C27A6B', '#FBE3DA', '#C27A6B', '#A9574A'],
   },
   // metallic red: built on #C91B19 with its deeper tones (#A31516, #6F0D0F) and a lighter tint for the highlight
   crimson: {
     deep: ['#6F0D0F', '#C91B19', '#EE6E6B', '#C91B19', '#7C0E10'],
     bright: ['#A31516', '#D92927', '#FF8E8A', '#D92927', '#A31516'],
   },
-  // shiny new-penny copper, the metal Dr. CK means by "rose gold": warm orange-copper body with a pinkish bright highlight
+  // Dr. CK's metallic accent (her "rose gold"): deeper, richer #A9574A with the #F1B9A5 highlight. Not orange copper.
   copper: {
-    deep: ['#6E3517', '#B5622C', '#F4B08A', '#B5622C', '#7D3C1B'],
-    bright: ['#B5622C', '#E08A57', '#FFD9BD', '#E08A57', '#B5622C'],
+    deep: ['#6B3129', '#A9574A', '#F1B9A5', '#A9574A', '#7A3A31'],
+    bright: ['#A9574A', '#C27A6B', '#FBE3DA', '#C27A6B', '#A9574A'],
   },
   gold: {
     deep: ['#85611A', '#D5AA4A', '#F8E8B4', '#D5AA4A', '#8E6B1E'],

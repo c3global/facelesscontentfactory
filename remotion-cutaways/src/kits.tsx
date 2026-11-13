@@ -67,7 +67,7 @@ export const KitBackdrop: React.FC<{kit: KitName; frame: number}> = ({kit, frame
         <AbsoluteFill style={{background: '#050506', overflow: 'hidden'}}>
           <div style={{position: 'absolute', inset: -200, filter: 'blur(90px)'}}>
             <div style={blob(300 + Math.sin(t * 0.21) * 160, 500 + Math.cos(t * 0.17) * 200, 1100, 'rgba(201,27,25,0.75)')} />
-            <div style={blob(900 + Math.cos(t * 0.19) * 180, 1200 + Math.sin(t * 0.23) * 220, 1000, 'rgba(181,98,44,0.55)')} />
+            <div style={blob(900 + Math.cos(t * 0.19) * 180, 1200 + Math.sin(t * 0.23) * 220, 1000, 'rgba(169,87,74,0.55)')} />
             <div style={blob(600 + Math.sin(t * 0.13) * 220, 1700, 900, 'rgba(255,255,255,0.18)')} />
             <div style={blob(1000, 300 + Math.sin(t * 0.15) * 120, 800, 'rgba(111,13,15,0.8)')} />
           </div>

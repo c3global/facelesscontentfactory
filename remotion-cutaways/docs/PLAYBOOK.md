@@ -44,7 +44,7 @@ Red velvet background: `public/backdrops/red-velvet.jpg` (crimson velvet from Ka
   - Band: 55 to 72 percent of the frame (y 1056 to 1382). Captions can move to the top band (y 250 to 560) and may alternate by sentence in hidden-avatar scenes. Keep clear of the top 12 percent, bottom 22 percent and right 12 percent.
   - No chunk ends on a connector word. Auto-chunker is in `src/Kinetic.tsx`.
 - Fonts: Playfair Display and DM Sans. **Wherever Playfair appears it is italic.**
-- Colors: crimson #C91B19, white, black, charcoal #3A3F42, metallic rose gold (#B76E79, #D48A8C) and gold (#D5AA4A). Metallic red built on the crimson hex is allowed (`kind="crimson"`). No cream, ivory or off-white. Metal only over black or white fields. One small crimson accent per scene.
+- Colors: crimson #C91B19, white, black, charcoal #3A3F42, metallic rose gold (#A9574A deep, #F1B9A5 light; Dr. CK's confirmed hex codes, Nov 13 2026) and gold (#D5AA4A). Metallic red built on the crimson hex is allowed (`kind="crimson"`). No cream, ivory or off-white. Metal only over black or white fields. One small crimson accent per scene.
 - Glass: translucent pills with a holographic foil rim in brand tints only (rose gold, champagne, white, pale crimson). Labels 44 px in diagrams. Lines must stop at the pill edges (mask), never show through the glass.
 - Her face: **no hook tag on her forehead.** She stays full frame only up to about 4 seconds at a time (hard stop at 6). Picture-in-picture, split screen and hidden-avatar scenes all count as cuts.
 - Finish: `finish.grain` about 0.35 and `finish.lightLeaks` about 0.5 (she liked it, asked for it hoping it reduces the "fake" look).

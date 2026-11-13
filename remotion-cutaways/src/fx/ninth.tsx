@@ -174,7 +174,7 @@ export const BlowAwayDust: React.FC<{fx: Of<'blow-away'>}> = ({fx}) => {
         const op = Math.max(0, 1 - age / 1.6);
         const size = 3 + r2 * 7;
         void born;
-        return <div key={i} style={{position: 'absolute', left: x, top: y, width: size, height: size, borderRadius: size, background: i % 3 === 0 ? '#F4B08A' : i % 3 === 1 ? '#7a2a22' : '#1a1a1a', opacity: op}} />;
+        return <div key={i} style={{position: 'absolute', left: x, top: y, width: size, height: size, borderRadius: size, background: i % 3 === 0 ? '#F1B9A5' : i % 3 === 1 ? '#7a2a22' : '#1a1a1a', opacity: op}} />;
       })}
     </div>
   );

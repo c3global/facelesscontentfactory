@@ -48,7 +48,7 @@ export const BeforeAfterV2: React.FC<{fx: Of<'before-after'>}> = ({fx}) => {
     <div style={{...FILL, overflow: 'hidden'}}>
       {half(false)}
       {half(true)}
-      <div style={{position: 'absolute', left: 540 * k - 3, top: 0, width: 6, height: 1920, background: 'linear-gradient(180deg, #FFD9BD, #E08A57 35%, #FCE2DF 55%, #D48A8C 80%, #B76E79)', boxShadow: `0 0 30px 6px rgba(${ROSE.glow},0.6)`, opacity: Math.min(1, k * 3)}} />
+      <div style={{position: 'absolute', left: 540 * k - 3, top: 0, width: 6, height: 1920, background: 'linear-gradient(180deg, #FFD9BD, #A9574A 35%, #FBE3DA 55%, #C27A6B 80%, #A9574A)', boxShadow: `0 0 30px 6px rgba(${ROSE.glow},0.6)`, opacity: Math.min(1, k * 3)}} />
       <Pill text={fx.props.beforeLabel} style={{position: 'absolute', left: 270 - 130, width: 260, textAlign: 'center', boxSizing: 'border-box', top: 260, opacity: tw(t, 0.45, 0.75) * k}} />
       <Pill text={fx.props.afterLabel} win style={{position: 'absolute', left: 810 - 130, width: 260, textAlign: 'center', boxSizing: 'border-box', top: 260, opacity: tw(t, 0.6, 0.9) * k}} />
     </div>
@@ -239,7 +239,7 @@ export const ThankYou: React.FC<{fx: Of<'thank-you'>}> = ({fx}) => {
       <div style={{...FILL, backdropFilter: 'grayscale(1) contrast(1.1) brightness(0.72)', WebkitBackdropFilter: 'grayscale(1) contrast(1.1) brightness(0.72)'}} />
       <div style={{position: 'absolute', left: 40, width: 1000, top: y, textAlign: 'center', fontFamily: handFamily, fontWeight: 700, fontSize: fs, lineHeight: 1.05, color: '#fff', transform: 'rotate(-4deg)', clipPath: `inset(-30px ${100 - w * 100}% -30px -30px)`, textShadow: '0 4px 24px rgba(0,0,0,0.7)'}}>{text}</div>
       <svg width={1080} height={1920} style={{position: 'absolute', left: 0, top: 0}}>
-        <defs><linearGradient id="tyRose" x1="0" x2="1"><stop offset="0" stopColor="#B5622C" /><stop offset="0.3" stopColor="#E08A57" /><stop offset="0.5" stopColor="#FFD9BD" /><stop offset="0.75" stopColor="#D48A8C" /><stop offset="1" stopColor="#B76E79" /></linearGradient></defs>
+        <defs><linearGradient id="tyRose" x1="0" x2="1"><stop offset="0" stopColor="#A9574A" /><stop offset="0.3" stopColor="#A9574A" /><stop offset="0.5" stopColor="#FFD9BD" /><stop offset="0.75" stopColor="#C27A6B" /><stop offset="1" stopColor="#A9574A" /></linearGradient></defs>
         <path d={`M 250 ${y + fs * 1.22} Q 540 ${y + fs * 1.22 - 46} 840 ${y + fs * 1.22 - 62}`} fill="none" stroke="url(#tyRose)" strokeWidth={8} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - u} />
       </svg>
       {sub && <div style={{position: 'absolute', left: 0, width: 1080, top: y + fs * 1.22 + 40, textAlign: 'center', fontFamily: SANS, fontWeight: 700, fontSize: 34, letterSpacing: 6, textTransform: 'uppercase', color: '#fff', opacity: tw(t, 1.7, 2.1)}}>{sub}</div>}

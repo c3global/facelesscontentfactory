@@ -52,7 +52,7 @@ const Bar: React.FC<{w: number; c: string; h?: number}> = ({w, c, h = 14}) => <d
 const Heart: React.FC<{s: number; c: string}> = ({s, c}) => (
   <svg width={s} height={s} viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.6 1.2 4.6 2.7C12 6.2 13.6 5 15.6 5 19 5 21.1 8.4 19.6 11.8 17.5 16.4 12 21 12 21z" fill={c} /></svg>
 );
-const PALETTE = ['#C91B19', '#3A3F42', '#B76E79', '#6F0D0F', '#8E959C', '#B5622C'];
+const PALETTE = ['#C91B19', '#3A3F42', '#A9574A', '#6F0D0F', '#8E959C', '#A9574A'];
 
 const Illustration: React.FC<{kind: ExampleKind; t: number; sk: Sk; w: number; h: number}> = ({kind, t, sk, w, h}) => {
   const k = (a: number, d = 0.35) => interpolate(t, [a, a + d], [0, 1], clamp);
