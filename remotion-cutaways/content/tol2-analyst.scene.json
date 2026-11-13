@@ -2,7 +2,7 @@
  "slug": "tol2-analyst",
  "template": "analyst",
  "video": "raw/tolerance.mp4",
- "durationSec": 37.33,
+ "durationSec": 35.654,
  "matte": "tolerance",
  "theme": {
   "field": "charcoal",
@@ -30,7 +30,7 @@
    "segments": [
     {
      "start": 0,
-     "end": 3.82,
+     "end": 3.722,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -46,36 +46,36 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 3.82,
-     "end": 7.25,
+     "start": 3.722,
+     "end": 6.915,
      "layout": "T",
      "captionPos": "bottom",
      "graphics": [
       {
        "type": "examples",
-       "at": 3.82,
-       "until": 7.25,
+       "at": 3.722,
+       "until": 6.915,
        "props": {
         "skin": "data",
         "items": [
          {
           "say": "like a community or a team chat, long before anyone tells them.",
           "wordTimes": [
-           3.84,
-           4.13,
-           4.2,
-           4.86,
-           5.0,
-           5.08,
-           5.36,
-           5.68,
-           5.91,
-           6.25,
-           6.59,
-           6.87
+           3.74,
+           4.03,
+           4.08,
+           4.7,
+           4.83,
+           4.91,
+           5.18,
+           5.48,
+           5.69,
+           6.0,
+           6.31,
+           6.57
           ],
           "kind": "chat",
-          "at": 3.84
+          "at": 3.74
          }
         ],
         "y": 895,
@@ -97,65 +97,65 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 7.25,
-     "end": 14.49,
+     "start": 6.915,
+     "end": 13.768,
      "layout": "T",
      "captionPos": "bottom",
      "graphics": [
       {
        "type": "examples",
-       "at": 7.25,
-       "until": 14.49,
+       "at": 6.915,
+       "until": 13.768,
        "props": {
         "skin": "data",
         "items": [
          {
           "say": "They watch who gets replies,",
           "wordTimes": [
-           7.31,
-           7.58,
-           7.93,
-           8.16,
-           8.44
+           6.97,
+           7.22,
+           7.55,
+           7.76,
+           8.04
           ],
           "kind": "replies",
-          "at": 7.31
+          "at": 6.97
          },
          {
           "say": "whose name gets spelled correctly,",
           "wordTimes": [
-           9.12,
+           8.64,
+           8.93,
+           9.16,
            9.38,
-           9.62,
-           9.88,
-           10.3
+           9.79
           ],
           "kind": "name",
-          "at": 9.12
+          "at": 8.64
          },
          {
           "say": "which posts get a reaction,",
           "wordTimes": [
-           11.02,
-           11.43,
-           11.86,
-           12.12,
-           12.2
+           10.46,
+           10.85,
+           11.27,
+           11.5,
+           11.58
           ],
           "kind": "reaction",
-          "at": 11.02
+          "at": 10.46
          },
          {
           "say": "and which holidays get mentioned.",
           "wordTimes": [
-           12.92,
-           13.08,
-           13.36,
-           13.78,
-           13.96
+           12.27,
+           12.41,
+           12.68,
+           13.1,
+           13.23
           ],
           "kind": "holidays",
-          "at": 12.92
+          "at": 12.27
          }
         ],
         "y": 895,
@@ -177,8 +177,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 14.49,
-     "end": 16.0,
+     "start": 13.768,
+     "end": 15.196,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -188,8 +188,8 @@
      }
     },
     {
-     "start": 16.0,
-     "end": 18.39,
+     "start": 15.196,
+     "end": 17.508,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -206,8 +206,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 18.39,
-     "end": 21.65,
+     "start": 17.508,
+     "end": 20.593,
      "layout": "F",
      "captionPos": "bottom",
      "graphics": []
@@ -219,8 +219,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 21.65,
-     "end": 24.86,
+     "start": 20.593,
+     "end": 23.406,
      "layout": "E",
      "captionPos": "top",
      "graphics": [],
@@ -233,39 +233,39 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 24.86,
-     "end": 28.65,
+     "start": 23.406,
+     "end": 27.094,
      "layout": "T",
      "captionPos": "bottom",
      "graphics": [
       {
        "type": "examples",
-       "at": 24.86,
-       "until": 28.65,
+       "at": 23.406,
+       "until": 27.094,
        "props": {
         "skin": "data",
         "items": [
          {
           "say": "Then ask which ones a newcomer from another culture would have no way of knowing.",
           "wordTimes": [
-           25.04,
-           25.26,
-           25.45,
-           25.8,
-           26.06,
-           26.1,
+           23.57,
+           23.81,
+           23.99,
+           24.33,
+           24.56,
+           24.62,
+           25.19,
+           25.34,
+           25.68,
+           26.0,
+           26.24,
+           26.43,
+           26.52,
            26.66,
-           26.78,
-           27.11,
-           27.44,
-           27.7,
-           27.9,
-           28.0,
-           28.15,
-           28.28
+           26.75
           ],
           "kind": "newcomer",
-          "at": 25.04
+          "at": 23.57
          }
         ],
         "y": 895,
@@ -287,8 +287,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 28.65,
-     "end": 32.64,
+     "start": 27.094,
+     "end": 31.006,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -304,8 +304,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 32.64,
-     "end": 37.33,
+     "start": 31.006,
+     "end": 35.654,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -320,8 +320,8 @@
  "fx": [
   {
    "type": "date-stamp",
-   "at": 0.3,
-   "until": 3.7,
+   "at": 0.31,
+   "until": 3.612,
    "props": {
     "text": "NOVEMBER 16",
     "position": "top"
@@ -329,8 +329,8 @@
   },
   {
    "type": "big-stat",
-   "at": 22.19,
-   "until": 24.8,
+   "at": 21.089,
+   "until": 23.351,
    "props": {
     "value": 5,
     "label": "UNWRITTEN RULES",
@@ -341,25 +341,25 @@
   },
   {
    "type": "knockout-tiles",
-   "at": 28.65,
-   "until": 32.64,
+   "at": 27.094,
+   "until": 31.006,
    "props": {
     "names": [
      {
       "text": "Replies",
-      "knockAt": 30.56
+      "knockAt": 28.86
      },
      {
       "text": "Names",
-      "knockAt": 31.04
+      "knockAt": 29.47
      },
      {
       "text": "Reactions",
-      "knockAt": 31.61
+      "knockAt": 30.05
      },
      {
       "text": "Holidays",
-      "knockAt": 32.04
+      "knockAt": 30.47
      }
     ]
    }
@@ -368,7 +368,7 @@
  "fxSound": "minimal",
  "endCard": {
   "variant": "link-pill",
-  "startAt": 34.95,
+  "startAt": 33.26,
   "label": "LINK BELOW OR IN MY BIO",
   "url": "bio.c3global.co"
  },

@@ -2,7 +2,7 @@
  "slug": "tol2-teach",
  "template": "teach",
  "video": "raw/tolerance.mp4",
- "durationSec": 37.33,
+ "durationSec": 35.654,
  "matte": "tolerance",
  "theme": {
   "field": "black",
@@ -30,7 +30,7 @@
    "segments": [
     {
      "start": 0,
-     "end": 3.82,
+     "end": 3.722,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -46,8 +46,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 3.82,
-     "end": 7.25,
+     "start": 3.722,
+     "end": 6.915,
      "layout": "F",
      "captionPos": "bottom",
      "graphics": []
@@ -59,8 +59,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 7.25,
-     "end": 9.03,
+     "start": 6.915,
+     "end": 8.627,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -70,8 +70,8 @@
      }
     },
     {
-     "start": 9.03,
-     "end": 10.89,
+     "start": 8.627,
+     "end": 10.395,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -82,8 +82,8 @@
      "cut": true
     },
     {
-     "start": 10.89,
-     "end": 12.68,
+     "start": 10.395,
+     "end": 12.084,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -94,8 +94,8 @@
      "cut": true
     },
     {
-     "start": 12.68,
-     "end": 14.49,
+     "start": 12.084,
+     "end": 13.768,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -112,8 +112,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 14.49,
-     "end": 16.0,
+     "start": 13.768,
+     "end": 15.196,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -123,8 +123,8 @@
      }
     },
     {
-     "start": 16.0,
-     "end": 18.39,
+     "start": 15.196,
+     "end": 17.508,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -141,15 +141,15 @@
    "mood": "light",
    "segments": [
     {
-     "start": 18.39,
-     "end": 21.65,
+     "start": 17.508,
+     "end": 20.593,
      "layout": "S",
      "captionPos": "top",
      "graphics": [
       {
        "type": "headline-card",
-       "at": 18.39,
-       "until": 21.65,
+       "at": 17.508,
+       "until": 20.593,
        "props": {
         "label": "NOVEMBER 16",
         "line": "International Day for Tolerance",
@@ -171,34 +171,34 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 21.65,
-     "end": 24.86,
+     "start": 20.593,
+     "end": 23.406,
      "layout": "O",
      "captionPos": "bottom",
      "graphics": [
       {
        "type": "examples",
-       "at": 21.65,
-       "until": 24.86,
+       "at": 20.593,
+       "until": 23.406,
        "props": {
         "skin": "light",
         "items": [
          {
           "say": "Write down five unwritten rules in your community or team.",
           "wordTimes": [
-           21.8,
-           22.13,
-           22.39,
-           22.69,
-           23.24,
-           23.6,
-           23.71,
-           23.94,
-           24.51,
-           24.59
+           20.74,
+           21.02,
+           21.32,
+           21.46,
+           21.97,
+           22.28,
+           22.38,
+           22.59,
+           23.06,
+           23.16
           ],
           "kind": "rules",
-          "at": 21.8
+          "at": 20.74
          }
         ],
         "y": 720,
@@ -220,39 +220,39 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 24.86,
-     "end": 28.65,
+     "start": 23.406,
+     "end": 27.094,
      "layout": "T",
      "captionPos": "bottom",
      "graphics": [
       {
        "type": "examples",
-       "at": 24.86,
-       "until": 28.65,
+       "at": 23.406,
+       "until": 27.094,
        "props": {
         "skin": "light",
         "items": [
          {
           "say": "Then ask which ones a newcomer from another culture would have no way of knowing.",
           "wordTimes": [
-           25.04,
-           25.26,
-           25.45,
-           25.8,
-           26.06,
-           26.1,
+           23.57,
+           23.81,
+           23.99,
+           24.33,
+           24.56,
+           24.62,
+           25.19,
+           25.34,
+           25.68,
+           26.0,
+           26.24,
+           26.43,
+           26.52,
            26.66,
-           26.78,
-           27.11,
-           27.44,
-           27.7,
-           27.9,
-           28.0,
-           28.15,
-           28.28
+           26.75
           ],
           "kind": "newcomer",
-          "at": 25.04
+          "at": 23.57
          }
         ],
         "y": 895,
@@ -274,40 +274,40 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 28.65,
-     "end": 32.64,
+     "start": 27.094,
+     "end": 31.006,
      "layout": "O",
      "captionPos": "bottom",
      "graphics": [
       {
        "type": "examples",
-       "at": 28.65,
-       "until": 32.64,
+       "at": 27.094,
+       "until": 31.006,
        "props": {
         "skin": "light",
         "items": [
          {
           "say": "Those are the places where people feel left out without anyone meaning to leave them out.",
           "wordTimes": [
-           28.85,
-           29.08,
-           29.24,
-           29.4,
-           29.75,
-           30.01,
-           30.34,
-           30.56,
-           30.78,
-           31.04,
-           31.37,
-           31.61,
-           31.94,
-           32.04,
-           32.26,
-           32.45
+           27.28,
+           27.52,
+           27.66,
+           27.82,
+           28.09,
+           28.34,
+           28.7,
+           28.86,
+           29.2,
+           29.47,
+           29.8,
+           30.05,
+           30.37,
+           30.47,
+           30.68,
+           30.86
           ],
           "kind": "leftout",
-          "at": 28.85
+          "at": 27.28
          }
         ],
         "y": 720,
@@ -329,8 +329,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 32.64,
-     "end": 37.33,
+     "start": 31.006,
+     "end": 35.654,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -345,26 +345,26 @@
  "fx": [
   {
    "type": "shoulder-steps",
-   "at": 7.25,
-   "until": 14.49,
+   "at": 6.915,
+   "until": 13.768,
    "props": {
     "title": "They watch",
     "steps": [
      {
       "text": "who gets replies,",
-      "at": 7.93
+      "at": 7.55
      },
      {
       "text": "whose name gets spelled correctly,",
-      "at": 9.12
+      "at": 8.64
      },
      {
       "text": "which posts get a reaction,",
-      "at": 11.02
+      "at": 10.46
      },
      {
       "text": "and which holidays get mentioned.",
-      "at": 12.959999999999999
+      "at": 12.305
      }
     ],
     "side": "left",
@@ -375,7 +375,7 @@
  "fxSound": "minimal",
  "endCard": {
   "variant": "link-pill",
-  "startAt": 34.95,
+  "startAt": 33.26,
   "label": "LINK BELOW OR IN MY BIO",
   "url": "bio.c3global.co"
  },

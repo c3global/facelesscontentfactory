@@ -42,6 +42,7 @@ import onnxruntime as ort
 
 so = ort.SessionOptions()
 so.intra_op_num_threads = os.cpu_count() or 4
+so.enable_cpu_mem_arena = False  # the arena grew past the container's memory on long cuts
 sess = ort.InferenceSession(model, so, providers=['CPUExecutionProvider'])
 name = sess.get_inputs()[0].name
 MEAN = np.array([0.485, 0.456, 0.406], np.float32)
@@ -66,6 +67,9 @@ def mask_of(bgr):
     return np.clip(m * 255, 0, 255).astype(np.uint8)
 
 
+import hashlib
+cache = os.path.join('work', 'maskcache', slug + '-' + hashlib.md5(open(os.path.join('public', 'raw', f'{slug}.mp4'), 'rb').read(1 << 20)).hexdigest()[:8])
+os.makedirs(cache, exist_ok=True)
 masks, picks = {}, set()
 for a, b in wins:
     picks.update(i for i in range(a, b) if (i - a) % every == 0)
@@ -77,20 +81,30 @@ for i in range(total):
     if not ok:
         break
     if i in picks:
-        masks[i] = mask_of(fr)
+        # finished masks are cached on disk (a crash resumes) and kept in memory compressed
+        cf = os.path.join(cache, f'{i:05d}.png')
+        if os.path.exists(cf):
+            masks[i] = open(cf, 'rb').read()
+        else:
+            masks[i] = cv2.imencode('.png', mask_of(fr))[1].tobytes()
+            open(cf, 'wb').write(masks[i])
         print(f'cutout {len(masks)}/{len(picks)}  {time.time() - start:.0f}s', flush=True)
 keys = sorted(masks)
 
 
+def dec(b):
+    return cv2.imdecode(np.frombuffer(b, np.uint8), cv2.IMREAD_GRAYSCALE)
+
+
 def alpha(i):
     if i in masks:
-        return masks[i]
+        return dec(masks[i])
     a, b = inside(i)
     ks = [k for k in keys if a <= k < b]
     lo = max(k for k in ks if k < i)
     hi = min(k for k in ks if k > i)
     w = (i - lo) / (hi - lo)
-    return cv2.addWeighted(masks[lo], 1 - w, masks[hi], w, 0)
+    return cv2.addWeighted(dec(masks[lo]), 1 - w, dec(masks[hi]), w, 0)
 
 out = os.path.join('public', 'matte', f'{out_slug}.webm')
 os.makedirs(os.path.dirname(out), exist_ok=True)

@@ -14,11 +14,53 @@ Card text is her script, her Notion on-screen text, or generic illustration text
 """
 import json, shutil
 
-DUR = 37.33
-END = 34.95
-CUTS = [3.82, 5.62, 7.25, 9.03, 10.89, 12.68, 14.49, 16.0, 18.39, 21.65, 24.86, 28.65, 32.64]
+# The layout below was written against the first clean cut (content/tolerance.v1cut.words.tsv). Every time in a plan is
+# remapped word by word onto the current cut (content/tolerance.words.tsv), so a re-cut never needs the plans rewritten.
+OLD = [(w, float(a), float(b)) for w, a, b in (l.rstrip('\n').split('\t') for l in open('content/tolerance.v1cut.words.tsv') if l.strip())]
+NEW = [(w, float(a), float(b)) for w, a, b in (l.rstrip('\n').split('\t') for l in open('content/tolerance.words.tsv') if l.strip())]
+assert [w for w, _, _ in OLD] == [w for w, _, _ in NEW], 'the two cuts must have the same words'
+PAIRS = [(0.0, 0.0)] + [(o[1], n[1]) for o, n in zip(OLD, NEW)] + [(OLD[-1][2], NEW[-1][2])]
+
+
+def remap(t):
+    if t <= 0:
+        return t
+    for (o0, n0), (o1, n1) in zip(PAIRS, PAIRS[1:]):
+        if o0 <= t <= o1:
+            return round(n0 + (n1 - n0) * (t - o0) / (o1 - o0 or 1), 3)
+    return round(t - PAIRS[-1][0] + PAIRS[-1][1], 3)
+
+
+def unmap(t):
+    for (o0, n0), (o1, n1) in zip(PAIRS, PAIRS[1:]):
+        if n0 <= t <= n1:
+            return round(o0 + (o1 - o0) * (t - n0) / (n1 - n0 or 1), 3)
+    return round(t - PAIRS[-1][1] + PAIRS[-1][0], 3)
+
+
+import subprocess
+DUR_NEW = float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', 'public/raw/tolerance.mp4']))
+_cl = json.load(open('work/tolerance.cutlist.json'))
+_t, _cuts = 0.0, []
+for _s in _cl['segments']:
+    _t += _s['to'] - _s['from']
+    _cuts.append(_t)
+END = round(unmap(NEW[-1][2] + 0.18), 3)
+CUTS = [unmap(c) for c in _cuts if c < NEW[-1][2] - 0.2]
+DUR = round(unmap(DUR_NEW), 3)
+TIME_KEYS = {'at', 'until', 'start', 'end', 'startAt', 'knockAt', 'popAt', 'revealAt'}
+
+
+def remap_plan(o):
+    if isinstance(o, dict):
+        return {k: (remap(v) if k in TIME_KEYS and isinstance(v, (int, float)) else [remap(x) for x in v] if k in ('wordTimes', 'stopAt') else remap_plan(v)) for k, v in o.items()}
+    if isinstance(o, list):
+        return [remap_plan(x) for x in o]
+    return o
+
+
 VEL = 'backdrops/red-velvet.jpg'
-W = [(w, float(a), float(b)) for w, a, b in (l.rstrip('\n').split('\t') for l in open('content/tolerance.words.tsv') if l.strip())]
+W = OLD
 SONG1, SONG2 = 'music/leveled/empires.mp3', 'music/leveled/make-it-look-easy.mp3'
 
 
@@ -53,7 +95,7 @@ def examplesT(s, e, skin, items):
 
 def full(sid, s, e, close=1.5, mood='dark', cap='bottom', bg=None, first_close=False):
     """Her full frame, split at every jump cut: wide and close on the face alternate, as hard cuts."""
-    pts = [s] + [c for c in CUTS if s < c < e] + [e]
+    pts = [s] + [c for c in CUTS if s + 0.15 < c < e - 0.15] + [e]
     segs = []
     for k in range(len(pts) - 1):
         is_close = (k % 2 == 1) != first_close
@@ -95,6 +137,8 @@ def plan(name, caption, song, scenes, fx, **kw):
         'endCard': {'variant': 'link-pill', 'startAt': END, 'label': 'LINK BELOW OR IN MY BIO', 'url': 'bio.c3global.co'},
         'music': {'src': song, 'volume': 0.5, 'duckTo': 0.26, 'fadeInSec': 1.5, 'fadeOutSec': 2.5, 'startFromSec': 0},
     }
+    p = remap_plan(p)
+    p['durationSec'] = round(DUR_NEW, 3)
     json.dump(p, open(f'content/tol2-{name}.scene.json', 'w'), indent=1)
     shutil.copy('content/tolerance.captions.json', f'content/tol2-{name}.captions.json')
     shutil.copy('content/tolerance.words.tsv', f'content/tol2-{name}.words.tsv')

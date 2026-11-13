@@ -2,7 +2,7 @@
  "slug": "tol2-hype",
  "template": "hype",
  "video": "raw/tolerance.mp4",
- "durationSec": 37.33,
+ "durationSec": 35.654,
  "matte": "tolerance",
  "theme": {
   "field": "black",
@@ -30,7 +30,7 @@
    "segments": [
     {
      "start": 0,
-     "end": 3.82,
+     "end": 3.718,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -40,8 +40,8 @@
      }
     },
     {
-     "start": 3.82,
-     "end": 5.62,
+     "start": 3.718,
+     "end": 5.419,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -52,8 +52,8 @@
      "cut": true
     },
     {
-     "start": 5.62,
-     "end": 7.25,
+     "start": 5.419,
+     "end": 6.915,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -70,8 +70,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 7.25,
-     "end": 9.03,
+     "start": 6.915,
+     "end": 8.627,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -81,8 +81,8 @@
      }
     },
     {
-     "start": 9.03,
-     "end": 10.89,
+     "start": 8.627,
+     "end": 10.339,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -99,41 +99,41 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 10.89,
-     "end": 14.49,
+     "start": 10.339,
+     "end": 13.768,
      "layout": "O",
      "captionPos": "bottom",
      "graphics": [
       {
        "type": "examples",
-       "at": 10.89,
-       "until": 14.49,
+       "at": 10.339,
+       "until": 13.768,
        "props": {
         "skin": "light",
         "items": [
          {
           "say": "which posts get a reaction,",
           "wordTimes": [
-           11.02,
-           11.43,
-           11.86,
-           12.12,
-           12.2
+           10.46,
+           10.85,
+           11.27,
+           11.5,
+           11.58
           ],
           "kind": "reaction",
-          "at": 11.02
+          "at": 10.46
          },
          {
           "say": "and which holidays get mentioned.",
           "wordTimes": [
-           12.92,
-           13.08,
-           13.36,
-           13.78,
-           13.96
+           12.27,
+           12.41,
+           12.68,
+           13.1,
+           13.23
           ],
           "kind": "holidays",
-          "at": 12.92
+          "at": 12.27
          }
         ],
         "y": 720,
@@ -155,8 +155,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 14.49,
-     "end": 16.0,
+     "start": 13.768,
+     "end": 15.196,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -166,8 +166,8 @@
      }
     },
     {
-     "start": 16.0,
-     "end": 18.39,
+     "start": 15.196,
+     "end": 17.508,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -184,8 +184,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 18.39,
-     "end": 21.65,
+     "start": 17.508,
+     "end": 20.593,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -201,8 +201,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 21.65,
-     "end": 24.86,
+     "start": 20.593,
+     "end": 23.406,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -218,8 +218,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 24.86,
-     "end": 28.65,
+     "start": 23.406,
+     "end": 27.094,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -235,8 +235,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 28.65,
-     "end": 32.64,
+     "start": 27.094,
+     "end": 31.011,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -246,8 +246,8 @@
      }
     },
     {
-     "start": 32.64,
-     "end": 37.33,
+     "start": 31.011,
+     "end": 35.654,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -263,13 +263,13 @@
  "fx": [
   {
    "type": "clone",
-   "at": 0.5,
-   "until": 3.8,
+   "at": 0.513,
+   "until": 3.703,
    "props": {
     "version": 2,
     "copies": [
      {
-      "at": 1.06,
+      "at": 1.05,
       "side": "left"
      },
      {
@@ -277,7 +277,7 @@
       "side": "right"
      },
      {
-      "at": 2.48,
+      "at": 2.43,
       "side": "left"
      }
     ]
@@ -285,8 +285,8 @@
   },
   {
    "type": "text-pop",
-   "at": 0.15,
-   "until": 2.3,
+   "at": 0.124,
+   "until": 2.257,
    "props": {
     "text": "Who belongs here?",
     "look": "badge",
@@ -296,15 +296,15 @@
   },
   {
    "type": "flash-frame",
-   "at": 3.82,
+   "at": 3.722,
    "props": {
     "version": 2
    }
   },
   {
    "type": "orbit",
-   "at": 7.25,
-   "until": 10.89,
+   "at": 6.915,
+   "until": 10.339,
    "props": {
     "items": [
      "replies",
@@ -317,8 +317,8 @@
   },
   {
    "type": "couch-wall",
-   "at": 16.0,
-   "until": 18.39,
+   "at": 15.205,
+   "until": 17.508,
    "props": {
     "tiles": [
      "Who gets replies",
@@ -331,55 +331,55 @@
   },
   {
    "type": "impact-frame",
-   "at": 20.21,
-   "until": 21.0,
+   "at": 19.21,
+   "until": 19.95,
    "props": {
     "word": "Tolerance"
    }
   },
   {
    "type": "type-wall",
-   "at": 21.65,
-   "until": 24.86,
+   "at": 20.593,
+   "until": 23.406,
    "props": {
     "words": [
      {
       "text": "five",
-      "at": 22.39
+      "at": 21.32
      },
      {
       "text": "unwritten",
-      "at": 22.69
+      "at": 21.46
      },
      {
       "text": "rules",
-      "at": 23.24
+      "at": 21.97
      }
     ]
    }
   },
   {
    "type": "frame-break",
-   "at": 24.86,
-   "until": 28.65,
+   "at": 23.406,
+   "until": 27.094,
    "props": {
-    "popAt": 26.1,
+    "popAt": 24.62,
     "label": "NEWCOMER"
    }
   },
   {
    "type": "type-wall",
-   "at": 28.65,
-   "until": 32.64,
+   "at": 27.094,
+   "until": 31.006,
    "props": {
     "words": [
      {
       "text": "places",
-      "at": 29.4
+      "at": 27.82
      },
      {
       "text": "left out",
-      "at": 30.56
+      "at": 28.86
      }
     ]
    }
@@ -388,7 +388,7 @@
  "fxSound": "full",
  "endCard": {
   "variant": "link-pill",
-  "startAt": 34.95,
+  "startAt": 33.26,
   "label": "LINK BELOW OR IN MY BIO",
   "url": "bio.c3global.co"
  },
