@@ -157,7 +157,7 @@ def plan(name, caption, song, scenes, fx, **kw):
         'hero': [], 'boxed': [], 'finish': kw.get('finish', {'grain': 0.0, 'lightLeaks': 0.0}), 'scrim': kw.get('scrim', 0.55),
         'scenes': scenes, 'fx': fx, 'fxSound': kw.get('sound', 'minimal'),
         'endCard': {'variant': 'link-pill', 'startAt': END, 'label': 'LINK BELOW OR IN MY BIO', 'url': 'bio.c3global.co'},
-        'music': {'src': song, 'volume': 0.5, 'duckTo': 0.26, 'fadeInSec': 1.5, 'fadeOutSec': 2.5, 'startFromSec': 0},
+        'music': {'src': song, 'volume': 0.42, 'duckTo': 0.2, 'fadeInSec': 1.5, 'fadeOutSec': 2.5, 'startFromSec': 0},
     }
     p = remap_plan(p)
     p['durationSec'] = round(DUR_NEW, 3)
@@ -218,7 +218,7 @@ plan('glass', 'glass', SONG1, [
     scene('rules', 21.65, 24.86, 'O', [examples(21.65, 24.86, 'glass', RULES, y=800, h=680)]),
     full('ask', 24.86, 28.65, close=1.4),
     scene('left', 28.65, 32.64, 'E', avatar='hidden'),
-    scene('end', 32.64, DUR, 'F'),
+    full('end', 32.64, DUR, close=1.4),
 ], [
     {'type': 'depth-scatter', 'at': 0.1, 'until': 3.8, 'props': {'words': ['replies', 'names', 'reactions', 'holidays', 'mentions']}},
     {'type': 'grade', 'at': 0, 'until': DUR, 'props': {'look': 'cool', 'strength': 0.3}},
@@ -275,7 +275,6 @@ plan('cinematic', 'film', SONG1, [
     full('ask', 24.86, 28.65, close=1.4),
     full('left', 28.65, DUR, close=1.4),
 ], [
-    {'type': 'grade', 'at': 0, 'until': DUR, 'props': {'look': 'cool', 'strength': 0.3}},
     {'type': 'dust', 'at': 0, 'until': DUR, 'props': {'count': 18, 'strength': 0.3}},
     {'type': 'glow', 'at': 0, 'until': DUR, 'props': {'strength': 0.2}},
     {'type': 'zoom-through', 'at': 14.49, 'props': {'diveSec': 0.45}},

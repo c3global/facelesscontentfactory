@@ -288,17 +288,30 @@ export const PenCircle: React.FC<{fx: Of<'pen-circle'>}> = ({fx}) => {
       <svg width={1080} height={1920} style={{position: 'absolute', left: 0, top: 0}}>
         <path d={`M ${c.x - rx * 0.2} ${cy - ry} C ${c.x + rx * 1.1} ${cy - ry * 1.05} ${c.x + rx * 1.15} ${cy + ry * 0.9} ${c.x - rx * 0.1} ${cy + ry} C ${c.x - rx * 1.2} ${cy + ry * 0.95} ${c.x - rx * 1.15} ${cy - ry * 0.85} ${c.x + rx * 0.35} ${cy - ry * 1.03}`} fill="none" stroke={brand.crimson} strokeWidth={9} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - ring} />
         {note && (() => {
-          // the note goes on the side of her head with room for it, so it never runs off the frame
-          const tw84 = note.length * 84 * 0.46;
-          const right = noteSide === 'right' || (noteSide === 'auto' && c.x + rx + 80 + tw84 <= 1040);
+          // the note goes on the side of her head with more room, wraps onto lines that fit, and shrinks if a word is too long,
+          // so it never runs off the frame
+          const roomR = 1040 - (c.x + rx + 80);
+          const roomL = c.x - rx - 80 - 40;
+          const right = noteSide === 'right' || (noteSide === 'auto' && roomR >= roomL);
           const sgn = right ? 1 : -1;
+          const room = Math.max(160, right ? roomR : roomL);
+          const words = note.split(' ');
+          const fs84 = Math.min(84, room / (Math.max(...words.map((w) => w.length)) * 0.5));
+          const lines: string[] = [];
+          for (const w of words) {
+            const last = lines[lines.length - 1];
+            if (last && (last + ' ' + w).length * fs84 * 0.5 <= room) lines[lines.length - 1] = last + ' ' + w;
+            else lines.push(w);
+          }
           const ex = c.x + sgn * rx;
-          const tx = Math.max(40, Math.min(1040, c.x + sgn * (rx + 80)));
+          const tx = c.x + sgn * (rx + 80);
           return (
           <>
             <path d={`M ${ex + sgn * 70} ${cy - ry * 0.62} Q ${ex + sgn * 30} ${cy - ry * 0.5} ${ex - sgn * 4} ${cy - ry * 0.3}`} fill="none" stroke={brand.crimson} strokeWidth={7} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - arrow} />
             <path d={`M ${ex - sgn * 4} ${cy - ry * 0.3} l ${sgn * 4} -34 M ${ex - sgn * 4} ${cy - ry * 0.3} l ${sgn * 32} -6`} fill="none" stroke={brand.crimson} strokeWidth={7} strokeLinecap="round" opacity={arrow > 0.95 ? 1 : 0} />
-            <text x={tx} y={cy - ry * 0.7} textAnchor={right ? 'start' : 'end'} fontFamily={handFamily} fontWeight={700} fontSize={84} fill={brand.crimson} opacity={word} transform={`rotate(${-6 * sgn} ${tx} ${cy - ry * 0.7})`}>{note}</text>
+            <text x={tx} y={cy - ry * 0.7 - (lines.length - 1) * fs84 * 0.95} textAnchor={right ? 'start' : 'end'} fontFamily={handFamily} fontWeight={700} fontSize={fs84} fill={brand.crimson} opacity={word} transform={`rotate(${-6 * sgn} ${tx} ${cy - ry * 0.7})`}>
+              {lines.map((l, i) => <tspan key={i} x={tx} dy={i ? fs84 * 0.95 : 0}>{l}</tspan>)}
+            </text>
           </>
           );
         })()}

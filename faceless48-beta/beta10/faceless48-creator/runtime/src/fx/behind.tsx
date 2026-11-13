@@ -174,7 +174,7 @@ export const CouchWall: React.FC<{fx: Of<'couch-wall'>}> = ({fx}) => {
                 ...(frame >= 0 ? {} : metalFill({variant: 'bright', frame, seed: i})),
               }}
             >
-              <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 700, fontSize: 40, lineHeight: 1.1, color: brand.white}}>{tiles[i % tiles.length]}</div>
+              {MEDIA_RE.test(tiles[i % tiles.length]) ? <ItemMedia src={tiles[i % tiles.length]} radius={26} /> : <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 700, fontSize: 40, lineHeight: 1.1, color: brand.white}}>{tiles[i % tiles.length]}</div>}
             </div>
           );
         })}
@@ -248,9 +248,18 @@ export const SpotlightDim: React.FC<{fx: Of<'spotlight'>}> = ({fx}) => {
 };
 
 // ---------------------------------------------------------------- orbit
+/** A tile or card item can be a picture or clip under public/ (png, jpg, webp, mp4, mov) instead of words. */
+const MEDIA_RE = /\.(png|jpe?g|webp|mp4|mov|webm)$/i;
+const ItemMedia: React.FC<{src: string; radius: number}> = ({src, radius}) =>
+  /\.(mp4|mov|webm)$/i.test(src) ? (
+    <OffthreadVideo src={staticFile(src)} muted style={{position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: radius}} />
+  ) : (
+    <Img src={staticFile(src)} style={{position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: radius}} />
+  );
+
 const OrbitCard: React.FC<{label: string; i: number}> = ({label, i}) => (
-  <div style={{width: 230, height: 410, borderRadius: 30, boxSizing: 'border-box', border: `2px solid ${rgbaOf(customerBrand.metalLight, 0.85)}`, background: i % 2 ? `linear-gradient(165deg,${customerBrand.accent},${C3.accentDarker})` : 'linear-gradient(165deg,#2b2f31,#050606)', padding: 22, display: 'flex', alignItems: 'flex-end', boxShadow: '0 18px 40px rgba(0,0,0,0.55)'}}>
-    <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 700, fontSize: 38, lineHeight: 1.1, color: brand.white}}>{label}</div>
+  <div style={{position: 'relative', overflow: 'hidden', width: 230, height: 410, borderRadius: 30, boxSizing: 'border-box', border: `2px solid ${rgbaOf(customerBrand.metalLight, 0.85)}`, background: i % 2 ? `linear-gradient(165deg,${customerBrand.accent},${C3.accentDarker})` : 'linear-gradient(165deg,#2b2f31,#050606)', padding: 22, display: 'flex', alignItems: 'flex-end', boxShadow: '0 18px 40px rgba(0,0,0,0.55)'}}>
+    {MEDIA_RE.test(label) ? <ItemMedia src={label} radius={28} /> : <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 700, fontSize: 38, lineHeight: 1.1, color: brand.white}}>{label}</div>}
   </div>
 );
 export const OrbitItems: React.FC<{fx: Of<'orbit'>; half: 'back' | 'front'}> = ({fx, half}) => {

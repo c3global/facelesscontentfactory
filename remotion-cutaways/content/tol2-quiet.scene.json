@@ -482,8 +482,8 @@
  },
  "music": {
   "src": "music/leveled/empires.mp3",
-  "volume": 0.5,
-  "duckTo": 0.26,
+  "volume": 0.42,
+  "duckTo": 0.2,
   "fadeInSec": 1.5,
   "fadeOutSec": 2.5,
   "startFromSec": 0
