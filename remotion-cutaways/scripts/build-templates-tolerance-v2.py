@@ -93,6 +93,23 @@ def examplesT(s, e, skin, items):
     return examples(s, e, skin, items, y=895, h=590)
 
 
+SIG_B = [7.25, 9.1, 11.0, 12.92, 14.49]
+BOX = {'S': (250, 720), 'T': (895, 590), 'O': (720, 740)}
+
+
+def seq(sid, items, bounds, skin, layouts, mood='dark', bg=None):
+    """One scene per example; she swaps between top and bottom (or circle and bottom) as each new example lands."""
+    out = []
+    for i, it in enumerate(items):
+        lay = layouts[i % len(layouts)]
+        y, h = BOX[lay]
+        s0, e0 = bounds[i], bounds[i + 1]
+        sc = scene(f'{sid}{i}', s0, e0, lay, [examples(s0, e0, skin, [it], y=y, h=h)], mood=mood, bg=bg, focus={'y': 8, 'zoom': 1.1} if lay == 'S' else None)
+        sc['segments'][0]['cut'] = True
+        out.append(sc)
+    return out
+
+
 def full(sid, s, e, close=1.5, mood='dark', cap='bottom', bg=None, first_close=False):
     """Her full frame, split at every jump cut: wide and close on the face alternate, as hard cuts."""
     pts = [s] + [c for c in CUTS if s + 0.15 < c < e - 0.15] + [e]
@@ -156,7 +173,7 @@ spot_left = {'type': 'spotlight', 'at': 28.65, 'until': 32.64, 'props': {'dim': 
 plan('quiet', 'quiet', SONG1, [
     full('hook', 0, 3.82, close=1.35),
     scene('chat', 3.82, 7.25, 'T', [examplesT(3.82, 7.25, 'light', CHAT)]),
-    scene('signals', 7.25, 14.49, 'T', [examplesT(7.25, 14.49, 'light', SIG)]),
+    *seq('signals', SIG, SIG_B, 'light', 'TS'),
     full('little', 14.49, 18.39, close=1.35),
     statement(18.39, 21.65),
     scene('rules', 21.65, 24.86, 'O', [examples(21.65, 24.86, 'light', RULES, y=720, h=740)]),
@@ -169,7 +186,7 @@ plan('quiet', 'quiet', SONG1, [
 plan('magazine', 'magazine', SONG2, [
     full('hook', 0, 3.82),
     scene('chat', 3.82, 7.25, 'S', [examples(3.82, 7.25, 'editorial', CHAT, y=250, h=720)], mood='light'),
-    scene('signals', 7.25, 14.49, 'S', [examples(7.25, 14.49, 'editorial', SIG, y=250, h=720)], mood='light'),
+    *seq('signals', SIG, SIG_B, 'editorial', 'ST', mood='light'),
     full('little', 14.49, 16.0, first_close=True),
     scene('belongs', 16.0, 18.39, 'A', mood='light'),
     scene('today', 18.39, 21.65, 'E', mood='light', avatar='hidden'),
@@ -178,19 +195,19 @@ plan('magazine', 'magazine', SONG2, [
     scene('left', 28.65, 32.64, 'S', [examples(28.65, 32.64, 'editorial', LEFT, y=250, h=720)], mood='light'),
     full('end', 32.64, DUR),
 ], [
-    {'type': 'cover-story', 'at': 0.1, 'until': 3.8, 'props': {'masthead': 'BELONGING', 'headline': 'Who belongs here?', 'kicker': 'NOVEMBER 16', 'lines': []}},
+    {'type': 'press-front', 'at': 0.1, 'until': 3.8, 'props': {'masthead': 'The Common Room', 'headline': 'Who belongs here?', 'subhead': 'Replies, names, reactions: the unwritten signals', 'date': 'Sunday, November 16, 2026', 'caption': 'International Day for Tolerance', 'scale': 0.62}},
     {'type': 'giant-caption', 'at': 16.0, 'until': 18.39, 'props': {'version': 2, 'text': say(16.0, 18.39)[0], 'accent': 'belongs'}},
     {'type': 'kinetic-hook', 'at': 18.39, 'until': 21.65, 'props': {'version': 2, 'lines': [
         {'text': 'Today is the', 'face': 'sans', 'at': at('Today')}, {'text': 'International Day', 'face': 'italic', 'at': at('International')},
         {'text': 'for Tolerance,', 'face': 'serif', 'at': at('for', 20.0)}, {'text': 'so try this.', 'face': 'sans', 'at': at('so', 20.5)}]}},
-    {'type': 'wall-text', 'at': 21.65, 'until': 24.86, 'props': {'lines': [{'text': 'five unwritten', 'at': at('five')}, {'text': 'rules', 'at': at('rules')}], 'side': 'left'}},
+    {'type': 'headline-wall', 'at': 21.65, 'until': 24.86, 'props': {'lines': ['Five unwritten rules', 'Which would a newcomer not know?', 'Who belongs here?', 'The unwritten signals']}},
 ], finish={'grain': 0.25, 'lightLeaks': 0.0}, scrim=0.0)
 
 # 3. Glass Lab: words hanging in the room, glass windows, glass text, a hologram phone
 plan('glass', 'glass', SONG1, [
     full('hook', 0, 3.82, close=1.4),
     scene('window', 3.82, 7.25, 'F'),
-    scene('signals', 7.25, 14.49, 'T', [examplesT(7.25, 14.49, 'glass', SIG)]),
+    *seq('signals', SIG, SIG_B, 'glass', 'TS'),
     full('little', 14.49, 18.39, close=1.4),
     full('today', 18.39, 21.65, close=1.4, first_close=True),
     scene('rules', 21.65, 24.86, 'O', [examples(21.65, 24.86, 'glass', RULES, y=720, h=740)]),
@@ -200,16 +217,16 @@ plan('glass', 'glass', SONG1, [
 ], [
     {'type': 'depth-scatter', 'at': 0.1, 'until': 3.8, 'props': {'words': ['replies', 'names', 'reactions', 'holidays', 'mentions']}},
     {'type': 'grade', 'at': 0, 'until': DUR, 'props': {'look': 'cool', 'strength': 0.3}},
-    {'type': 'text-pop', 'at': at('who', 17.0) - 0.1, 'until': 18.39, 'props': {'text': 'who belongs here', 'look': 'glass', 'y': 1300, 'size': 104}},
-    {'type': 'spatial-glass', 'at': 18.45, 'until': 21.6, 'props': {'title': 'November 16', 'text': 'International Day for Tolerance', 'y': 1230}},
-    {'type': 'holo-phone', 'at': 24.9, 'until': 28.6, 'props': {'title': 'Newcomer', 'lines': ['Which would a', 'newcomer not know?']}},
+    {'type': 'text-pop', 'at': at('who', 17.0) - 0.1, 'until': at('International') - 0.1, 'props': {'text': 'who belongs here', 'look': 'glass', 'y': 1000, 'size': 84}},
+    {'type': 'spatial-glass', 'at': at('International') - 0.1, 'until': 21.6, 'props': {'title': 'November 16', 'text': 'International Day for Tolerance', 'y': 880}},
+    {'type': 'holo-phone', 'at': 24.9, 'until': 28.6, 'props': {'title': 'Newcomer', 'lines': ['Which would a', 'newcomer not know?'], 'y': 140}},
     {'type': 'glass-type', 'at': 28.65, 'until': 32.64, 'props': {'words': [{'text': 'Those are the places', 'at': at('Those')}, {'text': 'where people feel', 'at': at('where', 29.5)}, {'text': 'left out', 'at': at('left')}, {'text': 'without anyone meaning to', 'at': at('without')}, {'text': 'leave them out.', 'at': at('leave')}], 'y': 0.5}},
 ], scrim=0.5)
 
 # 4. Scrapbook: torn paper, taped polaroid examples, pen marks, paper cut-outs behind her
 plan('scrapbook', 'tape', SONG2, [
     full('hook', 0, 7.25),
-    scene('signals', 7.25, 14.49, 'O', [examples(7.25, 14.49, 'paper', SIG)], bg=VEL),
+    *seq('signals', SIG, SIG_B, 'paper', 'OS', bg=VEL),
     full('little', 14.49, 18.39),
     full('today', 18.39, 21.65, first_close=True),
     full('rules', 21.65, 24.86),
@@ -222,7 +239,7 @@ plan('scrapbook', 'tape', SONG2, [
     {'type': 'pen-circle', 'at': 16.6, 'until': 18.35, 'props': {'note': 'who belongs?', 'target': 'head'}},
     {'type': 'sketch-words', 'at': 19.7, 'until': 21.65, 'props': {'small': 'Today is the', 'big': 'Tolerance'}},
     {'type': 'paper-cut', 'at': 21.65, 'until': 24.86, 'props': {'tone': 'kraft', 'label': '5 unwritten rules'}},
-    {'type': 'framed-clip', 'at': 28.65, 'until': 32.64, 'props': {'side': 'center', 'width': 600, 'height': 760, 'tilt': -3, 'y': 860, 'notes': [{'text': 'left out', 'x': 170, 'y': 1340, 'to': [380, 1120], 'at': at('left')}]}},
+    {'type': 'framed-clip', 'at': 28.65, 'until': 32.64, 'props': {'side': 'center', 'width': 400, 'height': 470, 'tilt': -3, 'y': 760, 'notes': [{'text': 'left out', 'x': 430, 'y': 610, 'align': 'center', 'size': 88, 'to': [470, 790], 'from': 'bottom', 'at': at('left')}]}},
     {'type': 'grade', 'at': 0, 'until': DUR, 'props': {'look': 'warm', 'strength': 0.3}},
 ], finish={'grain': 0.45, 'lightLeaks': 0.2}, scrim=0.55)
 
@@ -230,7 +247,7 @@ plan('scrapbook', 'tape', SONG2, [
 plan('analyst', 'ticker', SONG1, [
     full('hook', 0, 3.82, close=1.45),
     scene('chat', 3.82, 7.25, 'T', [examplesT(3.82, 7.25, 'data', CHAT)]),
-    scene('signals', 7.25, 14.49, 'T', [examplesT(7.25, 14.49, 'data', SIG)]),
+    *seq('signals', SIG, SIG_B, 'data', 'TS'),
     full('little', 14.49, 18.39, close=1.45),
     scene('today', 18.39, 21.65, 'F'),
     scene('five', 21.65, 24.86, 'E', avatar='hidden', cap='top'),
@@ -246,7 +263,7 @@ plan('analyst', 'ticker', SONG1, [
 # 6. Cinematic: dolly zoom, rack focus, iris, silhouette, vertigo, spotlight; golden grade and dust; no bars
 plan('cinematic', 'film', SONG1, [
     full('hook', 0, 7.25, close=1.4),
-    scene('signals', 7.25, 14.49, 'T', [examplesT(7.25, 14.49, 'dark', SIG)], bg=VEL),
+    *seq('signals', SIG, SIG_B, 'dark', 'TS', bg=VEL),
     full('little', 14.49, 18.39, close=1.4),
     statement(18.39, 21.65, bg=VEL),
     full('rules', 21.65, 24.86, close=1.4),
@@ -267,7 +284,7 @@ plan('cinematic', 'film', SONG1, [
 plan('hype', 'punch', SONG2, [
     full('hook', 0, 7.25, close=1.7),
     full('orbit', 7.25, 10.89, close=1.7),
-    scene('signals', 10.89, 14.49, 'O', [examples(10.89, 14.49, 'light', SIG[2:])]),
+    *seq('signals', SIG[2:], [10.89, 12.92, 14.49], 'light', 'OS'),
     full('little', 14.49, 18.39, close=1.7, first_close=True),
     full('today', 18.39, 21.65, close=1.7),
     full('rules', 21.65, 24.86, close=1.7),

@@ -2,7 +2,7 @@
  "slug": "tol2-teach",
  "template": "teach",
  "video": "raw/tolerance.mp4",
- "durationSec": 35.654,
+ "durationSec": 35.669,
  "matte": "tolerance",
  "theme": {
   "field": "black",
@@ -330,7 +330,7 @@
    "segments": [
     {
      "start": 31.006,
-     "end": 35.654,
+     "end": 35.669,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],

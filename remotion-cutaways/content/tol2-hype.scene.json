@@ -2,7 +2,7 @@
  "slug": "tol2-hype",
  "template": "hype",
  "video": "raw/tolerance.mp4",
- "durationSec": 35.654,
+ "durationSec": 35.669,
  "matte": "tolerance",
  "theme": {
   "field": "black",
@@ -95,19 +95,19 @@
    ]
   },
   {
-   "id": "signals",
+   "id": "signals0",
    "mood": "dark",
    "segments": [
     {
      "start": 10.339,
-     "end": 13.768,
+     "end": 12.27,
      "layout": "O",
      "captionPos": "bottom",
      "graphics": [
       {
        "type": "examples",
        "at": 10.339,
-       "until": 13.768,
+       "until": 12.27,
        "props": {
         "skin": "light",
         "items": [
@@ -122,7 +122,40 @@
           ],
           "kind": "reaction",
           "at": 10.46
-         },
+         }
+        ],
+        "y": 720,
+        "height": 740,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals1",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 12.27,
+     "end": 13.768,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 12.27,
+       "until": 13.768,
+       "props": {
+        "skin": "light",
+        "items": [
          {
           "say": "and which holidays get mentioned.",
           "wordTimes": [
@@ -136,8 +169,8 @@
           "at": 12.27
          }
         ],
-        "y": 720,
-        "height": 760,
+        "y": 250,
+        "height": 720,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -146,7 +179,12 @@
         ]
        }
       }
-     ]
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
     }
    ]
   },
@@ -247,7 +285,7 @@
     },
     {
      "start": 31.011,
-     "end": 35.654,
+     "end": 35.669,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],

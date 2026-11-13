@@ -2,7 +2,7 @@
  "slug": "tol2-analyst",
  "template": "analyst",
  "video": "raw/tolerance.mp4",
- "durationSec": 35.654,
+ "durationSec": 35.669,
  "matte": "tolerance",
  "theme": {
   "field": "charcoal",
@@ -93,19 +93,19 @@
    ]
   },
   {
-   "id": "signals",
+   "id": "signals0",
    "mood": "dark",
    "segments": [
     {
      "start": 6.915,
-     "end": 13.768,
+     "end": 8.622,
      "layout": "T",
      "captionPos": "bottom",
      "graphics": [
       {
        "type": "examples",
        "at": 6.915,
-       "until": 13.768,
+       "until": 8.622,
        "props": {
         "skin": "data",
         "items": [
@@ -120,7 +120,40 @@
           ],
           "kind": "replies",
           "at": 6.97
-         },
+         }
+        ],
+        "y": 895,
+        "height": 590,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals1",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 8.622,
+     "end": 10.441,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 8.622,
+       "until": 10.441,
+       "props": {
+        "skin": "data",
+        "items": [
          {
           "say": "whose name gets spelled correctly,",
           "wordTimes": [
@@ -132,7 +165,44 @@
           ],
           "kind": "name",
           "at": 8.64
-         },
+         }
+        ],
+        "y": 250,
+        "height": 720,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals2",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 10.441,
+     "end": 12.27,
+     "layout": "T",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 10.441,
+       "until": 12.27,
+       "props": {
+        "skin": "data",
+        "items": [
          {
           "say": "which posts get a reaction,",
           "wordTimes": [
@@ -144,7 +214,40 @@
           ],
           "kind": "reaction",
           "at": 10.46
-         },
+         }
+        ],
+        "y": 895,
+        "height": 590,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals3",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 12.27,
+     "end": 13.768,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 12.27,
+       "until": 13.768,
+       "props": {
+        "skin": "data",
+        "items": [
          {
           "say": "and which holidays get mentioned.",
           "wordTimes": [
@@ -158,8 +261,8 @@
           "at": 12.27
          }
         ],
-        "y": 895,
-        "height": 590,
+        "y": 250,
+        "height": 720,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -168,7 +271,12 @@
         ]
        }
       }
-     ]
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
     }
    ]
   },
@@ -305,7 +413,7 @@
    "segments": [
     {
      "start": 31.006,
-     "end": 35.654,
+     "end": 35.669,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],

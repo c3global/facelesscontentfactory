@@ -218,8 +218,11 @@ export const noteBox = (text: string, size: number) => {
   return {maxW, bw: Math.min(maxW, widest), bh: lines * size * 1.05 + 6};
 };
 /** the ink itself: `w` writes the words in (0..1), `k` draws the arrow (0..1) */
-export const NoteInk: React.FC<{text: string; x: number; y: number; to?: readonly [number, number]; from?: 'auto' | 'left' | 'right' | 'top' | 'bottom'; bend?: number; size: number; w: number; k: number; ink?: string; /** wrap the words at the measured width (for a note placed against the right edge) */ snug?: boolean}> = ({text, x, y, to, from = 'auto', bend, size, w, k, ink = ROSE.mid, snug}) => {
+export const NoteInk: React.FC<{text: string; x: number; y: number; align?: 'left' | 'center' | 'right'; to?: readonly [number, number]; from?: 'auto' | 'left' | 'right' | 'top' | 'bottom'; bend?: number; size: number; w: number; k: number; ink?: string; /** wrap the words at the measured width (for a note placed against the right edge) */ snug?: boolean}> = ({text, x, y, align = 'left', to, from = 'auto', bend, size, w, k, ink = ROSE.mid, snug}) => {
   const {maxW, bw, bh} = noteBox(text, size);
+  // a note always stays inside the portrait frame and clear of the platform buttons
+  x = Math.max(40, Math.min(1040 - bw, x));
+  y = Math.max(240, Math.min(1480 - bh, y));
   const cx = x + bw / 2;
   const cy = y + bh / 2;
   const gap = 18;
@@ -236,7 +239,7 @@ export const NoteInk: React.FC<{text: string; x: number; y: number; to?: readonl
   const ang = Math.atan2(ty - my, tx - mx);
   return (
     <>
-      <div style={{position: 'absolute', left: x, top: y, width: snug ? bw + 14 : maxW, fontFamily: handFamily, fontWeight: 700, fontSize: size, lineHeight: 1.05, color: ink, ...(ink === ROSE.mid ? {backgroundImage: ROSE.grad, WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent'} : {}), transform: 'rotate(-4deg)', transformOrigin: '0 0', clipPath: `inset(-20px ${100 - w * 100}% -20px -20px)`, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.85)) drop-shadow(0 0 14px rgba(0,0,0,0.6))'}}>{text}</div>
+      <div style={{position: 'absolute', left: x, top: y, width: snug ? bw + 14 : maxW, textAlign: align, fontFamily: handFamily, fontWeight: 700, fontSize: size, lineHeight: 1.05, color: ink, ...(ink === ROSE.mid ? {backgroundImage: ROSE.grad, WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent'} : {}), transform: 'rotate(-4deg)', transformOrigin: '0 0', clipPath: `inset(-20px ${100 - w * 100}% -20px -20px)`, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.85)) drop-shadow(0 0 14px rgba(0,0,0,0.6))'}}>{text}</div>
       {to && (
         <svg width={1080} height={1920} style={{position: 'absolute', left: 0, top: 0, overflow: 'visible'}}>
           <path d={`M ${sx} ${sy} Q ${mx} ${my} ${tx} ${ty}`} fill="none" stroke={ink} strokeWidth={5} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - k} style={{filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.5))'}} />
@@ -248,10 +251,10 @@ export const NoteInk: React.FC<{text: string; x: number; y: number; to?: readonl
 };
 export const NoteArrow: React.FC<{fx: Of<'note-arrow'>}> = ({fx}) => {
   const {t, outK} = useSpan(fx);
-  const {text, x, y, to, from, bend, size} = fx.props;
+  const {text, x, y, to, from, bend, size, align} = fx.props;
   return (
     <div style={{...FILL, opacity: outK}}>
-      <NoteInk text={text} x={x} y={y} to={to} from={from} bend={bend} size={size} w={tw(t, 0.1, 0.8)} k={tw(t, 0.7, 1.2)} />
+      <NoteInk text={text} x={x} y={y} align={align} to={to} from={from} bend={bend} size={size} w={tw(t, 0.1, 0.8)} k={tw(t, 0.7, 1.2)} />
     </div>
   );
 };

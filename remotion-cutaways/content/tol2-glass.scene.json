@@ -2,7 +2,7 @@
  "slug": "tol2-glass",
  "template": "glass",
  "video": "raw/tolerance.mp4",
- "durationSec": 35.654,
+ "durationSec": 35.669,
  "matte": "tolerance",
  "theme": {
   "field": "black",
@@ -55,19 +55,19 @@
    ]
   },
   {
-   "id": "signals",
+   "id": "signals0",
    "mood": "dark",
    "segments": [
     {
      "start": 6.915,
-     "end": 13.768,
+     "end": 8.622,
      "layout": "T",
      "captionPos": "bottom",
      "graphics": [
       {
        "type": "examples",
        "at": 6.915,
-       "until": 13.768,
+       "until": 8.622,
        "props": {
         "skin": "glass",
         "items": [
@@ -82,7 +82,40 @@
           ],
           "kind": "replies",
           "at": 6.97
-         },
+         }
+        ],
+        "y": 895,
+        "height": 590,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals1",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 8.622,
+     "end": 10.441,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 8.622,
+       "until": 10.441,
+       "props": {
+        "skin": "glass",
+        "items": [
          {
           "say": "whose name gets spelled correctly,",
           "wordTimes": [
@@ -94,7 +127,44 @@
           ],
           "kind": "name",
           "at": 8.64
-         },
+         }
+        ],
+        "y": 250,
+        "height": 720,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals2",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 10.441,
+     "end": 12.27,
+     "layout": "T",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 10.441,
+       "until": 12.27,
+       "props": {
+        "skin": "glass",
+        "items": [
          {
           "say": "which posts get a reaction,",
           "wordTimes": [
@@ -106,7 +176,40 @@
           ],
           "kind": "reaction",
           "at": 10.46
-         },
+         }
+        ],
+        "y": 895,
+        "height": 590,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals3",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 12.27,
+     "end": 13.768,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 12.27,
+       "until": 13.768,
+       "props": {
+        "skin": "glass",
+        "items": [
          {
           "say": "and which holidays get mentioned.",
           "wordTimes": [
@@ -120,8 +223,8 @@
           "at": 12.27
          }
         ],
-        "y": 895,
-        "height": 590,
+        "y": 250,
+        "height": 720,
         "emphasis": [
          "unwritten",
          "newcomer",
@@ -130,7 +233,12 @@
         ]
        }
       }
-     ]
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
     }
    ]
   },
@@ -266,7 +374,7 @@
    "segments": [
     {
      "start": 31.006,
-     "end": 35.654,
+     "end": 35.669,
      "layout": "F",
      "captionPos": "bottom",
      "graphics": []
@@ -292,7 +400,7 @@
   {
    "type": "grade",
    "at": 0,
-   "until": 35.654,
+   "until": 35.669,
    "props": {
     "look": "cool",
     "strength": 0.3
@@ -301,22 +409,22 @@
   {
    "type": "text-pop",
    "at": 16.433,
-   "until": 17.508,
+   "until": 18.056,
    "props": {
     "text": "who belongs here",
     "look": "glass",
-    "y": 1300,
-    "size": 104
+    "y": 1000,
+    "size": 84
    }
   },
   {
    "type": "spatial-glass",
-   "at": 17.569,
+   "at": 18.056,
    "until": 20.544,
    "props": {
     "title": "November 16",
     "text": "International Day for Tolerance",
-    "y": 1230
+    "y": 880
    }
   },
   {
@@ -328,7 +436,8 @@
     "lines": [
      "Which would a",
      "newcomer not know?"
-    ]
+    ],
+    "y": 140
    }
   },
   {
