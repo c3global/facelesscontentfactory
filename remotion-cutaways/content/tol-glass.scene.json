@@ -1,0 +1,341 @@
+{
+ "slug": "tol-glass",
+ "template": "glass",
+ "video": "raw/tolerance.mp4",
+ "durationSec": 37.33,
+ "matte": "tolerance",
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "captionStyle": "glass",
+ "emphasis": [
+  "belongs",
+  "unwritten",
+  "Tolerance",
+  "newcomer",
+  "left"
+ ],
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.0,
+  "lightLeaks": 0.0
+ },
+ "scrim": 0.5,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 3.82,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 3.82,
+     "end": 5.62,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.09
+     },
+     "cut": true
+    },
+    {
+     "start": 5.62,
+     "end": 7.25,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 7.25,
+     "end": 9.03,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 9.03,
+     "end": 10.89,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.04
+     },
+     "cut": true
+    },
+    {
+     "start": 10.89,
+     "end": 12.68,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    },
+    {
+     "start": 12.68,
+     "end": 14.49,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.04
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "little",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 14.49,
+     "end": 16.0,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 16.0,
+     "end": 18.39,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.09
+     },
+     "cut": true
+    },
+    {
+     "start": 18.39,
+     "end": 21.65,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "try",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 21.65,
+     "end": 24.86,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 24.86,
+     "end": 28.65,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.09
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "left",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 28.65,
+     "end": 32.64,
+     "layout": "E",
+     "captionPos": "bottom",
+     "graphics": [],
+     "avatar": "hidden",
+     "captions": "off"
+    }
+   ]
+  },
+  {
+   "id": "end",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 32.64,
+     "end": 37.33,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "layer-explode",
+   "at": 0.2,
+   "until": 3.7,
+   "props": {
+    "title": "who belongs\nhere?",
+    "labels": [
+     "Replies",
+     "Names",
+     "Reactions",
+     "Holidays"
+    ]
+   }
+  },
+  {
+   "type": "glass-cards",
+   "at": 7.3,
+   "until": 14.45,
+   "props": {
+    "cards": [
+     {
+      "label": "Who gets",
+      "value": "Replies",
+      "at": 8.44,
+      "side": "left"
+     },
+     {
+      "label": "Whose",
+      "value": "Name",
+      "at": 9.38,
+      "side": "right"
+     },
+     {
+      "label": "Which posts get",
+      "value": "Reactions",
+      "at": 12.2,
+      "side": "left"
+     },
+     {
+      "label": "Which",
+      "value": "Holidays",
+      "at": 13.36,
+      "side": "right"
+     }
+    ]
+   }
+  },
+  {
+   "type": "grade",
+   "at": 0,
+   "until": 37.33,
+   "props": {
+    "look": "cool",
+    "strength": 0.35
+   }
+  },
+  {
+   "type": "spatial-glass",
+   "at": 21.7,
+   "until": 24.85,
+   "props": {
+    "title": "Try this",
+    "text": "Write down 5 unwritten rules",
+    "y": 1560
+   }
+  },
+  {
+   "type": "holo-phone",
+   "at": 24.9,
+   "until": 28.6,
+   "props": {
+    "title": "Newcomer",
+    "lines": [
+     "Which rules",
+     "would I not know?"
+    ]
+   }
+  },
+  {
+   "type": "glass-type",
+   "at": 28.65,
+   "until": 32.64,
+   "props": {
+    "words": [
+     {
+      "text": "Those are the places",
+      "at": 28.85
+     },
+     {
+      "text": "where people feel",
+      "at": 29.75
+     },
+     {
+      "text": "left out",
+      "at": 30.56
+     },
+     {
+      "text": "without anyone meaning to",
+      "at": 31.04
+     },
+     {
+      "text": "leave them out.",
+      "at": 32.04
+     }
+    ],
+    "y": 0.5
+   }
+  }
+ ],
+ "fxSound": "minimal",
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 34.95,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ }
+}

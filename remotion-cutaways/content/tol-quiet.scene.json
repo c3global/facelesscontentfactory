@@ -1,0 +1,319 @@
+{
+ "slug": "tol-quiet",
+ "template": "quiet",
+ "video": "raw/tolerance.mp4",
+ "durationSec": 37.33,
+ "matte": "tolerance",
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "captionStyle": "quiet",
+ "emphasis": [
+  "belongs",
+  "unwritten",
+  "Tolerance",
+  "newcomer",
+  "left"
+ ],
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.0,
+  "lightLeaks": 0.0
+ },
+ "scrim": 0.55,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 3.82,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 3.82,
+     "end": 5.62,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.06
+     },
+     "cut": true
+    },
+    {
+     "start": 5.62,
+     "end": 7.25,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "watch",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 7.25,
+     "end": 9.03,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 9.03,
+     "end": 10.89,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.06
+     },
+     "cut": true
+    },
+    {
+     "start": 10.89,
+     "end": 12.68,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    },
+    {
+     "start": 12.68,
+     "end": 14.49,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.06
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "little",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 14.49,
+     "end": 16.0,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 16.0,
+     "end": 18.39,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.06
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "st18",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 18.39,
+     "end": 21.65,
+     "layout": "E",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "statement-card",
+       "at": 18.39,
+       "until": 21.65,
+       "box": {
+        "y": 360,
+        "h": 1200,
+        "center": true
+       },
+       "props": {
+        "text": "Today is the International Day for Tolerance, so try this.",
+        "emphasis": [
+         "Tolerance"
+        ],
+        "wordTimes": [
+         18.49,
+         18.78,
+         18.9,
+         19.08,
+         19.85,
+         20.07,
+         20.21,
+         20.9,
+         21.04,
+         21.26
+        ]
+       }
+      }
+     ],
+     "avatar": "hidden",
+     "captions": "off"
+    }
+   ]
+  },
+  {
+   "id": "try",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 21.65,
+     "end": 24.86,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 24.86,
+     "end": 28.65,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.06
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "st28",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 28.65,
+     "end": 32.64,
+     "layout": "E",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "statement-card",
+       "at": 28.65,
+       "until": 32.64,
+       "box": {
+        "y": 360,
+        "h": 1200,
+        "center": true
+       },
+       "props": {
+        "text": "Those are the places where people feel left out without anyone meaning to leave them out.",
+        "emphasis": [
+         "left",
+         "out"
+        ],
+        "wordTimes": [
+         28.85,
+         29.08,
+         29.24,
+         29.4,
+         29.75,
+         30.01,
+         30.34,
+         30.56,
+         30.78,
+         31.04,
+         31.37,
+         31.61,
+         31.94,
+         32.04,
+         32.26,
+         32.45
+        ]
+       }
+      }
+     ],
+     "avatar": "hidden",
+     "captions": "off"
+    }
+   ]
+  },
+  {
+   "id": "end",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 32.64,
+     "end": 37.33,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "digital-zoom",
+   "at": 0,
+   "until": 3.8,
+   "props": {
+    "creepTo": 1.05,
+    "snapTo": 1.05
+   }
+  },
+  {
+   "type": "digital-zoom",
+   "at": 14.5,
+   "until": 18.3,
+   "props": {
+    "creepTo": 1.05,
+    "snapTo": 1.05
+   }
+  }
+ ],
+ "fxSound": "minimal",
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 34.95,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ }
+}

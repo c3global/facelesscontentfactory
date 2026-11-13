@@ -189,6 +189,8 @@ export const segmentSchema = z.object({
   focus: z.object({y: z.number(), zoom: z.number()}).optional(),
   /** layouts C and E: show her as a small window, or hide her (audio keeps playing) */
   avatar: z.enum(['circle', 'hidden']).optional(),
+  /** a hard cut into this segment (no eased move): a punch-in on a jump cut */
+  cut: z.boolean().optional(),
   graphics: z.array(graphicSchema).default([]),
 });
 
@@ -238,7 +240,9 @@ export const planSchema = z.object({
    * pill: small glass-pill subtitles. editorial / heavy: kinetic lockups (one hero word set huge, small
    * support words around it, optional highlight box). Editorial sets the hero in Playfair Black, heavy in Anton.
    */
-  captionStyle: z.enum(['pill', 'editorial', 'heavy']).default('editorial'),
+  captionStyle: z.enum(['pill', 'editorial', 'heavy', 'quiet', 'magazine', 'glass', 'tape', 'ticker', 'film', 'punch', 'karaoke']).default('editorial'),
+  /** the talking-head template this plan was built from (see docs/TEMPLATES.md); informational */
+  template: z.string().optional(),
   /** words that should become the hero of a lockup (emphasis words always can) */
   hero: z.array(z.string()).default([]),
   /** words that get a highlight box behind them */

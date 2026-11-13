@@ -57,7 +57,7 @@ export const avatarStateBlend = (flat: FlatSegment[], frame: number): AvatarStat
   const cur = avatarStateAt(flat[c], frame);
   if (c === 0) return cur;
   const prev = avatarStateAt(flat[c - 1], flat[c - 1].endF);
-  const p = transitionProgress(frame, flat[c].startF);
+  const p = flat[c].seg.cut ? 1 : transitionProgress(frame, flat[c].startF);
   return {
     x: lerp(prev.x, cur.x, p),
     y: lerp(prev.y, cur.y, p),
@@ -78,7 +78,7 @@ export const layoutBlend = (flat: FlatSegment[], frame: number): LayoutBlend => 
     layout: flat[c].seg.layout,
     cur: flat[c],
     prev: c > 0 ? flat[c - 1] : undefined,
-    p: transitionProgress(frame, flat[c].startF),
+    p: flat[c].seg.cut ? 1 : transitionProgress(frame, flat[c].startF),
     index: c,
   };
 };

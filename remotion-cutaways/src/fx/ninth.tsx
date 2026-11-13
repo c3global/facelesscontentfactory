@@ -72,7 +72,7 @@ export const PressFront: React.FC<{fx: Of<'press-front'>}> = ({fx}) => {
   const inK = tw(t, 0, 0.35, 0, 1, pop);
   return (
     <div style={{...FILL, background: '#141414', opacity: outK, overflow: 'hidden'}}>
-      <div style={{...FILL, background: '#F1EADB', transform: `scale(${0.7 + 0.3 * inK}) rotate(${(1 - inK) * 8}deg)`, opacity: inK, padding: '50px 54px', boxSizing: 'border-box', color: INK}}>
+      <div style={{...FILL, background: '#F1EADB', transformOrigin: '50% 230px', transform: `scale(${(0.7 + 0.3 * inK) * fx.props.scale}) rotate(${(1 - inK) * 8}deg)`, opacity: inK, padding: '50px 54px', boxSizing: 'border-box', color: INK}}>
         <div style={{display: 'flex', alignItems: 'center', gap: 24, borderBottom: `3px solid ${INK}`, paddingBottom: 14}}>
           <div style={{width: 150, border: `2px solid ${INK}`, padding: 8, fontFamily: serifFamily, fontSize: 18, textAlign: 'center'}}>Final Edition</div>
           <div style={{flex: 1, textAlign: 'center', fontFamily: '"UnifrakturMaguntia", "Old English Text MT", ' + serifFamily, fontSize: 96, lineHeight: 1}}>{masthead}</div>

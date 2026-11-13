@@ -4,6 +4,7 @@ import {Backdrop, BackdropKind, PhotoBackdrop} from './backdrops';
 import {FieldOption, brand} from './brand';
 import {CaptionLayer, buildPages} from './Captions';
 import {KineticLayer} from './Kinetic';
+import {TemplateCaptionLayer, isTemplateCaption} from './TemplateCaptions';
 import {loadBrandFonts} from './fonts';
 import {GlassSurface, RefractDefs} from './glass';
 import {ChapterCard} from './graphics/ChapterCard';
@@ -321,6 +322,8 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
       <ThemeProvider mood={curMood} field={field} sans={sans}>
         {plan.captionStyle === 'pill' ? (
           <CaptionLayer pages={pages} emphasis={plan.emphasis} flat={flat as FlatSegment[]} />
+        ) : isTemplateCaption(plan.captionStyle) ? (
+          <TemplateCaptionLayer captions={kineticCaptions} plan={plan} mood={curMood} />
         ) : (
           <KineticLayer captions={kineticCaptions} plan={plan} mood={curMood} />
         )}

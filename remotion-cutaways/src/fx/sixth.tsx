@@ -91,6 +91,7 @@ export const CoverFrame: React.FC<{fx: Of<'cover-frame'>}> = ({fx}) => {
   return (
     <div style={{...FILL, opacity: outK, perspective: PERSPECTIVE}}>
       <div style={{...FILL, background: PANEL, opacity: tw(t, 0, 0.2)}} />
+      <div style={{...FILL, transform: `scale(${fx.props.scale})`, transformOrigin: '50% 330px'}}>
       <div style={{position: 'absolute', left: 90, top: 330, width: 900, height: 1240, background: '#fff', border: C3.hair, boxSizing: 'border-box', borderRadius: 6, opacity: k, transform: `translateY(${(1 - k) * 80}px) scale(${0.94 + 0.06 * k})${tiltXform(tilt, t)}`, boxShadow: '0 40px 90px rgba(0,0,0,0.6)', overflow: 'hidden'}}>
         <div style={{display: 'flex', justifyContent: 'space-between', padding: '26px 40px 0', ...cap({fontSize: 18, color: C3.cardMuted})}}><span>{issue ? issue.split('|')[0] : ''}</span><span>{issue ? issue.split('|')[1] ?? '' : ''}</span></div>
         <div style={{padding: '0 36px', fontFamily: serifFamily, fontWeight: 900, fontSize: Math.min(250, Math.floor(800 / (Math.max(3, masthead.length) * 0.66))), lineHeight: 1.0, letterSpacing: -4, color: brand.charcoal, textTransform: 'uppercase', whiteSpace: 'nowrap', textAlign: 'center', backgroundImage: C3.copperGrad, WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 2px 0 rgba(0,0,0,0.25))'}}>{masthead}</div>
@@ -99,6 +100,7 @@ export const CoverFrame: React.FC<{fx: Of<'cover-frame'>}> = ({fx}) => {
           <div style={{position: 'absolute', right: 14, bottom: 14}}><Barcode /></div>
         </div>
         <div style={{padding: '34px 44px', textAlign: 'center', fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 600, fontSize: 70, lineHeight: 1.1, color: C3.cardText, opacity: hk, transform: `translateY(${(1 - hk) * 20}px)`}}>{headline}</div>
+      </div>
       </div>
     </div>
   );

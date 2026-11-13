@@ -1,0 +1,271 @@
+{
+ "slug": "tol-magazine",
+ "template": "magazine",
+ "video": "raw/tolerance.mp4",
+ "durationSec": 37.33,
+ "matte": "tolerance",
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "captionStyle": "magazine",
+ "emphasis": [
+  "belongs",
+  "unwritten",
+  "Tolerance",
+  "newcomer",
+  "left"
+ ],
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.25,
+  "lightLeaks": 0.0
+ },
+ "scrim": 0.0,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 0,
+     "end": 3.82,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 3.82,
+     "end": 5.62,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.09
+     },
+     "cut": true
+    },
+    {
+     "start": 5.62,
+     "end": 7.25,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 7.25,
+     "end": 14.49,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  },
+  {
+   "id": "little",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 14.49,
+     "end": 16.0,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "belongs",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 16.0,
+     "end": 18.39,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  },
+  {
+   "id": "today",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 18.39,
+     "end": 21.65,
+     "layout": "E",
+     "captionPos": "bottom",
+     "graphics": [],
+     "avatar": "hidden",
+     "captions": "off"
+    }
+   ]
+  },
+  {
+   "id": "try",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 21.65,
+     "end": 28.65,
+     "layout": "S",
+     "captionPos": "top",
+     "graphics": [
+      {
+       "type": "headline-card",
+       "at": 21.65,
+       "until": 24.86,
+       "props": {
+        "label": "TRY THIS",
+        "line": "Write down 5 unwritten rules.",
+        "emphasis": [
+         "unwritten"
+        ]
+       }
+      },
+      {
+       "type": "headline-card",
+       "at": 24.86,
+       "until": 28.65,
+       "props": {
+        "label": "THEN ASK",
+        "line": "Which would a newcomer not know?",
+        "emphasis": [
+         "newcomer"
+        ]
+       }
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     }
+    }
+   ]
+  },
+  {
+   "id": "left",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 28.65,
+     "end": 32.64,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 32.64,
+     "end": 37.33,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.09
+     },
+     "cut": true
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "cover-frame",
+   "at": 0.1,
+   "until": 3.8,
+   "props": {
+    "masthead": "BELONGING",
+    "headline": "Who belongs here?",
+    "issue": "No. 16|Nov 2026",
+    "tilt": "in",
+    "scale": 0.78
+   }
+  },
+  {
+   "type": "press-front",
+   "at": 7.25,
+   "until": 12.6,
+   "props": {
+    "masthead": "The Community Times",
+    "headline": "Replies, names, reactions: the unwritten signals",
+    "date": "November 16",
+    "scale": 0.62
+   }
+  },
+  {
+   "type": "giant-caption",
+   "at": 16.0,
+   "until": 18.39,
+   "props": {
+    "version": 2,
+    "text": "but a lot of it tells people who belongs here",
+    "accent": "belongs"
+   }
+  },
+  {
+   "type": "kinetic-hook",
+   "at": 18.39,
+   "until": 21.65,
+   "props": {
+    "version": 2,
+    "lines": [
+     {
+      "text": "Today is the",
+      "face": "sans",
+      "at": 18.49
+     },
+     {
+      "text": "International Day",
+      "face": "italic",
+      "at": 19.08
+     },
+     {
+      "text": "for Tolerance,",
+      "face": "serif",
+      "at": 20.07
+     },
+     {
+      "text": "so try this.",
+      "face": "sans",
+      "at": 20.9
+     }
+    ]
+   }
+  }
+ ],
+ "fxSound": "minimal",
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 34.95,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ }
+}
