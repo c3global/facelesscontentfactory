@@ -1,8 +1,9 @@
 import React from 'react';
-import {Img, OffthreadVideo, staticFile} from 'remotion';
+import {Freeze, Img, OffthreadVideo, staticFile} from 'remotion';
 import {handFamily, heavyFamily, serifFamily} from '../fonts';
 import {Label, Panel, Scrim, Title} from './eleventh';
 import {useSpan} from './fourth';
+import {PressFront} from './ninth';
 import type {Fx} from './schema';
 import {BrandAvatar, C3, CheckMark, ROSE, ROSE_TEXT} from './theme';
 import {fxRange, pop, tw, useFxEnv, useFxTime} from './util';
@@ -332,8 +333,69 @@ export const WallText: React.FC<{fx: Of<'wall-text'>}> = ({fx}) => {
 
 export const fifteenthPlate = (fx: Fx): React.ReactNode => (fx.type === 'wall-text' ? <WallText fx={fx} /> : null);
 /** checked before the older batches, so a `version: 2` effect draws its new look and everything else falls through */
+// ---------------------------------------------------------------- page turn: the bottom-right corner of the page lifts and curls back, turning the page over to reveal the next shot
+type V2 = [number, number];
+const clipHalf = (poly: V2[], d: V2, c: V2, s: number, keepFar: boolean): V2[] => {
+  const f = (p: V2) => ((p[0] - c[0]) * d[0] + (p[1] - c[1]) * d[1] - s) * (keepFar ? 1 : -1);
+  const out: V2[] = [];
+  for (let i = 0; i < poly.length; i++) {
+    const p = poly[i], q = poly[(i + 1) % poly.length];
+    const fp = f(p), fq = f(q);
+    if (fp >= 0) out.push(p);
+    if ((fp >= 0) !== (fq >= 0)) { const k = fp / (fp - fq); out.push([p[0] + (q[0] - p[0]) * k, p[1] + (q[1] - p[1]) * k]); }
+  }
+  return out;
+};
+export const PageTurn: React.FC<{fx: Of<'page-turn'>}> = ({fx}) => {
+  const {t, len, a, fps} = useSpan(fx);
+  const {front, frontT, tone} = fx.props;
+  const env = useFxEnv();
+  const W = 1080, H = 1920;
+  const C: V2 = [W, H];
+  // the fold travels from the corner toward the top left, a touch steeper than the diagonal so it reads as a hand lifting the corner
+  const dl = Math.hypot(0.62, 1);
+  const d: V2 = [-0.62 / dl, -1 / dl];
+  const max = (0 - C[0]) * d[0] + (0 - C[1]) * d[1];
+  // a small lift first (the corner peels), then the turn speeds up and clears the page
+  const lift = tw(t, 0, len * 0.3, 0, 0.12, (x) => 1 - Math.pow(1 - x, 2));
+  const turn = tw(t, len * 0.3, len, 0, 0.88, (x) => x * x * (3 - 2 * x));
+  const s = (lift + turn) * max * 1.02;
+  if (s >= max * 1.01) return null;
+  const rect: V2[] = [[0, 0], [W, 0], [W, H], [0, H]];
+  const keep = clipHalf(rect, d, C, s, true);
+  const flapSrc = clipHalf(rect, d, C, s, false);
+  const flap = flapSrc.map(([x, y]): V2 => { const k = 2 * (s - ((x - C[0]) * d[0] + (y - C[1]) * d[1])); return [x + k * d[0], y + k * d[1]]; });
+  const fold: V2 = [C[0] + s * d[0], C[1] + s * d[1]];
+  const tip: V2 = [C[0] + 2 * s * d[0], C[1] + 2 * s * d[1]];
+  const poly = (p: V2[]) => `polygon(${p.map(([x, y]) => `${x.toFixed(1)}px ${y.toFixed(1)}px`).join(', ')})`;
+  const back = tone === 'dark' ? ['#2a2a30', '#4a4a52'] : ['#d9d2c4', '#fbf8f1'];
+  const fadeOut = 1 - tw(s / max, 0.85, 1.0);
+  const page = front ? (
+    <Freeze frame={Math.max(0, Math.round((frontT ?? 0) * fps))}>
+      <PressFront fx={{type: 'press-front', at: 0, until: (frontT ?? 0) + 1, props: {scale: 1, masthead: '', headline: '', subhead: '', date: '', caption: '', ...front}} as Of<'press-front'>} />
+    </Freeze>
+  ) : (
+    <Freeze frame={0}><OffthreadVideo src={staticFile(env.video)} muted startFrom={Math.max(0, Math.round(a * fps) - 1)} style={{position: 'absolute', left: 0, top: 0, width: W, height: H, objectFit: 'cover', ...env.videoStyle}} /></Freeze>
+  );
+  return (
+    <div style={{position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none'}}>
+      {keep.length > 2 && <div style={{position: 'absolute', inset: 0, clipPath: poly(keep), overflow: 'hidden'}}>{page}
+        {/* the page darkens a little along the fold where it bends */}
+        <svg width={W} height={H} style={{position: 'absolute', inset: 0}}><defs><linearGradient id={`ptk${a}`} gradientUnits="userSpaceOnUse" x1={fold[0]} y1={fold[1]} x2={fold[0] + d[0] * 160} y2={fold[1] + d[1] * 160}><stop offset="0" stopColor="#000" stopOpacity="0.3" /><stop offset="1" stopColor="#000" stopOpacity="0" /></linearGradient></defs><rect width={W} height={H} fill={`url(#ptk${a})`} /></svg>
+      </div>}
+      {flap.length > 2 && (
+        <svg width={W} height={H} style={{position: 'absolute', inset: 0, opacity: fadeOut, filter: 'drop-shadow(-14px -10px 22px rgba(0,0,0,0.45))'}}>
+          <defs><linearGradient id={`ptf${a}`} gradientUnits="userSpaceOnUse" x1={fold[0]} y1={fold[1]} x2={tip[0]} y2={tip[1]}><stop offset="0" stopColor={back[0]} /><stop offset="0.35" stopColor={back[1]} /><stop offset="1" stopColor={back[0]} /></linearGradient></defs>
+          <polygon points={flap.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')} fill={`url(#ptf${a})`} />
+        </svg>
+      )}
+    </div>
+  );
+};
+
 export const fifteenthOver = (fx: Fx): React.ReactNode => {
   switch (fx.type) {
+    case 'page-turn': return <PageTurn fx={fx} />;
     case 'side-by-side': return <SideBySide fx={fx} />;
     case 'vote-pill': return <VotePill fx={fx} />;
     case 'duotone': return <Duotone fx={fx} />;

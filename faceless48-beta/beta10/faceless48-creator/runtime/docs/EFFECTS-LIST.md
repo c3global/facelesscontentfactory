@@ -315,4 +315,6 @@ Code: `src/fx/fourteenth.tsx`.
 
 Code: `src/fx/fifteenth.tsx`.
 
-**Total: 161 talking-head effects and graphics + 33 Life Scene effects and styles = 194, plus 16 carousel layouts in 6 styles.**
+**Page turn** (`page-turn`, new): a magazine page swings in from the right, covers the frame while the scene changes underneath, then lifts away to the left. Place it 0.45 s before a scene change. Props: `title` (words across the top of the page), `tone` (`paper` or `dark`).
+
+**Total: 162 talking-head effects and graphics + 33 Life Scene effects and styles = 195, plus 16 carousel layouts in 6 styles.**

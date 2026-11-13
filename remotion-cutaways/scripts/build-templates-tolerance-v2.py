@@ -161,6 +161,12 @@ def plan(name, caption, song, scenes, fx, **kw):
     }
     p = remap_plan(p)
     p['durationSec'] = round(DUR_NEW, 3)
+    # a page turn marked front: True peels the press-front page itself, held as it looked at the turn
+    for x in p['fx']:
+        if x['type'] == 'page-turn' and x['props'].get('front') is True:
+            pf = next(y for y in p['fx'] if y['type'] == 'press-front')
+            x['props']['front'] = dict(pf['props'])
+            x['props']['frontT'] = round(x['at'] - pf['at'], 3)
     json.dump(p, open(f'content/tol2-{name}.scene.json', 'w'), indent=1)
     shutil.copy('content/tolerance.captions.json', f'content/tol2-{name}.captions.json')
     shutil.copy('content/tolerance.words.tsv', f'content/tol2-{name}.words.tsv')
@@ -200,7 +206,14 @@ plan('magazine', 'magazine', SONG2, [
     scene('left', 28.65, 32.64, 'S', [examples(28.65, 32.64, 'editorial', LEFT, y=250, h=720)], mood='light'),
     full('end', 32.64, DUR),
 ], [
-    {'type': 'press-front', 'at': 0.1, 'until': 3.8, 'props': {'masthead': 'The Common Room', 'headline': 'Who belongs here?', 'subhead': 'Replies, names, reactions: the unwritten signals', 'date': 'Sunday, November 16, 2026', 'caption': 'International Day for Tolerance', 'scale': 0.62}},
+    {'type': 'press-front', 'at': 0.0, 'until': 3.5, 'props': {'masthead': 'The Common Room', 'headline': 'Who belongs here?', 'subhead': 'Who belongs here? Replies, names, reactions: the unwritten signals', 'date': 'Sunday, November 16, 2026', 'caption': 'International Day for Tolerance', 'scale': 1.0, 'fadeOut': False, 'liveWords': [{'text': w, 'at': round(a, 2)} for w, a, b in W if a < 3.6]}},
+    # corner peels: the bottom-right corner lifts and the page turns over to the next shot
+    {'type': 'page-turn', 'at': 3.5, 'until': 4.5, 'props': {'front': True}},
+    {'type': 'page-turn', 'at': 16.0, 'until': 16.9, 'props': {}},
+    {'type': 'page-turn', 'at': 18.39, 'until': 19.29, 'props': {}},
+    {'type': 'page-turn', 'at': 24.86, 'until': 25.76, 'props': {}},
+    {'type': 'paper-tear', 'at': 28.65, 'until': 29.6, 'props': {}},
+    {'type': 'paper-tear', 'at': 32.64, 'until': 33.6, 'props': {}},
     {'type': 'giant-caption', 'at': 16.0, 'until': 18.39, 'props': {'version': 2, 'text': say(16.0, 18.39)[0], 'accent': 'belongs'}},
     {'type': 'kinetic-hook', 'at': 18.39, 'until': 21.65, 'props': {'version': 2, 'lines': [
         {'text': 'Today is the', 'face': 'sans', 'at': at('Today')}, {'text': 'International Day', 'face': 'italic', 'at': at('International')},

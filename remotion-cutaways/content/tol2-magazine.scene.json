@@ -473,16 +473,188 @@
  "fx": [
   {
    "type": "press-front",
-   "at": 0.062,
-   "until": 3.703,
+   "at": 0.0,
+   "until": 3.428,
    "props": {
     "masthead": "The Common Room",
     "headline": "Who belongs here?",
-    "subhead": "Replies, names, reactions: the unwritten signals",
+    "subhead": "Who belongs here? Replies, names, reactions: the unwritten signals",
     "date": "Sunday, November 16, 2026",
     "caption": "International Day for Tolerance",
-    "scale": 0.62
+    "scale": 1.0,
+    "fadeOut": false,
+    "liveWords": [
+     {
+      "text": "I",
+      "at": 0.04
+     },
+     {
+      "text": "want",
+      "at": 0.04
+     },
+     {
+      "text": "to",
+      "at": 0.199
+     },
+     {
+      "text": "talk",
+      "at": 0.36
+     },
+     {
+      "text": "about",
+      "at": 0.58
+     },
+     {
+      "text": "how",
+      "at": 0.86
+     },
+     {
+      "text": "people",
+      "at": 1.05
+     },
+     {
+      "text": "decide",
+      "at": 1.38
+     },
+     {
+      "text": "whether",
+      "at": 1.76
+     },
+     {
+      "text": "they",
+      "at": 2.19
+     },
+     {
+      "text": "belong",
+      "at": 2.43
+     },
+     {
+      "text": "in",
+      "at": 2.8
+     },
+     {
+      "text": "an",
+      "at": 2.92
+     },
+     {
+      "text": "online",
+      "at": 3.04
+     },
+     {
+      "text": "space,",
+      "at": 3.41
+     }
+    ]
    }
+  },
+  {
+   "type": "page-turn",
+   "at": 3.428,
+   "until": 4.362,
+   "props": {
+    "front": {
+     "masthead": "The Common Room",
+     "headline": "Who belongs here?",
+     "subhead": "Who belongs here? Replies, names, reactions: the unwritten signals",
+     "date": "Sunday, November 16, 2026",
+     "caption": "International Day for Tolerance",
+     "scale": 1.0,
+     "fadeOut": false,
+     "liveWords": [
+      {
+       "text": "I",
+       "at": 0.04
+      },
+      {
+       "text": "want",
+       "at": 0.04
+      },
+      {
+       "text": "to",
+       "at": 0.199
+      },
+      {
+       "text": "talk",
+       "at": 0.36
+      },
+      {
+       "text": "about",
+       "at": 0.58
+      },
+      {
+       "text": "how",
+       "at": 0.86
+      },
+      {
+       "text": "people",
+       "at": 1.05
+      },
+      {
+       "text": "decide",
+       "at": 1.38
+      },
+      {
+       "text": "whether",
+       "at": 1.76
+      },
+      {
+       "text": "they",
+       "at": 2.19
+      },
+      {
+       "text": "belong",
+       "at": 2.43
+      },
+      {
+       "text": "in",
+       "at": 2.8
+      },
+      {
+       "text": "an",
+       "at": 2.92
+      },
+      {
+       "text": "online",
+       "at": 3.04
+      },
+      {
+       "text": "space,",
+       "at": 3.41
+      }
+     ]
+    },
+    "frontT": 3.428
+   }
+  },
+  {
+   "type": "page-turn",
+   "at": 15.205,
+   "until": 16.073,
+   "props": {}
+  },
+  {
+   "type": "page-turn",
+   "at": 17.508,
+   "until": 18.346,
+   "props": {}
+  },
+  {
+   "type": "page-turn",
+   "at": 23.406,
+   "until": 24.291,
+   "props": {}
+  },
+  {
+   "type": "paper-tear",
+   "at": 27.094,
+   "until": 27.974,
+   "props": {}
+  },
+  {
+   "type": "paper-tear",
+   "at": 31.006,
+   "until": 31.994,
+   "props": {}
   },
   {
    "type": "giant-caption",

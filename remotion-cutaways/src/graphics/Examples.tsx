@@ -151,16 +151,20 @@ const Illustration: React.FC<{kind: ExampleKind; t: number; sk: Sk; w: number; h
         </div>
       );
     case 'leftout': {
+      // seven people sit ON the circle; one stands outside it and drifts further away
       const out = k(0.6, 0.8);
       const R = Math.min(w, h) * 0.3;
+      const cx = w / 2;
+      const cy = R + 50;
+      const A = 36; // half an avatar
       return (
-        <div style={{width: w, height: Math.min(h, 2.4 * R + 120), position: 'relative'}}>
+        <div style={{width: w, height: Math.min(h, 2 * R + 120), position: 'relative'}}>
+          <div style={{position: 'absolute', left: cx - R, top: cy - R, width: 2 * R, height: 2 * R, borderRadius: R, border: `3px dashed ${sk.line}`, boxSizing: 'border-box', opacity: k(0.2)}} />
           {Array.from({length: 7}).map((_, i) => {
             const a = (i / 7) * Math.PI * 2 - Math.PI / 2;
-            return <div key={i} style={{position: 'absolute', left: w / 2 - 36 + Math.cos(a) * R * 0.75, top: R + 40 + Math.sin(a) * R * 0.75, ...pop(0.05 * i)}}><Avatar c={PALETTE[i % PALETTE.length]} s={72} /></div>;
+            return <div key={i} style={{position: 'absolute', left: cx - A + Math.cos(a) * R, top: cy - A + Math.sin(a) * R, ...pop(0.05 * i)}}><Avatar c={PALETTE[i % PALETTE.length]} s={72} /></div>;
           })}
-          <div style={{position: 'absolute', left: w / 2 - R, top: 40, width: 2 * R, height: 2 * R, borderRadius: R, border: `3px dashed ${sk.line}`, opacity: k(0.2)}} />
-          <div style={{position: 'absolute', left: w / 2 + R * 0.95 + out * 60, top: R + 40 + R * 0.55, opacity: k(0.4) * (1 - 0.45 * out)}}><Avatar c="#8E959C" s={72} label="" /></div>
+          <div style={{position: 'absolute', left: cx + R + 40 + out * 50 - A, top: cy + R * 0.35 - A, opacity: k(0.4) * (1 - 0.4 * out)}}><Avatar c="#8E959C" s={72} /></div>
         </div>
       );
     }
