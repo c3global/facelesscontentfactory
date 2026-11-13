@@ -1,8 +1,9 @@
 # Beta 11 checks — 2026-11-13 (Linux cloud build)
 
-- TypeScript check passed. 32 automated tests passed, including the 144 FX schema variants and a new clean-cut test (two synthetic parts: a dropped stumble and shortened pauses, length checked with ffprobe).
+- TypeScript check passed. 34 automated tests passed, including the 144 FX schema variants and a new clean-cut test (two synthetic parts: a dropped stumble and shortened pauses, length checked with ffprobe).
 - Stills rendered in the plug-in with the default member brand (teal accent, copper metal) for text-pop (glass), proof-card, focus-list, slot-machine, big-stat, follow-card v2, checklist v2 and glass-cards. All drew in the member's colors; no template colors showed.
 - clean-cut was used on six real multi-part talking-head recordings in the studio, with the results re-transcribed and read end to end.
+- All five carousel starter templates rendered slide by slide (27 stills) in the default brand, plus one on a velvet background in a second brand. New tests: every template's pictures and clips ship in public/ (34 tests in all), and the background option.
 - Not yet checked: a full render of every new effect, and install on a member's Mac or Windows machine.
 
 # Beta validation — 2026-10-20
