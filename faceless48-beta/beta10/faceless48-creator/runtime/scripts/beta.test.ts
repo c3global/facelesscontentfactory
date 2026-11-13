@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
-import {mkdtempSync,rmSync,existsSync,writeFileSync,readFileSync} from 'node:fs';
+import {mkdtempSync,rmSync,existsSync,writeFileSync,readFileSync,readdirSync} from 'node:fs';
 import os from 'node:os';import path from 'node:path';
 import {explainerSchema} from '../src/Explainer';
 import {fxSchema} from '../src/fx/schema';
@@ -21,3 +21,6 @@ import {BEHIND} from '../src/fx/util';
 const plan={slug:'wide',video:'raw/a.mp4',durationSec:3,scenes:[{id:'a',mood:'dark',segments:[{start:0,end:3,layout:'A',graphics:[]}]}]};
 test('talking-head plans are portrait unless they ask for landscape',()=>{assert.equal(planSchema.parse(plan).format,'portrait');assert.equal(planSchema.parse({...plan,format:'landscape'}).format,'landscape');assert(!planSchema.safeParse({...plan,format:'square'}).success);});
 test('landscape effects are camera moves and looks only, never cutout effects',()=>{for(const t of LANDSCAPE_FX)assert(!BEHIND.includes(t as any),t);for(const t of ['digital-zoom','pull-back','grade','glow','dust'])assert(LANDSCAPE_FX.includes(t),t);});
+import {videoCarouselSchema} from '../src/VideoCarousel';
+test('every carousel starter template parses and every picture or clip it names ships in public/',()=>{for(const f of readdirSync('content/templates').filter((n)=>n.endsWith('.json'))){const raw=JSON.parse(readFileSync(path.join('content/templates',f),'utf8'));const plan=videoCarouselSchema.parse(raw);for(const m of JSON.stringify(plan).match(/"[\w./-]+\.(png|jpg|jpeg|webp|mp4|mov)"/g)??[])assert(existsSync(path.join('public',JSON.parse(m))),`${f}: missing public/${JSON.parse(m)}`);}});
+test('carousel background picture option',()=>{const base={kind:'video-carousel',slug:'bg',slides:[{layout:'cover',headline:'Hi',seconds:3}]};const p=videoCarouselSchema.parse({...base,background:{src:'backdrops/velvet.jpg'}});assert.equal(p.background?.dim,0.35);assert.equal(p.background?.drift,true);assert(!videoCarouselSchema.safeParse({...base,background:{src:'x.jpg',dim:2}}).success);});

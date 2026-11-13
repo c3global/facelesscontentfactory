@@ -71,6 +71,9 @@ export const videoCarouselSchema = z.object({
   /** cutout PNG of the member or their AI avatar (transparent background), or leave out for no presenter */
   presenter: z.object({src: z.string(), side: z.enum(['right', 'left']).default('right'), scale: z.number().min(0.5).max(1.5).default(1)}).optional(),
   music: z.object({src: z.string(), volume: z.number().min(0).max(1).default(0.25)}).optional(),
+  /** the member's own background picture (a texture such as velvet, marble or paper) under every slide, path under public/.
+   *  It drifts slowly so the loop never looks frozen. `dim` darkens it so text stays readable (0 none, 1 black). */
+  background: z.object({src: z.string(), dim: z.number().min(0).max(1).default(0.35), drift: z.boolean().default(true)}).optional(),
   slides: z.array(slideSchema).min(1).max(10),
 });
 export type VideoCarouselPlan = z.infer<typeof videoCarouselSchema>;
@@ -676,6 +679,13 @@ export const VideoCarousel: React.FC<{plan: VideoCarouselPlan}> = ({plan}) => {
         <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves={3} stitchTiles="stitch" /></filter>
         <rect width="100%" height="100%" filter="url(#grain)" />
       </svg>
+      {plan.background && (
+        <AbsoluteFill>
+          <Img src={staticFile(plan.background.src)} style={{width: '100%', height: '100%', objectFit: 'cover', transform: plan.background.drift ? `scale(${1.06 + 0.03 * Math.sin(t * 0.18)}) translate(${8 * Math.sin(t * 0.11)}px, ${6 * Math.cos(t * 0.13)}px)` : undefined}} />
+          <AbsoluteFill style={{background: `rgba(0,0,0,${plan.background.dim})`}} />
+          <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 45%, transparent 45%, rgba(0,0,0,0.45))'}} />
+        </AbsoluteFill>
+      )}
       {plan.style === 'glass' && <GlassLight t={t} />}
       <Ambient t={t} style={plan.style} />
       {plan.style === 'luxe' && <div style={{position: 'absolute', left: 40, right: 40, top: 40, bottom: 40, border: `1px solid ${hexA(B.metal, 0.35)}`, borderRadius: 8}} />}
