@@ -322,5 +322,13 @@
   "startAt": 34.95,
   "label": "LINK BELOW OR IN MY BIO",
   "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/lofi-ferraz-squady.mp3",
+  "volume": 0.5,
+  "duckTo": 0.26,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
  }
 }

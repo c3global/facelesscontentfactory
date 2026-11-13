@@ -67,6 +67,7 @@ def plan(name, caption, scenes, fx, **kw):
         'hero': [], 'boxed': [], 'finish': kw.get('finish', {'grain': 0.0, 'lightLeaks': 0.0}), 'scrim': kw.get('scrim', 0.6),
         'scenes': scenes, 'fx': fx, 'fxSound': kw.get('sound', 'minimal'),
         'endCard': {'variant': 'link-pill', 'startAt': END, 'label': 'LINK BELOW OR IN MY BIO', 'url': 'bio.c3global.co'},
+        'music': {'src': 'music/leveled/lofi-ferraz-squady.mp3', 'volume': 0.5, 'duckTo': 0.26, 'fadeInSec': 1.5, 'fadeOutSec': 2.5, 'startFromSec': 0},
     }
     json.dump(p, open(f'content/tol-{name}.scene.json', 'w'), indent=1)
     shutil.copy('content/tolerance.captions.json', f'content/tol-{name}.captions.json')
@@ -117,7 +118,7 @@ plan('glass', 'glass', [
     scene('left', 28.65, 32.64, 'E', mood='dark', avatar='hidden', captions='off'),
     full('end', 32.64, DUR),
 ], [
-    {'type': 'layer-explode', 'at': 0.2, 'until': 3.7, 'props': {'title': 'who belongs\nhere?', 'labels': ['Replies', 'Names', 'Reactions', 'Holidays']}},
+    {'type': 'layer-explode', 'at': 0.2, 'until': 3.7, 'props': {'title': '', 'labels': ['Replies', 'Names', 'Reactions', 'Holidays']}},
     {'type': 'glass-cards', 'at': 7.3, 'until': 14.45, 'props': {'cards': [
         {'label': 'Who gets', 'value': 'Replies', 'at': t_signals[0], 'side': 'left'}, {'label': 'Whose', 'value': 'Name', 'at': t_signals[1], 'side': 'right'},
         {'label': 'Which posts get', 'value': 'Reactions', 'at': t_signals[2], 'side': 'left'}, {'label': 'Which', 'value': 'Holidays', 'at': t_signals[3], 'side': 'right'}]}},

@@ -38,7 +38,7 @@ export const ImpactFrame: React.FC<{fx: Of<'impact-frame'>}> = ({fx}) => {
       <div style={{...FILL, mixBlendMode: 'multiply'}}>
         <BaseClip from={Math.round(a * fps)} style={{filter: 'grayscale(1) contrast(9) brightness(1.15)', transform: 'scale(1.08)', transformOrigin: '50% 30%'}} />
       </div>
-      <div style={{position: 'absolute', left: 0, width: 1080, top: 1430, textAlign: 'center', fontFamily: heavyFamily, fontSize: 330, lineHeight: 1, color: INK, WebkitTextStroke: `8px ${CREAM}`, paintOrder: 'stroke', transform: `scale(${1.6 - 0.6 * slam})`, opacity: slam}}>{word.toUpperCase()}</div>
+      <div style={{position: 'absolute', left: 0, width: 1080, top: 1430, textAlign: 'center', fontFamily: heavyFamily, fontSize: Math.min(330, Math.floor(1000 / (Math.max(1, word.length) * 0.47))), whiteSpace: 'nowrap', lineHeight: 1, color: INK, WebkitTextStroke: `8px ${CREAM}`, paintOrder: 'stroke', transform: `scale(${1.6 - 0.6 * slam})`, opacity: slam}}>{word.toUpperCase()}</div>
     </div>
   );
 };
