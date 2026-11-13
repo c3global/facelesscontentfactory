@@ -1,0 +1,375 @@
+{
+ "slug": "tol2-cinematic",
+ "template": "cinematic",
+ "video": "raw/tolerance.mp4",
+ "durationSec": 37.33,
+ "matte": "tolerance",
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "captionStyle": "film",
+ "emphasis": [
+  "belongs",
+  "unwritten",
+  "Tolerance",
+  "newcomer",
+  "left"
+ ],
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.55,
+  "lightLeaks": 0.8
+ },
+ "scrim": 0.45,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 3.82,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 3.82,
+     "end": 5.62,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.4
+     },
+     "cut": true
+    },
+    {
+     "start": 5.62,
+     "end": 7.25,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 7.25,
+     "end": 14.49,
+     "layout": "D",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 7.25,
+       "until": 14.49,
+       "props": {
+        "skin": "dark",
+        "items": [
+         {
+          "say": "They watch who gets replies,",
+          "wordTimes": [
+           7.31,
+           7.58,
+           7.93,
+           8.16,
+           8.44
+          ],
+          "kind": "replies",
+          "at": 7.31
+         },
+         {
+          "say": "whose name gets spelled correctly,",
+          "wordTimes": [
+           9.12,
+           9.38,
+           9.62,
+           9.88,
+           10.3
+          ],
+          "kind": "name",
+          "at": 9.12
+         },
+         {
+          "say": "which posts get a reaction,",
+          "wordTimes": [
+           11.02,
+           11.43,
+           11.86,
+           12.12,
+           12.2
+          ],
+          "kind": "reaction",
+          "at": 11.02
+         },
+         {
+          "say": "and which holidays get mentioned.",
+          "wordTimes": [
+           12.92,
+           13.08,
+           13.36,
+           13.78,
+           13.96
+          ],
+          "kind": "holidays",
+          "at": 12.92
+         }
+        ],
+        "y": 720,
+        "height": 760,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "little",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 14.49,
+     "end": 16.0,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 16.0,
+     "end": 18.39,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.4
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "st18",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 18.39,
+     "end": 21.65,
+     "layout": "E",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "statement-card",
+       "at": 18.39,
+       "until": 21.65,
+       "box": {
+        "y": 360,
+        "h": 1200,
+        "center": true
+       },
+       "props": {
+        "text": "Today is the International Day for Tolerance, so try this.",
+        "emphasis": [
+         "Tolerance"
+        ],
+        "wordTimes": [
+         18.49,
+         18.78,
+         18.9,
+         19.08,
+         19.85,
+         20.07,
+         20.21,
+         20.9,
+         21.04,
+         21.26
+        ]
+       }
+      }
+     ],
+     "avatar": "hidden"
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "rules",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 21.65,
+     "end": 24.86,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "ask",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 24.86,
+     "end": 28.65,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "left",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 28.65,
+     "end": 32.64,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 32.64,
+     "end": 37.33,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.4
+     },
+     "cut": true
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "grade",
+   "at": 0,
+   "until": 37.33,
+   "props": {
+    "look": "golden-hour",
+    "strength": 0.45
+   }
+  },
+  {
+   "type": "dust",
+   "at": 0,
+   "until": 37.33,
+   "props": {
+    "count": 40,
+    "strength": 0.5
+   }
+  },
+  {
+   "type": "dolly-zoom",
+   "at": 0.2,
+   "until": 3.8,
+   "props": {
+    "to": 1.5
+   }
+  },
+  {
+   "type": "rack-focus",
+   "at": 3.82,
+   "until": 5.2,
+   "props": {}
+  },
+  {
+   "type": "iris",
+   "at": 17.2,
+   "until": 18.38,
+   "props": {
+    "mode": "peek",
+    "target": "head"
+   }
+  },
+  {
+   "type": "silhouette-shift",
+   "at": 21.65,
+   "until": 24.86,
+   "props": {
+    "word": "unwritten",
+    "revealAt": 24.4
+   }
+  },
+  {
+   "type": "vertigo",
+   "at": 25.0,
+   "until": 27.6,
+   "props": {
+    "to": 1.4
+   }
+  },
+  {
+   "type": "spotlight",
+   "at": 28.65,
+   "until": 32.64,
+   "props": {
+    "dim": 0.86,
+    "words": [
+     {
+      "text": "left out",
+      "at": 30.56
+     }
+    ]
+   }
+  }
+ ],
+ "fxSound": "minimal",
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 34.95,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/empires.mp3",
+  "volume": 0.5,
+  "duckTo": 0.26,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}

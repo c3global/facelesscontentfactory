@@ -46,7 +46,8 @@ const DRIFT = 0.05;
 export const avatarStateAt = (fs: FlatSegment, frame: number): AvatarState => {
   const base = stateFor(fs.seg.layout, fs.seg.avatar);
   const s = fs.seg.focus ? {...base, focusY: fs.seg.focus.y, zoom: fs.seg.focus.zoom} : base;
-  if (fs.seg.layout !== 'A') return s;
+  // punch-in shots (a set focus) hold still, so the cut between a wide and a close shot reads clearly
+  if (fs.seg.layout !== 'A' || fs.seg.focus) return s;
   const f = Math.min(Math.max(frame, fs.startF), fs.endF);
   const prog = (f - fs.startF) / Math.max(1, fs.endF - fs.startF);
   return {...s, zoom: s.zoom + DRIFT * prog};

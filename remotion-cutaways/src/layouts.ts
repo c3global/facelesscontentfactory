@@ -12,7 +12,7 @@ export const SAFE = {
   left: 60,
 };
 
-export type LayoutKey = 'A' | 'B' | 'C' | 'D' | 'E' | 'S';
+export type LayoutKey = 'A' | 'B' | 'C' | 'D' | 'E' | 'S' | 'F' | 'O';
 export type AvatarMode = 'circle' | 'hidden';
 
 /** Where she lives for each layout. Everything is animated between these states. */
@@ -41,6 +41,10 @@ export const AVATAR: Record<LayoutKey | 'Chidden', AvatarState> = {
   E: {x: 390, y: 250, w: 300, h: 350, r: 60, zoom: 1, focusY: 0, opacity: 1, frame: 1},
   // S: split screen. Cutaway on top, she fills the lower half with rounded top corners (bottom corners run off-screen)
   S: {x: 0, y: 1000, w: 1080, h: 960, r: 56, zoom: 1.15, focusY: 14, opacity: 1, frame: 0.5},
+  // F: large rounded window, centered, with room under it for a graphic or captions
+  F: {x: 150, y: 250, w: 780, h: 860, r: 72, zoom: 1.05, focusY: 18, opacity: 1, frame: 1},
+  // O: circle window, top center (face and shoulders), room under it
+  O: {x: 330, y: 250, w: 420, h: 420, r: 210, zoom: 1.35, focusY: 12, opacity: 1, frame: 1},
   // D: small portrait window, top right, under the 12% safe line
   D: {x: 760, y: 250, w: 260, h: 440, r: 48, zoom: 1, focusY: 0, opacity: 1, frame: 1},
 };
@@ -60,6 +64,8 @@ export const GRAPHIC_AREA: Record<LayoutKey | 'Chidden', Rect> = {
   D: {x: 60, y: 720, w: 960, h: 410},
   E: {x: 60, y: 680, w: 960, h: 370},
   S: {x: 60, y: 600, w: 960, h: 360},
+  F: {x: 60, y: 1140, w: 960, h: 340},
+  O: {x: 60, y: 700, w: 960, h: 760},
 };
 
 export const areaFor = (layout: LayoutKey, avatar?: AvatarMode): Rect =>

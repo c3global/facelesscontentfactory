@@ -1,0 +1,403 @@
+{
+ "slug": "tol2-hype",
+ "template": "hype",
+ "video": "raw/tolerance.mp4",
+ "durationSec": 37.33,
+ "matte": "tolerance",
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "captionStyle": "punch",
+ "emphasis": [
+  "belongs",
+  "unwritten",
+  "Tolerance",
+  "newcomer",
+  "left"
+ ],
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.3,
+  "lightLeaks": 0.4
+ },
+ "scrim": 0.65,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 3.82,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 3.82,
+     "end": 5.62,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     },
+     "cut": true
+    },
+    {
+     "start": 5.62,
+     "end": 7.25,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "orbit",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 7.25,
+     "end": 9.03,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 9.03,
+     "end": 10.89,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 10.89,
+     "end": 14.49,
+     "layout": "O",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 10.89,
+       "until": 14.49,
+       "props": {
+        "skin": "light",
+        "items": [
+         {
+          "say": "which posts get a reaction,",
+          "wordTimes": [
+           11.02,
+           11.43,
+           11.86,
+           12.12,
+           12.2
+          ],
+          "kind": "reaction",
+          "at": 11.02
+         },
+         {
+          "say": "and which holidays get mentioned.",
+          "wordTimes": [
+           12.92,
+           13.08,
+           13.36,
+           13.78,
+           13.96
+          ],
+          "kind": "holidays",
+          "at": 12.92
+         }
+        ],
+        "y": 720,
+        "height": 760,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "little",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 14.49,
+     "end": 16.0,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     }
+    },
+    {
+     "start": 16.0,
+     "end": 18.39,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "today",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 18.39,
+     "end": 21.65,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "rules",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 21.65,
+     "end": 24.86,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "ask",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 24.86,
+     "end": 28.65,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     }
+    }
+   ]
+  },
+  {
+   "id": "left",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 28.65,
+     "end": 32.64,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 32.64,
+     "end": 37.33,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     },
+     "cut": true
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "clone",
+   "at": 0.5,
+   "until": 3.8,
+   "props": {
+    "version": 2,
+    "copies": [
+     {
+      "at": 1.06,
+      "side": "left"
+     },
+     {
+      "at": 1.38,
+      "side": "right"
+     },
+     {
+      "at": 2.48,
+      "side": "left"
+     }
+    ]
+   }
+  },
+  {
+   "type": "text-pop",
+   "at": 0.15,
+   "until": 2.3,
+   "props": {
+    "text": "Who belongs here?",
+    "look": "badge",
+    "y": 520,
+    "size": 76
+   }
+  },
+  {
+   "type": "flash-frame",
+   "at": 3.82,
+   "props": {
+    "version": 2
+   }
+  },
+  {
+   "type": "orbit",
+   "at": 7.25,
+   "until": 10.89,
+   "props": {
+    "items": [
+     "replies",
+     "names",
+     "reactions",
+     "holidays",
+     "mentions"
+    ]
+   }
+  },
+  {
+   "type": "couch-wall",
+   "at": 16.0,
+   "until": 18.39,
+   "props": {
+    "tiles": [
+     "Who gets replies",
+     "Whose name",
+     "Which posts",
+     "Which holidays",
+     "Who belongs here"
+    ]
+   }
+  },
+  {
+   "type": "impact-frame",
+   "at": 20.21,
+   "until": 21.0,
+   "props": {
+    "word": "Tolerance"
+   }
+  },
+  {
+   "type": "type-wall",
+   "at": 21.65,
+   "until": 24.86,
+   "props": {
+    "words": [
+     {
+      "text": "five",
+      "at": 22.39
+     },
+     {
+      "text": "unwritten",
+      "at": 22.69
+     },
+     {
+      "text": "rules",
+      "at": 23.24
+     }
+    ]
+   }
+  },
+  {
+   "type": "frame-break",
+   "at": 24.86,
+   "until": 28.65,
+   "props": {
+    "popAt": 26.1,
+    "label": "NEWCOMER"
+   }
+  },
+  {
+   "type": "type-wall",
+   "at": 28.65,
+   "until": 32.64,
+   "props": {
+    "words": [
+     {
+      "text": "places",
+      "at": 29.4
+     },
+     {
+      "text": "left out",
+      "at": 30.56
+     }
+    ]
+   }
+  }
+ ],
+ "fxSound": "full",
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 34.95,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/make-it-look-easy.mp3",
+  "volume": 0.5,
+  "duckTo": 0.26,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}

@@ -11,6 +11,18 @@ const base = {at: sec, until: sec.optional(), box};
 export const graphicSchema = z.discriminatedUnion('type', [
   z.object({
     ...base,
+    type: z.literal('examples'),
+    props: z.object({
+      skin: z.enum(['glass', 'paper', 'editorial', 'data', 'dark', 'light']).default('light'),
+      /** each item: her exact words (with word times) as the heading, and the example drawn under it */
+      items: z.array(z.object({say: z.string(), wordTimes: z.array(z.number()), kind: z.enum(['replies', 'name', 'reaction', 'holidays', 'newcomer', 'rules', 'leftout', 'chat']), at: sec})).min(1).max(6),
+      y: z.number().default(760),
+      height: z.number().default(720),
+      emphasis: z.array(z.string()).default([]),
+    }),
+  }),
+  z.object({
+    ...base,
     type: z.literal('tag'),
     props: z.object({text: z.string()}),
   }),
@@ -180,7 +192,7 @@ export const graphicSchema = z.discriminatedUnion('type', [
 export const segmentSchema = z.object({
   start: sec,
   end: sec,
-  layout: z.enum(['A', 'B', 'C', 'D', 'E', 'S']),
+  layout: z.enum(['A', 'B', 'C', 'D', 'E', 'S', 'F', 'O']),
   /** where kinetic captions sit in this segment: bottom band, top band, or alternating by sentence (top first) */
   captionPos: z.enum(['bottom', 'top', 'alternate']).default('bottom'),
   /** 'off' when a graphic in this segment shows every spoken word itself (the graphic becomes the caption) */

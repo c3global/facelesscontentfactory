@@ -1,0 +1,390 @@
+{
+ "slug": "tol2-teach",
+ "template": "teach",
+ "video": "raw/tolerance.mp4",
+ "durationSec": 37.33,
+ "matte": "tolerance",
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "captionStyle": "karaoke",
+ "emphasis": [
+  "belongs",
+  "unwritten",
+  "Tolerance",
+  "newcomer",
+  "left"
+ ],
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.0,
+  "lightLeaks": 0.0
+ },
+ "scrim": 0.55,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 3.82,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "window",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 3.82,
+     "end": 7.25,
+     "layout": "F",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  },
+  {
+   "id": "signals",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 7.25,
+     "end": 9.03,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 9.03,
+     "end": 10.89,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.0
+     },
+     "cut": true
+    },
+    {
+     "start": 10.89,
+     "end": 12.68,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    },
+    {
+     "start": 12.68,
+     "end": 14.49,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "little",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 14.49,
+     "end": 16.0,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 16.0,
+     "end": 18.39,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.4
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "today",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 18.39,
+     "end": 21.65,
+     "layout": "S",
+     "captionPos": "top",
+     "graphics": [
+      {
+       "type": "headline-card",
+       "at": 18.39,
+       "until": 21.65,
+       "props": {
+        "label": "NOVEMBER 16",
+        "line": "International Day for Tolerance",
+        "emphasis": [
+         "Tolerance"
+        ]
+       }
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     }
+    }
+   ]
+  },
+  {
+   "id": "rules",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 21.65,
+     "end": 24.86,
+     "layout": "O",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 21.65,
+       "until": 24.86,
+       "props": {
+        "skin": "light",
+        "items": [
+         {
+          "say": "Write down five unwritten rules in your community or team.",
+          "wordTimes": [
+           21.8,
+           22.13,
+           22.39,
+           22.69,
+           23.24,
+           23.6,
+           23.71,
+           23.94,
+           24.51,
+           24.59
+          ],
+          "kind": "rules",
+          "at": 21.8
+         }
+        ],
+        "y": 720,
+        "height": 740,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "new",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 24.86,
+     "end": 28.65,
+     "layout": "D",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 24.86,
+       "until": 28.65,
+       "props": {
+        "skin": "light",
+        "items": [
+         {
+          "say": "Then ask which ones a newcomer from another culture would have no way of knowing.",
+          "wordTimes": [
+           25.04,
+           25.26,
+           25.45,
+           25.8,
+           26.06,
+           26.1,
+           26.66,
+           26.78,
+           27.11,
+           27.44,
+           27.7,
+           27.9,
+           28.0,
+           28.15,
+           28.28
+          ],
+          "kind": "newcomer",
+          "at": 25.04
+         }
+        ],
+        "y": 720,
+        "height": 760,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "left",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 28.65,
+     "end": 32.64,
+     "layout": "O",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 28.65,
+       "until": 32.64,
+       "props": {
+        "skin": "light",
+        "items": [
+         {
+          "say": "Those are the places where people feel left out without anyone meaning to leave them out.",
+          "wordTimes": [
+           28.85,
+           29.08,
+           29.24,
+           29.4,
+           29.75,
+           30.01,
+           30.34,
+           30.56,
+           30.78,
+           31.04,
+           31.37,
+           31.61,
+           31.94,
+           32.04,
+           32.26,
+           32.45
+          ],
+          "kind": "leftout",
+          "at": 28.85
+         }
+        ],
+        "y": 720,
+        "height": 740,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "end",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 32.64,
+     "end": 37.33,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "shoulder-steps",
+   "at": 7.25,
+   "until": 14.49,
+   "props": {
+    "title": "They watch",
+    "steps": [
+     {
+      "text": "who gets replies,",
+      "at": 7.93
+     },
+     {
+      "text": "whose name gets spelled correctly,",
+      "at": 9.12
+     },
+     {
+      "text": "which posts get a reaction,",
+      "at": 11.02
+     },
+     {
+      "text": "and which holidays get mentioned.",
+      "at": 12.959999999999999
+     }
+    ],
+    "side": "left",
+    "zoom": 1.5
+   }
+  }
+ ],
+ "fxSound": "minimal",
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 34.95,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/empires.mp3",
+  "volume": 0.5,
+  "duckTo": 0.26,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}

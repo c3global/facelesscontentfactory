@@ -1,0 +1,380 @@
+{
+ "slug": "tol2-glass",
+ "template": "glass",
+ "video": "raw/tolerance.mp4",
+ "durationSec": 37.33,
+ "matte": "tolerance",
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "captionStyle": "glass",
+ "emphasis": [
+  "belongs",
+  "unwritten",
+  "Tolerance",
+  "newcomer",
+  "left"
+ ],
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.0,
+  "lightLeaks": 0.0
+ },
+ "scrim": 0.5,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 3.82,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "window",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 3.82,
+     "end": 7.25,
+     "layout": "F",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  },
+  {
+   "id": "signals",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 7.25,
+     "end": 14.49,
+     "layout": "D",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 7.25,
+       "until": 14.49,
+       "props": {
+        "skin": "glass",
+        "items": [
+         {
+          "say": "They watch who gets replies,",
+          "wordTimes": [
+           7.31,
+           7.58,
+           7.93,
+           8.16,
+           8.44
+          ],
+          "kind": "replies",
+          "at": 7.31
+         },
+         {
+          "say": "whose name gets spelled correctly,",
+          "wordTimes": [
+           9.12,
+           9.38,
+           9.62,
+           9.88,
+           10.3
+          ],
+          "kind": "name",
+          "at": 9.12
+         },
+         {
+          "say": "which posts get a reaction,",
+          "wordTimes": [
+           11.02,
+           11.43,
+           11.86,
+           12.12,
+           12.2
+          ],
+          "kind": "reaction",
+          "at": 11.02
+         },
+         {
+          "say": "and which holidays get mentioned.",
+          "wordTimes": [
+           12.92,
+           13.08,
+           13.36,
+           13.78,
+           13.96
+          ],
+          "kind": "holidays",
+          "at": 12.92
+         }
+        ],
+        "y": 720,
+        "height": 760,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "little",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 14.49,
+     "end": 16.0,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 16.0,
+     "end": 18.39,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.4
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "today",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 18.39,
+     "end": 21.65,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.4
+     }
+    }
+   ]
+  },
+  {
+   "id": "rules",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 21.65,
+     "end": 24.86,
+     "layout": "O",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 21.65,
+       "until": 24.86,
+       "props": {
+        "skin": "glass",
+        "items": [
+         {
+          "say": "Write down five unwritten rules in your community or team.",
+          "wordTimes": [
+           21.8,
+           22.13,
+           22.39,
+           22.69,
+           23.24,
+           23.6,
+           23.71,
+           23.94,
+           24.51,
+           24.59
+          ],
+          "kind": "rules",
+          "at": 21.8
+         }
+        ],
+        "y": 720,
+        "height": 740,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ask",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 24.86,
+     "end": 28.65,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "left",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 28.65,
+     "end": 32.64,
+     "layout": "E",
+     "captionPos": "bottom",
+     "graphics": [],
+     "avatar": "hidden"
+    }
+   ]
+  },
+  {
+   "id": "end",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 32.64,
+     "end": 37.33,
+     "layout": "F",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "depth-scatter",
+   "at": 0.1,
+   "until": 3.8,
+   "props": {
+    "words": [
+     "replies",
+     "names",
+     "reactions",
+     "holidays",
+     "mentions"
+    ]
+   }
+  },
+  {
+   "type": "grade",
+   "at": 0,
+   "until": 37.33,
+   "props": {
+    "look": "cool",
+    "strength": 0.3
+   }
+  },
+  {
+   "type": "text-pop",
+   "at": 17.299999999999997,
+   "until": 18.39,
+   "props": {
+    "text": "who belongs here",
+    "look": "glass",
+    "y": 1300,
+    "size": 104
+   }
+  },
+  {
+   "type": "spatial-glass",
+   "at": 18.45,
+   "until": 21.6,
+   "props": {
+    "title": "November 16",
+    "text": "International Day for Tolerance",
+    "y": 1230
+   }
+  },
+  {
+   "type": "holo-phone",
+   "at": 24.9,
+   "until": 28.6,
+   "props": {
+    "title": "Newcomer",
+    "lines": [
+     "Which would a",
+     "newcomer not know?"
+    ]
+   }
+  },
+  {
+   "type": "glass-type",
+   "at": 28.65,
+   "until": 32.64,
+   "props": {
+    "words": [
+     {
+      "text": "Those are the places",
+      "at": 28.85
+     },
+     {
+      "text": "where people feel",
+      "at": 29.75
+     },
+     {
+      "text": "left out",
+      "at": 30.56
+     },
+     {
+      "text": "without anyone meaning to",
+      "at": 31.04
+     },
+     {
+      "text": "leave them out.",
+      "at": 32.04
+     }
+    ],
+    "y": 0.5
+   }
+  }
+ ],
+ "fxSound": "minimal",
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 34.95,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/empires.mp3",
+  "volume": 0.5,
+  "duckTo": 0.26,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}

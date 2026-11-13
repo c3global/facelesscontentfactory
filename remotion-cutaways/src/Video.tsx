@@ -23,6 +23,7 @@ import {NotificationStack} from './graphics/NotificationStack';
 import {RewriteCard} from './graphics/RewriteCard';
 import {StatementCard} from './graphics/StatementCard';
 import {Tag} from './graphics/Tag';
+import {Examples} from './graphics/Examples';
 import {H, W, areaFor} from './layouts';
 import {MetalRim} from './metal';
 import type {Graphic, Scene, VideoProps} from './schema';
@@ -31,7 +32,7 @@ import {GraphicTimeProvider, ThemeProvider} from './ui';
 import {FxBehind, FxLooks, FxOver, FxSound, OutlineAlways, videoMods} from './fx/FxLayers';
 import {FxEnvProvider, fxRange, useLoadedAnchors} from './fx/util';
 
-const FULL_FRAME: Graphic['type'][] = ['tag', 'floating-chips', 'chapter-card', 'congruence-map', 'screenshot-card', 'quiet-feed', 'citation-card'];
+const FULL_FRAME: Graphic['type'][] = ['examples', 'tag', 'floating-chips', 'chapter-card', 'congruence-map', 'screenshot-card', 'quiet-feed', 'citation-card'];
 
 const renderGraphic = (g: Graphic): React.ReactNode => {
   switch (g.type) {
@@ -65,6 +66,8 @@ const renderGraphic = (g: Graphic): React.ReactNode => {
       return <ScreenshotCard {...g.props} />;
     case 'statement-card':
       return <StatementCard {...g.props} />;
+    case 'examples':
+      return <Examples {...g.props} />;
   }
 };
 

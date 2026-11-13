@@ -20,14 +20,14 @@ import argparse
 
 ap = argparse.ArgumentParser(description='High quality person cutout (BiRefNet)')
 ap.add_argument('slug')
-ap.add_argument('times', nargs='*', type=float, help='startSec endSec (the whole clip if left out)')
+ap.add_argument('times', nargs='*', type=float, help='startSec endSec pairs, one or more windows (the whole clip if left out)')
 ap.add_argument('--every', type=int, default=2)
 ap.add_argument('--out-slug')
 ap.add_argument('--size', default='1080x1920')
 ap.add_argument('--model', default=os.path.join('models', 'birefnet_lite.onnx'))
 ns = ap.parse_args()
-if len(ns.times) not in (0, 2):
-    ap.error('give both startSec and endSec, or neither')
+if len(ns.times) % 2:
+    ap.error('give startSec endSec pairs, or no times')
 args = [ns.slug] + [str(t) for t in ns.times]
 slug = ns.slug
 every = max(1, ns.every)
@@ -51,10 +51,10 @@ cap = cv2.VideoCapture(os.path.join('public', 'raw', f'{slug}.mp4'))
 fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
 W, H = OW, OH
 total = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-t0 = float(args[1]) if len(args) > 2 else 0.0
-t1 = float(args[2]) if len(args) > 2 else total / fps
-f0, f1 = max(0, int(t0 * fps)), min(total, int(t1 * fps))
-
+wins = [(int(ns.times[k] * fps), min(total, int(ns.times[k + 1] * fps))) for k in range(0, len(ns.times), 2)] or [(0, total)]
+wins = [(max(0, a), b) for a, b in sorted(wins) if b > a]
+inside = lambda i: next((w for w in wins if w[0] <= i < w[1]), None)
+t0, t1 = wins[0][0] / fps, wins[-1][1] / fps
 
 def mask_of(bgr):
     x = cv2.resize(bgr[:, :, ::-1], (1024, 1024), interpolation=cv2.INTER_AREA).astype(np.float32) / 255
@@ -66,31 +66,31 @@ def mask_of(bgr):
     return np.clip(m * 255, 0, 255).astype(np.uint8)
 
 
-cap.set(cv2.CAP_PROP_POS_FRAMES, f0)
-masks, picks = {}, [i for i in range(f0, f1) if (i - f0) % every == 0]
-if picks and picks[-1] != f1 - 1:
-    picks.append(f1 - 1)
+masks, picks = {}, set()
+for a, b in wins:
+    picks.update(i for i in range(a, b) if (i - a) % every == 0)
+    picks.add(b - 1)
 start = time.time()
-last = f0
-for i in range(f0, f1):
+cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+for i in range(total):
     ok, fr = cap.read()
     if not ok:
         break
     if i in picks:
         masks[i] = mask_of(fr)
-        done = len(masks)
-        print(f'cutout {done}/{len(picks)}  {time.time() - start:.0f}s', flush=True)
+        print(f'cutout {len(masks)}/{len(picks)}  {time.time() - start:.0f}s', flush=True)
 keys = sorted(masks)
 
 
 def alpha(i):
     if i in masks:
         return masks[i]
-    lo = max(k for k in keys if k < i)
-    hi = min(k for k in keys if k > i)
+    a, b = inside(i)
+    ks = [k for k in keys if a <= k < b]
+    lo = max(k for k in ks if k < i)
+    hi = min(k for k in ks if k > i)
     w = (i - lo) / (hi - lo)
     return cv2.addWeighted(masks[lo], 1 - w, masks[hi], w, 0)
-
 
 out = os.path.join('public', 'matte', f'{out_slug}.webm')
 os.makedirs(os.path.dirname(out), exist_ok=True)
@@ -100,12 +100,12 @@ enc = subprocess.Popen(
      '-c:v', 'libvpx-vp9', '-pix_fmt', 'yuva420p', '-b:v', '0', '-crf', '26', '-auto-alt-ref', '0', '-row-mt', '1', tmp],
     stdin=subprocess.PIPE)
 blank = np.zeros((H, W, 4), np.uint8).tobytes()
-cap.set(cv2.CAP_PROP_POS_FRAMES, f0)  # read the frames again instead of keeping them all in memory
+cap.set(cv2.CAP_PROP_POS_FRAMES, 0)  # read the frames again instead of keeping them all in memory
 for i in range(total):
-    if i < f0 or i >= f1:
+    ok, fr = cap.read()
+    if not inside(i):
         enc.stdin.write(blank)
         continue
-    ok, fr = cap.read()
     if not ok:
         enc.stdin.write(blank)
         continue
@@ -114,4 +114,4 @@ for i in range(total):
 enc.stdin.close()
 enc.wait()
 os.replace(tmp, out)
-print(f'wrote {out} (person visible {t0}s to {t1}s)')
+print(f'wrote {out} (person visible in {len(wins)} window(s): ' + ', '.join(f'{a / fps:.2f}-{b / fps:.2f}s' for a, b in wins) + ')')
