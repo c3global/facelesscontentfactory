@@ -315,6 +315,8 @@ Code: `src/fx/fourteenth.tsx`.
 
 Code: `src/fx/fifteenth.tsx`.
 
-**Page turn** (`page-turn`, new): a magazine page swings in from the right, covers the frame while the scene changes underneath, then lifts away to the left. Place it 0.45 s before a scene change. Props: `title` (words across the top of the page), `tone` (`paper` or `dark`).
+**Page turn** (`page-turn`, new): a corner peel. The bottom-right corner of the page lifts and the page curls back to reveal the next shot. Put it on a shot change (it turns the shot over as it looked just before), or give it `front` (the press-front props) and `frontT` (the second to hold) to peel a press-front page away. Props: `tone` (`paper` or `dark`), `front`, `frontT`.
 
-**Total: 162 talking-head effects and graphics + 33 Life Scene effects and styles = 195, plus 16 carousel layouts in 6 styles.**
+**Lesson board** (`lesson-board`, new): a whiteboard list in marker. The heading writes on, then each point writes on as it is said, with its number circled in the brand color. Props: `title`, `items` (`{text, at}`, up to 6), `y`, `height`. Used by the Teach Board template.
+
+**Total: 163 talking-head effects and graphics + 33 Life Scene effects and styles = 196, plus 16 carousel layouts in 6 styles.**

@@ -398,7 +398,7 @@ export const LessonBoard: React.FC<{fx: Of<'lesson-board'>}> = ({fx}) => {
   const {abs, inK, outK} = useSpan(fx);
   const {title, items, y, height} = fx.props;
   const ink = '#3A3F42';
-  const red = '#C91B19';
+  const red = C3.accent;
   const tl = tw(abs, fx.at + 0.1, fx.at + 0.1 + Math.max(0.4, title.length * 0.045), 0, 1, (x) => x);
   const n = items.length;
   const size = n <= 2 ? 66 : n <= 4 ? 58 : 50;

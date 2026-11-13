@@ -1,6 +1,6 @@
 # Faceless48 Creator — private beta 0.1.0-beta.11
 
-Local video production with Remotion. Includes the creator's 161-effect source library, six talking-head presets, an original stick-figure rig and reusable explainer scene planning with whiteboard, editorial and dark styles.
+Local video production with Remotion. Includes the creator's 163-effect source library, six talking-head presets, eight finished talking-head templates (Quiet Authority, Magazine, Glass, Scrapbook, Analyst, Cinematic, Creator Hype, Teach Board; see runtime/docs/TEMPLATES.md), an original stick-figure rig and reusable explainer scene planning with whiteboard, editorial and dark styles.
 
 ## Start
 

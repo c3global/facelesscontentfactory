@@ -1,6 +1,6 @@
 import React, {createContext, useContext} from 'react';
 import {AbsoluteFill, Easing, interpolate} from 'remotion';
-import {brand} from './brand';
+import {brand, metalStops} from './brand';
 import {handFamily, heavyFamily, serifFamily} from './fonts';
 import {MetalBox, MetalText} from './metal';
 import {clamp, easeOut, isEmphasis, useCardMotion, useRel} from './ui';
@@ -19,6 +19,13 @@ export const KitProvider = KitContext.Provider;
 export const useKit = () => useContext(KitContext);
 
 const FPS = 30;
+/** rgba() of a brand hex, so the kits follow each member's own colors (C3 crimson for Dr. CK) */
+const rgba = (hex: string, a: number) => {
+  const n = parseInt(hex.replace('#', '').slice(0, 6), 16);
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
+};
+const METAL = () => metalStops('copper', 'deep')[1];
+
 const svgUri = (svg: string) => `url("data:image/svg+xml;utf8,${encodeURIComponent(svg)}")`;
 const grain = (rgb: number, alpha = 1.8) =>
   svgUri(
@@ -43,7 +50,7 @@ export const KitBackdrop: React.FC<{kit: KitName; frame: number}> = ({kit, frame
       return (
         <AbsoluteFill style={{background: brand.black, overflow: 'hidden'}}>
           <div style={blob(540 + Math.sin(t * 0.12) * 40, 260, 1700 + Math.sin(t * 0.3) * 60, 'rgba(255,255,255,0.13)')} />
-          <div style={blob(540, 1900, 1400, 'rgba(111,13,15,0.35)')} />
+          <div style={blob(540, 1900, 1400, rgba(brand.crimsonDeep, 0.35))} />
           <Grain rgb={1} opacity={0.05} frame={frame} />
         </AbsoluteFill>
       );
@@ -66,10 +73,10 @@ export const KitBackdrop: React.FC<{kit: KitName; frame: number}> = ({kit, frame
       return (
         <AbsoluteFill style={{background: '#050506', overflow: 'hidden'}}>
           <div style={{position: 'absolute', inset: -200, filter: 'blur(90px)'}}>
-            <div style={blob(300 + Math.sin(t * 0.21) * 160, 500 + Math.cos(t * 0.17) * 200, 1100, 'rgba(201,27,25,0.75)')} />
-            <div style={blob(900 + Math.cos(t * 0.19) * 180, 1200 + Math.sin(t * 0.23) * 220, 1000, 'rgba(169,87,74,0.55)')} />
+            <div style={blob(300 + Math.sin(t * 0.21) * 160, 500 + Math.cos(t * 0.17) * 200, 1100, rgba(brand.crimson, 0.75))} />
+            <div style={blob(900 + Math.cos(t * 0.19) * 180, 1200 + Math.sin(t * 0.23) * 220, 1000, rgba(METAL(), 0.55))} />
             <div style={blob(600 + Math.sin(t * 0.13) * 220, 1700, 900, 'rgba(255,255,255,0.18)')} />
-            <div style={blob(1000, 300 + Math.sin(t * 0.15) * 120, 800, 'rgba(111,13,15,0.8)')} />
+            <div style={blob(1000, 300 + Math.sin(t * 0.15) * 120, 800, rgba(brand.crimsonDeep, 0.8))} />
           </div>
           <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0) 40%)'}} />
           <Grain rgb={1} opacity={0.05} frame={frame} />
@@ -102,10 +109,10 @@ export const KitBackdrop: React.FC<{kit: KitName; frame: number}> = ({kit, frame
           <AbsoluteFill style={{backgroundImage: 'linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)', backgroundSize: '60px 60px', backgroundPosition: `0 ${off}px`}} />
           <AbsoluteFill style={{backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '300px 300px', backgroundPosition: `0 ${off}px`}} />
           <svg width={1080} height={1920} style={{position: 'absolute', inset: 0}}>
-            <polyline points={line(1)} fill="none" stroke="rgba(201,27,25,0.55)" strokeWidth={3} transform="translate(0 1180)" />
+            <polyline points={line(1)} fill="none" stroke={rgba(brand.crimson, 0.55)} strokeWidth={3} transform="translate(0 1180)" />
             <polyline points={line(4)} fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth={2} transform="translate(0 1260)" />
             {Array.from({length: 12}, (_, i) => (
-              <rect key={i} x={70 + i * 82} y={1820 - (60 + ((i * 37) % 90) + Math.sin(t + i) * 12)} width={34} height={60 + ((i * 37) % 90) + Math.sin(t + i) * 12} fill={i % 4 === 2 ? 'rgba(201,27,25,0.5)' : 'rgba(255,255,255,0.1)'} />
+              <rect key={i} x={70 + i * 82} y={1820 - (60 + ((i * 37) % 90) + Math.sin(t + i) * 12)} width={34} height={60 + ((i * 37) % 90) + Math.sin(t + i) * 12} fill={i % 4 === 2 ? rgba(brand.crimson, 0.5) : 'rgba(255,255,255,0.1)'} />
             ))}
           </svg>
           <div style={blob(540, 800, 1500, 'rgba(0,0,0,0.55)')} />
@@ -117,9 +124,9 @@ export const KitBackdrop: React.FC<{kit: KitName; frame: number}> = ({kit, frame
       const sx = ((t * 0.06) % 1) * 1600 - 260;
       return (
         <AbsoluteFill style={{background: brand.black, overflow: 'hidden'}}>
-          <div style={{position: 'absolute', left: -400, right: -400, top: 520, height: 3, background: 'linear-gradient(90deg, rgba(201,27,25,0) 0%, rgba(201,27,25,0.7) 45%, rgba(255,255,255,0.9) 50%, rgba(201,27,25,0.7) 55%, rgba(201,27,25,0) 100%)', transform: `translateX(${sx - 540}px)`, filter: 'blur(1.5px)'}} />
-          <div style={{position: 'absolute', left: -400, right: -400, top: 470, height: 100, background: 'radial-gradient(50% 50% at 50% 50%, rgba(201,27,25,0.22), rgba(201,27,25,0) 70%)', transform: `translateX(${sx - 540}px)`}} />
-          <div style={blob(540, 1500, 1800, 'rgba(111,13,15,0.25)')} />
+          <div style={{position: 'absolute', left: -400, right: -400, top: 520, height: 3, background: `linear-gradient(90deg, ${rgba(brand.crimson, 0)} 0%, ${rgba(brand.crimson, 0.7)} 45%, rgba(255,255,255,0.9) 50%, ${rgba(brand.crimson, 0.7)} 55%, ${rgba(brand.crimson, 0)} 100%)`, transform: `translateX(${sx - 540}px)`, filter: 'blur(1.5px)'}} />
+          <div style={{position: 'absolute', left: -400, right: -400, top: 470, height: 100, background: `radial-gradient(50% 50% at 50% 50%, ${rgba(brand.crimson, 0.22)}, ${rgba(brand.crimson, 0)} 70%)`, transform: `translateX(${sx - 540}px)`}} />
+          <div style={blob(540, 1500, 1800, rgba(brand.crimsonDeep, 0.25))} />
           <AbsoluteFill style={{background: 'radial-gradient(70% 55% at 50% 45%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.85) 100%)'}} />
           <Grain rgb={1} opacity={0.11} frame={frame} />
         </AbsoluteFill>
@@ -223,7 +230,7 @@ export const KitFrameOver: React.FC<{kit: KitName; w: number; h: number; r: numb
       return (
         <div style={{position: 'absolute', inset: 0, opacity, pointerEvents: 'none'}}>
           {[18, w - 18].map((x, i) => (
-            <div key={i} style={{position: 'absolute', left: x - 18, top: -14, width: 36, height: 36, borderRadius: 18, background: `radial-gradient(circle at 35% 30%, #FF6B68, ${brand.crimson} 55%, ${brand.crimsonDeep})`, boxShadow: '0 4px 8px rgba(0,0,0,0.35)'}} />
+            <div key={i} style={{position: 'absolute', left: x - 18, top: -14, width: 36, height: 36, borderRadius: 18, background: `radial-gradient(circle at 35% 30%, ${rgba(brand.crimson, 0.55)}, ${brand.crimson} 55%, ${brand.crimsonDeep})`, boxShadow: '0 4px 8px rgba(0,0,0,0.35)'}} />
           ))}
         </div>
       );
