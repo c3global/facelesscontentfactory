@@ -1,0 +1,313 @@
+{
+ "slug": "decisions",
+ "video": "raw/decisions.mp4",
+ "durationSec": 40.06,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "call"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "panic",
+  "call",
+  "heads",
+  "written",
+  "decide",
+  "place",
+  "stick"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "style": "signature",
+ "scrim": 0.7,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 4.2,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  },
+  {
+   "id": "fast",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 4.2,
+     "end": 9.9,
+     "layout": "S",
+     "captionPos": "top",
+     "graphics": [
+      {
+       "type": "headline-card",
+       "props": {
+        "label": "A CALL FEELS FAST",
+        "line": "The decision lives in people's heads.",
+        "emphasis": [
+         "heads"
+        ]
+       },
+       "at": 4.2,
+       "until": 9.9
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     }
+    }
+   ]
+  },
+  {
+   "id": "lost",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 9.9,
+     "end": 15.82,
+     "layout": "E",
+     "captionPos": "alternate",
+     "avatar": "hidden",
+     "graphics": [
+      {
+       "type": "floating-chips",
+       "at": 9.9,
+       "until": 15.82,
+       "props": {
+        "mode": "stack",
+        "chips": [
+         {
+          "text": "What was decided",
+          "at": 11.14
+         },
+         {
+          "text": "Who owns it",
+          "at": 12.07
+         },
+         {
+          "text": "When to check on it",
+          "at": 13.23
+         }
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "again",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 15.82,
+     "end": 18.67,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  },
+  {
+   "id": "shared",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 18.67,
+     "end": 23.6,
+     "layout": "S",
+     "captionPos": "top",
+     "graphics": [
+      {
+       "type": "headline-card",
+       "props": {
+        "label": "A SHARED SPACE",
+        "line": "Where the whole team can see them.",
+        "emphasis": [
+         "whole"
+        ]
+       },
+       "at": 18.67,
+       "until": 23.6
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     }
+    }
+   ]
+  },
+  {
+   "id": "three",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 23.6,
+     "end": 30.35,
+     "layout": "S",
+     "captionPos": "top",
+     "graphics": [
+      {
+       "type": "notes-card",
+       "props": {
+        "label": "Notes",
+        "title": "Before any call ends",
+        "items": [
+         {
+          "text": "What did we decide?",
+          "at": 26.61,
+          "checkAfter": 0.5
+         },
+         {
+          "text": "Who is doing it?",
+          "at": 27.88,
+          "checkAfter": 0.5
+         },
+         {
+          "text": "When will we check?",
+          "at": 29.08,
+          "checkAfter": 0.5
+         }
+        ]
+       },
+       "at": 23.6,
+       "until": 30.35
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     }
+    }
+   ]
+  },
+  {
+   "id": "post",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 30.35,
+     "end": 33.25,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  },
+  {
+   "id": "lasts",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 33.25,
+     "end": 36.3,
+     "layout": "E",
+     "captionPos": "bottom",
+     "avatar": "hidden",
+     "captions": "off",
+     "graphics": [
+      {
+       "type": "statement-card",
+       "at": 33.25,
+       "until": 36.3,
+       "box": {
+        "y": 360,
+        "h": 1200,
+        "center": true
+       },
+       "props": {
+        "text": "A decision lasts when it has an owner and a date.",
+        "emphasis": [
+         "owner",
+         "date"
+        ],
+        "wordTimes": [
+         33.29,
+         33.29,
+         33.59,
+         34.06,
+         34.47,
+         34.61,
+         34.89,
+         35.1,
+         35.93,
+         35.93,
+         35.93
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "end",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 36.3,
+     "end": 40.06,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "digital-zoom",
+   "at": 15.9,
+   "until": 18.6,
+   "props": {
+    "creepTo": 1.07,
+    "snapTo": 1.07
+   }
+  },
+  {
+   "type": "digital-zoom",
+   "at": 30.4,
+   "until": 33.2,
+   "props": {
+    "creepTo": 1.07,
+    "snapTo": 1.07
+   }
+  }
+ ],
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 36.36,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/lofi-kola-french-toast.mp3",
+  "volume": 0.5,
+  "duckTo": 0.26,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}

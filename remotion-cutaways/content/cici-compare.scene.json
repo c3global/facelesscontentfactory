@@ -1,0 +1,144 @@
+{
+ "slug": "cici-compare",
+ "video": "raw/cici-fx.mp4",
+ "durationSec": 21.5,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 21.5,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "kinetic-hook",
+   "at": 0.3,
+   "until": 3.2,
+   "props": {
+    "version": 2,
+    "lines": [
+     {
+      "text": "Poster",
+      "face": "sans"
+     },
+     {
+      "text": "type",
+      "face": "italic"
+     },
+     {
+      "text": "hook",
+      "face": "sans"
+     }
+    ],
+    "y": 1250
+   }
+  },
+  {
+   "type": "flash-frame",
+   "at": 3.2,
+   "props": {
+    "version": 2
+   }
+  },
+  {
+   "type": "side-by-side",
+   "at": 3.7,
+   "until": 7.5,
+   "props": {
+    "title": "Side by side",
+    "left": {
+     "src": "posts/drck-fx-1.jpg",
+     "label": "Option A"
+    },
+    "right": {
+     "src": "posts/drck-fx-2.jpg",
+     "label": "Option B"
+    },
+    "winner": "right"
+   }
+  },
+  {
+   "type": "vote-pill",
+   "at": 7.7,
+   "until": 10.7,
+   "props": {
+    "question": "Which one wins?",
+    "a": "Option A",
+    "b": "Option B",
+    "pick": "b"
+   }
+  },
+  {
+   "type": "wall-text",
+   "at": 11.1,
+   "until": 14.8,
+   "props": {
+    "lines": [
+     {
+      "text": "Wall"
+     },
+     {
+      "text": "text"
+     }
+    ]
+   }
+  },
+  {
+   "type": "duotone",
+   "at": 15.0,
+   "until": 17.4,
+   "props": {}
+  },
+  {
+   "type": "giant-caption",
+   "at": 15.1,
+   "until": 17.4,
+   "props": {
+    "version": 2,
+    "text": "Duotone look",
+    "accent": "look",
+    "y": 1300
+   }
+  },
+  {
+   "type": "big-stat",
+   "at": 17.7,
+   "until": 21.2,
+   "props": {
+    "value": 119,
+    "label": "Sample number",
+    "sub": "big stat, poster style"
+   }
+  }
+ ],
+ "matte": "cici-fx"
+}

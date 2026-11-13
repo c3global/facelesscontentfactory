@@ -1,0 +1,242 @@
+{
+ "slug": "who-owns",
+ "video": "raw/who-owns.mp4",
+ "durationSec": 32.93,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [
+  "hard"
+ ],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [
+  "over",
+  "questions",
+  "old",
+  "owner"
+ ],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "style": "signature",
+ "scrim": 0.7,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 3.7,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  },
+  {
+   "id": "hard",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 3.7,
+     "end": 8.95,
+     "layout": "E",
+     "captionPos": "bottom",
+     "avatar": "hidden",
+     "captions": "off",
+     "graphics": [
+      {
+       "type": "statement-card",
+       "at": 3.7,
+       "until": 8.95,
+       "box": {
+        "y": 360,
+        "h": 1200,
+        "center": true
+       },
+       "props": {
+        "text": "It isn't. The tool is the easy part. The hard part starts when someone helps people actually use it.",
+        "emphasis": [
+         "easy",
+         "hard"
+        ],
+        "wordTimes": [
+         3.73,
+         3.74,
+         4.52,
+         4.52,
+         4.8,
+         4.96,
+         5.04,
+         5.36,
+         6.02,
+         6.02,
+         6.2,
+         6.4,
+         6.72,
+         6.94,
+         7.29,
+         7.64,
+         7.91,
+         8.33,
+         8.53
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "ask",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 8.95,
+     "end": 10.38,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  },
+  {
+   "id": "three",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 10.38,
+     "end": 20.7,
+     "layout": "S",
+     "captionPos": "top",
+     "graphics": [
+      {
+       "type": "notes-card",
+       "props": {
+        "label": "Notes",
+        "title": "Three questions",
+        "items": [
+         {
+          "text": "Who do people ask?",
+          "at": 10.4,
+          "checkAfter": 0.5
+         },
+         {
+          "text": "What is it for? What is off limits?",
+          "at": 13.34,
+          "checkAfter": 0.5
+         },
+         {
+          "text": "How will we know it's helping?",
+          "at": 16.84,
+          "checkAfter": 0.5
+         }
+        ]
+       },
+       "at": 10.38,
+       "until": 20.7
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     }
+    }
+   ]
+  },
+  {
+   "id": "sit",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 20.7,
+     "end": 26.5,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  },
+  {
+   "id": "owner",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 26.5,
+     "end": 29.98,
+     "layout": "S",
+     "captionPos": "top",
+     "graphics": [
+      {
+       "type": "headline-card",
+       "props": {
+        "label": "THIS WEEK",
+        "line": "Pick one owner. Write the answers down.",
+        "emphasis": [
+         "owner"
+        ]
+       },
+       "at": 26.5,
+       "until": 29.98
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     }
+    }
+   ]
+  },
+  {
+   "id": "end",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 29.98,
+     "end": 32.93,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "digital-zoom",
+   "at": 20.8,
+   "until": 26.4,
+   "props": {
+    "creepTo": 1.08,
+    "snapTo": 1.08
+   }
+  }
+ ],
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 30.05,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/lofi-jyme-refresh.mp3",
+  "volume": 0.5,
+  "duckTo": 0.26,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}

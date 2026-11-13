@@ -1,0 +1,152 @@
+{
+ "slug": "cici-v2",
+ "video": "raw/cici-fx.mp4",
+ "durationSec": 20,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 20,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "odometer",
+   "at": 0.3,
+   "until": 3.8,
+   "props": {
+    "version": 2,
+    "label": "Odometer \u00b7 version 2",
+    "to": 12480,
+    "sub": "sample number, rolls digit by digit"
+   }
+  },
+  {
+   "type": "chart-grow",
+   "at": 4.0,
+   "until": 7.4,
+   "props": {
+    "version": 2,
+    "label": "Chart grow \u00b7 version 2",
+    "endLabel": "+82%",
+    "points": [
+     20,
+     28,
+     26,
+     40,
+     48,
+     62,
+     74
+    ]
+   }
+  },
+  {
+   "type": "focus-list",
+   "at": 7.6,
+   "until": 10.9,
+   "props": {
+    "title": "Focus list, timed",
+    "y": 1010,
+    "items": [
+     {
+      "text": "Pick the idea",
+      "at": 8.0
+     },
+     {
+      "text": "Write the script",
+      "at": 8.7
+     },
+     {
+      "text": "Record your voice",
+      "at": 9.4
+     },
+     {
+      "text": "Add the effects",
+      "at": 10.1
+     }
+    ]
+   }
+  },
+  {
+   "type": "clone",
+   "at": 11.1,
+   "until": 14.9,
+   "props": {
+    "version": 2,
+    "copies": [
+     {
+      "at": 11.4,
+      "side": "left"
+     },
+     {
+      "at": 11.9,
+      "side": "right"
+     },
+     {
+      "at": 12.4,
+      "side": "left"
+     },
+     {
+      "at": 12.9,
+      "side": "right"
+     }
+    ]
+   }
+  },
+  {
+   "type": "pointer-callout",
+   "at": 15.2,
+   "until": 19.4,
+   "props": {
+    "version": 2,
+    "cards": [
+     {
+      "text": "notes follow her",
+      "at": 15.5,
+      "target": "head"
+     },
+     {
+      "text": "even when she moves",
+      "at": 16.5,
+      "target": "right"
+     },
+     {
+      "text": "point anywhere",
+      "at": 17.5,
+      "target": "hands"
+     }
+    ]
+   }
+  }
+ ],
+ "matte": "cici-fx"
+}

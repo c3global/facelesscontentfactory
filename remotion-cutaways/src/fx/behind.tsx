@@ -9,6 +9,8 @@ import {thirdFront, thirdPlate} from './third';
 import {seventhFront, seventhPlate} from './seventh';
 import {eighthPlate} from './eighth';
 import {blowAwayMask, ninthFront, ninthPlate} from './ninth';
+import {fifteenthPlate} from './fifteenth';
+import {silhouetteCutout, thirteenthFront, thirteenthPlate} from './thirteenth';
 import {fxRange, pop, tw, useFxEnv, useFxTime} from './util';
 
 type Of<T extends Fx['type']> = Extract<Fx, {type: T}>;
@@ -49,6 +51,7 @@ export const cutoutStyle = (fx: Fx, abs: number): React.CSSProperties => {
   }
   if (fx.type === 'script-panel') return scriptPanelCutout(fx, abs);
   if (fx.type === 'blow-away') return blowAwayMask(fx, abs);
+  if (fx.type === 'silhouette-shift') return silhouetteCutout(fx, abs);
   if (fx.type === 'sketch-words') {
     // she steps back a little so the big word has room above her head
     const k = tw(abs, a, a + 0.5) * (1 - tw(abs, b - 0.35, b));
@@ -379,10 +382,10 @@ export const behindPlate = (fx: Fx): React.ReactNode => {
     case 'green-screen':
       return <GreenScreenPlate fx={fx} />;
     default:
-      return thirdPlate(fx) ?? sixthPlate(fx) ?? seventhPlate(fx) ?? eighthPlate(fx) ?? ninthPlate(fx);
+      return thirdPlate(fx) ?? sixthPlate(fx) ?? seventhPlate(fx) ?? eighthPlate(fx) ?? ninthPlate(fx) ?? thirteenthPlate(fx) ?? fifteenthPlate(fx);
   }
 };
 
 /** things drawn above her cutout but still inside the person frame */
-export const behindFront = (fx: Fx): React.ReactNode => (fx.type === 'orbit' ? <OrbitItems fx={fx} half="front" /> : thirdFront(fx) ?? seventhFront(fx) ?? ninthFront(fx));
+export const behindFront = (fx: Fx): React.ReactNode => (fx.type === 'orbit' ? <OrbitItems fx={fx} half="front" /> : thirdFront(fx) ?? seventhFront(fx) ?? ninthFront(fx) ?? thirteenthFront(fx));
 export {Sequence, metalGradient};

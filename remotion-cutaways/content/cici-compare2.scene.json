@@ -1,0 +1,97 @@
+{
+ "slug": "cici-compare2",
+ "video": "raw/cici-fx.mp4",
+ "durationSec": 15.5,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 15.5,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "before-after",
+   "at": 0.3,
+   "until": 3.9,
+   "props": {
+    "version": 2
+   }
+  },
+  {
+   "type": "checklist",
+   "at": 4.2,
+   "until": 8.6,
+   "props": {
+    "version": 2,
+    "title": "Checklist version 2",
+    "items": [
+     {
+      "text": "Pick the idea",
+      "at": 4.9
+     },
+     {
+      "text": "Write the script",
+      "at": 5.7
+     },
+     {
+      "text": "Record your voice",
+      "at": 6.5
+     },
+     {
+      "text": "Add the effects",
+      "at": 7.3
+     }
+    ]
+   }
+  },
+  {
+   "type": "follow-card",
+   "at": 8.9,
+   "until": 12.0,
+   "props": {
+    "version": 2,
+    "handle": "@yourhandle",
+    "sub": "new effects every week"
+   }
+  },
+  {
+   "type": "thank-you",
+   "at": 12.2,
+   "until": 15.3,
+   "props": {
+    "sub": "see you in the next one"
+   }
+  }
+ ],
+ "matte": "cici-fx"
+}

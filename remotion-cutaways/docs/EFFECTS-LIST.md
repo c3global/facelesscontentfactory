@@ -181,3 +181,65 @@ Stick-figure explainers (Dr. CiCi with a modern gray cast) have their own playbo
 Lab plans: `content/fxlab12`, `fxlab13` and `fxlab14`. 
 
 **3D tilt** (`tilt` prop on `storyboard-deck`, `playing-grid`, `video-card`, `cover-frame` and `phone-frame`): `in` swings the card or page flat from rotated back in space, `float` does that and then drifts slowly in perspective. Default `off`. `reel-stack` already sits in real perspective. Lab plan: `content/fxlab16.scene.json`.
+
+## Second versions (upgrade batch 1), same effect name plus `"version": 2`
+The original look stays the default and is never replaced. Add `"version": 2` to the effect's props (or say "version 2" in chat) for the newer look. All timing props stay the same, so switching versions never changes when things land.
+
+| Name | Version 2 look | Extra props in version 2 |
+| --- | --- | --- |
+| `odometer` | The rolling digits on a frosted proof card, with commas, an underline that draws in, and a line under the number. | `sub`, `y` |
+| `chart-grow` | A glowing line on a frosted card; the end label lands as the dot starts to pulse. | `y` |
+| `pointer-callout` | Handwritten notes with curved arrows that follow her (needs the matte anchors, as before). | `size` (handwriting size) |
+| `clone` | The copies fan out in a row behind her, each on its own second, smaller and darker toward the edges (needs the cutout, as before). | none |
+
+The list with switches is a focus list, not a checklist (Dr. CK, Nov 12): it lives in `focus-list`, never under the checklist name. Give every item `{"text": "...", "at": <second>}` and each switch turns on at its own second; plain words still switch on at an even pace.
+
+Preview plan: `content/cici-v2.scene.json`. Code: `src/fx/twelfth.tsx` (the timed focus list is in `eleventh.tsx`).
+
+## Reel effects (9), in the `fx` list
+| Name | What it does | Needs cutout |
+| --- | --- | --- |
+| `shoulder-steps` | The shot pushes in and slides her to one side; numbered step cards float beside her in depth, each on its own second | anchors |
+| `iris` | A round iris closes to a circle on her face, holds (optional word), and opens again. `mode`: `peek`, `close` or `open` | anchors |
+| `match-cut` | Hard cuts between framings with her face pinned to the same spot, a white flash and an optional big word per cut (`mono` makes a cut black and white) | anchors |
+| `demo-cursor` | An app window floats in; a cursor glides to the button and clicks it, and the button turns to done. `src` swaps in a real screenshot | no |
+| `glass-cards` | Small frosted cards float around her and bob, each with a label, a value and an optional bar | no |
+| `pixel-monitor` | Opens as a close-up of a pixel screen (red, green, blue stripes), then pulls back and sharpens into her clip | anchors |
+| `slot-machine` | Up to three reels spin and stop one by one on her words, then the frame glows | no |
+| `holo-phone` | A see-through hologram phone turns beside her, with scan lines, glow and a light cone | no |
+| `silhouette-shift` | She turns into a dark silhouette on a color field, a big word lands behind her, then a light sweep brings her back | yes |
+
+Preview plans: `content/cici-reel1.scene.json`, `content/cici-reel2.scene.json`. Code: `src/fx/thirteenth.tsx`. Never put invented numbers in `glass-cards` or `demo-cursor`.
+
+## Carousel pieces as video effects (3), in the `fx` list
+Pictures and clips are the member's own files under `public/`.
+
+| Name | What it does |
+| --- | --- |
+| `image-collage` | A grid of pictures rises in tile by tile, with a title and an optional Comment "WORD" pill |
+| `cover-fan` | A stack of 2 to 5 tilted frames fans out like a hand of cards |
+| `framed-clip` | A clip or picture in a white frame beside her, with up to 4 handwritten notes and arrows (leave `media` out to frame her own clip) |
+
+Preview plan: `content/cici-carousel-fx.scene.json`. Code: `src/fx/fourteenth.tsx`.
+
+## Comparison reel set (6 new), in the `fx` list
+| Name | What it does | Needs cutout |
+| --- | --- | --- |
+| `side-by-side` | Two of the member's pictures or clips with labels; the winner lifts and glows | no |
+| `vote-pill` | A question with two answers; one gets picked | no |
+| `duotone` | Her whole picture in two colors (`dark`, `light`) | no |
+| `big-stat` | One huge number that counts up, poster style, with a label and a line under it. Real numbers only | no |
+| `thank-you` | The picture goes black and white and a handwritten line writes on, with an underline | no |
+| `wall-text` | Big type lying on the wall in perspective behind her; the shot eases down to make room above her head | yes |
+
+## Second versions (upgrade batch 2), same effect name plus `"version": 2`
+| Name | Version 2 look |
+| --- | --- |
+| `before-after` | The two versions side by side, each centered in its own half with its label and a gold divider |
+| `flash-frame` | A slanted brand-color band wipes across the frame as a transition (0.6 s unless `until` is set) |
+| `kinetic-hook` | Magazine poster type: heavy caps and gold italic lines rise out of masks between two rules |
+| `giant-caption` | The same poster type; the `accent` word gets its own gold italic line |
+| `follow-card` | A glass end card with the brand mark and handle; a FOLLOW stamp lands on it |
+| `checklist` | One frosted card; square boxes get checked on their seconds |
+
+Preview plans: `content/cici-compare.scene.json`, `content/cici-compare2.scene.json`. Code: `src/fx/fifteenth.tsx`.

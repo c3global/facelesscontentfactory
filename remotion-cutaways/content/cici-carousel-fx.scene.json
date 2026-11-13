@@ -1,0 +1,105 @@
+{
+ "slug": "cici-carousel-fx",
+ "video": "raw/cici-fx.mp4",
+ "durationSec": 12,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 12,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "cover-fan",
+   "at": 0.3,
+   "until": 3.7,
+   "props": {
+    "title": "Cover fan",
+    "images": [
+     "posts/drck-fx-1.jpg",
+     "posts/drck-fx-2.jpg",
+     "posts/drck-fx-3.jpg"
+    ]
+   }
+  },
+  {
+   "type": "image-collage",
+   "at": 4.0,
+   "until": 7.6,
+   "props": {
+    "title": "Image collage",
+    "images": [
+     "posts/drck-fx-1.jpg",
+     "posts/drck-fx-2.jpg",
+     "posts/drck-fx-3.jpg",
+     "posts/drck-fx-4.jpg",
+     "posts/drck-fx-5.jpg",
+     "posts/drck-fx-6.jpg",
+     "posts/drck-fx-7.jpg",
+     "posts/drck-fx-8.jpg"
+    ],
+    "keyword": "effects"
+   }
+  },
+  {
+   "type": "framed-clip",
+   "at": 7.9,
+   "until": 11.8,
+   "props": {
+    "media": "posts/drck-fx-4.jpg",
+    "side": "left",
+    "notes": [
+     {
+      "text": "your clip or picture",
+      "x": 640,
+      "y": 1080,
+      "to": [
+       590,
+       1240
+      ]
+     },
+     {
+      "text": "notes point at it",
+      "x": 650,
+      "y": 1420,
+      "to": [
+       590,
+       1540
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "matte": "cici-fx"
+}

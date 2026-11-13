@@ -2,7 +2,7 @@ import React from 'react';
 import {handFamily, serifFamily} from '../fonts';
 import {useSpan} from './fourth';
 import type {Fx} from './schema';
-import {C3} from './theme';
+import {C3, ROSE, ROSE_TEXT} from './theme';
 import {pop, tw} from './util';
 
 /**
@@ -13,22 +13,22 @@ type Of<T extends Fx['type']> = Extract<Fx, {type: T}>;
 const FILL: React.CSSProperties = {position: 'absolute', left: 0, top: 0, width: 1080, height: 1920, pointerEvents: 'none'};
 const SANS = C3.sans;
 
-const Panel: React.FC<{y: number; k: number; out: number; w?: number; children: React.ReactNode}> = ({y, k, out, w = 920, children}) => (
+export const Panel: React.FC<{y: number; k: number; out: number; w?: number; children: React.ReactNode}> = ({y, k, out, w = 920, children}) => (
   <div style={{position: 'absolute', left: (1080 - w) / 2, width: w, top: y, transform: `translateY(${(1 - k) * 60}px) scale(${0.94 + 0.06 * k})`, opacity: k * out, borderRadius: 34, padding: '40px 46px', boxSizing: 'border-box', background: 'linear-gradient(160deg, rgba(40,42,52,0.78), rgba(14,15,20,0.86))', border: '1.5px solid rgba(255,255,255,0.22)', boxShadow: '0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.18)', backdropFilter: 'blur(22px) saturate(1.3)', color: '#fff', fontFamily: SANS}}>
     {children}
   </div>
 );
-const Title: React.FC<{text?: string; k: number}> = ({text, k}) => {
+export const Title: React.FC<{text?: string; k: number}> = ({text, k}) => {
   if (!text) return null;
   const parts = text.split(' ');
   const last = parts.pop();
   return (
     <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 64, marginBottom: 26, opacity: k, textShadow: '0 4px 24px rgba(0,0,0,0.9), 0 0 4px rgba(0,0,0,0.6)'}}>
-      {parts.join(' ')} <span style={{fontFamily: serifFamily, fontStyle: 'italic', color: C3.goldBright}}>{last}</span>
+      {parts.join(' ')} <span style={{fontFamily: serifFamily, fontStyle: 'italic', ...ROSE_TEXT}}>{last}</span>
     </div>
   );
 };
-const Label: React.FC<{text: string}> = ({text}) => <div style={{fontSize: 26, letterSpacing: 4, textTransform: 'uppercase', opacity: 0.75, fontWeight: 700}}>{text}</div>;
+export const Label: React.FC<{text: string}> = ({text}) => <div style={{fontSize: 26, letterSpacing: 4, textTransform: 'uppercase', opacity: 0.75, fontWeight: 700}}>{text}</div>;
 
 // ---------------------------------------------------------------- proof card: a number counts up, an underline draws in
 export const ProofCard: React.FC<{fx: Of<'proof-card'>}> = ({fx}) => {
@@ -42,9 +42,38 @@ export const ProofCard: React.FC<{fx: Of<'proof-card'>}> = ({fx}) => {
         <Title text={title} k={inK} />
         <Label text={label} />
         <div style={{fontWeight: 700, fontSize: 170, lineHeight: 1.05, letterSpacing: -4}}>{prefix}{n}{suffix}</div>
-        <div style={{height: 7, borderRadius: 4, background: C3.copper, width: `${tw(t, 1.2, 1.7) * 100}%`, maxWidth: 620}} />
+        <div style={{height: 7, borderRadius: 4, background: ROSE.grad, width: `${tw(t, 1.2, 1.7) * 100}%`, maxWidth: 620}} />
         {sub && <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontSize: 44, marginTop: 18, opacity: tw(t, 1.4, 1.8) * 0.9}}>{sub}</div>}
       </Panel>
+    </div>
+  );
+};
+
+// ---------------------------------------------------------------- focus list, timed: every item has its own second, and its switch turns on right then
+const ROW = 'linear-gradient(160deg, rgba(40,42,52,0.78), rgba(14,15,20,0.86))';
+const FocusListTimed: React.FC<{fx: Of<'focus-list'>; items: {text: string; at: number}[]}> = ({fx, items}) => {
+  const {abs, inK, outK} = useSpan(fx);
+  const {y, title} = fx.props;
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      <div style={{position: 'absolute', left: 80, width: 920, top: y, transform: `translateY(${(1 - inK) * 50}px)`, opacity: inK, fontFamily: SANS, color: '#fff'}}>
+        <Title text={title} k={inK} />
+        {items.map((it, i) => {
+          const next = items[i + 1]?.at ?? 1e6;
+          const on = tw(abs, it.at, it.at + 0.25);
+          const seen = tw(abs, it.at - 0.2, it.at + 0.1);
+          const focus = seen * (1 - tw(abs, next - 0.2, next + 0.1));
+          return (
+            <div key={i} style={{display: 'flex', alignItems: 'center', gap: 22, height: 92 + 20 * focus, marginBottom: 16, padding: '0 34px', borderRadius: 60, background: ROW, border: `1.5px solid rgba(255,255,255,${0.16 + 0.19 * focus})`, boxShadow: '0 16px 40px rgba(0,0,0,0.4)', backdropFilter: 'blur(18px)', filter: `blur(${5 * (1 - seen)}px)`, opacity: 0.6 + 0.4 * seen}}>
+              <span style={{fontWeight: 700, fontSize: 34, ...ROSE_TEXT}}>{String(i + 1).padStart(2, '0')}</span>
+              <span style={{flex: 1, fontWeight: 700, fontSize: 38 + 8 * focus}}>{it.text}</span>
+              <span style={{flex: 'none', width: 92, height: 50, borderRadius: 25, background: on > 0.5 ? C3.accent : `rgba(255,255,255,${0.15 + 0.2 * on})`, position: 'relative'}}>
+                <span style={{position: 'absolute', top: 5, left: 5 + 42 * on, width: 40, height: 40, borderRadius: 20, background: '#fff'}} />
+              </span>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
@@ -52,9 +81,12 @@ export const ProofCard: React.FC<{fx: Of<'proof-card'>}> = ({fx}) => {
 // ---------------------------------------------------------------- focus list: switches turn on one row at a time; the current row is sharp, the rest soft
 export const FocusList: React.FC<{fx: Of<'focus-list'>}> = ({fx}) => {
   const {t, len, inK, outK} = useSpan(fx);
-  const {items, y, title} = fx.props;
+  const {y, title} = fx.props;
+  const timed = fx.props.items.filter((it): it is {text: string; at: number} => typeof it !== 'string');
+  const items = fx.props.items.map((it) => (typeof it === 'string' ? it : it.text));
   const step = Math.max(0.45, (len - 1.2) / items.length);
   const cur = Math.min(items.length - 1, Math.floor(Math.max(0, t - 0.5) / step));
+  if (timed.length === fx.props.items.length) return <FocusListTimed fx={fx} items={timed} />;
   return (
     <div style={{...FILL, opacity: outK}}>
       <div style={{position: 'absolute', left: 80, width: 920, top: y, transform: `translateY(${(1 - inK) * 50}px)`, opacity: inK, fontFamily: SANS, color: '#fff'}}>
@@ -66,7 +98,7 @@ export const FocusList: React.FC<{fx: Of<'focus-list'>}> = ({fx}) => {
           const blur = active ? 0 : i > cur ? 5 : 0;
           return (
             <div key={i} style={{display: 'flex', alignItems: 'center', gap: 22, height: active ? 112 : 92, marginBottom: 16, padding: '0 34px', borderRadius: 60, background: 'linear-gradient(160deg, rgba(40,42,52,0.78), rgba(14,15,20,0.86))', border: `1.5px solid rgba(255,255,255,${active ? 0.35 : 0.16})`, boxShadow: '0 16px 40px rgba(0,0,0,0.4)', backdropFilter: 'blur(18px)', filter: `blur(${blur}px)`, opacity: i > cur ? 0.6 : 1}}>
-              <span style={{fontWeight: 700, fontSize: 34, color: C3.copper}}>{String(i + 1).padStart(2, '0')}</span>
+              <span style={{fontWeight: 700, fontSize: 34, ...ROSE_TEXT}}>{String(i + 1).padStart(2, '0')}</span>
               <span style={{flex: 1, fontWeight: 700, fontSize: active ? 46 : 38}}>{it}</span>
               <span style={{width: 92, height: 50, borderRadius: 25, background: on ? C3.accent : `rgba(255,255,255,${0.15 + 0.2 * sw})`, position: 'relative'}}>
                 <span style={{position: 'absolute', top: 5, left: 5 + 42 * (on ? 1 : sw), width: 40, height: 40, borderRadius: 20, background: '#fff'}} />
@@ -87,8 +119,8 @@ export const Compare: React.FC<{fx: Of<'compare'>}> = ({fx}) => {
   const card = (head: string, body: string, win: boolean, i: number) => {
     const k = tw(t, 0.1 + i * 0.2, 0.5 + i * 0.2, 0, 1, pop);
     return (
-      <div style={{flex: 1, minHeight: 360, borderRadius: 30, padding: '34px 34px', boxSizing: 'border-box', background: 'linear-gradient(160deg, rgba(40,42,52,0.78), rgba(14,15,20,0.86))', border: win ? `3px solid rgba(227,191,99,${0.3 + 0.7 * pick})` : '1.5px solid rgba(255,255,255,0.2)', backdropFilter: 'blur(18px)', boxShadow: win ? `0 0 ${50 * pick}px rgba(227,191,99,0.35)` : '0 16px 40px rgba(0,0,0,0.4)', transform: `translateY(${(1 - k) * 50}px) scale(${win ? 1 + 0.04 * pick : 1 - 0.03 * pick})`, opacity: k * (win ? 1 : 1 - 0.35 * pick)}}>
-        <div style={{fontSize: 26, letterSpacing: 4, fontWeight: 700, color: win ? C3.gold : 'rgba(255,255,255,0.75)'}}>{head.toUpperCase()}</div>
+      <div style={{flex: 1, minHeight: 360, borderRadius: 30, padding: '34px 34px', boxSizing: 'border-box', background: 'linear-gradient(160deg, rgba(40,42,52,0.78), rgba(14,15,20,0.86))', border: win ? `3px solid rgba(${ROSE.glow},${0.3 + 0.7 * pick})` : '1.5px solid rgba(255,255,255,0.2)', backdropFilter: 'blur(18px)', boxShadow: win ? `0 0 ${50 * pick}px rgba(${ROSE.glow},0.4)` : '0 16px 40px rgba(0,0,0,0.4)', transform: `translateY(${(1 - k) * 50}px) scale(${win ? 1 + 0.04 * pick : 1 - 0.03 * pick})`, opacity: k * (win ? 1 : 1 - 0.35 * pick)}}>
+        <div style={{fontSize: 26, letterSpacing: 4, fontWeight: 700, color: win ? ROSE.light : 'rgba(255,255,255,0.75)'}}>{head.toUpperCase()}</div>
         <div style={{fontSize: 40, lineHeight: 1.25, marginTop: 18}}>{body}</div>
         {win && <div style={{display: 'inline-block', marginTop: 24, background: C3.accent, borderRadius: 40, padding: '8px 26px', fontWeight: 700, fontSize: 32, transform: `scale(${pick})`}}>{badge}</div>}
       </div>
@@ -132,13 +164,14 @@ export const TrendGraph: React.FC<{fx: Of<'trend-graph'>}> = ({fx}) => {
           <defs>
             <linearGradient id={id} x1="0" x2="1">
               <stop offset="0" stopColor={C3.accent} />
-              <stop offset="1" stopColor={C3.goldBright} />
+              <stop offset="0.6" stopColor={ROSE.mid} />
+              <stop offset="1" stopColor={ROSE.light} />
             </linearGradient>
             <filter id={`${id}g`}><feGaussianBlur stdDeviation="6" /></filter>
           </defs>
           <path d={d} fill="none" stroke={`url(#${id})`} strokeWidth={14} opacity={0.5} filter={`url(#${id}g)`} pathLength={1} strokeDasharray={1} strokeDashoffset={1 - k} />
           <path d={d} fill="none" stroke={`url(#${id})`} strokeWidth={6} strokeLinecap="round" strokeLinejoin="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - k} />
-          {k > 0.98 && <circle cx={end[0]} cy={end[1]} r={13 + 3 * Math.sin(t * 6)} fill="#fff" stroke={C3.gold} strokeWidth={4} />}
+          {k > 0.98 && <circle cx={end[0]} cy={end[1]} r={13 + 3 * Math.sin(t * 6)} fill="#fff" stroke={ROSE.mid} strokeWidth={4} />}
         </svg>
       </Panel>
     </div>
@@ -170,22 +203,23 @@ export const FreebieDoc: React.FC<{fx: Of<'freebie-doc'>}> = ({fx}) => {
 };
 
 // ---------------------------------------------------------------- handwritten note with an arrow that starts outside the words and curves away from them
-export const NoteArrow: React.FC<{fx: Of<'note-arrow'>}> = ({fx}) => {
-  const {t, outK} = useSpan(fx);
-  const {text, x, y, to, from, bend, size} = fx.props;
+/** the size of a handwritten note's text block, so a caller can place it (right-align it, for example) */
+export const noteBox = (text: string, size: number) => {
   const cw = size * 0.45;
-  const words = text.split(' ');
+  const maxW = size * 8;
   let lines = 1;
   let cur = 0;
   let widest = 0;
-  const maxW = size * 8;
-  for (const w of words) {
+  for (const w of text.split(' ')) {
     const ww = w.length * cw + cw * 0.5;
     if (cur + ww > maxW && cur > 0) { lines++; widest = Math.max(widest, cur); cur = ww; } else cur += ww;
   }
   widest = Math.max(widest, cur);
-  const bw = Math.min(maxW, widest);
-  const bh = lines * size * 1.05 + 6;
+  return {maxW, bw: Math.min(maxW, widest), bh: lines * size * 1.05 + 6};
+};
+/** the ink itself: `w` writes the words in (0..1), `k` draws the arrow (0..1) */
+export const NoteInk: React.FC<{text: string; x: number; y: number; to?: readonly [number, number]; from?: 'auto' | 'left' | 'right' | 'top' | 'bottom'; bend?: number; size: number; w: number; k: number; ink?: string; /** wrap the words at the measured width (for a note placed against the right edge) */ snug?: boolean}> = ({text, x, y, to, from = 'auto', bend, size, w, k, ink = ROSE.mid, snug}) => {
+  const {maxW, bw, bh} = noteBox(text, size);
   const cx = x + bw / 2;
   const cy = y + bh / 2;
   const gap = 18;
@@ -200,27 +234,33 @@ export const NoteArrow: React.FC<{fx: Of<'note-arrow'>}> = ({fx}) => {
   const mx = (sx + tx) / 2 + nx * b;
   const my = (sy + ty) / 2 + ny * b;
   const ang = Math.atan2(ty - my, tx - mx);
-  const w = tw(t, 0.1, 0.8);
-  const k = tw(t, 0.7, 1.2);
-  const ink = C3.gold;
   return (
-    <div style={{...FILL, opacity: outK}}>
-      <div style={{position: 'absolute', left: x, top: y, width: maxW, fontFamily: handFamily, fontWeight: 700, fontSize: size, lineHeight: 1.05, color: ink, transform: 'rotate(-4deg)', transformOrigin: '0 0', clipPath: `inset(0 ${100 - w * 100}% 0 0)`, textShadow: '0 2px 10px rgba(0,0,0,0.5)'}}>{text}</div>
+    <>
+      <div style={{position: 'absolute', left: x, top: y, width: snug ? bw + 14 : maxW, fontFamily: handFamily, fontWeight: 700, fontSize: size, lineHeight: 1.05, color: ink, ...(ink === ROSE.mid ? {backgroundImage: ROSE.grad, WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent'} : {}), transform: 'rotate(-4deg)', transformOrigin: '0 0', clipPath: `inset(-20px ${100 - w * 100}% -20px -20px)`, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.85)) drop-shadow(0 0 14px rgba(0,0,0,0.6))'}}>{text}</div>
       {to && (
         <svg width={1080} height={1920} style={{position: 'absolute', left: 0, top: 0, overflow: 'visible'}}>
           <path d={`M ${sx} ${sy} Q ${mx} ${my} ${tx} ${ty}`} fill="none" stroke={ink} strokeWidth={5} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - k} style={{filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.5))'}} />
           <path d={`M ${tx - 26 * Math.cos(ang - 0.5)} ${ty - 26 * Math.sin(ang - 0.5)} L ${tx} ${ty} L ${tx - 26 * Math.cos(ang + 0.5)} ${ty - 26 * Math.sin(ang + 0.5)}`} fill="none" stroke={ink} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" opacity={k > 0.95 ? 1 : 0} />
         </svg>
       )}
+    </>
+  );
+};
+export const NoteArrow: React.FC<{fx: Of<'note-arrow'>}> = ({fx}) => {
+  const {t, outK} = useSpan(fx);
+  const {text, x, y, to, from, bend, size} = fx.props;
+  return (
+    <div style={{...FILL, opacity: outK}}>
+      <NoteInk text={text} x={x} y={y} to={to} from={from} bend={bend} size={size} w={tw(t, 0.1, 0.8)} k={tw(t, 0.7, 1.2)} />
     </div>
   );
 };
 
-const Scrim: React.FC<{fx: Fx; top: number}> = ({fx, top}) => {
+export const Scrim: React.FC<{fx: Fx; top: number}> = ({fx, top}) => {
   const {inK, outK} = useSpan(fx);
   return <div style={{...FILL, top: top - 260, height: 1920 - top + 260, background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.62) 30%, rgba(0,0,0,0.72) 100%)', opacity: inK * outK}} />;
 };
-const withScrim = (fx: Fx, y: number, node: React.ReactNode) => <><Scrim fx={fx} top={y} />{node}</>;
+export const withScrim = (fx: Fx, y: number, node: React.ReactNode) => <><Scrim fx={fx} top={y} />{node}</>;
 
 export const eleventhOver = (fx: Fx): React.ReactNode => {
   switch (fx.type) {

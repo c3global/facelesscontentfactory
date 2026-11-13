@@ -1,15 +1,83 @@
 {
-  "note": "Licensed Audiio tracks from Dr. CK's Drive folder 'Music' (https://drive.google.com/drive/folders/1_zehp3xfDSjuOx8Zs8zKauSUQF9k5DU0). Only ids and tags are kept here. The audio itself is downloaded into public/music, which is git-ignored.",
-  "tracks": [
-    {"file": "warm-marscott-warm-sunlight.mp3", "driveId": "1w_z3YOPXDkbqe9lgq0WTyG0V9UhlRB5s", "bpm": 92, "use": "reflective, warm, lo-fi bed"},
-    {"file": "calm-jle-hayride-60s.mp3", "driveId": "1BhOOc2xBDgXWWq2udPgzXxVuF3HYc4kn", "bpm": 78, "use": "calm, short (60 s)"},
-    {"file": "warm-yellen-closer-than-before.mp3", "driveId": "1xZVlMTS0Hrm1KlW2TGbL5UOoSj9xMzEw", "bpm": 92, "use": "warm, fuller"},
-    {"file": "driving-liamback-phenomenon.mp3", "driveId": "1Ni0AE_VyNkbrCYKJllfqainIfAvgGYIU", "bpm": 129, "use": "energetic, bright"},
-    {"file": "driving-yellen-fearless-dropoff.mp3", "driveId": "1IeINd1Kj4xdLlMtwA0tk380hO8jOEVGn", "bpm": 144, "use": "fast, punchy"},
-    {"file": "bright-terem-moment-of-truth.mp3", "driveId": "1NeySFfEgDLxhPkkE7LHsZS2j4unetmuv", "bpm": 99, "use": "bright, medium"}
-  ],
-  "sfx": [
-    {"file": "sfx-whoosh-02.wav", "driveId": "16f2CXg8SfKubXcAyKCMvuL-VbDCsqIWY", "use": "cut transition"},
-    {"file": "sfx-bell-16.wav", "driveId": "1KZaw7uYonwvHxIDVRntU2jb_lY6dTH0l", "use": "accent"}
-  ]
+ "note": "Licensed Audiio tracks from Dr. CK's Drive folder 'Music' (https://drive.google.com/drive/folders/1_zehp3xfDSjuOx8Zs8zKauSUQF9k5DU0). Only ids and tags are kept here. The audio itself is downloaded into public/music, which is git-ignored. Nov 12 2026: talking heads and yaps use only tracks from the 'TH & Yaps' subfolder (1rt1fb7B2mLmPGpHsNogNHbvAPO2-ASPX), hip hop lo-fi first; video carousels use 'Cinematic Carousels' (1UUXGRLYUX0oDt0XCMJffSWjrj0uTTUYb).",
+ "tracks": [
+  {
+   "file": "warm-marscott-warm-sunlight.mp3",
+   "driveId": "1w_z3YOPXDkbqe9lgq0WTyG0V9UhlRB5s",
+   "bpm": 92,
+   "use": "reflective, warm, lo-fi bed"
+  },
+  {
+   "file": "calm-jle-hayride-60s.mp3",
+   "driveId": "1BhOOc2xBDgXWWq2udPgzXxVuF3HYc4kn",
+   "bpm": 78,
+   "use": "calm, short (60 s)"
+  },
+  {
+   "file": "warm-yellen-closer-than-before.mp3",
+   "driveId": "1xZVlMTS0Hrm1KlW2TGbL5UOoSj9xMzEw",
+   "bpm": 92,
+   "use": "warm, fuller"
+  },
+  {
+   "file": "driving-liamback-phenomenon.mp3",
+   "driveId": "1Ni0AE_VyNkbrCYKJllfqainIfAvgGYIU",
+   "bpm": 129,
+   "use": "energetic, bright"
+  },
+  {
+   "file": "driving-yellen-fearless-dropoff.mp3",
+   "driveId": "1IeINd1Kj4xdLlMtwA0tk380hO8jOEVGn",
+   "bpm": 144,
+   "use": "fast, punchy"
+  },
+  {
+   "file": "bright-terem-moment-of-truth.mp3",
+   "driveId": "1NeySFfEgDLxhPkkE7LHsZS2j4unetmuv",
+   "bpm": 99,
+   "use": "bright, medium"
+  },
+  {
+   "file": "lofi-agnes-azria-paper-cut.mp3",
+   "driveId": "16-wA8DSp5vFnLVcrLq0L2gGXz0GpO2AI",
+   "use": "TH & Yaps folder (Dr. CK approved for talking heads and yaps); picked by artist and title as lo-fi, not checked by ear"
+  },
+  {
+   "file": "lofi-kola-french-toast.mp3",
+   "driveId": "1B9iJakxUsNiXOkmk4D5C-jk0-JP7zVfq",
+   "use": "TH & Yaps folder (Dr. CK approved for talking heads and yaps); picked by artist and title as lo-fi, not checked by ear"
+  },
+  {
+   "file": "lofi-kola-sturmfrei.mp3",
+   "driveId": "1XLm7xE9GbOHQOw5dypXB9SZAc_Ha7WNW",
+   "use": "TH & Yaps folder (Dr. CK approved for talking heads and yaps); picked by artist and title as lo-fi, not checked by ear"
+  },
+  {
+   "file": "lofi-jyme-refresh.mp3",
+   "driveId": "1zg4I-QxVEyYQk-HxPoWPwwk2AdeNOdR7",
+   "use": "TH & Yaps folder (Dr. CK approved for talking heads and yaps); picked by artist and title as lo-fi, not checked by ear"
+  },
+  {
+   "file": "lofi-fuad-assani-enjoy.mp3",
+   "driveId": "1n4MtPBy9PzQc37UKTTYmlLyZAsGcHop7",
+   "use": "TH & Yaps folder (Dr. CK approved for talking heads and yaps); picked by artist and title as lo-fi, not checked by ear"
+  },
+  {
+   "file": "lofi-ferraz-squady.mp3",
+   "driveId": "1hQ9NiPrRjtV2U1azSFAoPONbgtccycs3",
+   "use": "TH & Yaps: Dr. CK's own pick (Nov 12). Paper Cut is approved too. Weeks in Paris is NOT one she would choose."
+  }
+ ],
+ "sfx": [
+  {
+   "file": "sfx-whoosh-02.wav",
+   "driveId": "16f2CXg8SfKubXcAyKCMvuL-VbDCsqIWY",
+   "use": "cut transition"
+  },
+  {
+   "file": "sfx-bell-16.wav",
+   "driveId": "1KZaw7uYonwvHxIDVRntU2jb_lY6dTH0l",
+   "use": "accent"
+  }
+ ]
 }
