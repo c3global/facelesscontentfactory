@@ -61,7 +61,7 @@
     {
      "start": 7.25,
      "end": 14.49,
-     "layout": "D",
+     "layout": "T",
      "captionPos": "bottom",
      "graphics": [
       {
@@ -120,8 +120,8 @@
           "at": 12.92
          }
         ],
-        "y": 720,
-        "height": 760,
+        "y": 895,
+        "height": 590,
         "emphasis": [
          "unwritten",
          "newcomer",

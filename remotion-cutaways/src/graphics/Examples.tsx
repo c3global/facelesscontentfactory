@@ -3,7 +3,7 @@ import {interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import {brand} from '../brand';
 import {handFamily, sansFamily, serifFamily} from '../fonts';
 import {metalTextStyle} from '../metal';
-import {normalizeWord} from '../ui';
+import {normalizeWord, useAbsSec} from '../ui';
 
 /**
  * Examples: as she names each point, a small illustrated example of it appears under a heading that carries her
@@ -22,7 +22,7 @@ type Sk = {panel: React.CSSProperties; ink: string; muted: string; line: string;
 const skinOf = (skin: ExampleSkin): Sk => {
   switch (skin) {
     case 'glass':
-      return {panel: {background: 'linear-gradient(140deg, rgba(40,44,56,0.82), rgba(12,13,18,0.7))', border: '1.5px solid rgba(255,214,196,0.45)', borderRadius: 36, boxShadow: '0 30px 70px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3)'}, ink: '#FFFFFF', muted: 'rgba(255,255,255,0.55)', line: 'rgba(255,255,255,0.18)', soft: 'rgba(255,255,255,0.1)', head: {fontFamily: SANS, fontWeight: 700, fontSize: 50}, bubble: 'rgba(255,255,255,0.14)', bubbleInk: '#FFFFFF'};
+      return {panel: {background: 'linear-gradient(140deg, rgba(40,44,56,0.82), rgba(12,13,18,0.7))', border: '1.5px solid rgba(255,214,196,0.45)', borderRadius: 36, boxShadow: '0 30px 70px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3)'}, ink: '#FFFFFF', muted: 'rgba(255,255,255,0.55)', line: 'rgba(255,255,255,0.18)', soft: 'rgba(255,255,255,0.1)', head: {fontFamily: SANS, fontWeight: 700, fontSize: 56}, bubble: 'rgba(255,255,255,0.14)', bubbleInk: '#FFFFFF'};
     case 'paper':
       return {panel: {background: '#FBFBFA', borderRadius: 6, boxShadow: '0 24px 50px rgba(0,0,0,0.45)', transform: 'rotate(-1.4deg)'}, ink: '#141414', muted: 'rgba(20,20,20,0.5)', line: 'rgba(20,20,20,0.14)', soft: 'rgba(20,20,20,0.06)', head: {fontFamily: handFamily, fontWeight: 700, fontSize: 66, lineHeight: 1}, bubble: '#EDEDEC', bubbleInk: '#141414'};
     case 'editorial':
@@ -32,7 +32,7 @@ const skinOf = (skin: ExampleSkin): Sk => {
     case 'dark':
       return {panel: {background: 'linear-gradient(180deg, rgba(14,10,10,0.92), rgba(6,6,6,0.92))', borderRadius: 4, border: '1px solid rgba(255,214,196,0.25)', boxShadow: '0 30px 80px rgba(0,0,0,0.6)'}, ink: '#F4F0EC', muted: 'rgba(244,240,236,0.5)', line: 'rgba(244,240,236,0.14)', soft: 'rgba(244,240,236,0.06)', head: {fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 500, fontSize: 54}, bubble: 'rgba(244,240,236,0.1)', bubbleInk: '#F4F0EC'};
     default:
-      return {panel: {background: '#FFFFFF', borderRadius: 32, boxShadow: '0 24px 60px rgba(0,0,0,0.35)'}, ink: '#111111', muted: 'rgba(17,17,17,0.5)', line: 'rgba(17,17,17,0.12)', soft: 'rgba(17,17,17,0.05)', head: {fontFamily: SANS, fontWeight: 800, fontSize: 52}, bubble: '#F2F2F2', bubbleInk: '#111111'};
+      return {panel: {background: '#FFFFFF', borderRadius: 32, boxShadow: '0 24px 60px rgba(0,0,0,0.35)'}, ink: '#111111', muted: 'rgba(17,17,17,0.5)', line: 'rgba(17,17,17,0.12)', soft: 'rgba(17,17,17,0.05)', head: {fontFamily: SANS, fontWeight: 800, fontSize: 56}, bubble: '#F2F2F2', bubbleInk: '#111111'};
   }
 };
 
@@ -48,11 +48,12 @@ const PALETTE = ['#C91B19', '#3A3F42', '#B76E79', '#6F0D0F', '#8E959C', '#B5622C
 const Illustration: React.FC<{kind: ExampleKind; t: number; sk: Sk; w: number; h: number}> = ({kind, t, sk, w, h}) => {
   const k = (a: number, d = 0.35) => interpolate(t, [a, a + d], [0, 1], clamp);
   const pop = (a: number): React.CSSProperties => ({opacity: k(a, 0.2), transform: `translateY(${(1 - k(a, 0.3)) * 16}px) scale(${0.92 + 0.08 * k(a, 0.3)})`});
-  const post = (who: number, lines: number[], extra?: React.ReactNode, dim = 1) => (
-    <div style={{display: 'flex', gap: 18, alignItems: 'flex-start', opacity: dim}}>
-      <Avatar c={PALETTE[who % PALETTE.length]} />
-      <div style={{flex: 1, background: sk.bubble, borderRadius: 18, padding: '18px 22px', display: 'flex', flexDirection: 'column', gap: 10}}>
-        {lines.map((lw, i) => <Bar key={i} w={lw} c={sk.line} />)}
+  const post = (who: number, name: string, text: string, extra?: React.ReactNode, dim = 1, small = false) => (
+    <div style={{display: 'flex', gap: 16, alignItems: 'flex-start', opacity: dim}}>
+      <Avatar c={PALETTE[who % PALETTE.length]} s={small ? 50 : 60} label={name[0]} />
+      <div style={{flex: 1, background: sk.bubble, borderRadius: 20, padding: small ? '12px 18px' : '16px 22px', display: 'flex', flexDirection: 'column', gap: 6}}>
+        <div style={{fontFamily: SANS, fontWeight: 700, fontSize: small ? 22 : 24, color: sk.muted}}>{name}</div>
+        <div style={{fontFamily: SANS, fontWeight: 500, fontSize: small ? 28 : 32, lineHeight: 1.25, color: sk.bubbleInk}}>{text}</div>
         {extra}
       </div>
     </div>
@@ -60,12 +61,12 @@ const Illustration: React.FC<{kind: ExampleKind; t: number; sk: Sk; w: number; h
   switch (kind) {
     case 'replies':
       return (
-        <div style={{display: 'flex', flexDirection: 'column', gap: 16, width: w}}>
-          <div style={pop(0)}>{post(0, [420, 300])}</div>
-          {[0.35, 0.6, 0.85].map((a, i) => (
-            <div key={i} style={{...pop(a), marginLeft: 76, transform: `${pop(a).transform}`}}>{post(i + 2, [220 + i * 40])}</div>
+        <div style={{display: 'flex', flexDirection: 'column', gap: 12, width: w}}>
+          <div style={pop(0)}>{post(0, 'Maya', 'Who has tips for running the Monday call?')}</div>
+          {[['Jordan', 'Here is what works for us'], ['Priya', 'Agenda first, always'], ['Sam', 'Love this question']].map(([n, txt], i) => (
+            <div key={n} style={{...pop(0.3 + i * 0.22), marginLeft: 76}}>{post(i + 2, n, txt, undefined, 1, true)}</div>
           ))}
-          <div style={{...pop(1.15), marginTop: 10}}>{post(4, [380, 260], <div style={{fontFamily: SANS, fontSize: 24, color: sk.muted, marginTop: 4}}>0 replies</div>, 0.7)}</div>
+          <div style={{...pop(1.1), marginTop: 8}}>{post(4, 'Amara', 'Hi all, I am new here', <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 24, color: brand.crimson, marginTop: 4}}>0 replies</div>, 0.85)}</div>
         </div>
       );
     case 'name': {
@@ -89,21 +90,21 @@ const Illustration: React.FC<{kind: ExampleKind; t: number; sk: Sk; w: number; h
       );
     }
     case 'reaction': {
-      const n = Math.round(interpolate(t, [0.4, 1.3], [0, 4], clamp));
+      const n = Math.round(interpolate(t, [0.3, 1.2], [0, 24], clamp));
+      const hearts = Math.min(5, Math.ceil(n / 5));
       return (
-        <div style={{width: w, display: 'flex', flexDirection: 'column', gap: 28}}>
+        <div style={{width: w, display: 'flex', flexDirection: 'column', gap: 24}}>
           <div style={pop(0)}>
-            {post(1, [430, 320, 240], (
-              <div style={{display: 'flex', gap: 10, marginTop: 6}}>
-                {Array.from({length: n}).map((_, i) => (
-                  <div key={i} style={{display: 'flex', alignItems: 'center', gap: 6, padding: '6px 14px', borderRadius: 30, background: 'rgba(201,27,25,0.14)', transform: `scale(${spring({frame: Math.round((t - 0.4 - i * 0.22) * 30), fps: 30, config: {damping: 9}})})`}}>
-                    <Heart s={26} c={brand.crimson} />
-                  </div>
+            {post(1, 'Jordan', 'Our team hit the launch date!', (
+              <div style={{display: 'flex', gap: 8, alignItems: 'center', marginTop: 8}}>
+                {Array.from({length: hearts}).map((_, i) => (
+                  <div key={i} style={{transform: `scale(${spring({frame: Math.round((t - 0.3 - i * 0.18) * 30), fps: 30, config: {damping: 9}})})`}}><Heart s={34} c={brand.crimson} /></div>
                 ))}
+                <span style={{fontFamily: SANS, fontWeight: 700, fontSize: 28, color: sk.bubbleInk, marginLeft: 6, fontVariantNumeric: 'tabular-nums'}}>{n}</span>
               </div>
             ))}
           </div>
-          <div style={pop(0.5)}>{post(5, [400, 280], <div style={{height: 34}} />, 0.6)}</div>
+          <div style={pop(0.5)}>{post(5, 'Amara', 'Sharing a resource from my last role', <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 24, color: sk.muted, marginTop: 6}}>0 reactions</div>, 0.8)}</div>
         </div>
       );
     }
@@ -126,13 +127,13 @@ const Illustration: React.FC<{kind: ExampleKind; t: number; sk: Sk; w: number; h
     }
     case 'newcomer':
       return (
-        <div style={{width: w, display: 'flex', flexDirection: 'column', gap: 16}}>
-          <div style={{...pop(0), alignSelf: 'center', fontFamily: SANS, fontWeight: 700, fontSize: 26, letterSpacing: 2, color: sk.muted, padding: '8px 18px', borderRadius: 20, border: `1px solid ${sk.line}`}}>NEW MEMBER JOINED</div>
-          <div style={pop(0.25)}>{post(1, [380, 200], <div style={{fontFamily: SANS, fontSize: 26, color: sk.muted}}>you know how we do it</div>)}</div>
-          <div style={pop(0.5)}>{post(3, [300], <div style={{fontFamily: SANS, fontSize: 26, color: sk.muted}}>same as last year</div>)}</div>
-          <div style={{...pop(0.9), display: 'flex', justifyContent: 'flex-end', gap: 16, alignItems: 'center'}}>
-            <div style={{background: brand.crimson, color: '#fff', borderRadius: 18, padding: '14px 26px', fontFamily: SANS, fontWeight: 800, fontSize: 46}}>?</div>
-            <Avatar c="#8E959C" label="N" />
+        <div style={{width: w, display: 'flex', flexDirection: 'column', gap: 14}}>
+          <div style={{...pop(0), alignSelf: 'center', fontFamily: SANS, fontWeight: 700, fontSize: 24, letterSpacing: 2, color: sk.muted, padding: '8px 18px', borderRadius: 20, border: `1px solid ${sk.line}`}}>AMARA JOINED THE GROUP</div>
+          <div style={pop(0.25)}>{post(1, 'Jordan', 'Same as last year, you know how we do it', undefined, 1, true)}</div>
+          <div style={pop(0.55)}>{post(3, 'Priya', 'Ha, the usual spot', undefined, 1, true)}</div>
+          <div style={{...pop(0.9), display: 'flex', justifyContent: 'flex-end', gap: 14, alignItems: 'center'}}>
+            <div style={{background: brand.crimson, color: '#fff', borderRadius: 20, padding: '14px 24px', fontFamily: SANS, fontWeight: 600, fontSize: 30}}>Sorry, what is the usual spot?</div>
+            <Avatar c="#8E959C" label="A" />
           </div>
         </div>
       );
@@ -166,11 +167,11 @@ const Illustration: React.FC<{kind: ExampleKind; t: number; sk: Sk; w: number; h
     default:
       return (
         <div style={{...pop(0), width: w, display: 'flex', borderRadius: 20, overflow: 'hidden', border: `1px solid ${sk.line}`}}>
-          <div style={{width: 230, background: sk.soft, padding: 22, display: 'flex', flexDirection: 'column', gap: 18}}>
+          <div style={{width: 210, background: sk.soft, padding: 22, display: 'flex', flexDirection: 'column', gap: 18}}>
             {['# general', '# wins', '# help'].map((c, i) => <div key={c} style={{fontFamily: SANS, fontWeight: 700, fontSize: 28, color: i === 0 ? sk.ink : sk.muted, ...pop(0.1 + i * 0.1)}}>{c}</div>)}
           </div>
-          <div style={{flex: 1, padding: 24, display: 'flex', flexDirection: 'column', gap: 18}}>
-            {[0, 1, 2].map((i) => <div key={i} style={pop(0.3 + i * 0.25)}>{post(i, [260 - i * 30, 160])}</div>)}
+          <div style={{flex: 1, padding: 20, display: 'flex', flexDirection: 'column', gap: 14}}>
+            {[['Maya', 'Morning, everyone'], ['Jordan', 'Notes from Friday are up'], ['Priya', 'Thank you!']].map(([n, txt], i) => <div key={n} style={pop(0.3 + i * 0.25)}>{post(i, n, txt, undefined, 1, true)}</div>)}
           </div>
         </div>
       );
@@ -180,15 +181,22 @@ const Illustration: React.FC<{kind: ExampleKind; t: number; sk: Sk; w: number; h
 export const Examples: React.FC<ExamplesProps> = ({skin, items, y, height, emphasis = []}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
-  const t = frame / fps;
+  const t = useAbsSec();
   const sk = skinOf(skin);
   const idx = Math.max(0, items.reduce((acc, it, i) => (t >= it.at - 0.15 ? i : acc), -1));
   const it = items[idx];
   const local = t - it.at;
-  const enter = spring({frame: Math.round((local + 0.15) * fps), fps, config: {damping: 16, mass: 0.6}});
+  // the card enters once; when she moves to the next point only the contents change
+  const enter = spring({frame: Math.round((t - items[0].at + 0.15) * fps), fps, config: {damping: 16, mass: 0.6}});
+  const swap = spring({frame: Math.round((local + 0.15) * fps), fps, config: {damping: 18, mass: 0.5}});
   const emph = new Set(emphasis.map(normalizeWord));
   const W = 900;
   const words = it.say.split(' ');
+  // shrink the drawing so it always fits under the heading (two heading lines on long sentences)
+  const NATURAL: Record<ExampleKind, number> = {replies: 560, reaction: 330, holidays: 430, newcomer: 380, rules: 420, leftout: 400, chat: 320, name: 330};
+  const headLines = Math.ceil(it.say.length / (skin === 'paper' ? 30 : skin === 'data' ? 34 : 28));
+  const room = height - 80 - headLines * 66 - 30 - (items.length > 1 ? 42 : 0);
+  const fit = Math.max(0.5, Math.min(1, room / NATURAL[it.kind]));
   return (
     <div style={{position: 'absolute', left: 90, top: y, width: W, height}}>
       <div style={{...sk.panel, position: 'absolute', inset: 0, padding: '40px 46px', boxSizing: 'border-box', opacity: Math.min(1, enter * 1.5), transform: `${sk.panel.transform ?? ''} translateY(${(1 - enter) * 40}px)`, display: 'flex', flexDirection: 'column', gap: 30, overflow: 'hidden'}}>
@@ -204,8 +212,10 @@ export const Examples: React.FC<ExamplesProps> = ({skin, items, y, height, empha
             );
           })}
         </div>
-        <div style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Illustration kind={it.kind} t={local} sk={sk} w={W - 92} h={height - 220} />
+        <div style={{flex: 1, minHeight: 0, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', position: 'relative', opacity: idx === 0 ? 1 : Math.min(1, swap * 1.4), transform: idx === 0 ? undefined : `translateX(${(1 - swap) * 60}px)`}}>
+          <div style={{transform: `scale(${fit})`, transformOrigin: 'top center', width: W - 92}}>
+            <Illustration kind={it.kind} t={local} sk={sk} w={W - 92} h={height - 220} />
+          </div>
         </div>
         {items.length > 1 && (
           <div style={{display: 'flex', gap: 10, justifyContent: 'center'}}>

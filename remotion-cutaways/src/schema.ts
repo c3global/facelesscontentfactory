@@ -192,7 +192,7 @@ export const graphicSchema = z.discriminatedUnion('type', [
 export const segmentSchema = z.object({
   start: sec,
   end: sec,
-  layout: z.enum(['A', 'B', 'C', 'D', 'E', 'S', 'F', 'O']),
+  layout: z.enum(['A', 'B', 'C', 'D', 'E', 'S', 'F', 'O', 'T']),
   /** where kinetic captions sit in this segment: bottom band, top band, or alternating by sentence (top first) */
   captionPos: z.enum(['bottom', 'top', 'alternate']).default('bottom'),
   /** 'off' when a graphic in this segment shows every spoken word itself (the graphic becomes the caption) */

@@ -104,7 +104,9 @@ export const LayerExplode: React.FC<{fx: Of<'layer-explode'>}> = ({fx}) => {
 
 // ---------------------------------------------------------------- sketch words (behind her): cream paper, a small handwritten word, then a big hand-inked serif word and a scribbled underline
 export const SketchWordsPlate: React.FC<{fx: Of<'sketch-words'>}> = ({fx}) => {
-  const {t, outK} = useSpan(fx);
+  // a clean cut out: a fade would show her scaled cutout over the full picture for a moment (a double image)
+  const {t, len} = useSpan(fx);
+  const outK = t < len - 1 / 30 ? 1 : 0;
   const {small, big} = fx.props;
   const smallK = tw(t, 0.15, 0.6, 0, 1, (x) => x);
   const bigK = tw(t, 0.55, 1.4, 0, 1, (x) => x);

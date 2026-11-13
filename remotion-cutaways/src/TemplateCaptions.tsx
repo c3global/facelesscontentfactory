@@ -51,7 +51,8 @@ export const toPhrases = (ws: Word[], max: number): Phrase[] => {
     const gap = next ? next.start - w.end : 9;
     if (cur.length >= max || (punct && cur.length >= Math.min(2, max)) || gap > 0.45 || /[.?!]$/.test(w.text)) {
       const carry: Word[] = [];
-      while (cur.length > 1 && isConn(cur[cur.length - 1]) && next && !punct) carry.unshift(cur.pop() as Word);
+      // carry a trailing connector into the next phrase, but never across a pause
+      while (cur.length > 1 && isConn(cur[cur.length - 1]) && next && !punct && gap <= 0.45) carry.unshift(cur.pop() as Word);
       flush();
       cur = carry;
     }
@@ -124,7 +125,7 @@ export const markEchoes = (ws: Word[], shown: Shown[]) => {
   const content = (i: number) => !!ws[i] && !CONNECT.has(normalizeWord(ws[i].text));
   return ws.map((w, i) => {
     if (!cand[i]) return w;
-    const inRun = (cand[i - 1] && (content(i - 1) || content(i))) || (cand[i + 1] && (content(i + 1) || content(i)));
+    const inRun = !!cand[i - 1] || !!cand[i + 1];
     const synced = hits[i].some((s) => w.start - s.start <= 1.0);
     if (inRun || (content(i) && synced)) return {...w, hidden: true};
     return w;

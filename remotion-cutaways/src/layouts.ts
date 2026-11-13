@@ -12,7 +12,7 @@ export const SAFE = {
   left: 60,
 };
 
-export type LayoutKey = 'A' | 'B' | 'C' | 'D' | 'E' | 'S' | 'F' | 'O';
+export type LayoutKey = 'A' | 'B' | 'C' | 'D' | 'E' | 'S' | 'F' | 'O' | 'T';
 export type AvatarMode = 'circle' | 'hidden';
 
 /** Where she lives for each layout. Everything is animated between these states. */
@@ -43,6 +43,8 @@ export const AVATAR: Record<LayoutKey | 'Chidden', AvatarState> = {
   S: {x: 0, y: 1000, w: 1080, h: 960, r: 56, zoom: 1.15, focusY: 14, opacity: 1, frame: 0.5},
   // F: large rounded window, centered, with room under it for a graphic or captions
   F: {x: 150, y: 250, w: 780, h: 860, r: 72, zoom: 1.05, focusY: 18, opacity: 1, frame: 1},
+  // T: wide rounded window across the top (her head and shoulders), the example or card fills the space under it
+  T: {x: 90, y: 240, w: 900, h: 620, r: 56, zoom: 1.2, focusY: 12, opacity: 1, frame: 1},
   // O: circle window, top center (face and shoulders), room under it
   O: {x: 330, y: 250, w: 420, h: 420, r: 210, zoom: 1.35, focusY: 12, opacity: 1, frame: 1},
   // D: small portrait window, top right, under the 12% safe line
@@ -66,6 +68,7 @@ export const GRAPHIC_AREA: Record<LayoutKey | 'Chidden', Rect> = {
   S: {x: 60, y: 600, w: 960, h: 360},
   F: {x: 60, y: 1140, w: 960, h: 340},
   O: {x: 60, y: 700, w: 960, h: 760},
+  T: {x: 60, y: 900, w: 960, h: 580},
 };
 
 export const areaFor = (layout: LayoutKey, avatar?: AvatarMode): Rect =>

@@ -47,6 +47,10 @@ def examples(s, e, skin, items, y=720, h=760):
     return {'type': 'examples', 'at': s, 'until': e, 'props': {'skin': skin, 'items': items, 'y': y, 'height': h, 'emphasis': ['unwritten', 'newcomer', 'left', 'belongs']}}
 
 
+def examplesT(s, e, skin, items):
+    return examples(s, e, skin, items, y=895, h=590)
+
+
 def full(sid, s, e, close=1.5, mood='dark', cap='bottom', bg=None, first_close=False):
     """Her full frame, split at every jump cut: wide and close on the face alternate, as hard cuts."""
     pts = [s] + [c for c in CUTS if s < c < e] + [e]
@@ -107,8 +111,8 @@ spot_left = {'type': 'spotlight', 'at': 28.65, 'until': 32.64, 'props': {'dim': 
 # 1. Quiet Authority: calm, white cards on black, corner window, one spotlight
 plan('quiet', 'quiet', SONG1, [
     full('hook', 0, 3.82, close=1.35),
-    scene('chat', 3.82, 7.25, 'D', [examples(3.82, 7.25, 'light', CHAT)]),
-    scene('signals', 7.25, 14.49, 'D', [examples(7.25, 14.49, 'light', SIG)]),
+    scene('chat', 3.82, 7.25, 'T', [examplesT(3.82, 7.25, 'light', CHAT)]),
+    scene('signals', 7.25, 14.49, 'T', [examplesT(7.25, 14.49, 'light', SIG)]),
     full('little', 14.49, 18.39, close=1.35),
     statement(18.39, 21.65),
     scene('rules', 21.65, 24.86, 'O', [examples(21.65, 24.86, 'light', RULES, y=720, h=740)]),
@@ -142,7 +146,7 @@ plan('magazine', 'magazine', SONG2, [
 plan('glass', 'glass', SONG1, [
     full('hook', 0, 3.82, close=1.4),
     scene('window', 3.82, 7.25, 'F'),
-    scene('signals', 7.25, 14.49, 'D', [examples(7.25, 14.49, 'glass', SIG)]),
+    scene('signals', 7.25, 14.49, 'T', [examplesT(7.25, 14.49, 'glass', SIG)]),
     full('little', 14.49, 18.39, close=1.4),
     full('today', 18.39, 21.65, close=1.4, first_close=True),
     scene('rules', 21.65, 24.86, 'O', [examples(21.65, 24.86, 'glass', RULES, y=720, h=740)]),
@@ -165,7 +169,7 @@ plan('scrapbook', 'tape', SONG2, [
     full('little', 14.49, 18.39),
     full('today', 18.39, 21.65, first_close=True),
     full('rules', 21.65, 24.86),
-    scene('new', 24.86, 28.65, 'D', [examples(24.86, 28.65, 'paper', NEW)], bg=VEL),
+    scene('new', 24.86, 28.65, 'T', [examplesT(24.86, 28.65, 'paper', NEW)], bg=VEL),
     full('left', 28.65, 32.64),
     full('end', 32.64, DUR),
 ], [
@@ -181,12 +185,12 @@ plan('scrapbook', 'tape', SONG2, [
 # 5. The Analyst: data panels, a corner window, one real number, signals knocked out on "left out"
 plan('analyst', 'ticker', SONG1, [
     full('hook', 0, 3.82, close=1.45),
-    scene('chat', 3.82, 7.25, 'D', [examples(3.82, 7.25, 'data', CHAT)]),
-    scene('signals', 7.25, 14.49, 'D', [examples(7.25, 14.49, 'data', SIG)]),
+    scene('chat', 3.82, 7.25, 'T', [examplesT(3.82, 7.25, 'data', CHAT)]),
+    scene('signals', 7.25, 14.49, 'T', [examplesT(7.25, 14.49, 'data', SIG)]),
     full('little', 14.49, 18.39, close=1.45),
     scene('today', 18.39, 21.65, 'F'),
     scene('five', 21.65, 24.86, 'E', avatar='hidden', cap='top'),
-    scene('new', 24.86, 28.65, 'D', [examples(24.86, 28.65, 'data', NEW)]),
+    scene('new', 24.86, 28.65, 'T', [examplesT(24.86, 28.65, 'data', NEW)]),
     full('left', 28.65, 32.64, close=1.45),
     full('end', 32.64, DUR, close=1.45),
 ], [
@@ -198,7 +202,7 @@ plan('analyst', 'ticker', SONG1, [
 # 6. Cinematic: dolly zoom, rack focus, iris, silhouette, vertigo, spotlight; golden grade and dust; no bars
 plan('cinematic', 'film', SONG1, [
     full('hook', 0, 7.25, close=1.4),
-    scene('signals', 7.25, 14.49, 'D', [examples(7.25, 14.49, 'dark', SIG)], bg=VEL),
+    scene('signals', 7.25, 14.49, 'T', [examplesT(7.25, 14.49, 'dark', SIG)], bg=VEL),
     full('little', 14.49, 18.39, close=1.4),
     statement(18.39, 21.65, bg=VEL),
     full('rules', 21.65, 24.86, close=1.4),
@@ -245,7 +249,7 @@ plan('teach', 'karaoke', SONG1, [
     full('little', 14.49, 18.39, close=1.4),
     scene('today', 18.39, 21.65, 'S', [{'type': 'headline-card', 'at': 18.39, 'until': 21.65, 'props': {'label': 'NOVEMBER 16', 'line': 'International Day for Tolerance', 'emphasis': ['Tolerance']}}], mood='light', cap='top', focus={'y': 8, 'zoom': 1.1}),
     scene('rules', 21.65, 24.86, 'O', [examples(21.65, 24.86, 'light', RULES, y=720, h=740)]),
-    scene('new', 24.86, 28.65, 'D', [examples(24.86, 28.65, 'light', NEW)]),
+    scene('new', 24.86, 28.65, 'T', [examplesT(24.86, 28.65, 'light', NEW)]),
     scene('left', 28.65, 32.64, 'O', [examples(28.65, 32.64, 'light', LEFT, y=720, h=740)]),
     full('end', 32.64, DUR, close=1.4),
 ], [
