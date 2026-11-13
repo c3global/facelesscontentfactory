@@ -82,7 +82,7 @@ export const DropdownSelect: React.FC<{fx: Of<'dropdown-select'>}> = ({fx}) => {
         {abs >= openAt && !picked && (
           <div style={{marginTop: 10, borderRadius: 26, background: '#fff', border: C3.hair, overflow: 'hidden', opacity: open, transform: `scaleY(${0.8 + 0.2 * open})`, transformOrigin: 'top', boxShadow: C3.cardShadow}}>
             {options.map((o, i) => (
-              <div key={i} style={{height: rowH, display: 'flex', alignItems: 'center', padding: '0 28px', fontFamily: C3.sans, fontWeight: 500, fontSize: 34, color: C3.cardText, background: i === idx && cur > 0.9 ? 'rgba(224,138,87,0.22)' : 'transparent'}}>{o}</div>
+              <div key={i} style={{height: rowH, display: 'flex', alignItems: 'center', padding: '0 28px', fontFamily: C3.sans, fontWeight: 500, fontSize: 34, color: C3.cardText, background: i === idx && cur > 0.9 ? 'rgba(169,87,74,0.22)' : 'transparent'}}>{o}</div>
             ))}
           </div>
         )}
@@ -113,9 +113,9 @@ export const EffortDial: React.FC<{fx: Of<'effort-dial'>}> = ({fx}) => {
             const a = ((-135 + (270 * i) / (labels.length - 1) - 90) * Math.PI) / 180;
             return <text key={i} x={200 + (R + 52) * Math.cos(a)} y={190 + (R + 52) * Math.sin(a) + 8} textAnchor="middle" fontFamily={C3.sans} fontWeight={700} fontSize={22} fill={k * (labels.length - 1) >= i - 0.05 ? '#fff' : 'rgba(255,255,255,0.45)'}>{l.toUpperCase()}</text>;
           })}
-          <circle cx={200} cy={190} r={R} fill="url(#dg)" stroke="#E08A57" strokeWidth={5} />
+          <circle cx={200} cy={190} r={R} fill="url(#dg)" stroke="#A9574A" strokeWidth={5} />
           <defs><radialGradient id="dg" cx="35%" cy="30%"><stop offset="0" stopColor="#4a5054" /><stop offset="1" stopColor="#15181a" /></radialGradient></defs>
-          <g transform={`rotate(${ang} 200 190)`}><rect x={192} y={190 - R + 12} width={16} height={46} rx={8} fill="#F4B08A" /></g>
+          <g transform={`rotate(${ang} 200 190)`}><rect x={192} y={190 - R + 12} width={16} height={46} rx={8} fill="#F1B9A5" /></g>
         </svg>
       </div>
     </div>
@@ -153,7 +153,7 @@ export const PencilStrike: React.FC<{fx: Of<'pencil-strike'>}> = ({fx}) => {
         {lines.map((l, i) => <div key={i} style={{position: 'absolute', left: 0, right: 0, top: top + i * rowH, height: rowH, textAlign: 'center', lineHeight: `${rowH}px`, fontFamily: C3.sans, fontWeight: 500, fontSize: 38, color: C3.cardText, opacity: i === strike ? 1 - 0.55 * k : 1}}>{l}</div>)}
         <svg width={700} height={top + lines.length * rowH} style={{position: 'absolute', left: 0, top: 0, overflow: 'visible'}}>
           <line x1={80} y1={sy + 4} x2={80 + 540 * k} y2={sy - 2} stroke={C3.accent} strokeWidth={7} strokeLinecap="round" />
-          {k > 0 && k < 1 && <g transform={`translate(${80 + 540 * k} ${sy - 2}) rotate(35)`}><rect x={-6} y={-96} width={14} height={90} rx={4} fill="#E08A57" /><polygon points="-6,-6 8,-6 1,12" fill="#f3d9c0" /></g>}
+          {k > 0 && k < 1 && <g transform={`translate(${80 + 540 * k} ${sy - 2}) rotate(35)`}><rect x={-6} y={-96} width={14} height={90} rx={4} fill="#A9574A" /><polygon points="-6,-6 8,-6 1,12" fill="#f3d9c0" /></g>}
         </svg>
       </div>
     </div>
@@ -166,7 +166,7 @@ export const Stamp: React.FC<{fx: Of<'stamp'>}> = ({fx}) => {
   const k = tw(abs, fx.at, fx.at + 0.22, 0, 1, easeInC);
   const sc = 2.4 - 1.4 * k;
   const shake = abs > fx.at + 0.22 && abs < fx.at + 0.5 ? Math.sin(abs * 90) * 5 * (1 - (abs - fx.at - 0.22) / 0.28) : 0;
-  const col = fx.props.tone === 'crimson' ? brand.crimson : '#B5622C';
+  const col = fx.props.tone === 'crimson' ? brand.crimson : '#A9574A';
   return (
     <div style={{...FILL, opacity: outK}}>
       <div style={{position: 'absolute', left: 0, width: 1080, top: fx.props.y, display: 'flex', justifyContent: 'center', opacity: k, transform: `translateX(${shake}px) rotate(-7deg) scale(${sc})`}}>
@@ -189,7 +189,7 @@ export const WaitlistCard: React.FC<{fx: Of<'waitlist-card'>}> = ({fx}) => {
         {Array.from({length: rows}).map((_, i) => {
           const you = i === Math.min(youRow, rows - 1);
           return (
-            <div key={i} style={{marginTop: 14, height: 76, borderRadius: 16, display: 'flex', alignItems: 'center', padding: '0 20px', gap: 20, background: you ? `rgba(224,138,87,${0.28 * hit})` : 'rgba(58,63,66,0.06)', border: you && hit > 0.5 ? '2px solid #E08A57' : '2px solid transparent'}}>
+            <div key={i} style={{marginTop: 14, height: 76, borderRadius: 16, display: 'flex', alignItems: 'center', padding: '0 20px', gap: 20, background: you ? `rgba(169,87,74,${0.28 * hit})` : 'rgba(58,63,66,0.06)', border: you && hit > 0.5 ? '2px solid #A9574A' : '2px solid transparent'}}>
               <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 30, color: C3.cardMuted, width: 96, whiteSpace: 'nowrap'}}>No. {i + 1}</div>
               <div style={{flex: 1, fontFamily: handFamily, fontWeight: 700, fontSize: 56, lineHeight: 1, color: C3.cardText, opacity: you ? hit : 0}}>you</div>
               {you && <div style={{width: 50, height: 50, borderRadius: 25, background: C3.copperGrad, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${hit})`}}><CheckMark size={30} color="#2a1206" /></div>}
@@ -222,7 +222,7 @@ export const EnvelopeOpen: React.FC<{fx: Of<'envelope-open'>}> = ({fx}) => {
           <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} style={{position: 'absolute', left: 0, top: 0}}><path d={`M0 ${H} L${W / 2} ${H * 0.52} L${W} ${H}`} fill="none" stroke="rgba(58,63,66,0.22)" strokeWidth={3} /></svg>
         </div>
         <div style={{position: 'absolute', left: 0, top: 330, width: W, height: H / 2, zIndex: 3, transformOrigin: '50% 0%', transform: `perspective(900px) rotateX(${-flap * 175}deg)`, opacity: flap > 0.5 ? 0.0 : 1}}>
-          <svg width={W} height={H / 2} viewBox={`0 0 ${W} ${H / 2}`}><polygon points={`0,0 ${W},0 ${W / 2},${H / 2}`} fill="#eceeef" stroke="#E08A57" strokeWidth={2.5} /></svg>
+          <svg width={W} height={H / 2} viewBox={`0 0 ${W} ${H / 2}`}><polygon points={`0,0 ${W},0 ${W / 2},${H / 2}`} fill="#eceeef" stroke="#A9574A" strokeWidth={2.5} /></svg>
         </div>
         <div style={{position: 'absolute', left: W / 2 - 60, top: 330 + H / 2 - 62, width: 120, height: 120, borderRadius: 60, zIndex: 4, opacity: seal, transform: `scale(${0.8 + 0.2 * seal})`, background: C3.copperGrad, border: '4px solid #8d4a1f', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 6px 16px rgba(0,0,0,0.45)'}}><GlobeIcon size={84} /></div>
       </div>
@@ -298,7 +298,7 @@ export const Leaderboard: React.FC<{fx: Of<'leaderboard'>}> = ({fx}) => {
         {fx.props.items.map((it, i) => {
           const k = tw(t, 0.25 + i * 0.22, 0.55 + i * 0.22, 0, 1, pop);
           return (
-            <div key={i} style={{height: 76, marginTop: 8, borderRadius: 18, display: 'flex', alignItems: 'center', padding: '0 20px', gap: 20, opacity: k, transform: `translateX(${(1 - k) * 80}px)`, background: i === 0 ? 'linear-gradient(135deg,rgba(224,138,87,0.55),rgba(181,98,44,0.4))' : 'rgba(255,255,255,0.08)', border: i === 0 ? '1.5px solid #E08A57' : '1.5px solid transparent'}}>
+            <div key={i} style={{height: 76, marginTop: 8, borderRadius: 18, display: 'flex', alignItems: 'center', padding: '0 20px', gap: 20, opacity: k, transform: `translateX(${(1 - k) * 80}px)`, background: i === 0 ? 'linear-gradient(135deg,rgba(169,87,74,0.55),rgba(169,87,74,0.4))' : 'rgba(255,255,255,0.08)', border: i === 0 ? '1.5px solid #A9574A' : '1.5px solid transparent'}}>
               <div style={{width: 46, height: 46, borderRadius: 12, background: i === 0 ? C3.copperGrad : 'rgba(255,255,255,0.14)', color: i === 0 ? '#2a1206' : '#fff', fontFamily: C3.sans, fontWeight: 700, fontSize: 28, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{i + 1}</div>
               <div style={{flex: 1, fontFamily: C3.sans, fontWeight: 700, fontSize: 34, color: '#fff'}}>{it}</div>
               {i === 0 && <Trophy />}
@@ -323,9 +323,9 @@ export const CountdownTimer: React.FC<{fx: Of<'countdown-timer'>}> = ({fx}) => {
         <svg width={400} height={400} viewBox="0 0 400 400" style={{filter: 'drop-shadow(0 12px 30px rgba(0,0,0,0.5))'}}>
           <circle cx={200} cy={200} r={R + 24} fill="rgba(12,13,15,0.88)" />
           <circle cx={200} cy={200} r={R} fill="none" stroke="rgba(255,255,255,0.14)" strokeWidth={16} />
-          <circle cx={200} cy={200} r={R} fill="none" stroke="#E08A57" strokeWidth={16} strokeLinecap="round" strokeDasharray={C} strokeDashoffset={C * (1 - p)} transform="rotate(-90 200 200)" />
+          <circle cx={200} cy={200} r={R} fill="none" stroke="#A9574A" strokeWidth={16} strokeLinecap="round" strokeDasharray={C} strokeDashoffset={C * (1 - p)} transform="rotate(-90 200 200)" />
           <text x={200} y={224} textAnchor="middle" fontFamily={serifFamily} fontWeight={600} fontSize={120} fill="#fff">{v}</text>
-          <text x={200} y={276} textAnchor="middle" fontFamily={C3.sans} fontWeight={700} fontSize={26} letterSpacing={4} fill="#E08A57">{fx.props.unit.toUpperCase()}</text>
+          <text x={200} y={276} textAnchor="middle" fontFamily={C3.sans} fontWeight={700} fontSize={26} letterSpacing={4} fill="#A9574A">{fx.props.unit.toUpperCase()}</text>
         </svg>
         {fx.props.label && <div style={{marginTop: 4, fontFamily: C3.sans, fontWeight: 700, fontSize: 34, color: '#fff', textShadow: '0 2px 14px rgba(0,0,0,0.9)'}}>{fx.props.label}</div>}
       </div>
@@ -350,8 +350,8 @@ export const TerminalType: React.FC<{fx: Of<'terminal-type'>}> = ({fx}) => {
         <div style={{display: 'flex', gap: 10, marginBottom: 16}}>{['#C91B19', '#E3BF63', '#7a8085'].map((c) => <div key={c} style={{width: 18, height: 18, borderRadius: 9, background: c}} />)}</div>
         {rows.map(({l, at, dur, i}) => abs >= at && (
           <div key={i} style={{fontFamily: MONO, fontSize: 34, lineHeight: 1.45, color: i === rows.length - 1 ? '#fff' : 'rgba(255,255,255,0.78)'}}>
-            <span style={{color: '#E08A57'}}>{'> '}</span>{typedSlice(l.text, abs, at, at + dur)}
-            {i === rows.findIndex((r) => abs < r.at + r.dur) && <Caret frame={frame} h={34} color="#E08A57" />}
+            <span style={{color: '#A9574A'}}>{'> '}</span>{typedSlice(l.text, abs, at, at + dur)}
+            {i === rows.findIndex((r) => abs < r.at + r.dur) && <Caret frame={frame} h={34} color="#A9574A" />}
           </div>
         ))}
       </div>

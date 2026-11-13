@@ -1,6 +1,7 @@
 import React from 'react';
 import {Easing, interpolate} from 'remotion';
 import {Card} from '../glass';
+import {KitQuote, useKit} from '../kits';
 import {MetalBox, MetalText} from '../metal';
 import {clamp, easeOut, isEmphasis, serif, useCardMotion, useRel, useTheme} from '../ui';
 
@@ -12,7 +13,14 @@ const pop = Easing.out(Easing.back(1.6));
  * Full-screen card with one bold line. With `wordTimes` (absolute seconds, one per word) each word pops in exactly
  * when she says it, so the card becomes the caption and never runs ahead of her voice. Long lines shrink to fit.
  */
-export const StatementCard: React.FC<Props> = ({text, emphasis, wordTimes}) => {
+export const StatementCard: React.FC<Props> = (props) => {
+  const kit = useKit();
+  // a template kit brings its own quote card; glass keeps the original glass card
+  if (kit && kit !== 'glass') return <KitQuote kit={kit} {...props} />;
+  return <StatementCardBase {...props} />;
+};
+
+const StatementCardBase: React.FC<Props> = ({text, emphasis, wordTimes}) => {
   const {opacity, translateY, frame} = useCardMotion();
   const rel = useRel();
   const {palette} = useTheme();

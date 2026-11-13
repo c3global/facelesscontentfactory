@@ -1,0 +1,313 @@
+{
+ "slug": "tol-analyst",
+ "template": "analyst",
+ "video": "raw/tolerance.mp4",
+ "durationSec": 37.33,
+ "matte": "tolerance",
+ "theme": {
+  "field": "charcoal",
+  "sans": "DM Sans"
+ },
+ "captionStyle": "ticker",
+ "emphasis": [
+  "belongs",
+  "unwritten",
+  "Tolerance",
+  "newcomer",
+  "left"
+ ],
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.0,
+  "lightLeaks": 0.0
+ },
+ "scrim": 0.55,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 3.82,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 3.82,
+     "end": 5.62,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.07
+     },
+     "cut": true
+    },
+    {
+     "start": 5.62,
+     "end": 7.25,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 7.25,
+     "end": 9.03,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 9.03,
+     "end": 10.89,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.09
+     },
+     "cut": true
+    },
+    {
+     "start": 10.89,
+     "end": 12.68,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    },
+    {
+     "start": 12.68,
+     "end": 14.49,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.09
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "little",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 14.49,
+     "end": 16.0,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 16.0,
+     "end": 18.39,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.09
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "today",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 18.39,
+     "end": 21.65,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "five",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 21.65,
+     "end": 24.86,
+     "layout": "A",
+     "captionPos": "top",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "ask",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 24.86,
+     "end": 28.65,
+     "layout": "E",
+     "captionPos": "bottom",
+     "graphics": [],
+     "avatar": "hidden"
+    }
+   ]
+  },
+  {
+   "id": "end",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 28.65,
+     "end": 32.64,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 32.64,
+     "end": 37.33,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.09
+     },
+     "cut": true
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "date-stamp",
+   "at": 0.3,
+   "until": 3.7,
+   "props": {
+    "text": "NOVEMBER 16",
+    "position": "top"
+   }
+  },
+  {
+   "type": "focus-list",
+   "at": 7.3,
+   "until": 14.45,
+   "props": {
+    "title": "The unwritten signals",
+    "items": [
+     {
+      "text": "Who gets replies",
+      "at": 8.44
+     },
+     {
+      "text": "Whose name is spelled right",
+      "at": 9.38
+     },
+     {
+      "text": "Which posts get a reaction",
+      "at": 12.2
+     },
+     {
+      "text": "Which holidays get mentioned",
+      "at": 13.36
+     }
+    ],
+    "y": 760
+   }
+  },
+  {
+   "type": "big-stat",
+   "at": 22.19,
+   "until": 24.8,
+   "props": {
+    "value": 5,
+    "label": "UNWRITTEN RULES",
+    "sub": "in your community or team",
+    "size": 420,
+    "y": 1150
+   }
+  },
+  {
+   "type": "checklist",
+   "at": 24.9,
+   "until": 28.6,
+   "props": {
+    "version": 2,
+    "title": "Then ask",
+    "items": [
+     {
+      "text": "Which ones would a newcomer",
+      "at": 25.8
+     },
+     {
+      "text": "have no way of knowing?",
+      "at": 28.28
+     }
+    ],
+    "y": 620
+   }
+  }
+ ],
+ "fxSound": "minimal",
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 34.95,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/lofi-ferraz-squady.mp3",
+  "volume": 0.5,
+  "duckTo": 0.26,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}

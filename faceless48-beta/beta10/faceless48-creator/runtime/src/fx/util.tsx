@@ -120,17 +120,45 @@ const LEN: Record<FxType, number> = {
   'spatial-glass': 2.8,
   'shatter-3d': 2.4,
   'scene-text': 2.8,
+  'text-pop': 2.4,
+  'proof-card': 3.4,
+  'focus-list': 4,
+  'compare': 3.4,
+  'trend-graph': 3.4,
+  'freebie-doc': 3.4,
+  'note-arrow': 2.6,
   'script-panel': 7,
   'card-carousel': 4.4,
   'card-flip': 4,
+  'shoulder-steps': 4.5,
+  iris: 2.6,
+  'match-cut': 3,
+  'demo-cursor': 3.6,
+  'glass-cards': 4,
+  'pixel-monitor': 2.4,
+  'slot-machine': 3.6,
+  'holo-phone': 4,
+  'silhouette-shift': 3.4,
+  'image-collage': 3.6,
+  'cover-fan': 3.4,
+  'framed-clip': 4,
+  'side-by-side': 4,
+  'vote-pill': 3.2,
+  duotone: 2.6,
+  'big-stat': 3.2,
+  'thank-you': 3.4,
+  'page-turn': 0.9,
+  'lesson-board': 4,
+  'wall-text': 3.6,
 };
 
 /** effects that draw behind her (they need the person matte) */
-export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story', 'script-panel', 'clone-row', 'day-dial', 'letter-orbit', 'code-body', 'post-wall', 'sketch-words', 'dolly-zoom', 'blow-away', 'depth-scatter', 'scene-text'];
+export const BEHIND: FxType[] = ['type-wall', 'headline-wall', 'couch-wall', 'knockout-tiles', 'spotlight', 'orbit', 'clone', 'frame-break', 'ui-world', 'green-screen', 'paper-cut', 'vertigo', 'cover-story', 'script-panel', 'clone-row', 'day-dial', 'letter-orbit', 'code-body', 'post-wall', 'sketch-words', 'dolly-zoom', 'blow-away', 'depth-scatter', 'scene-text', 'silhouette-shift', 'wall-text'];
 export const NEEDS_MATTE: FxType[] = [...BEHIND, 'freeze-sticker'];
 
 export const fxRange = (f: Fx): [number, number] => {
   if (f.type === 'zoom-through') return [Math.max(0, f.at - f.props.diveSec), f.at + 0.6];
+  if (f.type === 'flash-frame' && f.props.version === 2) return [f.at, f.until ?? f.at + 0.6];
   return [f.at, f.until ?? f.at + LEN[f.type]];
 };
 
@@ -430,6 +458,56 @@ const rawCues = (f: Fx): Cue[] => {
       return [main('glitch', f.at + 0.15, 0.7)];
     case 'scene-text':
       return [];
+    case 'proof-card':
+      return [main('riser', f.at + 0.3, 0.4), d('ding', f.at + 1.5, 0.5)];
+    case 'focus-list':
+      return [main('pop', f.at + 0.1, 0.5), ...f.props.items.flatMap((it) => (typeof it === 'string' ? [] : [d('tick', it.at, 0.6)]))];
+    case 'compare':
+      return [main('swish', f.at + 0.1, 0.4), d('ding', f.at + 1.4, 0.5)];
+    case 'trend-graph':
+      return [main('riser', f.at + 0.4, 0.4)];
+    case 'freebie-doc':
+      return [main('swish', f.at, 0.4), d('type', f.at + 1.4, 0.5)];
+    case 'note-arrow':
+      return [main('swish', f.at + 0.7, 0.35)];
+    case 'side-by-side':
+      return [main('swish', f.at + 0.1, 0.5), ...(f.props.winner ? [d('ding', f.props.pickAt ?? f.at + 1.6, 0.5)] : [])];
+    case 'vote-pill':
+      return [main('pop', f.at + 0.1, 0.5), ...(f.props.pick ? [d('blip', f.props.pickAt ?? f.at + 1.3, 0.6)] : [])];
+    case 'duotone':
+      return [main('shutter', f.at, 0.5, 2)];
+    case 'big-stat':
+      return [main('riser', f.at + 0.2, 0.4), d('thud', f.at + 1.4, 0.6)];
+    case 'thank-you':
+      return [main('swish', f.at + 0.35, 0.4)];
+    case 'wall-text':
+      return [main('whoosh', f.at, 0.5)];
+    case 'image-collage':
+      return [main('swish', f.at + 0.2, 0.5)];
+    case 'cover-fan':
+      return [main('swish', f.at + 0.25, 0.6)];
+    case 'framed-clip':
+      return [main('pop', f.at + 0.1, 0.5)];
+    case 'shoulder-steps':
+      return [main('whoosh', f.at, 0.6), ...f.props.steps.map((s) => d('pop', s.at, 0.5))];
+    case 'iris':
+      return [main('swish', f.at, 0.6)];
+    case 'match-cut':
+      return f.props.cuts.map((c, i) => (i === 0 ? main('snap', c.at, 0.7) : d('snap', c.at, 0.7)));
+    case 'demo-cursor':
+      return [main('swish', f.at, 0.4), d('blip', f.props.clickAt ?? f.at + 1.9, 0.7)];
+    case 'glass-cards':
+      return f.props.cards.map((c, i) => (i === 0 ? main('pop', c.at, 0.5) : d('pop', c.at, 0.45)));
+    case 'pixel-monitor':
+      return [main('glitch', f.at, 0.5)];
+    case 'slot-machine':
+      return [main('riser', f.at + 0.1, 0.4), ...f.props.words.map((_, i) => d('thud', f.props.stopAt?.[i] ?? f.at + 1.1 + i * 0.5, 0.6)), d('ding', (f.props.stopAt?.[f.props.words.length - 1] ?? f.at + 1.1 + (f.props.words.length - 1) * 0.5) + 0.1, 0.6)];
+    case 'holo-phone':
+      return [main('blip', f.at + 0.1, 0.6)];
+    case 'silhouette-shift':
+      return [main('boom', f.at, 0.5), d('shutter', f.props.revealAt ?? fxRange(f)[1] - 1.1, 0.6)];
+    case 'text-pop':
+      return f.props.look === 'glitch' ? [main('glitch', f.at + 0.05, 0.5)] : f.props.look === 'badge' ? [main('pop', f.at + 0.1, 0.6)] : [main('swish', f.at + 0.05, 0.4)];
     case 'caption-stack':
       return [main('pop', f.at + 0.15, 0.5)];
     case 'step-chips':
@@ -440,3 +518,13 @@ const rawCues = (f: Fx): Cue[] => {
       return [];
   }
 };
+
+/** head stack headroom: 0..1, the video eases down and shrinks so big blocks fit above her head, then eases back after they fall */
+export const HEADROOM = {shift: 330, shrink: 0.16};
+export const headRoomK = (f: Fx, t: number) => {
+  // wall-text uses the same headroom, so the words have wall to sit on above her head
+  if (f.type !== 'head-stack' && f.type !== 'wall-text') return 0;
+  const [a, b] = fxRange(f);
+  return tw(t, a - 0.1, a + 0.45, 0, 1, easeInOutQ) * (1 - tw(t, b - 0.15, b + 0.45, 0, 1, easeInOutQ));
+};
+const easeInOutQ = (x: number) => (x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2);

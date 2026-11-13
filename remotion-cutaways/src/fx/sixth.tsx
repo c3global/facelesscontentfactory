@@ -91,6 +91,7 @@ export const CoverFrame: React.FC<{fx: Of<'cover-frame'>}> = ({fx}) => {
   return (
     <div style={{...FILL, opacity: outK, perspective: PERSPECTIVE}}>
       <div style={{...FILL, background: PANEL, opacity: tw(t, 0, 0.2)}} />
+      <div style={{...FILL, transform: `scale(${fx.props.scale})`, transformOrigin: '50% 330px'}}>
       <div style={{position: 'absolute', left: 90, top: 330, width: 900, height: 1240, background: '#fff', border: C3.hair, boxSizing: 'border-box', borderRadius: 6, opacity: k, transform: `translateY(${(1 - k) * 80}px) scale(${0.94 + 0.06 * k})${tiltXform(tilt, t)}`, boxShadow: '0 40px 90px rgba(0,0,0,0.6)', overflow: 'hidden'}}>
         <div style={{display: 'flex', justifyContent: 'space-between', padding: '26px 40px 0', ...cap({fontSize: 18, color: C3.cardMuted})}}><span>{issue ? issue.split('|')[0] : ''}</span><span>{issue ? issue.split('|')[1] ?? '' : ''}</span></div>
         <div style={{padding: '0 36px', fontFamily: serifFamily, fontWeight: 900, fontSize: Math.min(250, Math.floor(800 / (Math.max(3, masthead.length) * 0.66))), lineHeight: 1.0, letterSpacing: -4, color: brand.charcoal, textTransform: 'uppercase', whiteSpace: 'nowrap', textAlign: 'center', backgroundImage: C3.copperGrad, WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 2px 0 rgba(0,0,0,0.25))'}}>{masthead}</div>
@@ -99,6 +100,7 @@ export const CoverFrame: React.FC<{fx: Of<'cover-frame'>}> = ({fx}) => {
           <div style={{position: 'absolute', right: 14, bottom: 14}}><Barcode /></div>
         </div>
         <div style={{padding: '34px 44px', textAlign: 'center', fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 600, fontSize: 70, lineHeight: 1.1, color: C3.cardText, opacity: hk, transform: `translateY(${(1 - hk) * 20}px)`}}>{headline}</div>
+      </div>
       </div>
     </div>
   );
@@ -273,7 +275,7 @@ export const StepChips: React.FC<{fx: Of<'step-chips'>}> = ({fx}) => {
 export const PenCircle: React.FC<{fx: Of<'pen-circle'>}> = ({fx}) => {
   const {abs, t, frame, len, outK} = useSpan(fx);
   const {anchors} = useFxEnv();
-  const {note, target, bw} = fx.props;
+  const {note, target, bw, noteSide} = fx.props;
   const c = anchorPx(anchors, frame + Math.round(fx.at * 30), target);
   const rx = 200;
   const ry = 250;
@@ -286,13 +288,34 @@ export const PenCircle: React.FC<{fx: Of<'pen-circle'>}> = ({fx}) => {
       {bw && <div style={{...FILL, backdropFilter: `grayscale(${tw(t, 0, 0.3)})`, WebkitBackdropFilter: `grayscale(${tw(t, 0, 0.3)})`}} />}
       <svg width={1080} height={1920} style={{position: 'absolute', left: 0, top: 0}}>
         <path d={`M ${c.x - rx * 0.2} ${cy - ry} C ${c.x + rx * 1.1} ${cy - ry * 1.05} ${c.x + rx * 1.15} ${cy + ry * 0.9} ${c.x - rx * 0.1} ${cy + ry} C ${c.x - rx * 1.2} ${cy + ry * 0.95} ${c.x - rx * 1.15} ${cy - ry * 0.85} ${c.x + rx * 0.35} ${cy - ry * 1.03}`} fill="none" stroke={brand.crimson} strokeWidth={9} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - ring} />
-        {note && (
+        {note && (() => {
+          // the note goes on the side of her head with more room, wraps onto lines that fit, and shrinks if a word is too long,
+          // so it never runs off the frame
+          const roomR = 1040 - (c.x + rx + 80);
+          const roomL = c.x - rx - 80 - 40;
+          const right = noteSide === 'right' || (noteSide === 'auto' && roomR >= roomL);
+          const sgn = right ? 1 : -1;
+          const room = Math.max(160, right ? roomR : roomL);
+          const words = note.split(' ');
+          const fs84 = Math.min(84, room / (Math.max(...words.map((w) => w.length)) * 0.5));
+          const lines: string[] = [];
+          for (const w of words) {
+            const last = lines[lines.length - 1];
+            if (last && (last + ' ' + w).length * fs84 * 0.5 <= room) lines[lines.length - 1] = last + ' ' + w;
+            else lines.push(w);
+          }
+          const ex = c.x + sgn * rx;
+          const tx = c.x + sgn * (rx + 80);
+          return (
           <>
-            <path d={`M ${c.x + rx + 70} ${cy - ry * 0.62} Q ${c.x + rx + 30} ${cy - ry * 0.5} ${c.x + rx - 4} ${cy - ry * 0.3}`} fill="none" stroke={brand.crimson} strokeWidth={7} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - arrow} />
-            <path d={`M ${c.x + rx - 4} ${cy - ry * 0.3} l 4 -34 M ${c.x + rx - 4} ${cy - ry * 0.3} l 32 -6`} fill="none" stroke={brand.crimson} strokeWidth={7} strokeLinecap="round" opacity={arrow > 0.95 ? 1 : 0} />
-            <text x={c.x + rx + 80} y={cy - ry * 0.7} fontFamily={handFamily} fontWeight={700} fontSize={84} fill={brand.crimson} opacity={word} transform={`rotate(-6 ${c.x + rx + 80} ${cy - ry * 0.7})`}>{note}</text>
+            <path d={`M ${ex + sgn * 70} ${cy - ry * 0.62} Q ${ex + sgn * 30} ${cy - ry * 0.5} ${ex - sgn * 4} ${cy - ry * 0.3}`} fill="none" stroke={brand.crimson} strokeWidth={7} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - arrow} />
+            <path d={`M ${ex - sgn * 4} ${cy - ry * 0.3} l ${sgn * 4} -34 M ${ex - sgn * 4} ${cy - ry * 0.3} l ${sgn * 32} -6`} fill="none" stroke={brand.crimson} strokeWidth={7} strokeLinecap="round" opacity={arrow > 0.95 ? 1 : 0} />
+            <text x={tx} y={cy - ry * 0.7 - (lines.length - 1) * fs84 * 0.95} textAnchor={right ? 'start' : 'end'} fontFamily={handFamily} fontWeight={700} fontSize={fs84} fill={brand.crimson} opacity={word} transform={`rotate(${-6 * sgn} ${tx} ${cy - ry * 0.7})`}>
+              {lines.map((l, i) => <tspan key={i} x={tx} dy={i ? fs84 * 0.95 : 0}>{l}</tspan>)}
+            </text>
           </>
-        )}
+          );
+        })()}
       </svg>
     </div>
   );
@@ -401,7 +424,7 @@ export const ScriptPanelPlate: React.FC<{fx: Of<'script-panel'>}> = ({fx}) => {
       <div style={{position: 'absolute', left: 70, top: 170, width: 940, height: view, overflow: 'hidden', WebkitMaskImage: 'linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent)', maskImage: 'linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent)'}}>
         <div style={{transform: `translateY(${-scroll}px)`}}>
           {beats.map((b, i) => (
-            <div key={i} style={{height: cardH, marginBottom: 24, borderRadius: 22, background: 'rgba(255,255,255,0.06)', border: '1.5px solid rgba(224,138,87,0.45)', boxSizing: 'border-box', padding: '22px 30px', overflow: 'hidden'}}>
+            <div key={i} style={{height: cardH, marginBottom: 24, borderRadius: 22, background: 'rgba(255,255,255,0.06)', border: '1.5px solid rgba(169,87,74,0.45)', boxSizing: 'border-box', padding: '22px 30px', overflow: 'hidden'}}>
               <div style={{display: 'flex', gap: 14, alignItems: 'center', ...cap({fontSize: 18, color: C3.copper})}}>
                 <span style={{width: 34, height: 34, borderRadius: 17, background: C3.copperGrad, color: '#2a1206', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', letterSpacing: 0}}>{i + 1}</span>
                 {b.time && <span>{b.time}</span>}

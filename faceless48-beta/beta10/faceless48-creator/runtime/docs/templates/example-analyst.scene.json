@@ -1,0 +1,496 @@
+{
+ "slug": "tol2-analyst",
+ "template": "analyst",
+ "video": "raw/tolerance.mp4",
+ "durationSec": 35.669,
+ "matte": "tolerance",
+ "theme": {
+  "field": "charcoal",
+  "sans": "DM Sans"
+ },
+ "captionStyle": "ticker",
+ "emphasis": [
+  "belongs",
+  "unwritten",
+  "Tolerance",
+  "newcomer",
+  "left"
+ ],
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.0,
+  "lightLeaks": 0.0
+ },
+ "scrim": 0.55,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 3.722,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "chat",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 3.722,
+     "end": 6.915,
+     "layout": "T",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 3.722,
+       "until": 6.915,
+       "props": {
+        "skin": "data",
+        "items": [
+         {
+          "say": "like a community or a team chat, long before anyone tells them.",
+          "wordTimes": [
+           3.74,
+           4.03,
+           4.08,
+           4.7,
+           4.83,
+           4.91,
+           5.18,
+           5.48,
+           5.69,
+           6.0,
+           6.31,
+           6.57
+          ],
+          "kind": "chat",
+          "at": 3.74
+         }
+        ],
+        "y": 1010,
+        "height": 470,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "captionY": 935
+    }
+   ]
+  },
+  {
+   "id": "signals0",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 6.915,
+     "end": 8.622,
+     "layout": "T",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 6.915,
+       "until": 8.622,
+       "props": {
+        "skin": "data",
+        "items": [
+         {
+          "say": "They watch who gets replies,",
+          "wordTimes": [
+           6.97,
+           7.22,
+           7.55,
+           7.76,
+           8.04
+          ],
+          "kind": "replies",
+          "at": 6.97
+         }
+        ],
+        "y": 1010,
+        "height": 470,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "captionY": 935,
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals1",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 8.622,
+     "end": 10.441,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 8.622,
+       "until": 10.441,
+       "props": {
+        "skin": "data",
+        "items": [
+         {
+          "say": "whose name gets spelled correctly,",
+          "wordTimes": [
+           8.64,
+           8.93,
+           9.16,
+           9.38,
+           9.79
+          ],
+          "kind": "name",
+          "at": 8.64
+         }
+        ],
+        "y": 250,
+        "height": 720,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals2",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 10.441,
+     "end": 12.27,
+     "layout": "T",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 10.441,
+       "until": 12.27,
+       "props": {
+        "skin": "data",
+        "items": [
+         {
+          "say": "which posts get a reaction,",
+          "wordTimes": [
+           10.46,
+           10.85,
+           11.27,
+           11.5,
+           11.58
+          ],
+          "kind": "reaction",
+          "at": 10.46
+         }
+        ],
+        "y": 1010,
+        "height": 470,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "captionY": 935,
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals3",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 12.27,
+     "end": 13.768,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 12.27,
+       "until": 13.768,
+       "props": {
+        "skin": "data",
+        "items": [
+         {
+          "say": "and which holidays get mentioned.",
+          "wordTimes": [
+           12.27,
+           12.41,
+           12.68,
+           13.1,
+           13.23
+          ],
+          "kind": "holidays",
+          "at": 12.27
+         }
+        ],
+        "y": 250,
+        "height": 720,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "little",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 13.768,
+     "end": 15.196,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 15.196,
+     "end": 17.508,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.45
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "today",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 17.508,
+     "end": 20.593,
+     "layout": "F",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  },
+  {
+   "id": "five",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 20.593,
+     "end": 23.406,
+     "layout": "E",
+     "captionPos": "bottom",
+     "graphics": [],
+     "avatar": "hidden"
+    }
+   ]
+  },
+  {
+   "id": "new",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 23.406,
+     "end": 27.094,
+     "layout": "T",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 23.406,
+       "until": 27.094,
+       "props": {
+        "skin": "data",
+        "items": [
+         {
+          "say": "Then ask which ones a newcomer from another culture would have no way of knowing.",
+          "wordTimes": [
+           23.57,
+           23.81,
+           23.99,
+           24.33,
+           24.56,
+           24.62,
+           25.19,
+           25.34,
+           25.68,
+           26.0,
+           26.24,
+           26.43,
+           26.52,
+           26.66,
+           26.75
+          ],
+          "kind": "newcomer",
+          "at": 23.57
+         }
+        ],
+        "y": 1010,
+        "height": 470,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "captionY": 935
+    }
+   ]
+  },
+  {
+   "id": "left",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 27.094,
+     "end": 31.006,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "end",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 31.006,
+     "end": 35.669,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "date-stamp",
+   "at": 0.31,
+   "until": 3.612,
+   "props": {
+    "text": "NOVEMBER 16",
+    "position": "top"
+   }
+  },
+  {
+   "type": "big-stat",
+   "at": 21.089,
+   "until": 23.351,
+   "props": {
+    "value": 5,
+    "label": "UNWRITTEN RULES",
+    "sub": "in your community or team",
+    "size": 560,
+    "y": 470,
+    "align": "center"
+   }
+  },
+  {
+   "type": "knockout-tiles",
+   "at": 27.094,
+   "until": 31.006,
+   "props": {
+    "names": [
+     {
+      "text": "Replies",
+      "knockAt": 28.86
+     },
+     {
+      "text": "Names",
+      "knockAt": 29.47
+     },
+     {
+      "text": "Reactions",
+      "knockAt": 30.05
+     },
+     {
+      "text": "Holidays",
+      "knockAt": 30.47
+     }
+    ]
+   }
+  }
+ ],
+ "fxSound": "minimal",
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 33.26,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/empires.mp3",
+  "volume": 0.42,
+  "duckTo": 0.2,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}

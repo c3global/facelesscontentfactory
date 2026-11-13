@@ -3,6 +3,9 @@ import {Audio, AbsoluteFill, OffthreadVideo, Sequence, staticFile, useCurrentFra
 import {Backdrop, BackdropKind, PhotoBackdrop} from './backdrops';
 import {FieldOption, brand} from './brand';
 import {CaptionLayer} from './Captions';
+import {TemplateCaptionLayer, isTemplateCaption} from './TemplateCaptions';
+import {Examples} from './graphics/Examples';
+import {KIT_FRAME, KitBackdrop, KitFrameOver, KitFrameUnder, KitProvider, asKit} from './kits';
 import {KineticLayer} from './Kinetic';
 import {loadBrandFonts} from './fonts';
 import {GlassSurface, RefractDefs} from './glass';
@@ -33,7 +36,7 @@ import {GraphicTimeProvider, ThemeProvider} from './ui';
 import {FxBehind, FxLooks, FxOver, FxSound, OutlineAlways, videoMods} from './fx/FxLayers';
 import {FxEnvProvider, fxRange, useLoadedAnchors} from './fx/util';
 
-const FULL_FRAME: Graphic['type'][] = ['tag', 'floating-chips', 'chapter-card', 'congruence-map', 'screenshot-card', 'quiet-feed', 'citation-card', 'broll'];
+const FULL_FRAME: Graphic['type'][] = ['examples', 'tag', 'floating-chips', 'chapter-card', 'congruence-map', 'screenshot-card', 'quiet-feed', 'citation-card', 'broll'];
 
 const renderGraphic = (g: Graphic, lengthSec = 0): React.ReactNode => {
   switch (g.type) {
@@ -67,6 +70,8 @@ const renderGraphic = (g: Graphic, lengthSec = 0): React.ReactNode => {
       return <ScreenshotCard {...g.props} />;
     case 'statement-card':
       return <StatementCard {...g.props} />;
+    case 'examples':
+      return <Examples {...g.props} />;
     case 'broll':
       return <BRoll {...g.props} lengthSec={lengthSec} />;
   }
@@ -112,15 +117,21 @@ const VideoPortrait: React.FC<VideoProps> = ({plan, captions}) => {
     height: '100%',
     objectFit: 'cover',
     objectPosition: `50% ${fy}%`,
-    transform: `scale(${av.zoom * mods.zoom})`,
+    transform: `translateY(${mods.shiftY}px) scale(${av.zoom * mods.zoom})`,
     transformOrigin: `50% ${fy}%`,
     filter: mods.blur > 0.2 ? `blur(${mods.blur}px)` : undefined,
   };
   // thin frame: a 10 px glass bezel and a 3.5 px metal rim
-  const inset = av.frame * 10;
+  const kit = asKit(plan.template);
+  // a template kit draws its own frame: its own inset, and square or soft corners (circles stay circles)
+  const isCircle = av.r >= Math.min(av.w, av.h) / 2 - 2;
+  const kf = kit ? KIT_FRAME[kit] : null;
+  const avR = kf && kf.radius !== null && !isCircle && av.frame > 0.01 ? kf.radius + (av.r - kf.radius) * (1 - Math.min(1, av.frame)) : av.r;
+  const inset = av.frame * (kf ? kf.inset : 10);
   const rimT = av.frame * 3.5;
 
   return (
+    <KitProvider value={kit}>
     <AbsoluteFill style={{backgroundColor: curMood === 'light' && curField ? brand.white : brand.black}}>
       <RefractDefs />
       {plan.music && <Audio src={staticFile(plan.music.src)} volume={musicVolume} startFrom={Math.round(plan.music.startFromSec * fps)} loop />}
@@ -128,7 +139,9 @@ const VideoPortrait: React.FC<VideoProps> = ({plan, captions}) => {
       {/* animated field backdrops; the previous one sits underneath so mood changes cross-fade */}
       {blend.prev && (
         <AbsoluteFill style={{opacity: prevOpacity}}>
-          {blend.prev.scene.bg ? (
+          {kit ? (
+            <KitBackdrop kit={kit} frame={frame} />
+          ) : blend.prev.scene.bg ? (
             <PhotoBackdrop src={blend.prev.scene.bg} mood={blend.prev.scene.mood} frame={frame} />
           ) : (
             <Backdrop kind={kindFor(blend.prev.scene, field)} alt={sceneIdx(blend.prev.scene)} frame={frame} />
@@ -136,7 +149,9 @@ const VideoPortrait: React.FC<VideoProps> = ({plan, captions}) => {
         </AbsoluteFill>
       )}
       <AbsoluteFill style={{opacity: curOpacity}}>
-        {blend.cur.scene.bg ? (
+        {kit ? (
+          <KitBackdrop kit={kit} frame={frame} />
+        ) : blend.cur.scene.bg ? (
           <PhotoBackdrop src={blend.cur.scene.bg} mood={blend.cur.scene.mood} frame={frame} />
         ) : (
           <Backdrop kind={kindFor(blend.cur.scene, field)} alt={sceneIdx(blend.cur.scene)} frame={frame} />
@@ -145,8 +160,9 @@ const VideoPortrait: React.FC<VideoProps> = ({plan, captions}) => {
 
       {/* her: one OffthreadVideo for the whole runtime so her audio never cuts or restarts */}
       <ThemeProvider mood={curMood} field={field} sans={sans}>
-        <div style={{position: 'absolute', left: av.x, top: av.y, width: av.w, height: av.h, borderRadius: av.r}}>
-          {av.frame > 0.01 && av.opacity > 0.01 && (
+        <div style={{position: 'absolute', left: av.x, top: av.y, width: av.w, height: av.h, borderRadius: avR}}>
+          {kit && kit !== 'glass' && av.frame > 0.01 && <KitFrameUnder kit={kit} r={avR} opacity={av.frame * av.opacity} />}
+          {(!kit || kit === 'glass') && av.frame > 0.01 && av.opacity > 0.01 && (
             <GlassSurface
               variant="clear"
               tone={curMood === 'dark' ? 'dark' : 'light'}
@@ -161,20 +177,23 @@ const VideoPortrait: React.FC<VideoProps> = ({plan, captions}) => {
             style={{
               position: 'absolute',
               inset,
-              borderRadius: Math.max(0, av.r - inset),
+              borderRadius: Math.max(0, avR - inset),
               overflow: 'hidden',
               opacity: av.opacity,
               backgroundColor: brand.black,
             }}
           >
-            <OffthreadVideo src={staticFile(plan.video)} style={videoStyle} />
+            {/* head stack headroom: a soft blurred copy fills the space above her while the video eases down */}
+            {mods.room > 0.001 && <OffthreadVideo src={staticFile(plan.video)} muted style={{...videoStyle, transform: 'scale(1.25)', filter: 'blur(40px) brightness(0.55)', opacity: Math.min(1, mods.room * 1.5)}} />}
+            <OffthreadVideo src={staticFile(plan.video)} style={mods.room > 0.001 ? {...videoStyle, position: 'absolute', left: 0, top: 0} : videoStyle} />
             <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video} videoStyle={videoStyle} outline={plan.matteOutline} speech={speech}>
               <OutlineAlways />
               <FxBehind fx={plan.fx} />
               <FxLooks fx={plan.fx} />
             </FxEnvProvider>
           </div>
-          {av.frame > 0.01 && av.opacity > 0.01 && (
+          {kit && kit !== 'glass' && av.frame > 0.01 && <KitFrameOver kit={kit} w={av.w} h={av.h} r={avR} opacity={av.frame * av.opacity} frame={frame} />}
+          {(!kit || kit === 'glass') && av.frame > 0.01 && av.opacity > 0.01 && (
             <>
               {/* specular edge over the video */}
               <div
@@ -266,12 +285,15 @@ const VideoPortrait: React.FC<VideoProps> = ({plan, captions}) => {
       <ThemeProvider mood={curMood} field={field} sans={sans}>
         {plan.captionStyle === 'pill' ? (
           <CaptionLayer pages={pages} emphasis={plan.emphasis} flat={flat as FlatSegment[]} />
+        ) : isTemplateCaption(plan.captionStyle) ? (
+          <TemplateCaptionLayer captions={kineticCaptions} plan={plan} mood={curMood} />
         ) : (
           <KineticLayer captions={kineticCaptions} plan={plan} mood={curMood} />
         )}
       </ThemeProvider>
       {(plan.finish.grain > 0 || plan.finish.lightLeaks > 0) && <FilmFinish plan={plan} />}
     </AbsoluteFill>
+    </KitProvider>
   );
 };
 

@@ -147,6 +147,8 @@ const LEN: Record<FxType, number> = {
   duotone: 2.6,
   'big-stat': 3.2,
   'thank-you': 3.4,
+  'page-turn': 0.9,
+  'lesson-board': 4,
   'wall-text': 3.6,
 };
 

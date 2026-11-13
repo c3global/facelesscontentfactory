@@ -46,7 +46,8 @@ const DRIFT = 0.05;
 export const avatarStateAt = (fs: FlatSegment, frame: number): AvatarState => {
   const base = stateFor(fs.seg.layout, fs.seg.avatar);
   const s = fs.seg.focus ? {...base, focusY: fs.seg.focus.y, zoom: fs.seg.focus.zoom} : base;
-  if (fs.seg.layout !== 'A') return s;
+  // punch-in shots (a set focus) hold still, so the cut between a wide and a close shot reads clearly
+  if (fs.seg.layout !== 'A' || fs.seg.focus) return s;
   const f = Math.min(Math.max(frame, fs.startF), fs.endF);
   const prog = (f - fs.startF) / Math.max(1, fs.endF - fs.startF);
   return {...s, zoom: s.zoom + DRIFT * prog};
@@ -57,7 +58,7 @@ export const avatarStateBlend = (flat: FlatSegment[], frame: number): AvatarStat
   const cur = avatarStateAt(flat[c], frame);
   if (c === 0) return cur;
   const prev = avatarStateAt(flat[c - 1], flat[c - 1].endF);
-  const p = transitionProgress(frame, flat[c].startF);
+  const p = flat[c].seg.cut ? 1 : transitionProgress(frame, flat[c].startF);
   return {
     x: lerp(prev.x, cur.x, p),
     y: lerp(prev.y, cur.y, p),
@@ -78,7 +79,7 @@ export const layoutBlend = (flat: FlatSegment[], frame: number): LayoutBlend => 
     layout: flat[c].seg.layout,
     cur: flat[c],
     prev: c > 0 ? flat[c - 1] : undefined,
-    p: transitionProgress(frame, flat[c].startF),
+    p: flat[c].seg.cut ? 1 : transitionProgress(frame, flat[c].startF),
     index: c,
   };
 };

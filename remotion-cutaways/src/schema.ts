@@ -11,6 +11,18 @@ const base = {at: sec, until: sec.optional(), box};
 export const graphicSchema = z.discriminatedUnion('type', [
   z.object({
     ...base,
+    type: z.literal('examples'),
+    props: z.object({
+      skin: z.enum(['glass', 'paper', 'editorial', 'data', 'dark', 'light', 'noir', 'punch', 'board']).default('light'),
+      /** each item: her exact words (with word times) as the heading, and the example drawn under it */
+      items: z.array(z.object({say: z.string(), wordTimes: z.array(z.number()), kind: z.enum(['replies', 'name', 'reaction', 'holidays', 'newcomer', 'rules', 'leftout', 'chat']), at: sec})).min(1).max(6),
+      y: z.number().default(760),
+      height: z.number().default(720),
+      emphasis: z.array(z.string()).default([]),
+    }),
+  }),
+  z.object({
+    ...base,
     type: z.literal('tag'),
     props: z.object({text: z.string()}),
   }),
@@ -180,7 +192,7 @@ export const graphicSchema = z.discriminatedUnion('type', [
 export const segmentSchema = z.object({
   start: sec,
   end: sec,
-  layout: z.enum(['A', 'B', 'C', 'D', 'E', 'S']),
+  layout: z.enum(['A', 'B', 'C', 'D', 'E', 'S', 'F', 'O', 'T']),
   /** where kinetic captions sit in this segment: bottom band, top band, or alternating by sentence (top first) */
   captionPos: z.enum(['bottom', 'top', 'alternate']).default('bottom'),
   /** 'off' when a graphic in this segment shows every spoken word itself (the graphic becomes the caption) */
@@ -189,6 +201,10 @@ export const segmentSchema = z.object({
   focus: z.object({y: z.number(), zoom: z.number()}).optional(),
   /** layouts C and E: show her as a small window, or hide her (audio keeps playing) */
   avatar: z.enum(['circle', 'hidden']).optional(),
+  /** a hard cut into this segment (no eased move): a punch-in on a jump cut */
+  cut: z.boolean().optional(),
+  /** template captions: exact vertical centre of the caption, px, so it sits in empty space and never on an effect */
+  captionY: z.number().optional(),
   graphics: z.array(graphicSchema).default([]),
 });
 
@@ -238,7 +254,9 @@ export const planSchema = z.object({
    * pill: small glass-pill subtitles. editorial / heavy: kinetic lockups (one hero word set huge, small
    * support words around it, optional highlight box). Editorial sets the hero in Playfair Black, heavy in Anton.
    */
-  captionStyle: z.enum(['pill', 'editorial', 'heavy']).default('editorial'),
+  captionStyle: z.enum(['pill', 'editorial', 'heavy', 'quiet', 'magazine', 'glass', 'tape', 'ticker', 'film', 'punch', 'karaoke']).default('editorial'),
+  /** the talking-head template this plan was built from (see docs/TEMPLATES.md); informational */
+  template: z.string().optional(),
   /** words that should become the hero of a lockup (emphasis words always can) */
   hero: z.array(z.string()).default([]),
   /** words that get a highlight box behind them */

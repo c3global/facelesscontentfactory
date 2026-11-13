@@ -55,7 +55,7 @@ export const StickyText: React.FC<{fx: Of<'sticky-text'>}> = ({fx}) => {
     <div style={{...FILL}}>
       <div style={{position: 'absolute', left: p.x, top: p.y, transform: `translate(-50%, -125%) rotate(-5deg) scale(${inK * outK})`, transformOrigin: '50% 120%'}}>
         <div style={{padding: '12px 30px 8px', borderRadius: 18, fontFamily: heavyFamily, fontSize: 74, letterSpacing: 2, color: '#2a1206', textTransform: 'uppercase', ...metalFill({kind: 'copper', variant: 'bright', frame: 0, shimmer: false}), boxShadow: '0 10px 26px rgba(0,0,0,0.45)', whiteSpace: 'nowrap'}}>{fx.props.text}</div>
-        <div style={{width: 0, height: 0, margin: '0 auto', borderLeft: '16px solid transparent', borderRight: '16px solid transparent', borderTop: '22px solid #B5622C'}} />
+        <div style={{width: 0, height: 0, margin: '0 auto', borderLeft: '16px solid transparent', borderRight: '16px solid transparent', borderTop: '22px solid #A9574A'}} />
       </div>
     </div>
   );
@@ -255,15 +255,15 @@ export const ChartGrow: React.FC<{fx: Of<'chart-grow'>}> = ({fx}) => {
         <svg width={W} height={Hh + 20} viewBox={`0 0 ${W} ${Hh}`} style={{overflow: 'visible'}}>
           <defs>
             <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="#E08A57" stopOpacity="0.55" />
-              <stop offset="1" stopColor="#E08A57" stopOpacity="0" />
+              <stop offset="0" stopColor="#A9574A" stopOpacity="0.55" />
+              <stop offset="1" stopColor="#A9574A" stopOpacity="0" />
             </linearGradient>
           </defs>
           {[0.25, 0.5, 0.75].map((g) => (
             <line key={g} x1={0} x2={W} y1={Hh * g} y2={Hh * g} stroke="rgba(255,255,255,0.1)" strokeWidth={2} />
           ))}
           <path d={`${d} L${W} ${Hh} L0 ${Hh} Z`} fill="url(#cg)" opacity={draw} style={{clipPath: `inset(0 ${(1 - draw) * 100}% 0 0)`}} />
-          <path d={d} fill="none" stroke="#F4B08A" strokeWidth={9} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={total} strokeDashoffset={total * (1 - draw)} />
+          <path d={d} fill="none" stroke="#F1B9A5" strokeWidth={9} strokeLinecap="round" strokeLinejoin="round" strokeDasharray={total} strokeDashoffset={total * (1 - draw)} />
           {draw > 0.97 && <circle cx={end[0]} cy={end[1]} r={16} fill="#C91B19" stroke="#FFF3C9" strokeWidth={5} />}
         </svg>
         {fx.props.endLabel && draw > 0.97 && <div style={{position: 'absolute', left: 36 + end[0] - 170, top: 36 + 50 + end[1] - 100, padding: '10px 26px', borderRadius: 24, fontFamily: heavyFamily, fontSize: 56, color: '#2a1206', ...metalFill({kind: 'gold', variant: 'bright', frame: 0, shimmer: false}), transform: `scale(${tw(t, 2.2, 2.5, 0, 1, pop)})`}}>{fx.props.endLabel}</div>}
@@ -335,7 +335,7 @@ export const TimelineBurn: React.FC<{fx: Of<'timeline-burn'>}> = ({fx}) => {
   }
   const burn = tw(abs, burnAt, burnAt + 1.2, 0, 1, (x) => x);
   const shake = abs >= burnAt ? Math.sin(frame * 3.1) * 4 * (1 - burn) : 0;
-  const colors = ['#C91B19', '#D5AA4A', '#3A3F42', '#B5622C', '#8d1214', '#E3BF63', '#6F0D0F', '#9aa0a3'];
+  const colors = ['#C91B19', '#D5AA4A', '#3A3F42', '#A9574A', '#8d1214', '#E3BF63', '#6F0D0F', '#9aa0a3'];
   return (
     <div style={{...FILL, opacity: outK}}>
       <div style={{position: 'absolute', left: 40, top: 1080, width: 1000, height: 420, borderRadius: 34, background: GLASS, border: HAIR, boxSizing: 'border-box', padding: 30, transform: `translate(${shake}px, ${burn * 40}px)`, opacity: 1 - burn * 0.85, filter: `brightness(${1 - 0.5 * burn}) sepia(${burn})`}}>

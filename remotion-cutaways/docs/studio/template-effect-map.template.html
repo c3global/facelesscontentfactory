@@ -1,0 +1,203 @@
+<title>Template Effect Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: a studio app. Template cards across the top; the chosen template's kit below, grouped by what each effect does; a library drawer adds any effect to the kit. Faceless48 palette, liquid glass on deep navy. */
+:root{
+  --navy:#1C1533; --indigo:#3D3570; --lav:#E8E4FF; --green:#1D9E75; --blue:#378ADD; --tan:#C9956C;
+  --red:#FF0033; --pink:#E1306C; --cyan:#25F4EE; --violet:#7f77dd; --mauve:#a95aac;
+  --ink:#F4F2FF; --muted:rgba(232,228,255,.66); --line:rgba(232,228,255,.16); --glass:rgba(232,228,255,.07); --glass-hi:rgba(232,228,255,.13);
+  --display:"Space Grotesk","Inter",system-ui,sans-serif; --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--navy);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 80px;min-height:100%;position:relative;overflow-x:hidden}
+.aura{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(40vmax 30vmax at 12% 8%,rgba(55,138,221,.28),transparent 70%),radial-gradient(36vmax 28vmax at 88% 18%,rgba(225,48,108,.22),transparent 70%),radial-gradient(42vmax 32vmax at 60% 100%,rgba(37,244,238,.14),transparent 70%),radial-gradient(30vmax 24vmax at 0% 90%,rgba(127,119,221,.22),transparent 70%)}
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:26px}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:20px;backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 20px 50px rgba(8,4,24,.35)}
+header{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
+.eyebrow{font:600 12px var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+h1{font:700 clamp(30px,4.6vw,46px)/1.05 var(--display);margin:4px 0 0;letter-spacing:-.02em;text-wrap:balance}
+h1 span{background:linear-gradient(100deg,var(--cyan),var(--blue) 40%,var(--violet) 70%,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{color:var(--muted);max-width:62ch;margin:8px 0 0}
+.status{font-size:13px;color:var(--muted)}
+.tpls{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.tpl{all:unset;cursor:pointer;padding:16px 18px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.tpl h3{font:600 19px var(--display);margin:0}
+.tpl .best{font-size:13px;color:var(--muted)}
+.tpl .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.pill{font:600 11px var(--body);letter-spacing:.04em;padding:4px 9px;border-radius:999px;background:var(--glass-hi);color:var(--lav);border:1px solid var(--line)}
+.tpl[aria-pressed="true"]{background:linear-gradient(135deg,rgba(55,138,221,.35),rgba(127,119,221,.3) 55%,rgba(225,48,108,.25));border-color:rgba(37,244,238,.55);box-shadow:0 0 0 1px rgba(37,244,238,.35),0 20px 50px rgba(8,4,24,.45)}
+.tpl:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.kit{padding:22px;display:flex;flex-direction:column;gap:20px}
+.kit-head{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start;justify-content:space-between}
+.kit-head h2{font:700 28px var(--display);margin:0}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 22px;margin-top:10px;font-size:14px}
+.facts b{display:block;font:600 11px var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:2px}
+.btn{all:unset;cursor:pointer;font:600 14px var(--display);padding:11px 16px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff;box-shadow:0 8px 24px rgba(55,138,221,.35);white-space:nowrap}
+.btn.ghost{background:var(--glass-hi);box-shadow:none;border:1px solid var(--line);color:var(--lav)}
+.group h4{font:600 13px var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--lav);margin:0 0 10px;display:flex;gap:10px;align-items:center}
+.group h4 small{font:400 13px var(--body);letter-spacing:0;text-transform:none;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:10px}
+.fx{position:relative;border-radius:16px;border:1px solid var(--line);background:rgba(28,21,51,.55);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.fx.added{border-color:rgba(29,158,117,.8)}
+.thumb{aspect-ratio:9/12;display:grid;place-items:center;position:relative;background:linear-gradient(160deg,rgba(61,53,112,.9),rgba(28,21,51,.95));overflow:hidden}
+.thumb img,.thumb video{width:100%;height:100%;object-fit:cover;display:block}
+.thumb svg{width:42%;height:auto;opacity:.9}
+.thumb .soon{position:absolute;bottom:8px;left:8px;font:600 10px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.fx .body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px}
+.fx code{font:600 13px ui-monospace,Menlo,monospace;color:var(--cyan);word-break:break-word}
+.fx p{margin:0;font-size:12.5px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.fx .row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:4px}
+.tag{font:600 10px var(--body);letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+.tag.cut{border-color:rgba(225,48,108,.6);color:#FF8FB3}
+.tag.mine{border-color:rgba(29,158,117,.8);color:#7FE3BF}
+.x{all:unset;cursor:pointer;position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:rgba(28,21,51,.75);color:var(--lav);font-size:17px;border:1px solid var(--line)}
+.x.add{background:linear-gradient(135deg,var(--green),#1A7C5E);color:#fff;border-color:transparent}
+.drawer{position:fixed;inset:0;z-index:20;display:flex;justify-content:flex-end;background:rgba(10,6,24,.55)}
+.drawer[hidden]{display:none!important}
+.panel{width:min(760px,100%);height:100%;overflow:auto;padding:22px max(16px,env(safe-area-inset-right,0px)) 40px 22px;background:rgba(28,21,51,.92);border-left:1px solid var(--line);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);display:flex;flex-direction:column;gap:18px;padding-top:max(22px,env(safe-area-inset-top,0px))}
+.panel-head{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.panel-head h3{font:700 22px var(--display);margin:0}
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+input[type=search]{flex:1;min-width:0;background:var(--glass-hi);border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:11px 13px;font:15px var(--body)}
+.chip{all:unset;cursor:pointer;font:500 13px var(--body);padding:7px 11px;border-radius:999px;border:1px solid var(--line);color:var(--lav)}
+.chip[aria-pressed="true"]{background:var(--lav);color:var(--navy)}
+.empty{color:var(--muted);padding:12px 0}
+@media (max-width:560px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.kit{padding:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<div class="aura" aria-hidden="true"></div>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Faceless48 Creator Studio</div>
+      <h1>Template <span>Effect Map</span></h1>
+      <p class="lede">Pick a template to see what it is for and the effects that come with it. Add any effect you love from the library, even one from another template. Your kit saves as you go, and every video made in that template uses it.</p>
+    </div>
+    <div class="status" id="status" role="status">Loading your kits…</div>
+  </header>
+  <div class="tpls" id="tpls" role="toolbar" aria-label="Templates"></div>
+  <section class="kit glass" id="kit" aria-live="polite"></section>
+</div>
+<div class="drawer" id="drawer" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="dtitle">
+    <div class="panel-head"><h3 id="dtitle">Effect library</h3><button class="btn ghost" id="close" type="button">Done</button></div>
+    <div class="filters"><input type="search" id="q" placeholder="Search 160 effects" aria-label="Search effects"><button class="chip" id="fcut" type="button" aria-pressed="false">Needs cutout</button><button class="chip" id="fnot" type="button" aria-pressed="true">Not in kit yet</button></div>
+    <div id="lib"></div>
+  </div>
+</div>
+<script>
+const D = __DATA__;
+const PREVIEW = __PREVIEWS__; // effect name -> preview image url, filled as previews are rendered
+const FX = D.fx, JOBS = D.jobs, TPL = D.tpl;
+const ICON = {
+  hook:'<svg viewBox="0 0 48 48"><path d="M8 24h20M20 12l12 12-12 12" stroke="#25F4EE" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="40" cy="24" r="4" fill="#E1306C"/></svg>',
+  words:'<svg viewBox="0 0 48 48"><path d="M8 12h32M24 12v26M16 38h16" stroke="#E8E4FF" stroke-width="4" fill="none" stroke-linecap="round"/></svg>',
+  example:'<svg viewBox="0 0 48 48"><rect x="6" y="8" width="30" height="20" rx="7" fill="#378ADD"/><rect x="14" y="22" width="28" height="18" rx="7" fill="#7f77dd"/></svg>',
+  steps:'<svg viewBox="0 0 48 48"><circle cx="11" cy="12" r="4" fill="#25F4EE"/><circle cx="11" cy="24" r="4" fill="#25F4EE"/><circle cx="11" cy="36" r="4" fill="#25F4EE"/><path d="M20 12h20M20 24h16M20 36h18" stroke="#E8E4FF" stroke-width="4" stroke-linecap="round"/></svg>',
+  proof:'<svg viewBox="0 0 48 48"><path d="M6 40h36" stroke="#E8E4FF" stroke-width="3"/><rect x="9" y="26" width="7" height="12" fill="#7f77dd"/><rect x="20" y="18" width="7" height="20" fill="#378ADD"/><rect x="31" y="8" width="7" height="30" fill="#1D9E75"/></svg>',
+  behind:'<svg viewBox="0 0 48 48"><rect x="4" y="6" width="40" height="36" rx="6" fill="#3D3570"/><circle cx="24" cy="20" r="7" fill="#E8E4FF"/><path d="M11 42c2-9 7-13 13-13s11 4 13 13" fill="#E8E4FF"/></svg>',
+  camera:'<svg viewBox="0 0 48 48"><rect x="6" y="14" width="26" height="20" rx="5" fill="none" stroke="#25F4EE" stroke-width="4"/><path d="M32 22l10-6v16l-10-6z" fill="#25F4EE"/></svg>',
+  paper:'<svg viewBox="0 0 48 48"><rect x="9" y="8" width="26" height="32" rx="2" fill="#E8E4FF" transform="rotate(-6 22 24)"/><rect x="16" y="5" width="12" height="6" fill="#C9956C" opacity=".85"/></svg>',
+  cards:'<svg viewBox="0 0 48 48"><rect x="6" y="12" width="20" height="26" rx="4" fill="#7f77dd" transform="rotate(-10 16 25)"/><rect x="22" y="10" width="20" height="26" rx="4" fill="#E1306C" transform="rotate(8 32 23)"/></svg>',
+  cta:'<svg viewBox="0 0 48 48"><rect x="6" y="15" width="36" height="18" rx="9" fill="#FF0033"/><path d="M19 24h10M25 19l5 5-5 5" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/></svg>'
+};
+let kits = {}; // template key -> {add: [], remove: []}
+let cur = 'Q', query = '', onlyCut = false, notIn = true, db = null;
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+const kitOf = (k) => { const m = kits[k] || {add: [], remove: []}; return FX.filter((f) => (f.t.includes(k) && !m.remove.includes(f.n)) || m.add.includes(f.n)).map((f) => f.n); };
+const isAdded = (k, n) => (kits[k]?.add || []).includes(n);
+function thumb(f){
+  const t = el('div','thumb');
+  if (PREVIEW[f.n]) { const i = el('img'); i.src = PREVIEW[f.n]; i.alt = f.n + ' preview'; i.loading = 'lazy'; t.append(i); }
+  else { t.innerHTML = ICON[f.j]; t.append(el('span','soon','Preview coming')); }
+  return t;
+}
+function card(f, mode){
+  const c = el('div','fx' + (isAdded(cur, f.n) ? ' added' : ''));
+  c.append(thumb(f));
+  const b = el('div','body'); b.append(el('code',null,f.n), el('p',null,f.d));
+  const row = el('div','row');
+  if (f.c) row.append(el('span','tag cut','Needs cutout'));
+  if (f.g) row.append(el('span','tag','Graphic'));
+  if (isAdded(cur, f.n)) row.append(el('span','tag mine','Added by you'));
+  if (row.childNodes.length) b.append(row);
+  c.append(b);
+  const x = el('button', 'x' + (mode === 'add' ? ' add' : ''), mode === 'add' ? '+' : '×');
+  x.type = 'button'; x.setAttribute('aria-label', (mode === 'add' ? 'Add ' : 'Remove ') + f.n + (mode === 'add' ? ' to ' : ' from ') + TPL.find((t) => t.k === cur).name);
+  x.onclick = () => (mode === 'add' ? addFx(f.n) : removeFx(f.n));
+  c.append(x);
+  return c;
+}
+function renderTpls(){
+  const T = $('tpls'); T.textContent = '';
+  TPL.forEach((t) => {
+    const b = el('button','tpl glass'); b.type = 'button'; b.setAttribute('aria-pressed', String(t.k === cur));
+    b.append(el('h3',null,t.name), el('div','best','Best for: ' + t.best));
+    const m = el('div','meta'); m.append(el('span','pill', kitOf(t.k).length + ' effects'), el('span','pill', t.feel)); b.append(m);
+    b.onclick = () => { cur = t.k; render(); };
+    T.append(b);
+  });
+}
+function renderKit(){
+  const t = TPL.find((x) => x.k === cur), K = $('kit'); K.textContent = '';
+  const head = el('div','kit-head');
+  const left = el('div'); left.append(el('div','eyebrow','Template'), el('h2',null,t.name));
+  const facts = el('div','facts');
+  [['Best for', t.best], ['Feels', t.feel], ['Captions', t.capDesc]].forEach(([a, v]) => { const d = el('div'); d.append(el('b',null,a), document.createTextNode(v)); facts.append(d); });
+  left.append(facts);
+  const add = el('button','btn','Add effects from the library'); add.type = 'button'; add.onclick = openLib;
+  head.append(left, add); K.append(head);
+  const mine = kitOf(cur);
+  JOBS.forEach((j) => {
+    const items = FX.filter((f) => f.j === j.k && mine.includes(f.n));
+    if (!items.length) return;
+    const g = el('div','group'); const h = el('h4',null,j.name); h.append(el('small',null,j.desc)); g.append(h);
+    const cs = el('div','cards'); items.forEach((f) => cs.append(card(f,'remove'))); g.append(cs); K.append(g);
+  });
+  if (!mine.length) K.append(el('div','empty','This kit is empty. Add effects from the library.'));
+}
+function renderLib(){
+  const L = $('lib'); L.textContent = '';
+  const mine = kitOf(cur), q = query.toLowerCase();
+  let shown = 0;
+  JOBS.forEach((j) => {
+    const items = FX.filter((f) => f.j === j.k && (!notIn || !mine.includes(f.n)) && (!onlyCut || f.c) && (!q || (f.n + ' ' + f.d).toLowerCase().includes(q)));
+    if (!items.length) return;
+    shown += items.length;
+    const g = el('div','group'); const h = el('h4',null,j.name); h.append(el('small',null,items.length + ' effects')); g.append(h);
+    const cs = el('div','cards'); items.forEach((f) => cs.append(mine.includes(f.n) ? card(f,'remove') : card(f,'add'))); g.append(cs); L.append(g);
+  });
+  if (!shown) L.append(el('div','empty','No effects match. Try another word or clear the filters.'));
+}
+function render(){ renderTpls(); renderKit(); if (!$('drawer').hidden) renderLib(); }
+function openLib(){ $('dtitle').textContent = 'Add to ' + TPL.find((t) => t.k === cur).name; $('drawer').hidden = false; renderLib(); $('q').focus(); }
+$('close').onclick = () => { $('drawer').hidden = true; };
+$('drawer').addEventListener('click', (e) => { if (e.target.id === 'drawer') $('drawer').hidden = true; });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') $('drawer').hidden = true; });
+$('q').addEventListener('input', (e) => { query = e.target.value.trim(); renderLib(); });
+$('fcut').onclick = (e) => { onlyCut = !onlyCut; e.currentTarget.setAttribute('aria-pressed', String(onlyCut)); renderLib(); };
+$('fnot').onclick = (e) => { notIn = !notIn; e.currentTarget.setAttribute('aria-pressed', String(notIn)); renderLib(); };
+async function save(k){
+  if (!db) { setStatus('Sign in to claude.ai to keep your kits.'); return; }
+  try { await db.doc('kits/' + k).set(kits[k]); setStatus('Saved'); } catch (e) { setStatus('Could not save that change. Try again in a moment.'); }
+}
+function addFx(n){ const m = kits[cur] || (kits[cur] = {add: [], remove: []}); const f = FX.find((x) => x.n === n); if (f.t.includes(cur)) m.remove = m.remove.filter((x) => x !== n); else if (!m.add.includes(n)) m.add.push(n); render(); save(cur); }
+function removeFx(n){ const m = kits[cur] || (kits[cur] = {add: [], remove: []}); if (m.add.includes(n)) m.add = m.add.filter((x) => x !== n); else if (!m.remove.includes(n)) m.remove.push(n); render(); save(cur); }
+function setStatus(s){ $('status').textContent = s; }
+render();
+(async () => {
+  const timer = setTimeout(() => setStatus('Showing the default kits. Your saved changes could not load.'), 10000);
+  db = await (window.claude?.use ? window.claude.use('db') : null);
+  if (!db) { clearTimeout(timer); setStatus('Showing the default kits. Sign in to save your own.'); return; }
+  db.collection('kits').onSnapshot((snap) => {
+    clearTimeout(timer);
+    const k = {}; snap.docs.forEach((d) => { const v = d.data(); if (v) k[d.id] = {add: Array.isArray(v.add) ? v.add : [], remove: Array.isArray(v.remove) ? v.remove : []}; });
+    kits = k; render();
+    const n = Object.values(k).reduce((a, m) => a + m.add.length + m.remove.length, 0);
+    setStatus(n ? n + ' change' + (n === 1 ? '' : 's') + ' saved to your kits' : 'Default kits');
+  }, () => { clearTimeout(timer); setStatus('Showing the default kits. Your saved changes could not load.'); });
+})();
+</script>

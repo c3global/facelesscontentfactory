@@ -1,0 +1,728 @@
+{
+ "slug": "tol2-magazine",
+ "template": "magazine",
+ "video": "raw/tolerance.mp4",
+ "durationSec": 35.669,
+ "matte": "tolerance",
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "captionStyle": "magazine",
+ "emphasis": [
+  "belongs",
+  "unwritten",
+  "Tolerance",
+  "newcomer",
+  "left"
+ ],
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.25,
+  "lightLeaks": 0.0
+ },
+ "scrim": 0.0,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 3.722,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "chat",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 3.722,
+     "end": 6.915,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 3.722,
+       "until": 6.915,
+       "props": {
+        "skin": "editorial",
+        "items": [
+         {
+          "say": "like a community or a team chat, long before anyone tells them.",
+          "wordTimes": [
+           3.74,
+           4.03,
+           4.08,
+           4.7,
+           4.83,
+           4.91,
+           5.18,
+           5.48,
+           5.69,
+           6.0,
+           6.31,
+           6.57
+          ],
+          "kind": "chat",
+          "at": 3.74
+         }
+        ],
+        "y": 250,
+        "height": 720,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "signals0",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 6.915,
+     "end": 8.622,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 6.915,
+       "until": 8.622,
+       "props": {
+        "skin": "editorial",
+        "items": [
+         {
+          "say": "They watch who gets replies,",
+          "wordTimes": [
+           6.97,
+           7.22,
+           7.55,
+           7.76,
+           8.04
+          ],
+          "kind": "replies",
+          "at": 6.97
+         }
+        ],
+        "y": 250,
+        "height": 720,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals1",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 8.622,
+     "end": 10.441,
+     "layout": "T",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 8.622,
+       "until": 10.441,
+       "props": {
+        "skin": "editorial",
+        "items": [
+         {
+          "say": "whose name gets spelled correctly,",
+          "wordTimes": [
+           8.64,
+           8.93,
+           9.16,
+           9.38,
+           9.79
+          ],
+          "kind": "name",
+          "at": 8.64
+         }
+        ],
+        "y": 1010,
+        "height": 470,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "captionY": 935,
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals2",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 10.441,
+     "end": 12.27,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 10.441,
+       "until": 12.27,
+       "props": {
+        "skin": "editorial",
+        "items": [
+         {
+          "say": "which posts get a reaction,",
+          "wordTimes": [
+           10.46,
+           10.85,
+           11.27,
+           11.5,
+           11.58
+          ],
+          "kind": "reaction",
+          "at": 10.46
+         }
+        ],
+        "y": 250,
+        "height": 720,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals3",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 12.27,
+     "end": 13.768,
+     "layout": "T",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 12.27,
+       "until": 13.768,
+       "props": {
+        "skin": "editorial",
+        "items": [
+         {
+          "say": "and which holidays get mentioned.",
+          "wordTimes": [
+           12.27,
+           12.41,
+           12.68,
+           13.1,
+           13.23
+          ],
+          "kind": "holidays",
+          "at": 12.27
+         }
+        ],
+        "y": 1010,
+        "height": 470,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "captionY": 935,
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "little",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 13.768,
+     "end": 15.205,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.5
+     }
+    }
+   ]
+  },
+  {
+   "id": "belongs",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 15.205,
+     "end": 17.508,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": []
+    }
+   ]
+  },
+  {
+   "id": "today",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 17.508,
+     "end": 20.593,
+     "layout": "E",
+     "captionPos": "bottom",
+     "graphics": [],
+     "avatar": "hidden"
+    }
+   ]
+  },
+  {
+   "id": "rules",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 20.593,
+     "end": 23.406,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "new",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 23.406,
+     "end": 27.094,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 23.406,
+       "until": 27.094,
+       "props": {
+        "skin": "editorial",
+        "items": [
+         {
+          "say": "Then ask which ones a newcomer from another culture would have no way of knowing.",
+          "wordTimes": [
+           23.57,
+           23.81,
+           23.99,
+           24.33,
+           24.56,
+           24.62,
+           25.19,
+           25.34,
+           25.68,
+           26.0,
+           26.24,
+           26.43,
+           26.52,
+           26.66,
+           26.75
+          ],
+          "kind": "newcomer",
+          "at": 23.57
+         }
+        ],
+        "y": 250,
+        "height": 720,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "left",
+   "mood": "light",
+   "segments": [
+    {
+     "start": 27.094,
+     "end": 31.006,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 27.094,
+       "until": 31.006,
+       "props": {
+        "skin": "editorial",
+        "items": [
+         {
+          "say": "Those are the places where people feel left out without anyone meaning to leave them out.",
+          "wordTimes": [
+           27.28,
+           27.52,
+           27.66,
+           27.82,
+           28.09,
+           28.34,
+           28.7,
+           28.86,
+           29.2,
+           29.47,
+           29.8,
+           30.05,
+           30.37,
+           30.47,
+           30.68,
+           30.86
+          ],
+          "kind": "leftout",
+          "at": 27.28
+         }
+        ],
+        "y": 250,
+        "height": 720,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "end",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 31.006,
+     "end": 35.669,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "press-front",
+   "at": 0.0,
+   "until": 3.428,
+   "props": {
+    "masthead": "The Common Room",
+    "headline": "Who belongs here?",
+    "subhead": "Who belongs here? Replies, names, reactions: the unwritten signals",
+    "date": "Sunday, November 16, 2026",
+    "caption": "International Day for Tolerance",
+    "scale": 1.0,
+    "fadeOut": false,
+    "liveWords": [
+     {
+      "text": "I",
+      "at": 0.04
+     },
+     {
+      "text": "want",
+      "at": 0.04
+     },
+     {
+      "text": "to",
+      "at": 0.199
+     },
+     {
+      "text": "talk",
+      "at": 0.36
+     },
+     {
+      "text": "about",
+      "at": 0.58
+     },
+     {
+      "text": "how",
+      "at": 0.86
+     },
+     {
+      "text": "people",
+      "at": 1.05
+     },
+     {
+      "text": "decide",
+      "at": 1.38
+     },
+     {
+      "text": "whether",
+      "at": 1.76
+     },
+     {
+      "text": "they",
+      "at": 2.19
+     },
+     {
+      "text": "belong",
+      "at": 2.43
+     },
+     {
+      "text": "in",
+      "at": 2.8
+     },
+     {
+      "text": "an",
+      "at": 2.92
+     },
+     {
+      "text": "online",
+      "at": 3.04
+     },
+     {
+      "text": "space,",
+      "at": 3.41
+     }
+    ]
+   }
+  },
+  {
+   "type": "page-turn",
+   "at": 3.428,
+   "until": 4.362,
+   "props": {
+    "front": {
+     "masthead": "The Common Room",
+     "headline": "Who belongs here?",
+     "subhead": "Who belongs here? Replies, names, reactions: the unwritten signals",
+     "date": "Sunday, November 16, 2026",
+     "caption": "International Day for Tolerance",
+     "scale": 1.0,
+     "fadeOut": false,
+     "liveWords": [
+      {
+       "text": "I",
+       "at": 0.04
+      },
+      {
+       "text": "want",
+       "at": 0.04
+      },
+      {
+       "text": "to",
+       "at": 0.199
+      },
+      {
+       "text": "talk",
+       "at": 0.36
+      },
+      {
+       "text": "about",
+       "at": 0.58
+      },
+      {
+       "text": "how",
+       "at": 0.86
+      },
+      {
+       "text": "people",
+       "at": 1.05
+      },
+      {
+       "text": "decide",
+       "at": 1.38
+      },
+      {
+       "text": "whether",
+       "at": 1.76
+      },
+      {
+       "text": "they",
+       "at": 2.19
+      },
+      {
+       "text": "belong",
+       "at": 2.43
+      },
+      {
+       "text": "in",
+       "at": 2.8
+      },
+      {
+       "text": "an",
+       "at": 2.92
+      },
+      {
+       "text": "online",
+       "at": 3.04
+      },
+      {
+       "text": "space,",
+       "at": 3.41
+      }
+     ]
+    },
+    "frontT": 3.428
+   }
+  },
+  {
+   "type": "page-turn",
+   "at": 15.205,
+   "until": 16.073,
+   "props": {}
+  },
+  {
+   "type": "page-turn",
+   "at": 17.508,
+   "until": 18.346,
+   "props": {}
+  },
+  {
+   "type": "page-turn",
+   "at": 23.406,
+   "until": 24.291,
+   "props": {}
+  },
+  {
+   "type": "paper-tear",
+   "at": 27.094,
+   "until": 27.974,
+   "props": {}
+  },
+  {
+   "type": "paper-tear",
+   "at": 31.006,
+   "until": 31.994,
+   "props": {}
+  },
+  {
+   "type": "giant-caption",
+   "at": 15.205,
+   "until": 17.508,
+   "props": {
+    "version": 2,
+    "text": "but a lot of it tells people who belongs here.",
+    "accent": "belongs"
+   }
+  },
+  {
+   "type": "kinetic-hook",
+   "at": 17.508,
+   "until": 20.593,
+   "props": {
+    "version": 2,
+    "lines": [
+     {
+      "text": "Today is the",
+      "face": "sans",
+      "at": 17.61
+     },
+     {
+      "text": "International Day",
+      "face": "italic",
+      "at": 18.15
+     },
+     {
+      "text": "for Tolerance,",
+      "face": "serif",
+      "at": 19.02
+     },
+     {
+      "text": "so try this.",
+      "face": "sans",
+      "at": 19.85
+     }
+    ]
+   }
+  },
+  {
+   "type": "headline-wall",
+   "at": 20.593,
+   "until": 23.406,
+   "props": {
+    "lines": [
+     "Five unwritten rules",
+     "Which would a newcomer not know?",
+     "Who belongs here?",
+     "The unwritten signals"
+    ]
+   }
+  }
+ ],
+ "fxSound": "minimal",
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 33.26,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/make-it-look-easy.mp3",
+  "volume": 0.42,
+  "duckTo": 0.2,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}

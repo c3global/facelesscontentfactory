@@ -1,0 +1,18 @@
+{
+  "name": "C3 Global",
+  "tagline": null,
+  "logo": "brand/orbital-globe.png",
+  "accent": "#C91B19",
+  "accentMid": "#A31516",
+  "accentDeep": "#6F0D0F",
+  "metalFinish": "custom",
+  "metal": "#A9574A",
+  "metalLight": "#F1B9A5",
+  "headingFont": "Playfair Display",
+  "bodyFont": "DM Sans",
+  "captionStyle": "editorial",
+  "host": {
+    "type": "stick-figure",
+    "art": []
+  }
+}

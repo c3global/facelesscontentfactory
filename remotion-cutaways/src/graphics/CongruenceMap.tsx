@@ -41,7 +41,7 @@ const EDGES: Array<[number, number, number]> = [
  * Holographic foil, kept inside the brand palette: a rim and a sheen that slide through rose gold, champagne
  * gold, white and a pale crimson tint, like light moving across a hologram. Nothing outside the palette.
  */
-const HOLO = ['#E9B3B4', '#F8E8B4', '#FFFFFF', '#F4A6A3', '#D48A8C', '#F8E8B4', '#E9B3B4'];
+const HOLO = ['#F1B9A5', '#F8E8B4', '#FFFFFF', '#F4A6A3', '#C27A6B', '#F8E8B4', '#F1B9A5'];
 export const Holo: React.FC<{i: number; frame: number; active: boolean; fade: number; dark: boolean; radius?: number}> = ({i, frame, active, fade, dark, radius = 999}) => {
   const angle = (frame * 2.4 + i * 70) % 360;
   const slide = ((frame * 1.3 + i * 25) % 150) - 25;
@@ -57,7 +57,7 @@ export const Holo: React.FC<{i: number; frame: number; active: boolean; fade: nu
           overflow: 'hidden',
           opacity: fade * (dark ? 0.9 : 0.55),
           mixBlendMode: dark ? 'screen' : 'multiply',
-          background: `linear-gradient(112deg, rgba(255,255,255,0) ${slide - 22}%, rgba(233,179,180,0.30) ${slide - 8}%, rgba(248,232,180,0.38) ${slide + 4}%, rgba(255,255,255,0.22) ${slide + 12}%, rgba(255,255,255,0) ${slide + 28}%)`,
+          background: `linear-gradient(112deg, rgba(255,255,255,0) ${slide - 22}%, rgba(241,185,165,0.30) ${slide - 8}%, rgba(248,232,180,0.38) ${slide + 4}%, rgba(255,255,255,0.22) ${slide + 12}%, rgba(255,255,255,0) ${slide + 28}%)`,
           pointerEvents: 'none',
         }}
       />

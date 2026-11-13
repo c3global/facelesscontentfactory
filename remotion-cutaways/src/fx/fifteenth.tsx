@@ -1,8 +1,9 @@
 import React from 'react';
-import {Img, OffthreadVideo, staticFile} from 'remotion';
+import {Freeze, Img, OffthreadVideo, staticFile} from 'remotion';
 import {handFamily, heavyFamily, serifFamily} from '../fonts';
 import {Label, Panel, Scrim, Title} from './eleventh';
 import {useSpan} from './fourth';
+import {PressFront} from './ninth';
 import type {Fx} from './schema';
 import {BrandAvatar, C3, CheckMark, ROSE, ROSE_TEXT} from './theme';
 import {fxRange, pop, tw, useFxEnv, useFxTime} from './util';
@@ -47,7 +48,7 @@ export const BeforeAfterV2: React.FC<{fx: Of<'before-after'>}> = ({fx}) => {
     <div style={{...FILL, overflow: 'hidden'}}>
       {half(false)}
       {half(true)}
-      <div style={{position: 'absolute', left: 540 * k - 3, top: 0, width: 6, height: 1920, background: 'linear-gradient(180deg, #FFD9BD, #E08A57 35%, #FCE2DF 55%, #D48A8C 80%, #B76E79)', boxShadow: `0 0 30px 6px rgba(${ROSE.glow},0.6)`, opacity: Math.min(1, k * 3)}} />
+      <div style={{position: 'absolute', left: 540 * k - 3, top: 0, width: 6, height: 1920, background: 'linear-gradient(180deg, #FFD9BD, #A9574A 35%, #FBE3DA 55%, #C27A6B 80%, #A9574A)', boxShadow: `0 0 30px 6px rgba(${ROSE.glow},0.6)`, opacity: Math.min(1, k * 3)}} />
       <Pill text={fx.props.beforeLabel} style={{position: 'absolute', left: 270 - 130, width: 260, textAlign: 'center', boxSizing: 'border-box', top: 260, opacity: tw(t, 0.45, 0.75) * k}} />
       <Pill text={fx.props.afterLabel} win style={{position: 'absolute', left: 810 - 130, width: 260, textAlign: 'center', boxSizing: 'border-box', top: 260, opacity: tw(t, 0.6, 0.9) * k}} />
     </div>
@@ -206,7 +207,7 @@ export const Duotone: React.FC<{fx: Of<'duotone'>}> = ({fx}) => {
 // ---------------------------------------------------------------- big stat: one huge number, poster style
 export const BigStat: React.FC<{fx: Of<'big-stat'>}> = ({fx}) => {
   const {t, inK, outK} = useSpan(fx);
-  const {value, prefix, suffix, label, sub, y, size} = fx.props;
+  const {value, prefix, suffix, label, sub, y, size, align} = fx.props;
   const c = tw(t, 0.25, 1.4, 0, 1, (x) => 1 - Math.pow(1 - x, 3));
   const shown = `${prefix}${Math.round(value * c).toLocaleString('en-US')}${suffix}`;
   const full = `${prefix}${Math.round(value).toLocaleString('en-US')}${suffix}`;
@@ -215,7 +216,7 @@ export const BigStat: React.FC<{fx: Of<'big-stat'>}> = ({fx}) => {
     <>
       <Scrim fx={fx} top={y} />
       <div style={{...FILL, opacity: outK}}>
-        <div style={{position: 'absolute', left: 50, width: 980, top: y, opacity: inK, transform: `translateY(${(1 - inK) * 50}px)`, color: '#fff'}}>
+        <div style={{position: 'absolute', left: 50, width: 980, top: y, opacity: inK, transform: `translateY(${(1 - inK) * 50}px)`, color: '#fff', textAlign: align}}>
           <div style={{fontFamily: SANS, fontWeight: 700, fontSize: 34, letterSpacing: 8, textTransform: 'uppercase', borderTop: '6px solid #fff', paddingTop: 16}}>{label}</div>
           <div style={{fontFamily: heavyFamily, fontSize: fs, lineHeight: 1, letterSpacing: 2, width: 980, textShadow: '0 10px 40px rgba(0,0,0,0.5)'}}>{shown}</div>
           {sub && <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 700, fontSize: 56, ...ROSE_TEXT, opacity: tw(t, 1.2, 1.6), borderBottom: `6px solid ${C3.accent}`, paddingBottom: 18}}>{sub}</div>}
@@ -238,7 +239,7 @@ export const ThankYou: React.FC<{fx: Of<'thank-you'>}> = ({fx}) => {
       <div style={{...FILL, backdropFilter: 'grayscale(1) contrast(1.1) brightness(0.72)', WebkitBackdropFilter: 'grayscale(1) contrast(1.1) brightness(0.72)'}} />
       <div style={{position: 'absolute', left: 40, width: 1000, top: y, textAlign: 'center', fontFamily: handFamily, fontWeight: 700, fontSize: fs, lineHeight: 1.05, color: '#fff', transform: 'rotate(-4deg)', clipPath: `inset(-30px ${100 - w * 100}% -30px -30px)`, textShadow: '0 4px 24px rgba(0,0,0,0.7)'}}>{text}</div>
       <svg width={1080} height={1920} style={{position: 'absolute', left: 0, top: 0}}>
-        <defs><linearGradient id="tyRose" x1="0" x2="1"><stop offset="0" stopColor="#B5622C" /><stop offset="0.3" stopColor="#E08A57" /><stop offset="0.5" stopColor="#FFD9BD" /><stop offset="0.75" stopColor="#D48A8C" /><stop offset="1" stopColor="#B76E79" /></linearGradient></defs>
+        <defs><linearGradient id="tyRose" x1="0" x2="1"><stop offset="0" stopColor="#A9574A" /><stop offset="0.3" stopColor="#A9574A" /><stop offset="0.5" stopColor="#FFD9BD" /><stop offset="0.75" stopColor="#C27A6B" /><stop offset="1" stopColor="#A9574A" /></linearGradient></defs>
         <path d={`M 250 ${y + fs * 1.22} Q 540 ${y + fs * 1.22 - 46} 840 ${y + fs * 1.22 - 62}`} fill="none" stroke="url(#tyRose)" strokeWidth={8} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - u} />
       </svg>
       {sub && <div style={{position: 'absolute', left: 0, width: 1080, top: y + fs * 1.22 + 40, textAlign: 'center', fontFamily: SANS, fontWeight: 700, fontSize: 34, letterSpacing: 6, textTransform: 'uppercase', color: '#fff', opacity: tw(t, 1.7, 2.1)}}>{sub}</div>}
@@ -332,8 +333,107 @@ export const WallText: React.FC<{fx: Of<'wall-text'>}> = ({fx}) => {
 
 export const fifteenthPlate = (fx: Fx): React.ReactNode => (fx.type === 'wall-text' ? <WallText fx={fx} /> : null);
 /** checked before the older batches, so a `version: 2` effect draws its new look and everything else falls through */
+// ---------------------------------------------------------------- page turn: the bottom-right corner of the page lifts and curls back, turning the page over to reveal the next shot
+type V2 = [number, number];
+const clipHalf = (poly: V2[], d: V2, c: V2, s: number, keepFar: boolean): V2[] => {
+  const f = (p: V2) => ((p[0] - c[0]) * d[0] + (p[1] - c[1]) * d[1] - s) * (keepFar ? 1 : -1);
+  const out: V2[] = [];
+  for (let i = 0; i < poly.length; i++) {
+    const p = poly[i], q = poly[(i + 1) % poly.length];
+    const fp = f(p), fq = f(q);
+    if (fp >= 0) out.push(p);
+    if ((fp >= 0) !== (fq >= 0)) { const k = fp / (fp - fq); out.push([p[0] + (q[0] - p[0]) * k, p[1] + (q[1] - p[1]) * k]); }
+  }
+  return out;
+};
+export const PageTurn: React.FC<{fx: Of<'page-turn'>}> = ({fx}) => {
+  const {t, len, a, fps} = useSpan(fx);
+  const {front, frontT, tone} = fx.props;
+  const env = useFxEnv();
+  const W = 1080, H = 1920;
+  const C: V2 = [W, H];
+  // the fold travels from the corner toward the top left, a touch steeper than the diagonal so it reads as a hand lifting the corner
+  const dl = Math.hypot(0.62, 1);
+  const d: V2 = [-0.62 / dl, -1 / dl];
+  const max = (0 - C[0]) * d[0] + (0 - C[1]) * d[1];
+  // a small lift first (the corner peels), then the turn speeds up and clears the page
+  const lift = tw(t, 0, len * 0.3, 0, 0.12, (x) => 1 - Math.pow(1 - x, 2));
+  const turn = tw(t, len * 0.3, len, 0, 0.88, (x) => x * x * (3 - 2 * x));
+  const s = (lift + turn) * max * 1.02;
+  if (s >= max * 1.01) return null;
+  const rect: V2[] = [[0, 0], [W, 0], [W, H], [0, H]];
+  const keep = clipHalf(rect, d, C, s, true);
+  const flapSrc = clipHalf(rect, d, C, s, false);
+  const flap = flapSrc.map(([x, y]): V2 => { const k = 2 * (s - ((x - C[0]) * d[0] + (y - C[1]) * d[1])); return [x + k * d[0], y + k * d[1]]; });
+  const fold: V2 = [C[0] + s * d[0], C[1] + s * d[1]];
+  const tip: V2 = [C[0] + 2 * s * d[0], C[1] + 2 * s * d[1]];
+  const poly = (p: V2[]) => `polygon(${p.map(([x, y]) => `${x.toFixed(1)}px ${y.toFixed(1)}px`).join(', ')})`;
+  const back = tone === 'dark' ? ['#2a2a30', '#4a4a52'] : ['#d9d2c4', '#fbf8f1'];
+  const fadeOut = 1 - tw(s / max, 0.85, 1.0);
+  const page = front ? (
+    <Freeze frame={Math.max(0, Math.round((frontT ?? 0) * fps))}>
+      <PressFront fx={{type: 'press-front', at: 0, until: (frontT ?? 0) + 1, props: {scale: 1, masthead: '', headline: '', subhead: '', date: '', caption: '', ...front}} as Of<'press-front'>} />
+    </Freeze>
+  ) : (
+    <Freeze frame={0}><OffthreadVideo src={staticFile(env.video)} muted startFrom={Math.max(0, Math.round(a * fps) - 1)} style={{position: 'absolute', left: 0, top: 0, width: W, height: H, objectFit: 'cover', ...env.videoStyle}} /></Freeze>
+  );
+  return (
+    <div style={{position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none'}}>
+      {keep.length > 2 && <div style={{position: 'absolute', inset: 0, clipPath: poly(keep), overflow: 'hidden'}}>{page}
+        {/* the page darkens a little along the fold where it bends */}
+        <svg width={W} height={H} style={{position: 'absolute', inset: 0}}><defs><linearGradient id={`ptk${a}`} gradientUnits="userSpaceOnUse" x1={fold[0]} y1={fold[1]} x2={fold[0] + d[0] * 160} y2={fold[1] + d[1] * 160}><stop offset="0" stopColor="#000" stopOpacity="0.3" /><stop offset="1" stopColor="#000" stopOpacity="0" /></linearGradient></defs><rect width={W} height={H} fill={`url(#ptk${a})`} /></svg>
+      </div>}
+      {flap.length > 2 && (
+        <svg width={W} height={H} style={{position: 'absolute', inset: 0, opacity: fadeOut, filter: 'drop-shadow(-14px -10px 22px rgba(0,0,0,0.45))'}}>
+          <defs><linearGradient id={`ptf${a}`} gradientUnits="userSpaceOnUse" x1={fold[0]} y1={fold[1]} x2={tip[0]} y2={tip[1]}><stop offset="0" stopColor={back[0]} /><stop offset="0.35" stopColor={back[1]} /><stop offset="1" stopColor={back[0]} /></linearGradient></defs>
+          <polygon points={flap.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')} fill={`url(#ptf${a})`} />
+        </svg>
+      )}
+    </div>
+  );
+};
+
+// ---------------------------------------------------------------- lesson board: a whiteboard list in marker, each point written on as she says it, its number circled in crimson
+export const LessonBoard: React.FC<{fx: Of<'lesson-board'>}> = ({fx}) => {
+  const {abs, inK, outK} = useSpan(fx);
+  const {title, items, y, height} = fx.props;
+  const ink = '#3A3F42';
+  const red = C3.accent;
+  const tl = tw(abs, fx.at + 0.1, fx.at + 0.1 + Math.max(0.4, title.length * 0.045), 0, 1, (x) => x);
+  const n = items.length;
+  const size = n <= 2 ? 66 : n <= 4 ? 58 : 50;
+  return (
+    <div style={{position: 'absolute', left: 60, top: y, width: 960, height, opacity: outK, pointerEvents: 'none'}}>
+      <div style={{position: 'absolute', inset: 0, background: '#FFFFFF', border: `6px solid ${ink}`, borderRadius: 12, boxShadow: '0 20px 44px rgba(0,0,0,0.25)', opacity: inK, transform: `translateY(${(1 - inK) * 40}px)`, backgroundImage: 'linear-gradient(rgba(58,63,66,0.06) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(58,63,66,0.06) 1.5px, transparent 1.5px)', backgroundSize: '60px 60px', padding: '30px 50px', boxSizing: 'border-box', overflow: 'hidden'}}>
+        <div style={{fontFamily: handFamily, fontWeight: 700, fontSize: 76, color: red, lineHeight: 1, display: 'inline-block', position: 'relative', clipPath: `inset(-20% ${(1 - tl) * 100}% -40% 0)`}}>
+          {title}
+          <svg style={{position: 'absolute', left: 0, bottom: -14, width: '100%', height: 18, overflow: 'visible'}} viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M2 6 C 30 2, 60 9, 98 4" stroke={red} strokeWidth={4} fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke" style={{strokeWidth: 5}} /></svg>
+        </div>
+        <div style={{marginTop: 34, display: 'flex', flexDirection: 'column', gap: n <= 3 ? 26 : 16}}>
+          {items.map((it, i) => {
+            const w = tw(abs, it.at - 0.05, it.at + Math.max(0.5, it.text.length * 0.04), 0, 1, (x) => x);
+            const c = tw(abs, it.at - 0.1, it.at + 0.35, 0, 1, (x) => x);
+            if (abs < it.at - 0.12) return <div key={i} style={{height: size * 1.1}} />;
+            return (
+              <div key={i} style={{display: 'flex', alignItems: 'flex-start', gap: 22}}>
+                <div style={{position: 'relative', flex: 'none', width: size * 1.05, height: size * 1.05, fontFamily: handFamily, fontWeight: 700, fontSize: size * 0.85, color: red, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                  {i + 1}
+                  <svg style={{position: 'absolute', inset: -6, overflow: 'visible'}} viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke={red} strokeWidth={6} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - c} transform="rotate(-80 50 50)" /></svg>
+                </div>
+                <div style={{fontFamily: handFamily, fontWeight: 700, fontSize: size, lineHeight: 1.05, color: ink, clipPath: `inset(-20% ${(1 - w) * 100}% -20% 0)`}}>{it.text}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const fifteenthOver = (fx: Fx): React.ReactNode => {
   switch (fx.type) {
+    case 'lesson-board': return <LessonBoard fx={fx} />;
+    case 'page-turn': return <PageTurn fx={fx} />;
     case 'side-by-side': return <SideBySide fx={fx} />;
     case 'vote-pill': return <VotePill fx={fx} />;
     case 'duotone': return <Duotone fx={fx} />;

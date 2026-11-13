@@ -250,7 +250,7 @@ const PostTile: React.FC<{i: number; size: number; images: string[]; quotes: str
   const multi = i % 5 === 1;
   if (useQuote) {
     const q = quotes[i % quotes.length];
-    const tones = [{bg: C3.copperGrad, fg: '#2a1206'}, {bg: 'linear-gradient(160deg,#1b1d1f,#0b0c0d)', fg: '#F4B08A'}, {bg: CREAM, fg: INK}];
+    const tones = [{bg: C3.copperGrad, fg: '#2a1206'}, {bg: 'linear-gradient(160deg,#1b1d1f,#0b0c0d)', fg: '#F1B9A5'}, {bg: CREAM, fg: INK}];
     const tone = tones[i % tones.length];
     return (
       <div style={{width: size, height: size, background: tone.bg, padding: size * 0.1, boxSizing: 'border-box', display: 'flex', alignItems: 'center', fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 600, fontSize: size * 0.13, lineHeight: 1.15, color: tone.fg}}>{q}</div>
