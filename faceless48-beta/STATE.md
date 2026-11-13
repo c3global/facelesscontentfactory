@@ -72,6 +72,8 @@ Read this first in any new conversation about Faceless48. Update it when Dr. CK 
 - Waiting on her: pacing OK on the clean-cut review copies, and WHICH template/look she means (Black Glass, Fun Cuts, a preset like Spotlight or Hype Reel, or the plug-in effect library). Then storyboard Tolerance first (Nov 16), with a punch-in or cutaway on every jump cut.
 - Her rule (Nov 13): do only what she asked. Do not pull in extra files.
 
+**Nov 13: plug-in beta.11 BUILT** (`faceless48-beta/faceless48-creator-0.1.0-beta.11.zip`, from `beta10/faceless48-creator/`, made with `git archive`). 25 new effects (tenth to fifteenth: 144 fx schemas, 161 effects and graphics in the docs), second versions, ROSE metal now built from each member's brand.json metal (no C3 hex), clean-cut step (`npm run clean-cut`, EDITING-RULES Process step 1, new test), README/VALIDATION/version updated. Clean unzip + npm ci + tsc + 32/32 tests passed. NOT done yet (needs her yes): swap into Lesson 1 (still beta.10), announcement post and email with beta11-media clips. She wants to hand beta.11 to Codex for her video carousels.
+
 **Next, in order:**
 1. She said the Nov 12 previews are beautiful (only note: the metallic accent, done). Edit her 6 real videos and build her carousels.
 2. Upgrade batch 3 (second versions): label-maker look for the-stack/sticky-text/freeze-sticker, one Instagram comment style for comment-bubble/drop/cta, spotlight with dust, polaroid-drop fan, phone-mockup v2 (reuse holo-phone).
