@@ -2,7 +2,7 @@ C3 Global brand kit for Faceless48 Creator (beta 11)
 For Dr. CK's own projects only. Not part of the member plug-in.
 
 What is inside
-- brand.json: C3 crimson (#C91B19, #A31516, #6F0D0F), copper running into rose gold for the metal, Playfair Display and DM Sans, the orbital globe as the logo.
+- brand.json: C3 crimson (#C91B19, #A31516, #6F0D0F), your metallic accent #A9574A with the #F1B9A5 highlight (rose gold, not orange copper), Playfair Display and DM Sans, the orbital globe as the logo.
 - public/backdrops/red-velvet.jpg: the crimson velvet background.
 - public/brand/orbital-globe.png: the logo.
 
