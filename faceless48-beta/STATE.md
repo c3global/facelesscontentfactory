@@ -1,6 +1,6 @@
 # Faceless48: where things stand
 
-Read this first in any new conversation about Faceless48. Update it when Dr. CK says "wrap up". Last updated 2026-11-12.
+Read this first in any new conversation about Faceless48. Update it when Dr. CK says "wrap up". Last updated 2026-11-13.
 
 ## Working with Dr. CK
 
@@ -66,6 +66,11 @@ Read this first in any new conversation about Faceless48. Update it when Dr. CK 
 - Music change without re-rendering picture: `npx tsx scripts/render-audio.mjs <slug>` then mux the wav onto the mp4.
 - ALL SIX TALKING HEADS RENDERED (Nov 12, late): masters `remotion-cutaways/out/<slug>-master.mp4`, review copies sent to her. Flash scans clean (spikes only at planned cuts). Tolerance v2 has Squady at the louder level; the other five also use the louder level (0.5 / 0.26). Waiting on: her review, whether the music is now loud enough, and whether French Toast, Sturmfrei, Refresh and Enjoy are tracks she approves (to swap a track only re-render audio: `npx tsx scripts/render-audio.mjs <slug>` then mux). Masters are git-ignored and lost when the container is reclaimed; re-render from the plans if needed (RENDER_CONCURRENCY=1, about 15 min each). Nothing scheduled; she has not asked.
 - Carousels (6, not started): need C3 brand.json and a velvet background option in the plug-in carousel tool, avatar cutouts for first and last slides, tracks from Cinematic Carousels, statistics flagged for her to verify.
+
+**Nov 13: talking heads REJECTED, being redone.** Her verdict: poorly edited (parts just stitched, pauses and retakes left in, music added), and the look is lifeless. She asked why her templates in her brand colors were not used. The Nov 12 masters are scrapped; do not reuse `scripts/build-nov-talking-heads.py` as is.
+- Done: new `remotion-cutaways/scripts/clean-cut.py` (cut files in `content/edits/<slug>.cut.json`). All six re-cut from the original 12 Drive clips (ids in `content/edits/source-clips.tsv`; the folder also holds old "Nov TH x.x" clips that are ALREADY POSTED: never download or touch them). Removed: dead air, doubled "next week" (decisions), "count and" stumble plus the Part 2 retakes (who-owns). New lengths incl. 2.6 s end tail: tolerance 37.3, decisions 36.5, quiet-space 34.7, who-owns 32.0, paste-ai 28.0, change-ai 25.2. Captions re-transcribed; words.tsv not rebuilt yet; old plan times no longer match.
+- Waiting on her: pacing OK on the clean-cut review copies, and WHICH template/look she means (Black Glass, Fun Cuts, a preset like Spotlight or Hype Reel, or the plug-in effect library). Then storyboard Tolerance first (Nov 16), with a punch-in or cutaway on every jump cut.
+- Her rule (Nov 13): do only what she asked. Do not pull in extra files.
 
 **Next, in order:**
 1. She said the Nov 12 previews are beautiful (only note: the metallic accent, done). Edit her 6 real videos and build her carousels.
