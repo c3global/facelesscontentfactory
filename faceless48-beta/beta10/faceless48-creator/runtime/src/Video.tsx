@@ -112,7 +112,7 @@ const VideoPortrait: React.FC<VideoProps> = ({plan, captions}) => {
     height: '100%',
     objectFit: 'cover',
     objectPosition: `50% ${fy}%`,
-    transform: `scale(${av.zoom * mods.zoom})`,
+    transform: `translateY(${mods.shiftY}px) scale(${av.zoom * mods.zoom})`,
     transformOrigin: `50% ${fy}%`,
     filter: mods.blur > 0.2 ? `blur(${mods.blur}px)` : undefined,
   };
@@ -167,7 +167,9 @@ const VideoPortrait: React.FC<VideoProps> = ({plan, captions}) => {
               backgroundColor: brand.black,
             }}
           >
-            <OffthreadVideo src={staticFile(plan.video)} style={videoStyle} />
+            {/* head stack headroom: a soft blurred copy fills the space above her while the video eases down */}
+            {mods.room > 0.001 && <OffthreadVideo src={staticFile(plan.video)} muted style={{...videoStyle, transform: 'scale(1.25)', filter: 'blur(40px) brightness(0.55)', opacity: Math.min(1, mods.room * 1.5)}} />}
+            <OffthreadVideo src={staticFile(plan.video)} style={mods.room > 0.001 ? {...videoStyle, position: 'absolute', left: 0, top: 0} : videoStyle} />
             <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video} videoStyle={videoStyle} outline={plan.matteOutline} speech={speech}>
               <OutlineAlways />
               <FxBehind fx={plan.fx} />

@@ -8,6 +8,7 @@ import {handFamily, heavyFamily, sansFamily, serifFamily} from '../fonts';
 import {metalFill, metalTextStyle} from '../metal';
 import {Cutout} from './behind';
 import type {Fx} from './schema';
+import {ChartGrowV2, OdometerV2, PointerCalloutV2} from './twelfth';
 import {anchorPx, fxRange, pop, tw, useFxEnv, useFxTime} from './util';
 
 type Of<T extends Fx['type']> = Extract<Fx, {type: T}>;
@@ -472,17 +473,17 @@ export const overItem = (fx: Fx): React.ReactNode => {
     case 'freeze-label':
       return <FreezeLabel fx={fx} />;
     case 'pointer-callout':
-      return <PointerCallout fx={fx} />;
+      return fx.props.version === 2 ? <PointerCalloutV2 fx={fx} /> : <PointerCallout fx={fx} />;
     case 'phone-mockup':
       return <PhoneMockup fx={fx} />;
     case 'checklist':
       return <Checklist fx={fx} />;
     case 'odometer':
-      return <Odometer fx={fx} />;
+      return fx.props.version === 2 ? <OdometerV2 fx={fx} /> : <Odometer fx={fx} />;
     case 'before-after':
       return <BeforeAfter fx={fx} />;
     case 'chart-grow':
-      return <ChartGrow fx={fx} />;
+      return fx.props.version === 2 ? <ChartGrowV2 fx={fx} /> : <ChartGrow fx={fx} />;
     case 'comment-bubble':
       return <CommentBubble fx={fx} />;
     case 'timeline-burn':

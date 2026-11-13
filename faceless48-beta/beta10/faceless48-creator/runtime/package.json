@@ -1,7 +1,7 @@
 {
   "name": "faceless48-remotion",
   "private": true,
-  "version": "0.1.0-beta.10",
+  "version": "0.1.0-beta.11",
   "scripts": {
     "studio": "remotion studio src/index.ts",
     "typecheck": "tsc --noEmit",
@@ -25,8 +25,9 @@
     "ramp": "node --import ./scripts/tools-path.mjs scripts/speed-ramp.mjs",
     "matte:refine": "node --import ./scripts/tools-path.mjs scripts/py.mjs scripts/matte-refine.py",
     "f48": "node --import tsx --import ./scripts/tools-path.mjs scripts/f48.ts",
-    "test:beta": "node --import tsx --import ./scripts/tools-path.mjs --test scripts/beta.test.ts scripts/stock.test.ts scripts/yap.test.ts scripts/lint.test.ts scripts/broll.test.ts scripts/handoff.test.ts scripts/redact.test.ts",
+    "test:beta": "node --import tsx --import ./scripts/tools-path.mjs --test scripts/beta.test.ts scripts/stock.test.ts scripts/yap.test.ts scripts/lint.test.ts scripts/broll.test.ts scripts/handoff.test.ts scripts/redact.test.ts scripts/cleancut.test.ts",
     "setup": "node scripts/setup.mjs",
+    "clean-cut": "node --import ./scripts/tools-path.mjs scripts/py.mjs scripts/clean-cut.py",
     "matte:hq": "node --import ./scripts/tools-path.mjs scripts/py.mjs scripts/matte-hq.py",
     "cutout": "node --import ./scripts/tools-path.mjs scripts/py.mjs scripts/cutout-image.py"
   },
