@@ -183,11 +183,11 @@ spot_left = {'type': 'spotlight', 'at': 28.65, 'until': 32.64, 'props': {'dim': 
 # 1. Quiet Authority: calm, white cards on black, corner window, one spotlight
 plan('quiet', 'quiet', SONG1, [
     full('hook', 0, 3.82, close=1.35),
-    scene('chat', 3.82, 7.25, 'T', [examplesT(3.82, 7.25, 'light', CHAT)]),
-    *seq('signals', SIG, SIG_B, 'light', 'TS'),
+    scene('chat', 3.82, 7.25, 'T', [examplesT(3.82, 7.25, 'noir', CHAT)]),
+    *seq('signals', SIG, SIG_B, 'noir', 'TS'),
     full('little', 14.49, 18.39, close=1.35),
     statement(18.39, 21.65),
-    scene('rules', 21.65, 24.86, 'O', [examples(21.65, 24.86, 'light', RULES, y=800, h=680)]),
+    scene('rules', 21.65, 24.86, 'O', [examples(21.65, 24.86, 'noir', RULES, y=800, h=680)]),
     full('ask', 24.86, 28.65, close=1.35, first_close=True),
     full('left', 28.65, 32.64, close=1.35),
     full('end', 32.64, DUR, close=1.35),
@@ -304,7 +304,7 @@ plan('cinematic', 'film', SONG1, [
 plan('hype', 'punch', SONG2, [
     full('hook', 0, 7.25, close=1.7),
     full('orbit', 7.25, 10.89, close=1.7),
-    *seq('signals', SIG[2:], [10.89, 12.92, 14.49], 'light', 'OS'),
+    *seq('signals', SIG[2:], [10.89, 12.92, 14.49], 'punch', 'OS'),
     full('little', 14.49, 18.39, close=1.7, first_close=True),
     full('today', 18.39, 21.65, close=1.7),
     full('rules', 21.65, 24.86, close=1.7),
@@ -314,8 +314,8 @@ plan('hype', 'punch', SONG2, [
     {'type': 'clone', 'at': 0.5, 'until': 3.8, 'props': {'version': 2, 'copies': [{'at': at('people'), 'side': 'left'}, {'at': at('decide'), 'side': 'right'}, {'at': at('belong'), 'side': 'left'}]}},
     {'type': 'text-pop', 'at': 0.15, 'until': 2.3, 'props': {'text': 'Who belongs here?', 'look': 'badge', 'y': 520, 'size': 76}},
     {'type': 'flash-frame', 'at': 3.82, 'props': {'version': 2}},
-    {'type': 'orbit', 'at': 7.25, 'until': 10.89, 'props': {'items': ['replies', 'names', 'reactions', 'holidays', 'mentions']}},
-    {'type': 'couch-wall', 'at': 16.0, 'until': 18.39, 'props': {'tiles': ['Who gets replies', 'Whose name', 'Which posts', 'Which holidays', 'Who belongs here']}},
+    {'type': 'orbit', 'at': 7.25, 'until': 10.89, 'props': {'items': ['hype-media/drck-fx-1.jpg', 'hype-media/substack-home.png', 'hype-media/clip-a.mp4', 'hype-media/drck-fx-5.jpg', 'hype-media/substack-four-places.png']}},
+    {'type': 'couch-wall', 'at': 16.0, 'until': 18.39, 'props': {'tiles': ['hype-media/drck-fx-3.jpg', 'Who gets replies', 'hype-media/clip-b.mp4', 'hype-media/substack-four-places.png', 'Who belongs here', 'hype-media/drck-fx-7.jpg']}},
     {'type': 'impact-frame', 'at': at('Tolerance'), 'until': 21.0, 'props': {'word': 'Tolerance'}},
     {'type': 'type-wall', 'at': 21.65, 'until': 24.86, 'props': {'words': [{'text': 'five', 'at': at('five')}, {'text': 'unwritten', 'at': at('unwritten')}, {'text': 'rules', 'at': at('rules')}]}},
     {'type': 'frame-break', 'at': 24.86, 'until': 28.65, 'props': {'popAt': at('newcomer'), 'label': 'NEWCOMER'}},
@@ -323,17 +323,35 @@ plan('hype', 'punch', SONG2, [
 ], finish={'grain': 0.3, 'lightLeaks': 0.4}, sound='full', scrim=0.65)
 
 # 8. Teach Board: steps beside her, then clear example boards with her in a window
+def board(s, e, title, items, y=880, h=500, cap=1472):
+    """Her wide window on top, a whiteboard list under it; captions sit under the board."""
+    sc = scene('b%d' % int(s * 10), s, e, 'T')
+    sc['segments'][0]['captionY'] = cap
+    fx = {'type': 'lesson-board', 'at': s, 'until': e, 'props': {'title': title, 'items': items, 'y': y, 'height': h}}
+    return sc, fx
+
+
+# 8. Teach Board: a classroom whiteboard. Marker lists written on as she says each point, a key point card, circled numbers
+_w1, _f1 = board(3.82, 7.25, 'The unwritten rules', [{'text': 'long before anyone tells them', 'at': at('long')}], y=900, h=360, cap=1330)
+_w2, _f2 = board(7.25, 14.49, 'They watch', [
+    {'text': 'who gets replies', 'at': at('who')},
+    {'text': 'whose name gets spelled correctly', 'at': at('whose')},
+    {'text': 'which posts get a reaction', 'at': at('which')},
+    {'text': 'which holidays get mentioned', 'at': round(at('holidays') - 0.35, 2)}])
+_w3, _f3 = board(21.65, 28.65, 'Try this', [
+    {'text': 'Write down five unwritten rules', 'at': at('Write')},
+    {'text': 'Which would a newcomer not know?', 'at': at('Then')}])
 plan('teach', 'karaoke', SONG1, [
     full('hook', 0, 3.82, close=1.4),
-    scene('window', 3.82, 7.25, 'F'),
-    full('signals', 7.25, 14.49, close=1.0),
+    _w1,
+    _w2,
     full('little', 14.49, 18.39, close=1.4),
-    scene('today', 18.39, 21.65, 'S', [{'type': 'headline-card', 'at': 18.39, 'until': 21.65, 'props': {'label': 'NOVEMBER 16', 'line': 'International Day for Tolerance', 'emphasis': ['Tolerance']}}], mood='light', cap='top', focus={'y': 8, 'zoom': 1.1}),
-    scene('rules', 21.65, 24.86, 'O', [examples(21.65, 24.86, 'light', RULES, y=800, h=680)]),
-    scene('new', 24.86, 28.65, 'T', [examplesT(24.86, 28.65, 'light', NEW)]),
-    scene('left', 28.65, 32.64, 'O', [examples(28.65, 32.64, 'light', LEFT, y=800, h=680)]),
+    statement(18.39, 21.65),
+    _w3,
+    scene('left', 28.65, 32.64, 'O', [examples(28.65, 32.64, 'board', LEFT, y=800, h=680)]),
     full('end', 32.64, DUR, close=1.4),
 ], [
-    {'type': 'shoulder-steps', 'at': 7.25, 'until': 14.49, 'props': {'title': 'They watch', 'steps': [{'text': say(7.8, 9.1)[0], 'at': at('who')}, {'text': say(9.1, 11.0)[0], 'at': at('whose')}, {'text': say(11.0, 12.92)[0], 'at': at('which')}, {'text': say(12.92, 14.49)[0], 'at': at('holidays') - 0.4}], 'side': 'left', 'zoom': 1.5}},
+    {'type': 'doodle-boil', 'at': 0.3, 'until': 3.7, 'props': {'marks': [{'kind': 'text', 'text': "Today's lesson", 'target': 'head', 'at': 0.4, 'side': 'right', 'color': 'red'}, {'kind': 'underline', 'target': 'chest', 'at': at('belong'), 'side': 'left', 'color': 'white'}]}},
+    _f1, _f2, _f3,
 ], scrim=0.55)
 print('8 v2 plans written')

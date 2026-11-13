@@ -393,8 +393,46 @@ export const PageTurn: React.FC<{fx: Of<'page-turn'>}> = ({fx}) => {
   );
 };
 
+// ---------------------------------------------------------------- lesson board: a whiteboard list in marker, each point written on as she says it, its number circled in crimson
+export const LessonBoard: React.FC<{fx: Of<'lesson-board'>}> = ({fx}) => {
+  const {abs, inK, outK} = useSpan(fx);
+  const {title, items, y, height} = fx.props;
+  const ink = '#3A3F42';
+  const red = '#C91B19';
+  const tl = tw(abs, fx.at + 0.1, fx.at + 0.1 + Math.max(0.4, title.length * 0.045), 0, 1, (x) => x);
+  const n = items.length;
+  const size = n <= 2 ? 66 : n <= 4 ? 58 : 50;
+  return (
+    <div style={{position: 'absolute', left: 60, top: y, width: 960, height, opacity: outK, pointerEvents: 'none'}}>
+      <div style={{position: 'absolute', inset: 0, background: '#FFFFFF', border: `6px solid ${ink}`, borderRadius: 12, boxShadow: '0 20px 44px rgba(0,0,0,0.25)', opacity: inK, transform: `translateY(${(1 - inK) * 40}px)`, backgroundImage: 'linear-gradient(rgba(58,63,66,0.06) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(58,63,66,0.06) 1.5px, transparent 1.5px)', backgroundSize: '60px 60px', padding: '30px 50px', boxSizing: 'border-box', overflow: 'hidden'}}>
+        <div style={{fontFamily: handFamily, fontWeight: 700, fontSize: 76, color: red, lineHeight: 1, display: 'inline-block', position: 'relative', clipPath: `inset(-20% ${(1 - tl) * 100}% -40% 0)`}}>
+          {title}
+          <svg style={{position: 'absolute', left: 0, bottom: -14, width: '100%', height: 18, overflow: 'visible'}} viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M2 6 C 30 2, 60 9, 98 4" stroke={red} strokeWidth={4} fill="none" strokeLinecap="round" vectorEffect="non-scaling-stroke" style={{strokeWidth: 5}} /></svg>
+        </div>
+        <div style={{marginTop: 34, display: 'flex', flexDirection: 'column', gap: n <= 3 ? 26 : 16}}>
+          {items.map((it, i) => {
+            const w = tw(abs, it.at - 0.05, it.at + Math.max(0.5, it.text.length * 0.04), 0, 1, (x) => x);
+            const c = tw(abs, it.at - 0.1, it.at + 0.35, 0, 1, (x) => x);
+            if (abs < it.at - 0.12) return <div key={i} style={{height: size * 1.1}} />;
+            return (
+              <div key={i} style={{display: 'flex', alignItems: 'flex-start', gap: 22}}>
+                <div style={{position: 'relative', flex: 'none', width: size * 1.05, height: size * 1.05, fontFamily: handFamily, fontWeight: 700, fontSize: size * 0.85, color: red, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                  {i + 1}
+                  <svg style={{position: 'absolute', inset: -6, overflow: 'visible'}} viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke={red} strokeWidth={6} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - c} transform="rotate(-80 50 50)" /></svg>
+                </div>
+                <div style={{fontFamily: handFamily, fontWeight: 700, fontSize: size, lineHeight: 1.05, color: ink, clipPath: `inset(-20% ${(1 - w) * 100}% -20% 0)`}}>{it.text}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const fifteenthOver = (fx: Fx): React.ReactNode => {
   switch (fx.type) {
+    case 'lesson-board': return <LessonBoard fx={fx} />;
     case 'page-turn': return <PageTurn fx={fx} />;
     case 'side-by-side': return <SideBySide fx={fx} />;
     case 'vote-pill': return <VotePill fx={fx} />;

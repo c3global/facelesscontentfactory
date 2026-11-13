@@ -1,7 +1,7 @@
 import React from 'react';
 import {interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
 import {brand} from '../brand';
-import {handFamily, sansFamily, serifFamily} from '../fonts';
+import {handFamily, heavyFamily, sansFamily, serifFamily} from '../fonts';
 import {metalTextStyle} from '../metal';
 import {normalizeWord, useAbsSec} from '../ui';
 
@@ -11,7 +11,7 @@ import {normalizeWord, useAbsSec} from '../ui';
  * Skins follow the template: glass, paper, editorial, data, dark, light.
  */
 export type ExampleKind = 'replies' | 'name' | 'reaction' | 'holidays' | 'newcomer' | 'rules' | 'leftout' | 'chat';
-export type ExampleSkin = 'glass' | 'paper' | 'editorial' | 'data' | 'dark' | 'light';
+export type ExampleSkin = 'glass' | 'paper' | 'editorial' | 'data' | 'dark' | 'light' | 'noir' | 'punch' | 'board';
 export type ExampleItem = {say: string; wordTimes: number[]; kind: ExampleKind; at: number};
 export type ExamplesProps = {skin: ExampleSkin; items: ExampleItem[]; y: number; height: number; emphasis?: string[]};
 
@@ -31,6 +31,15 @@ const skinOf = (skin: ExampleSkin): Sk => {
       return {panel: {background: '#121417', borderRadius: 14, border: '1px solid rgba(255,255,255,0.12)', boxShadow: '0 24px 60px rgba(0,0,0,0.5)', backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)', backgroundSize: '40px 40px'}, ink: '#FFFFFF', muted: 'rgba(255,255,255,0.5)', line: 'rgba(255,255,255,0.14)', soft: 'rgba(255,255,255,0.06)', head: {fontFamily: SANS, fontWeight: 700, fontSize: 40, letterSpacing: 1.5, textTransform: 'uppercase'}, bubble: '#1E2126', bubbleInk: '#FFFFFF'};
     case 'dark':
       return {panel: {background: 'linear-gradient(180deg, rgba(14,10,10,0.92), rgba(6,6,6,0.92))', borderRadius: 4, border: '1px solid rgba(255,214,196,0.25)', boxShadow: '0 30px 80px rgba(0,0,0,0.6)'}, ink: '#F4F0EC', muted: 'rgba(244,240,236,0.5)', line: 'rgba(244,240,236,0.14)', soft: 'rgba(244,240,236,0.06)', head: {fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 500, fontSize: 54}, bubble: 'rgba(244,240,236,0.1)', bubbleInk: '#F4F0EC'};
+    case 'noir':
+      // quiet: a black panel with a gold hairline, square corners, clean white type
+      return {panel: {background: 'rgba(4,4,4,0.94)', borderRadius: 0, border: '1.5px solid rgba(213,170,74,0.7)', boxShadow: '0 40px 90px rgba(0,0,0,0.7)'}, ink: '#FFFFFF', muted: 'rgba(255,255,255,0.5)', line: 'rgba(255,255,255,0.14)', soft: 'rgba(255,255,255,0.06)', head: {fontFamily: SANS, fontWeight: 500, fontSize: 52, letterSpacing: -0.5}, bubble: 'rgba(255,255,255,0.08)', bubbleInk: '#FFFFFF'};
+    case 'punch':
+      // hype: white with a heavy black border and a hard offset shadow, condensed capitals
+      return {panel: {background: '#FFFFFF', borderRadius: 0, border: '6px solid #000', boxShadow: '16px 16px 0 #000'}, ink: '#000000', muted: 'rgba(0,0,0,0.55)', line: 'rgba(0,0,0,0.18)', soft: 'rgba(0,0,0,0.06)', head: {fontFamily: heavyFamily, fontSize: 68, lineHeight: 1.02, textTransform: 'uppercase'}, bubble: '#F0F0F0', bubbleInk: '#000000'};
+    case 'board':
+      // teach: a small whiteboard with a charcoal frame and marker handwriting
+      return {panel: {background: '#FFFFFF', borderRadius: 10, border: `5px solid ${brand.charcoal}`, boxShadow: '0 18px 40px rgba(0,0,0,0.22)', backgroundImage: 'linear-gradient(rgba(58,63,66,0.06) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(58,63,66,0.06) 1.5px, transparent 1.5px)', backgroundSize: '60px 60px'}, ink: brand.charcoal, muted: 'rgba(58,63,66,0.55)', line: 'rgba(58,63,66,0.2)', soft: 'rgba(58,63,66,0.06)', head: {fontFamily: handFamily, fontWeight: 700, fontSize: 70, lineHeight: 1}, bubble: '#F2F2F2', bubbleInk: brand.charcoal};
     default:
       return {panel: {background: '#FFFFFF', borderRadius: 32, boxShadow: '0 24px 60px rgba(0,0,0,0.35)'}, ink: '#111111', muted: 'rgba(17,17,17,0.5)', line: 'rgba(17,17,17,0.12)', soft: 'rgba(17,17,17,0.05)', head: {fontFamily: SANS, fontWeight: 800, fontSize: 56}, bubble: '#F2F2F2', bubbleInk: '#111111'};
   }
@@ -198,7 +207,7 @@ export const Examples: React.FC<ExamplesProps> = ({skin, items, y, height, empha
   const words = it.say.split(' ');
   // shrink the drawing so it always fits under the heading (two heading lines on long sentences)
   const NATURAL: Record<ExampleKind, number> = {replies: 560, reaction: 330, holidays: 430, newcomer: 380, rules: 420, leftout: 400, chat: 320, name: 330};
-  const headLines = Math.ceil(it.say.length / (skin === 'paper' ? 30 : skin === 'data' ? 34 : 28));
+  const headLines = Math.ceil(it.say.length / (skin === 'paper' || skin === 'board' ? 30 : skin === 'data' ? 34 : skin === 'punch' ? 24 : 28));
   const room = height - 80 - headLines * 66 - 30 - (items.length > 1 ? 42 : 0);
   const fit = Math.max(0.5, Math.min(1, room / NATURAL[it.kind]));
   return (
@@ -210,7 +219,7 @@ export const Examples: React.FC<ExamplesProps> = ({skin, items, y, height, empha
             const k = interpolate(t - (at - 0.06), [0, 0.14], [0, 1], clamp);
             const em = emph.has(normalizeWord(w));
             return (
-              <span key={i} style={{display: 'inline-block', marginRight: '0.26em', opacity: k, transform: `translateY(${(1 - k) * 12}px)`, ...(em ? (skin === 'paper' || skin === 'light' || skin === 'editorial' ? {color: brand.crimson} : metalTextStyle({kind: 'rose', variant: 'bright', frame, seed: i})) : {})}}>
+              <span key={i} style={{display: 'inline-block', marginRight: '0.26em', opacity: k, transform: `translateY(${(1 - k) * 12}px)`, ...(em ? (skin === 'paper' || skin === 'light' || skin === 'editorial' || skin === 'punch' || skin === 'board' ? {color: brand.crimson, ...(skin === 'board' ? {textDecoration: 'underline', textDecorationThickness: 6, textUnderlineOffset: 8} : {})} : metalTextStyle({kind: 'rose', variant: 'bright', frame, seed: i})) : {})}}>
                 {w}
               </span>
             );

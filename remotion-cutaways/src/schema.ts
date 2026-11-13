@@ -13,7 +13,7 @@ export const graphicSchema = z.discriminatedUnion('type', [
     ...base,
     type: z.literal('examples'),
     props: z.object({
-      skin: z.enum(['glass', 'paper', 'editorial', 'data', 'dark', 'light']).default('light'),
+      skin: z.enum(['glass', 'paper', 'editorial', 'data', 'dark', 'light', 'noir', 'punch', 'board']).default('light'),
       /** each item: her exact words (with word times) as the heading, and the example drawn under it */
       items: z.array(z.object({say: z.string(), wordTimes: z.array(z.number()), kind: z.enum(['replies', 'name', 'reaction', 'holidays', 'newcomer', 'rules', 'leftout', 'chat']), at: sec})).min(1).max(6),
       y: z.number().default(760),

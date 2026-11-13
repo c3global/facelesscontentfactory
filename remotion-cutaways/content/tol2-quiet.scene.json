@@ -56,7 +56,7 @@
        "at": 3.722,
        "until": 6.915,
        "props": {
-        "skin": "light",
+        "skin": "noir",
         "items": [
          {
           "say": "like a community or a team chat, long before anyone tells them.",
@@ -108,7 +108,7 @@
        "at": 6.915,
        "until": 8.622,
        "props": {
-        "skin": "light",
+        "skin": "noir",
         "items": [
          {
           "say": "They watch who gets replies,",
@@ -154,7 +154,7 @@
        "at": 8.622,
        "until": 10.441,
        "props": {
-        "skin": "light",
+        "skin": "noir",
         "items": [
          {
           "say": "whose name gets spelled correctly,",
@@ -203,7 +203,7 @@
        "at": 10.441,
        "until": 12.27,
        "props": {
-        "skin": "light",
+        "skin": "noir",
         "items": [
          {
           "say": "which posts get a reaction,",
@@ -249,7 +249,7 @@
        "at": 12.27,
        "until": 13.768,
        "props": {
-        "skin": "light",
+        "skin": "noir",
         "items": [
          {
           "say": "and which holidays get mentioned.",
@@ -370,7 +370,7 @@
        "at": 20.593,
        "until": 23.406,
        "props": {
-        "skin": "light",
+        "skin": "noir",
         "items": [
          {
           "say": "Write down five unwritten rules in your community or team.",

@@ -109,7 +109,7 @@
        "at": 10.339,
        "until": 12.27,
        "props": {
-        "skin": "light",
+        "skin": "punch",
         "items": [
          {
           "say": "which posts get a reaction,",
@@ -155,7 +155,7 @@
        "at": 12.27,
        "until": 13.768,
        "props": {
-        "skin": "light",
+        "skin": "punch",
         "items": [
          {
           "say": "and which holidays get mentioned.",
@@ -346,11 +346,11 @@
    "until": 10.339,
    "props": {
     "items": [
-     "replies",
-     "names",
-     "reactions",
-     "holidays",
-     "mentions"
+     "hype-media/drck-fx-1.jpg",
+     "hype-media/substack-home.png",
+     "hype-media/clip-a.mp4",
+     "hype-media/drck-fx-5.jpg",
+     "hype-media/substack-four-places.png"
     ]
    }
   },
@@ -360,11 +360,12 @@
    "until": 17.508,
    "props": {
     "tiles": [
+     "hype-media/drck-fx-3.jpg",
      "Who gets replies",
-     "Whose name",
-     "Which posts",
-     "Which holidays",
-     "Who belongs here"
+     "hype-media/clip-b.mp4",
+     "hype-media/substack-four-places.png",
+     "Who belongs here",
+     "hype-media/drck-fx-7.jpg"
     ]
    }
   },

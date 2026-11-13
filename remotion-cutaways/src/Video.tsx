@@ -26,6 +26,7 @@ import {Tag} from './graphics/Tag';
 import {Examples} from './graphics/Examples';
 import {H, W, areaFor} from './layouts';
 import {MetalRim} from './metal';
+import {KIT_FRAME, KitBackdrop, KitFrameOver, KitFrameUnder, KitProvider, asKit} from './kits';
 import type {Graphic, Scene, VideoProps} from './schema';
 import {FlatSegment, avatarStateBlend, flatten, layoutBlend} from './timeline';
 import {GraphicTimeProvider, ThemeProvider} from './ui';
@@ -174,10 +175,16 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
     filter: mods.blur > 0.2 ? `blur(${mods.blur}px)` : undefined,
   };
   // thin frame: a 10 px glass bezel and a 3.5 px metal rim
-  const inset = av.frame * 10;
+  const kit = asKit(plan.template);
+  // a template kit draws its own frame: its own inset, and square or soft corners (circles stay circles)
+  const isCircle = av.r >= Math.min(av.w, av.h) / 2 - 2;
+  const kf = kit ? KIT_FRAME[kit] : null;
+  const avR = kf && kf.radius !== null && !isCircle && av.frame > 0.01 ? kf.radius + (av.r - kf.radius) * (1 - Math.min(1, av.frame)) : av.r;
+  const inset = av.frame * (kf ? kf.inset : 10);
   const rimT = av.frame * 3.5;
 
   return (
+    <KitProvider value={kit}>
     <AbsoluteFill style={{backgroundColor: curMood === 'light' && curField ? brand.white : brand.black}}>
       <RefractDefs />
       {plan.music && <Audio src={staticFile(plan.music.src)} volume={musicVolume} startFrom={Math.round(plan.music.startFromSec * fps)} loop />}
@@ -185,7 +192,9 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
       {/* animated field backdrops; the previous one sits underneath so mood changes cross-fade */}
       {blend.prev && (
         <AbsoluteFill style={{opacity: prevOpacity}}>
-          {blend.prev.scene.bg ? (
+          {kit ? (
+            <KitBackdrop kit={kit} frame={frame} />
+          ) : blend.prev.scene.bg ? (
             <PhotoBackdrop src={blend.prev.scene.bg} mood={blend.prev.scene.mood} frame={frame} />
           ) : (
             <Backdrop kind={kindFor(blend.prev.scene, field)} alt={sceneIdx(blend.prev.scene)} frame={frame} />
@@ -193,7 +202,9 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
         </AbsoluteFill>
       )}
       <AbsoluteFill style={{opacity: curOpacity}}>
-        {blend.cur.scene.bg ? (
+        {kit ? (
+          <KitBackdrop kit={kit} frame={frame} />
+        ) : blend.cur.scene.bg ? (
           <PhotoBackdrop src={blend.cur.scene.bg} mood={blend.cur.scene.mood} frame={frame} />
         ) : (
           <Backdrop kind={kindFor(blend.cur.scene, field)} alt={sceneIdx(blend.cur.scene)} frame={frame} />
@@ -202,8 +213,9 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
 
       {/* her: one OffthreadVideo for the whole runtime so her audio never cuts or restarts */}
       <ThemeProvider mood={curMood} field={field} sans={sans}>
-        <div style={{position: 'absolute', left: av.x, top: av.y, width: av.w, height: av.h, borderRadius: av.r}}>
-          {av.frame > 0.01 && av.opacity > 0.01 && (
+        <div style={{position: 'absolute', left: av.x, top: av.y, width: av.w, height: av.h, borderRadius: avR}}>
+          {kit && kit !== 'glass' && av.frame > 0.01 && <KitFrameUnder kit={kit} r={avR} opacity={av.frame * av.opacity} />}
+          {(!kit || kit === 'glass') && av.frame > 0.01 && av.opacity > 0.01 && (
             <GlassSurface
               variant="clear"
               tone={curMood === 'dark' ? 'dark' : 'light'}
@@ -218,7 +230,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
             style={{
               position: 'absolute',
               inset,
-              borderRadius: Math.max(0, av.r - inset),
+              borderRadius: Math.max(0, avR - inset),
               overflow: 'hidden',
               opacity: av.opacity,
               backgroundColor: brand.black,
@@ -233,7 +245,8 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
               <FxLooks fx={plan.fx} />
             </FxEnvProvider>
           </div>
-          {av.frame > 0.01 && av.opacity > 0.01 && (
+          {kit && kit !== 'glass' && av.frame > 0.01 && <KitFrameOver kit={kit} w={av.w} h={av.h} r={avR} opacity={av.frame * av.opacity} frame={frame} />}
+          {(!kit || kit === 'glass') && av.frame > 0.01 && av.opacity > 0.01 && (
             <>
               {/* specular edge over the video */}
               <div
@@ -333,5 +346,6 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
       </ThemeProvider>
       {(plan.finish.grain > 0 || plan.finish.lightLeaks > 0) && <FilmFinish plan={plan} />}
     </AbsoluteFill>
+    </KitProvider>
   );
 };
