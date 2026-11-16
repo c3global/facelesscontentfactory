@@ -430,7 +430,7 @@ export const SpotlightWords: React.FC<{fx: Of<'spotlight'>}> = ({fx}) => {
   const k = tw(abs - w.at, 0, 0.22, 0, 1, pop);
   return (
     <div style={{...FILL, opacity: outK}}>
-      <div style={{position: 'absolute', left: 0, width: 1080, top: 1240, textAlign: 'center', fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 800, fontSize: 150, lineHeight: 1, transform: `scale(${0.8 + 0.2 * k})`, opacity: k, ...metalTextStyle({kind: 'gold', variant: 'bright', frame: 0, shimmer: false}), filter: 'drop-shadow(0 6px 24px rgba(0,0,0,0.8))'}}>{w.text}</div>
+      <div style={{position: 'absolute', left: 60, width: 960, top: 1340, textAlign: 'center', fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 800, fontSize: Math.min(150, Math.floor(1800 / Math.max(1, w.text.length))), lineHeight: 1, whiteSpace: 'nowrap', transform: `scale(${0.8 + 0.2 * k})`, opacity: k, ...metalTextStyle({kind: 'gold', variant: 'bright', frame: 0, shimmer: false}), filter: 'drop-shadow(0 6px 24px rgba(0,0,0,0.8))'}}>{w.text}</div>
     </div>
   );
 };
