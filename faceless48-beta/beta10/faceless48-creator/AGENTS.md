@@ -7,6 +7,8 @@ This folder is the Faceless48 Creator package. Do not edit it. Work in the membe
 - "Edit my yap": `skills/yap/SKILL.md`.
 - "Make a life scene": `skills/life-scenes/SKILL.md`.
 - "Import my handoff" (a package exported from the Faceless48 Script, Shorts or Thumbnail engine): `skills/handoff/SKILL.md`.
+- "Show me the effects", "effect map", picking effects for a template: `skills/effect-map/SKILL.md`.
+- Naming a template (Quiet Authority, Magazine, Glass, Scrapbook, Analyst, Cinematic, Creator Hype, Teach Board): `runtime/docs/TEMPLATES.md`.
 - "Make a video carousel": `runtime/docs/VIDEO-CAROUSELS.md`.
 - Music-synced text or the beat picker: `skills/beat-sync/SKILL.md`.
 - "Blur my private info" (private details in a screen recording): `skills/redact/SKILL.md`.
