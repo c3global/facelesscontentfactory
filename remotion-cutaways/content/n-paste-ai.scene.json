@@ -62,10 +62,10 @@
     {
      "start": 3.25,
      "end": 7.63,
-     "layout": "O",
+     "layout": "F",
      "captionPos": "bottom",
      "graphics": [],
-     "captionY": 1480,
+     "captionY": 1290,
      "cut": true
     }
    ]
@@ -290,12 +290,12 @@
   },
   {
    "type": "spatial-glass",
-   "at": 5.92,
+   "at": 4.18,
    "until": 7.58,
    "props": {
     "title": "Once you paste it in",
     "text": "you may not control where it goes",
-    "y": 860
+    "y": 1150
    }
   }
  ],
