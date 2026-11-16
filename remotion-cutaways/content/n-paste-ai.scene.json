@@ -61,11 +61,25 @@
    "segments": [
     {
      "start": 3.25,
-     "end": 7.63,
-     "layout": "F",
+     "end": 5.82,
+     "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
-     "captionY": 1455,
+     "focus": {
+      "y": 24,
+      "zoom": 1.25
+     }
+    },
+    {
+     "start": 5.82,
+     "end": 7.63,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
      "cut": true
     }
    ]
@@ -115,135 +129,102 @@
    ]
   },
   {
-   "id": "safe",
+   "id": "groups",
    "mood": "dark",
    "segments": [
     {
      "start": 10.25,
-     "end": 12.18,
-     "layout": "T",
+     "end": 11.082,
+     "layout": "A",
      "captionPos": "bottom",
-     "graphics": [
-      {
-       "type": "statement-card",
-       "at": 10.25,
-       "until": 12.18,
-       "box": {
-        "y": 0,
-        "h": 560,
-        "center": true
-       },
-       "props": {
-        "text": "Safe to paste, public information.",
-        "emphasis": [
-         "Safe"
-        ],
-        "wordTimes": [
-         10.27,
-         10.61,
-         10.74,
-         11.22,
-         11.51
-        ]
-       }
-      }
-     ],
-     "captionY": 1480,
-     "cut": true
-    }
-   ]
-  },
-  {
-   "id": "askf",
-   "mood": "dark",
-   "segments": [
-    {
-     "start": 12.18,
-     "end": 15.17,
-     "layout": "S",
-     "captionPos": "bottom",
-     "graphics": [
-      {
-       "type": "statement-card",
-       "at": 12.18,
-       "until": 15.17,
-       "box": {
-        "y": -370,
-        "h": 720,
-        "center": true
-       },
-       "props": {
-        "text": "Ask first, anything about clients or the business.",
-        "emphasis": [
-         "Ask",
-         "first,"
-        ],
-        "wordTimes": [
-         12.27,
-         12.43,
-         12.9,
-         13.45,
-         13.74,
-         14.2,
-         14.33,
-         14.52
-        ]
-       }
-      }
-     ],
+     "graphics": [],
      "focus": {
-      "y": 8,
-      "zoom": 1.1
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 11.082,
+     "end": 12.127,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.25
      },
      "cut": true
-    }
-   ]
-  },
-  {
-   "id": "dont",
-   "mood": "dark",
-   "segments": [
+    },
     {
-     "start": 15.17,
-     "end": 20.52,
-     "layout": "T",
+     "start": 12.127,
+     "end": 13.011,
+     "layout": "A",
      "captionPos": "bottom",
-     "graphics": [
-      {
-       "type": "statement-card",
-       "at": 15.17,
-       "until": 20.52,
-       "box": {
-        "y": 0,
-        "h": 560,
-        "center": true
-       },
-       "props": {
-        "text": "Do not paste, passwords, private personal details, and anything you're legally required to protect.",
-        "emphasis": [
-         "not",
-         "paste,"
-        ],
-        "wordTimes": [
-         15.3,
-         15.42,
-         15.71,
-         16.18,
-         16.99,
-         17.41,
-         17.96,
-         18.52,
-         18.62,
-         18.99,
-         19.27,
-         19.6,
-         19.97,
-         20.11
-        ]
-       }
-      }
-     ],
-     "captionY": 1480,
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    },
+    {
+     "start": 13.011,
+     "end": 15.117,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.25
+     },
+     "cut": true
+    },
+    {
+     "start": 15.117,
+     "end": 15.996,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    },
+    {
+     "start": 15.996,
+     "end": 16.787,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.25
+     },
+     "cut": true
+    },
+    {
+     "start": 16.787,
+     "end": 18.319,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    },
+    {
+     "start": 18.319,
+     "end": 20.52,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.25
+     },
      "cut": true
     }
    ]
@@ -259,8 +240,8 @@
      "captionPos": "bottom",
      "graphics": [],
      "focus": {
-      "y": 40,
-      "zoom": 1.0
+      "y": 24,
+      "zoom": 1.25
      }
     }
    ]
@@ -290,12 +271,45 @@
   },
   {
    "type": "spatial-glass",
-   "at": 4.18,
+   "at": 5.92,
    "until": 7.58,
    "props": {
     "title": "Once you paste it in",
     "text": "you may not control where it goes",
-    "y": 1118
+    "y": 880
+   }
+  },
+  {
+   "type": "glass-cards",
+   "at": 10.3,
+   "until": 20.47,
+   "props": {
+    "cards": [
+     {
+      "label": "Safe to paste",
+      "value": "Public information",
+      "at": 10.27,
+      "side": "left",
+      "x": 30,
+      "y": 300
+     },
+     {
+      "label": "Ask first",
+      "value": "Clients or the business",
+      "at": 12.27,
+      "side": "right",
+      "x": 690,
+      "y": 520
+     },
+     {
+      "label": "Do not paste",
+      "value": "Passwords, private details",
+      "at": 15.3,
+      "side": "left",
+      "x": 30,
+      "y": 760
+     }
+    ]
    }
   }
  ],
