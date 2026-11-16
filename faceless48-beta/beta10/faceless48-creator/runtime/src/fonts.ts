@@ -7,6 +7,8 @@ import {loadFont as loadAnton} from '@remotion/google-fonts/Anton';
 import {loadFont as loadCaveat} from '@remotion/google-fonts/Caveat';
 import {loadFont as loadCovered} from '@remotion/google-fonts/CoveredByYourGrace';
 import {loadFont as loadSwanky} from '@remotion/google-fonts/SwankyandMooMoo';
+import {loadFont as loadRubik} from '@remotion/google-fonts/Rubik';
+import {loadFont as loadBagel} from '@remotion/google-fonts/BagelFatOne';
 import type {SansOption} from './brand';
 
 declare const process: {env: Record<string, string | undefined>};
@@ -19,6 +21,8 @@ export const handFamilies = {
   caveat: '"Caveat", cursive',
   swanky: '"Swanky and Moo Moo", cursive',
 } as const;
+/** a round, very heavy face for the bubble (liquid glass) letters */
+export const bubbleFamily = '"Bagel Fat One", "Rubik", "Arial Rounded MT Bold", sans-serif';
 export const heavyFamily = '"Anton", "Impact", "Arial Narrow", sans-serif';
 export const sansFamily = (sans: SansOption) => `"${customerBrand.bodyFont || sans}", "Helvetica Neue", Arial, sans-serif`;
 
@@ -47,6 +51,8 @@ const localFaces: Array<[string, string, string, string]> = [
   ['Caveat', 'caveat-latin-600-normal.woff2', '600', 'normal'],
   ['Covered By Your Grace', 'covered-by-your-grace-latin-400-normal.woff2', '400', 'normal'],
   ['Swanky and Moo Moo', 'swanky-and-moo-moo-latin-400-normal.woff2', '400', 'normal'],
+  ['Rubik', 'rubik-latin-900-normal.woff2', '900', 'normal'],
+  ['Bagel Fat One', 'bagel-fat-one-latin-400-normal.woff2', '400', 'normal'],
 ];
 
 let started = false;
@@ -80,4 +86,6 @@ export const loadBrandFonts = () => {
   loadCaveat('normal', {weights: ['600', '700'], subsets: ['latin']});
   loadCovered('normal', {weights: ['400'], subsets: ['latin']});
   loadSwanky('normal', {weights: ['400'], subsets: ['latin']});
+  loadRubik('normal', {weights: ['900'], subsets: ['latin']});
+  loadBagel('normal', {weights: ['400'], subsets: ['latin']});
 };

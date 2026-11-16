@@ -1,0 +1,519 @@
+{
+ "slug": "tol2-scrapbook",
+ "template": "scrapbook",
+ "video": "raw/tolerance.mp4",
+ "durationSec": 35.669,
+ "matte": "tolerance",
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "captionStyle": "tape",
+ "emphasis": [
+  "belongs",
+  "unwritten",
+  "Tolerance",
+  "newcomer",
+  "left"
+ ],
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.45,
+  "lightLeaks": 0.2
+ },
+ "scrim": 0.55,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 3.718,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 3.718,
+     "end": 5.419,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.5
+     },
+     "cut": true
+    },
+    {
+     "start": 5.419,
+     "end": 6.915,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals0",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 6.915,
+     "end": 8.622,
+     "layout": "O",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 6.915,
+       "until": 8.622,
+       "props": {
+        "skin": "paper",
+        "items": [
+         {
+          "say": "They watch who gets replies,",
+          "wordTimes": [
+           6.97,
+           7.22,
+           7.55,
+           7.76,
+           8.04
+          ],
+          "kind": "replies",
+          "at": 6.97
+         }
+        ],
+        "y": 800,
+        "height": 680,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "captionY": 735,
+     "cut": true
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "signals1",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 8.622,
+     "end": 10.441,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 8.622,
+       "until": 10.441,
+       "props": {
+        "skin": "paper",
+        "items": [
+         {
+          "say": "whose name gets spelled correctly,",
+          "wordTimes": [
+           8.64,
+           8.93,
+           9.16,
+           9.38,
+           9.79
+          ],
+          "kind": "name",
+          "at": 8.64
+         }
+        ],
+        "y": 250,
+        "height": 720,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "signals2",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 10.441,
+     "end": 12.27,
+     "layout": "O",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 10.441,
+       "until": 12.27,
+       "props": {
+        "skin": "paper",
+        "items": [
+         {
+          "say": "which posts get a reaction,",
+          "wordTimes": [
+           10.46,
+           10.85,
+           11.27,
+           11.5,
+           11.58
+          ],
+          "kind": "reaction",
+          "at": 10.46
+         }
+        ],
+        "y": 800,
+        "height": 680,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "captionY": 735,
+     "cut": true
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "signals3",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 12.27,
+     "end": 13.768,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 12.27,
+       "until": 13.768,
+       "props": {
+        "skin": "paper",
+        "items": [
+         {
+          "say": "and which holidays get mentioned.",
+          "wordTimes": [
+           12.27,
+           12.41,
+           12.68,
+           13.1,
+           13.23
+          ],
+          "kind": "holidays",
+          "at": 12.27
+         }
+        ],
+        "y": 250,
+        "height": 720,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "little",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 13.768,
+     "end": 15.196,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 15.196,
+     "end": 17.508,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.5
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "today",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 17.508,
+     "end": 20.593,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.5
+     }
+    }
+   ]
+  },
+  {
+   "id": "rules",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 20.593,
+     "end": 23.406,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "new",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 23.406,
+     "end": 27.094,
+     "layout": "T",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 23.406,
+       "until": 27.094,
+       "props": {
+        "skin": "paper",
+        "items": [
+         {
+          "say": "Then ask which ones a newcomer from another culture would have no way of knowing.",
+          "wordTimes": [
+           23.57,
+           23.81,
+           23.99,
+           24.33,
+           24.56,
+           24.62,
+           25.19,
+           25.34,
+           25.68,
+           26.0,
+           26.24,
+           26.43,
+           26.52,
+           26.66,
+           26.75
+          ],
+          "kind": "newcomer",
+          "at": 23.57
+         }
+        ],
+        "y": 1010,
+        "height": 470,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "captionY": 935
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "left",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 27.094,
+     "end": 31.006,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "end",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 31.006,
+     "end": 35.669,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "paper-tear",
+   "at": 0.0,
+   "until": 1.298,
+   "props": {
+    "text": "Who belongs here?"
+   }
+  },
+  {
+   "type": "doodle-boil",
+   "at": 1.399,
+   "until": 3.703,
+   "props": {
+    "marks": [
+     {
+      "kind": "circle",
+      "target": "head",
+      "at": 2.43,
+      "color": "red"
+     }
+    ]
+   }
+  },
+  {
+   "type": "pen-circle",
+   "at": 15.745,
+   "until": 17.467,
+   "props": {
+    "note": "who belongs?",
+    "target": "head"
+   }
+  },
+  {
+   "type": "sketch-words",
+   "at": 18.73,
+   "until": 20.593,
+   "props": {
+    "small": "Today is the",
+    "big": "Tolerance"
+   }
+  },
+  {
+   "type": "paper-cut",
+   "at": 20.593,
+   "until": 23.406,
+   "props": {
+    "tone": "kraft",
+    "label": "5 unwritten rules"
+   }
+  },
+  {
+   "type": "framed-clip",
+   "at": 27.094,
+   "until": 31.006,
+   "props": {
+    "side": "center",
+    "width": 400,
+    "height": 470,
+    "tilt": -3,
+    "y": 760,
+    "notes": [
+     {
+      "text": "left out",
+      "x": 430,
+      "y": 610,
+      "align": "center",
+      "size": 88,
+      "to": [
+       470,
+       790
+      ],
+      "from": "bottom",
+      "at": 28.86
+     }
+    ]
+   }
+  },
+  {
+   "type": "grade",
+   "at": 0,
+   "until": 35.669,
+   "props": {
+    "look": "warm",
+    "strength": 0.3
+   }
+  }
+ ],
+ "fxSound": "minimal",
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 33.26,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/make-it-look-easy.mp3",
+  "volume": 0.42,
+  "duckTo": 0.2,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}

@@ -199,7 +199,9 @@ export const DoodleBoil: React.FC<{fx: Of<'doodle-boil'>}> = ({fx}) => {
           if (abs < m.at) return null;
           // anchors follow her per frame, so the doodle rides along with her head
           const f0 = Math.round(abs * 30);
-          const {x, y} = anchorPx(anchors, f0, m.target);
+          const ap = anchorPx(anchors, f0, m.target);
+          const x = m.x ?? ap.x;
+          const y = m.y ?? ap.y;
           const side = m.side === 'left' ? -1 : 1;
           const k = tw(abs - m.at, 0, 0.55, 0, 1, (v) => v);
           const strokes = strokesFor(m.kind, x, y, side);
@@ -224,7 +226,9 @@ export const DoodleBoil: React.FC<{fx: Of<'doodle-boil'>}> = ({fx}) => {
       {fx.props.marks.map((m, mi) => {
         if (!m.text || abs < m.at + 0.15) return null;
         const f0 = Math.round(abs * 30);
-        const {x, y} = anchorPx(anchors, f0, m.target);
+        const ap = anchorPx(anchors, f0, m.target);
+          const x = m.x ?? ap.x;
+          const y = m.y ?? ap.y;
         const side = m.side === 'left' ? -1 : 1;
         const col = m.color === 'gold' ? '#E4BC62' : m.color === 'red' ? '#FF5A55' : '#FFFFFF';
         const px = m.kind === 'text' ? x : m.kind === 'arrow' ? x + side * 330 : x + side * 250;

@@ -37,6 +37,14 @@ export const useRel = () => {
   return (absSec: number) => Math.round((absSec - atSec) * fps);
 };
 
+/** Absolute video seconds of the current frame, inside a graphic's Sequence. */
+export const useAbsSec = () => {
+  const atSec = useContext(TimeCtx);
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  return atSec + frame / fps;
+};
+
 export const useSans = () => sansFamily(useContext(Ctx).sans);
 export const serif = serifFamily;
 

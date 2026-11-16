@@ -46,6 +46,22 @@ export const C3 = {
   copper: `${customerBrand.metal}`,
 } as const;
 
+/** shiny metallic accent: a multi-stop metal from the member's brand (metal, metalLight), with a bright highlight. */
+const M = customerBrand.metal, ML = customerBrand.metalLight, MH = shadeHex(customerBrand.metalLight, 0.55);
+const glowRgb = (() => { const n = parseInt(ML.slice(1), 16); return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`; })();
+export const ROSE = {
+  grad: `linear-gradient(115deg, ${M} 0%, ${shadeHex(M, 0.25)} 20%, ${ML} 40%, ${MH} 50%, ${ML} 62%, ${shadeHex(M, 0.2)} 78%, ${M} 100%)`,
+  /** for thin strokes and borders, where a gradient cannot be drawn */
+  light: ML,
+  mid: shadeHex(M, 0.3),
+  glow: glowRgb,
+  stops: [M, shadeHex(M, 0.25), ML, shadeHex(M, 0.2), M] as const,
+  /** dark text that sits on the metal */
+  ink: shadeHex(M, -0.78),
+} as const;
+/** metallic text in the member's metal. It replaces `color`; a text-shadow would paint over the metal, so the shadow is a filter. */
+export const ROSE_TEXT: React.CSSProperties = {backgroundImage: `linear-gradient(115deg, ${shadeHex(M, 0.1)} 0%, ${shadeHex(M, 0.35)} 20%, ${ML} 40%, ${MH} 50%, ${ML} 64%, ${shadeHex(M, 0.25)} 80%, ${M} 100%)`, WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', WebkitTextFillColor: 'transparent', textShadow: 'none', filter: 'drop-shadow(0 3px 8px rgba(0,0,0,0.55))', paddingRight: '0.12em'};
+
 /** Dr. CK's orbital globe (public/brand/orbital-globe.png). `src` swaps in another icon file under public/; `src="drawn"` draws a plain line globe instead. */
 export const GlobeIcon: React.FC<{size: number; color?: string; bg?: string; src?: string}> = ({size, color = C3.gold, bg = 'transparent', src = 'drawn'}) =>
   src !== 'drawn' ? (

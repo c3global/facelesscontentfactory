@@ -1,0 +1,443 @@
+{
+ "slug": "tol2-hype",
+ "template": "hype",
+ "video": "raw/tolerance.mp4",
+ "durationSec": 35.669,
+ "matte": "tolerance",
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "captionStyle": "punch",
+ "emphasis": [
+  "belongs",
+  "unwritten",
+  "Tolerance",
+  "newcomer",
+  "left"
+ ],
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.3,
+  "lightLeaks": 0.4
+ },
+ "scrim": 0.65,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 3.718,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 3.718,
+     "end": 5.419,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     },
+     "cut": true
+    },
+    {
+     "start": 5.419,
+     "end": 6.915,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "orbit",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 6.915,
+     "end": 8.627,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 8.627,
+     "end": 10.339,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals0",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 10.339,
+     "end": 12.27,
+     "layout": "O",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 10.339,
+       "until": 12.27,
+       "props": {
+        "skin": "punch",
+        "items": [
+         {
+          "say": "which posts get a reaction,",
+          "wordTimes": [
+           10.46,
+           10.85,
+           11.27,
+           11.5,
+           11.58
+          ],
+          "kind": "reaction",
+          "at": 10.46
+         }
+        ],
+        "y": 800,
+        "height": 680,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "captionY": 735,
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals1",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 12.27,
+     "end": 13.768,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 12.27,
+       "until": 13.768,
+       "props": {
+        "skin": "punch",
+        "items": [
+         {
+          "say": "and which holidays get mentioned.",
+          "wordTimes": [
+           12.27,
+           12.41,
+           12.68,
+           13.1,
+           13.23
+          ],
+          "kind": "holidays",
+          "at": 12.27
+         }
+        ],
+        "y": 250,
+        "height": 720,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "little",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 13.768,
+     "end": 15.196,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     }
+    },
+    {
+     "start": 15.196,
+     "end": 17.508,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "today",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 17.508,
+     "end": 20.593,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "rules",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 20.593,
+     "end": 23.406,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "ask",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 23.406,
+     "end": 27.094,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     }
+    }
+   ]
+  },
+  {
+   "id": "left",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 27.094,
+     "end": 31.011,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 31.011,
+     "end": 35.669,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     },
+     "cut": true
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "clone",
+   "at": 0.513,
+   "until": 3.703,
+   "props": {
+    "version": 2,
+    "copies": [
+     {
+      "at": 1.05,
+      "side": "left"
+     },
+     {
+      "at": 1.38,
+      "side": "right"
+     },
+     {
+      "at": 2.43,
+      "side": "left"
+     }
+    ]
+   }
+  },
+  {
+   "type": "text-pop",
+   "at": 0.124,
+   "until": 2.257,
+   "props": {
+    "text": "Who belongs here?",
+    "look": "badge",
+    "y": 520,
+    "size": 76
+   }
+  },
+  {
+   "type": "flash-frame",
+   "at": 3.722,
+   "props": {
+    "version": 2
+   }
+  },
+  {
+   "type": "orbit",
+   "at": 6.915,
+   "until": 10.339,
+   "props": {
+    "items": [
+     "hype-media/drck-fx-1.jpg",
+     "hype-media/substack-home.png",
+     "hype-media/clip-a.mp4",
+     "hype-media/drck-fx-5.jpg",
+     "hype-media/substack-four-places.png"
+    ]
+   }
+  },
+  {
+   "type": "couch-wall",
+   "at": 15.205,
+   "until": 17.508,
+   "props": {
+    "tiles": [
+     "hype-media/drck-fx-3.jpg",
+     "Who gets replies",
+     "hype-media/clip-b.mp4",
+     "hype-media/substack-four-places.png",
+     "Who belongs here",
+     "hype-media/drck-fx-7.jpg"
+    ]
+   }
+  },
+  {
+   "type": "impact-frame",
+   "at": 19.21,
+   "until": 19.95,
+   "props": {
+    "word": "Tolerance"
+   }
+  },
+  {
+   "type": "type-wall",
+   "at": 20.593,
+   "until": 23.406,
+   "props": {
+    "words": [
+     {
+      "text": "five",
+      "at": 21.32
+     },
+     {
+      "text": "unwritten",
+      "at": 21.46
+     },
+     {
+      "text": "rules",
+      "at": 21.97
+     }
+    ]
+   }
+  },
+  {
+   "type": "frame-break",
+   "at": 23.406,
+   "until": 27.094,
+   "props": {
+    "popAt": 24.62,
+    "label": "NEWCOMER"
+   }
+  },
+  {
+   "type": "type-wall",
+   "at": 27.094,
+   "until": 31.006,
+   "props": {
+    "words": [
+     {
+      "text": "places",
+      "at": 27.82
+     },
+     {
+      "text": "left out",
+      "at": 28.86
+     }
+    ]
+   }
+  }
+ ],
+ "fxSound": "full",
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 33.26,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/make-it-look-easy.mp3",
+  "volume": 0.42,
+  "duckTo": 0.2,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}

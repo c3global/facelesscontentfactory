@@ -12,6 +12,8 @@ import {thirdFront, thirdPlate} from './third';
 import {seventhFront, seventhPlate} from './seventh';
 import {eighthPlate} from './eighth';
 import {blowAwayMask, ninthFront, ninthPlate} from './ninth';
+import {fifteenthPlate} from './fifteenth';
+import {silhouetteCutout, thirteenthFront, thirteenthPlate} from './thirteenth';
 import {fxRange, pop, tw, useFxEnv, useFxTime} from './util';
 
 type Of<T extends Fx['type']> = Extract<Fx, {type: T}>;
@@ -52,6 +54,7 @@ export const cutoutStyle = (fx: Fx, abs: number): React.CSSProperties => {
   }
   if (fx.type === 'script-panel') return scriptPanelCutout(fx, abs);
   if (fx.type === 'blow-away') return blowAwayMask(fx, abs);
+  if (fx.type === 'silhouette-shift') return silhouetteCutout(fx, abs);
   if (fx.type === 'sketch-words') {
     // she steps back a little so the big word has room above her head
     const k = tw(abs, a, a + 0.5) * (1 - tw(abs, b - 0.35, b));
@@ -171,7 +174,7 @@ export const CouchWall: React.FC<{fx: Of<'couch-wall'>}> = ({fx}) => {
                 ...(frame >= 0 ? {} : metalFill({variant: 'bright', frame, seed: i})),
               }}
             >
-              <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 700, fontSize: 40, lineHeight: 1.1, color: brand.white}}>{tiles[i % tiles.length]}</div>
+              {MEDIA_RE.test(tiles[i % tiles.length]) ? <ItemMedia src={tiles[i % tiles.length]} radius={26} /> : <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 700, fontSize: 40, lineHeight: 1.1, color: brand.white}}>{tiles[i % tiles.length]}</div>}
             </div>
           );
         })}
@@ -245,9 +248,18 @@ export const SpotlightDim: React.FC<{fx: Of<'spotlight'>}> = ({fx}) => {
 };
 
 // ---------------------------------------------------------------- orbit
+/** A tile or card item can be a picture or clip under public/ (png, jpg, webp, mp4, mov) instead of words. */
+const MEDIA_RE = /\.(png|jpe?g|webp|mp4|mov|webm)$/i;
+const ItemMedia: React.FC<{src: string; radius: number}> = ({src, radius}) =>
+  /\.(mp4|mov|webm)$/i.test(src) ? (
+    <OffthreadVideo src={staticFile(src)} muted style={{position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: radius}} />
+  ) : (
+    <Img src={staticFile(src)} style={{position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: radius}} />
+  );
+
 const OrbitCard: React.FC<{label: string; i: number}> = ({label, i}) => (
-  <div style={{width: 230, height: 410, borderRadius: 30, boxSizing: 'border-box', border: `2px solid ${rgbaOf(customerBrand.metalLight, 0.85)}`, background: i % 2 ? `linear-gradient(165deg,${customerBrand.accent},${C3.accentDarker})` : 'linear-gradient(165deg,#2b2f31,#050606)', padding: 22, display: 'flex', alignItems: 'flex-end', boxShadow: '0 18px 40px rgba(0,0,0,0.55)'}}>
-    <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 700, fontSize: 38, lineHeight: 1.1, color: brand.white}}>{label}</div>
+  <div style={{position: 'relative', overflow: 'hidden', width: 230, height: 410, borderRadius: 30, boxSizing: 'border-box', border: `2px solid ${rgbaOf(customerBrand.metalLight, 0.85)}`, background: i % 2 ? `linear-gradient(165deg,${customerBrand.accent},${C3.accentDarker})` : 'linear-gradient(165deg,#2b2f31,#050606)', padding: 22, display: 'flex', alignItems: 'flex-end', boxShadow: '0 18px 40px rgba(0,0,0,0.55)'}}>
+    {MEDIA_RE.test(label) ? <ItemMedia src={label} radius={28} /> : <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontWeight: 700, fontSize: 38, lineHeight: 1.1, color: brand.white}}>{label}</div>}
   </div>
 );
 export const OrbitItems: React.FC<{fx: Of<'orbit'>; half: 'back' | 'front'}> = ({fx, half}) => {
@@ -382,10 +394,10 @@ export const behindPlate = (fx: Fx): React.ReactNode => {
     case 'green-screen':
       return <GreenScreenPlate fx={fx} />;
     default:
-      return thirdPlate(fx) ?? sixthPlate(fx) ?? seventhPlate(fx) ?? eighthPlate(fx) ?? ninthPlate(fx);
+      return thirdPlate(fx) ?? sixthPlate(fx) ?? seventhPlate(fx) ?? eighthPlate(fx) ?? ninthPlate(fx) ?? thirteenthPlate(fx) ?? fifteenthPlate(fx);
   }
 };
 
 /** things drawn above her cutout but still inside the person frame */
-export const behindFront = (fx: Fx): React.ReactNode => (fx.type === 'orbit' ? <OrbitItems fx={fx} half="front" /> : thirdFront(fx) ?? seventhFront(fx) ?? ninthFront(fx));
+export const behindFront = (fx: Fx): React.ReactNode => (fx.type === 'orbit' ? <OrbitItems fx={fx} half="front" /> : thirdFront(fx) ?? seventhFront(fx) ?? ninthFront(fx) ?? thirteenthFront(fx));
 export {Sequence, metalGradient};

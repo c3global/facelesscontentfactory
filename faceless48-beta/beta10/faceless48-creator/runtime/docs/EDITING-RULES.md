@@ -30,11 +30,12 @@ These rules come from weeks of real edits and reviews. They are what makes a vid
 - Land effects on the words. Use the real word times from the transcript (`npm run word -- <slug> "phrase"` or the captions file), never guessed times. Guessed timing is the most common reason an edit feels off.
 
 ## Process
-1. Transcribe, then show the member the transcript to confirm names, links and the closing line before building anything. Whisper splits names and sometimes invents words after the audio ends: delete words that start after the video ends.
-2. Check the ending of the take. If it is cut off mid-sentence, say so before editing.
-3. Show stills of every new look and effect moment before a full render. Once a look is approved, full renders of that look need no new approval.
-4. Render one frame at a time (concurrency 1). Parallel rendering can paint random frames white. After rendering, scan for flashes: `ffmpeg -i out/<slug>.mp4 -vf signalstats -f null -` and look for YDIF spikes that are not at planned cuts.
-5. Report what you checked and what you could not (an assistant cannot hear audio; the member's ear decides music and sound levels).
+1. **Clean cut first.** Never just join the parts of a video. Transcribe each part on its own and read it for retakes, repeated lines, false starts and stumbles. List the parts in order in `content/edits/<slug>.cut.json` (`{"slug", "parts": [{"src", "from"?, "to"?, "drop"?: [[start, end]]}]}`), then run `npm run clean-cut -- content/edits/<slug>.cut.json`. It joins the parts, drops what you listed and shortens every pause to a short breath, measured from the audio. Transcribe the cleaned clip and read it end to end: no fragments, no repeated lines. Every jump cut then gets a punch-in (`digital-zoom`) or a cutaway in the plan. Only skip this if the member asks to keep their own pacing.
+2. Transcribe the cleaned clip, then show the member the transcript to confirm names, links and the closing line before building anything. Whisper splits names and sometimes invents words after the audio ends: delete words that start after the video ends.
+3. Check the ending of the take. If it is cut off mid-sentence, say so before editing.
+4. Show stills of every new look and effect moment before a full render. Once a look is approved, full renders of that look need no new approval.
+5. Render one frame at a time (concurrency 1). Parallel rendering can paint random frames white. After rendering, scan for flashes: `ffmpeg -i out/<slug>.mp4 -vf signalstats -f null -` and look for YDIF spikes that are not at planned cuts.
+6. Report what you checked and what you could not (an assistant cannot hear audio; the member's ear decides music and sound levels).
 
 ## Content
 - Never invent facts, numbers, quotes, credentials, testimonials or client results. Card text comes from the member's script or supplied material. Flag gaps instead of filling them.

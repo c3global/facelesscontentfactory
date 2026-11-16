@@ -103,7 +103,9 @@ export const LayerExplode: React.FC<{fx: Of<'layer-explode'>}> = ({fx}) => {
 
 // ---------------------------------------------------------------- sketch words (behind her): cream paper, a small handwritten word, then a big hand-inked serif word and a scribbled underline
 export const SketchWordsPlate: React.FC<{fx: Of<'sketch-words'>}> = ({fx}) => {
-  const {t, outK} = useSpan(fx);
+  // a clean cut out: a fade would show her scaled cutout over the full picture for a moment (a double image)
+  const {t, len} = useSpan(fx);
+  const outK = t < len - 1 / 30 ? 1 : 0;
   const {small, big} = fx.props;
   const smallK = tw(t, 0.15, 0.6, 0, 1, (x) => x);
   const bigK = tw(t, 0.55, 1.4, 0, 1, (x) => x);
@@ -214,7 +216,7 @@ export const HeadStack: React.FC<{fx: Of<'head-stack'>}> = ({fx}) => {
 export const RackFocus: React.FC<{fx: Of<'rack-focus'>}> = ({fx}) => {
   const {t, len, outK} = useSpan(fx);
   const k = rackK(t, len);
-  const blobs = [{x: 120, y: 1500, r: 150, c: '#F4B08A'}, {x: 930, y: 1650, r: 190, c: '#E3BF63'}, {x: 980, y: 380, r: 90, c: '#E08A57'}, {x: 60, y: 520, r: 70, c: '#FFF3C9'}];
+  const blobs = [{x: 120, y: 1500, r: 150, c: '#F1B9A5'}, {x: 930, y: 1650, r: 190, c: '#E3BF63'}, {x: 980, y: 380, r: 90, c: '#A9574A'}, {x: 60, y: 520, r: 70, c: '#FFF3C9'}];
   return (
     <div style={{...FILL, opacity: outK * (0.25 + 0.75 * (1 - k * 0.6)), pointerEvents: 'none'}}>
       {blobs.map((b, i) => (

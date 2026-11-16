@@ -1,6 +1,6 @@
-# Faceless48 Creator — private beta 0.1.0-beta.10
+# Faceless48 Creator — private beta 0.1.0-beta.11
 
-Local video production with Remotion. Includes the creator's 111-effect source library, six talking-head presets, an original stick-figure rig and reusable explainer scene planning with whiteboard, editorial and dark styles.
+Local video production with Remotion. Includes the creator's 163-effect source library, six talking-head presets, eight finished talking-head templates (Quiet Authority, Magazine, Glass, Scrapbook, Analyst, Cinematic, Creator Hype, Teach Board; see runtime/docs/TEMPLATES.md), an original stick-figure rig and reusable explainer scene planning with whiteboard, editorial and dark styles.
 
 ## Start
 
@@ -44,6 +44,16 @@ Read VALIDATION.md before distributing. This is a locally built beta, not a prom
 `runtime/content/example-layouts.json` demonstrates all five layouts plus supplied image/video scenes. `cue-demo.brief.json` and `cue-demo.words.json` demonstrate keyword matching with a synthetic timed transcript, not a transcription of the sample voiceover. The assistant should obtain actual timestamps from your recording for production.
 
 The supported beta entry point is `npm run f48`. Other retained scripts are advanced source tools, not a tested alternate installer or product UI. Historical episode compositions require explicit registration before rendering; their original personal media is not included.
+
+## Beta 11
+
+- **Clean cut for talking heads:** videos recorded in several parts are no longer just joined. The assistant reads each part for retakes, repeated lines and stumbles, then `npm run clean-cut` joins the parts, drops those and shortens every pause to a short breath, measured from the audio. See runtime/docs/EDITING-RULES.md (Process, step 1).
+- **25 new effects:** text pops (11 looks, including bubble glass, badge and stack), six carousel slides as video effects (proof card, focus list, compare, trend graph, freebie doc, note with arrow), nine reel effects (shoulder steps, iris, match cut, demo cursor, glass cards, pixel monitor, slot machine, holo phone, silhouette shift), three carousel pieces (image collage, cover fan, framed clip) and a comparison set (side by side, vote pill, duotone, big stat, thank you, wall text).
+- **Second versions:** add `"version": 2` for a newer look on odometer, chart grow, pointer callout, clone, before-after, flash frame, kinetic hook, giant caption, follow card and checklist. The originals stay the default.
+- **Shiny metal accent:** the new effects draw a multi-stop metal with a bright highlight from your brand.json metal, never a flat color.
+- **Video carousels:** two new styles (`glass`, `showcase`), six new layouts (media, toggles, proof, graph, ab, doc), a collage end screen, handwritten notes with arrows on any slide, a cover fan, two more starter templates, and a `background` picture option (the member's own texture, such as velvet or marble, with a slow drift and a dim for readable text). All five starter templates render out of the box with placeholder pictures and clips (`public/collage`, `public/media`) for the member to replace. See runtime/docs/VIDEO-CAROUSELS.md.
+- Head stack and live cursor reworked (label-maker blocks with room above the head; the cursor drags the box and everything in it).
+- 161 talking-head effects and graphics, 33 Life Scene styles, 16 carousel layouts in 6 styles. All read your brand.json.
 
 ## Beta 10
 

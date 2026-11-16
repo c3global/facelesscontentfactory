@@ -35,7 +35,10 @@ for (const slug of slugs) {
     composition,
     serveUrl,
     codec: 'h264',
-    crf: 18,
+    crf: 14,
+    // quality: lossless-looking intermediate frames (default JPEG 80 softened her skin and hair) and a careful encode
+    jpegQuality: 100,
+    x264Preset: 'slow',
     outputLocation,
     inputProps,
     concurrency: process.env.RENDER_CONCURRENCY ? Number(process.env.RENDER_CONCURRENCY) : undefined,

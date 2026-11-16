@@ -38,7 +38,7 @@ export const ImpactFrame: React.FC<{fx: Of<'impact-frame'>}> = ({fx}) => {
       <div style={{...FILL, mixBlendMode: 'multiply'}}>
         <BaseClip from={Math.round(a * fps)} style={{filter: 'grayscale(1) contrast(9) brightness(1.15)', transform: 'scale(1.08)', transformOrigin: '50% 30%'}} />
       </div>
-      <div style={{position: 'absolute', left: 0, width: 1080, top: 1430, textAlign: 'center', fontFamily: heavyFamily, fontSize: 330, lineHeight: 1, color: INK, WebkitTextStroke: `8px ${CREAM}`, paintOrder: 'stroke', transform: `scale(${1.6 - 0.6 * slam})`, opacity: slam}}>{word.toUpperCase()}</div>
+      <div style={{position: 'absolute', left: 0, width: 1080, top: 1430, textAlign: 'center', fontFamily: heavyFamily, fontSize: Math.min(330, Math.floor(1000 / (Math.max(1, word.length) * 0.47))), whiteSpace: 'nowrap', lineHeight: 1, color: INK, WebkitTextStroke: `8px ${CREAM}`, paintOrder: 'stroke', transform: `scale(${1.6 - 0.6 * slam})`, opacity: slam}}>{word.toUpperCase()}</div>
     </div>
   );
 };
@@ -68,18 +68,31 @@ const Lines: React.FC<{n: number; w: number}> = ({n, w}) => (
 );
 export const PressFront: React.FC<{fx: Of<'press-front'>}> = ({fx}) => {
   const {t, a, fps, outK} = useSpan(fx);
-  const {masthead, headline, subhead, date, caption} = fx.props;
+  const {masthead, headline, subhead, date, caption, liveWords} = fx.props;
   const inK = tw(t, 0, 0.35, 0, 1, pop);
+  // live headline: her words, three to five at a time, each word landing as she says it
+  let live: {text: string; at: number}[] | null = null;
+  if (liveWords && liveWords.length) {
+    const now = a + t;
+    const groups: {text: string; at: number}[][] = [];
+    for (const w of liveWords) {
+      const g = groups[groups.length - 1];
+      if (!g || g.length >= 5 || (g.length >= 3 && /[,.?!]$/.test(g[g.length - 1].text))) groups.push([w]);
+      else g.push(w);
+    }
+    live = groups.reduce((cur, g) => (now >= g[0].at - 0.06 ? g : cur), groups[0]);
+  }
+  const liveLen = live ? live.map((w) => w.text).join(' ').length : 0;
   return (
-    <div style={{...FILL, background: '#141414', opacity: outK, overflow: 'hidden'}}>
-      <div style={{...FILL, background: '#F1EADB', transform: `scale(${0.7 + 0.3 * inK}) rotate(${(1 - inK) * 8}deg)`, opacity: inK, padding: '50px 54px', boxSizing: 'border-box', color: INK}}>
+    <div style={{...FILL, background: '#141414', opacity: fx.props.fadeOut === false ? 1 : outK, overflow: 'hidden'}}>
+      <div style={{...FILL, background: '#F1EADB', transformOrigin: '50% 230px', transform: `scale(${(0.7 + 0.3 * inK) * fx.props.scale}) rotate(${(1 - inK) * 8}deg)`, opacity: inK, padding: '50px 54px', boxSizing: 'border-box', color: INK}}>
         <div style={{display: 'flex', alignItems: 'center', gap: 24, borderBottom: `3px solid ${INK}`, paddingBottom: 14}}>
           <div style={{width: 150, border: `2px solid ${INK}`, padding: 8, fontFamily: serifFamily, fontSize: 18, textAlign: 'center'}}>Final Edition</div>
           <div style={{flex: 1, textAlign: 'center', fontFamily: '"UnifrakturMaguntia", "Old English Text MT", ' + serifFamily, fontSize: 96, lineHeight: 1}}>{masthead}</div>
           <div style={{width: 150, border: `2px solid ${INK}`, padding: 8, fontFamily: serifFamily, fontSize: 18, textAlign: 'center'}}>Late News</div>
         </div>
         <div style={{display: 'flex', justifyContent: 'space-between', fontFamily: serifFamily, fontSize: 20, letterSpacing: 3, padding: '10px 0', borderBottom: `1px solid ${INK}`, textTransform: 'uppercase'}}><span>C3 Global</span><span>{date}</span><span>Vol. I</span></div>
-        <div style={{fontFamily: serifFamily, fontWeight: 700, fontSize: 112, lineHeight: 1.0, textAlign: 'center', marginTop: 24, textTransform: 'uppercase', transform: 'scaleX(0.86)'}}>{headline}</div>
+        <div style={{fontFamily: serifFamily, fontWeight: 700, fontSize: 112, lineHeight: 1.0, textAlign: 'center', marginTop: 24, textTransform: 'uppercase', transform: 'scaleX(0.86)', ...(live ? {fontSize: liveLen > 26 ? 92 : 112, minHeight: 240} : {})}}>{live ? live.map((w, i) => <span key={i} style={{opacity: a + t >= w.at - 0.06 ? 1 : 0}}>{(i ? ' ' : '') + w.text.replace(/[.,]$/, '')}</span>) : headline}</div>
         <div style={{fontFamily: serifFamily, fontStyle: 'italic', fontSize: 52, textAlign: 'center', margin: '10px 0 26px'}}>{subhead}</div>
         <div style={{display: 'flex', gap: 26}}>
           <div style={{width: 230}}><div style={{fontFamily: serifFamily, fontWeight: 700, fontSize: 28, marginBottom: 12}}>The Story</div><Lines n={34} w={230} /></div>
@@ -161,7 +174,7 @@ export const BlowAwayDust: React.FC<{fx: Of<'blow-away'>}> = ({fx}) => {
         const op = Math.max(0, 1 - age / 1.6);
         const size = 3 + r2 * 7;
         void born;
-        return <div key={i} style={{position: 'absolute', left: x, top: y, width: size, height: size, borderRadius: size, background: i % 3 === 0 ? '#F4B08A' : i % 3 === 1 ? '#7a2a22' : '#1a1a1a', opacity: op}} />;
+        return <div key={i} style={{position: 'absolute', left: x, top: y, width: size, height: size, borderRadius: size, background: i % 3 === 0 ? '#F1B9A5' : i % 3 === 1 ? '#7a2a22' : '#1a1a1a', opacity: op}} />;
       })}
     </div>
   );

@@ -1,0 +1,500 @@
+{
+ "slug": "tol2-cinematic",
+ "template": "cinematic",
+ "video": "raw/tolerance.mp4",
+ "durationSec": 35.669,
+ "matte": "tolerance",
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "captionStyle": "film",
+ "emphasis": [
+  "belongs",
+  "unwritten",
+  "Tolerance",
+  "newcomer",
+  "left"
+ ],
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.55,
+  "lightLeaks": 0.8
+ },
+ "scrim": 0.45,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 3.718,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 3.718,
+     "end": 5.419,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.4
+     },
+     "cut": true
+    },
+    {
+     "start": 5.419,
+     "end": 6.915,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "signals0",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 6.915,
+     "end": 8.622,
+     "layout": "T",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 6.915,
+       "until": 8.622,
+       "props": {
+        "skin": "dark",
+        "items": [
+         {
+          "say": "They watch who gets replies,",
+          "wordTimes": [
+           6.97,
+           7.22,
+           7.55,
+           7.76,
+           8.04
+          ],
+          "kind": "replies",
+          "at": 6.97
+         }
+        ],
+        "y": 1010,
+        "height": 470,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "captionY": 935,
+     "cut": true
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "signals1",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 8.622,
+     "end": 10.441,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 8.622,
+       "until": 10.441,
+       "props": {
+        "skin": "dark",
+        "items": [
+         {
+          "say": "whose name gets spelled correctly,",
+          "wordTimes": [
+           8.64,
+           8.93,
+           9.16,
+           9.38,
+           9.79
+          ],
+          "kind": "name",
+          "at": 8.64
+         }
+        ],
+        "y": 250,
+        "height": 720,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "signals2",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 10.441,
+     "end": 12.27,
+     "layout": "T",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 10.441,
+       "until": 12.27,
+       "props": {
+        "skin": "dark",
+        "items": [
+         {
+          "say": "which posts get a reaction,",
+          "wordTimes": [
+           10.46,
+           10.85,
+           11.27,
+           11.5,
+           11.58
+          ],
+          "kind": "reaction",
+          "at": 10.46
+         }
+        ],
+        "y": 1010,
+        "height": 470,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "captionY": 935,
+     "cut": true
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "signals3",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 12.27,
+     "end": 13.768,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "examples",
+       "at": 12.27,
+       "until": 13.768,
+       "props": {
+        "skin": "dark",
+        "items": [
+         {
+          "say": "and which holidays get mentioned.",
+          "wordTimes": [
+           12.27,
+           12.41,
+           12.68,
+           13.1,
+           13.23
+          ],
+          "kind": "holidays",
+          "at": 12.27
+         }
+        ],
+        "y": 250,
+        "height": 720,
+        "emphasis": [
+         "unwritten",
+         "newcomer",
+         "left",
+         "belongs"
+        ]
+       }
+      }
+     ],
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "little",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 13.768,
+     "end": 15.196,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 15.196,
+     "end": 17.508,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.4
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "st18",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 17.508,
+     "end": 20.593,
+     "layout": "E",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "statement-card",
+       "at": 17.508,
+       "until": 20.593,
+       "box": {
+        "y": 150,
+        "h": 900,
+        "center": true
+       },
+       "props": {
+        "text": "Today is the International Day for Tolerance, so try this.",
+        "emphasis": [
+         "Tolerance"
+        ],
+        "wordTimes": [
+         17.61,
+         17.88,
+         17.98,
+         18.15,
+         18.87,
+         19.02,
+         19.21,
+         19.85,
+         19.99,
+         20.21
+        ]
+       }
+      }
+     ],
+     "avatar": "hidden"
+    }
+   ],
+   "bg": "backdrops/red-velvet.jpg"
+  },
+  {
+   "id": "rules",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 20.593,
+     "end": 23.406,
+     "layout": "A",
+     "captionPos": "top",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "ask",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 23.406,
+     "end": 27.094,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "left",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 27.094,
+     "end": 31.011,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 31.011,
+     "end": 35.669,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.4
+     },
+     "cut": true
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "dust",
+   "at": 0,
+   "until": 35.669,
+   "props": {
+    "count": 18,
+    "strength": 0.3
+   }
+  },
+  {
+   "type": "glow",
+   "at": 0,
+   "until": 35.669,
+   "props": {
+    "strength": 0.2
+   }
+  },
+  {
+   "type": "zoom-through",
+   "at": 13.768,
+   "props": {
+    "diveSec": 0.45
+   }
+  },
+  {
+   "type": "freeze-hold",
+   "at": 28.937,
+   "until": 29.842,
+   "props": {}
+  },
+  {
+   "type": "dolly-zoom",
+   "at": 0.186,
+   "until": 3.703,
+   "props": {
+    "to": 1.5
+   }
+  },
+  {
+   "type": "rack-focus",
+   "at": 3.722,
+   "until": 5.026,
+   "props": {}
+  },
+  {
+   "type": "iris",
+   "at": 16.336,
+   "until": 17.498,
+   "props": {
+    "mode": "peek",
+    "target": "head"
+   }
+  },
+  {
+   "type": "silhouette-shift",
+   "at": 20.593,
+   "until": 23.406,
+   "props": {
+    "word": "unwritten",
+    "revealAt": 22.969
+   }
+  },
+  {
+   "type": "vertigo",
+   "at": 23.534,
+   "until": 26.148,
+   "props": {
+    "to": 1.4
+   }
+  },
+  {
+   "type": "spotlight",
+   "at": 27.094,
+   "until": 31.006,
+   "props": {
+    "dim": 0.86,
+    "words": [
+     {
+      "text": "left out",
+      "at": 28.86
+     }
+    ]
+   }
+  }
+ ],
+ "fxSound": "minimal",
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 33.26,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/empires.mp3",
+  "volume": 0.42,
+  "duckTo": 0.2,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}

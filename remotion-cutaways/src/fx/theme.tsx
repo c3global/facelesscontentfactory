@@ -20,13 +20,13 @@ export const C3 = {
   glass: 'rgba(12,13,15,0.86)',
   glassText: brand.white,
   /** copper first: rose gold and copper carry the brand, gold is the secondary accent */
-  hair: '1.5px solid rgba(224,138,87,0.85)',
-  copperGrad: 'linear-gradient(135deg,#B5622C,#F4B08A 50%,#B5622C)',
+  hair: '1.5px solid rgba(169,87,74,0.85)',
+  copperGrad: 'linear-gradient(135deg,#A9574A,#F1B9A5 50%,#A9574A)',
   accent: brand.crimson,
   accentDeep: brand.crimsonDeep,
   gold: '#E3BF63',
   goldBright: '#FFF3C9',
-  copper: '#E08A57',
+  copper: '#A9574A',
 } as const;
 
 /**
@@ -34,14 +34,14 @@ export const C3 = {
  * Always a multi-stop metal with a bright highlight. Crimson (C3.accent) is always welcome beside it. Gold stays the secondary accent.
  */
 export const ROSE = {
-  grad: 'linear-gradient(115deg, #B5622C 0%, #E08A57 20%, #FFD9BD 40%, #FCE2DF 50%, #E9A99B 62%, #D48A8C 78%, #B76E79 100%)',
+  grad: 'linear-gradient(115deg, #A9574A 0%, #A9574A 20%, #FFD9BD 40%, #FBE3DA 50%, #E9A99B 62%, #C27A6B 78%, #A9574A 100%)',
   /** for thin strokes and borders, where a gradient cannot be drawn */
   light: '#FFD9BD',
   mid: '#E9A08C',
   glow: '233,160,140',
 } as const;
 /** metallic copper-to-rose-gold text. It replaces `color`; a text-shadow would paint over the metal, so the shadow is a filter. */
-export const ROSE_TEXT: React.CSSProperties = {backgroundImage: 'linear-gradient(115deg, #D97B45 0%, #F4B08A 20%, #FFE3CF 40%, #FCE2DF 50%, #EDAE9F 64%, #DC979A 80%, #C98089 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', WebkitTextFillColor: 'transparent', textShadow: 'none', filter: 'drop-shadow(0 3px 8px rgba(0,0,0,0.55))', paddingRight: '0.12em'};
+export const ROSE_TEXT: React.CSSProperties = {backgroundImage: 'linear-gradient(115deg, #D97B45 0%, #F1B9A5 20%, #FFE3CF 40%, #FBE3DA 50%, #EDAE9F 64%, #DC979A 80%, #C98089 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent', WebkitTextFillColor: 'transparent', textShadow: 'none', filter: 'drop-shadow(0 3px 8px rgba(0,0,0,0.55))', paddingRight: '0.12em'};
 
 /** Dr. CK's orbital globe (public/brand/orbital-globe.png). `src` swaps in another icon file under public/; `src="drawn"` draws a plain line globe instead. */
 export const GlobeIcon: React.FC<{size: number; color?: string; bg?: string; src?: string}> = ({size, color = C3.gold, bg = 'transparent', src = 'brand/orbital-globe.png'}) =>
@@ -60,7 +60,7 @@ export const GlobeIcon: React.FC<{size: number; color?: string; bg?: string; src
 
 /** a white avatar disc with a copper rim, for the brand mark on a dark card */
 export const BrandAvatar: React.FC<{size: number; src?: string}> = ({size, src}) => (
-  <div style={{flex: 'none', width: size, height: size, borderRadius: size / 2, background: '#fff', border: '2px solid #E08A57', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+  <div style={{flex: 'none', width: size, height: size, borderRadius: size / 2, background: '#fff', border: '2px solid #A9574A', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
     <GlobeIcon size={Math.round(size * 0.78)} src={src} />
   </div>
 );
@@ -93,7 +93,7 @@ export const labSrc = (name: LabIcon) => `brand/lab/${name}.png`;
 export type Glyph = 'cut' | 'wave' | 'film' | 'text' | 'play' | 'globe' | LabIcon;
 const TONES = {
   charcoal: {bg: 'linear-gradient(145deg,#4a5054,#24282b)', fg: '#fff'},
-  copper: {bg: 'linear-gradient(145deg,#F4B08A,#B5622C)', fg: '#2a1206'},
+  copper: {bg: 'linear-gradient(145deg,#F1B9A5,#A9574A)', fg: '#2a1206'},
   crimson: {bg: 'linear-gradient(145deg,#E03A37,#8d1214)', fg: '#fff'},
   white: {bg: 'linear-gradient(145deg,#ffffff,#e4e6e7)', fg: '#3A3F42'},
 } as const;

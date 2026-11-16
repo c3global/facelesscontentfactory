@@ -50,6 +50,9 @@ const WIDE_AVATAR: Record<LayoutKey | 'Chidden', AvatarState> = {
   D: SPLIT,
   E: SPLIT,
   S: SPLIT,
+  F: SPLIT,
+  O: SPLIT,
+  T: SPLIT,
   Chidden: {...SPLIT, opacity: 0},
 };
 const wideState = (layout: LayoutKey, avatar?: 'circle' | 'hidden'): AvatarState =>

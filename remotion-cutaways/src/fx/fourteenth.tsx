@@ -97,7 +97,7 @@ export const FramedClip: React.FC<{fx: Of<'framed-clip'>}> = ({fx}) => {
         </div>
         {notes.map((n, i) => {
           const at = n.at ?? fx.at + 0.6 + i * 0.6;
-          return <NoteInk key={i} text={n.text} x={n.x} y={n.y} to={n.to} from={n.from} bend={n.bend} size={n.size} snug w={tw(abs, at, at + 0.6)} k={tw(abs, at + 0.45, at + 0.95)} />;
+          return <NoteInk key={i} text={n.text} x={n.x} y={n.y} align={n.align} to={n.to} from={n.from} bend={n.bend} size={n.size} snug w={tw(abs, at, at + 0.6)} k={tw(abs, at + 0.45, at + 0.95)} />;
         })}
       </div>
     </>

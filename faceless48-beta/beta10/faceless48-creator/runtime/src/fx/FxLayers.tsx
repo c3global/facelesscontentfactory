@@ -5,6 +5,12 @@ import {sixthOver} from './sixth';
 import {CloneRowCopies, seventhOver} from './seventh';
 import {eighthOver, rackK} from './eighth';
 import {ninthOver} from './ninth';
+import {tenthOver} from './tenth';
+import {eleventhOver} from './eleventh';
+import {CloneFan} from './twelfth';
+import {thirteenthOver} from './thirteenth';
+import {fourteenthOver} from './fourteenth';
+import {fifteenthOver} from './fifteenth';
 import {fourthOver} from './fourth';
 import {thirdOver} from './third';
 import {Audio, Sequence, staticFile, useVideoConfig} from 'remotion';
@@ -12,11 +18,14 @@ import {Cutout, CloneCopies, behindFront, behindPlate, cutoutStyle} from './behi
 import {LOOKS, extraOver, lookLayer} from './extra';
 import {overItem} from './over';
 import type {Fx} from './schema';
-import {BEHIND, Cue, cuesFor, fxRange, pop, tw, useFxEnv, useFxTime, easeInC, easeOutC} from './util';
+import {BEHIND, HEADROOM, headRoomK, Cue, cuesFor, fxRange, pop, tw, useFxEnv, useFxTime, easeInC, easeOutC} from './util';
 
 /** Camera moves on her clip: extra zoom, blur and face position for a given second. */
-export const videoMods = (fx: Fx[], t: number): {zoom: number; blur: number; focusY?: number} => {
+export const videoMods = (fx: Fx[], t: number): {zoom: number; blur: number; focusY?: number; shiftY: number; room: number} => {
   let zoom = 1;
+  let room = 0;
+  for (const f of fx) room = Math.max(room, headRoomK(f, t));
+  zoom *= 1 - HEADROOM.shrink * room;
   let blur = 0;
   let focusY: number | undefined;
   for (const f of fx) {
@@ -50,7 +59,7 @@ export const videoMods = (fx: Fx[], t: number): {zoom: number; blur: number; foc
       }
     }
   }
-  return {zoom, blur, focusY};
+  return {zoom, blur, focusY, shiftY: HEADROOM.shift * room, room};
 };
 
 const BehindItem: React.FC<{fx: Fx}> = ({fx}) => {
@@ -62,8 +71,9 @@ const BehindItem: React.FC<{fx: Fx}> = ({fx}) => {
     <>
       {behindPlate(fx)}
       {fx.type === 'clone-row' && <CloneRowCopies fx={fx} />}
+      {fx.type === 'clone' && fx.props.version === 2 && <CloneFan fx={fx} />}
       <Cutout from={from} style={cutoutStyle(fx, abs)} />
-      {fx.type === 'clone' && <CloneCopies fx={fx} />}
+      {fx.type === 'clone' && fx.props.version !== 2 && <CloneCopies fx={fx} />}
       {behindFront(fx)}
     </>
   );
@@ -121,7 +131,7 @@ export const FxOver: React.FC<{fx: Fx[]}> = ({fx}) => {
   return (
     <>
       {fx.map((f, i) => {
-        const node = overItem(f) ?? extraOver(f) ?? thirdOver(f) ?? fourthOver(f) ?? fifthOver(f) ?? sixthOver(f) ?? seventhOver(f) ?? eighthOver(f) ?? ninthOver(f);
+        const node = fifteenthOver(f) ?? overItem(f) ?? extraOver(f) ?? thirdOver(f) ?? fourthOver(f) ?? fifthOver(f) ?? sixthOver(f) ?? seventhOver(f) ?? eighthOver(f) ?? ninthOver(f) ?? tenthOver(f) ?? eleventhOver(f) ?? thirteenthOver(f) ?? fourteenthOver(f);
         if (!node) return null;
         const [a, b] = fxRange(f);
         return (

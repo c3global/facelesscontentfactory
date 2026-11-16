@@ -184,7 +184,7 @@ export const IconStrike: React.FC<{fx: Of<'icon-strike'>}> = ({fx}) => {
         <path d={`M${L + 140} ${cy} L${R - 150} ${cy} M${R - 175} ${cy - 22} L${R - 150} ${cy} L${R - 175} ${cy + 22}`} stroke={C3.copper} strokeWidth={9} strokeLinecap="round" strokeLinejoin="round" fill="none" />
       </svg>
       <div style={{position: 'absolute', left: R - size / 2, top: cy - size / 2, width: size, opacity: winK, transform: `scale(${0.6 + 0.4 * winK})`}}>
-        <div style={{borderRadius: size * 0.23, boxShadow: `0 0 ${50 * winK}px rgba(224,138,87,0.65)`}}>
+        <div style={{borderRadius: size * 0.23, boxShadow: `0 0 ${50 * winK}px rgba(169,87,74,0.65)`}}>
           <AppIcon size={size} glyph={fx.props.winnerGlyph} tone="copper" src={fx.props.winnerSrc} />
         </div>
         {label(fx.props.winnerLabel, '#fff')}

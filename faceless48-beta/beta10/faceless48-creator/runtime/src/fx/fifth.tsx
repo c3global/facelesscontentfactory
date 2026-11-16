@@ -190,7 +190,7 @@ export const WaitlistCard: React.FC<{fx: Of<'waitlist-card'>}> = ({fx}) => {
         {Array.from({length: rows}).map((_, i) => {
           const you = i === Math.min(youRow, rows - 1);
           return (
-            <div key={i} style={{marginTop: 14, height: 76, borderRadius: 16, display: 'flex', alignItems: 'center', padding: '0 20px', gap: 20, background: you ? `rgba(224,138,87,${0.28 * hit})` : 'rgba(58,63,66,0.06)', border: you && hit > 0.5 ? `2px solid ${customerBrand.metal}` : '2px solid transparent'}}>
+            <div key={i} style={{marginTop: 14, height: 76, borderRadius: 16, display: 'flex', alignItems: 'center', padding: '0 20px', gap: 20, background: you ? `rgba(169,87,74,${0.28 * hit})` : 'rgba(58,63,66,0.06)', border: you && hit > 0.5 ? `2px solid ${customerBrand.metal}` : '2px solid transparent'}}>
               <div style={{fontFamily: C3.sans, fontWeight: 700, fontSize: 30, color: C3.cardMuted, width: 96, whiteSpace: 'nowrap'}}>No. {i + 1}</div>
               <div style={{flex: 1, fontFamily: handFamily, fontWeight: 700, fontSize: 56, lineHeight: 1, color: C3.cardText, opacity: you ? hit : 0}}>you</div>
               {you && <div style={{width: 50, height: 50, borderRadius: 25, background: C3.copperGrad, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${hit})`}}><CheckMark size={30} color={C3.onMetal} /></div>}
@@ -299,7 +299,7 @@ export const Leaderboard: React.FC<{fx: Of<'leaderboard'>}> = ({fx}) => {
         {fx.props.items.map((it, i) => {
           const k = tw(t, 0.25 + i * 0.22, 0.55 + i * 0.22, 0, 1, pop);
           return (
-            <div key={i} style={{height: 76, marginTop: 8, borderRadius: 18, display: 'flex', alignItems: 'center', padding: '0 20px', gap: 20, opacity: k, transform: `translateX(${(1 - k) * 80}px)`, background: i === 0 ? `linear-gradient(135deg,${rgbaOf(customerBrand.metal, 0.55)},rgba(181,98,44,0.4))` : 'rgba(255,255,255,0.08)', border: i === 0 ? `1.5px solid ${customerBrand.metal}` : '1.5px solid transparent'}}>
+            <div key={i} style={{height: 76, marginTop: 8, borderRadius: 18, display: 'flex', alignItems: 'center', padding: '0 20px', gap: 20, opacity: k, transform: `translateX(${(1 - k) * 80}px)`, background: i === 0 ? `linear-gradient(135deg,${rgbaOf(customerBrand.metal, 0.55)},rgba(169,87,74,0.4))` : 'rgba(255,255,255,0.08)', border: i === 0 ? `1.5px solid ${customerBrand.metal}` : '1.5px solid transparent'}}>
               <div style={{width: 46, height: 46, borderRadius: 12, background: i === 0 ? C3.copperGrad : 'rgba(255,255,255,0.14)', color: i === 0 ? `${C3.onMetal}` : '#fff', fontFamily: C3.sans, fontWeight: 700, fontSize: 28, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{i + 1}</div>
               <div style={{flex: 1, fontFamily: C3.sans, fontWeight: 700, fontSize: 34, color: '#fff'}}>{it}</div>
               {i === 0 && <Trophy />}

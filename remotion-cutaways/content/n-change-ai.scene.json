@@ -1,0 +1,236 @@
+{
+ "slug": "n-change-ai",
+ "template": "teach",
+ "video": "raw/change-ai-2x.mp4",
+ "sourceScale": 2,
+ "durationSec": 24.2,
+ "matte": "change-ai",
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "captionStyle": "karaoke",
+ "emphasis": [
+  "change",
+  "day",
+  "one",
+  "paper.",
+  "AI"
+ ],
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.0,
+  "lightLeaks": 0.0
+ },
+ "scrim": 0.55,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 2.273,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 2.273,
+     "end": 2.69,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.4
+     },
+     "cut": true
+    },
+    {
+     "start": 2.69,
+     "end": 4.508,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    },
+    {
+     "start": 4.508,
+     "end": 6.353,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.4
+     },
+     "cut": true
+    },
+    {
+     "start": 6.353,
+     "end": 6.95,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "covered",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 6.95,
+     "end": 13.12,
+     "layout": "T",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captionY": 1472,
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "rollout",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 13.12,
+     "end": 20.48,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captionY": 905,
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "end",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 20.48,
+     "end": 24.2,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.4
+     }
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "doodle-boil",
+   "at": 0.3,
+   "until": 6.85,
+   "props": {
+    "marks": [
+     {
+      "kind": "text",
+      "text": "Today's lesson",
+      "target": "head",
+      "at": 0.4,
+      "side": "right",
+      "color": "white"
+     },
+     {
+      "kind": "underline",
+      "target": "chest",
+      "at": 3.92,
+      "side": "left",
+      "color": "white",
+      "x": 540,
+      "y": 1378
+     }
+    ]
+   }
+  },
+  {
+   "type": "lesson-board",
+   "at": 6.95,
+   "until": 13.12,
+   "props": {
+    "title": "The announcement covered",
+    "items": [
+     {
+      "text": "what was changing",
+      "at": 8.37
+     },
+     {
+      "text": "not what to do on day one",
+      "at": 9.61
+     },
+     {
+      "text": "not where to go when stuck",
+      "at": 11.68
+     }
+    ],
+    "y": 880,
+    "height": 500
+   }
+  },
+  {
+   "type": "lesson-board",
+   "at": 13.12,
+   "until": 20.48,
+   "props": {
+    "title": "Before your next rollout",
+    "items": [
+     {
+      "text": "Walk through day one on paper",
+      "at": 14.53
+     },
+     {
+      "text": "Find what will confuse people",
+      "at": 15.98
+     },
+     {
+      "text": "Put an AI guide right there",
+      "at": 18.2
+     }
+    ],
+    "y": 250,
+    "height": 540
+   }
+  }
+ ],
+ "fxSound": "minimal",
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 22.15,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/empires.mp3",
+  "volume": 0.42,
+  "duckTo": 0.2,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}

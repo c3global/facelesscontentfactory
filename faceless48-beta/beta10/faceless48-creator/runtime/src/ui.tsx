@@ -31,6 +31,14 @@ const TimeCtx = createContext<number>(0);
 export const GraphicTimeProvider: React.FC<{atSec: number; children: React.ReactNode}> = ({atSec, children}) => (
   <TimeCtx.Provider value={atSec}>{children}</TimeCtx.Provider>
 );
+/** Absolute video seconds of the current frame, inside a graphic's Sequence. */
+export const useAbsSec = () => {
+  const atSec = useContext(TimeCtx);
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  return atSec + frame / fps;
+};
+
 export const useRel = () => {
   const atSec = useContext(TimeCtx);
   const {fps} = useVideoConfig();
