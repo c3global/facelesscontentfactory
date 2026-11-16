@@ -1,0 +1,528 @@
+{
+ "slug": "n-decisions",
+ "template": "hype",
+ "video": "raw/decisions.mp4",
+ "durationSec": 34.538,
+ "matte": "decisions",
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "captionStyle": "punch",
+ "emphasis": [
+  "panic.",
+  "decision",
+  "owner",
+  "date.",
+  "stick."
+ ],
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.3,
+  "lightLeaks": 0.0
+ },
+ "scrim": 0.65,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 0.722,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 0.722,
+     "end": 2.165,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     },
+     "cut": true
+    },
+    {
+     "start": 2.165,
+     "end": 3.332,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    },
+    {
+     "start": 3.332,
+     "end": 4.196,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     },
+     "cut": true
+    },
+    {
+     "start": 4.196,
+     "end": 6.425,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    },
+    {
+     "start": 6.425,
+     "end": 8.34,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "owns",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 8.34,
+     "end": 8.822,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     }
+    },
+    {
+     "start": 8.822,
+     "end": 10.895,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    },
+    {
+     "start": 10.895,
+     "end": 13.11,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "back",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 13.11,
+     "end": 14.98,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "id": "shared",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 14.98,
+     "end": 18.83,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     }
+    }
+   ]
+  },
+  {
+   "id": "ask",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 18.83,
+     "end": 20.118,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 20.118,
+     "end": 20.533,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     },
+     "cut": true
+    },
+    {
+     "start": 20.533,
+     "end": 21.82,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "st218",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 21.82,
+     "end": 24.45,
+     "layout": "E",
+     "captionPos": "bottom",
+     "graphics": [
+      {
+       "type": "statement-card",
+       "at": 21.82,
+       "until": 24.45,
+       "box": {
+        "y": 150,
+        "h": 900,
+        "center": true
+       },
+       "props": {
+        "text": "What did we decide, who is doing it, and when will we check?",
+        "emphasis": [
+         "decide,",
+         "doing",
+         "check?"
+        ],
+        "wordTimes": [
+         21.93,
+         22.1,
+         22.26,
+         22.37,
+         22.9,
+         23.01,
+         23.12,
+         23.4,
+         23.68,
+         23.76,
+         23.92,
+         24.08,
+         24.16
+        ]
+       }
+      }
+     ],
+     "avatar": "hidden"
+    }
+   ]
+  },
+  {
+   "id": "post",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 24.45,
+     "end": 26.2,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     }
+    }
+   ]
+  },
+  {
+   "id": "lasts",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 26.2,
+     "end": 28.479,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 28.479,
+     "end": 29.0,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "end",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 29.0,
+     "end": 29.947,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     }
+    },
+    {
+     "start": 29.947,
+     "end": 31.653,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    },
+    {
+     "start": 31.653,
+     "end": 34.538,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.7
+     },
+     "cut": true
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "giant-caption",
+   "at": 0.0,
+   "until": 0.8,
+   "props": {
+    "version": 2,
+    "text": "Don't",
+    "accent": "panic.",
+    "y": 1120
+   }
+  },
+  {
+   "type": "clone",
+   "at": 1.6,
+   "until": 3.95,
+   "props": {
+    "version": 2,
+    "copies": [
+     {
+      "at": 2.43,
+      "side": "left"
+     },
+     {
+      "at": 2.65,
+      "side": "right"
+     },
+     {
+      "at": 2.98,
+      "side": "left"
+     }
+    ]
+   }
+  },
+  {
+   "type": "flash-frame",
+   "at": 4.2,
+   "props": {
+    "version": 2
+   }
+  },
+  {
+   "type": "type-wall",
+   "at": 4.25,
+   "until": 8.3,
+   "props": {
+    "words": [
+     {
+      "text": "fast",
+      "at": 5.07
+     },
+     {
+      "text": "ends",
+      "at": 6.15
+     },
+     {
+      "text": "heads",
+      "at": 7.88
+     }
+    ]
+   }
+  },
+  {
+   "type": "knockout-tiles",
+   "at": 8.4,
+   "until": 13.1,
+   "props": {
+    "names": [
+     {
+      "text": "DECIDED?",
+      "knockAt": 12.56
+     },
+     {
+      "text": "OWNER?",
+      "knockAt": 12.81
+     },
+     {
+      "text": "CHECK-IN?",
+      "knockAt": 12.92
+     }
+    ]
+   }
+  },
+  {
+   "type": "impact-frame",
+   "at": 13.46,
+   "until": 14.9,
+   "props": {
+    "word": "Same call"
+   }
+  },
+  {
+   "type": "orbit",
+   "at": 15.05,
+   "until": 18.8,
+   "props": {
+    "items": [
+     "hype-media/substack-home.png",
+     "hype-media/drck-fx-1.jpg",
+     "hype-media/clip-a.mp4",
+     "hype-media/substack-four-places.png",
+     "hype-media/drck-fx-5.jpg"
+    ]
+   }
+  },
+  {
+   "type": "slot-machine",
+   "at": 20.55,
+   "until": 21.85,
+   "props": {
+    "words": [
+     "WHAT",
+     "WHO",
+     "WHEN"
+    ],
+    "stopAt": [
+     20.85,
+     21.15,
+     21.45
+    ],
+    "label": "3 questions",
+    "y": 1150
+   }
+  },
+  {
+   "type": "couch-wall",
+   "at": 24.5,
+   "until": 26.2,
+   "props": {
+    "tiles": [
+     "What did we decide?",
+     "hype-media/drck-fx-3.jpg",
+     "Who is doing it?",
+     "hype-media/clip-b.mp4",
+     "When will we check?",
+     "hype-media/substack-home.png"
+    ]
+   }
+  },
+  {
+   "type": "type-wall",
+   "at": 26.25,
+   "until": 29.0,
+   "props": {
+    "words": [
+     {
+      "text": "owner",
+      "at": 27.99
+     },
+     {
+      "text": "date",
+      "at": 28.65
+     }
+    ]
+   }
+  }
+ ],
+ "fxSound": "full",
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 32.1,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/make-it-look-easy.mp3",
+  "volume": 0.42,
+  "duckTo": 0.2,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}

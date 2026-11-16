@@ -1,0 +1,534 @@
+[
+  {
+    "text": "Before",
+    "startMs": 60,
+    "endMs": 420,
+    "timestampMs": 240,
+    "confidence": null
+  },
+  {
+    "text": " you",
+    "startMs": 420,
+    "endMs": 630,
+    "timestampMs": 525,
+    "confidence": null
+  },
+  {
+    "text": " paste",
+    "startMs": 630,
+    "endMs": 980,
+    "timestampMs": 805,
+    "confidence": null
+  },
+  {
+    "text": " that",
+    "startMs": 980,
+    "endMs": 1260,
+    "timestampMs": 1120,
+    "confidence": null
+  },
+  {
+    "text": " into",
+    "startMs": 1260,
+    "endMs": 1540,
+    "timestampMs": 1400,
+    "confidence": null
+  },
+  {
+    "text": " an",
+    "startMs": 1540,
+    "endMs": 1710,
+    "timestampMs": 1625,
+    "confidence": null
+  },
+  {
+    "text": " AI",
+    "startMs": 1710,
+    "endMs": 1820,
+    "timestampMs": 1765,
+    "confidence": null
+  },
+  {
+    "text": " tool,",
+    "startMs": 1820,
+    "endMs": 2110,
+    "timestampMs": 1965,
+    "confidence": null
+  },
+  {
+    "text": " let's",
+    "startMs": 2140,
+    "endMs": 2340,
+    "timestampMs": 2240,
+    "confidence": null
+  },
+  {
+    "text": " talk",
+    "startMs": 2340,
+    "endMs": 2550,
+    "timestampMs": 2445,
+    "confidence": null
+  },
+  {
+    "text": " about",
+    "startMs": 2550,
+    "endMs": 2740,
+    "timestampMs": 2645,
+    "confidence": null
+  },
+  {
+    "text": " what's",
+    "startMs": 2740,
+    "endMs": 3000,
+    "timestampMs": 2870,
+    "confidence": null
+  },
+  {
+    "text": " in",
+    "startMs": 3000,
+    "endMs": 3100,
+    "timestampMs": 3050,
+    "confidence": null
+  },
+  {
+    "text": " it.",
+    "startMs": 3100,
+    "endMs": 3220,
+    "timestampMs": 3160,
+    "confidence": null
+  },
+  {
+    "text": " With",
+    "startMs": 3340,
+    "endMs": 3590,
+    "timestampMs": 3465,
+    "confidence": null
+  },
+  {
+    "text": " many",
+    "startMs": 3590,
+    "endMs": 3840,
+    "timestampMs": 3715,
+    "confidence": null
+  },
+  {
+    "text": " tools,",
+    "startMs": 3840,
+    "endMs": 4160,
+    "timestampMs": 4000,
+    "confidence": null
+  },
+  {
+    "text": " once",
+    "startMs": 4360,
+    "endMs": 4570,
+    "timestampMs": 4465,
+    "confidence": null
+  },
+  {
+    "text": " you",
+    "startMs": 4570,
+    "endMs": 4770,
+    "timestampMs": 4670,
+    "confidence": null
+  },
+  {
+    "text": " paste",
+    "startMs": 4770,
+    "endMs": 5110,
+    "timestampMs": 4940,
+    "confidence": null
+  },
+  {
+    "text": " something",
+    "startMs": 5110,
+    "endMs": 5720,
+    "timestampMs": 5415,
+    "confidence": null
+  },
+  {
+    "text": " in,",
+    "startMs": 5720,
+    "endMs": 5880,
+    "timestampMs": 5800,
+    "confidence": null
+  },
+  {
+    "text": " you",
+    "startMs": 5880,
+    "endMs": 6120,
+    "timestampMs": 6000,
+    "confidence": null
+  },
+  {
+    "text": " may",
+    "startMs": 6120,
+    "endMs": 6360,
+    "timestampMs": 6240,
+    "confidence": null
+  },
+  {
+    "text": " not",
+    "startMs": 6360,
+    "endMs": 6600,
+    "timestampMs": 6480,
+    "confidence": null
+  },
+  {
+    "text": " control",
+    "startMs": 6600,
+    "endMs": 7170,
+    "timestampMs": 6885,
+    "confidence": null
+  },
+  {
+    "text": " where",
+    "startMs": 7170,
+    "endMs": 7580,
+    "timestampMs": 7375,
+    "confidence": null
+  },
+  {
+    "text": " it",
+    "startMs": 7580,
+    "endMs": 7740,
+    "timestampMs": 7660,
+    "confidence": null
+  },
+  {
+    "text": " goes.",
+    "startMs": 7740,
+    "endMs": 8070,
+    "timestampMs": 7905,
+    "confidence": null
+  },
+  {
+    "text": " So",
+    "startMs": 8390,
+    "endMs": 8480,
+    "timestampMs": 8435,
+    "confidence": null
+  },
+  {
+    "text": " give",
+    "startMs": 8480,
+    "endMs": 8750,
+    "timestampMs": 8615,
+    "confidence": null
+  },
+  {
+    "text": " your",
+    "startMs": 8750,
+    "endMs": 9010,
+    "timestampMs": 8880,
+    "confidence": null
+  },
+  {
+    "text": " team",
+    "startMs": 9010,
+    "endMs": 9230,
+    "timestampMs": 9120,
+    "confidence": null
+  },
+  {
+    "text": " a",
+    "startMs": 9230,
+    "endMs": 9290,
+    "timestampMs": 9260,
+    "confidence": null
+  },
+  {
+    "text": " simple",
+    "startMs": 9290,
+    "endMs": 9670,
+    "timestampMs": 9480,
+    "confidence": null
+  },
+  {
+    "text": " rule",
+    "startMs": 9670,
+    "endMs": 9980,
+    "timestampMs": 9825,
+    "confidence": null
+  },
+  {
+    "text": " with",
+    "startMs": 9980,
+    "endMs": 10220,
+    "timestampMs": 10100,
+    "confidence": null
+  },
+  {
+    "text": " three",
+    "startMs": 10220,
+    "endMs": 10520,
+    "timestampMs": 10370,
+    "confidence": null
+  },
+  {
+    "text": " groups.",
+    "startMs": 10520,
+    "endMs": 10830,
+    "timestampMs": 10675,
+    "confidence": null
+  },
+  {
+    "text": " Safe",
+    "startMs": 10880,
+    "endMs": 11220,
+    "timestampMs": 11050,
+    "confidence": null
+  },
+  {
+    "text": " to",
+    "startMs": 11230,
+    "endMs": 11360,
+    "timestampMs": 11295,
+    "confidence": null
+  },
+  {
+    "text": " paste,",
+    "startMs": 11360,
+    "endMs": 11650,
+    "timestampMs": 11505,
+    "confidence": null
+  },
+  {
+    "text": " public",
+    "startMs": 11830,
+    "endMs": 12120,
+    "timestampMs": 11975,
+    "confidence": null
+  },
+  {
+    "text": " information.",
+    "startMs": 12120,
+    "endMs": 12710,
+    "timestampMs": 12415,
+    "confidence": null
+  },
+  {
+    "text": " Ask",
+    "startMs": 12880,
+    "endMs": 13070,
+    "timestampMs": 12975,
+    "confidence": null
+  },
+  {
+    "text": " first,",
+    "startMs": 13070,
+    "endMs": 13400,
+    "timestampMs": 13235,
+    "confidence": null
+  },
+  {
+    "text": " anything",
+    "startMs": 13530,
+    "endMs": 13720,
+    "timestampMs": 13625,
+    "confidence": null
+  },
+  {
+    "text": " about",
+    "startMs": 14060,
+    "endMs": 14380,
+    "timestampMs": 14220,
+    "confidence": null
+  },
+  {
+    "text": " clients",
+    "startMs": 14380,
+    "endMs": 14840,
+    "timestampMs": 14610,
+    "confidence": null
+  },
+  {
+    "text": " or",
+    "startMs": 14840,
+    "endMs": 14970,
+    "timestampMs": 14905,
+    "confidence": null
+  },
+  {
+    "text": " the",
+    "startMs": 14970,
+    "endMs": 15160,
+    "timestampMs": 15065,
+    "confidence": null
+  },
+  {
+    "text": " business.",
+    "startMs": 15160,
+    "endMs": 15680,
+    "timestampMs": 15420,
+    "confidence": null
+  },
+  {
+    "text": " Do",
+    "startMs": 15920,
+    "endMs": 16060,
+    "timestampMs": 15990,
+    "confidence": null
+  },
+  {
+    "text": " not",
+    "startMs": 16060,
+    "endMs": 16320,
+    "timestampMs": 16190,
+    "confidence": null
+  },
+  {
+    "text": " paste,",
+    "startMs": 16320,
+    "endMs": 16620,
+    "timestampMs": 16470,
+    "confidence": null
+  },
+  {
+    "text": " passwords,",
+    "startMs": 16800,
+    "endMs": 17400,
+    "timestampMs": 17100,
+    "confidence": null
+  },
+  {
+    "text": " private",
+    "startMs": 17600,
+    "endMs": 18090,
+    "timestampMs": 17845,
+    "confidence": null
+  },
+  {
+    "text": " personal",
+    "startMs": 18090,
+    "endMs": 18630,
+    "timestampMs": 18360,
+    "confidence": null
+  },
+  {
+    "text": " details,",
+    "startMs": 18650,
+    "endMs": 19080,
+    "timestampMs": 18865,
+    "confidence": null
+  },
+  {
+    "text": " and",
+    "startMs": 19130,
+    "endMs": 19290,
+    "timestampMs": 19210,
+    "confidence": null
+  },
+  {
+    "text": " anything",
+    "startMs": 19290,
+    "endMs": 19630,
+    "timestampMs": 19460,
+    "confidence": null
+  },
+  {
+    "text": " you're",
+    "startMs": 19630,
+    "endMs": 19910,
+    "timestampMs": 19770,
+    "confidence": null
+  },
+  {
+    "text": " legally",
+    "startMs": 19910,
+    "endMs": 20240,
+    "timestampMs": 20075,
+    "confidence": null
+  },
+  {
+    "text": " required",
+    "startMs": 20240,
+    "endMs": 20610,
+    "timestampMs": 20425,
+    "confidence": null
+  },
+  {
+    "text": " to",
+    "startMs": 20610,
+    "endMs": 20730,
+    "timestampMs": 20670,
+    "confidence": null
+  },
+  {
+    "text": " protect.",
+    "startMs": 20730,
+    "endMs": 21030,
+    "timestampMs": 20880,
+    "confidence": null
+  },
+  {
+    "text": " Follow",
+    "startMs": 21230,
+    "endMs": 21630,
+    "timestampMs": 21430,
+    "confidence": null
+  },
+  {
+    "text": " for",
+    "startMs": 21630,
+    "endMs": 21840,
+    "timestampMs": 21735,
+    "confidence": null
+  },
+  {
+    "text": " more",
+    "startMs": 21840,
+    "endMs": 22180,
+    "timestampMs": 22010,
+    "confidence": null
+  },
+  {
+    "text": " help",
+    "startMs": 22190,
+    "endMs": 22420,
+    "timestampMs": 22305,
+    "confidence": null
+  },
+  {
+    "text": " with",
+    "startMs": 22420,
+    "endMs": 22710,
+    "timestampMs": 22565,
+    "confidence": null
+  },
+  {
+    "text": " using",
+    "startMs": 22710,
+    "endMs": 23070,
+    "timestampMs": 22890,
+    "confidence": null
+  },
+  {
+    "text": " AI",
+    "startMs": 23070,
+    "endMs": 23210,
+    "timestampMs": 23140,
+    "confidence": null
+  },
+  {
+    "text": " safely",
+    "startMs": 23210,
+    "endMs": 23640,
+    "timestampMs": 23425,
+    "confidence": null
+  },
+  {
+    "text": " at",
+    "startMs": 23640,
+    "endMs": 23780,
+    "timestampMs": 23710,
+    "confidence": null
+  },
+  {
+    "text": " work.",
+    "startMs": 23780,
+    "endMs": 23900,
+    "timestampMs": 23840,
+    "confidence": null
+  }
+]

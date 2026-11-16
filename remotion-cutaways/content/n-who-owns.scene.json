@@ -1,0 +1,315 @@
+{
+ "slug": "n-who-owns",
+ "template": "analyst",
+ "video": "raw/who-owns.mp4",
+ "durationSec": 30.485,
+ "matte": "who-owns",
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "captionStyle": "ticker",
+ "emphasis": [
+  "hard",
+  "easy",
+  "three",
+  "owner",
+  "AI."
+ ],
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.0,
+  "lightLeaks": 0.0
+ },
+ "scrim": 0.55,
+ "scenes": [
+  {
+   "id": "hook",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 1.895,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 1.895,
+     "end": 3.079,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.45
+     },
+     "cut": true
+    },
+    {
+     "start": 3.079,
+     "end": 3.53,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "easy",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 3.53,
+     "end": 4.73,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.45
+     }
+    },
+    {
+     "start": 4.73,
+     "end": 7.41,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "three",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 7.41,
+     "end": 8.55,
+     "layout": "E",
+     "captionPos": "bottom",
+     "graphics": [],
+     "avatar": "hidden"
+    }
+   ]
+  },
+  {
+   "id": "questions",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 8.55,
+     "end": 17.47,
+     "layout": "T",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captionY": 1480
+    }
+   ]
+  },
+  {
+   "id": "sit",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 17.47,
+     "end": 18.972,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    },
+    {
+     "start": 18.972,
+     "end": 19.742,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.45
+     },
+     "cut": true
+    },
+    {
+     "start": 19.742,
+     "end": 22.25,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "pick",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 22.25,
+     "end": 23.593,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.45
+     }
+    },
+    {
+     "start": 23.593,
+     "end": 24.83,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "end",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 24.83,
+     "end": 30.485,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
+     }
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "vote-pill",
+   "at": 1.0,
+   "until": 3.5,
+   "props": {
+    "question": "Is the hard part over?",
+    "a": "Yes",
+    "b": "No",
+    "pick": "b",
+    "pickAt": 3.24,
+    "y": 1180
+   }
+  },
+  {
+   "type": "compare",
+   "at": 3.6,
+   "until": 7.4,
+   "props": {
+    "left": "The tool",
+    "right": "People using it",
+    "leftText": "The easy part",
+    "rightText": "The hard part",
+    "winner": "right",
+    "badge": "Starts here",
+    "y": 980
+   }
+  },
+  {
+   "type": "big-stat",
+   "at": 7.45,
+   "until": 8.5,
+   "props": {
+    "value": 3,
+    "label": "QUESTIONS",
+    "size": 560,
+    "y": 470,
+    "align": "center"
+   }
+  },
+  {
+   "type": "focus-list",
+   "at": 8.55,
+   "until": 17.45,
+   "props": {
+    "title": "Ask",
+    "items": [
+     {
+      "text": "Who do employees go to?",
+      "at": 8.56
+     },
+     {
+      "text": "What is it allowed for?",
+      "at": 11.19
+     },
+     {
+      "text": "What is off limits?",
+      "at": 13.49
+     },
+     {
+      "text": "How will you know it helps?",
+      "at": 14.7
+     }
+    ],
+    "y": 900
+   }
+  },
+  {
+   "type": "checklist",
+   "at": 22.3,
+   "until": 24.8,
+   "props": {
+    "version": 2,
+    "y": 640,
+    "items": [
+     {
+      "text": "Pick one owner",
+      "at": 22.45
+     },
+     {
+      "text": "Write the answers down",
+      "at": 23.86
+     }
+    ]
+   }
+  }
+ ],
+ "fxSound": "minimal",
+ "endCard": {
+  "variant": "link-pill",
+  "startAt": 27.92,
+  "label": "LINK BELOW OR IN MY BIO",
+  "url": "bio.c3global.co"
+ },
+ "music": {
+  "src": "music/leveled/empires.mp3",
+  "volume": 0.42,
+  "duckTo": 0.2,
+  "fadeInSec": 1.5,
+  "fadeOutSec": 2.5,
+  "startFromSec": 0
+ }
+}
