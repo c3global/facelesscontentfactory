@@ -196,7 +196,7 @@ g.plan('teach', 'karaoke', SONG1, [
     _b1, _b2,
     g.full('end', 19.9, g.dur, close=1.4, first_close=True),
 ], [
-    {'type': 'doodle-boil', 'at': 0.3, 'until': 6.8, 'props': {'marks': [{'kind': 'text', 'text': "Today's lesson", 'target': 'head', 'at': 0.4, 'side': 'right', 'color': 'red'}, {'kind': 'underline', 'target': 'chest', 'at': at('scattered'), 'side': 'left', 'color': 'white'}]}},
+    {'type': 'doodle-boil', 'at': 0.3, 'until': 6.8, 'props': {'marks': [{'kind': 'text', 'text': "Today's lesson", 'target': 'head', 'at': 0.4, 'side': 'right', 'color': 'white'}, {'kind': 'underline', 'target': 'chest', 'at': at('scattered'), 'side': 'left', 'color': 'white', 'x': 540, 'y': 1378}]}},
     _f1, _f2,
 ], ['change', 'day', 'one', 'paper.', 'AI'], scrim=0.55)
 

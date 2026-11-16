@@ -149,14 +149,16 @@
       "target": "head",
       "at": 0.4,
       "side": "right",
-      "color": "red"
+      "color": "white"
      },
      {
       "kind": "underline",
       "target": "chest",
       "at": 3.92,
       "side": "left",
-      "color": "white"
+      "color": "white",
+      "x": 540,
+      "y": 1378
      }
     ]
    }
