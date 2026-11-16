@@ -31,6 +31,13 @@ class Clip:
                 return round(a, 2)
         raise KeyError(f'{self.slug}: {word} after {after}')
 
+    def b(self, word, after=0.0):
+        """Cut point just before a word: halfway through the breath between it and the word before."""
+        for i, (w, a, e) in enumerate(self.W):
+            if a >= after - 0.001 and w.lower().strip('.,?!') == word.lower().strip('.,?!'):
+                return 0.0 if i == 0 else round((self.W[i - 1][2] + a) / 2, 2)
+        raise KeyError(f'{self.slug}: {word} after {after}')
+
     def say(self, s, e):
         ws = [(w, a) for w, a, b in self.W if s - 0.02 <= a < e]
         return ' '.join(w for w, _ in ws), [round(a, 2) for _, a in ws]
@@ -76,37 +83,44 @@ class Clip:
         shutil.copy(f'content/{self.slug}.words.tsv', f'content/n-{self.slug}.words.tsv')
 
 
-# ---------------------------------------------------------------- decisions (Nov 17): Creator Hype
-d = Clip('decisions')
-at = d.at
-d.plan('hype', 'punch', SONG2, [
-    d.full('hook', 0, 8.34, close=1.7),
-    d.full('owns', 8.34, 13.11, close=1.7, first_close=True),
-    d.full('back', 13.11, 14.98, close=1.7),
-    d.full('shared', 14.98, 18.83, close=1.7, first_close=True),
-    d.full('ask', 18.83, 21.82, close=1.7),
-    d.statement(21.82, 24.45, em=('decide,', 'doing', 'check?')),
-    d.full('post', 24.45, 26.2, close=1.7, first_close=True),
-    d.full('lasts', 26.2, 29.0, close=1.7),
-    d.full('end', 29.0, d.dur, close=1.7, first_close=True),
-], [
-    {'type': 'giant-caption', 'at': 0.0, 'until': 0.8, 'props': {'version': 2, 'text': "Don't", 'accent': 'panic.', 'y': 1120}},
-    {'type': 'clone', 'at': 1.6, 'until': 3.95, 'props': {'version': 2, 'copies': [{'at': at('just'), 'side': 'left'}, {'at': at('get'), 'side': 'right'}, {'at': at('call,'), 'side': 'left'}]}},
-    {'type': 'flash-frame', 'at': 4.2, 'props': {'version': 2}},
-    {'type': 'type-wall', 'at': 4.25, 'until': 8.3, 'props': {'words': [{'text': 'fast', 'at': at('fast,')}, {'text': 'ends', 'at': at('ends,')}, {'text': 'heads', 'at': at('heads.')}]}},
-    {'type': 'knockout-tiles', 'at': 8.4, 'until': 13.1, 'props': {'names': [{'text': 'DECIDED?', 'knockAt': at('written')}, {'text': 'OWNER?', 'knockAt': round(at('written') + 0.25, 2)}, {'text': 'CHECK-IN?', 'knockAt': at('down,')}]}},
-    {'type': 'impact-frame', 'at': at('same'), 'until': 14.9, 'props': {'word': 'Same call'}},
-    {'type': 'orbit', 'at': 15.05, 'until': 18.8, 'props': {'items': ['hype-media/substack-home.png', 'hype-media/drck-fx-1.jpg', 'hype-media/clip-a.mp4', 'hype-media/substack-four-places.png', 'hype-media/drck-fx-5.jpg']}},
-    {'type': 'slot-machine', 'at': 20.55, 'until': 21.85, 'props': {'words': ['WHAT', 'WHO', 'WHEN'], 'stopAt': [20.85, 21.15, 21.45], 'label': '3 questions', 'y': 1150}},
-    {'type': 'couch-wall', 'at': 24.5, 'until': 26.2, 'props': {'tiles': ['What did we decide?', 'hype-media/drck-fx-3.jpg', 'Who is doing it?', 'hype-media/clip-b.mp4', 'When will we check?', 'hype-media/substack-home.png']}},
-    {'type': 'type-wall', 'at': 26.25, 'until': 29.0, 'props': {'words': [{'text': 'owner', 'at': at('owner')}, {'text': 'date', 'at': at('date.')}]}},
-], ['panic.', 'decision', 'owner', 'date.', 'stick.'], finish={'grain': 0.3, 'lightLeaks': 0.0}, sound='full', scrim=0.65)
-
-
 def card(c, s, e, box, em=()):
     """A statement graphic inside a window layout: the words land as she says them (the card is the caption)."""
     text, times = c.say(s, e)
     return {'type': 'statement-card', 'at': s, 'until': e, 'box': box, 'props': {'text': text, 'emphasis': list(em), 'wordTimes': times}}
+
+
+# ---------------------------------------------------------------- decisions (Nov 17): Creator Hype
+# Round 2 (Dr. CK, Nov 16): alternate layouts (window + card, split, full card), punch-ins kept gentle for sharpness,
+# the "ASK" caption sits under the slot machine, not on it.
+TOPB, LOWB = {'y': 0, 'h': 560, 'center': True}, {'y': -370, 'h': 720, 'center': True}
+CLOSE = 1.25
+d = Clip('decisions')
+at, b = d.at, d.b
+d_ask = d.scene('ask', b('Before'), b('What', 21), 'T', captionY=1390)
+d_ask['segments'][0]['cut'] = True
+d_last = d.scene('lasts', b('A', 25.5), b('Follow'), 'S', [card(d, b('A', 25.5), b('Follow'), LOWB, ('owner', 'date.'))], focus={'y': 8, 'zoom': 1.1})
+d_last['segments'][0]['cut'] = True
+d.plan('hype', 'punch', SONG2, [
+    d.full('hook', 0, b('Too'), close=CLOSE),
+    d.full('owns', b('Too'), b('so', 13), close=CLOSE, first_close=True),
+    d.full('back', b('so', 13), b('A', 15), close=CLOSE),
+    d.full('shared', b('A', 15), b('Before'), close=CLOSE, first_close=True),
+    d_ask,
+    d.statement(b('What', 21), b('Then'), em=('decide,', 'doing', 'check?')),
+    d.full('post', b('Then'), b('A', 25.5), close=CLOSE, first_close=True),
+    d_last,
+    d.full('end', b('Follow'), d.dur, close=CLOSE),
+], [
+    {'type': 'giant-caption', 'at': 0.0, 'until': 0.8, 'props': {'version': 2, 'text': "Don't", 'accent': 'panic.', 'y': 1120}},
+    {'type': 'clone', 'at': 1.6, 'until': 3.95, 'props': {'version': 2, 'copies': [{'at': at('just'), 'side': 'left'}, {'at': at('get'), 'side': 'right'}, {'at': at('call,'), 'side': 'left'}]}},
+    {'type': 'flash-frame', 'at': 4.2, 'props': {'version': 2}},
+    {'type': 'type-wall', 'at': 4.25, 'until': round(b('Too') - 0.04, 2), 'props': {'words': [{'text': 'fast', 'at': at('fast,')}, {'text': 'ends', 'at': at('ends,')}, {'text': 'heads', 'at': at('heads.')}]}},
+    {'type': 'knockout-tiles', 'at': round(b('Too') + 0.06, 2), 'until': round(b('so', 13) - 0.01, 2), 'props': {'names': [{'text': 'DECIDED?', 'knockAt': at('written')}, {'text': 'OWNER?', 'knockAt': round(at('written') + 0.25, 2)}, {'text': 'CHECK-IN?', 'knockAt': at('down,')}]}},
+    {'type': 'impact-frame', 'at': at('same'), 'until': round(b('A', 15) - 0.08, 2), 'props': {'word': 'Same call'}},
+    {'type': 'orbit', 'at': round(b('A', 15) + 0.07, 2), 'until': round(b('Before') - 0.03, 2), 'props': {'items': ['hype-media/substack-home.png', 'hype-media/drck-fx-1.jpg', 'hype-media/clip-a.mp4', 'hype-media/substack-four-places.png', 'hype-media/drck-fx-5.jpg']}},
+    {'type': 'slot-machine', 'at': round(at('ask') - 0.05, 2), 'until': round(b('What', 21) - 0.03, 2), 'props': {'words': ['WHAT', 'WHO', 'WHEN'], 'stopAt': [round(at('ask') + 0.3, 2), round(at('ask') + 0.5, 2), round(at('ask') + 0.7, 2)], 'label': '3 questions', 'y': 960}},
+    {'type': 'couch-wall', 'at': round(b('Then') + 0.05, 2), 'until': round(b('A', 25.5) - 0.02, 2), 'props': {'tiles': ['What did we decide?', 'hype-media/drck-fx-3.jpg', 'Who is doing it?', 'hype-media/clip-b.mp4', 'When will we check?', 'hype-media/substack-home.png']}},
+], ['panic.', 'decision', 'owner', 'date.', 'stick.'], finish={'grain': 0.3, 'lightLeaks': 0.0}, sound='full', scrim=0.65)
 
 
 # ---------------------------------------------------------------- quiet-space (Nov 18): Quiet Authority
@@ -120,83 +134,95 @@ q3 = q.scene('q3', 11.27, 15.98, 'T', [card(q, 11.27, 15.98, TOPB, ('three,',))]
 for sc in (q2, q3):
     sc['segments'][0]['cut'] = True
 q.plan('quiet', 'quiet', SONG1, [
-    q.full('hook', 0, 3.42, close=1.35),
+    q.full('hook', 0, 3.42, close=1.25),
     q1, q2, q3,
-    q.full('reason', 15.98, 18.93, close=1.35, first_close=True),
+    q.full('reason', 15.98, 18.93, close=1.25, first_close=True),
     q.statement(18.93, 22.86, em=('happening', 'expecting')),
-    q.full('week', 22.86, 27.51, close=1.35),
-    q.full('end', 27.51, q.dur, close=1.35, first_close=True),
+    q.full('week', 22.86, 27.51, close=1.25),
+    q.full('end', 27.51, q.dur, close=1.25, first_close=True),
 ], [
     {'type': 'rack-focus', 'at': 0.0, 'until': 1.2, 'props': {}},
     {'type': 'spotlight', 'at': 22.9, 'until': 28.0, 'props': {'dim': 0.86, 'words': [{'text': 'one small event', 'at': at('small')}, {'text': 'by name', 'at': at('by')}]}},
 ], ['check', 'one,', 'two,', 'three,', 'reason.', 'happening', 'expecting', 'name.'], scrim=0.5)
 
 # ---------------------------------------------------------------- who-owns (Nov 21): Analyst
+# Round 2: layouts alternate (full, window + card, full card, split, large window, circle); the vote lights "No" only
+# when she says "It isn't"; cards sit in the space under or over her window so nothing overlaps the captions.
 w = Clip('who-owns')
-at = w.at
-qs = w.scene('questions', 8.55, 17.47, 'T', captionY=1480)
+at, b = w.at, w.b
+w_easy = w.scene('easy', b('The', 3.5), b('So'), 'T', captionY=1480)
+w_q12 = w.scene('q12', b('Who'), b('And', 13.2), 'T', captionY=1480)
+w_q34 = w.scene('q34', b('And', 13.2), b('If'), 'S', focus={'y': 8, 'zoom': 1.1}, captionY=880)
+w_sit = w.scene('sit', b('If'), b('Pick'), 'F', captionY=1290)
+w_pick = w.scene('pick', b('Pick'), b('Follow'), 'O', captionY=1480)
+for sc in (w_easy, w_q12, w_q34, w_sit, w_pick):
+    sc['segments'][0]['cut'] = True
 w.plan('analyst', 'ticker', SONG1, [
-    w.full('hook', 0, 3.53, close=1.45),
-    w.full('easy', 3.53, 7.41, close=1.45, first_close=True),
-    w.scene('three', 7.41, 8.55, 'E', avatar='hidden'),
-    qs,
-    w.full('sit', 17.47, 22.25, close=1.45),
-    w.full('pick', 22.25, 24.83, close=1.45, first_close=True),
-    w.full('end', 24.83, w.dur, close=1.45),
+    w.full('hook', 0, b('The', 3.5), close=CLOSE),
+    w_easy,
+    w.scene('three', b('So'), b('Who'), 'E', avatar='hidden'),
+    w_q12, w_q34, w_sit, w_pick,
+    w.full('end', b('Follow'), w.dur, close=CLOSE),
 ], [
-    {'type': 'vote-pill', 'at': 1.0, 'until': 3.5, 'props': {'question': 'Is the hard part over?', 'a': 'Yes', 'b': 'No', 'pick': 'b', 'pickAt': at('isn\'t.'), 'y': 820}},
-    {'type': 'compare', 'at': 3.6, 'until': 7.4, 'props': {'left': 'The tool', 'right': 'People using it', 'leftText': 'The easy part', 'rightText': 'The hard part', 'winner': 'right', 'badge': 'Starts here', 'y': 980}},
-    {'type': 'giant-caption', 'at': 7.45, 'until': 8.5, 'props': {'version': 2, 'text': '3', 'accent': 'questions', 'y': 700}},
-    {'type': 'focus-list', 'at': 8.55, 'until': 17.45, 'props': {'title': 'Ask', 'items': [
-        {'text': 'Who do employees go to?', 'at': at('Who')}, {'text': 'What is it allowed for?', 'at': at('What')},
-        {'text': 'What is off limits?', 'at': at('what', 13.4)}, {'text': 'How will you know it helps?', 'at': at('how')}], 'y': 900}},
-    {'type': 'checklist', 'at': 22.3, 'until': 24.8, 'props': {'version': 2, 'y': 640, 'items': [{'text': 'Pick one owner', 'at': at('Pick')}, {'text': 'Write the answers down', 'at': at('write')}]}},
+    {'type': 'vote-pill', 'at': 0.9, 'until': round(b('The', 3.5) - 0.05, 2), 'props': {'question': 'Is the hard part over?', 'a': 'Yes', 'b': 'No', 'pick': 'b', 'pickAt': at('It'), 'y': 820}},
+    {'type': 'compare', 'at': round(b('The', 3.5) + 0.05, 2), 'until': round(b('So') - 0.03, 2), 'props': {'left': 'The tool', 'right': 'People using it', 'leftText': 'The easy part', 'rightText': 'The hard part', 'winner': 'right', 'badge': 'Starts here', 'y': 920}},
+    {'type': 'giant-caption', 'at': round(b('So') + 0.02, 2), 'until': round(b('Who') - 0.02, 2), 'props': {'version': 2, 'text': '3', 'accent': 'questions', 'y': 700}},
+    {'type': 'focus-list', 'at': round(b('Who') + 0.03, 2), 'until': round(b('And', 13.2) - 0.02, 2), 'props': {'title': 'Ask', 'items': [
+        {'text': 'Who do employees go to?', 'at': at('Who')}, {'text': 'What is it allowed for?', 'at': at('What')}], 'y': 930}},
+    {'type': 'focus-list', 'at': round(b('And', 13.2) + 0.03, 2), 'until': round(b('If') - 0.02, 2), 'props': {'title': 'Also ask', 'items': [
+        {'text': 'What is off limits?', 'at': at('what', 13.4)}, {'text': 'How will you know it helps?', 'at': at('how')}], 'y': 330}},
+    {'type': 'checklist', 'at': round(b('Pick') + 0.03, 2), 'until': round(b('Follow') - 0.03, 2), 'props': {'version': 2, 'y': 760, 'items': [{'text': 'Pick one owner', 'at': at('Pick')}, {'text': 'Write the answers down', 'at': at('write')}]}},
 ], ['hard', 'easy', 'three', 'owner', 'AI.'], scrim=0.55)
 
 # ---------------------------------------------------------------- paste-ai (Nov 23): Glass
+# Round 2: "you may, you may not" cut to one; layouts alternate (full, circle, full card, window + glass card, split,
+# window + glass card) and the three groups are glass quote cards that fill in as she says them.
 p = Clip('paste-ai')
-at = p.at
+at, b = p.at, p.b
+p_ctl = p.scene('control', b('With'), b('So'), 'O', captionY=1480)
+p_safe = p.scene('safe', b('Safe'), b('Ask'), 'T', [card(p, b('Safe'), b('Ask'), TOPB, ('Safe',))], captionY=1480)
+p_ask = p.scene('askf', b('Ask'), b('Do'), 'S', [card(p, b('Ask'), b('Do'), LOWB, ('Ask', 'first,'))], focus={'y': 8, 'zoom': 1.1})
+p_dont = p.scene('dont', b('Do'), b('Follow'), 'T', [card(p, b('Do'), b('Follow'), TOPB, ('not', 'paste,'))], captionY=1480)
+for sc in (p_ctl, p_safe, p_ask, p_dont):
+    sc['segments'][0]['cut'] = True
 p.plan('glass', 'glass', SONG1, [
-    p.full('hook', 0, 3.27, close=1.4),
-    p.full('control', 3.27, 8.27, close=1.4, first_close=True),
-    p.statement(8.27, 10.74, em=('simple', 'three')),
-    p.full('groups', 10.74, 21.01, close=1.4),
-    p.full('end', 21.01, p.dur, close=1.4, first_close=True),
+    p.full('hook', 0, b('With'), close=CLOSE),
+    p_ctl,
+    p.statement(b('So'), b('Safe'), em=('simple', 'three')),
+    p_safe, p_ask, p_dont,
+    p.full('end', b('Follow'), p.dur, close=CLOSE),
 ], [
     {'type': 'grade', 'at': 0, 'until': p.dur, 'props': {'look': 'cool', 'strength': 0.3}},
-    {'type': 'prompt-bar', 'at': 0.1, 'until': 3.2, 'props': {'text': 'Summarize this client file', 'label': 'AI assistant', 'typeAt': 0.3, 'sendAt': 2.4, 'y': 780}},
-    {'type': 'spatial-glass', 'at': round(at('may') - 0.1, 2), 'until': 8.2, 'props': {'title': 'Once you paste it in', 'text': 'you may not control where it goes', 'y': 880}},
-    {'type': 'glass-cards', 'at': 10.8, 'until': 20.95, 'props': {'cards': [
-        {'label': 'Safe to paste', 'value': 'Public information', 'at': at('Safe'), 'side': 'left', 'x': 30, 'y': 300},
-        {'label': 'Ask first', 'value': 'Clients or the business', 'at': at('Ask'), 'side': 'right', 'x': 690, 'y': 520},
-        {'label': 'Do not paste', 'value': 'Passwords, private details', 'at': at('Do'), 'side': 'left', 'x': 30, 'y': 760}]}},
+    {'type': 'prompt-bar', 'at': 0.1, 'until': round(b('With') - 0.05, 2), 'props': {'text': 'Summarize this client file', 'label': 'AI assistant', 'typeAt': 0.3, 'sendAt': 2.4, 'y': 780}},
+    {'type': 'spatial-glass', 'at': round(at('may') - 0.1, 2), 'until': round(b('So') - 0.05, 2), 'props': {'title': 'Once you paste it in', 'text': 'you may not control where it goes', 'y': 860}},
 ], ['paste', 'control', 'three', 'Safe', 'Ask', 'not', 'safely'], scrim=0.5)
 
 
 # ---------------------------------------------------------------- change-ai: Teach Board (date to be set by Dr. CK)
-def board(c, sid, s, e, title, items, y=880, h=500, cap=1472):
-    """Her wide window on top, a whiteboard list under it; captions sit under the board."""
-    sc = c.scene(sid, s, e, 'T', captionY=cap)
+def board(c, sid, s, e, title, items, y=880, h=500, cap=1472, layout='T'):
+    """Her window and a whiteboard list: T puts her on top and the board under; S puts the board on top and her under."""
+    sc = c.scene(sid, s, e, layout, captionY=cap, focus={'y': 8, 'zoom': 1.1} if layout == 'S' else None)
     return sc, {'type': 'lesson-board', 'at': s, 'until': e, 'props': {'title': title, 'items': items, 'y': y, 'height': h}}
 
 
 g = Clip('change-ai')
-at = g.at
-_b1, _f1 = board(g, 'covered', 6.93, 12.99, 'The announcement covered', [
+at, b = g.at, g.b
+_b1, _f1 = board(g, 'covered', b('The', 6.5), b('So'), 'The announcement covered', [
     {'text': 'what was changing', 'at': at('what')},
     {'text': 'not what to do on day one', 'at': at('not')},
     {'text': 'not where to go when stuck', 'at': at('where')}])
-_b2, _f2 = board(g, 'rollout', 12.99, 19.9, 'Before your next rollout', [
+_b2, _f2 = board(g, 'rollout', b('So'), b('Follow'), 'Before your next rollout', [
     {'text': 'Walk through day one on paper', 'at': at('walk')},
     {'text': 'Find what will confuse people', 'at': at('Find')},
-    {'text': 'Put an AI guide right there', 'at': at('put')}])
-_b2['segments'][0]['cut'] = True
+    {'text': 'Put an AI guide right there', 'at': at('put')}], y=250, h=540, cap=905, layout='S')
+for sc in (_b1, _b2):
+    sc['segments'][0]['cut'] = True
 g.plan('teach', 'karaoke', SONG1, [
-    g.full('hook', 0, 6.93, close=1.4),
+    g.full('hook', 0, b('The', 6.5), close=CLOSE),
     _b1, _b2,
-    g.full('end', 19.9, g.dur, close=1.4, first_close=True),
+    g.full('end', b('Follow'), g.dur, close=CLOSE, first_close=True),
 ], [
-    {'type': 'doodle-boil', 'at': 0.3, 'until': 6.8, 'props': {'marks': [{'kind': 'text', 'text': "Today's lesson", 'target': 'head', 'at': 0.4, 'side': 'right', 'color': 'white'}, {'kind': 'underline', 'target': 'chest', 'at': at('scattered'), 'side': 'left', 'color': 'white', 'x': 540, 'y': 1378}]}},
+    {'type': 'doodle-boil', 'at': 0.3, 'until': round(b('The', 6.5) - 0.1, 2), 'props': {'marks': [{'kind': 'text', 'text': "Today's lesson", 'target': 'head', 'at': 0.4, 'side': 'right', 'color': 'white'}, {'kind': 'underline', 'target': 'chest', 'at': at('scattered'), 'side': 'left', 'color': 'white', 'x': 540, 'y': 1378}]}},
     _f1, _f2,
 ], ['change', 'day', 'one', 'paper.', 'AI'], scrim=0.55)
 

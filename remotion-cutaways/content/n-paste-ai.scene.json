@@ -2,7 +2,7 @@
  "slug": "n-paste-ai",
  "template": "glass",
  "video": "raw/paste-ai.mp4",
- "durationSec": 26.581,
+ "durationSec": 25.984,
  "matte": "paste-ai",
  "theme": {
   "field": "black",
@@ -43,13 +43,13 @@
     },
     {
      "start": 2.09,
-     "end": 3.27,
+     "end": 3.25,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.4
+      "zoom": 1.25
      },
      "cut": true
     }
@@ -60,44 +60,30 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 3.27,
-     "end": 6.408,
-     "layout": "A",
+     "start": 3.25,
+     "end": 7.63,
+     "layout": "O",
      "captionPos": "bottom",
      "graphics": [],
-     "focus": {
-      "y": 24,
-      "zoom": 1.4
-     }
-    },
-    {
-     "start": 6.408,
-     "end": 8.27,
-     "layout": "A",
-     "captionPos": "bottom",
-     "graphics": [],
-     "focus": {
-      "y": 40,
-      "zoom": 1.0
-     },
+     "captionY": 1480,
      "cut": true
     }
    ]
   },
   {
-   "id": "st82",
+   "id": "st76",
    "mood": "dark",
    "segments": [
     {
-     "start": 8.27,
-     "end": 10.74,
+     "start": 7.63,
+     "end": 10.25,
      "layout": "E",
      "captionPos": "bottom",
      "graphics": [
       {
        "type": "statement-card",
-       "at": 8.27,
-       "until": 10.74,
+       "at": 7.63,
+       "until": 10.25,
        "box": {
         "y": 150,
         "h": 900,
@@ -110,16 +96,16 @@
          "three"
         ],
         "wordTimes": [
-         8.39,
-         8.48,
-         8.75,
-         9.01,
-         9.23,
-         9.29,
-         9.67,
-         9.98,
-         10.22,
-         10.52
+         7.77,
+         7.84,
+         8.09,
+         8.34,
+         8.59,
+         8.65,
+         9.03,
+         9.32,
+         9.56,
+         9.86
         ]
        }
       }
@@ -129,102 +115,135 @@
    ]
   },
   {
-   "id": "groups",
+   "id": "safe",
    "mood": "dark",
    "segments": [
     {
-     "start": 10.74,
-     "end": 11.683,
-     "layout": "A",
+     "start": 10.25,
+     "end": 12.18,
+     "layout": "T",
      "captionPos": "bottom",
-     "graphics": [],
-     "focus": {
-      "y": 40,
-      "zoom": 1.0
-     }
-    },
+     "graphics": [
+      {
+       "type": "statement-card",
+       "at": 10.25,
+       "until": 12.18,
+       "box": {
+        "y": 0,
+        "h": 560,
+        "center": true
+       },
+       "props": {
+        "text": "Safe to paste, public information.",
+        "emphasis": [
+         "Safe"
+        ],
+        "wordTimes": [
+         10.27,
+         10.61,
+         10.74,
+         11.22,
+         11.51
+        ]
+       }
+      }
+     ],
+     "captionY": 1480,
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "askf",
+   "mood": "dark",
+   "segments": [
     {
-     "start": 11.683,
-     "end": 12.728,
-     "layout": "A",
+     "start": 12.18,
+     "end": 15.17,
+     "layout": "S",
      "captionPos": "bottom",
-     "graphics": [],
+     "graphics": [
+      {
+       "type": "statement-card",
+       "at": 12.18,
+       "until": 15.17,
+       "box": {
+        "y": -370,
+        "h": 720,
+        "center": true
+       },
+       "props": {
+        "text": "Ask first, anything about clients or the business.",
+        "emphasis": [
+         "Ask",
+         "first,"
+        ],
+        "wordTimes": [
+         12.27,
+         12.43,
+         12.9,
+         13.45,
+         13.74,
+         14.2,
+         14.33,
+         14.52
+        ]
+       }
+      }
+     ],
      "focus": {
-      "y": 24,
-      "zoom": 1.4
+      "y": 8,
+      "zoom": 1.1
      },
      "cut": true
-    },
+    }
+   ]
+  },
+  {
+   "id": "dont",
+   "mood": "dark",
+   "segments": [
     {
-     "start": 12.728,
-     "end": 13.612,
-     "layout": "A",
+     "start": 15.17,
+     "end": 20.52,
+     "layout": "T",
      "captionPos": "bottom",
-     "graphics": [],
-     "focus": {
-      "y": 40,
-      "zoom": 1.0
-     },
-     "cut": true
-    },
-    {
-     "start": 13.612,
-     "end": 15.718,
-     "layout": "A",
-     "captionPos": "bottom",
-     "graphics": [],
-     "focus": {
-      "y": 24,
-      "zoom": 1.4
-     },
-     "cut": true
-    },
-    {
-     "start": 15.718,
-     "end": 16.597,
-     "layout": "A",
-     "captionPos": "bottom",
-     "graphics": [],
-     "focus": {
-      "y": 40,
-      "zoom": 1.0
-     },
-     "cut": true
-    },
-    {
-     "start": 16.597,
-     "end": 17.388,
-     "layout": "A",
-     "captionPos": "bottom",
-     "graphics": [],
-     "focus": {
-      "y": 24,
-      "zoom": 1.4
-     },
-     "cut": true
-    },
-    {
-     "start": 17.388,
-     "end": 18.92,
-     "layout": "A",
-     "captionPos": "bottom",
-     "graphics": [],
-     "focus": {
-      "y": 40,
-      "zoom": 1.0
-     },
-     "cut": true
-    },
-    {
-     "start": 18.92,
-     "end": 21.01,
-     "layout": "A",
-     "captionPos": "bottom",
-     "graphics": [],
-     "focus": {
-      "y": 24,
-      "zoom": 1.4
-     },
+     "graphics": [
+      {
+       "type": "statement-card",
+       "at": 15.17,
+       "until": 20.52,
+       "box": {
+        "y": 0,
+        "h": 560,
+        "center": true
+       },
+       "props": {
+        "text": "Do not paste, passwords, private personal details, and anything you're legally required to protect.",
+        "emphasis": [
+         "not",
+         "paste,"
+        ],
+        "wordTimes": [
+         15.3,
+         15.42,
+         15.71,
+         16.18,
+         16.99,
+         17.41,
+         17.96,
+         18.52,
+         18.62,
+         18.99,
+         19.27,
+         19.6,
+         19.97,
+         20.11
+        ]
+       }
+      }
+     ],
+     "captionY": 1480,
      "cut": true
     }
    ]
@@ -234,14 +253,14 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 21.01,
-     "end": 26.581,
+     "start": 20.52,
+     "end": 25.984,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
      "focus": {
-      "y": 24,
-      "zoom": 1.4
+      "y": 40,
+      "zoom": 1.0
      }
     }
    ]
@@ -251,7 +270,7 @@
   {
    "type": "grade",
    "at": 0,
-   "until": 26.581,
+   "until": 25.984,
    "props": {
     "look": "cool",
     "strength": 0.3
@@ -271,52 +290,19 @@
   },
   {
    "type": "spatial-glass",
-   "at": 6.02,
-   "until": 8.2,
+   "at": 5.92,
+   "until": 7.58,
    "props": {
     "title": "Once you paste it in",
     "text": "you may not control where it goes",
-    "y": 880
-   }
-  },
-  {
-   "type": "glass-cards",
-   "at": 10.8,
-   "until": 20.95,
-   "props": {
-    "cards": [
-     {
-      "label": "Safe to paste",
-      "value": "Public information",
-      "at": 10.88,
-      "side": "left",
-      "x": 30,
-      "y": 300
-     },
-     {
-      "label": "Ask first",
-      "value": "Clients or the business",
-      "at": 12.88,
-      "side": "right",
-      "x": 690,
-      "y": 520
-     },
-     {
-      "label": "Do not paste",
-      "value": "Passwords, private details",
-      "at": 15.92,
-      "side": "left",
-      "x": 30,
-      "y": 760
-     }
-    ]
+    "y": 860
    }
   }
  ],
  "fxSound": "minimal",
  "endCard": {
   "variant": "link-pill",
-  "startAt": 24.08,
+  "startAt": 23.47,
   "label": "LINK BELOW OR IN MY BIO",
   "url": "bio.c3global.co"
  },

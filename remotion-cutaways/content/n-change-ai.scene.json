@@ -47,7 +47,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.4
+      "zoom": 1.25
      },
      "cut": true
     },
@@ -71,13 +71,13 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.4
+      "zoom": 1.25
      },
      "cut": true
     },
     {
      "start": 6.353,
-     "end": 6.93,
+     "end": 6.95,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -94,22 +94,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 6.93,
-     "end": 12.99,
-     "layout": "T",
-     "captionPos": "bottom",
-     "graphics": [],
-     "captionY": 1472
-    }
-   ]
-  },
-  {
-   "id": "rollout",
-   "mood": "dark",
-   "segments": [
-    {
-     "start": 12.99,
-     "end": 19.9,
+     "start": 6.95,
+     "end": 13.12,
      "layout": "T",
      "captionPos": "bottom",
      "graphics": [],
@@ -119,18 +105,37 @@
    ]
   },
   {
+   "id": "rollout",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 13.12,
+     "end": 20.48,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captionY": 905,
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
+    }
+   ]
+  },
+  {
    "id": "end",
    "mood": "dark",
    "segments": [
     {
-     "start": 19.9,
+     "start": 20.48,
      "end": 24.2,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.4
+      "zoom": 1.25
      }
     }
    ]
@@ -140,7 +145,7 @@
   {
    "type": "doodle-boil",
    "at": 0.3,
-   "until": 6.8,
+   "until": 6.85,
    "props": {
     "marks": [
      {
@@ -165,8 +170,8 @@
   },
   {
    "type": "lesson-board",
-   "at": 6.93,
-   "until": 12.99,
+   "at": 6.95,
+   "until": 13.12,
    "props": {
     "title": "The announcement covered",
     "items": [
@@ -189,8 +194,8 @@
   },
   {
    "type": "lesson-board",
-   "at": 12.99,
-   "until": 19.9,
+   "at": 13.12,
+   "until": 20.48,
    "props": {
     "title": "Before your next rollout",
     "items": [
@@ -207,8 +212,8 @@
       "at": 18.2
      }
     ],
-    "y": 880,
-    "height": 500
+    "y": 250,
+    "height": 540
    }
   }
  ],

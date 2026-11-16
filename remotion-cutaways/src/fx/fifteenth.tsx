@@ -99,7 +99,7 @@ export const VotePill: React.FC<{fx: Of<'vote-pill'>}> = ({fx}) => {
   const side = (text: string, me: 'a' | 'b') => {
     const win = pick === me;
     return (
-      <div style={{flex: 1, height: 96, borderRadius: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, fontWeight: 700, fontSize: 38, color: '#fff', background: win ? `rgba(201,27,25,${0.25 + 0.75 * p})` : 'rgba(255,255,255,0.12)', border: `1.5px solid rgba(255,255,255,${win ? 0.5 : 0.22})`, transform: `scale(${win ? 1 - 0.06 * press + 0.04 * p : 1})`, opacity: pick && !win ? 1 - 0.45 * p : 1}}>
+      <div style={{flex: 1, height: 96, borderRadius: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, fontWeight: 700, fontSize: 38, color: '#fff', background: win && p > 0.01 ? `rgba(201,27,25,${0.2 + 0.8 * p})` : 'rgba(255,255,255,0.12)', border: `1.5px solid rgba(255,255,255,${win ? 0.22 + 0.28 * p : 0.22})`, transform: `scale(${win ? 1 - 0.06 * press + 0.04 * p : 1})`, opacity: pick && !win ? 1 - 0.45 * p : 1}}>
         {win && p > 0.5 && <CheckMark size={36} />}
         {text}
       </div>

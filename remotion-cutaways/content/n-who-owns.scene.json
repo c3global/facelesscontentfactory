@@ -2,7 +2,7 @@
  "slug": "n-who-owns",
  "template": "analyst",
  "video": "raw/who-owns.mp4",
- "durationSec": 30.485,
+ "durationSec": 30.506,
  "matte": "who-owns",
  "theme": {
   "field": "black",
@@ -47,19 +47,31 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.45
+      "zoom": 1.25
      },
      "cut": true
     },
     {
      "start": 3.079,
-     "end": 3.53,
+     "end": 3.529,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
      "focus": {
       "y": 40,
       "zoom": 1.0
+     },
+     "cut": true
+    },
+    {
+     "start": 3.529,
+     "end": 3.79,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 24,
+      "zoom": 1.25
      },
      "cut": true
     }
@@ -70,26 +82,12 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 3.53,
-     "end": 4.73,
-     "layout": "A",
-     "captionPos": "bottom",
-     "graphics": [],
-     "focus": {
-      "y": 24,
-      "zoom": 1.45
-     }
-    },
-    {
-     "start": 4.73,
+     "start": 3.79,
      "end": 7.41,
-     "layout": "A",
+     "layout": "T",
      "captionPos": "bottom",
      "graphics": [],
-     "focus": {
-      "y": 40,
-      "zoom": 1.0
-     },
+     "captionY": 1480,
      "cut": true
     }
    ]
@@ -100,7 +98,7 @@
    "segments": [
     {
      "start": 7.41,
-     "end": 8.55,
+     "end": 8.48,
      "layout": "E",
      "captionPos": "bottom",
      "graphics": [],
@@ -109,16 +107,36 @@
    ]
   },
   {
-   "id": "questions",
+   "id": "q12",
    "mood": "dark",
    "segments": [
     {
-     "start": 8.55,
-     "end": 17.47,
+     "start": 8.48,
+     "end": 13.3,
      "layout": "T",
      "captionPos": "bottom",
      "graphics": [],
-     "captionY": 1480
+     "captionY": 1480,
+     "cut": true
+    }
+   ]
+  },
+  {
+   "id": "q34",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 13.3,
+     "end": 17.51,
+     "layout": "S",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captionY": 880,
+     "focus": {
+      "y": 8,
+      "zoom": 1.1
+     },
+     "cut": true
     }
    ]
   },
@@ -127,38 +145,12 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 17.47,
-     "end": 18.972,
-     "layout": "A",
+     "start": 17.51,
+     "end": 22.36,
+     "layout": "F",
      "captionPos": "bottom",
      "graphics": [],
-     "focus": {
-      "y": 40,
-      "zoom": 1.0
-     }
-    },
-    {
-     "start": 18.972,
-     "end": 19.742,
-     "layout": "A",
-     "captionPos": "bottom",
-     "graphics": [],
-     "focus": {
-      "y": 24,
-      "zoom": 1.45
-     },
-     "cut": true
-    },
-    {
-     "start": 19.742,
-     "end": 22.25,
-     "layout": "A",
-     "captionPos": "bottom",
-     "graphics": [],
-     "focus": {
-      "y": 40,
-      "zoom": 1.0
-     },
+     "captionY": 1290,
      "cut": true
     }
    ]
@@ -168,26 +160,12 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 22.25,
-     "end": 23.593,
-     "layout": "A",
+     "start": 22.36,
+     "end": 24.91,
+     "layout": "O",
      "captionPos": "bottom",
      "graphics": [],
-     "focus": {
-      "y": 24,
-      "zoom": 1.45
-     }
-    },
-    {
-     "start": 23.593,
-     "end": 24.83,
-     "layout": "A",
-     "captionPos": "bottom",
-     "graphics": [],
-     "focus": {
-      "y": 40,
-      "zoom": 1.0
-     },
+     "captionY": 1480,
      "cut": true
     }
    ]
@@ -197,8 +175,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 24.83,
-     "end": 30.485,
+     "start": 24.91,
+     "end": 30.506,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -213,21 +191,21 @@
  "fx": [
   {
    "type": "vote-pill",
-   "at": 1.0,
-   "until": 3.5,
+   "at": 0.9,
+   "until": 3.74,
    "props": {
     "question": "Is the hard part over?",
     "a": "Yes",
     "b": "No",
     "pick": "b",
-    "pickAt": 3.24,
+    "pickAt": 3.08,
     "y": 820
    }
   },
   {
    "type": "compare",
-   "at": 3.6,
-   "until": 7.4,
+   "at": 3.84,
+   "until": 7.38,
    "props": {
     "left": "The tool",
     "right": "People using it",
@@ -235,13 +213,13 @@
     "rightText": "The hard part",
     "winner": "right",
     "badge": "Starts here",
-    "y": 980
+    "y": 920
    }
   },
   {
    "type": "giant-caption",
-   "at": 7.45,
-   "until": 8.5,
+   "at": 7.43,
+   "until": 8.46,
    "props": {
     "version": 2,
     "text": "3",
@@ -251,8 +229,8 @@
   },
   {
    "type": "focus-list",
-   "at": 8.55,
-   "until": 17.45,
+   "at": 8.51,
+   "until": 13.28,
    "props": {
     "title": "Ask",
     "items": [
@@ -263,7 +241,18 @@
      {
       "text": "What is it allowed for?",
       "at": 11.19
-     },
+     }
+    ],
+    "y": 930
+   }
+  },
+  {
+   "type": "focus-list",
+   "at": 13.33,
+   "until": 17.49,
+   "props": {
+    "title": "Also ask",
+    "items": [
      {
       "text": "What is off limits?",
       "at": 13.49
@@ -273,24 +262,24 @@
       "at": 14.7
      }
     ],
-    "y": 900
+    "y": 330
    }
   },
   {
    "type": "checklist",
-   "at": 22.3,
-   "until": 24.8,
+   "at": 22.39,
+   "until": 24.88,
    "props": {
     "version": 2,
-    "y": 640,
+    "y": 760,
     "items": [
      {
       "text": "Pick one owner",
-      "at": 22.45
+      "at": 22.48
      },
      {
       "text": "Write the answers down",
-      "at": 23.86
+      "at": 23.9
      }
     ]
    }
@@ -299,7 +288,7 @@
  "fxSound": "minimal",
  "endCard": {
   "variant": "link-pill",
-  "startAt": 27.92,
+  "startAt": 28.04,
   "label": "LINK BELOW OR IN MY BIO",
   "url": "bio.c3global.co"
  },

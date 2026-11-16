@@ -69,11 +69,12 @@ const Typed: React.FC<{text: string; startFrame: number; size: number; upper?: b
 
 /** Closing card on the black field. Variants: link-pill, comment-keyword. Clear of the bottom 22% and right 12%. */
 export const EndCard: React.FC<{card: EndCardPlan}> = ({card}) => {
-  const {opacity, translateY, frame} = useCardMotion(0, 8, 6);
+  // holds at full strength to the last frame (no fade-out); sits below the speaker's neckline
+  const {opacity, translateY, frame} = useCardMotion(0, 8, 1);
   const {palette} = useTheme();
   const metal = useBgMetal();
   const pillIn = interpolate(frame, [8, 20], [0, 1], {...clamp, easing: easeOut});
-  const top = 780;
+  const top = 1210;
 
   return (
     <div style={{position: 'absolute', left: 0, top, width: W, translate: `0px ${translateY}px`}}>
@@ -81,7 +82,7 @@ export const EndCard: React.FC<{card: EndCardPlan}> = ({card}) => {
         {card.variant === 'link-pill' ? (
           <>
             <div style={{opacity}}>
-              <Label onCard={false} size={36} style={{letterSpacing: '0.26em'}}>
+              <Label onCard={false} size={36} style={{letterSpacing: '0.26em', textShadow: '0 3px 14px rgba(0,0,0,0.85)'}}>
                 {card.label}
               </Label>
               <div style={{display: 'flex', justifyContent: 'center', margin: '22px 0 10px'}}>

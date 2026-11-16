@@ -2,7 +2,7 @@
  "slug": "n-decisions",
  "template": "hype",
  "video": "raw/decisions.mp4",
- "durationSec": 34.538,
+ "durationSec": 34.112,
  "matte": "decisions",
  "theme": {
   "field": "black",
@@ -47,7 +47,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.7
+      "zoom": 1.25
      },
      "cut": true
     },
@@ -71,7 +71,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.7
+      "zoom": 1.25
      },
      "cut": true
     },
@@ -89,13 +89,13 @@
     },
     {
      "start": 6.425,
-     "end": 8.34,
+     "end": 8.32,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.7
+      "zoom": 1.25
      },
      "cut": true
     }
@@ -106,14 +106,14 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 8.34,
+     "start": 8.32,
      "end": 8.822,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.7
+      "zoom": 1.25
      }
     },
     {
@@ -130,13 +130,13 @@
     },
     {
      "start": 10.895,
-     "end": 13.11,
+     "end": 13.18,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.7
+      "zoom": 1.25
      },
      "cut": true
     }
@@ -147,8 +147,8 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 13.11,
-     "end": 14.98,
+     "start": 13.18,
+     "end": 15.07,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -164,14 +164,14 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 14.98,
-     "end": 18.83,
+     "start": 15.07,
+     "end": 18.78,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.7
+      "zoom": 1.25
      }
     }
    ]
@@ -181,56 +181,30 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 18.83,
-     "end": 20.118,
-     "layout": "A",
+     "start": 18.78,
+     "end": 21.38,
+     "layout": "T",
      "captionPos": "bottom",
      "graphics": [],
-     "focus": {
-      "y": 40,
-      "zoom": 1.0
-     }
-    },
-    {
-     "start": 20.118,
-     "end": 20.533,
-     "layout": "A",
-     "captionPos": "bottom",
-     "graphics": [],
-     "focus": {
-      "y": 24,
-      "zoom": 1.7
-     },
-     "cut": true
-    },
-    {
-     "start": 20.533,
-     "end": 21.82,
-     "layout": "A",
-     "captionPos": "bottom",
-     "graphics": [],
-     "focus": {
-      "y": 40,
-      "zoom": 1.0
-     },
+     "captionY": 1390,
      "cut": true
     }
    ]
   },
   {
-   "id": "st218",
+   "id": "st213",
    "mood": "dark",
    "segments": [
     {
-     "start": 21.82,
-     "end": 24.45,
+     "start": 21.38,
+     "end": 24.02,
      "layout": "E",
      "captionPos": "bottom",
      "graphics": [
       {
        "type": "statement-card",
-       "at": 21.82,
-       "until": 24.45,
+       "at": 21.38,
+       "until": 24.02,
        "box": {
         "y": 150,
         "h": 900,
@@ -244,19 +218,19 @@
          "check?"
         ],
         "wordTimes": [
-         21.93,
-         22.1,
-         22.26,
-         22.37,
-         22.9,
-         23.01,
-         23.12,
-         23.4,
-         23.68,
-         23.76,
-         23.92,
-         24.08,
-         24.16
+         21.5,
+         21.68,
+         21.84,
+         21.95,
+         22.47,
+         22.57,
+         22.68,
+         22.96,
+         23.24,
+         23.32,
+         23.48,
+         23.64,
+         23.72
         ]
        }
       }
@@ -270,14 +244,14 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 24.45,
-     "end": 26.2,
+     "start": 24.02,
+     "end": 25.8,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.7
+      "zoom": 1.25
      }
     }
    ]
@@ -287,25 +261,45 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 26.2,
-     "end": 28.479,
-     "layout": "A",
+     "start": 25.8,
+     "end": 28.59,
+     "layout": "S",
      "captionPos": "bottom",
-     "graphics": [],
+     "graphics": [
+      {
+       "type": "statement-card",
+       "at": 25.8,
+       "until": 28.59,
+       "box": {
+        "y": -370,
+        "h": 720,
+        "center": true
+       },
+       "props": {
+        "text": "A decision lasts when it has an owner and a date.",
+        "emphasis": [
+         "owner",
+         "date."
+        ],
+        "wordTimes": [
+         25.92,
+         25.94,
+         26.48,
+         26.82,
+         27.1,
+         27.22,
+         27.42,
+         27.55,
+         27.89,
+         28.09,
+         28.22
+        ]
+       }
+      }
+     ],
      "focus": {
-      "y": 40,
-      "zoom": 1.0
-     }
-    },
-    {
-     "start": 28.479,
-     "end": 29.0,
-     "layout": "A",
-     "captionPos": "bottom",
-     "graphics": [],
-     "focus": {
-      "y": 24,
-      "zoom": 1.7
+      "y": 8,
+      "zoom": 1.1
      },
      "cut": true
     }
@@ -316,37 +310,37 @@
    "mood": "dark",
    "segments": [
     {
-     "start": 29.0,
-     "end": 29.947,
-     "layout": "A",
-     "captionPos": "bottom",
-     "graphics": [],
-     "focus": {
-      "y": 24,
-      "zoom": 1.7
-     }
-    },
-    {
-     "start": 29.947,
-     "end": 31.653,
+     "start": 28.59,
+     "end": 29.532,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
      "focus": {
       "y": 40,
       "zoom": 1.0
-     },
-     "cut": true
+     }
     },
     {
-     "start": 31.653,
-     "end": 34.538,
+     "start": 29.532,
+     "end": 31.238,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.7
+      "zoom": 1.25
+     },
+     "cut": true
+    },
+    {
+     "start": 31.238,
+     "end": 34.112,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "focus": {
+      "y": 40,
+      "zoom": 1.0
      },
      "cut": true
     }
@@ -397,7 +391,7 @@
   {
    "type": "type-wall",
    "at": 4.25,
-   "until": 8.3,
+   "until": 8.28,
    "props": {
     "words": [
      {
@@ -417,8 +411,8 @@
   },
   {
    "type": "knockout-tiles",
-   "at": 8.4,
-   "until": 13.1,
+   "at": 8.38,
+   "until": 13.17,
    "props": {
     "names": [
      {
@@ -439,15 +433,15 @@
   {
    "type": "impact-frame",
    "at": 13.46,
-   "until": 14.9,
+   "until": 14.99,
    "props": {
     "word": "Same call"
    }
   },
   {
    "type": "orbit",
-   "at": 15.05,
-   "until": 18.8,
+   "at": 15.14,
+   "until": 18.75,
    "props": {
     "items": [
      "hype-media/substack-home.png",
@@ -460,8 +454,8 @@
   },
   {
    "type": "slot-machine",
-   "at": 20.55,
-   "until": 21.85,
+   "at": 20.19,
+   "until": 21.35,
    "props": {
     "words": [
      "WHAT",
@@ -469,18 +463,18 @@
      "WHEN"
     ],
     "stopAt": [
-     20.85,
-     21.15,
-     21.45
+     20.54,
+     20.74,
+     20.94
     ],
     "label": "3 questions",
-    "y": 1150
+    "y": 960
    }
   },
   {
    "type": "couch-wall",
-   "at": 24.5,
-   "until": 26.2,
+   "at": 24.07,
+   "until": 25.78,
    "props": {
     "tiles": [
      "What did we decide?",
@@ -491,29 +485,12 @@
      "hype-media/substack-home.png"
     ]
    }
-  },
-  {
-   "type": "type-wall",
-   "at": 26.25,
-   "until": 29.0,
-   "props": {
-    "words": [
-     {
-      "text": "owner",
-      "at": 27.99
-     },
-     {
-      "text": "date",
-      "at": 28.65
-     }
-    ]
-   }
   }
  ],
  "fxSound": "full",
  "endCard": {
   "variant": "link-pill",
-  "startAt": 32.1,
+  "startAt": 31.62,
   "label": "LINK BELOW OR IN MY BIO",
   "url": "bio.c3global.co"
  },

@@ -120,7 +120,7 @@ out.parent.mkdir(parents=True, exist_ok=True)
 cmd = ['ffmpeg', '-y', '-loglevel', 'error']
 for s in srcs:
     cmd += ['-i', s]
-cmd += ['-filter_complex', flt, '-map', '[v]', '-map', '[a]', '-r', '30', '-c:v', 'libx264', '-crf', '17',
+cmd += ['-filter_complex', flt, '-map', '[v]', '-map', '[a]', '-r', '30', '-c:v', 'libx264', '-crf', '12',
         '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', str(out)]
 subprocess.run(cmd, check=True)
 orig = sum(duration(s) for s in srcs)

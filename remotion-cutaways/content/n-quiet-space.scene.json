@@ -2,7 +2,7 @@
  "slug": "n-quiet-space",
  "template": "quiet",
  "video": "raw/quiet-space.mp4",
- "durationSec": 32.874,
+ "durationSec": 32.512,
  "matte": "quiet-space",
  "theme": {
   "field": "black",
@@ -50,7 +50,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.35
+      "zoom": 1.25
      },
      "cut": true
     }
@@ -221,7 +221,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.35
+      "zoom": 1.25
      }
     },
     {
@@ -309,7 +309,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.35
+      "zoom": 1.25
      },
      "cut": true
     },
@@ -333,18 +333,18 @@
    "segments": [
     {
      "start": 27.51,
-     "end": 31.091,
+     "end": 29.021,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.35
+      "zoom": 1.25
      }
     },
     {
-     "start": 31.091,
-     "end": 32.874,
+     "start": 29.021,
+     "end": 32.512,
      "layout": "A",
      "captionPos": "bottom",
      "graphics": [],
@@ -386,7 +386,7 @@
  "fxSound": "minimal",
  "endCard": {
   "variant": "link-pill",
-  "startAt": 32.2,
+  "startAt": 30.12,
   "label": "LINK BELOW OR IN MY BIO",
   "url": "bio.c3global.co"
  },
