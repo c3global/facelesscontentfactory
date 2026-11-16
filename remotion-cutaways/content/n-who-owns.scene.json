@@ -221,7 +221,7 @@
     "b": "No",
     "pick": "b",
     "pickAt": 3.24,
-    "y": 1180
+    "y": 820
    }
   },
   {
@@ -239,15 +239,14 @@
    }
   },
   {
-   "type": "big-stat",
+   "type": "giant-caption",
    "at": 7.45,
    "until": 8.5,
    "props": {
-    "value": 3,
-    "label": "QUESTIONS",
-    "size": 560,
-    "y": 470,
-    "align": "center"
+    "version": 2,
+    "text": "3",
+    "accent": "questions",
+    "y": 700
    }
   },
   {

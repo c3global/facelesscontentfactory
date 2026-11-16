@@ -144,9 +144,9 @@ w.plan('analyst', 'ticker', SONG1, [
     w.full('pick', 22.25, 24.83, close=1.45, first_close=True),
     w.full('end', 24.83, w.dur, close=1.45),
 ], [
-    {'type': 'vote-pill', 'at': 1.0, 'until': 3.5, 'props': {'question': 'Is the hard part over?', 'a': 'Yes', 'b': 'No', 'pick': 'b', 'pickAt': at('isn\'t.'), 'y': 1180}},
+    {'type': 'vote-pill', 'at': 1.0, 'until': 3.5, 'props': {'question': 'Is the hard part over?', 'a': 'Yes', 'b': 'No', 'pick': 'b', 'pickAt': at('isn\'t.'), 'y': 820}},
     {'type': 'compare', 'at': 3.6, 'until': 7.4, 'props': {'left': 'The tool', 'right': 'People using it', 'leftText': 'The easy part', 'rightText': 'The hard part', 'winner': 'right', 'badge': 'Starts here', 'y': 980}},
-    {'type': 'big-stat', 'at': 7.45, 'until': 8.5, 'props': {'value': 3, 'label': 'QUESTIONS', 'size': 560, 'y': 470, 'align': 'center'}},
+    {'type': 'giant-caption', 'at': 7.45, 'until': 8.5, 'props': {'version': 2, 'text': '3', 'accent': 'questions', 'y': 700}},
     {'type': 'focus-list', 'at': 8.55, 'until': 17.45, 'props': {'title': 'Ask', 'items': [
         {'text': 'Who do employees go to?', 'at': at('Who')}, {'text': 'What is it allowed for?', 'at': at('What')},
         {'text': 'What is off limits?', 'at': at('what', 13.4)}, {'text': 'How will you know it helps?', 'at': at('how')}], 'y': 900}},
