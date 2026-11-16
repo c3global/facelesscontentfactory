@@ -128,7 +128,7 @@ q.plan('quiet', 'quiet', SONG1, [
     q.full('end', 27.51, q.dur, close=1.35, first_close=True),
 ], [
     {'type': 'rack-focus', 'at': 0.0, 'until': 1.2, 'props': {}},
-    {'type': 'spotlight', 'at': 22.9, 'until': 27.5, 'props': {'dim': 0.86, 'words': [{'text': 'one small event', 'at': at('small')}, {'text': 'by name', 'at': at('by')}]}},
+    {'type': 'spotlight', 'at': 22.9, 'until': 28.0, 'props': {'dim': 0.86, 'words': [{'text': 'one small event', 'at': at('small')}, {'text': 'by name', 'at': at('by')}]}},
 ], ['check', 'one,', 'two,', 'three,', 'reason.', 'happening', 'expecting', 'name.'], scrim=0.5)
 
 # ---------------------------------------------------------------- who-owns (Nov 21): Analyst
