@@ -154,7 +154,8 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
     const [fa, fb] = fxRange(f);
     return tNow >= fa && tNow <= fb;
   });
-  const scrim = (1 - av.frame) * (fxOn ? 0 : 1) * (plan.scrim ?? 1);
+  // only the full-frame layout gets the lower scrim; the split layout (S) puts the speaker in the lower half, so no dimming there
+  const scrim = Math.max(0, 1 - 2 * av.frame) * (fxOn ? 0 : 1) * (plan.scrim ?? 1);
   const sceneIdx = (s: Scene) => plan.scenes.indexOf(s);
   const curMood = blend.cur.scene.mood;
   const metalVariant = curMood === 'dark' && field !== 'rosegold' ? 'bright' : 'deep';

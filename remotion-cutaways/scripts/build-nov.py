@@ -23,7 +23,7 @@ class Clip:
             self.cuts.append(round(t, 3))
         self.cuts = [c for c in self.cuts if c < self.W[-1][2] - 0.2]
         self.dur = float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f'public/raw/{slug}.mp4']))
-        self.end = round(self.W[-1][2] + 0.18, 3)
+        self.end = round(self.W[-1][2] + 0.75, 3)  # after the last caption has faded, so the two never overlap
 
     def at(self, word, after=0.0):
         for w, a, b in self.W:
