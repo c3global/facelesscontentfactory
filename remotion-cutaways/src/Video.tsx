@@ -241,7 +241,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
             {/* head stack headroom: a soft blurred copy fills the space above her while the video eases down */}
             {mods.room > 0.001 && <OffthreadVideo src={staticFile(plan.video)} muted style={{...videoStyle, transform: 'scale(1.25)', filter: 'blur(40px) brightness(0.55)', opacity: Math.min(1, mods.room * 1.5)}} />}
             <OffthreadVideo src={staticFile(plan.video)} style={mods.room > 0.001 ? {...videoStyle, position: 'absolute', left: 0, top: 0} : videoStyle} />
-            <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video} videoStyle={videoStyle} outline={plan.matteOutline} speech={speech}>
+            <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video.replace('-2x.mp4', '.mp4')} videoStyle={videoStyle} outline={plan.matteOutline} speech={speech}>
               <OutlineAlways />
               <FxBehind fx={plan.fx} />
               <FxLooks fx={plan.fx} />
@@ -318,7 +318,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
         );
       })}
 
-      <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video} videoStyle={videoStyle} outline={plan.matteOutline} speech={speech}>
+      <FxEnvProvider slug={plan.matte} anchors={anchors} video={plan.video.replace('-2x.mp4', '.mp4')} videoStyle={videoStyle} outline={plan.matteOutline} speech={speech}>
         <FxOver fx={plan.fx} />
       </FxEnvProvider>
       {plan.fx.length > 0 && <FxSound fx={plan.fx} volume={plan.fxVolume} mode={plan.fxSound} labels={plan.soundLabels} />}
