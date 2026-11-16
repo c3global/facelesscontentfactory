@@ -1,0 +1,25 @@
+{
+  "name": "faceless48-carousel-editor",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.6"
+  },
+  "scripts": {
+    "start": "node scripts/carousel-editor.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test tests/save.test.mjs"
+  },
+  "dependencies": {
+    "@remotion/player": "4.0.532",
+    "esbuild": "0.28.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.532",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.31",
+    "typescript": "5.9.3"
+  }
+}
