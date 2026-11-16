@@ -1,4 +1,4 @@
-node_modules/
+/node_modules
 content/carousel-plans/
 content/carousel-edits/
 public/portraits/sprites/*
