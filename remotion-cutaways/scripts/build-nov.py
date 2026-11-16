@@ -172,4 +172,32 @@ p.plan('glass', 'glass', SONG1, [
         {'label': 'Do not paste', 'value': 'Passwords, private details', 'at': at('Do'), 'side': 'left', 'x': 30, 'y': 760}]}},
 ], ['paste', 'control', 'three', 'Safe', 'Ask', 'not', 'safely'], scrim=0.5)
 
+
+# ---------------------------------------------------------------- change-ai: Teach Board (date to be set by Dr. CK)
+def board(c, sid, s, e, title, items, y=880, h=500, cap=1472):
+    """Her wide window on top, a whiteboard list under it; captions sit under the board."""
+    sc = c.scene(sid, s, e, 'T', captionY=cap)
+    return sc, {'type': 'lesson-board', 'at': s, 'until': e, 'props': {'title': title, 'items': items, 'y': y, 'height': h}}
+
+
+g = Clip('change-ai')
+at = g.at
+_b1, _f1 = board(g, 'covered', 6.93, 12.99, 'The announcement covered', [
+    {'text': 'what was changing', 'at': at('what')},
+    {'text': 'not what to do on day one', 'at': at('not')},
+    {'text': 'not where to go when stuck', 'at': at('where')}])
+_b2, _f2 = board(g, 'rollout', 12.99, 19.9, 'Before your next rollout', [
+    {'text': 'Walk through day one on paper', 'at': at('walk')},
+    {'text': 'Find what will confuse people', 'at': at('Find')},
+    {'text': 'Put an AI guide right there', 'at': at('put')}])
+_b2['segments'][0]['cut'] = True
+g.plan('teach', 'karaoke', SONG1, [
+    g.full('hook', 0, 6.93, close=1.4),
+    _b1, _b2,
+    g.full('end', 19.9, g.dur, close=1.4, first_close=True),
+], [
+    {'type': 'doodle-boil', 'at': 0.3, 'until': 6.8, 'props': {'marks': [{'kind': 'text', 'text': "Today's lesson", 'target': 'head', 'at': 0.4, 'side': 'right', 'color': 'red'}, {'kind': 'underline', 'target': 'chest', 'at': at('scattered'), 'side': 'left', 'color': 'white'}]}},
+    _f1, _f2,
+], ['change', 'day', 'one', 'paper.', 'AI'], scrim=0.55)
+
 print('plans written')
