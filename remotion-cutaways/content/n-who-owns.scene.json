@@ -2,6 +2,7 @@
  "slug": "n-who-owns",
  "template": "analyst",
  "video": "raw/who-owns.mp4",
+ "sourceScale": 1,
  "durationSec": 30.506,
  "matte": "who-owns",
  "theme": {
@@ -47,7 +48,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.25
+      "zoom": 1.45
      },
      "cut": true
     },
@@ -71,7 +72,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.25
+      "zoom": 1.45
      },
      "cut": true
     }

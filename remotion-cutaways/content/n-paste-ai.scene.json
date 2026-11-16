@@ -1,7 +1,8 @@
 {
  "slug": "n-paste-ai",
  "template": "glass",
- "video": "raw/paste-ai.mp4",
+ "video": "raw/paste-ai-2x.mp4",
+ "sourceScale": 2,
  "durationSec": 25.984,
  "matte": "paste-ai",
  "theme": {
@@ -49,7 +50,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.25
+      "zoom": 1.4
      },
      "cut": true
     }
@@ -67,7 +68,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.25
+      "zoom": 1.4
      }
     },
     {
@@ -151,7 +152,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.25
+      "zoom": 1.4
      },
      "cut": true
     },
@@ -175,7 +176,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.25
+      "zoom": 1.4
      },
      "cut": true
     },
@@ -199,7 +200,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.25
+      "zoom": 1.4
      },
      "cut": true
     },
@@ -223,7 +224,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.25
+      "zoom": 1.4
      },
      "cut": true
     }
@@ -241,7 +242,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.25
+      "zoom": 1.4
      }
     }
    ]

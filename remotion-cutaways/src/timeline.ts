@@ -43,12 +43,18 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 /** Layout A slowly pushes in so the full-bleed hook never sits static. */
 const DRIFT = 0.05;
 
+/** set by Video from plan.sourceScale: a larger master allows that much more zoom before anything is enlarged */
+let SOURCE_SCALE = 1;
+export const setSourceScale = (s: number) => {
+  SOURCE_SCALE = s;
+};
+
 export const avatarStateAt = (fs: FlatSegment, frame: number): AvatarState => {
   const base = stateFor(fs.seg.layout, fs.seg.avatar);
   const raw = fs.seg.focus ? {...base, focusY: fs.seg.focus.y, zoom: fs.seg.focus.zoom} : base;
   // Dr. CK (Nov 16): never enlarge her footage past its native size. The 1080x1920 clip covers the window at
   // max(w/1080, h/1920); a zoom above 1/that would upscale and soften her, so it is capped there.
-  const maxZoom = 1 / Math.max(raw.w / 1080, raw.h / 1920, 1e-6);
+  const maxZoom = SOURCE_SCALE / Math.max(raw.w / 1080, raw.h / 1920, 1e-6);
   const s = {...raw, zoom: Math.min(raw.zoom, maxZoom)};
   // punch-in shots (a set focus) hold still, so the cut between a wide and a close shot reads clearly
   if (fs.seg.layout !== 'A' || fs.seg.focus || s.zoom >= maxZoom) return s;

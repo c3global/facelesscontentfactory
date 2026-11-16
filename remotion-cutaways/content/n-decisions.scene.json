@@ -2,6 +2,7 @@
  "slug": "n-decisions",
  "template": "hype",
  "video": "raw/decisions.mp4",
+ "sourceScale": 1,
  "durationSec": 34.112,
  "matte": "decisions",
  "theme": {

@@ -2,6 +2,7 @@
  "slug": "n-change-ai",
  "template": "teach",
  "video": "raw/change-ai.mp4",
+ "sourceScale": 1,
  "durationSec": 24.2,
  "matte": "change-ai",
  "theme": {
@@ -47,7 +48,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.25
+      "zoom": 1.4
      },
      "cut": true
     },
@@ -71,7 +72,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.25
+      "zoom": 1.4
      },
      "cut": true
     },
@@ -135,7 +136,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.25
+      "zoom": 1.4
      }
     }
    ]

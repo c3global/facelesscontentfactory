@@ -6,7 +6,7 @@ from her own word times, so every effect lands on the word she says.
 
   python3 scripts/build-nov.py            # writes content/n-<slug>.scene.json (+ captions and words copies)
 """
-import json, shutil, subprocess
+import json, os, shutil, subprocess
 
 SONG1, SONG2 = 'music/leveled/empires.mp3', 'music/leveled/make-it-look-easy.mp3'
 BOX = {'T': 935, 'O': 735}
@@ -71,7 +71,7 @@ class Clip:
 
     def plan(self, name, caption, song, scenes, fx, emphasis, **kw):
         p = {
-            'slug': f'n-{self.slug}', 'template': name, 'video': f'raw/{self.slug}.mp4', 'durationSec': round(self.dur, 3), 'matte': self.slug,
+            'slug': f'n-{self.slug}', 'template': name, 'video': f'raw/{self.slug}-2x.mp4' if os.path.exists(f'public/raw/{self.slug}-2x.mp4') else f'raw/{self.slug}.mp4', 'sourceScale': 2 if os.path.exists(f'public/raw/{self.slug}-2x.mp4') else 1, 'durationSec': round(self.dur, 3), 'matte': self.slug,
             'theme': {'field': 'black', 'sans': 'DM Sans'}, 'captionStyle': caption, 'emphasis': emphasis,
             'hero': [], 'boxed': [], 'finish': kw.get('finish', {'grain': 0.0, 'lightLeaks': 0.0}), 'scrim': kw.get('scrim', 0.55),
             'scenes': scenes, 'fx': fx, 'fxSound': kw.get('sound', 'minimal'),
@@ -81,6 +81,12 @@ class Clip:
         json.dump(p, open(f'content/n-{self.slug}.scene.json', 'w'), indent=1)
         shutil.copy(f'content/{self.slug}.captions.json', f'content/n-{self.slug}.captions.json')
         shutil.copy(f'content/{self.slug}.words.tsv', f'content/n-{self.slug}.words.tsv')
+
+
+def card(c, s, e, box, em=()):
+    """A statement graphic inside a window layout: the words land as she says them (the card is the caption)."""
+    text, times = c.say(s, e)
+    return {'type': 'statement-card', 'at': s, 'until': e, 'box': box, 'props': {'text': text, 'emphasis': list(em), 'wordTimes': times}}
 
 
 def card(c, s, e, box, em=()):
@@ -134,12 +140,12 @@ q3 = q.scene('q3', 11.27, 15.98, 'T', [card(q, 11.27, 15.98, TOPB, ('three,',))]
 for sc in (q2, q3):
     sc['segments'][0]['cut'] = True
 q.plan('quiet', 'quiet', SONG1, [
-    q.full('hook', 0, 3.42, close=1.25),
+    q.full('hook', 0, 3.42, close=1.35),
     q1, q2, q3,
-    q.full('reason', 15.98, 18.93, close=1.25, first_close=True),
+    q.full('reason', 15.98, 18.93, close=1.35, first_close=True),
     q.statement(18.93, 22.86, em=('happening', 'expecting')),
-    q.full('week', 22.86, 27.51, close=1.25),
-    q.full('end', 27.51, q.dur, close=1.25, first_close=True),
+    q.full('week', 22.86, 27.51, close=1.35),
+    q.full('end', 27.51, q.dur, close=1.35, first_close=True),
 ], [
     {'type': 'rack-focus', 'at': 0.0, 'until': 1.2, 'props': {}},
     {'type': 'spotlight', 'at': 22.9, 'until': 28.0, 'props': {'dim': 0.86, 'words': [{'text': 'one small event', 'at': at('small')}, {'text': 'by name', 'at': at('by')}]}},
@@ -158,11 +164,11 @@ w_pick = w.scene('pick', b('Pick'), b('Follow'), 'O', captionY=1480)
 for sc in (w_easy, w_q12, w_q34, w_sit, w_pick):
     sc['segments'][0]['cut'] = True
 w.plan('analyst', 'ticker', SONG1, [
-    w.full('hook', 0, b('The', 3.5), close=CLOSE),
+    w.full('hook', 0, b('The', 3.5), close=1.45),
     w_easy,
     w.scene('three', b('So'), b('Who'), 'E', avatar='hidden'),
     w_q12, w_q34, w_sit, w_pick,
-    w.full('end', b('Follow'), w.dur, close=CLOSE),
+    w.full('end', b('Follow'), w.dur, close=1.45),
 ], [
     {'type': 'vote-pill', 'at': 0.9, 'until': round(b('The', 3.5) - 0.05, 2), 'props': {'question': 'Is the hard part over?', 'a': 'Yes', 'b': 'No', 'pick': 'b', 'pickAt': at('It'), 'y': 820}},
     {'type': 'compare', 'at': round(b('The', 3.5) + 0.05, 2), 'until': round(b('So') - 0.03, 2), 'props': {'left': 'The tool', 'right': 'People using it', 'leftText': 'The easy part', 'rightText': 'The hard part', 'winner': 'right', 'badge': 'Starts here', 'y': 920}},
@@ -180,11 +186,11 @@ w.plan('analyst', 'ticker', SONG1, [
 p = Clip('paste-ai')
 at, b = p.at, p.b
 p.plan('glass', 'glass', SONG1, [
-    p.full('hook', 0, b('With'), close=CLOSE),
-    p.full('control', b('With'), b('So'), close=CLOSE, first_close=True),
+    p.full('hook', 0, b('With'), close=1.4),
+    p.full('control', b('With'), b('So'), close=1.4, first_close=True),
     p.statement(b('So'), b('Safe'), em=('simple', 'three')),
-    p.full('groups', b('Safe'), b('Follow'), close=CLOSE),
-    p.full('end', b('Follow'), p.dur, close=CLOSE, first_close=True),
+    p.full('groups', b('Safe'), b('Follow'), close=1.4),
+    p.full('end', b('Follow'), p.dur, close=1.4, first_close=True),
 ], [
     {'type': 'grade', 'at': 0, 'until': p.dur, 'props': {'look': 'cool', 'strength': 0.3}},
     {'type': 'prompt-bar', 'at': 0.1, 'until': round(b('With') - 0.05, 2), 'props': {'text': 'Summarize this client file', 'label': 'AI assistant', 'typeAt': 0.3, 'sendAt': 2.4, 'y': 780}},
@@ -216,9 +222,9 @@ _b2, _f2 = board(g, 'rollout', b('So'), b('Follow'), 'Before your next rollout',
 for sc in (_b1, _b2):
     sc['segments'][0]['cut'] = True
 g.plan('teach', 'karaoke', SONG1, [
-    g.full('hook', 0, b('The', 6.5), close=CLOSE),
+    g.full('hook', 0, b('The', 6.5), close=1.4),
     _b1, _b2,
-    g.full('end', b('Follow'), g.dur, close=CLOSE, first_close=True),
+    g.full('end', b('Follow'), g.dur, close=1.4, first_close=True),
 ], [
     {'type': 'doodle-boil', 'at': 0.3, 'until': round(b('The', 6.5) - 0.1, 2), 'props': {'marks': [{'kind': 'text', 'text': "Today's lesson", 'target': 'head', 'at': 0.4, 'side': 'right', 'color': 'white'}, {'kind': 'underline', 'target': 'chest', 'at': at('scattered'), 'side': 'left', 'color': 'white', 'x': 540, 'y': 1378}]}},
     _f1, _f2,

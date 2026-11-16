@@ -2,6 +2,7 @@
  "slug": "n-quiet-space",
  "template": "quiet",
  "video": "raw/quiet-space.mp4",
+ "sourceScale": 1,
  "durationSec": 32.512,
  "matte": "quiet-space",
  "theme": {
@@ -50,7 +51,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.25
+      "zoom": 1.35
      },
      "cut": true
     }
@@ -221,7 +222,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.25
+      "zoom": 1.35
      }
     },
     {
@@ -309,7 +310,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.25
+      "zoom": 1.35
      },
      "cut": true
     },
@@ -339,7 +340,7 @@
      "graphics": [],
      "focus": {
       "y": 24,
-      "zoom": 1.25
+      "zoom": 1.35
      }
     },
     {

@@ -28,7 +28,7 @@ import {H, W, areaFor} from './layouts';
 import {MetalRim} from './metal';
 import {KIT_FRAME, KitBackdrop, KitFrameOver, KitFrameUnder, KitProvider, asKit} from './kits';
 import type {Graphic, Scene, VideoProps} from './schema';
-import {FlatSegment, avatarStateBlend, flatten, layoutBlend} from './timeline';
+import {FlatSegment, avatarStateBlend, flatten, layoutBlend, setSourceScale} from './timeline';
 import {GraphicTimeProvider, ThemeProvider} from './ui';
 import {FxBehind, FxLooks, FxOver, FxSound, OutlineAlways, videoMods} from './fx/FxLayers';
 import {FxEnvProvider, fxRange, useLoadedAnchors} from './fx/util';
@@ -76,6 +76,7 @@ const kindFor = (scene: Scene, field: FieldOption): BackdropKind =>
   field.startsWith('marble') ? (field as BackdropKind) : scene.mood === 'light' ? 'light' : (field as BackdropKind);
 
 export const Video: React.FC<VideoProps> = ({plan, captions}) => {
+  setSourceScale(plan.sourceScale ?? 1);
   loadBrandFonts();
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();

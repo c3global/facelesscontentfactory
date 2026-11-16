@@ -238,6 +238,8 @@ export const planSchema = z.object({
   /** path inside public/ */
   video: z.string(),
   durationSec: z.number().positive(),
+  /** how many times larger than 1080x1920 the speaker clip is (a 2x master lets punch-ins zoom without going soft) */
+  sourceScale: z.number().min(1).max(4).default(1),
   /** strength of the dark gradient under the hook caption, 0 to 1 (default 1). Yaps use a lighter one so the room shows. */
   scrim: z.number().min(0).max(1).optional(),
   /** shows every caption this many seconds earlier, to match an avatar whose mouth moves slightly before its sound */
