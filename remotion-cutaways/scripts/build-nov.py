@@ -179,7 +179,7 @@ w.plan('analyst', 'ticker', SONG1, [
 # window + glass card) and the three groups are glass quote cards that fill in as she says them.
 p = Clip('paste-ai')
 at, b = p.at, p.b
-p_ctl = p.scene('control', b('With'), b('So'), 'F', captionY=1290)
+p_ctl = p.scene('control', b('With'), b('So'), 'F', captionY=1455)
 p_safe = p.scene('safe', b('Safe'), b('Ask'), 'T', [card(p, b('Safe'), b('Ask'), TOPB, ('Safe',))], captionY=1480)
 p_ask = p.scene('askf', b('Ask'), b('Do'), 'S', [card(p, b('Ask'), b('Do'), LOWB, ('Ask', 'first,'))], focus={'y': 8, 'zoom': 1.1})
 p_dont = p.scene('dont', b('Do'), b('Follow'), 'T', [card(p, b('Do'), b('Follow'), TOPB, ('not', 'paste,'))], captionY=1480)
@@ -194,7 +194,7 @@ p.plan('glass', 'glass', SONG1, [
 ], [
     {'type': 'grade', 'at': 0, 'until': p.dur, 'props': {'look': 'cool', 'strength': 0.3}},
     {'type': 'prompt-bar', 'at': 0.1, 'until': round(b('With') - 0.05, 2), 'props': {'text': 'Summarize this client file', 'label': 'AI assistant', 'typeAt': 0.3, 'sendAt': 2.4, 'y': 780}},
-    {'type': 'spatial-glass', 'at': round(at('once') - 0.1, 2), 'until': round(b('So') - 0.05, 2), 'props': {'title': 'Once you paste it in', 'text': 'you may not control where it goes', 'y': 1150}},
+    {'type': 'spatial-glass', 'at': round(at('once') - 0.1, 2), 'until': round(b('So') - 0.05, 2), 'props': {'title': 'Once you paste it in', 'text': 'you may not control where it goes', 'y': 1118}},
 ], ['paste', 'control', 'three', 'Safe', 'Ask', 'not', 'safely'], scrim=0.5)
 
 

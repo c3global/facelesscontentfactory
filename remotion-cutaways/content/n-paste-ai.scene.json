@@ -65,7 +65,7 @@
      "layout": "F",
      "captionPos": "bottom",
      "graphics": [],
-     "captionY": 1290,
+     "captionY": 1455,
      "cut": true
     }
    ]
@@ -295,7 +295,7 @@
    "props": {
     "title": "Once you paste it in",
     "text": "you may not control where it goes",
-    "y": 1150
+    "y": 1118
    }
   }
  ],
