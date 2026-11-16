@@ -261,6 +261,8 @@ export const NoteArrow: React.FC<{fx: Of<'note-arrow'>}> = ({fx}) => {
 
 export const Scrim: React.FC<{fx: Fx; top: number}> = ({fx, top}) => {
   const {inK, outK} = useSpan(fx);
+  // a card in the top half (split layout) shades only the space behind it, so the speaker below stays fully lit
+  if (top < 700) return <div style={{...FILL, top: 0, height: top + 560, background: 'linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0) 100%)', opacity: inK * outK}} />;
   return <div style={{...FILL, top: top - 260, height: 1920 - top + 260, background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.62) 30%, rgba(0,0,0,0.72) 100%)', opacity: inK * outK}} />;
 };
 export const withScrim = (fx: Fx, y: number, node: React.ReactNode) => <><Scrim fx={fx} top={y} />{node}</>;
