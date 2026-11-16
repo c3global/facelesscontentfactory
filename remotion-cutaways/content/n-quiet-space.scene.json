@@ -1,8 +1,8 @@
 {
  "slug": "n-quiet-space",
  "template": "quiet",
- "video": "raw/quiet-space.mp4",
- "sourceScale": 1,
+ "video": "raw/quiet-space-2x.mp4",
+ "sourceScale": 2,
  "durationSec": 32.512,
  "matte": "quiet-space",
  "theme": {

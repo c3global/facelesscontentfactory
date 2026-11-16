@@ -1,8 +1,8 @@
 {
  "slug": "n-who-owns",
  "template": "analyst",
- "video": "raw/who-owns.mp4",
- "sourceScale": 1,
+ "video": "raw/who-owns-2x.mp4",
+ "sourceScale": 2,
  "durationSec": 30.506,
  "matte": "who-owns",
  "theme": {

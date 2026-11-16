@@ -1,8 +1,8 @@
 {
  "slug": "n-decisions",
  "template": "hype",
- "video": "raw/decisions.mp4",
- "sourceScale": 1,
+ "video": "raw/decisions-2x.mp4",
+ "sourceScale": 2,
  "durationSec": 34.112,
  "matte": "decisions",
  "theme": {

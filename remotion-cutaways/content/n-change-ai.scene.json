@@ -1,8 +1,8 @@
 {
  "slug": "n-change-ai",
  "template": "teach",
- "video": "raw/change-ai.mp4",
- "sourceScale": 1,
+ "video": "raw/change-ai-2x.mp4",
+ "sourceScale": 2,
  "durationSec": 24.2,
  "matte": "change-ai",
  "theme": {
