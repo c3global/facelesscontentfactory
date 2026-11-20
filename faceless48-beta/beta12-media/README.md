@@ -10,4 +10,4 @@ Keep these for the Beta 12 post and email.
 - `batch3-sheet-2.jpg`: upgrade batch 3: comment-bubble, comment-drop, freeze-sticker (label-maker notes).
 - `batch3-sticky-text-v2.png`, `batch3-polaroid-fan.png`, `new-save-tap.png`: single full-size stills.
 
-The face in every preview is Dr. CK's AI avatar (HeyGen test clip, watermark visible). Preview plans: `remotion-cutaways/content/cici-b12-*.scene.json`.
+The face in every preview is Dr. CK's AI avatar (HeyGen test clip, watermark visible). Test video plan: `remotion-cutaways/content/cici-b12-all.scene.json` (all 15 effects in one 51 s video).

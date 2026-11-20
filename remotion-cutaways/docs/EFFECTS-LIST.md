@@ -265,4 +265,4 @@ Preview plans: `content/cici-compare.scene.json`, `content/cici-compare2.scene.j
 | `polaroid-drop` | `photos` (up to 4, each `{src, caption}`) drop one after another and fan out |
 | `phone-mockup` | A solid phone with the metal rim that turns slowly in 3D, with thickness. `src` puts the member's own picture or clip on the screen |
 
-Preview plans: `content/cici-b12-new.scene.json`, `content/cici-b12-batch3.scene.json`, `content/cici-b12-batch3b.scene.json`. Code: `src/fx/sixteenth.tsx`.
+Test video plan (all 15 in one video, her rule: test with full renders): `content/cici-b12-all.scene.json` on `raw/cici-b12.mp4`. Code: `src/fx/sixteenth.tsx`.
