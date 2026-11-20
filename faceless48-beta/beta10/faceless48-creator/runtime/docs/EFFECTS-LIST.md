@@ -232,7 +232,7 @@ Beat picker: time tip cards to music beats (skills/beat-sync/SKILL.md).
 
 ## Video carousels: 16 slide layouts, 6 styles, 6 end screens
 
-Layouts: `cover`, `statement`, `list`, `checklist`, `compare`, `quote`, `steps`, `status`, `branches`, `media`, `toggles`, `proof`, `graph`, `ab`, `doc`, `cta`. Styles: `editorial`, `luxe`, `clean`, `bold`, `glass`, `showcase`. End screens: keyword, follow, save, link, question, collage. Handwritten notes with arrows on any slide. Five starter templates. Optional presenter cutout (`npm run cutout`). See docs/VIDEO-CAROUSELS.md.
+Layouts: `cover`, `statement`, `list`, `checklist`, `compare`, `quote`, `steps`, `status`, `branches`, `media`, `toggles`, `proof`, `graph`, `ab`, `doc`, `cta`. Styles: `editorial`, `luxe`, `clean`, `bold`, `glass`, `showcase`. End screens: keyword, follow, save, link, question, collage. Handwritten notes with arrows on any slide. Six starter templates, including Content Grid. Edit any carousel visually in Carousel Studio (docs/CAROUSEL-STUDIO.md). Optional presenter cutout (`npm run cutout`). See docs/VIDEO-CAROUSELS.md.
 
 ## Beta 11: 25 new effects, plus second versions
 
@@ -319,4 +319,27 @@ Code: `src/fx/fifteenth.tsx`.
 
 **Lesson board** (`lesson-board`, new): a whiteboard list in marker. The heading writes on, then each point writes on as it is said, with its number circled in the brand color. Props: `title`, `items` (`{text, at}`, up to 6), `y`, `height`. Used by the Teach Board template.
 
-**Total: 163 talking-head effects and graphics + 33 Life Scene effects and styles = 196, plus 16 carousel layouts in 6 styles.**
+## Beta 12: 6 new effects, in the `fx` list
+| Name | What it does | Needs cutout |
+| --- | --- | --- |
+| `dm-thread` | An Instagram-style DM thread: messages pop in on their seconds, with a typing bubble before each reply from the other person. Props: `name` (who the chat is with), `messages` (`{text, from: "them" or "me", at}`, up to 6), `y`, `iconSrc` | no |
+| `review-card` | A light review card with stars that pop in one by one, the quote in italic serif, and the reviewer's name. Use a real review, word for word, with permission. Props: `quote`, `name`, `detail`, `stars` (0 to 5), `src` (their photo), `y` | no |
+| `highlighter` | A line of text where a marker sweeps across the words wrapped in `*asterisks*`, one at a time. Props: `text`, `marks` (the second each mark lands), `color` (default marker yellow), `size`, `y` | no |
+| `taped-note` | A lined paper note taped to the frame, in handwriting, with an optional small title. Props: `text`, `title`, `side` (`left`, `center`, `right`), `y`, `angle` | no |
+| `lower-third` | A name and title bar with a metal rule, for introductions and authority moments. Props: `name`, `title`, `side`, `y` | no |
+| `save-tap` | "Save this for later": a fingertip taps the bookmark, it fills with a burst, and a Saved toast pops up. Props: `label`, `y` | no |
+
+## Second versions (upgrade batch 3), same effect name plus `"version": 2`
+| Name | Version 2 look |
+| --- | --- |
+| `the-stack` | Each row prints out as an embossed label-maker tape in the brand color, its length set by the value |
+| `sticky-text` | A label-maker tape that follows her head |
+| `freeze-sticker` | The die-cut sticker, with label-maker tapes for the notes instead of handwriting |
+| `comment-bubble`, `comment-drop`, `comment-cta` | One Instagram comment look for all three: a dark comments sheet, the typed comment posts and gets a like, and the reply lands under it with a Creator tag and a link pill. `comment-bubble` gains `replyName` and `y` |
+| `spotlight` | A cone of warm light falls on her from above, with dust drifting through the beam. Needs the cutout, like the original |
+| `polaroid-drop` | `photos` (up to 4, each `{src, caption}`) drop one after another and fan out |
+| `phone-mockup` | A solid phone with the metal rim that turns slowly in 3D, with thickness. `src` puts the member's own picture or clip on the screen |
+
+Code: `src/fx/sixteenth.tsx`.
+
+**Total: 169 talking-head effects and graphics + 33 Life Scene effects and styles = 202, plus 16 carousel layouts in 6 styles.**

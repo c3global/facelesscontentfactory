@@ -10,6 +10,7 @@ import {seventhFront, seventhPlate} from './seventh';
 import {eighthPlate} from './eighth';
 import {blowAwayMask, ninthFront, ninthPlate} from './ninth';
 import {fifteenthPlate} from './fifteenth';
+import {sixteenthPlate} from './sixteenth';
 import {silhouetteCutout, thirteenthFront, thirteenthPlate} from './thirteenth';
 import {fxRange, pop, tw, useFxEnv, useFxTime} from './util';
 
@@ -381,7 +382,7 @@ export const behindPlate = (fx: Fx): React.ReactNode => {
     case 'knockout-tiles':
       return <KnockoutTiles fx={fx} />;
     case 'spotlight':
-      return <SpotlightDim fx={fx} />;
+      return sixteenthPlate(fx) ?? <SpotlightDim fx={fx} />;
     case 'orbit':
       return <OrbitItems fx={fx} half="back" />;
     case 'frame-break':
