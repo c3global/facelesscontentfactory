@@ -1,5 +1,7 @@
 # Faceless48 Carousel Editor
 
+> **Moved (Nov 20, 2026):** this editor now ships inside the Faceless48 Creator plug-in as **Carousel Studio** (`npm run carousel-studio`, `runtime/docs/CAROUSEL-STUDIO.md`), from Beta 12. It reads each member's brand.json and opens every carousel plan. This folder is kept as Kai's original for Dr. CK's own C3 carousels.
+
 Open a 1080 × 1350 carousel on your computer. Edit headlines, wrapping, placement, rotation, sprites, icons, and layer order. The editor runs locally without an account or API key.
 
 ## Open it
