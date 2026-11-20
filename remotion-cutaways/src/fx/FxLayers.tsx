@@ -144,6 +144,38 @@ export const FxOver: React.FC<{fx: Fx[]}> = ({fx}) => {
   );
 };
 
+/** Effect name labels (review aid for test videos): a pill at the top with the effect's name while it plays. */
+const NameLabel: React.FC<{text: string}> = ({text}) => {
+  const {t} = useFxTime(0);
+  const k = tw(t, 0, 0.2);
+  return (
+    <div style={{position: 'absolute', left: 36, top: 34, opacity: k}}>
+      <div style={{padding: '10px 26px 12px', borderRadius: 34, background: 'rgba(10,10,12,0.88)', border: '2px solid rgba(255,255,255,0.35)', color: '#fff', fontFamily: '"DM Sans", Arial, sans-serif', fontWeight: 700, fontSize: 34, letterSpacing: 1}}>{text}</div>
+    </div>
+  );
+};
+const fxName = (f: Fx) => {
+  const words = f.type.replace(/-/g, ' ');
+  const name = words.charAt(0).toUpperCase() + words.slice(1);
+  const v2 = (f.props as {version?: number} | undefined)?.version === 2;
+  return v2 ? `${name} · new look` : name;
+};
+export const FxNameLabels: React.FC<{fx: Fx[]}> = ({fx}) => {
+  const {fps} = useVideoConfig();
+  return (
+    <>
+      {fx.map((f, i) => {
+        const [a, b] = fxRange(f);
+        return (
+          <Sequence key={`n${i}`} from={Math.round(a * fps)} durationInFrames={Math.max(1, Math.round((b - a) * fps))}>
+            <NameLabel text={fxName(f)} />
+          </Sequence>
+        );
+      })}
+    </>
+  );
+};
+
 const SoundLabel: React.FC<{name: string; from?: string; row: number}> = ({name, from, row}) => {
   const {t} = useFxTime(0);
   const k = tw(t, 0, 0.12, 0, 1, pop) * (1 - tw(t, 0.9, 1.1));

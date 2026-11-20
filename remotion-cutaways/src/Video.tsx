@@ -30,7 +30,7 @@ import {KIT_FRAME, KitBackdrop, KitFrameOver, KitFrameUnder, KitProvider, asKit}
 import type {Graphic, Scene, VideoProps} from './schema';
 import {FlatSegment, avatarStateBlend, flatten, layoutBlend, setSourceScale} from './timeline';
 import {GraphicTimeProvider, ThemeProvider} from './ui';
-import {FxBehind, FxLooks, FxOver, FxSound, OutlineAlways, videoMods} from './fx/FxLayers';
+import {FxBehind, FxLooks, FxNameLabels, FxOver, FxSound, OutlineAlways, videoMods} from './fx/FxLayers';
 import {FxEnvProvider, fxRange, useLoadedAnchors} from './fx/util';
 
 const FULL_FRAME: Graphic['type'][] = ['examples', 'tag', 'floating-chips', 'chapter-card', 'congruence-map', 'screenshot-card', 'quiet-feed', 'citation-card'];
@@ -322,6 +322,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
         <FxOver fx={plan.fx} />
       </FxEnvProvider>
       {plan.fx.length > 0 && <FxSound fx={plan.fx} volume={plan.fxVolume} mode={plan.fxSound} labels={plan.soundLabels} />}
+      {plan.fxLabels && <FxNameLabels fx={plan.fx} />}
 
       {plan.endCard &&
         [plan.endCard, ...plan.moreEndCards].map((card, i, all) => {

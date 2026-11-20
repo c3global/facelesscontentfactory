@@ -249,5 +249,6 @@
    }
   }
  ],
- "matte": "cici-b12"
+ "matte": "cici-b12",
+ "fxLabels": true
 }
