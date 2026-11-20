@@ -1,0 +1,13 @@
+/node_modules
+content/carousel-plans/
+content/carousel-edits/
+public/portraits/sprites/*
+!public/portraits/sprites/waving.png
+public/carousel-icons/*
+!public/carousel-icons/library/
+public/carousel-icons/library/*
+!public/carousel-icons/library/calendar.svg
+public/brand/
+public/backdrops/
+.env*
+.DS_Store

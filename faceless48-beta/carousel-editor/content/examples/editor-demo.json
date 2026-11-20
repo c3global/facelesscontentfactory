@@ -1,0 +1,13 @@
+{
+  "kind": "video-carousel",
+  "slug": "editor-demo",
+  "style": "editorial",
+  "c3ContentGrid": true,
+  "starterPortrait": true,
+  "presenter": {"src": "portraits/sprites/waving.png", "sprite": true, "side": "right", "scale": 0.6, "anchor": "bottom"},
+  "slides": [
+    {"layout": "cover", "headline": "Plan the work.\n*Make it visible.*", "body": "Try moving the sprite behind the headline."},
+    {"layout": "checklist", "headline": "Start with\n*one shared checklist.*", "items": ["Set a goal", "Name an owner", "Choose a date"], "icon": {"src": "carousel-icons/library/calendar.svg"}},
+    {"layout": "cta", "headline": "Make the\n*next step clear.*", "body": "Save your changes when you’re ready."}
+  ]
+}
