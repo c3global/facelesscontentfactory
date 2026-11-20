@@ -1,0 +1,254 @@
+{
+ "slug": "cici-b12-all-clean",
+ "video": "raw/cici-b12-clean.mp4",
+ "durationSec": 51,
+ "theme": {
+  "field": "black",
+  "sans": "DM Sans"
+ },
+ "emphasis": [],
+ "captionStyle": "editorial",
+ "captionBand": {
+  "top": 1056,
+  "bottom": 1382
+ },
+ "captionBandTop": {
+  "top": 250,
+  "bottom": 560
+ },
+ "hero": [],
+ "boxed": [],
+ "finish": {
+  "grain": 0.35,
+  "lightLeaks": 0.5
+ },
+ "scenes": [
+  {
+   "id": "a",
+   "mood": "dark",
+   "segments": [
+    {
+     "start": 0,
+     "end": 51,
+     "layout": "A",
+     "captionPos": "bottom",
+     "graphics": [],
+     "captions": "off"
+    }
+   ]
+  }
+ ],
+ "fx": [
+  {
+   "type": "lower-third",
+   "at": 0.3,
+   "until": 3.3,
+   "props": {
+    "name": "Your Name",
+    "title": "Founder, Your Brand"
+   }
+  },
+  {
+   "type": "highlighter",
+   "at": 3.45,
+   "until": 6.65,
+   "props": {
+    "text": "Post *every day*, and show up *on purpose*.",
+    "marks": [
+     3.95,
+     4.95
+    ]
+   }
+  },
+  {
+   "type": "dm-thread",
+   "at": 6.8,
+   "until": 11.0,
+   "props": {
+    "name": "Follower name",
+    "messages": [
+     {
+      "text": "Is the guide still free?",
+      "from": "them",
+      "at": 7.5
+     },
+     {
+      "text": "Yes! Sending it now.",
+      "from": "me",
+      "at": 8.6
+     },
+     {
+      "text": "Thank you!",
+      "from": "them",
+      "at": 9.9
+     }
+    ]
+   }
+  },
+  {
+   "type": "taped-note",
+   "at": 11.15,
+   "until": 14.15,
+   "props": {
+    "title": "Note to self",
+    "text": "One idea per post. Say it plainly.",
+    "side": "left"
+   }
+  },
+  {
+   "type": "review-card",
+   "at": 14.3,
+   "until": 17.9,
+   "props": {
+    "quote": "Your client's real words go here, exactly as they wrote them.",
+    "name": "Client name",
+    "detail": "Their role or business"
+   }
+  },
+  {
+   "type": "save-tap",
+   "at": 18.05,
+   "until": 20.55,
+   "props": {}
+  },
+  {
+   "type": "the-stack",
+   "at": 20.7,
+   "until": 23.9,
+   "props": {
+    "version": 2,
+    "rows": [
+     {
+      "label": "Hooks",
+      "value": 82,
+      "display": "82%"
+     },
+     {
+      "label": "Stories",
+      "value": 64,
+      "display": "64%"
+     },
+     {
+      "label": "Offers",
+      "value": 40,
+      "display": "40%"
+     }
+    ]
+   }
+  },
+  {
+   "type": "sticky-text",
+   "at": 24.05,
+   "until": 26.65,
+   "props": {
+    "version": 2,
+    "text": "Founder mode",
+    "anchor": "cap"
+   }
+  },
+  {
+   "type": "comment-bubble",
+   "at": 26.8,
+   "until": 30.2,
+   "props": {
+    "version": 2,
+    "comment": "PLAN",
+    "postAt": 27.9,
+    "reply": "Here you go!",
+    "replyAt": 28.8,
+    "replyName": "Your Brand",
+    "linkLabel": "Open link"
+   }
+  },
+  {
+   "type": "comment-drop",
+   "at": 30.35,
+   "until": 33.75,
+   "props": {
+    "version": 2,
+    "keyword": "READY",
+    "postAt": 31.45,
+    "reply": "Love it. Link below.",
+    "replyAt": 32.35,
+    "replyName": "Your Brand"
+   }
+  },
+  {
+   "type": "comment-cta",
+   "at": 33.9,
+   "until": 37.3,
+   "props": {
+    "version": 2,
+    "keyword": "GUIDE",
+    "line": "Want the guide?",
+    "postAt": 35.0,
+    "reply": "Sent! Check your DMs.",
+    "replyAt": 35.9,
+    "replyName": "Your Brand",
+    "linkLabel": "Get the guide",
+    "y": 1150
+   }
+  },
+  {
+   "type": "spotlight",
+   "at": 37.45,
+   "until": 40.45,
+   "props": {
+    "version": 2,
+    "words": [
+     {
+      "text": "focus",
+      "at": 38.15
+     }
+    ]
+   }
+  },
+  {
+   "type": "freeze-sticker",
+   "at": 40.6,
+   "until": 43.6,
+   "props": {
+    "version": 2,
+    "notes": [
+     "Day one",
+     "Still here"
+    ]
+   }
+  },
+  {
+   "type": "polaroid-drop",
+   "at": 43.75,
+   "until": 47.05,
+   "props": {
+    "version": 2,
+    "photos": [
+     {
+      "caption": "Monday"
+     },
+     {
+      "caption": "Wednesday"
+     },
+     {
+      "caption": "Friday"
+     }
+    ]
+   }
+  },
+  {
+   "type": "phone-mockup",
+   "at": 47.2,
+   "until": 50.6,
+   "props": {
+    "version": 2,
+    "title": "New reel",
+    "lines": [
+     "Hook in 1 second",
+     "One idea",
+     "Clear ask"
+    ]
+   }
+  }
+ ],
+ "matte": "cici-b12",
+ "fxLabels": true
+}
