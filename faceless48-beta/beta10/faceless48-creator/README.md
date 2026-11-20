@@ -1,6 +1,6 @@
-# Faceless48 Creator — private beta 0.1.0-beta.11
+# Faceless48 Creator — private beta 0.1.0-beta.12
 
-Local video production with Remotion. Includes the creator's 163-effect source library, six talking-head presets, eight finished talking-head templates (Quiet Authority, Magazine, Glass, Scrapbook, Analyst, Cinematic, Creator Hype, Teach Board; see runtime/docs/TEMPLATES.md), an original stick-figure rig and reusable explainer scene planning with whiteboard, editorial and dark styles.
+Local video production with Remotion. Includes the creator's 169-effect source library, Carousel Studio (a visual carousel editor), six talking-head presets, eight finished talking-head templates (Quiet Authority, Magazine, Glass, Scrapbook, Analyst, Cinematic, Creator Hype, Teach Board; see runtime/docs/TEMPLATES.md), an original stick-figure rig and reusable explainer scene planning with whiteboard, editorial and dark styles.
 
 ## Start
 
@@ -44,6 +44,16 @@ Read VALIDATION.md before distributing. This is a locally built beta, not a prom
 `runtime/content/example-layouts.json` demonstrates all five layouts plus supplied image/video scenes. `cue-demo.brief.json` and `cue-demo.words.json` demonstrate keyword matching with a synthetic timed transcript, not a transcription of the sample voiceover. The assistant should obtain actual timestamps from your recording for production.
 
 The supported beta entry point is `npm run f48`. Other retained scripts are advanced source tools, not a tested alternate installer or product UI. Historical episode compositions require explicit registration before rendering; their original personal media is not included.
+
+## Beta 12
+
+- **Carousel Studio:** say "open Carousel Studio" (or run `npm run carousel-studio`) and a visual editor opens in your browser, on your own computer. Move, rotate and resize the content of each slide or any single item, edit headlines and their wrap width, add icons and a character, and change the layer order. Undo and redo are built in. Every save is a new version in `content/carousel-edits/`; the original is never overwritten. See runtime/docs/CAROUSEL-STUDIO.md.
+- **Content Grid, the sixth carousel template:** a dotted dark field with the headline on a grid, icons, a character, and workflow and calendar cards, all in your brand. Any other template can switch to the Content Grid look inside Carousel Studio.
+- **Starter icons and a sample character:** 16 icons drawn in your brand accent each time the studio opens (`public/carousel-icons/starter/`), a generic sample character (`public/characters/`), and your own cutouts from `npm run cutout` show up as characters.
+- **6 new effects:** DM thread, review card, highlighter, taped note, lower third and save tap. See runtime/docs/EFFECTS-LIST.md.
+- **Second versions (upgrade batch 3):** add `"version": 2` for a label-maker look on the stack, sticky text and freeze sticker; one Instagram comment look on comment bubble, comment drop and comment CTA; a spotlight with a light beam and dust; a polaroid drop that fans out up to four photos; and a solid 3D phone mockup that can show your own screen. The originals stay the default.
+- The Effect Map (`skills/effect-map/`) lists the new effects with previews.
+- 169 talking-head effects and graphics, 33 Life Scene styles, 16 carousel layouts in 6 styles, 6 carousel starter templates. All read your brand.json.
 
 ## Beta 11
 

@@ -1,3 +1,11 @@
+# Beta 12 checks — 2026-11-20 (Linux cloud build)
+
+- TypeScript check passed. 36 automated tests passed, including the 152 FX schema variants, a check that every new effect and every upgrade-batch-3 second version parses (and that the originals stay the default), and a Carousel Studio test that starts the studio, lists every template, serves a starter icon, refuses a save from another site and an icon path outside public/, then saves a versioned edit and checks it.
+- Carousel Studio was opened in a real browser (Chromium): all six starter carousels listed, a drag on the Content Grid starter, the Character panel, a template carousel in headline-only mode, Switch to Content Grid, and Save to project. No page errors.
+- The carousel renderer now comes from the carousel editor. All five older starter templates were rendered before and after the change (54 stills); they match except for a few pixels in the cover fan and button padding, where the new renderer fits the frame better. The Content Grid template rendered all six slides in the default member brand.
+- The 6 new effects were rendered in the plug-in in a second brand (Faceless48 demo colors) and drew in that brand. Upgrade batch 3 was rendered in the studio copy on a real talking-head clip, including the two that need the cutout (spotlight and freeze sticker, with the basic cutout).
+- Not yet checked: a full video render of every new effect, the high-quality cutout with the new spotlight, and Carousel Studio on a member's Mac or Windows machine.
+
 # Beta 11 checks — 2026-11-13 (Linux cloud build)
 
 - TypeScript check passed. 34 automated tests passed, including the 144 FX schema variants and a new clean-cut test (two synthetic parts: a dropped stumble and shortened pauses, length checked with ffprobe).

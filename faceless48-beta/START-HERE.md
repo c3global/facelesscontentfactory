@@ -23,6 +23,8 @@ Set aside 30 to 60 minutes for this first session. The assistant asks about your
 | **Find stock footage for this** | Searches Pexels and Pixabay with your own free keys and shows you options. You pick the ones you like, and they fade in as cutaways over your talking-head video, then fade back to you. |
 | **Import my handoff** | Starts a video from a package you exported from the Script, Shorts or Thumbnail engine. It tells you what to bring next (a voiceover for faceless and explainer videos, your raw clip for talking-head and yap) and shows you stock options for each section. |
 | **Add my music** | Puts your licensed track under a finished video and ducks it under the voice. |
+| **Make a video carousel** | An animated 4:5 carousel in your brand, from your idea or slide text. Six starter templates, including the new Content Grid. Exports one video per slide for a carousel post, or one video for Reels. |
+| **Open Carousel Studio** | A visual carousel editor opens in your browser, on your own computer. Drag, rotate and layer each piece, edit headlines, add icons and a character. Every save is a new version, so your original is never lost. |
 
 ## Using it with GPT (Codex) instead of Claude
 
