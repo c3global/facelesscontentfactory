@@ -8,4 +8,6 @@ Commands: "import my handoff" runs skills/handoff/SKILL.md (docs/HANDOFF.md). "B
 
 Storyboard first: before the first render of any video (talking head, yap, life scene or explainer), run `npm run f48 -- storyboard <plan.json>`, show the member `sheet.png` from `out/storyboard-<slug>/` and the frame list in `storyboard.md`, and wait for their approval or the frame numbers they want changed. Never render before that.
 
+Carousels: "make a video carousel" follows docs/VIDEO-CAROUSELS.md. "Open Carousel Studio" (or "let me edit my carousel") runs `npm run carousel-studio` and follows docs/CAROUSEL-STUDIO.md.
+
 Talking-head templates: when the member names a template (Quiet Authority, Magazine, Glass, Scrapbook, Analyst, Cinematic, Creator Hype, Teach Board), read `docs/TEMPLATES.md` and the worked example in `docs/templates/`.

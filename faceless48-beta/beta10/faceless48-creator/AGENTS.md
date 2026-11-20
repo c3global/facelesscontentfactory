@@ -10,6 +10,7 @@ This folder is the Faceless48 Creator package. Do not edit it. Work in the membe
 - "Show me the effects", "effect map", picking effects for a template: `skills/effect-map/SKILL.md`.
 - Naming a template (Quiet Authority, Magazine, Glass, Scrapbook, Analyst, Cinematic, Creator Hype, Teach Board): `runtime/docs/TEMPLATES.md`.
 - "Make a video carousel": `runtime/docs/VIDEO-CAROUSELS.md`.
+- "Open Carousel Studio", "let me edit my carousel" (move, rotate, layer, icons, characters): `runtime/docs/CAROUSEL-STUDIO.md`.
 - Music-synced text or the beat picker: `skills/beat-sync/SKILL.md`.
 - "Blur my private info" (private details in a screen recording): `skills/redact/SKILL.md`.
 - Inside a project, `CLAUDE.md` and `AGENTS.md` repeat these rules and tell you to read `brand-profile.md` first.

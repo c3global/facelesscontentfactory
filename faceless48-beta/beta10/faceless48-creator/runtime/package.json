@@ -25,11 +25,12 @@
     "ramp": "node --import ./scripts/tools-path.mjs scripts/speed-ramp.mjs",
     "matte:refine": "node --import ./scripts/tools-path.mjs scripts/py.mjs scripts/matte-refine.py",
     "f48": "node --import tsx --import ./scripts/tools-path.mjs scripts/f48.ts",
-    "test:beta": "node --import tsx --import ./scripts/tools-path.mjs --test scripts/beta.test.ts scripts/stock.test.ts scripts/yap.test.ts scripts/lint.test.ts scripts/broll.test.ts scripts/handoff.test.ts scripts/redact.test.ts scripts/cleancut.test.ts",
+    "test:beta": "node --import tsx --import ./scripts/tools-path.mjs --test scripts/beta.test.ts scripts/stock.test.ts scripts/yap.test.ts scripts/lint.test.ts scripts/broll.test.ts scripts/handoff.test.ts scripts/redact.test.ts scripts/cleancut.test.ts scripts/carousel-studio.test.mjs",
     "setup": "node scripts/setup.mjs",
     "clean-cut": "node --import ./scripts/tools-path.mjs scripts/py.mjs scripts/clean-cut.py",
     "matte:hq": "node --import ./scripts/tools-path.mjs scripts/py.mjs scripts/matte-hq.py",
-    "cutout": "node --import ./scripts/tools-path.mjs scripts/py.mjs scripts/cutout-image.py"
+    "cutout": "node --import ./scripts/tools-path.mjs scripts/py.mjs scripts/cutout-image.py",
+    "carousel-studio": "node scripts/carousel-studio.mjs"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.0",
@@ -39,13 +40,15 @@
     "@remotion/cli": "4.0.532",
     "@remotion/google-fonts": "^4.0.532",
     "@remotion/install-whisper-cpp": "^4.0.532",
+    "@remotion/player": "4.0.532",
     "@remotion/renderer": "^4.0.532",
+    "esbuild": "0.28.1",
+    "ffmpeg-static": "5.2.0",
+    "ffprobe-static": "3.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "remotion": "4.0.532",
-    "zod": "4.5.4",
-    "ffmpeg-static": "5.2.0",
-    "ffprobe-static": "3.1.0"
+    "zod": "4.5.4"
   },
   "devDependencies": {
     "@fontsource/anton": "^5.3.0",

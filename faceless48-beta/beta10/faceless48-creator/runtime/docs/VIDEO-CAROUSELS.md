@@ -6,7 +6,7 @@ Member says: **"Make a video carousel about ..."** (or gives slide text).
 
 ## Starter templates
 
-Three ready-made carousels live in `content/templates/`. When a member names one ("use the LinkedIn carousel template for my topic"), copy it to `content/<slug>.json`, keep its style and layouts, and rewrite every slide in their words for their topic (never keep the sample copy). Their brand colors, fonts and logo apply automatically.
+Six ready-made carousels live in `content/templates/`. When a member names one ("use the LinkedIn carousel template for my topic"), copy it to `content/<slug>.json`, keep its style and layouts, and rewrite every slide in their words for their topic (never keep the sample copy). Their brand colors, fonts and logo apply automatically.
 
 | Say | File | Look |
 | --- | --- | --- |
@@ -15,8 +15,11 @@ Three ready-made carousels live in `content/templates/`. When a member names one
 | "Showcase carousel" (effects of the week) | `carousel-showcase.json` | `showcase` warm editorial: cover with a fan of clips, framed clips with handwritten notes and arrows, graph, A vs B, collage end screen. Needs the member's clips in public/media. |
 | "Glass carousel" (liquid glass) | `carousel-glass.json` | `glass`: cover with a fan of pictures, toggle list, proof card, glowing graph, freebie doc, collage end screen |
 | "LinkedIn carousel" | `carousel-linkedin.json` | `clean` light: professional cover, before-and-after, steps, pull quote, follow end screen |
+| "Content Grid carousel" | `carousel-grid.json` | `contentGrid`: dotted dark field, headline on a grid, icons, a character, workflow and calendar cards. Fully editable in Carousel Studio (move, rotate, layer every piece). |
 
 Any template can add a presenter (the member or their AI avatar) or switch style.
+
+**Carousel Studio** ("open Carousel Studio", "let me edit my carousel"): a visual editor that runs on the member's computer. Read `docs/CAROUSEL-STUDIO.md`.
 
 1. Write 4 to 8 slides from their idea or approved copy. Never invent facts, numbers or quotes. Show the slide text and get approval.
 2. Pick a layout per slide:
@@ -35,6 +38,7 @@ Any template can add a presenter (the member or their AI avatar) or switch style
    - `ab`: A vs B panels (`left`, `right`, `items[0]` and `items[1]`), then the pick jumps to the `winner`.
    - `doc`: a freebie doc whose lines fill in, with a comment bar typing the `keyword`.
    - `cta` (the end screen), with `end`: `keyword` (comment a word, set `keyword`), `follow` (logo ring and a Follow button, optional `handle`), `save` (bookmark: save this for later), `link` (a link-in-bio button, `handle` sets its text) or `question` (a big question mark and a comment bubble with `body`), or `collage` ("Comment KEYWORD" over a grid of `images`, for example stills of the carousel's own slides). Vary the end screen between carousels.
+   - Content Grid only (`"contentGrid": true`): `media` slides can show a card instead of a clip with `visual`: `workflow` (`card.title`, `card.label`, `card.steps` as "Main line | small line", up to 5) or `calendar` (`card.label`, `card.title`, `card.firstDay`, `card.marked` days, `card.steps` as two legend lines). A `cover` can use `visual: "checklist-card"` (`card.label`, `body`, `items`). Any slide can add an `icon` (`{"src": "carousel-icons/starter/check.svg", "align": "center", "size": 112}`).
    Any slide can add `note`: a handwritten line that writes on. Any slide can add `notes`: up to 4 handwritten notes, each with an optional curved arrow (`{"text", "x", "y", "to": [x, y]}` in percent of the slide area) that draws onto the thing it points at. A `cover` can take `images` (up to 3 clips or pictures) for a fan of tilted frames.
 3. Wrap a word in `*asterisks*` in a headline to set it in the accent script. Keep headlines under about 12 words.
 4. Save `content/<slug>.json`:
