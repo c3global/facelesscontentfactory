@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carousel Studio</title>
+<style>
+  :root { color-scheme: dark; font-family: "DM Sans", system-ui, sans-serif; color: #fff; background: #1C1533; }
+  main, .workspace, .panel, .drag, select, input, textarea, button { box-sizing: border-box; }
+  main { max-width: 1000px; margin: 0 auto; padding: 30px 22px; }
+  header { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+  .brand { color: #B8B2FF; font-size: 12px; letter-spacing: 0.16em; font-weight: 700; margin: 0 0 5px; }
+  header h1 { margin: 0; font-size: clamp(24px, 5vw, 35px); }
+  .panel h2 { margin: 0 0 12px; font-size: 18px; }
+  .look-note { border: 1px solid #3D3570; border-radius: 10px; padding: 12px; margin-bottom: 14px; }
+  button:disabled { opacity: 0.45; cursor: not-allowed; }
+  .panel h2:not(:first-child) { margin-top: 20px; }
+  .toolbar { display: grid; grid-template-columns: 1fr 1.9fr; gap: 12px; margin-bottom: 18px; }
+  .workspace { display: grid; grid-template-columns: minmax(240px, 1.2fr) minmax(255px, 1fr); align-items: start; gap: 22px; }
+  .panel { background: #241D42; border: 1px solid #3D3570; border-radius: 12px; padding: 19px; }
+  .panel p { font-size: 14px; line-height: 1.4; color: #d1d3d4; margin: 0 0 12px; }
+  .preview { position: relative; overflow: hidden; border-radius: 10px; border: 1px solid #3D3570; }
+  .drag { position: absolute; inset: 0; cursor: move; touch-action: none; }
+  .drag:focus-visible { box-shadow: inset 0 0 0 3px #B8B2FF; outline: none; }
+  label { display: block; font-size: 14px; font-weight: 650; min-width: 0; }
+  select, input, textarea, button { font: inherit; }
+  select, input[type="number"], input[type="search"], textarea { width: 100%; margin: 5px 0 10px; border: 1px solid #626668; background: #171819; color: #fff; border-radius: 7px; min-height: 40px; padding: 7px 10px; }
+  input[type="range"] { width: 100%; accent-color: #B8B2FF; min-height: 26px; }
+  .scrub { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; margin-top: 10px; }
+  .slider { margin: 7px 0 13px; }
+  .slider output { float: right; color: #B8B2FF; }
+  .coordinates { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .layer-picker { display: flex; flex-wrap: wrap; gap: 8px; }
+  .look-note + .layer-picker, .reset + .layer-picker { margin-top: 12px; }
+  .layer-picker button { flex: 1 1 auto; }
+  .layer-picker button[aria-pressed="true"] { color: #B8B2FF; border-color: #B8B2FF; }
+  .move-mode { margin: 0 0 12px; }
+  .select-layer { cursor: crosshair; }
+  textarea { display: block; resize: vertical; line-height: 1.4; }
+  .layer-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+  .layer-actions button:disabled { cursor: default; opacity: .48; }
+  .panel .layer-stack-label { margin: 14px 0 5px; }
+  .layer-stack { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; }
+  .layer-stack button { display: block; width: 100%; text-align: left; min-height: 36px; padding-block: 7px; overflow-wrap: anywhere; }
+  .layer-stack button[aria-pressed="true"] { color: #B8B2FF; border-color: #B8B2FF; }
+  @media (max-width: 830px) { .layer-picker { flex-wrap: wrap; } }
+
+  .icon-library { margin-top: 12px; }
+  .icon-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; max-height: 320px; overflow: auto; }
+  .icon-grid button { display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 0; padding: 6px; font-size: 12px; overflow-wrap: anywhere; }
+  .icon-grid img { width: 100%; height: 52px; object-fit: contain; }
+  .icon-pagination { display: flex; justify-content: space-between; align-items: center; gap: 5px; margin: 8px 0; }
+  button.reset { margin-top: 8px; }
+  .checkbox { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .checkbox input { accent-color: #B8B2FF; }
+  button { padding: 10px 14px; color: #fff; background: #262729; border: 1px solid #626668; border-radius: 8px; cursor: pointer; font-weight: 650; min-height: 42px; }
+  button.primary { background: #6C63D9; border-color: #6C63D9; white-space: nowrap; }
+  button.primary:disabled { cursor: wait; opacity: .7; }
+  .actions, .history { display: flex; flex-wrap: wrap; gap: 8px; }
+  .history button:disabled { cursor: default; opacity: .48; }
+  .panel .status { margin-top: 10px; min-height: 18px; margin-bottom: 0; overflow-wrap: anywhere; }
+  @media (max-width: 620px) { header { align-items: flex-start; flex-direction: column; } .workspace { grid-template-columns: 1fr; } main { padding: 16px 12px; } }
+</style>
+<div id="root"></div>
+<script>window.remotion_staticBase = '/assets';</script>
+<script src="/editor.js" defer></script>
+</html>

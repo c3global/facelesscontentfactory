@@ -150,6 +150,12 @@ const LEN: Record<FxType, number> = {
   'page-turn': 0.9,
   'lesson-board': 4,
   'wall-text': 3.6,
+  'dm-thread': 5,
+  'review-card': 4.5,
+  highlighter: 3.5,
+  'taped-note': 3.5,
+  'lower-third': 4,
+  'save-tap': 2.6,
 };
 
 /** effects that draw behind her (they need the person matte) */
@@ -514,6 +520,18 @@ const rawCues = (f: Fx): Cue[] => {
       return f.props.steps.map((s, i) => (i === 0 ? main('pop', s.at, 0.5) : d('pop', s.at, 0.45)));
     case 'pen-circle':
       return [main('swish', f.at + 0.2, 0.5)];
+    case 'dm-thread':
+      return f.props.messages.map((m, i) => (i === 0 ? main('blip', m.at, 0.5) : d('blip', m.at, 0.45)));
+    case 'review-card':
+      return [main('pop', f.at + 0.05, 0.5), d('ding', f.at + 0.3 + f.props.stars * 0.12, 0.4)];
+    case 'highlighter':
+      return [main('swish', f.props.marks[0] ?? f.at + 0.5, 0.45)];
+    case 'taped-note':
+      return [main('swish', f.at, 0.4), d('snap', f.at + 0.4, 0.5)];
+    case 'lower-third':
+      return [main('swish', f.at, 0.4)];
+    case 'save-tap':
+      return [main('pop', f.at + 0.9, 0.6), d('ding', f.at + 1.15, 0.4)];
     default:
       return [];
   }

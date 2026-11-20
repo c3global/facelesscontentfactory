@@ -27,6 +27,8 @@ Then it walks you through your brand setup (30 to 60 minutes, once): your name, 
 | **Turn my voiceover into an explainer** | Animated explainer in portrait or landscape. |
 | **Find stock footage for this** | Optional Pexels and Pixabay search with your own free keys. |
 | **Add my music** | Puts your licensed track under a finished video and ducks it under the voice. |
+| **Make a video carousel** | An animated 4:5 carousel in your brand, from your idea or slide text. Six starter templates, including the new Content Grid. Exports one video per slide for a carousel post, or one video for Reels. |
+| **Open Carousel Studio** | A visual carousel editor opens in your browser, on your own computer. Drag, rotate and layer each piece, edit headlines, add icons and a character. Every save is a new version, so your original is never lost. |
 
 ## Which model should I use?
 

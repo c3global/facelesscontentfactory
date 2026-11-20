@@ -1,0 +1,92 @@
+{
+  "kind": "video-carousel",
+  "slug": "carousel-grid",
+  "style": "editorial",
+  "series": "Content Grid",
+  "contentGrid": true,
+  "presenter": {
+    "src": "characters/sample-waving.png",
+    "sprite": true,
+    "side": "right",
+    "scale": 0.55,
+    "anchor": "bottom"
+  },
+  "slides": [
+    {
+      "layout": "cover",
+      "kicker": "Content Grid starter",
+      "headline": "Plan the week.\n*Make it visible.*",
+      "body": "Open Carousel Studio to move, rotate and layer every piece.",
+      "seconds": 6
+    },
+    {
+      "layout": "checklist",
+      "headline": "Start with\n*one shared list.*",
+      "items": [
+        "Set one goal",
+        "Name one owner",
+        "Pick one date"
+      ],
+      "icon": {
+        "src": "carousel-icons/starter/check.svg",
+        "align": "center",
+        "size": 112
+      },
+      "seconds": 6
+    },
+    {
+      "layout": "media",
+      "visual": "workflow",
+      "kicker": "",
+      "headline": "Three steps,\n*in order.*",
+      "card": {
+        "title": "Your weekly rhythm",
+        "steps": [
+          "Plan on Monday | Pick the one thing that matters",
+          "Make it on Wednesday | Batch the work in one sitting",
+          "Review on Friday | Keep what worked, drop what did not"
+        ],
+        "label": "Example"
+      },
+      "note": "Swap in your own steps.",
+      "presenter": false,
+      "seconds": 7
+    },
+    {
+      "layout": "media",
+      "visual": "calendar",
+      "headline": "Put it\n*on the calendar.*",
+      "card": {
+        "label": "Calendar",
+        "title": "This month",
+        "firstDay": 8,
+        "marked": [
+          9,
+          11,
+          15,
+          17
+        ],
+        "steps": [
+          "Posting days",
+          "Review days"
+        ]
+      },
+      "note": "Mark the days you show up.",
+      "presenter": false,
+      "seconds": 6
+    },
+    {
+      "layout": "quote",
+      "headline": "Consistency is a *calendar decision*, not a mood.",
+      "by": "Your name",
+      "seconds": 6
+    },
+    {
+      "layout": "cta",
+      "headline": "Want the\n*planning sheet?*",
+      "keyword": "PLAN",
+      "body": "Comment the word and I will send it.",
+      "seconds": 6
+    }
+  ]
+}

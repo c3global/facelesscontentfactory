@@ -9,7 +9,21 @@ const base={slug:'test',durationSec:3,scenes:[{start:0,end:3,title:'Hello'}]};
 test('all styles accept both aspect ratios',()=>{for(const style of ['whiteboard','editorial','dark'])for(const format of ['portrait','landscape'])assert(explainerSchema.safeParse({...base,style,format}).success);});
 test('reject timing overlap and captions outside duration',()=>{assert(!explainerSchema.safeParse({...base,scenes:[...base.scenes,{start:2,end:3,title:'Bad'}]}).success);assert(!explainerSchema.safeParse({...base,captions:[{text:'Bad',startMs:0,endMs:4000}]}).success);});
 test('reject path escape and media scene without asset',()=>{for(const vo of ['../secret','/etc/passwd','https://example.com/a','..\\secret'])assert(!explainerSchema.safeParse({...base,vo}).success);assert(!explainerSchema.safeParse({...base,scenes:[{start:0,end:3,title:'x',visual:'image'}]}).success);});
-test('all 146 FX schemas present (plus graphics/end cards)',()=>{assert.equal(fxSchema.options.length,146);});
+test('all 152 FX schemas present (plus graphics/end cards)',()=>{assert.equal(fxSchema.options.length,152);});
+test('beta 12 effects and upgrade batch 3 parse with member defaults',()=>{
+  const ok=(fx:any)=>fxSchema.parse(fx);
+  for(const fx of [
+    {type:'dm-thread',at:1,props:{name:'Sam',messages:[{text:'Hi',from:'them',at:1.5}]}},
+    {type:'review-card',at:1,props:{quote:'Real words',name:'A client'}},
+    {type:'highlighter',at:1,props:{text:'Post *daily*'}},
+    {type:'taped-note',at:1,props:{text:'A note'}},
+    {type:'lower-third',at:1,props:{name:'Name',title:'Title'}},
+    {type:'save-tap',at:1},
+  ])ok(fx);
+  for(const [type,props] of [['the-stack',{rows:[{label:'A',value:50,display:'50%'},{label:'B',value:20,display:'20%'}]}],['sticky-text',{text:'Hi'}],['freeze-sticker',{}],['comment-bubble',{comment:'GO',postAt:2,replyAt:3,reply:'Sent'}],['comment-drop',{keyword:'GO',postAt:2,reply:'Sent',replyAt:3}],['comment-cta',{keyword:'GO',line:'Comment',postAt:2}],['spotlight',{}],['polaroid-drop',{photos:[{caption:'One'},{caption:'Two'}]}],['phone-mockup',{}]] as const)
+    assert.equal((ok({type,at:1,props:{...props,version:2}}) as any).props.version,2,type);
+  assert.equal((ok({type:'the-stack',at:1,props:{rows:[{label:'A',value:5,display:'5'},{label:'B',value:5,display:'5'}]}}) as any).props.version,1,'originals stay the default');
+});
 test('project creation is isolated and refuses overwrite',()=>{const tmp=mkdtempSync(path.join(os.tmpdir(),'f48-test-'));try{const dest=path.join(tmp,'project');let r=spawnSync(process.execPath,['scripts/create-project.mjs',dest],{encoding:'utf8'});assert.equal(r.status,0,r.stderr);assert(existsSync(path.join(dest,'src/Root.tsx')));assert(!existsSync(path.join(dest,'node_modules')));writeFileSync(path.join(dest,'keep.txt'),'keep');r=spawnSync(process.execPath,['scripts/create-project.mjs',dest],{encoding:'utf8'});assert.notEqual(r.status,0);assert.equal(readFileSync(path.join(dest,'keep.txt'),'utf8'),'keep');}finally{rmSync(tmp,{recursive:true,force:true});}});
 import {cueTime,compileBrief} from './cues';
 const words=[{text:'Start',startMs:0,endMs:200},{text:'here.',startMs:220,endMs:450},{text:'Start',startMs:1000,endMs:1250},{text:'again',startMs:1300,endMs:1600}];

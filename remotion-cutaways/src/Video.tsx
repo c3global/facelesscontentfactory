@@ -30,7 +30,7 @@ import {KIT_FRAME, KitBackdrop, KitFrameOver, KitFrameUnder, KitProvider, asKit}
 import type {Graphic, Scene, VideoProps} from './schema';
 import {FlatSegment, avatarStateBlend, flatten, layoutBlend, setSourceScale} from './timeline';
 import {GraphicTimeProvider, ThemeProvider} from './ui';
-import {FxBehind, FxLooks, FxOver, FxSound, OutlineAlways, videoMods} from './fx/FxLayers';
+import {FxBehind, FxLooks, FxNameLabels, FxOver, FxSound, OutlineAlways, videoMods} from './fx/FxLayers';
 import {FxEnvProvider, fxRange, useLoadedAnchors} from './fx/util';
 
 const FULL_FRAME: Graphic['type'][] = ['examples', 'tag', 'floating-chips', 'chapter-card', 'congruence-map', 'screenshot-card', 'quiet-feed', 'citation-card'];
@@ -150,13 +150,16 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
   const curOpacity = curField ? blend.p : 0;
   // the hook scrim darkens the lower half for the full-frame caption; effects bring their own plates, so it steps aside while one runs
   const tNow = frame / fps;
-  const fxOn = plan.fx.some((f) => {
-    if (['grade', 'glow', 'dust', 'letterbox', 'date-stamp', 'flash-frame', 'pull-back', 'digital-zoom'].includes(f.type)) return false; // looks and marks do not replace the scrim
+  // 0..1: how far an effect has taken over. It eases over 0.35 s on each side (a hard switch made the frame jump in brightness at every effect)
+  const EASE_SEC = 0.35;
+  const fxOn = plan.fx.reduce((on, f) => {
+    if (['grade', 'glow', 'dust', 'letterbox', 'date-stamp', 'flash-frame', 'pull-back', 'digital-zoom'].includes(f.type)) return on; // looks and marks do not replace the scrim
     const [fa, fb] = fxRange(f);
-    return tNow >= fa && tNow <= fb;
-  });
+    const k = Math.min(1, Math.max(0, (tNow - (fa - EASE_SEC)) / EASE_SEC), Math.max(0, ((fb + EASE_SEC) - tNow) / EASE_SEC));
+    return Math.max(on, k);
+  }, 0);
   // only the full-frame layout gets the lower scrim; the split layout (S) puts the speaker in the lower half, so no dimming there
-  const scrim = Math.max(0, 1 - 2 * av.frame) * (fxOn ? 0 : 1) * (plan.scrim ?? 1);
+  const scrim = Math.max(0, 1 - 2 * av.frame) * (1 - fxOn) * (plan.scrim ?? 1);
   const sceneIdx = (s: Scene) => plan.scenes.indexOf(s);
   const curMood = blend.cur.scene.mood;
   const metalVariant = curMood === 'dark' && field !== 'rosegold' ? 'bright' : 'deep';
@@ -322,6 +325,7 @@ export const Video: React.FC<VideoProps> = ({plan, captions}) => {
         <FxOver fx={plan.fx} />
       </FxEnvProvider>
       {plan.fx.length > 0 && <FxSound fx={plan.fx} volume={plan.fxVolume} mode={plan.fxSound} labels={plan.soundLabels} />}
+      {plan.fxLabels && <FxNameLabels fx={plan.fx} />}
 
       {plan.endCard &&
         [plan.endCard, ...plan.moreEndCards].map((card, i, all) => {

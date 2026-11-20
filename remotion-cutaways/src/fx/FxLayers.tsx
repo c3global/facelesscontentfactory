@@ -10,6 +10,7 @@ import {CloneFan} from './twelfth';
 import {thirteenthOver} from './thirteenth';
 import {fourteenthOver} from './fourteenth';
 import {fifteenthOver} from './fifteenth';
+import {sixteenthOver} from './sixteenth';
 import {fourthOver} from './fourth';
 import {thirdOver} from './third';
 import {Audio, Sequence, staticFile, useVideoConfig} from 'remotion';
@@ -130,7 +131,7 @@ export const FxOver: React.FC<{fx: Fx[]}> = ({fx}) => {
   return (
     <>
       {fx.map((f, i) => {
-        const node = fifteenthOver(f) ?? overItem(f) ?? extraOver(f) ?? thirdOver(f) ?? fourthOver(f) ?? fifthOver(f) ?? sixthOver(f) ?? seventhOver(f) ?? eighthOver(f) ?? ninthOver(f) ?? tenthOver(f) ?? eleventhOver(f) ?? thirteenthOver(f) ?? fourteenthOver(f);
+        const node = sixteenthOver(f) ?? fifteenthOver(f) ?? overItem(f) ?? extraOver(f) ?? thirdOver(f) ?? fourthOver(f) ?? fifthOver(f) ?? sixthOver(f) ?? seventhOver(f) ?? eighthOver(f) ?? ninthOver(f) ?? tenthOver(f) ?? eleventhOver(f) ?? thirteenthOver(f) ?? fourteenthOver(f);
         if (!node) return null;
         const [a, b] = fxRange(f);
         return (
@@ -140,6 +141,34 @@ export const FxOver: React.FC<{fx: Fx[]}> = ({fx}) => {
         );
       })}
     </>
+  );
+};
+
+/** Effect name list (review aid for test videos): a running list down the left edge. Each effect's name is added as it
+ * starts; the one playing now is bright with a dot, earlier ones dim. Kept narrow so it stays off the presenter. */
+const fxName = (f: Fx) => {
+  const words = f.type.replace(/-/g, ' ').replace(/\b(dm|cta)\b/g, (w) => w.toUpperCase());
+  const name = words.charAt(0).toUpperCase() + words.slice(1);
+  const v2 = (f.props as {version?: number} | undefined)?.version === 2;
+  return v2 ? `${name} (new look)` : name;
+};
+export const FxNameLabels: React.FC<{fx: Fx[]}> = ({fx}) => {
+  const {t} = useFxTime(0);
+  // the last 7 that have started, so the list never grows down into effects that sit on the left
+  const started = fx.map((f) => ({f, r: fxRange(f)})).filter(({r}) => t >= r[0]).slice(-7);
+  return (
+    <div style={{position: 'absolute', left: 24, top: 150, width: 420, display: 'flex', flexDirection: 'column', gap: 8, fontFamily: '"DM Sans", Arial, sans-serif'}}>
+      {started.map(({f, r}, i) => {
+        const now = t < r[1];
+        const k = tw(t, r[0], r[0] + 0.25);
+        return (
+          <div key={fx.indexOf(f)} style={{alignSelf: 'flex-start', display: 'flex', alignItems: 'center', gap: 10, padding: '6px 14px', borderRadius: 18, background: now ? 'rgba(10,10,12,0.9)' : 'rgba(10,10,12,0.55)', border: now ? '2px solid #fff' : '2px solid transparent', color: '#fff', fontWeight: 700, fontSize: 24, lineHeight: 1.15, whiteSpace: 'nowrap', opacity: (now ? 1 : 0.6) * k, transform: `translateX(${(1 - k) * -20}px)`}}>
+            <span style={{width: 10, height: 10, borderRadius: 5, flex: 'none', background: now ? '#4CD964' : 'rgba(255,255,255,0.4)'}} />
+            {fxName(f)}
+          </div>
+        );
+      })}
+    </div>
   );
 };
 

@@ -15,7 +15,8 @@ export const METAL_FINISHES = {
 } as const;
 export type MetalFinish = keyof typeof METAL_FINISHES | 'custom';
 
-type Raw = typeof raw & {metalFinish?: MetalFinish; tagline?: string | null};
+/** header: optional small top line on Content Grid carousels (defaults to the brand name). */
+type Raw = typeof raw & {metalFinish?: MetalFinish; tagline?: string | null; header?: string};
 const r = raw as Raw;
 const finish: MetalFinish = r.metalFinish ?? 'custom';
 const picked = finish === 'custom' ? {metal: r.metal, metalLight: r.metalLight} : METAL_FINISHES[finish];

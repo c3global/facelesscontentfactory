@@ -298,6 +298,8 @@ export const planSchema = z.object({
   fxSound: z.enum(['minimal', 'full', 'off']).default('minimal'),
   /** review aid: show each effect sound's name on screen when it plays */
   soundLabels: z.boolean().default(false),
+  /** review aid: each effect's name shows at the top of the frame for as long as it plays (test videos) */
+  fxLabels: z.boolean().default(false),
   /** outline around her cutout in the behind-her effects: a clean edge on busy backgrounds, or a metallic look. Bake it first: npm run outline -- <slug> <white|copper|gold> */
   matteOutline: z.enum(['none', 'white', 'copper', 'gold']).default('none'),
 });
